@@ -76,7 +76,6 @@
     bitwarden-desktop
 
     # Terminal
-    kitty
     fastfetch
 
     # Theming

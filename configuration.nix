@@ -171,8 +171,10 @@
     libgcc
     gcc
     gnumake
-    asdf
     gh
+
+    # Terminal
+    kitty
 
     # Editors
     vscode
@@ -238,23 +240,12 @@
         }
     });
   '';
+
   # General hardware control
   programs.corectrl = {
     enable = true;
     gpuOverclock.enable = true;
     gpuOverclock.ppfeaturemask = "0xffffffff";
-  };
-
-  systemd.services.cpu_undervolt = {
-    path = [ pkgs.bash pkgs.python3 ];
-    enable = true;
-    name = "cpu_undervolt.service";
-    description = "Undervolt Ryzen 7 5800X3D";
-    serviceConfig = {
-      ExecStart = "/home/hana/git-repos/Ryzen-5800x3d-linux-undervolting/undervolt.sh";
-      User = "root";
-    };
-    wantedBy = [ "multi-user.target" ];
   };
 
   programs.coolercontrol.enable = true;
@@ -281,7 +272,7 @@
 
   # Nautilus Settings
   programs.nautilus-open-any-terminal.enable = true;
-  programs.nautilus-open-any-terminal.terminal = "konsole";
+  programs.nautilus-open-any-terminal.terminal = "kitty";
 
   # Gaming
   services.monado = {

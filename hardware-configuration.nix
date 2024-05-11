@@ -68,6 +68,18 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.cpu.amd.ryzen-smu.enable = true;
 
+  systemd.services.cpu_undervolt = {
+    path = [ pkgs.bash pkgs.python3 ];
+    enable = true;
+    name = "cpu_undervolt.service";
+    description = "Undervolt Ryzen 7 5800X3D";
+    serviceConfig = {
+      ExecStart = "/home/hana/git-repos/Ryzen-5800x3d-linux-undervolting/undervolt.sh";
+      User = "root";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;

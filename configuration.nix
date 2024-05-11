@@ -172,7 +172,7 @@
     gcc
     gnumake
     asdf
-    git-credential-oauth
+    gh
 
     # Editors
     vscode

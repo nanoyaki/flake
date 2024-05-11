@@ -19,26 +19,54 @@
     };
   };
 
-  outputs = { nixpkgs, catppuccin, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, catppuccin, home-manager, ... }@inputs: 
+  let
+    system = "x86_64-linux";
+  in
+  {
     # Replace with your hostname
-    nixosConfigurations.hana-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+    nixosConfigurations = {
+      hana-nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./common/configuration.nix
+          ./hana-nixos/configuration.nix
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-          home-manager.users.hana = {
-            imports = [ 
-              ./home.nix
-              catppuccin.homeManagerModules.catppuccin  
-            ];
-          };
-        }
-      ];
+            home-manager.users.hana = {
+              imports = [
+                ./common/home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          }
+        ];
+      };
+
+      hana-nixos-laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./common/configuration.nix
+          ./hana-nixos-laptop/configuration.nix
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.hana = {
+              imports = [
+                ./common/home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          }
+        ];
+      };
     };
   };
 }

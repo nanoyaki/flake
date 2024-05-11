@@ -242,6 +242,11 @@
 
   programs.coolercontrol.enable = true;
 
+  # Environment variables
+  environment.variables = {
+    FLAKE_DIR = "$HOME/flake";
+  };
+
   # Zsh
   programs.zsh = {
     enable = true;
@@ -253,8 +258,8 @@
     shellAliases = {
       ll = "LANG=en_GB.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
-      nix-conf = "sudo code /etc/nixos/hardware-configuration.nix /etc/nixos/configuration.nix /etc/nixos/flake.nix /etc/nixos/home.nix --no-sandbox --user-data-dir /root/";
-      nix-rel = "sudo nixos-rebuild switch";
+      nix-conf = "cd $FLAKE_DIR; code . ./flake.nix ./common/configuration.nix ./common/home.nix ./hosts/$(hostname)/configuration.nix ./hosts/$(hostname)/hardware-configuration.nix;";
+      nix-rel = "sudo nixos-rebuild switch $FLAKE_DIR/#$(hostname)";
       nix-up = "sudo nixos-rebuild switch --upgrade";
       nya = "cat";
       yt = "firefox youtube.com";

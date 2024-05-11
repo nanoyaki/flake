@@ -30,7 +30,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./common/configuration.nix
-          ./hana-nixos/configuration.nix
+          ./hosts/hana-nixos/configuration.nix
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {
@@ -51,7 +51,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./common/configuration.nix
-          ./hana-nixos-laptop/configuration.nix
+          ./hosts/hana-nixos-laptop/configuration.nix
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           {

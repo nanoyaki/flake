@@ -164,6 +164,7 @@
     gcc
     gnumake
     gh
+    alejandra
 
     # Terminal
     kitty
@@ -243,7 +244,7 @@
   programs.coolercontrol.enable = true;
 
   # Environment variables
-  environment.variables = {
+  environment.sessionVariables = {
     FLAKE_DIR = "$HOME/flake";
   };
 

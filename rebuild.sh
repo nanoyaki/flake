@@ -14,6 +14,8 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+git add .
+
 # Show changes compared to the last commit
 git diff -U0 $(git rev-parse main) -- '*.nix'
 

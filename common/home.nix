@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.username = "hana";
   home.homeDirectory = "/home/hana";
 
@@ -18,7 +20,7 @@
       flavour = "frappe";
       accent = "pink";
       size = "standard";
-      tweaks = [ "normal" ];
+      tweaks = ["normal"];
     };
     iconTheme.package = pkgs.catppuccin-papirus-folders.override {
       variant = "frappe";
@@ -63,7 +65,7 @@
     mpv
     spotify
 
-    # Games 
+    # Games
     lutris-unwrapped
     osu-lazer-bin
     parsec-bin
@@ -86,15 +88,15 @@
       variant = "frappe";
     })
     (catppuccin-kde.override {
-      flavour = [ "frappe" ];
-      accents = [ "pink" ];
+      flavour = ["frappe"];
+      accents = ["pink"];
     })
   ];
 
   xdg.enable = true;
 
   programs.git = {
-    userName = "Hana Kretzer";
+    userName = "nanoyaki";
     userEmail = "hanakretzer@gmail.com";
   };
 

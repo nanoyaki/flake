@@ -1,10 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   # Boot settings
   boot = {
     loader = {
@@ -19,13 +21,13 @@
         device = "nodev";
       };
     };
-    supportedFilesystems = [ "ntfs" ];
-    #kernelPackages = pkgs.linuxPackages_latest; 
+    supportedFilesystems = ["ntfs"];
+    #kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # Nix settings
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -67,7 +69,7 @@
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   #services.desktopManager.plasma6.enable = true;
-  environment.plasma5.excludePackages = with pkgs; [ 
+  environment.plasma5.excludePackages = with pkgs; [
     kdePackages.konsole
     kdePackages.dolphin
     kdePackages.kate
@@ -90,7 +92,7 @@
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
-        fcitx5-mozc
+      fcitx5-mozc
     ];
   };
 
@@ -124,16 +126,16 @@
   users.users.hana = {
     isNormalUser = true;
     description = "Hana";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
+    extraGroups = ["networkmanager" "wheel" "input"];
   };
 
   security.sudo.extraRules = [
-    { 
-      users = [ "hana" ];
+    {
+      users = ["hana"];
       commands = [
-        { 
+        {
           command = "ALL";
-          options = [ "NOPASSWD" ];
+          options = ["NOPASSWD"];
         }
       ];
     }
@@ -151,7 +153,7 @@
   # Zshell
   users.defaultUserShell = pkgs.zsh;
 
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = ["/share/zsh"];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -173,7 +175,7 @@
     vscode
 
     # Files
-	  gnome.nautilus
+    gnome.nautilus
     gnome.file-roller
     unrar
     unzip
@@ -215,7 +217,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  
+
   # vcs
   programs.git.enable = true;
 

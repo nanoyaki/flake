@@ -19,11 +19,14 @@
     };
   };
 
-  outputs = { nixpkgs, catppuccin, home-manager, ... }@inputs: 
-  let
+  outputs = {
+    nixpkgs,
+    catppuccin,
+    home-manager,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
-  in
-  {
+  in {
     # Replace with your hostname
     nixosConfigurations = {
       hana-nixos = nixpkgs.lib.nixosSystem {

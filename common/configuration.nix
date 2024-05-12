@@ -265,7 +265,7 @@
       ll = "LANG=en_GB.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
       nix-conf = "code $FLAKE_DIR";
-      nix-rel = "pushd $FLAKE_DIR; git diff -U0 $(git log --format=\"%H\" -n 1) -- '*.nix'; sudo nixos-rebuild switch --flake $FLAKE_DIR/#$(hostname) &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1); git commit -m \"$(hostname) $(nixos-rebuild list-generations | grep current | cut -d\" \" -f1)\"; git push -u origin main; popd";
+      nix-rel = "sh $FLAKE_DIR/rebuild.sh";
       nix-up = "sudo nixos-rebuild switch --upgrade";
       nya = "cat";
       yt = "firefox youtube.com";

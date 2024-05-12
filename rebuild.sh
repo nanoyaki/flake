@@ -25,9 +25,6 @@ git add .
 # Show changes compared to the last commit
 git diff -U0 $(git rev-parse main) -- '*.nix'
 
-# Wait for OK
-read -s -n 1
-
 # Rebuild and exit on failure
 sudo nixos-rebuild switch --flake $FLAKE_DIR &>$HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
 

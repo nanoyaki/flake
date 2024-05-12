@@ -23,5 +23,4 @@
 
   # Networking
   networking.hostName = "hana-nixos-laptop";
-  networking.wireless.enable = true;
 }

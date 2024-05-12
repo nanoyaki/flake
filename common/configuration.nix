@@ -2,14 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Boot settings
   boot = {
     loader = {
       efi = {
-        canTouchEfiVariables = true;
+        canTouchEfiVariables = lib.mkDefault true;
         efiSysMountPoint = "/boot/efi";
       };
       grub = {

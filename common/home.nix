@@ -3,6 +3,10 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./modules/home/vesktop.nix
+  ];
+
   home.username = "hana";
   home.homeDirectory = "/home/hana";
 
@@ -48,8 +52,6 @@
   # home.file.".xxx".text = ''
   #     xxx
   # '';
-
-  # home.file.".config/vesktop/settings/settings.json".text = '''';
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [

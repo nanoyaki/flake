@@ -2,13 +2,8 @@
   description = "Hana's NixOS System flake";
 
   inputs = {
-    # NixOS official package source
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # Theme
     catppuccin.url = "github:catppuccin/nix";
-
-    # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
@@ -26,49 +21,42 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    specialArgs = {inherit inputs;};
+    defaultModules = [
+      ./common/configuration.nix
+      catppuccin.nixosModules.catppuccin
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.hana = {
+            imports = [
+              ./common/home.nix
+              inputs.catppuccin.homeManagerModules.catppuccin
+            ];
+          };
+        };
+      }
+    ];
   in {
-    # Replace with your hostname
     nixosConfigurations = {
+      # Main System
       hana-nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./common/configuration.nix
-          ./hosts/hana-nixos/configuration.nix
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.hana = {
-              imports = [
-                ./common/home.nix
-                catppuccin.homeManagerModules.catppuccin
-              ];
-            };
-          }
-        ];
+        modules =
+          defaultModules
+          ++ [
+            ./hosts/hana-nixos/configuration.nix
+          ];
       };
 
+      # Laptop
       hana-nixos-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./common/configuration.nix
-          ./hosts/hana-nixos-laptop/configuration.nix
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.hana = {
-              imports = [
-                ./common/home.nix
-                catppuccin.homeManagerModules.catppuccin
-              ];
-            };
-          }
-        ];
+        modules =
+          defaultModules
+          ++ [
+            ./hosts/hana-nixos-laptop/configuration.nix
+          ];
       };
     };
   };

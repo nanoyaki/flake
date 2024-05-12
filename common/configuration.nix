@@ -249,6 +249,9 @@
   environment.sessionVariables = {
     FLAKE_DIR = "$HOME/flake";
   };
+  environment.variables = {
+    EDITOR = "code";
+  };
 
   # Zsh
   programs.zsh = {
@@ -261,8 +264,8 @@
     shellAliases = {
       ll = "LANG=en_GB.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
-      nix-conf = "cd $FLAKE_DIR; code . ./flake.nix ./common/configuration.nix ./common/home.nix ./hosts/$(hostname)/configuration.nix ./hosts/$(hostname)/hardware-configuration.nix;";
-      nix-rel = "sudo nixos-rebuild switch $FLAKE_DIR/#$(hostname)";
+      nix-conf = "code $FLAKE_DIR";
+      nix-rel = "pushd $FLAKE_DIR; git diff -U0 $(git log --format=\"%H\" -n 1) -- '*.nix'; sudo nixos-rebuild switch --flake $FLAKE_DIR/#$(hostname) &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1); git commit -m \"$(hostname) $(nixos-rebuild list-generations | grep current | cut -d\" \" -f1)\"; git push -u origin main;";
       nix-up = "sudo nixos-rebuild switch --upgrade";
       nya = "cat";
       yt = "firefox youtube.com";

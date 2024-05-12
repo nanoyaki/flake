@@ -7,17 +7,26 @@ git fetch origin main
 git branch --contains $(git rev-parse origin/main) &> /dev/null
 
 if [ $? -ne 0 ]; then
-  # Notify all OK!
   notify-send "NixOS Rebuilt failed!" --icon=software-update-available --app-name="Flake" --urgency="critical"
   echo "Warning: Local main branch is behind origin/main. Consider pulling changes before rebuilding."
   popd
   exit 1
 fi
 
+if git diff --quiet $(git rev-parse main) -- '*.nix'; then
+  notify-send "NixOS Rebuilt failed!" --icon=software-update-available --app-name="Flake" --urgency="critical"
+  echo "No changes detected, exiting."
+  popd
+  exit 0
+fi
+
 git add .
 
 # Show changes compared to the last commit
 git diff -U0 $(git rev-parse main) -- '*.nix'
+
+# Wait for OK
+read -p "Waiting for user input"
 
 # Rebuild and exit on failure
 sudo nixos-rebuild switch --flake $FLAKE_DIR &>$HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)

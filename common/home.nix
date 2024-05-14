@@ -83,6 +83,7 @@
     fastfetch
 
     # Theming
+    zsh-powerlevel10k
     papirus-icon-theme
     catppuccin-cursors.frappePink
     (catppuccin.override {

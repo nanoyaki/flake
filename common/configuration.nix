@@ -119,48 +119,13 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.wireplumber.enable = true;
-  services.pipewire.wireplumber.extraConfig.main = {
-    "alsa_monitor.rules" = [
-      {
-        matches = [{"node.name" = "alsa_output.*";}];
-        actions = {
-          use-props = {
-            "audio.format" = "S32LE";
-            "audio.rate" = "96000";
-            "api.alsa.period-size" = "2";
-            "api.alsa.disable-batch" = "true";
-          };
-        };
-      }
-    ];
-  };
-
   services.pipewire.extraConfig.pipewire."92-low-latency" = {
     context.properties = {
       default.clock.rate = 48000;
+      default.clock.allowed-rates = [48000];
       default.clock.quantum = 32;
       default.clock.min-quantum = 32;
       default.clock.max-quantum = 32;
-    };
-  };
-
-  services.pipewire.extraConfig.pipewire-pulse."92-low-latency" = {
-    context.modules = [
-      {
-        name = "libpipewire-module-protocol-pulse";
-        args = {
-          pulse.min.req = "32/48000";
-          pulse.default.req = "32/48000";
-          pulse.max.req = "32/48000";
-          pulse.min.quantum = "32/48000";
-          pulse.max.quantum = "32/48000";
-        };
-      }
-    ];
-    stream.properties = {
-      node.latency = "32/48000";
-      resample.quality = 1;
     };
   };
 

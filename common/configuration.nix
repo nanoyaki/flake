@@ -268,8 +268,10 @@
       ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
       nix-conf = "code $FLAKE_DIR";
-      nix-rel = "sh $FLAKE_DIR/rebuild.sh";
       nix-up = "sudo nixos-rebuild switch --upgrade";
+      nix-op = "firefox https://search.nixos.org/options?channel=unstable";
+      nix-pac = "firefox https://search.nixos.org/packages?channel=unstable";
+      nix-hom = "firefox https://home-manager-options.extranix.com/";
       nya = "cat";
       yt = "firefox youtube.com";
     };

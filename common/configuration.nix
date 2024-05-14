@@ -108,6 +108,7 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -270,9 +271,9 @@
       copy = "rsync -a --info=progress2 --info=name0";
       nix-conf = "code $FLAKE_DIR";
       nix-up = "sudo nixos-rebuild switch --upgrade";
-      nix-op = "firefox https://search.nixos.org/options?channel=unstable";
-      nix-pac = "firefox https://search.nixos.org/packages?channel=unstable";
-      nix-hom = "firefox https://home-manager-options.extranix.com/";
+      nix-op = "firefox \"https://search.nixos.org/options?channel=unstable\"";
+      nix-pac = "firefox \"https://search.nixos.org/packages?channel=unstable\"";
+      nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
       nya = "cat";
       yt = "firefox youtube.com";
     };

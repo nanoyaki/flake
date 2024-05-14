@@ -16,7 +16,6 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-unstable,
     catppuccin,
     home-manager,
     ...

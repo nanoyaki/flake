@@ -119,19 +119,22 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.wireplumber.extraScripts."99-alsa-lowlatency" = ''
-    alsa_monitor.rules = {
+  services.pipewire.wireplumber.enable = true;
+  services.pipewire.wireplumber.extraConfig.main = {
+    "alsa_monitor.rules" = [
       {
-        matches = {{{ "node.name", "matches", "alsa_output.*" }}};
-        apply_properties = {
-          ["audio.format"] = "S32LE",
-          ["audio.rate"] = "96000", -- for USB soundcards it should be twice your desired rate
-          ["api.alsa.period-size"] = 2, -- defaults to 1024, tweak by trial-and-error
-          -- ["api.alsa.disable-batch"] = true, -- generally, USB soundcards use the batch mode
-        },
-      },
-    }
-  '';
+        matches = [{"node.name" = "alsa_output.*";}];
+        actions = {
+          use-props = {
+            "audio.format" = "S32LE";
+            "audio.rate" = "96000";
+            "api.alsa.period-size" = "2";
+            "api.alsa.disable-batch" = "true";
+          };
+        };
+      }
+    ];
+  };
 
   services.pipewire.extraConfig.pipewire."92-low-latency" = {
     context.properties = {

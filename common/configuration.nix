@@ -184,9 +184,10 @@
     # Hardware
     glxinfo
     lm_sensors
+    gnome.gnome-disk-utility
 
     # OS
-    libnotify
+    (import ./rebuild.nix {inherit pkgs;})
     gtk4
     gtk3
   ];

@@ -120,14 +120,6 @@
     #media-session.enable = true;
   };
 
-  services.jack = {
-    jackd.enable = true;
-    alsa.enable = false;
-    loopback = {
-      enable = true;
-    };
-  };
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 

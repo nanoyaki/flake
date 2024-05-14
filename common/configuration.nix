@@ -185,6 +185,7 @@
     glxinfo
     lm_sensors
     gnome.gnome-disk-utility
+    baobab
 
     # OS
     (import ./rebuild.nix {inherit pkgs;})

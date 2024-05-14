@@ -121,14 +121,14 @@
     #media-session.enable = true;
   };
 
-  environment.etc."pipewire/pipewire.conf.d/99-rates.conf".text = ''
+  services.pipewire.extraConfig."99-rates.conf" = {
     context.properties = {
-      default.clock.rate = 48000
-      default.clock.quantum = 32
-      default.clock.min-quantum = 32
-      default.clock.max-quantum = 32
-    }
-  '';
+      default.clock.rate = 48000;
+      default.clock.quantum = 32;
+      default.clock.min-quantum = 32;
+      default.clock.max-quantum = 32;
+    };
+  };
 
   # I HAVE NO FUCKING IDEA HOW TO MAKE OSU LAZER USE A 48K SAMPLE RATE
 

@@ -22,7 +22,6 @@
   } @ inputs: let
     system = "x86_64-linux";
     specialArgs = {inherit inputs;};
-    pkgs = nixpkgs.legacyPackages.${system};
     defaultModules = [
       ./common/configuration.nix
       catppuccin.nixosModules.catppuccin

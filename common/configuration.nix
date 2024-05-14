@@ -121,7 +121,7 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.extraConfig."99-rates.conf" = {
+  services.pipewire.extraConfig.pipewire."99-rates.conf" = {
     context.properties = {
       default.clock.rate = 48000;
       default.clock.quantum = 32;

@@ -107,7 +107,7 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    package = pkgs-unstable.pipewire;
+    package = pipewire;
     enable = true;
     audio.enable = true;
     alsa.enable = true;

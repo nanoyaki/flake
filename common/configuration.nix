@@ -250,6 +250,7 @@
   # Environment variables
   environment.sessionVariables = {
     FLAKE_DIR = "$HOME/flake";
+    LANGUAGE = "en_GB";
   };
   environment.variables = {
     EDITOR = "code";
@@ -264,7 +265,7 @@
     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme\; bindkey \"\;5C\" forward-word\; bindkey \"\;5D\" backward-word";
 
     shellAliases = {
-      ll = "LANG=en_GB.UTF-8 ls -latr --color=auto";
+      ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
       nix-conf = "code $FLAKE_DIR";
       nix-rel = "sh $FLAKE_DIR/rebuild.sh";

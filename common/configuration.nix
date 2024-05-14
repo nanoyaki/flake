@@ -187,6 +187,7 @@
     lm_sensors
     gnome.gnome-disk-utility
     baobab
+    pipewire.jack
 
     # OS
     (import ./rebuild.nix {inherit pkgs;})

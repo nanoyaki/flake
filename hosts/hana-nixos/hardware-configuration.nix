@@ -33,7 +33,6 @@
     device = "/dev/disk/by-uuid/EA24815F24812F9D";
     fsType = "auto";
     options = [
-      "rw"
       "nosuid"
       "nodev"
       "nofail"
@@ -48,7 +47,6 @@
     device = "/dev/disk/by-uuid/7044ECED44ECB74E";
     fsType = "auto";
     options = [
-      "rw"
       "nosuid"
       "nodev"
       "nofail"
@@ -59,9 +57,19 @@
     ];
   };
 
-  # fileSystems."/mnt/1TB-SSD" = {
-  #
-  # };
+  fileSystems."/mnt/1TB-SSD" = {
+    device = "/dev/disk/by-uuid/AC14148D14145CA0";
+    fsType = "auto";
+    options = [
+      "nosuid"
+      "nodev"
+      "nofail"
+      "x-gvfs-show"
+      "x-gvfs-name=1TB-SSD"
+      "x-gvfs-icon=1TB-SSD"
+      "x-gvfs-symbolic-icon=1TB-SSD"
+    ];
+  };
 
   swapDevices = [];
 

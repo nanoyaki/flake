@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   lib,
   ...
 }: {
@@ -107,7 +108,7 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    package = pkgs.stable.pipewire;
+    package = pkgs-stable.pipewire;
     enable = true;
     audio.enable = true;
     alsa.enable = true;

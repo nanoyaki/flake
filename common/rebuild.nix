@@ -2,7 +2,6 @@
 pkgs.writeShellScriptBin "rebuild" ''
   # aliases for nixpkgs
   alias git="${pkgs.git}/bin/git"
-  alias notify-send="${pkgs.libnotify}/bin/notify-send"
 
   # change dir to flake dir
   pushd $FLAKE_DIR
@@ -12,7 +11,6 @@ pkgs.writeShellScriptBin "rebuild" ''
   git branch --contains $(git rev-parse origin/main) &> /dev/null
 
   if [ $? -ne 0 ]; then
-    notify-send "NixOS Rebuilt failed!" --icon=software-update-available --app-name="Flake" --urgency="critical"
     echo "Warning: Local main branch is behind origin/main. Consider pulling changes before rebuilding."
     popd
     exit 1
@@ -41,6 +39,5 @@ pkgs.writeShellScriptBin "rebuild" ''
   # go back to previous dir
   popd
 
-  # Notify all OK!
-  notify-send -e "NixOS Rebuilt OK" --icon=software-update-available --app-name="Flake"
+  echo "OK!"
 ''

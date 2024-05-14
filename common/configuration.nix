@@ -119,7 +119,7 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.extraConfig.pipewire."92-low-latency" = {
+  services.pipewire.extraConfig.pipewire."99-low-latency" = {
     context.properties = {
       default.clock.rate = 48000;
       default.clock.allowed-rates = [48000];
@@ -129,7 +129,7 @@
     };
   };
 
-  services.pipewire.extraConfig.pipewire-pulse."92-low-latency" = {
+  services.pipewire.extraConfig.pipewire-pulse."99-low-latency" = {
     context.modules = [
       {
         name = "libpipewire-module-protocol-pulse";

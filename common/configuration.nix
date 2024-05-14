@@ -135,7 +135,7 @@
   users.users.hana = {
     isNormalUser = true;
     description = "Hana";
-    extraGroups = ["networkmanager" "wheel" "input"];
+    extraGroups = ["networkmanager" "wheel" "input" "jackaudio"];
   };
 
   security.sudo.extraRules = [

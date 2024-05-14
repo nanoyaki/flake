@@ -119,7 +119,7 @@
     #media-session.enable = true;
   };
 
-  services.pipewire.wireplumber.extraLuaConfig.main."99-alsa-lowlatency" = ''
+  services.pipewire.wireplumber.extraConfig.main."99-alsa-lowlatency" = ''
     alsa_monitor.rules = {
       {
         matches = {{{ "node.name", "matches", "alsa_output.*" }}};

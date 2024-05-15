@@ -181,6 +181,7 @@
 
     # Terminal
     kitty
+    openssl
 
     # Editors
     vscode

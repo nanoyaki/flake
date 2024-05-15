@@ -55,13 +55,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # Communication
-    vesktop
-    (discord.override {
-      withOpenASAR = true;
-      withVencord = true;
-    })
-
     # Media
     mpv
 

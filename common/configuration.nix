@@ -196,6 +196,13 @@
     wootility
     wooting-udev-rules
 
+    # Communication
+    vesktop
+    (discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
+
     # Hardware
     glxinfo
     lm_sensors

@@ -3,9 +3,9 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./modules/home/vesktop.nix
-  ];
+  # imports = [
+  #  ./modules/home/vesktop.nix
+  # ];
 
   home.username = "niklasuwu";
   home.homeDirectory = "/home/niklasuwu";
@@ -57,7 +57,6 @@
   home.packages = with pkgs; [
     # Communication
     vesktop
-    thunderbird
     (discord.override {
       withOpenASAR = true;
       withVencord = true;
@@ -65,13 +64,15 @@
 
     # Media
     mpv
-    spotify
 
     # Games
     lutris-unwrapped
     osu-lazer-bin
     parsec-bin
     cartridges
+
+    # Driver
+    wootility
 
     # Password manager
     bitwarden-desktop

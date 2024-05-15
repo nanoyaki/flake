@@ -127,7 +127,7 @@
     (pkgs.writeTextDir "share/wireplumber/main.lua.d/99-alsa-lowlatency.lua" ''
       alsa_monitor.rules = {
         {
-          matches = {{{ "node.name", "matches", "alsa_output.*" }}};
+          matches = {{{ "node.name", "matches", "alsa_playback.*" }}};
           apply_properties = {
             ["audio.format"] = "S32LE",
             ["audio.rate"] = "96000", -- for USB soundcards it should be twice your desired rate

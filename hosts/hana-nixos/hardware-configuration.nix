@@ -43,20 +43,6 @@
     ];
   };
 
-  fileSystems."/mnt/2TB-HDD" = {
-    device = "/dev/disk/by-uuid/7044ECED44ECB74E";
-    fsType = "auto";
-    options = [
-      "nosuid"
-      "nodev"
-      "nofail"
-      "x-gvfs-show"
-      "x-gvfs-name=2TB-HDD"
-      "x-gvfs-icon=2TB-HDD"
-      "x-gvfs-symbolic-icon=2TB-HDD"
-    ];
-  };
-
   fileSystems."/mnt/1TB-SSD" = {
     device = "/dev/disk/by-uuid/AC14148D14145CA0";
     fsType = "auto";

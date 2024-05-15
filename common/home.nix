@@ -72,6 +72,7 @@
     osu-lazer-bin
     parsec-bin
     cartridges
+    protonup
 
     # Editors
     obsidian
@@ -95,6 +96,10 @@
       accents = ["pink"];
     })
   ];
+
+  home.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+  };
 
   xdg.enable = true;
 

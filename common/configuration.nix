@@ -195,6 +195,9 @@
     unzip
     p7zip
 
+    # Games
+    mangohud
+
     # Hardware
     glxinfo
     lm_sensors

@@ -73,6 +73,7 @@
     parsec-bin
     cartridges
     protonup
+    bottles
 
     # Editors
     obsidian

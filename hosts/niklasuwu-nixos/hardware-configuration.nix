@@ -14,12 +14,42 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["kvm-amd" "ryzen_smu"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/21bb4beb-152b-4a62-beef-d215144ab878";
     fsType = "ext4";
+  };
+
+  # FileSystem Mounts
+  fileSystems."/mnt/120GB-SSD" = {
+    device = "/dev/disk/by-uuid/0E963C56963C408F";
+    fsType = "auto";
+    options = [
+      "nosuid"
+      "nodev"
+      "nofail"
+      "x-gvfs-show"
+      "x-gvfs-name=12GB-SSD"
+      "x-gvfs-icon=12GB-SSD"
+      "x-gvfs-symbolic-icon=12GB-SSD"
+    ];
+  };
+
+  # FileSystem Mounts
+  fileSystems."/mnt/2TB-HDD" = {
+    device = "/dev/disk/by-uuid/4AA8231CA8230653";
+    fsType = "auto";
+    options = [
+      "nosuid"
+      "nodev"
+      "nofail"
+      "x-gvfs-show"
+      "x-gvfs-name=2TB-HDD"
+      "x-gvfs-icon=2TB-HDD"
+      "x-gvfs-symbolic-icon=2TB-HDD"
+    ];
   };
 
   fileSystems."/boot/efi" = {

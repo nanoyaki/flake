@@ -1,5 +1,5 @@
 {
-  description = "Hana's NixOS System flake";
+  description = "Niklas' NixOS System flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -40,7 +40,7 @@
           backupFileExtension = "backup";
           useGlobalPkgs = true;
           useUserPackages = true;
-          users.hana = {
+          users.niklas-uwu = {
             imports = [
               ./common/home.nix
               inputs.catppuccin.homeManagerModules.catppuccin
@@ -52,22 +52,12 @@
   in {
     nixosConfigurations = {
       # Main System
-      hana-nixos = nixpkgs.lib.nixosSystem {
+      niklas-uwu-nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
           defaultModules
           ++ [
-            ./hosts/hana-nixos/configuration.nix
-          ];
-      };
-
-      # Laptop
-      hana-nixos-laptop = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules =
-          defaultModules
-          ++ [
-            ./hosts/hana-nixos-laptop/configuration.nix
+            ./hosts/niklas-uwu-nixos/configuration.nix
           ];
       };
     };

@@ -7,8 +7,8 @@
     ./modules/home/vesktop.nix
   ];
 
-  home.username = "hana";
-  home.homeDirectory = "/home/hana";
+  home.username = "niklas-uwu";
+  home.homeDirectory = "/home/niklas-uwu";
 
   # Theming
   catppuccin.flavour = "frappe";
@@ -99,8 +99,8 @@
   xdg.enable = true;
 
   programs.git = {
-    userName = "nanoyaki";
-    userEmail = "hanakretzer@gmail.com";
+    userName = "nyankurasu";
+    userEmail = "stickgefickt@gmail.com";
   };
 
   # This value determines the home Manager release that your

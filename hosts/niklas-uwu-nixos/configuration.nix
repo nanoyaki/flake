@@ -11,5 +11,5 @@
   ];
 
   # Networking
-  networking.hostName = "hana-nixos";
+  networking.hostName = "niklas-uwu-nixos";
 }

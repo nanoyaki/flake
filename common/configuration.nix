@@ -193,7 +193,6 @@
     p7zip
 
     # Driver
-    opentabletdriver
     wootility
     wooting-udev-rules
 

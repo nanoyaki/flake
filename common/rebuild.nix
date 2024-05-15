@@ -7,16 +7,16 @@ pkgs.writeShellScriptBin "rebuild" ''
   pushd $FLAKE_DIR
 
   # check for changes from remote repo
-  git fetch origin main
+  git fetch origin/$(git branch --show-current)
   git branch --contains $(git rev-parse origin/main) &> /dev/null
 
   if [ $? -ne 0 ]; then
-    echo "Warning: Local main branch is behind origin/main. Consider pulling changes before rebuilding."
+    echo "Warning: Local branch is behind origin. Consider pulling changes before rebuilding."
     popd
     exit 1
   fi
 
-  if git diff --quiet $(git rev-parse main) -- '*.nix'; then
+  if git diff --quiet $(git rev-parse $(git branch --show-current)) -- '*.nix'; then
     echo "No changes detected, exiting."
     popd
     exit 0
@@ -25,7 +25,7 @@ pkgs.writeShellScriptBin "rebuild" ''
   git add .
 
   # Show changes compared to the last commit
-  git diff -U0 $(git rev-parse main) -- '*.nix'
+  git diff -U0 $(git rev-parse $(git branch --show-current)) -- '*.nix'
 
   # Rebuild and exit on failure
   sudo nixos-rebuild switch --flake $FLAKE_DIR &>$HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
@@ -34,7 +34,7 @@ pkgs.writeShellScriptBin "rebuild" ''
   git commit -m "$(hostname) $(nixos-rebuild list-generations | grep current | cut -d" " -f1)"
 
   # push changes to the remote repo
-  git push -u origin main
+  git push -u origin $(git branch --show-current)
 
   # go back to previous dir
   popd

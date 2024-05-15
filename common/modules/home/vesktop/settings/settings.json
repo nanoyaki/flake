@@ -3,7 +3,7 @@
     "autoUpdateNotification": true,
     "useQuickCss": true,
     "themeLinks": [
-        "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-frappe.theme.css"
+        "https://raw.githubusercontent.com/refact0r/midnight-discord/master/flavors/midnight-catppuccin-macchiato.theme.css"
     ],
     "enableReactDevtools": false,
     "frameless": false,

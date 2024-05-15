@@ -11,7 +11,7 @@
   home.homeDirectory = "/home/niklas-uwu";
 
   # Theming
-  catppuccin.flavour = "frappe";
+  catppuccin.flavour = "macchiato";
 
   # Program theming
   programs.kitty.catppuccin.enable = true;
@@ -21,14 +21,14 @@
     # enable = true;
     catppuccin = {
       enable = true;
-      flavour = "frappe";
-      accent = "pink";
+      flavour = "macchiato";
+      accent = "lavender";
       size = "standard";
       tweaks = ["normal"];
     };
     iconTheme.package = pkgs.catppuccin-papirus-folders.override {
-      variant = "frappe";
-      accent = "pink";
+      variant = "macchiato";
+      accent = "lavender";
     };
   };
   i18n.inputMethod.fcitx5.catppuccin.enable = true;
@@ -73,9 +73,6 @@
     parsec-bin
     cartridges
 
-    # Editors
-    obsidian
-
     # Password manager
     bitwarden-desktop
 
@@ -85,14 +82,14 @@
     # Theming
     zsh-powerlevel10k
     papirus-icon-theme
-    catppuccin-cursors.frappePink
+    catppuccin-cursors.macchiatoLavender
     (catppuccin.override {
-      accent = "pink";
-      variant = "frappe";
+      accent = "lavender";
+      variant = "macchiato";
     })
     (catppuccin-kde.override {
-      flavour = ["frappe"];
-      accents = ["pink"];
+      flavour = ["macchiato"];
+      accents = ["lavender"];
     })
   ];
 

@@ -192,6 +192,10 @@
     unzip
     p7zip
 
+    # Driver
+    wootility
+    wooting-udev-rules
+
     # Hardware
     glxinfo
     lm_sensors

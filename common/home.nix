@@ -71,9 +71,6 @@
     parsec-bin
     cartridges
 
-    # Driver
-    wootility
-
     # Password manager
     bitwarden-desktop
 

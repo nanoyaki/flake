@@ -11,5 +11,5 @@
   ];
 
   # Networking
-  networking.hostName = "niklas-uwu-nixos";
+  networking.hostName = "niklasuwu-nixos";
 }

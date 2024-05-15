@@ -134,7 +134,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.niklas-uwu = {
+  users.users.niklasuwu = {
     isNormalUser = true;
     description = "Niklas UwU";
     extraGroups = ["networkmanager" "wheel" "input" "jackaudio"];
@@ -142,7 +142,7 @@
 
   security.sudo.extraRules = [
     {
-      users = ["niklas-uwu"];
+      users = ["niklasuwu"];
       commands = [
         {
           command = "ALL";
@@ -155,7 +155,7 @@
   # Enable automatic login for the user.
   services.displayManager.autoLogin = {
     enable = true;
-    user = "niklas-uwu";
+    user = "niklasuwu";
   };
 
   # Install firefox.

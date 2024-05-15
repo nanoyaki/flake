@@ -40,7 +40,7 @@
           backupFileExtension = "backup";
           useGlobalPkgs = true;
           useUserPackages = true;
-          users.niklas-uwu = {
+          users.niklasuwu = {
             imports = [
               ./common/home.nix
               inputs.catppuccin.homeManagerModules.catppuccin
@@ -52,12 +52,12 @@
   in {
     nixosConfigurations = {
       # Main System
-      niklas-uwu-nixos = nixpkgs.lib.nixosSystem {
+      niklasuwu-nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
           defaultModules
           ++ [
-            ./hosts/niklas-uwu-nixos/configuration.nix
+            ./hosts/niklasuwu-nixos/configuration.nix
           ];
       };
     };

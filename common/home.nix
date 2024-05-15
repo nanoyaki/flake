@@ -7,8 +7,8 @@
     ./modules/home/vesktop.nix
   ];
 
-  home.username = "niklas-uwu";
-  home.homeDirectory = "/home/niklas-uwu";
+  home.username = "niklasuwu";
+  home.homeDirectory = "/home/niklasuwu";
 
   # Theming
   catppuccin.flavour = "macchiato";

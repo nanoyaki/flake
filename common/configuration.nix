@@ -187,6 +187,7 @@
     vscode
 
     # Files
+    mangohud
     gnome.nautilus
     gnome.file-roller
     unrar

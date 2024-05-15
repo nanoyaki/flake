@@ -23,8 +23,10 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    config = {allowUnfree = true;};
-    pkgs-stable = import nixpkgs-unstable;
+    pkgs-stable = import nixpkgs-unstable {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
     specialArgs = {
       inherit inputs;
       inherit pkgs-stable;

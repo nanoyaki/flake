@@ -30,6 +30,21 @@
 
   swapDevices = [];
 
+  # FileSystem Mounts
+  fileSystems."/mnt/Windows" = {
+    device = "/dev/disk/by-uuid/16300C28300C1183";
+    fsType = "auto";
+    options = [
+      "nosuid"
+      "nodev"
+      "nofail"
+      "x-gvfs-show"
+      "x-gvfs-name=Windows"
+      "x-gvfs-icon=Windows"
+      "x-gvfs-symbolic-icon=Windows"
+    ];
+  };
+
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
 

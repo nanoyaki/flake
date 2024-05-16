@@ -26,6 +26,7 @@
     supportedFilesystems = ["ntfs"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
+  time.hardwareClockInLocalTime = true;
 
   # Nix settings
   nixpkgs.config.allowUnfree = true;

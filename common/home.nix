@@ -66,6 +66,7 @@
     # Media
     mpv
     spotify
+    yt-dlp
 
     # Games
     lutris-unwrapped

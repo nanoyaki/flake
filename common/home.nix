@@ -67,6 +67,7 @@
     mpv
     spotify
     yt-dlp
+    ffmpeg
 
     # Games
     lutris-unwrapped

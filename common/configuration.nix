@@ -68,19 +68,20 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  # environment.plasma6.excludePackages = with pkgs.kdePackages; [
-  #   konsole
-  #   kate
-  #   elisa
-  #   kwrited
-  #   kwallet
-  #   ark
-  #   okular
-  #   print-manager
-  #   # dolphin
-  # ];
+  services.xserver.desktopManager.plasma5.enable = true;
+  # Plasma 6 still blackscreens on logon
+  # services.desktopManager.plasma6.enable = true;
+  environment.plasma5.excludePackages = with pkgs.kdePackages; [
+    konsole
+    kate
+    elisa
+    kwrited
+    kwallet
+    ark
+    okular
+    print-manager
+    # dolphin
+  ];
   programs.kdeconnect.enable = false;
 
   # Configure keymap in X11

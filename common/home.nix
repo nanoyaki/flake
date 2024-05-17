@@ -57,6 +57,7 @@
   home.packages = with pkgs; [
     # Programming
     mongodb-compass
+    nodejs_22
 
     # Communication
     vesktop

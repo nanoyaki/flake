@@ -62,7 +62,6 @@
         modules =
           defaultModules
           ++ [
-            envision.nixosModules.envision
             nixpkgs-xr.nixosModules.nixpkgs-xr
             ./hosts/hana-nixos/configuration.nix
           ];

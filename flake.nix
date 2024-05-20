@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -18,6 +19,7 @@
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
+    nixpkgs-xr,
     catppuccin,
     home-manager,
     ...
@@ -57,6 +59,7 @@
         modules =
           defaultModules
           ++ [
+            nixpkgs-xr.nixosModules.nixpkgs-xr
             ./hosts/hana-nixos/configuration.nix
           ];
       };

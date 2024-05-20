@@ -24,7 +24,7 @@
       };
     };
     supportedFilesystems = ["ntfs"];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
   time.hardwareClockInLocalTime = true;
 
@@ -203,6 +203,9 @@
 
     # Games
     mangohud
+    index_camera_passthrough
+    opencomposite
+    wlx-overlay-s
 
     # Hardware
     glxinfo

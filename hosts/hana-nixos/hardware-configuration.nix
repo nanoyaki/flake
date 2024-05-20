@@ -22,6 +22,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4bd44a3e-f38f-4e9a-b64c-1e7381b98b1d";
     fsType = "ext4";
+    options = [];
   };
 
   fileSystems."/boot/efi" = {

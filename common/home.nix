@@ -62,6 +62,7 @@
     ninja
     pkg-config
     glib
+    cmake
 
     # Communication
     vesktop

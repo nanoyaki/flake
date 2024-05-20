@@ -60,6 +60,8 @@
     nodejs_22
     meson
     ninja
+    pkg-config
+    glibc
 
     # Communication
     vesktop

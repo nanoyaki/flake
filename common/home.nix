@@ -61,7 +61,7 @@
     meson
     ninja
     pkg-config
-    glibc
+    glib
 
     # Communication
     vesktop

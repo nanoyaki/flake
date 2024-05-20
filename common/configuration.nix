@@ -65,6 +65,18 @@
     "C.UTF-8/UTF-8"
   ];
 
+  fonts = {
+    packages = with pkgs; [
+      mplus-outline-fonts.githubRelease
+    ];
+
+    fontconfig.defaultFonts = {
+      serif = ["M PLUS 2"];
+      sansSerif = ["M PLUS 2"];
+      monospace = ["M PLUS Code Latin"];
+    };
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 

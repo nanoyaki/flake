@@ -7,7 +7,7 @@
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
-    envision.url = "gitlab:Scrumplex/envision/nix";
+    envision.url = "https://gitlab.com/Scrumplex/envision/-/archive/nix/envision-nix.tar";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
@@ -62,6 +62,7 @@
         modules =
           defaultModules
           ++ [
+            envision.nixosModules
             nixpkgs-xr.nixosModules.nixpkgs-xr
             ./hosts/hana-nixos/configuration.nix
           ];

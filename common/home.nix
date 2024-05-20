@@ -58,6 +58,8 @@
     # Programming
     mongodb-compass
     nodejs_22
+    meson
+    ninja
 
     # Communication
     vesktop

@@ -73,7 +73,6 @@
     fontconfig.defaultFonts = {
       serif = ["M PLUS 2"];
       sansSerif = ["M PLUS 2"];
-      monospace = ["M PLUS Code Latin"];
     };
   };
 

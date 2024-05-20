@@ -14,8 +14,10 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd" "wmi" "ryzen_smu" "gigabyte_wmi" "coretemp" "amdgpu"];
-  boot.extraModulePackages = [];
+  boot.kernelModules = ["kvm-amd" "ryzen_smu" "amdgpu"];
+  boot.extraModulePackages = with pkgs.linuxKernel.packages.linux_zen; [
+    it87
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4bd44a3e-f38f-4e9a-b64c-1e7381b98b1d";
@@ -85,8 +87,6 @@
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [mesa.drivers];
-    extraPackages32 = with pkgs.pkgsi686Linux; [mesa.drivers];
   };
 
   hardware.steam-hardware.enable = true;

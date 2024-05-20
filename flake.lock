@@ -24,12 +24,16 @@
       "locked": {
         "lastModified": 1714679740,
         "narHash": "sha256-OSa5mcfmaEKDQieNaYMs7LJ0aRc4Cc2sehrYUgtMfiw=",
-        "type": "tarball",
-        "url": "https://gitlab.com/Scrumplex/envision/-/archive/nix/envision-nix.tar"
+        "owner": "Scrumplex",
+        "repo": "envision",
+        "rev": "edc341401e9150effcc6caf4cdd714fa9dbc4f16",
+        "type": "gitlab"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://gitlab.com/Scrumplex/envision/-/archive/nix/envision-nix.tar"
+        "owner": "Scrumplex",
+        "ref": "nix",
+        "repo": "envision",
+        "type": "gitlab"
       }
     },
     "fenix": {

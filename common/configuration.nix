@@ -210,6 +210,7 @@
     opencomposite
     wlx-overlay-s
     lighthouse-steamvr
+    envision
 
     # Hardware
     glxinfo

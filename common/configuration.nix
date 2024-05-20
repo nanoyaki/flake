@@ -179,52 +179,55 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # https://search.nixos.org/packages?channel=unstable
-  environment.systemPackages = with pkgs; [
-    # Programming
-    rustup
-    python3
-    libgcc
-    gcc
-    gnumake
-    gh
-    alejandra
+  environment.systemPackages =
+    (with pkgs; [
+      # Programming
+      rustup
+      python3
+      libgcc
+      gcc
+      gnumake
+      gh
+      alejandra
 
-    # Terminal
-    kitty
+      # Terminal
+      kitty
 
-    # Editors
-    vscode
+      # Editors
+      vscode
 
-    # Files
-    gnome.nautilus
-    gnome.file-roller
-    unrar
-    unzip
-    p7zip
+      # Files
+      gnome.nautilus
+      gnome.file-roller
+      unrar
+      unzip
+      p7zip
 
-    # Games
-    mangohud
+      # Games
+      mangohud
 
-    # VR
-    index_camera_passthrough
-    opencomposite
-    wlx-overlay-s
-    lighthouse-steamvr
-    envision
+      # VR
+      index_camera_passthrough
+      opencomposite
+      wlx-overlay-s
+      lighthouse-steamvr
 
-    # Hardware
-    glxinfo
-    lm_sensors
-    gnome.gnome-disk-utility
-    baobab
-    # When pipewire.service.jack.enable is true, enable this:
-    # pipewire.jack
+      # Hardware
+      glxinfo
+      lm_sensors
+      gnome.gnome-disk-utility
+      baobab
+      # When pipewire.service.jack.enable is true, enable this:
+      # pipewire.jack
 
-    # OS
-    (import ./rebuild.nix {inherit pkgs;})
-    gtk4
-    gtk3
-  ];
+      # OS
+      (import ./rebuild.nix {inherit pkgs;})
+      gtk4
+      gtk3
+    ])
+    ++ [
+      inputs.envision.packages."x86_64-linux".envision
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

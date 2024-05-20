@@ -12,4 +12,9 @@
 
   # Networking
   networking.hostName = "hana-nixos";
+  
+  services.monado = {
+    enable = true;
+    defaultRuntime = true;
+  };
 }

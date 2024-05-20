@@ -203,9 +203,12 @@
 
     # Games
     mangohud
+
+    # VR
     index_camera_passthrough
     opencomposite
     wlx-overlay-s
+    lighthouse-steamvr
 
     # Hardware
     glxinfo

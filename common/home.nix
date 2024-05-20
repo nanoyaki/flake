@@ -58,11 +58,6 @@
     # Programming
     mongodb-compass
     nodejs_22
-    meson
-    ninja
-    pkg-config
-    glib
-    cmake
 
     # Communication
     vesktop

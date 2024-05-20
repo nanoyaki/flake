@@ -7,9 +7,9 @@ pkgs.writeShellScriptBin "rebuild" ''
   pushd $FLAKE_DIR
 
   # check for changes from remote repo
-  git fetch origin/$(git branch --show-current)
+  git fetch origin $(git branch --show-current)
 
-  if !$(git branch --contains $(git rev-parse origin/$(git branch --show-current))); then
+  if !(git branch --contains $(git rev-parse origin/$(git branch --show-current))); then
     echo "Warning: Local branch is behind origin. Consider pulling changes before rebuilding."
     popd
     exit 1

@@ -288,9 +288,11 @@
     PIPEWIRE_LATENCY = "32/48000";
     FLAKE_DIR = "$HOME/flake";
     LANGUAGE = "en_GB";
+    XRT_COMPOSITOR_COMPUTE = 1;
   };
   environment.variables = {
     EDITOR = "code";
+    LANGUAGE = "en_GB";
   };
 
   # Zsh

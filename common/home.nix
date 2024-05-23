@@ -57,7 +57,6 @@
   home.packages = with pkgs; [
     # Programming
     mongodb-compass
-    nodejs_22
     jetbrains.rider
     jetbrains.phpstorm
     jetbrains.rust-rover

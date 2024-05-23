@@ -46,7 +46,7 @@
     name = "mongod.service";
     description = "Mongo Database";
     serviceConfig = {
-      ExecStart = "mongod";
+      ExecStart = "sudo mongod";
       User = "root";
     };
     wantedBy = ["multi-user.target"];

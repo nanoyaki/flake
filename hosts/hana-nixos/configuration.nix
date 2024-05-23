@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  username,
   ...
 }: {
   imports = [
@@ -16,7 +17,7 @@
   ];
 
   # Networking
-  networking.hostName = "hana-nixos";
+  networking.hostName = "${username}-nixos";
 
   # VR
   # services.monado = {

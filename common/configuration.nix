@@ -7,6 +7,7 @@
   pkgs-stable,
   inputs,
   lib,
+  username,
   ...
 }: {
   # Boot settings
@@ -144,15 +145,15 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.hana = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Hana";
+    description = "Main User";
     extraGroups = ["networkmanager" "wheel" "input" "jackaudio"];
   };
 
   security.sudo.extraRules = [
     {
-      users = ["hana"];
+      users = ["${username}"];
       commands = [
         {
           command = "ALL";
@@ -165,7 +166,7 @@
   # Enable automatic login for the user.
   services.displayManager.autoLogin = {
     enable = true;
-    user = "hana";
+    user = "${username}";
   };
 
   # Install firefox.
@@ -228,7 +229,10 @@
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})
-      (import ./modules/undervolt.nix {inherit pkgs;})
+      (import ./modules/undervolt.nix {
+        inherit pkgs;
+        inherit config;
+      })
       # inputs.envision.packages."x86_64-linux".envision
     ];
 

@@ -27,6 +27,7 @@
     home-manager,
     ...
   } @ inputs: let
+    username = "hana";
     system = "x86_64-linux";
     pkgs-stable = import nixpkgs-unstable {
       inherit system;
@@ -35,6 +36,7 @@
     specialArgs = {
       inherit inputs;
       inherit pkgs-stable;
+      inherit username;
     };
     defaultModules = [
       ./common/configuration.nix
@@ -45,9 +47,9 @@
           backupFileExtension = "backup";
           useGlobalPkgs = true;
           useUserPackages = true;
-          users.hana = {
+          users.${username} = {
             imports = [
-              ./common/home.nix
+              (./common/home.nix {inherit username;})
               inputs.catppuccin.homeManagerModules.catppuccin
             ];
           };

@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  username,
   ...
 }: {
   imports = [
@@ -28,5 +29,5 @@
   };
 
   # Networking
-  networking.hostName = "hana-nixos-laptop";
+  networking.hostName = "${username}-nixos-laptop";
 }

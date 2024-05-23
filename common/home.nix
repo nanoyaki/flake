@@ -1,14 +1,15 @@
 {
   config,
   pkgs,
+  username,
   ...
 }: {
   imports = [
     ./modules/home/vesktop.nix
   ];
 
-  home.username = "hana";
-  home.homeDirectory = "/home/hana";
+  home.username = "${username}";
+  home.homeDirectory = "/home/${username}";
 
   # Theming
   catppuccin.flavour = "frappe";

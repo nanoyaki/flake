@@ -38,11 +38,6 @@
       inherit pkgs-stable;
       inherit username;
     };
-    extraSpecialArgs = {
-      userConfig = {
-        inherit username;
-      };
-    };
     defaultModules = [
       ./common/configuration.nix
       catppuccin.nixosModules.catppuccin
@@ -66,7 +61,6 @@
       # Main System
       hana-nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        inherit extraSpecialArgs;
         modules =
           defaultModules
           ++ [
@@ -78,7 +72,6 @@
       # Laptop
       hana-nixos-laptop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        inherit extraSpecialArgs;
         modules =
           defaultModules
           ++ [

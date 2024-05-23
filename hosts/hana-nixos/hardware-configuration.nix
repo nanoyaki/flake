@@ -15,6 +15,7 @@
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd" "ryzen_smu" "amdgpu"];
+  boot.kernelParams = ["acpi_enforce_resources=lax"];
   boot.extraModulePackages = [
     pkgs.linuxKernel.packages.linux_zen.it87
   ];

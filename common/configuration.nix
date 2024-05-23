@@ -207,10 +207,10 @@
       mangohud
 
       # VR
-      index_camera_passthrough
-      opencomposite
-      wlx-overlay-s
-      lighthouse-steamvr
+      # index_camera_passthrough
+      # opencomposite
+      # wlx-overlay-s
+      # lighthouse-steamvr
 
       # Hardware
       glxinfo
@@ -226,7 +226,7 @@
       gtk3
     ])
     ++ [
-      inputs.envision.packages."x86_64-linux".envision
+      # inputs.envision.packages."x86_64-linux".envision
     ];
 
   # Some programs need SUID wrappers, can be configured further or are

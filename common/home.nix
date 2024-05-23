@@ -80,7 +80,6 @@
     cartridges
     protonup
     bottles
-    appimage-run
 
     # Editors
     obsidian

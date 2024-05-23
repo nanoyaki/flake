@@ -229,10 +229,6 @@
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})
-      (import ./modules/undervolt.nix {
-        inherit pkgs;
-        inherit username;
-      })
       # inputs.envision.packages."x86_64-linux".envision
     ];
 

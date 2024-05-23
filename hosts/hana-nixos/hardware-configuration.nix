@@ -79,7 +79,7 @@
     description = "Undervolt Ryzen 7 5800X3D";
     serviceConfig = {
       ExecStart = "undervolt";
-      User = "root";
+      User = "hana";
     };
     wantedBy = ["multi-user.target"];
   };

@@ -1,5 +1,5 @@
 {pkgs, ...}:
 pkgs.writeShellScriptBin "undervolt" ''
   # TODO: Add nix packaging for the python script
-  ${pkgs.python3}/bin/python3 $HOME/git-repos/Ryzen-5800x3d-linux-undervolting/ruv.py -c 8 -o -30
+  sudo ${pkgs.python3}/bin/python3 $HOME/git-repos/Ryzen-5800x3d-linux-undervolting/ruv.py -c 8 -o -30
 ''

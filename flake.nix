@@ -49,7 +49,7 @@
           useUserPackages = true;
           users.${username} = {
             imports = [
-              (./common/home.nix {inherit username;})
+              ./common/home.nix
               inputs.catppuccin.homeManagerModules.catppuccin
             ];
           };

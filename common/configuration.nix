@@ -223,12 +223,12 @@
       # pipewire.jack
 
       # OS
-      (import ./rebuild.nix {inherit pkgs;})
-      (import ./modules/undervolt.nix {inherit pkgs;})
       gtk4
       gtk3
     ])
     ++ [
+      (import ./rebuild.nix {inherit pkgs;})
+      (import ./modules/undervolt.nix {inherit pkgs;})
       # inputs.envision.packages."x86_64-linux".envision
     ];
 

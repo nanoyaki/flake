@@ -2,20 +2,22 @@
 pkgs.writeShellScriptBin "rebuild" ''
   # aliases for nixpkgs
   alias git="${pkgs.git}/bin/git"
+  CURRENT_BRANCH="$(git branch --show-current)"
+  LAST_COMMIT="$(git rev-parse $CURRENT_BRANCH)"
 
   # change dir to flake dir
   pushd $FLAKE_DIR
 
   # check for changes from remote repo
-  git fetch origin $(git branch --show-current)
+  git fetch origin $CURRENT_BRANCH
 
-  if !(git branch --contains $(git rev-parse origin/$(git branch --show-current))); then
+  if !(git branch --contains $(git rev-parse origin/$CURRENT_BRANCH)); then
     echo "Warning: Local branch is behind origin. Consider pulling changes before rebuilding."
     popd
     exit 1
   fi
 
-  if git diff --quiet $(git rev-parse $(git branch --show-current)) -- '*.nix'; then
+  if git diff --quiet $LAST_COMMIT -- '*.nix'; then
     echo "No changes detected, exiting."
     popd
     exit 0
@@ -24,16 +26,14 @@ pkgs.writeShellScriptBin "rebuild" ''
   git add .
 
   # Show changes compared to the last commit
-  git diff -U0 $(git rev-parse $(git branch --show-current)) -- '*.nix'
+  git diff -U0 $LAST_COMMIT -- '*.nix'
 
   # Rebuild and exit on failure
-  sudo nixos-rebuild switch --flake $FLAKE_DIR &>$HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
+  sudo nixos-rebuild switch --flake $FLAKE_DIR > $HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
 
   # Commit with the hostname and generation
   git commit -m "$(hostname) $(nixos-rebuild list-generations | grep current | cut -d" " -f1)"
-
-  # push changes to the remote repo
-  git push -u origin $(git branch --show-current)
+  git push -u origin $CURRENT_BRANCH
 
   # go back to previous dir
   popd

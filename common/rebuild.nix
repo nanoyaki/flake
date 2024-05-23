@@ -2,11 +2,13 @@
 pkgs.writeShellScriptBin "rebuild" ''
   # aliases for nixpkgs
   alias git="${pkgs.git}/bin/git"
-  CURRENT_BRANCH="$(git branch --show-current)"
-  LAST_COMMIT="$(git rev-parse $CURRENT_BRANCH)"
 
   # change dir to flake dir
   pushd $FLAKE_DIR
+
+  # set vars
+  CURRENT_BRANCH="$(git branch --show-current)"
+  LAST_COMMIT="$(git rev-parse $CURRENT_BRANCH)"
 
   # check for changes from remote repo
   git fetch origin $CURRENT_BRANCH

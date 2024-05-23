@@ -1,5 +1,5 @@
 {pkgs, ...}:
-pkgs.writeShellScriptBin "unbervolt" ''
+pkgs.writeShellScriptBin "undervolt" ''
   python3="${pkgs.python3}/bin/python3"
 
   # TODO: Add nix packaging for the python script

@@ -185,12 +185,12 @@
       nodejs_22
       dotnetCorePackages.sdk_7_0_1xx
       rustup
-      python3
       libgcc
       gcc
       gnumake
       gh
       alejandra
+      mongodb
 
       # Terminal
       kitty

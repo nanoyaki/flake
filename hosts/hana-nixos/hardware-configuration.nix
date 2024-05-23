@@ -77,7 +77,7 @@
     name = "cpu_undervolt.service";
     description = "Undervolt Ryzen 7 5800X3D";
     serviceConfig = {
-      ExecStart = "/home/hana/git-repos/Ryzen-5800x3d-linux-undervolting/undervolt.sh";
+      ExecStart = "undervolt";
       User = "root";
     };
     wantedBy = ["multi-user.target"];

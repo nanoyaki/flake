@@ -191,7 +191,7 @@
       gnumake
       gh
       alejandra
-      mongodb
+      # mongodb
 
       # Terminal
       kitty

@@ -82,6 +82,7 @@
     cartridges
     protonup
     bottles
+    minecraft
 
     # Editors
     obsidian

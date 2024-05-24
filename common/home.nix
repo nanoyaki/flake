@@ -82,6 +82,7 @@
     cartridges
     protonup
     bottles
+    modrinth-app-unwrapped
 
     # Editors
     obsidian

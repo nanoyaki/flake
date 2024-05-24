@@ -82,7 +82,7 @@
     cartridges
     protonup
     bottles
-    minecraft
+    modrinth-app
 
     # Editors
     obsidian

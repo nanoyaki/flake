@@ -208,6 +208,7 @@
 
       # Games
       mangohud
+      modrinth-app
 
       # VR
       # index_camera_passthrough

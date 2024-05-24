@@ -44,15 +44,4 @@
   services.xserver.videoDrivers = ["amdgpu"];
 
   hardware.amdgpu.amdvlk = false;
-
-  systemd.services.mongod = {
-    enable = true;
-    name = "mongod.service";
-    description = "Mongo Database";
-    serviceConfig = {
-      ExecStart = "mongod --dbpath /data/db";
-      User = "root";
-    };
-    wantedBy = ["multi-user.target"];
-  };
 }

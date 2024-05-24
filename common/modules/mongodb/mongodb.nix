@@ -5,12 +5,18 @@
   inputs,
   ...
 }: let
-  inherit (inputs.home-manager.nixosModules.home-manager.home-manager.users.${username}) home;
+  inherit (inputs) home-manager;
 in {
-  home.file.".config/mongodb/" = {
-    source = ./configs;
-    recursive = true;
-  };
+  imports = [
+    home-manager.nixosModules.home-manager
+  ];
 
-  sysconfig.environment.systemPackages = [pkgs.mongodb];
+  config = {
+    home.file.".config/mongodb/" = {
+      source = ./configs;
+      recursive = true;
+    };
+
+    environment.systemPackages = [pkgs.mongodb];
+  };
 }

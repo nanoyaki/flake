@@ -33,9 +33,14 @@
       inherit system;
       config = {allowUnfree = true;};
     };
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
     specialArgs = {
       inherit inputs;
       inherit pkgs-stable;
+      inherit pkgs;
       inherit username;
     };
   in {

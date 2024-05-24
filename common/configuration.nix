@@ -180,6 +180,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # https://search.nixos.org/packages?channel=unstable
+  # TODO: make this modular
   environment.systemPackages =
     (with pkgs; [
       # Programming
@@ -191,7 +192,6 @@
       gnumake
       gh
       alejandra
-      # mongodb
 
       # Terminal
       kitty

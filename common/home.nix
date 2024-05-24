@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./modules/home/vesktop.nix
+    ./modules/home/vesktop/vesktop.nix
   ];
 
   home.username = "hana";

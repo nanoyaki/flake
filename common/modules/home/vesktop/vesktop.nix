@@ -1,10 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   home.file.".config/vesktop/" = {
-    source = ./vesktop;
+    source = ./configs;
     recursive = true;
   };
 }

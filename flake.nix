@@ -38,45 +38,59 @@
       inherit pkgs-stable;
       inherit username;
     };
-    defaultModules = [
-      ./common/configuration.nix
-      catppuccin.nixosModules.catppuccin
-      home-manager.nixosModules.home-manager
-      {
-        home-manager = {
-          backupFileExtension = "backup";
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.${username} = {
-            imports = [
-              ./common/home.nix
-              inputs.catppuccin.homeManagerModules.catppuccin
-            ];
-          };
-        };
-      }
-    ];
   in {
     nixosConfigurations = {
       # Main System
       hana-nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          defaultModules
-          ++ [
-            nixpkgs-xr.nixosModules.nixpkgs-xr
-            ./hosts/hana-nixos/configuration.nix
-          ];
+        modules = [
+          nixpkgs-xr.nixosModules.nixpkgs-xr
+          ./hosts/hana-nixos/configuration.nix
+          ./common/configuration.nix
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              backupFileExtension = "backup";
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username} = {
+                imports = [
+                  ./common/home.nix
+                  ./hosts/hana-nixos/home.nix
+                  inputs.catppuccin.homeManagerModules.catppuccin
+                ];
+              };
+            };
+          }
+        ];
       };
+
+      # TODO: MAKE THIS GOOD FOR THE LOVE OF GOD
 
       # Laptop
       hana-nixos-laptop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          defaultModules
-          ++ [
-            ./hosts/hana-nixos-laptop/configuration.nix
-          ];
+        modules = [
+          ./hosts/hana-nixos-laptop/configuration.nix
+          ./common/configuration.nix
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              backupFileExtension = "backup";
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username} = {
+                imports = [
+                  ./common/home.nix
+                  ./hosts/hana-nixos-laptop/home.nix
+                  inputs.catppuccin.homeManagerModules.catppuccin
+                ];
+              };
+            };
+          }
+        ];
       };
     };
   };

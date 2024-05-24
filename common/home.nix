@@ -55,9 +55,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # Virtualization
-    virtualbox
-
     # Programming
     mongodb-compass
     jetbrains.rider

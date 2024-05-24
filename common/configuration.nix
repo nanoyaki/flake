@@ -148,7 +148,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Main User";
-    extraGroups = ["networkmanager" "wheel" "input" "jackaudio"];
+    extraGroups = ["networkmanager" "wheel" "input" "vboxusers"];
   };
 
   security.sudo.extraRules = [

@@ -30,4 +30,5 @@
 
   # Networking
   networking.hostName = "${username}-nixos-laptop";
+  virtualisation.virtualbox.host.enable = true;
 }

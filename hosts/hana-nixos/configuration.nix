@@ -20,6 +20,7 @@
   networking.hostName = "${username}-nixos";
 
   # VR
+  # TODO: put this in some module
   # services.monado = {
   #   package = pkgs.monado;
   #   enable = true;

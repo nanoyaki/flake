@@ -58,7 +58,6 @@
     # Programming
     mongodb-compass
     jetbrains.rider
-    jetbrains.phpstorm
     jetbrains.rust-rover
 
     # Communication
@@ -92,7 +91,7 @@
 
     # Terminal
     fastfetch
-    warp-terminal
+    # warp-terminal
 
     # Theming
     zsh-powerlevel10k

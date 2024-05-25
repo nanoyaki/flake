@@ -36,6 +36,13 @@
   #     };
   #   }
   # ];
+  #
+  # programs.coolercontrol.enable = true;
+  #
+  # services.monado = {
+  #   enable = true;
+  #   defaultRuntime = true;
+  # };
 
   environment.systemPackages = with pkgs; [
     mongodb

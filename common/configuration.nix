@@ -4,7 +4,6 @@
 {
   config,
   pkgs,
-  pkgs-stable,
   inputs,
   lib,
   username,
@@ -124,7 +123,6 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    package = pkgs-stable.pipewire;
     enable = true;
     audio.enable = true;
     alsa.enable = true;
@@ -147,8 +145,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
-    description = "Main User";
-    extraGroups = ["networkmanager" "wheel" "input" "vboxusers"];
+    description = "Hana";
+    extraGroups = ["networkmanager" "wheel" "input"];
   };
 
   security.sudo.extraRules = [
@@ -284,8 +282,6 @@
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };
 
-  programs.coolercontrol.enable = true;
-
   # Environment variables
   environment.sessionVariables = {
     PIPEWIRE_LATENCY = "32/48000";
@@ -325,11 +321,6 @@
   programs.nautilus-open-any-terminal.terminal = "kitty";
 
   # Gaming
-  services.monado = {
-    enable = true;
-    defaultRuntime = true;
-  };
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;

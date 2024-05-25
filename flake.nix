@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
@@ -20,7 +19,6 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-unstable,
     nixpkgs-xr,
     envision,
     catppuccin,
@@ -29,18 +27,8 @@
   } @ inputs: let
     username = "hana";
     system = "x86_64-linux";
-    pkgs-stable = import nixpkgs-unstable {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
     specialArgs = {
       inherit inputs;
-      inherit pkgs-stable;
-      inherit pkgs;
       inherit username;
     };
   in {

@@ -31,11 +31,11 @@
         accent = "pink";
         flavor = "frappe";
       };
-      # icon = {
-      #   enable = true;
-      #   accent = "pink";
-      #   flavor = "frappe";
-      # };
+      icon = {
+        enable = true;
+        accent = "pink";
+        flavor = "frappe";
+      };
     };
     # causes home-manager to crash for some reason
     # iconTheme.package = pkgs.catppuccin-papirus-folders.override {

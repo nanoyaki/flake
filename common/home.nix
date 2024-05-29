@@ -108,16 +108,16 @@
 
     # Theming
     zsh-powerlevel10k
-    papirus-icon-theme
+    # papirus-icon-theme
     catppuccin-cursors.frappePink
-    (catppuccin.override {
-      accent = "pink";
-      variant = "frappe";
-    })
-    (catppuccin-kde.override {
-      flavour = ["frappe"];
-      accents = ["pink"];
-    })
+    # (catppuccin.override {
+    #   accent = "pink";
+    #   variant = "frappe";
+    # })
+    # (catppuccin-kde.override {
+    #   flavour = ["frappe"];
+    #   accents = ["pink"];
+    # })
   ];
 
   home.sessionVariables = {

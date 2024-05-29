@@ -17,6 +17,8 @@
         efiSysMountPoint = "/boot/efi";
       };
       grub = {
+        catppuccin.enable = true;
+        catppuccin.flavour = "frappe";
         configurationLimit = 35;
         enable = true;
         efiSupport = true;

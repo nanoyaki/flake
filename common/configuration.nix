@@ -111,6 +111,8 @@
       atomix # puzzle game
     ]);
   services.xserver.desktopManager.xterm.enable = false;
+  services.gnome.games.enable = false;
+  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   # Plasma:
   #
@@ -195,7 +197,7 @@
   ];
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin = {
+  services.xserver.displayManager.autoLogin = {
     enable = true;
     user = "${username}";
   };

@@ -12,7 +12,7 @@
 
   # Theming
   catppuccin.flavour = "frappe";
-  # catppuccin.enable = true;
+  catppuccin.enable = true;
   catppuccin.accent = "pink";
 
   # Program theming

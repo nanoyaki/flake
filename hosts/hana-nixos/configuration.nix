@@ -44,9 +44,9 @@
   #   defaultRuntime = true;
   # };
 
-  environment.systemPackages = with pkgs; [
-    mongodb
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   mongodb
+  # ];
 
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];

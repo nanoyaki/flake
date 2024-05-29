@@ -110,6 +110,7 @@
       hitori # sudoku game
       atomix # puzzle game
     ]);
+  services.xserver.desktopManager.xterm.enable = false;
 
   # Plasma:
   #

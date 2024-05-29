@@ -12,12 +12,12 @@
 
   # Theming
   catppuccin.flavour = "frappe";
+  catppuccin.enable = true;
 
   # Program theming
   programs.kitty.catppuccin.enable = true;
   programs.mpv.catppuccin.enable = true;
   gtk = {
-    # causes home-manager to crash for some reason
     enable = true;
     catppuccin = {
       enable = true;
@@ -26,6 +26,7 @@
       size = "standard";
       tweaks = ["normal"];
     };
+    # causes home-manager to crash for some reason
     # iconTheme.package = pkgs.catppuccin-papirus-folders.override {
     #   variant = "frappe";
     #   accent = "pink";

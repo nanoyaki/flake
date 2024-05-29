@@ -13,6 +13,7 @@
   # Theming
   catppuccin.flavour = "frappe";
   catppuccin.enable = true;
+  catppuccin.accent = "pink";
 
   # Program theming
   programs.kitty.catppuccin.enable = true;
@@ -25,6 +26,16 @@
       accent = "pink";
       size = "standard";
       tweaks = ["normal"];
+      cursor = {
+        enable = true;
+        accent = "pink";
+        flavour = "frappe";
+      };
+      # icon = {
+      #   enable = true;
+      #   accent = "pink";
+      #   flavour = "frappe";
+      # };
     };
     # causes home-manager to crash for some reason
     # iconTheme.package = pkgs.catppuccin-papirus-folders.override {

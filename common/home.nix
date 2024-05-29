@@ -18,7 +18,7 @@
   programs.mpv.catppuccin.enable = true;
   gtk = {
     # causes home-manager to crash for some reason
-    # enable = true;
+    enable = true;
     catppuccin = {
       enable = true;
       flavour = "frappe";
@@ -26,10 +26,11 @@
       size = "standard";
       tweaks = ["normal"];
     };
-    iconTheme.package = pkgs.catppuccin-papirus-folders.override {
-      variant = "frappe";
-      accent = "pink";
-    };
+    # iconTheme.package = pkgs.catppuccin-papirus-folders.override {
+    #   variant = "frappe";
+    #   accent = "pink";
+    # };
+    # iconTheme.name = "catppuccin-papirus-folders";
   };
   i18n.inputMethod.fcitx5.catppuccin.enable = true;
   programs.btop = {

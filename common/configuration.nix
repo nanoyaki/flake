@@ -80,23 +80,48 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # Gnome:
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages =
+    (with pkgs; [
+      gnome-photos
+      gnome-tour
+      gedit
+    ])
+    ++ (with pkgs.gnome; [
+      cheese # webcam tool
+      gnome-music
+      gnome-terminal
+      epiphany # web browser
+      geary # email reader
+      evince # document viewer
+      gnome-characters
+      totem # video player
+      tali # poker game
+      iagno # go game
+      hitori # sudoku game
+      atomix # puzzle game
+    ]);
+
+  # Plasma:
+  #
+  # services.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
   # Plasma 6 still blackscreens on logon
   # services.desktopManager.plasma6.enable = true;
-  environment.plasma5.excludePackages = with pkgs.kdePackages; [
-    konsole
-    kate
-    elisa
-    kwrited
-    kwallet
-    ark
-    okular
-    print-manager
-    # dolphin
-  ];
-  programs.kdeconnect.enable = false;
+  # environment.plasma5.excludePackages = with pkgs.kdePackages; [
+  #   konsole
+  #   kate
+  #   elisa
+  #   kwrited
+  #   kwallet
+  #   ark
+  #   okular
+  #   print-manager
+  #   # dolphin
+  # ];
+  # programs.kdeconnect.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -224,6 +249,7 @@
       # OS
       gtk4
       gtk3
+      gnomeExtensions.appindicator
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})

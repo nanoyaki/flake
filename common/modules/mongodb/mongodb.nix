@@ -1,5 +1,4 @@
 {
-  sysconfig,
   pkgs,
   username,
   inputs,

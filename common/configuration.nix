@@ -247,8 +247,6 @@
       # pipewire.jack
 
       # OS
-      gtk4
-      gtk3
       gnomeExtensions.appindicator
     ])
     ++ [

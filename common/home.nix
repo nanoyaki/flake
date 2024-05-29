@@ -12,7 +12,7 @@
 
   # Theming
   catppuccin.flavour = "frappe";
-  catppuccin.enable = true;
+  # catppuccin.enable = true;
   catppuccin.accent = "pink";
 
   # Program theming
@@ -20,23 +20,31 @@
   programs.mpv.catppuccin.enable = true;
   gtk = {
     enable = true;
-    catppuccin = {
-      enable = true;
-      flavour = "frappe";
-      accent = "pink";
-      size = "standard";
-      tweaks = ["normal"];
-      cursor = {
-        enable = true;
-        accent = "pink";
-        flavour = "frappe";
+    theme = {
+      name = "Catppuccin-Frappe-Pink";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["pink"];
+        tweaks = ["normal"];
+        variant = "frappe";
       };
-      # icon = {
-      #   enable = true;
-      #   accent = "pink";
-      #   flavour = "frappe";
-      # };
     };
+    # catppuccin = {
+    # enable = true;
+    # flavour = "frappe";
+    # accent = "pink";
+    # size = "standard";
+    # tweaks = ["normal"];
+    # cursor = {
+    #   enable = true;
+    #   accent = "pink";
+    #   flavour = "frappe";
+    # };
+    # icon = {
+    #   enable = true;
+    #   accent = "pink";
+    #   flavour = "frappe";
+    # };
+    # };
     # causes home-manager to crash for some reason
     # iconTheme.package = pkgs.catppuccin-papirus-folders.override {
     #   variant = "frappe";

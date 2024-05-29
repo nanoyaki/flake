@@ -49,9 +49,9 @@
               useUserPackages = true;
               users.${username} = {
                 imports = [
+                  catppuccin.homeManagerModules.catppuccin
                   ./common/home.nix
                   ./hosts/hana-nixos/home.nix
-                  inputs.catppuccin.homeManagerModules.catppuccin
                 ];
               };
             };
@@ -76,9 +76,9 @@
               useUserPackages = true;
               users.${username} = {
                 imports = [
+                  catppuccin.homeManagerModules.catppuccin
                   ./common/home.nix
                   ./hosts/hana-nixos-laptop/home.nix
-                  inputs.catppuccin.homeManagerModules.catppuccin
                 ];
               };
             };

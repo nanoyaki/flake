@@ -258,6 +258,8 @@
 
       # OS
       gnomeExtensions.appindicator
+      gnomeExtensions.zen
+      gnomeExtensions.window-is-ready-remover
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})

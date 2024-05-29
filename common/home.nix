@@ -21,6 +21,7 @@
   gtk = {
     enable = true;
     catppuccin = {
+      gnomeShellTheme = true;
       enable = true;
       flavor = "frappe";
       accent = "pink";

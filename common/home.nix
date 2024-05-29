@@ -11,7 +11,7 @@
   home.homeDirectory = "/home/hana";
 
   # Theming
-  catppuccin.flavour = "frappe";
+  catppuccin.flavor = "frappe";
   catppuccin.enable = true;
   catppuccin.accent = "pink";
 
@@ -22,19 +22,19 @@
     enable = true;
     catppuccin = {
       enable = true;
-      flavour = "frappe";
+      flavor = "frappe";
       accent = "pink";
       size = "standard";
       tweaks = ["normal"];
       cursor = {
         enable = true;
         accent = "pink";
-        flavour = "frappe";
+        flavor = "frappe";
       };
       # icon = {
       #   enable = true;
       #   accent = "pink";
-      #   flavour = "frappe";
+      #   flavor = "frappe";
       # };
     };
     # causes home-manager to crash for some reason
@@ -115,7 +115,7 @@
     #   variant = "frappe";
     # })
     # (catppuccin-kde.override {
-    #   flavour = ["frappe"];
+    #   flavor = ["frappe"];
     #   accents = ["pink"];
     # })
   ];

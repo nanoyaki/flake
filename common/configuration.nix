@@ -18,7 +18,7 @@
       };
       grub = {
         catppuccin.enable = true;
-        catppuccin.flavour = "frappe";
+        catppuccin.flavor = "frappe";
         configurationLimit = 35;
         enable = true;
         efiSupport = true;
@@ -83,7 +83,9 @@
   services.xserver.enable = true;
 
   # Theming
+  catppuccin.accent = "pink";
   catppuccin.enable = true;
+  catppuccin.flavor = "frappe";
 
   # Gnome:
   services.xserver.displayManager.gdm.enable = true;

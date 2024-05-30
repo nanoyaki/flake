@@ -109,6 +109,7 @@
       iagno # go game
       hitori # sudoku game
       atomix # puzzle game
+      seahorse # password something
     ]);
   services.xserver.desktopManager.xterm.enable = false;
   services.gnome.games.enable = false;

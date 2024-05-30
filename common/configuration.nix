@@ -201,6 +201,9 @@
     enable = true;
     user = "${username}";
   };
+  # Workaround for Gnome:
+  systemd.services."getty@tty1".enable = lib.mkIf config.services.xserver.desktopManager.gnome.enable false;
+  systemd.services."autovt@tty1".enable = lib.mkIf config.services.xserver.desktopManager.gnome.enable false;
 
   # Install firefox.
   programs.firefox.enable = true;

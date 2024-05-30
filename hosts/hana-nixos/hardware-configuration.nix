@@ -73,7 +73,7 @@
   hardware.cpu.amd.ryzen-smu.enable = true;
 
   systemd.services.cpu_undervolt = {
-    path = [pkgs.bash pkgs.python3];
+    path = [pkgs.python3];
     enable = true;
     name = "cpu_undervolt.service";
     description = "Undervolt Ryzen 7 5800X3D";

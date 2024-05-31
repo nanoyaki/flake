@@ -44,9 +44,9 @@
   #   defaultRuntime = true;
   # };
 
-  # environment.systemPackages = with pkgs; [
-  #   lunacy
-  # ];
+  environment.systemPackages = with pkgs; [
+    imagemagick
+  ];
 
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];

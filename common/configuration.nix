@@ -353,7 +353,7 @@
       nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
       nya = "cat";
       yt = "firefox youtube.com";
-      x = "LANG=ja_JP 7z x";
+      x = "LANG=ja_JP.UTF-8 7z x";
     };
     histSize = 10000;
   };

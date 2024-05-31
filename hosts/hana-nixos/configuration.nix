@@ -47,6 +47,7 @@
   environment.systemPackages = with pkgs; [
     imagemagick
     unityhub
+    vrc-get
   ];
 
   services.xserver.enable = true;

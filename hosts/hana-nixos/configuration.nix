@@ -46,6 +46,7 @@
 
   environment.systemPackages = with pkgs; [
     imagemagick
+    unityhub
   ];
 
   services.xserver.enable = true;

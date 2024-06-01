@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ../../common/modules/home/gamemode/gamemode.nix
+    # ../../common/modules/home/gamemode/gamemode.nix
   ];
   # dirty workaround since im dumb
   # home.file.".config/mongodb/" = {

@@ -48,6 +48,7 @@
     imagemagick
     unityhub
     vrc-get
+    gimp
   ];
 
   services.xserver.enable = true;

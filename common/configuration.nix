@@ -358,10 +358,23 @@
   };
 
   # Gaming
+  # Steam config taken from:
+  # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+      (proton-ge-bin.overrideAttrs (finalAttrs: _: {
+        version = "GE-Proton9-4-rtsp7";
+        src = pkgs.fetchzip {
+          url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+          hash = "sha256-l/zt/Kv6g1ZrAzcxDNENByHfUp/fce3jOHVAORc5oy0=";
+        };
+      }))
+    ];
   };
 
   programs.gamemode = {

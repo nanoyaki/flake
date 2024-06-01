@@ -366,9 +366,11 @@
 
   programs.gamemode = {
     enable = true;
-    custom = {
-      start = "qdbus org.kde.KWin /Compositor suspend";
-      stop = "qdbus org.kde.KWin /Compositor resume";
+    settings = {
+      custom = {
+        start = "qdbus org.kde.KWin /Compositor suspend";
+        stop = "qdbus org.kde.KWin /Compositor resume";
+      };
     };
   };
 

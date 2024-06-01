@@ -68,6 +68,18 @@
     "C.UTF-8/UTF-8"
   ];
 
+  # Keyboard input
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+  };
+
+  # Configure console keymap
+  console.keyMap = "de";
+
   fonts = {
     packages = with pkgs; [
       mplus-outline-fonts.githubRelease
@@ -81,14 +93,9 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Theming
-  catppuccin.accent = "pink";
-  catppuccin.enable = true;
-  catppuccin.flavor = "frappe";
+  services.xserver.displayManager.gdm.enable = true;
 
   # Gnome:
-  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages =
     (with pkgs; [
@@ -115,11 +122,7 @@
   services.gnome.games.enable = false;
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
-  # Plasma:
-  #
-  # services.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  # Plasma 6 still blackscreens on logon
+  # Plasma 6
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     konsole
@@ -140,17 +143,10 @@
     variant = "";
   };
 
-  # Keyboard input
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-    ];
-  };
-
-  # Configure console keymap
-  console.keyMap = "de";
+  # Theming
+  catppuccin.accent = "pink";
+  catppuccin.enable = true;
+  catppuccin.flavor = "frappe";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -176,10 +172,7 @@
 
   # I HAVE NO FUCKING IDEA HOW TO MAKE OSU LAZER USE A 48K SAMPLE RATE
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User
   users.users.${username} = {
     isNormalUser = true;
     description = "Hana";
@@ -213,57 +206,96 @@
   # Zshell
   users.defaultUserShell = pkgs.zsh;
 
-  environment.pathsToLink = ["/share/zsh"];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # https://search.nixos.org/packages?channel=unstable
   # TODO: make this modular
-  environment.systemPackages =
-    (with pkgs; [
-      # Programming
-      nodejs_22
-      dotnetCorePackages.sdk_7_0_1xx
-      rustup
-      libgcc
-      gcc
-      gnumake
-      gh
-      alejandra
+  # Environment
+  environment = {
+    systemPackages =
+      (with pkgs; [
+        # Programming
+        nodejs_22
+        dotnetCorePackages.sdk_7_0_1xx
+        rustup
+        libgcc
+        gcc
+        gnumake
+        gh
+        alejandra
 
-      # Terminal
-      kitty
+        # Terminal
+        kitty
 
-      # Editors
-      vscode
+        # Editors
+        vscode
 
-      # Files
-      gnome.nautilus
-      gnome.file-roller
-      unrar
-      unzip
-      p7zip
+        # Files
+        gnome.nautilus
+        gnome.file-roller
+        unrar
+        unzip
+        p7zip
 
-      # Games
-      mangohud
+        # Games
+        mangohud
 
-      # Hardware
-      glxinfo
-      lm_sensors
-      gnome.gnome-disk-utility
-      baobab
-      # When pipewire.service.jack.enable is true, enable this:
-      # pipewire.jack
+        # Hardware
+        glxinfo
+        lm_sensors
+        gnome.gnome-disk-utility
+        baobab
+        # When pipewire.service.jack.enable is true, enable this:
+        # pipewire.jack
 
-      # OS
-      gnomeExtensions.appindicator
-      gnomeExtensions.zen
-      gnomeExtensions.window-is-ready-remover
-    ])
-    ++ [
-      (import ./rebuild.nix {inherit pkgs;})
-      inputs.envision.packages."x86_64-linux".envision
-    ];
+        # OS
+        gnomeExtensions.appindicator
+        gnomeExtensions.zen
+        gnomeExtensions.window-is-ready-remover
+      ])
+      ++ [
+        (import ./rebuild.nix {inherit pkgs;})
+        inputs.envision.packages."x86_64-linux".envision
+      ];
+
+    sessionVariables = {
+      PIPEWIRE_LATENCY = "32/48000";
+      FLAKE_DIR = "$HOME/flake";
+      LANGUAGE = "en_GB";
+      XRT_COMPOSITOR_COMPUTE = 1;
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    };
+
+    variables = {
+      EDITOR = "code";
+      LANGUAGE = "en_GB";
+    };
+
+    pathsToLink = ["/share/zsh"];
+  };
+
+  # Zsh
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme\; bindkey \"\;5C\" forward-word\; bindkey \"\;5D\" backward-word";
+
+    shellAliases = {
+      ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
+      copy = "rsync -a --info=progress2 --info=name0";
+      nix-conf = "code $FLAKE_DIR";
+      nix-up = "sudo nixos-rebuild switch --flake $FLAKE_DIR --upgrade";
+      nix-op = "firefox \"https://search.nixos.org/options?channel=unstable\"";
+      nix-pac = "firefox \"https://search.nixos.org/packages?channel=unstable\"";
+      nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
+      nya = "cat";
+      yt = "firefox youtube.com";
+      x = "LANG=ja_JP.UTF-8 7z x";
+    };
+    histSize = 10000;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -296,19 +328,21 @@
   programs.git.enable = true;
 
   # Security
-  security.polkit.enable = true;
-  # Corectrl
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if ((action.id == "org.corectrl.helper.init" ||
-        action.id == "org.corectrl.helperkiller.init") &&
-        subject.local == true &&
-        subject.active == true &&
-        subject.isInGroup("wheel")) {
-          return polkit.Result.YES;
-        }
-    });
-  '';
+  security.polkit = {
+    enable = true;
+    # Corectrl
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if ((action.id == "org.corectrl.helper.init" ||
+          action.id == "org.corectrl.helperkiller.init") &&
+          subject.local == true &&
+          subject.active == true &&
+          subject.isInGroup("wheel")) {
+            return polkit.Result.YES;
+          }
+      });
+    '';
+  };
 
   # General hardware control
   programs.corectrl = {
@@ -317,45 +351,11 @@
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };
 
-  # Environment variables
-  environment.sessionVariables = {
-    PIPEWIRE_LATENCY = "32/48000";
-    FLAKE_DIR = "$HOME/flake";
-    LANGUAGE = "en_GB";
-    XRT_COMPOSITOR_COMPUTE = 1;
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
-  };
-  environment.variables = {
-    EDITOR = "code";
-    LANGUAGE = "en_GB";
-  };
-
-  # Zsh
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme\; bindkey \"\;5C\" forward-word\; bindkey \"\;5D\" backward-word";
-
-    shellAliases = {
-      ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
-      copy = "rsync -a --info=progress2 --info=name0";
-      nix-conf = "code $FLAKE_DIR";
-      nix-up = "sudo nixos-rebuild switch --flake $FLAKE_DIR --upgrade";
-      nix-op = "firefox \"https://search.nixos.org/options?channel=unstable\"";
-      nix-pac = "firefox \"https://search.nixos.org/packages?channel=unstable\"";
-      nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
-      nya = "cat";
-      yt = "firefox youtube.com";
-      x = "LANG=ja_JP.UTF-8 7z x";
-    };
-    histSize = 10000;
-  };
-
   # Nautilus Settings
-  programs.nautilus-open-any-terminal.enable = true;
-  programs.nautilus-open-any-terminal.terminal = "kitty";
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "kitty";
+  };
 
   # Gaming
   programs.steam = {
@@ -364,7 +364,14 @@
     dedicatedServer.openFirewall = true;
   };
 
-  programs.gamemode.enable = true;
+  programs.gamemode = {
+    enable = true;
+    custom = {
+      start = "qdbus org.kde.KWin /Compositor suspend";
+      stop = "qdbus org.kde.KWin /Compositor resume";
+    };
+  };
+
   services.libinput.mouse.accelProfile = "flat";
 
   # mullvad

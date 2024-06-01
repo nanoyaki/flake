@@ -57,6 +57,7 @@
     index_camera_passthrough
     opencomposite
     lighthouse-steamvr
+    pavucontrol
   ];
 
   services.xserver.enable = true;

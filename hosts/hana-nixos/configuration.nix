@@ -58,6 +58,7 @@
 
   # VR
   programs.steam.extraPackages = with pkgs; [
+    gamescope
     wlx-overlay-s
     index_camera_passthrough
     opencomposite

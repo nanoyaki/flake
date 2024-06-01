@@ -27,6 +27,7 @@
   #   defaultRuntime = true;
   # };
 
+  # VR Patch
   boot.kernelPatches = [
     {
       name = "cap_sys_nice_begone";

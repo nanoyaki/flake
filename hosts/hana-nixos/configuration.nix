@@ -11,6 +11,8 @@
   imports = [
     ./hardware-configuration.nix
 
+    inputs.aagl.nixosModules.default
+
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -38,13 +40,6 @@
     }
   ];
 
-  # programs.coolercontrol.enable = true;
-  #
-  # services.monado = {
-  #   enable = true;
-  #   defaultRuntime = true;
-  # };
-
   environment.systemPackages = with pkgs; [
     # Image manipulation
     imagemagick
@@ -56,14 +51,22 @@
     pavucontrol
   ];
 
-  # VR
-  programs.steam.extraPackages = with pkgs; [
-    gamescope
-    wlx-overlay-s
-    index_camera_passthrough
-    opencomposite
-    lighthouse-steamvr
-  ];
+  nix.settings = inputs.aagl.nixConfig; # Set up Cachix
+
+  programs = {
+    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+    honkers-railway-launcher.enable = true;
+
+    steam.extraPackages = with pkgs; [
+      gamescope
+      wlx-overlay-s
+      index_camera_passthrough
+      opencomposite
+      lighthouse-steamvr
+    ];
+
+    programs.coolercontrol.enable = true;
+  };
 
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];

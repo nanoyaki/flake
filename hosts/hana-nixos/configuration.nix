@@ -65,7 +65,7 @@
       lighthouse-steamvr
     ];
 
-    programs.coolercontrol.enable = true;
+    coolercontrol.enable = true;
   };
 
   services.xserver.enable = true;

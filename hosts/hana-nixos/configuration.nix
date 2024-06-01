@@ -51,7 +51,7 @@
     pavucontrol
 
     # OS
-    busybox
+    usbutils
   ];
 
   nix.settings = inputs.aagl.nixConfig; # Set up Cachix

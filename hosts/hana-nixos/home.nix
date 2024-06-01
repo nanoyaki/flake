@@ -11,4 +11,13 @@
   #   source = ../../common/modules/mongodb/configs;
   #   recursive = true;
   # };
+
+  home.packages = with pkgs; [
+    # Games
+    protonup
+    bottles
+    parsec-bin
+    cartridges
+    lutris-unwrapped
+  ];
 }

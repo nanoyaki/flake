@@ -89,13 +89,9 @@
     ffmpeg
 
     # Games
-    lutris-unwrapped
     osu-lazer-bin
-    parsec-bin
-    cartridges
-    protonup
-    bottles
     modrinth-app
+    prismlauncher
 
     # Editors
     obsidian

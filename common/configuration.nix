@@ -268,7 +268,7 @@
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})
-      # inputs.envision.packages."x86_64-linux".envision
+      inputs.envision.packages."x86_64-linux".envision
     ];
 
   # Some programs need SUID wrappers, can be configured further or are

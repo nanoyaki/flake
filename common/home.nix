@@ -18,17 +18,8 @@
   # Program theming
   # programs.kitty.catppuccin.enable = true;
   # programs.mpv.catppuccin.enable = true;
-  gtk = {
-    enable = true;
-    iconTheme.package = pkgs.catppuccin-papirus-folders.override {
-      variant = "frappe";
-      accent = "pink";
-    };
-    iconTheme.name = "catppuccin-papirus-folders";
-  };
-  programs.btop = {
-    enable = true;
-  };
+  gtk.enable = true;
+  programs.btop.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

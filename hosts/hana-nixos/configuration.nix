@@ -49,6 +49,9 @@
     unityhub
     vrc-get
     pavucontrol
+
+    # OS
+    busybox
   ];
 
   nix.settings = inputs.aagl.nixConfig; # Set up Cachix

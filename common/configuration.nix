@@ -323,6 +323,7 @@
     FLAKE_DIR = "$HOME/flake";
     LANGUAGE = "en_GB";
     XRT_COMPOSITOR_COMPUTE = 1;
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
   environment.variables = {
     EDITOR = "code";

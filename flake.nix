@@ -2,6 +2,8 @@
   description = "Hana's NixOS System flake";
 
   inputs = {
+    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+    aagl.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -21,6 +23,7 @@
     nixpkgs,
     nixpkgs-xr,
     envision,
+    aagl,
     catppuccin,
     home-manager,
     ...
@@ -54,6 +57,15 @@
                   ./hosts/hana-nixos/home.nix
                 ];
               };
+            };
+            imports = [aagl.nixosModules.default];
+            nix.settings = aagl.nixConfig; # Set up Cachix
+            programs = {
+              anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+              anime-games-launcher.enable = true;
+              anime-borb-launcher.enable = true;
+              honkers-railway-launcher.enable = true;
+              honkers-launcher.enable = true;
             };
           }
         ];

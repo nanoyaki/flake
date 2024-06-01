@@ -45,10 +45,14 @@
   # };
 
   environment.systemPackages = with pkgs; [
+    # Image manipulation
     imagemagick
+    gimp
+
+    # VR
     unityhub
     vrc-get
-    gimp
+    wlx-overlay-s
   ];
 
   services.xserver.enable = true;

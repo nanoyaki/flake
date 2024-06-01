@@ -53,11 +53,15 @@
     # VR
     unityhub
     vrc-get
+    pavucontrol
+  ];
+
+  # VR
+  programs.steam.extraPackages = with pkgs; [
     wlx-overlay-s
     index_camera_passthrough
     opencomposite
     lighthouse-steamvr
-    pavucontrol
   ];
 
   services.xserver.enable = true;

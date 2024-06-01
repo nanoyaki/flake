@@ -16,41 +16,19 @@
   catppuccin.accent = "pink";
 
   # Program theming
-  programs.kitty.catppuccin.enable = true;
-  programs.mpv.catppuccin.enable = true;
+  # programs.kitty.catppuccin.enable = true;
+  # programs.mpv.catppuccin.enable = true;
   gtk = {
     enable = true;
-    catppuccin = {
-      gnomeShellTheme = true;
-      enable = true;
-      flavor = "frappe";
+    iconTheme.package = pkgs.catppuccin-papirus-folders.override {
+      variant = "frappe";
       accent = "pink";
-      size = "standard";
-      tweaks = ["normal"];
-      cursor = {
-        enable = true;
-        accent = "pink";
-        flavor = "frappe";
-      };
-      icon = {
-        enable = true;
-        accent = "pink";
-        flavor = "frappe";
-      };
     };
-    # causes home-manager to crash for some reason
-    # iconTheme.package = pkgs.catppuccin-papirus-folders.override {
-    #   variant = "frappe";
-    #   accent = "pink";
-    # };
-    # iconTheme.name = "catppuccin-papirus-folders";
+    iconTheme.name = "catppuccin-papirus-folders";
   };
-  i18n.inputMethod.fcitx5.catppuccin.enable = true;
   programs.btop = {
     enable = true;
-    catppuccin.enable = true;
   };
-  programs.zsh.syntaxHighlighting.catppuccin.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

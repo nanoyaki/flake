@@ -27,15 +27,15 @@
   #   defaultRuntime = true;
   # };
 
-  # boot.kernelPatches = [
-  #   {
-  #     name = "cap_sys_nice_begone";
-  #     patch = builtins.fetchurl {
-  #       url = "https://codeberg.org/Scrumplex/flake/raw/commit/3ec4940bb61812d3f9b4341646e8042f83ae1350/pkgs/cap_sys_nice_begone.patch";
-  #       sha256 = "07a1e8cb6f9bcf68da3a2654c41911d29bcef98d03fb6da25f92595007594679";
-  #     };
-  #   }
-  # ];
+  boot.kernelPatches = [
+    {
+      name = "cap_sys_nice_begone";
+      patch = builtins.fetchurl {
+        url = "https://codeberg.org/Scrumplex/flake/raw/commit/3ec4940bb61812d3f9b4341646e8042f83ae1350/pkgs/cap_sys_nice_begone.patch";
+        sha256 = "07a1e8cb6f9bcf68da3a2654c41911d29bcef98d03fb6da25f92595007594679";
+      };
+    }
+  ];
 
   # programs.coolercontrol.enable = true;
   #

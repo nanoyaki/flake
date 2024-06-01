@@ -62,10 +62,7 @@
             nix.settings = aagl.nixConfig; # Set up Cachix
             programs = {
               anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-              anime-games-launcher.enable = true;
-              anime-borb-launcher.enable = true;
               honkers-railway-launcher.enable = true;
-              honkers-launcher.enable = true;
             };
           }
         ];

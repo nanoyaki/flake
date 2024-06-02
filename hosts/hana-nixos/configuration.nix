@@ -49,6 +49,10 @@
     unityhub
     vrc-get
     pavucontrol
+    index_camera_passthrough
+    opencomposite-helper
+    wlx-overlay-s
+    lighthouse-steamvr
 
     # OS
     usbutils
@@ -62,10 +66,6 @@
 
     steam.extraPackages = with pkgs; [
       gamescope
-      wlx-overlay-s
-      index_camera_passthrough
-      opencomposite
-      lighthouse-steamvr
     ];
 
     coolercontrol.enable = true;

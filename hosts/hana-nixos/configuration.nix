@@ -41,10 +41,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Programming
-    pkg-config
-    openssl
-
     # Image manipulation
     imagemagick
     gimp

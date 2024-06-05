@@ -246,9 +246,6 @@
     systemPackages =
       (with pkgs; [
         # Programming
-        nodejs_22
-        dotnetCorePackages.sdk_7_0_1xx
-        rustup
         libgcc
         gcc
         gnumake

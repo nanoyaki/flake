@@ -41,6 +41,9 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    # Programming
+    pkg-config
+
     # Image manipulation
     imagemagick
     gimp

@@ -62,6 +62,10 @@
     usbutils
   ];
 
+  environment.variables = {
+    PKG_CONFIG_PATH = "/run/current-system/sw/bin/openssl";
+  };
+
   nix.settings = inputs.aagl.nixConfig; # Set up Cachix
 
   programs = {

@@ -251,6 +251,10 @@
         rustup
         gcc
         pkg-config
+        php83
+        php83Packages.phpstan
+        php83Packages.composer
+        php83Extensions.mongodb
 
         # Terminal
         kitty

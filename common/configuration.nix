@@ -251,6 +251,7 @@
         rustup
         gcc
         pkg-config
+        # PHP
         (php83.buildEnv {
           extensions = {
             enabled,
@@ -260,6 +261,7 @@
         })
         php83Packages.phpstan
         php83Packages.composer
+        symfony-cli
 
         # Terminal
         kitty

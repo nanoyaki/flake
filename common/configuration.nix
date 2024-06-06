@@ -255,6 +255,7 @@
         php83Packages.phpstan
         php83Packages.composer
         php83Extensions.mongodb
+        php83Extensions.redis
 
         # Terminal
         kitty

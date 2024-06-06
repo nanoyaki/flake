@@ -248,8 +248,6 @@
         # Programming
         gh
         alejandra
-        rustc
-        cargo
         rustup
 
         # Terminal

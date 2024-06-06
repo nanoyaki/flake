@@ -41,6 +41,14 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    # Programming
+    libgcc
+    gcc
+    gnumake
+
+    # Games
+    mangohud
+
     # Image manipulation
     imagemagick
     gimp

@@ -246,9 +246,6 @@
     systemPackages =
       (with pkgs; [
         # Programming
-        libgcc
-        gcc
-        gnumake
         gh
         alejandra
 
@@ -264,9 +261,6 @@
         unrar
         unzip
         p7zip
-
-        # Games
-        mangohud
 
         # Hardware
         glxinfo

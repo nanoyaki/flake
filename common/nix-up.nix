@@ -19,6 +19,8 @@ pkgs.writeShellScriptBin "nix-up" ''
     exit 1
   fi
 
+  nix flake update
+
   git add flake.lock
 
   # Rebuild and exit on failure

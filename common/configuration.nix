@@ -248,6 +248,8 @@
         # Programming
         gh
         alejandra
+        rustc
+        cargo
 
         # Terminal
         kitty

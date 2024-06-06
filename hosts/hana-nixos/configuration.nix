@@ -40,31 +40,35 @@
     }
   ];
 
-  environment.systemPackages = with pkgs; [
-    # Programming
-    libgcc
-    gcc
-    gnumake
+  environment.systemPackages = with pkgs;
+    [
+      # Programming
+      libgcc
+      gcc
+      gnumake
 
-    # Games
-    mangohud
+      # Games
+      mangohud
 
-    # Image manipulation
-    imagemagick
-    gimp
+      # Image manipulation
+      imagemagick
+      gimp
 
-    # VR
-    unityhub
-    vrc-get
-    pavucontrol
-    index_camera_passthrough
-    opencomposite-helper
-    wlx-overlay-s
-    lighthouse-steamvr
+      # VR
+      unityhub
+      vrc-get
+      pavucontrol
+      index_camera_passthrough
+      opencomposite-helper
+      wlx-overlay-s
+      lighthouse-steamvr
 
-    # OS
-    usbutils
-  ];
+      # OS
+      usbutils
+    ]
+    ++ [
+      inputs.envision.packages."x86_64-linux".envision
+    ];
 
   environment.variables = {
     PKG_CONFIG_PATH = "/run/current-system/sw/bin/openssl";

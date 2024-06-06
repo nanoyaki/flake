@@ -249,6 +249,7 @@
         gh
         alejandra
         rustup
+        gcc
 
         # Terminal
         kitty

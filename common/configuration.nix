@@ -250,6 +250,7 @@
         alejandra
         rustc
         cargo
+        rustup
 
         # Terminal
         kitty

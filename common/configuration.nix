@@ -251,6 +251,7 @@
         rustup
         gcc
         pkg-config
+        libavutil
 
         # Terminal
         kitty

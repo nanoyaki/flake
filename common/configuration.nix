@@ -250,6 +250,7 @@
         alejandra
         rustup
         gcc
+        pkg-config
 
         # Terminal
         kitty

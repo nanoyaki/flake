@@ -251,11 +251,15 @@
         rustup
         gcc
         pkg-config
-        php83
+        (php83.buildEnv {
+          extensions = {
+            enabled,
+            all,
+          }:
+            enabled ++ (with all; [mongodb redis]);
+        })
         php83Packages.phpstan
         php83Packages.composer
-        php83Extensions.mongodb
-        php83Extensions.redis
 
         # Terminal
         kitty

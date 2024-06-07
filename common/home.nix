@@ -55,7 +55,6 @@
     mpv
     spotify
     yt-dlp
-    ffmpeg
 
     # Games
     osu-lazer-bin

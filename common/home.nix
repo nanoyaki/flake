@@ -16,10 +16,16 @@
   catppuccin.accent = "pink";
 
   # Program theming
-  # programs.kitty.catppuccin.enable = true;
-  # programs.mpv.catppuccin.enable = true;
-  gtk.enable = true;
-  programs.btop.enable = true;
+  programs.kitty.catppuccin.enable = true;
+  programs.mpv.catppuccin.enable = true;
+  gtk = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+  programs.btop = {
+    enable = true;
+    catppuccin.enable = true;
+  };
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

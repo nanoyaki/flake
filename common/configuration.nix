@@ -148,6 +148,8 @@
   catppuccin.enable = true;
   catppuccin.flavor = "frappe";
 
+  console.catppuccin.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

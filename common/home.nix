@@ -26,6 +26,10 @@
     enable = true;
     catppuccin.enable = true;
   };
+  i18n.inputMethod.fcitx5.catppuccin.enable = true;
+  programs.git.delta.catppuccin.enable = true;
+  programs.zsh.syntaxHighlighting.catppuccin.enable = true;
+  qt.style.catppuccin.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

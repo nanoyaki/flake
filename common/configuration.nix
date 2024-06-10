@@ -254,7 +254,7 @@
         gcc
         pkg-config
         # PHP
-        (php83.buildEnv {
+        (pkgs.php83.buildEnv {
           extensions = {
             enabled,
             all,

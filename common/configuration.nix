@@ -264,6 +264,7 @@
         php83Packages.phpstan
         php83Packages.composer
         symfony-cli
+        nodejs_22
 
         # Terminal
         kitty

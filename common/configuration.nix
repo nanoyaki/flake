@@ -291,6 +291,7 @@
         gnomeExtensions.appindicator
         gnomeExtensions.zen
         gnomeExtensions.window-is-ready-remover
+        libsForQt5.qt5.qttools
       ])
       ++ [
         (import ./rebuild.nix {inherit pkgs;})

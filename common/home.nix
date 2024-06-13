@@ -19,6 +19,12 @@
   programs.kitty.catppuccin.enable = true;
   programs.mpv.catppuccin.enable = true;
   gtk = {
+    catppuccin.icon = {
+      enable = true;
+      accent = "pink";
+      flavor = "frappe";
+    };
+    catppuccin.size = "standard";
     enable = true;
   };
   programs.btop = {

@@ -20,7 +20,6 @@
   programs.mpv.catppuccin.enable = true;
   gtk = {
     enable = true;
-    catppuccin.enable = true;
   };
   programs.btop = {
     enable = true;

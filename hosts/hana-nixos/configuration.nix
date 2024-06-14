@@ -88,7 +88,4 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.videoDrivers = ["amdgpu"];
-
-  hardware.amdgpu.amdvlk = false;
 }

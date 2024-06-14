@@ -90,6 +90,10 @@
     driSupport32Bit = true;
   };
 
+  services.xserver.videoDrivers = ["amdgpu"];
+
+  hardware.amdgpu.amdvlk.enable = false;
+
   hardware.steam-hardware.enable = true;
 
   hardware.bluetooth.enable = true;

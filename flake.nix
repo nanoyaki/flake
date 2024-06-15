@@ -47,7 +47,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              backupFileExtension = "backup";
+              backupFileExtension = "bac";
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${username} = {
@@ -74,7 +74,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              backupFileExtension = "backup";
+              backupFileExtension = "bac";
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${username} = {

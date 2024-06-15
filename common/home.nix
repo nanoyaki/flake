@@ -90,14 +90,15 @@
     zsh-powerlevel10k
     # papirus-icon-theme
     catppuccin-cursors.frappePink
-    # (catppuccin.override {
-    #   accent = "pink";
-    #   variant = "frappe";
-    # })
-    # (catppuccin-kde.override {
-    #   flavor = ["frappe"];
-    #   accents = ["pink"];
-    # })
+    console.catppuccin.enable
+    (catppuccin.override {
+      accent = "pink";
+      variant = "frappe";
+    })
+    (catppuccin-kde.override {
+      flavor = ["frappe"];
+      accents = ["pink"];
+    })
   ];
 
   xdg.enable = true;

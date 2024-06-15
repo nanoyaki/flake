@@ -95,7 +95,7 @@
       variant = "frappe";
     })
     (catppuccin-kde.override {
-      flavor = ["frappe"];
+      flavour = ["frappe"];
       accents = ["pink"];
     })
   ];

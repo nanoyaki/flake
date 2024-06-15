@@ -32,7 +32,6 @@
       },
       "original": {
         "owner": "catppuccin",
-        "ref": "main",
         "repo": "nix",
         "type": "github"
       }

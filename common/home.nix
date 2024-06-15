@@ -84,7 +84,6 @@
 
     # Terminal
     fastfetch
-    # warp-terminal
 
     # Theming
     zsh-powerlevel10k

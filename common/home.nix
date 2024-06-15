@@ -88,9 +88,8 @@
 
     # Theming
     zsh-powerlevel10k
-    # papirus-icon-theme
+    papirus-icon-theme
     catppuccin-cursors.frappePink
-    console.catppuccin.enable
     (catppuccin.override {
       accent = "pink";
       variant = "frappe";

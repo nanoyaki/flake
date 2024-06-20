@@ -18,7 +18,7 @@
   boot.kernelParams = ["acpi_enforce_resources=lax"];
   boot.extraModulePackages = with pkgs; [
     linuxKernel.packages.linux_lqx.it87
-    linuxKernel.packages.linux_lqx.ryzen-smu
+    #linuxKernel.packages.linux_lqx.ryzen-smu
   ];
 
   fileSystems."/" = {

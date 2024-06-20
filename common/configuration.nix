@@ -95,33 +95,6 @@
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
-  # Gnome:
-  services.xserver.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      gnome-photos
-      gnome-tour
-      gedit
-    ])
-    ++ (with pkgs.gnome; [
-      cheese # webcam tool
-      gnome-music
-      gnome-terminal
-      epiphany # web browser
-      geary # email reader
-      evince # document viewer
-      gnome-characters
-      totem # video player
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-      seahorse # password something
-    ]);
-  services.xserver.desktopManager.xterm.enable = false;
-  services.gnome.games.enable = false;
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
-
   # Plasma 6
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -219,9 +192,6 @@
         # Programming
         gh
         alejandra
-        rustup
-        gcc
-        pkg-config
         # PHP
         (pkgs.php83.buildEnv {
           extensions = {
@@ -233,7 +203,6 @@
         php83Packages.phpstan
         php83Packages.composer
         symfony-cli
-        nodejs_22
 
         # Terminal
         kitty
@@ -243,10 +212,6 @@
 
         # Files
         gnome.nautilus
-        gnome.file-roller
-        unrar
-        unzip
-        p7zip
 
         # Hardware
         glxinfo
@@ -257,9 +222,6 @@
         # pipewire.jack
 
         # OS
-        gnomeExtensions.appindicator
-        gnomeExtensions.zen
-        gnomeExtensions.window-is-ready-remover
         libsForQt5.qt5.qttools
       ])
       ++ [
@@ -363,36 +325,6 @@
   programs.nautilus-open-any-terminal = {
     enable = true;
     terminal = "kitty";
-  };
-
-  # Gaming
-  # Steam config taken from:
-  # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-      (proton-ge-bin.overrideAttrs (finalAttrs: _: {
-        version = "GE-Proton9-4-rtsp7";
-        src = pkgs.fetchzip {
-          url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
-          hash = "sha256-l/zt/Kv6g1ZrAzcxDNENByHfUp/fce3jOHVAORc5oy0=";
-        };
-      }))
-    ];
-  };
-
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      custom = {
-        start = "qdbus org.kde.KWin /Compositor suspend";
-        stop = "qdbus org.kde.KWin /Compositor resume";
-      };
-    };
   };
 
   services.libinput.mouse.accelProfile = "flat";

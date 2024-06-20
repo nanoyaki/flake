@@ -29,6 +29,33 @@
   #   defaultRuntime = true;
   # };
 
+  # Gnome:
+  services.xserver.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages =
+    (with pkgs; [
+      gnome-photos
+      gnome-tour
+      gedit
+    ])
+    ++ (with pkgs.gnome; [
+      cheese # webcam tool
+      gnome-music
+      gnome-terminal
+      epiphany # web browser
+      geary # email reader
+      evince # document viewer
+      gnome-characters
+      totem # video player
+      tali # poker game
+      iagno # go game
+      hitori # sudoku game
+      atomix # puzzle game
+      seahorse # password something
+    ]);
+  services.xserver.desktopManager.xterm.enable = false;
+  services.gnome.games.enable = false;
+  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
+
   # VR Patch
   boot.kernelPatches = [
     {
@@ -45,6 +72,9 @@
       # Programming
       libgcc
       gcc
+      nodejs_22
+      rustup
+      pkg-config
       gnumake
 
       # Games
@@ -65,6 +95,17 @@
 
       # OS
       usbutils
+
+      # Files
+      gnome.file-roller
+      unrar
+      unzip
+      p7zip
+
+      # Gnome Extensions:
+      gnomeExtensions.appindicator
+      gnomeExtensions.zen
+      gnomeExtensions.window-is-ready-remover
     ]
     ++ [
       inputs.envision.packages."x86_64-linux".envision
@@ -109,13 +150,40 @@
 
   nix.settings = inputs.aagl.nixConfig; # Set up Cachix
 
+  # Gaming
   programs = {
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     honkers-railway-launcher.enable = true;
 
-    steam.extraPackages = with pkgs; [
-      gamescope
-    ];
+    # Steam config taken from:
+    # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
+    steam = {
+      extraPackages = with pkgs; [gamescope];
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+        (proton-ge-bin.overrideAttrs (finalAttrs: _: {
+          version = "GE-Proton9-4-rtsp7";
+          src = pkgs.fetchzip {
+            url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+            hash = "sha256-l/zt/Kv6g1ZrAzcxDNENByHfUp/fce3jOHVAORc5oy0=";
+          };
+        }))
+      ];
+    };
+
+    gamemode = {
+      enable = true;
+      settings = {
+        custom = {
+          start = "qdbus org.kde.KWin /Compositor suspend";
+          stop = "qdbus org.kde.KWin /Compositor resume";
+        };
+      };
+    };
 
     coolercontrol.enable = true;
   };

@@ -58,7 +58,7 @@
     thunderbird
     (discord.override {
       withOpenASAR = true;
-      withVencord = true;
+      withVencord = false;
     })
 
     # Media

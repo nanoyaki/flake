@@ -102,7 +102,6 @@
     kate
     elisa
     kwrited
-    kwallet
     ark
     okular
     print-manager

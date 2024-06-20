@@ -53,11 +53,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # Programming
-    mongodb-compass
-    jetbrains.rider
-    jetbrains.rust-rover
-
     # Communication
     vesktop
     thunderbird
@@ -72,8 +67,6 @@
     yt-dlp
 
     # Games
-    osu-lazer-bin
-    modrinth-app
     prismlauncher
 
     # Editors

@@ -18,5 +18,6 @@
     lutris-unwrapped
     osu-lazer-bin
     modrinth-app
+    openarena
   ];
 }

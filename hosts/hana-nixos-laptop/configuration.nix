@@ -32,6 +32,6 @@
   networking.hostName = "${username}-nixos-laptop";
 
   # Virtualisation
-  # virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = true;
   users.users.${username}.extraGroups = ["vboxusers"];
 }

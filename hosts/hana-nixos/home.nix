@@ -8,6 +8,7 @@
     mongodb-compass
     jetbrains.rider
     jetbrains.rust-rover
+    jetbrains.phpstorm
 
     # Games
     protonup

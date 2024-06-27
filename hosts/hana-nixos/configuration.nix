@@ -95,6 +95,7 @@
 
       # OS
       usbutils
+      putty
 
       # Files
       gnome.file-roller

@@ -95,7 +95,6 @@
 
       # OS
       usbutils
-      putty
 
       # Files
       gnome.file-roller
@@ -192,9 +191,4 @@
   services.xserver.enable = true;
 
   virtualisation.virtualbox.host.enable = true;
-
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = true;
-  };
 }

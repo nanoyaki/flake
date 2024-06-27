@@ -81,7 +81,7 @@
     # Theming
     zsh-powerlevel10k
     # papirus-icon-theme
-    catppuccin-papirus-folders
+    #catppuccin-papirus-folders
     catppuccin-cursors.frappePink
     (catppuccin.override {
       accent = "pink";

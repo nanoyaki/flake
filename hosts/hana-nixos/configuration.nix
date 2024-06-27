@@ -189,4 +189,6 @@
   };
 
   services.xserver.enable = true;
+
+  virtualisation.virtualbox.host.enable = true;
 }

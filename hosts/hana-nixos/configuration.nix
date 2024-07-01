@@ -76,6 +76,7 @@
       rustup
       pkg-config
       gnumake
+      go
 
       # Games
       mangohud

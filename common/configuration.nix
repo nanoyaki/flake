@@ -313,6 +313,16 @@
     '';
   };
 
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      custom = {
+        start = "qdbus org.kde.KWin /Compositor suspend";
+        stop = "qdbus org.kde.KWin /Compositor resume";
+      };
+    };
+  };
+
   # General hardware control
   programs.corectrl = {
     enable = true;

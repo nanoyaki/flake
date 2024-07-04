@@ -38,4 +38,10 @@
   # Virtualisation
   # virtualisation.virtualbox.host.enable = true;
   users.users.${username}.extraGroups = ["vboxusers"];
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [25565];
+    allowedUDPPorts = [25565];
+  };
 }

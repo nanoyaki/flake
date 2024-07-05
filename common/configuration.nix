@@ -210,12 +210,12 @@
         vscode
 
         # Files
-        gnome.nautilus
+        nautilus
 
         # Hardware
         glxinfo
         lm_sensors
-        gnome.gnome-disk-utility
+        gnome-disk-utility
         baobab
         # When pipewire.service.jack.enable is true, enable this:
         # pipewire.jack

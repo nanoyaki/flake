@@ -33,24 +33,24 @@
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages =
     (with pkgs; [
+      cheese # webcam tool
+      gnome-terminal
+      epiphany # web browser
+      geary # email reader
+      evince # document viewer
+      totem # video player
+      seahorse # password something
       gnome-photos
       gnome-tour
       gedit
     ])
     ++ (with pkgs.gnome; [
-      cheese # webcam tool
       gnome-music
-      gnome-terminal
-      epiphany # web browser
-      geary # email reader
-      evince # document viewer
       gnome-characters
-      totem # video player
       tali # poker game
       iagno # go game
       hitori # sudoku game
       atomix # puzzle game
-      seahorse # password something
     ]);
   services.xserver.desktopManager.xterm.enable = false;
   services.gnome.games.enable = false;
@@ -98,7 +98,7 @@
       usbutils
 
       # Files
-      gnome.file-roller
+      file-roller
       unrar
       unzip
       p7zip

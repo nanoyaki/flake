@@ -8,6 +8,14 @@
   lib,
   ...
 }: {
+  imports = [
+    #./hardware-configuration.nix
+
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+  ];
+
   # Boot settings
   boot = {
     loader = {
@@ -16,15 +24,19 @@
         efiSysMountPoint = "/boot/efi";
       };
       grub = {
+        catppuccin.enable = true;
+        catppuccin.flavor = "macchiato";
         configurationLimit = 35;
         enable = true;
         efiSupport = true;
         device = "nodev";
+        useOSProber = true;
       };
     };
     supportedFilesystems = ["ntfs"];
-    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
   };
+  time.hardwareClockInLocalTime = true;
 
   # Nix settings
   nixpkgs.config.allowUnfree = true;
@@ -36,12 +48,13 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.hostName = "niklasuwu-nixos";
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8/UTF-8";
+  i18n.defaultLocale = "de_DE.UTF-8/UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -56,27 +69,25 @@
   };
 
   i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
   ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.displayManager.defaultSession = "plasmax11";
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  #services.desktopManager.plasma6.enable = true;
-  environment.plasma5.excludePackages = with pkgs; [
-    kdePackages.konsole
-    kdePackages.dolphin
-    kdePackages.kate
-    kdePackages.elisa
-    kdePackages.kwrited
-    kdePackages.kwallet
-    kdePackages.ark
-    kdePackages.okular
-    kdePackages.print-manager
+  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    konsole
+    kate
+    elisa
+    kwrited
+    ark
+    okular
+    print-manager
   ];
   programs.kdeconnect.enable = false;
 
@@ -86,11 +97,18 @@
     variant = "";
   };
 
+  # Theming
+  catppuccin.enable = true;
+  catppuccin.accent = "lavender";
+  catppuccin.flavor = "macchiato";
+
+  console.catppuccin.enable = true;
+
   # Keyboard input
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
-      fcitx5-mozc
+      fcitx5-gtk
     ];
   };
 
@@ -105,30 +123,52 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    package = pkgs-stable.pipewire;
     enable = true;
     audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    # jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    # media-session.enable = true;
+    # wireplumber.enable = true;
   };
 
-  services.pipewire.extraConfig.pipewire."99-rates.conf" = {
-    context.properties = {
-      default.clock.rate = 48000;
-      default.clock.quantum = 32;
-      default.clock.min-quantum = 32;
-      default.clock.max-quantum = 32;
+  services.pipewire = {
+    extraConfig = {
+      pipewire."92-low-latency" = {
+        context.properties = {
+          default.clock.rate = 48000;
+          default.clock.quantum = 32;
+          default.clock.min-quantum = 32;
+          default.clock.max-quantum = 32;
+        };
+      };
+
+      pipewire-pulse."92-low-latency" = {
+        context.modules = [
+          {
+            name = "libpipewire-module-protocol-pulse";
+            args = {
+              pulse.min.req = "32/48000";
+              pulse.default.req = "32/48000";
+              pulse.max.req = "32/48000";
+              pulse.min.quantum = "32/48000";
+              pulse.max.quantum = "32/48000";
+            };
+          }
+        ];
+
+        stream.properties = {
+          node.latency = "32/48000";
+          resample.quality = 1;
+        };
+      };
     };
   };
-
-  # I HAVE NO FUCKING IDEA HOW TO MAKE OSU LAZER USE A 48K SAMPLE RATE
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -158,12 +198,14 @@
     user = "niklasuwu";
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  # Install chromium.
+  programs.chromium = {
+    enable = true;
+    enablePlasmaBrowserIntegration = true;
+  };
 
   # Zshell
   users.defaultUserShell = pkgs.zsh;
-
   environment.pathsToLink = ["/share/zsh"];
 
   # List packages installed in system profile. To search, run:
@@ -171,13 +213,23 @@
   # https://search.nixos.org/packages?channel=unstable
   environment.systemPackages = with pkgs; [
     # Programming
-    rustup
-    python3
-    libgcc
-    gcc
-    gnumake
     gh
     alejandra
+    dotnet-sdk_8
+
+    # PHP
+    (pkgs.php83.buildEnv {
+      extensions = {
+        enabled,
+        all,
+      }:
+        enabled ++ (with all; [
+          mongodb redis
+        ]);
+    })
+    php83Packages.phpstan
+    php83Packages.composer
+    symfony-cli
 
     # Terminal
     kitty
@@ -186,10 +238,12 @@
     # Editors
     vscode
 
-    # Files
+    # Games
     mangohud
-    gnome.nautilus
-    gnome.file-roller
+    steam-run
+
+    # Files
+    file-roller
     unrar
     unzip
     p7zip
@@ -198,25 +252,16 @@
     wootility
     wooting-udev-rules
 
-    # Communication
-    vesktop
-    (discord.override {
-      withOpenASAR = true;
-      withVencord = true;
-    })
-
     # Hardware
-    glxinfo
     lm_sensors
-    gnome.gnome-disk-utility
+    gnome-disk-utility
     baobab
     # When pipewire.service.jack.enable is true, enable this:
     # pipewire.jack
 
     # OS
     (import ./rebuild.nix {inherit pkgs;})
-    gtk4
-    gtk3
+    (import ./nix-up.nix {inherit pkgs;})
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -230,7 +275,12 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -277,10 +327,10 @@
   environment.sessionVariables = {
     PIPEWIRE_LATENCY = "32/48000";
     FLAKE_DIR = "$HOME/flake";
-    LANGUAGE = "en_GB";
-  };
-  environment.variables = {
+    LANGUAGE = "de_DE";
     EDITOR = "code";
+    DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 
   # Zsh
@@ -295,30 +345,23 @@
       ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
       copy = "rsync -a --info=progress2 --info=name0";
       nix-conf = "code $FLAKE_DIR";
-      nix-up = "sudo nixos-rebuild switch --upgrade";
-      nix-op = "firefox \"https://search.nixos.org/options?channel=unstable\"";
-      nix-pac = "firefox \"https://search.nixos.org/packages?channel=unstable\"";
-      nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
-      nya = "cat";
-      yt = "firefox youtube.com";
+      nix-op = "chromium \"https://search.nixos.org/options?channel=unstable\"";
+      nix-pac = "chromium \"https://search.nixos.org/packages?channel=unstable\"";
+      nix-hom = "chromium \"https://home-manager-options.extranix.com/\"";
     };
     histSize = 10000;
   };
-
-  # Nautilus Settings
-  programs.nautilus-open-any-terminal.enable = true;
-  programs.nautilus-open-any-terminal.terminal = "kitty";
-
-  # Gaming
-  services.monado = {
-    enable = true;
-    defaultRuntime = true;
-  };
-
+  
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+
+    extraPackages = with pkgs; [gamescope];
+    gamescopeSession.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 
   programs.gamemode.enable = true;

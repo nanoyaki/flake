@@ -3,40 +3,34 @@
   pkgs,
   ...
 }: {
-  # imports = [
-  #  ./modules/home/vesktop.nix
-  # ];
-
   home.username = "niklasuwu";
   home.homeDirectory = "/home/niklasuwu";
 
   # Theming
+  catppuccin.enable = true;
   catppuccin.flavour = "macchiato";
+  catppuccin.accent = "lavender";
 
   # Program theming
   programs.kitty.catppuccin.enable = true;
   programs.mpv.catppuccin.enable = true;
   gtk = {
-    # causes home-manager to crash for some reason
-    # enable = true;
-    catppuccin = {
+    catppuccin.icon = {
       enable = true;
-      flavour = "macchiato";
-      accent = "lavender";
-      size = "standard";
-      tweaks = ["normal"];
-    };
-    iconTheme.package = pkgs.catppuccin-papirus-folders.override {
-      variant = "macchiato";
+      flavor = "macchiato";
       accent = "lavender";
     };
+    catppuccin.size = "standard";
+    enable = true;
   };
-  i18n.inputMethod.fcitx5.catppuccin.enable = true;
   programs.btop = {
     enable = true;
     catppuccin.enable = true;
   };
+  i18n.inputMethod.fcitx5.catppuccin.enable = true;
+  programs.git.delta.catppuccin.enable = true;
   programs.zsh.syntaxHighlighting.catppuccin.enable = true;
+  qt.style.catppuccin.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -55,13 +49,19 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    # Programming
+    jetbrains.rider
+    jetbrains.phpstorm
+
+    # Communication
+    vesktop
+    
     # Media
     mpv
 
     # Games
     lutris-unwrapped
     osu-lazer-bin
-    parsec-bin
     cartridges
 
     # Password manager
@@ -75,8 +75,8 @@
     papirus-icon-theme
     catppuccin-cursors.macchiatoLavender
     (catppuccin.override {
-      accent = "lavender";
       variant = "macchiato";
+      accent = "lavender";
     })
     (catppuccin-kde.override {
       flavour = ["macchiato"];

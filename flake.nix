@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -17,48 +18,37 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-unstable,
     catppuccin,
     home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs-stable = import nixpkgs-unstable {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
     specialArgs = {
       inherit inputs;
-      inherit pkgs-stable;
     };
-    defaultModules = [
-      ./common/configuration.nix
-      catppuccin.nixosModules.catppuccin
-      home-manager.nixosModules.home-manager
-      {
-        home-manager = {
-          backupFileExtension = "backup";
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.niklasuwu = {
-            imports = [
-              ./common/home.nix
-              inputs.catppuccin.homeManagerModules.catppuccin
-            ];
-          };
-        };
-      }
-    ];
   in {
     nixosConfigurations = {
       # Main System
       niklasuwu-nixos = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          defaultModules
-          ++ [
-            ./hosts/niklasuwu-nixos/configuration.nix
-          ];
+        modules = [
+          ./configuration.nix
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              backupFileExtension = "backup";
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.niklasuwu = {
+                imports = [
+                  ./home.nix
+                  inputs.catppuccin.homeManagerModules.catppuccin
+                ];
+              };
+            };
+          }
+        ];
       };
     };
   };

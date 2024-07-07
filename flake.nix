@@ -21,7 +21,6 @@
     nixpkgs,
     nixpkgs-xr,
     envision,
-    aagl,
     catppuccin,
     home-manager,
     ...

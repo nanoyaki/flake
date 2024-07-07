@@ -86,11 +86,12 @@
   # Steam config taken from:
   # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
   programs.steam = {
-    extraPackages = with pkgs; [gamescope];
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
 
+    extraPackages = with pkgs; [gamescope];
+    gamescopeSession.enable = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
       (proton-ge-bin.overrideAttrs (finalAttrs: _: {

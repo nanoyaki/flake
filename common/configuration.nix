@@ -106,7 +106,6 @@
     ark
     okular
     print-manager
-    dolphin
   ];
   programs.kdeconnect.enable = false;
 

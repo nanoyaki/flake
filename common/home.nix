@@ -7,8 +7,8 @@
   home.homeDirectory = "/home/hana";
 
   # Theming
-  catppuccin.flavor = "frappe";
   catppuccin.enable = true;
+  catppuccin.flavor = "frappe";
   catppuccin.accent = "pink";
 
   # Program theming

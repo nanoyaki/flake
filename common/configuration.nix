@@ -18,7 +18,7 @@
       };
       grub = {
         catppuccin.enable = true;
-        catppuccin.flavor = "frappe";
+        catppuccin.flavor = "macchiato";
         configurationLimit = 35;
         enable = true;
         efiSupport = true;
@@ -118,7 +118,7 @@
   # Theming
   catppuccin.enable = true;
   catppuccin.accent = "pink";
-  catppuccin.flavor = "frappe";
+  catppuccin.flavor = "macchiato";
 
   console.catppuccin.enable = true;
 

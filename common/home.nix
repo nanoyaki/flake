@@ -8,7 +8,7 @@
 
   # Theming
   catppuccin.enable = true;
-  catppuccin.flavor = "frappe";
+  catppuccin.flavor = "macchiato";
   catppuccin.accent = "pink";
 
   # Program theming
@@ -18,7 +18,7 @@
     catppuccin.icon = {
       enable = true;
       accent = "pink";
-      flavor = "frappe";
+      flavor = "macchiato";
     };
     catppuccin.size = "standard";
     enable = true;
@@ -74,13 +74,13 @@
     fastfetch
 
     # Theming
-    catppuccin-cursors.frappePink
+    catppuccin-cursors.macchiatoPink
     (catppuccin.override {
       accent = "pink";
-      variant = "frappe";
+      variant = "macchiato";
     })
     (catppuccin-kde.override {
-      flavour = ["frappe"];
+      flavour = ["macchiato"];
       accents = ["pink"];
     })
   ];

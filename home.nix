@@ -8,7 +8,7 @@
 
   # Theming
   catppuccin.enable = true;
-  catppuccin.flavour = "macchiato";
+  catppuccin.flavor = "macchiato";
   catppuccin.accent = "lavender";
 
   # Program theming

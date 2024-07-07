@@ -72,7 +72,6 @@
 
     # Theming
     zsh-powerlevel10k
-    papirus-icon-theme
     catppuccin-cursors.macchiatoLavender
     (catppuccin.override {
       variant = "macchiato";

@@ -10,7 +10,8 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "ryzen_smu" "amdgpu" ];
+  boot.kernelParams = ["acpi_enforce_resources=lax"];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -24,7 +25,12 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 32 * 1024; # 32GB
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -36,4 +42,16 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.ryzen-smu.enable = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+  services.xserver.videoDrivers = ["amdgpu"];
+  hardware.amdgpu.amdvlk.enable = false;
+
+  hardware.steam-hardware.enable = true;
+
+  hardware.bluetooth.enable = true;
 }

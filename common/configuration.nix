@@ -144,8 +144,6 @@
     # wireplumber.enable = true;
   };
 
-  # I HAVE NO FUCKING IDEA HOW TO MAKE OSU LAZER USE A 48K SAMPLE RATE
-
   # User
   users.users.${username} = {
     isNormalUser = true;
@@ -170,9 +168,6 @@
     enable = true;
     user = "${username}";
   };
-  # Workaround for Gnome:
-  systemd.services."getty@tty1".enable = lib.mkIf config.services.xserver.desktopManager.gnome.enable false;
-  systemd.services."autovt@tty1".enable = lib.mkIf config.services.xserver.desktopManager.gnome.enable false;
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -217,8 +212,6 @@
         lm_sensors
         gnome-disk-utility
         baobab
-        # When pipewire.service.jack.enable is true, enable this:
-        # pipewire.jack
 
         # OS
         libsForQt5.qt5.qttools
@@ -259,8 +252,6 @@
       nix-op = "firefox \"https://search.nixos.org/options?channel=unstable\"";
       nix-pac = "firefox \"https://search.nixos.org/packages?channel=unstable\"";
       nix-hom = "firefox \"https://home-manager-options.extranix.com/\"";
-      nya = "cat";
-      yt = "firefox youtube.com";
       x = "LANG=ja_JP.UTF-8 7z x";
     };
     histSize = 10000;

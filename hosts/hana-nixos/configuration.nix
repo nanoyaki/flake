@@ -11,8 +11,6 @@
   imports = [
     ./hardware-configuration.nix
 
-    inputs.aagl.nixosModules.default
-
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -20,41 +18,6 @@
 
   # Networking
   networking.hostName = "${username}-nixos";
-
-  # VR
-  # TODO: put this in some module
-  # services.monado = {
-  #   package = pkgs.monado;
-  #   enable = true;
-  #   defaultRuntime = true;
-  # };
-
-  # Gnome:
-  services.xserver.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      cheese # webcam tool
-      gnome-terminal
-      epiphany # web browser
-      geary # email reader
-      evince # document viewer
-      totem # video player
-      seahorse # password something
-      gnome-photos
-      gnome-tour
-      gedit
-    ])
-    ++ (with pkgs.gnome; [
-      gnome-music
-      gnome-characters
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-    ]);
-  services.xserver.desktopManager.xterm.enable = false;
-  services.gnome.games.enable = false;
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   # VR Patch
   boot.kernelPatches = [
@@ -72,49 +35,20 @@
       # Programming
       libgcc
       gcc
-      nodejs_22
-      rustup
-      pkg-config
-      gnumake
-      go
 
       # Games
       mangohud
 
-      # Image manipulation
-      imagemagick
-      gimp
-
       # VR
-      unityhub
-      vrc-get
       pavucontrol
       index_camera_passthrough
       opencomposite-helper
       wlx-overlay-s
       lighthouse-steamvr
-
-      # OS
-      usbutils
-
-      # Files
-      file-roller
-      unrar
-      unzip
-      p7zip
-
-      # Gnome Extensions:
-      gnomeExtensions.appindicator
-      gnomeExtensions.zen
-      gnomeExtensions.window-is-ready-remover
     ]
     ++ [
       inputs.envision.packages."x86_64-linux".envision
     ];
-
-  environment.variables = {
-    PKG_CONFIG_PATH = "/run/current-system/sw/bin/openssl";
-  };
 
   services.pipewire = {
     extraConfig = {
@@ -149,35 +83,27 @@
     };
   };
 
-  nix.settings = inputs.aagl.nixConfig; # Set up Cachix
+  # Steam config taken from:
+  # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
+  programs.steam = {
+    extraPackages = with pkgs; [gamescope];
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
 
-  # Gaming
-  programs = {
-    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
-    honkers-railway-launcher.enable = true;
-
-    # Steam config taken from:
-    # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
-    steam = {
-      extraPackages = with pkgs; [gamescope];
-      enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-        (proton-ge-bin.overrideAttrs (finalAttrs: _: {
-          version = "GE-Proton9-4-rtsp7";
-          src = pkgs.fetchzip {
-            url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
-            hash = "sha256-l/zt/Kv6g1ZrAzcxDNENByHfUp/fce3jOHVAORc5oy0=";
-          };
-        }))
-      ];
-    };
-
-    coolercontrol.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+      (proton-ge-bin.overrideAttrs (finalAttrs: _: {
+        version = "GE-Proton9-4-rtsp7";
+        src = pkgs.fetchzip {
+          url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+          hash = "sha256-l/zt/Kv6g1ZrAzcxDNENByHfUp/fce3jOHVAORc5oy0=";
+        };
+      }))
+    ];
   };
+
+  programs.coolercontrol.enable = true;
 
   services.xserver.enable = true;
 }

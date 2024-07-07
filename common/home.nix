@@ -3,10 +3,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    #./modules/home/vesktop/vesktop.nix
-  ];
-
   home.username = "hana";
   home.homeDirectory = "/home/hana";
 
@@ -55,11 +51,10 @@
   home.packages = with pkgs; [
     # Communication
     vesktop
-    thunderbird
-    (discord.override {
-      withOpenASAR = true;
-      withVencord = false;
-    })
+    # (discord.override {
+    #   withOpenASAR = true;
+    #   withVencord = false;
+    # })
 
     # Media
     mpv
@@ -79,9 +74,6 @@
     fastfetch
 
     # Theming
-    zsh-powerlevel10k
-    # papirus-icon-theme
-    #catppuccin-papirus-folders
     catppuccin-cursors.frappePink
     (catppuccin.override {
       accent = "pink";

@@ -4,7 +4,7 @@
 {
   config,
   pkgs,
-  pkgs-stable,
+  inputs,
   lib,
   ...
 }: {

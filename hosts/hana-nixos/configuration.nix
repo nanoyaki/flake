@@ -101,7 +101,7 @@
   };
 
   programs.envision.enable = true;
-  programs.monado = {
+  services.monado = {
     enable = true;
     defaultRuntime = true;
   };

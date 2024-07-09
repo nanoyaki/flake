@@ -102,7 +102,7 @@
   programs.envision.enable = true;
   services.monado = {
     enable = true;
-    defaultRuntime = true;
+    defaultRuntime = false;
   };
 
   programs.coolercontrol.enable = true;

@@ -27,7 +27,7 @@
       };
     };
     supportedFilesystems = ["ntfs"];
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
   };
   time.hardwareClockInLocalTime = true;
 

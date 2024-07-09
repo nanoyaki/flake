@@ -6,7 +6,6 @@
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
-    envision.url = "gitlab:Scrumplex/envision/nix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
@@ -20,7 +19,6 @@
   outputs = {
     nixpkgs,
     nixpkgs-xr,
-    envision,
     catppuccin,
     home-manager,
     ...

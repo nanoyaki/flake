@@ -30,25 +30,21 @@
     }
   ];
 
-  environment.systemPackages = with pkgs;
-    [
-      # Programming
-      libgcc
-      gcc
+  environment.systemPackages = with pkgs; [
+    # Programming
+    libgcc
+    gcc
 
-      # Games
-      mangohud
+    # Games
+    mangohud
 
-      # VR
-      pavucontrol
-      index_camera_passthrough
-      opencomposite-helper
-      wlx-overlay-s
-      lighthouse-steamvr
-    ]
-    ++ [
-      inputs.envision.packages."x86_64-linux".envision
-    ];
+    # VR
+    pavucontrol
+    index_camera_passthrough
+    opencomposite-helper
+    wlx-overlay-s
+    lighthouse-steamvr
+  ];
 
   services.pipewire = {
     extraConfig = {
@@ -102,6 +98,12 @@
         };
       }))
     ];
+  };
+
+  programs.envision.enable = true;
+  programs.monado = {
+    enable = true;
+    defaultRuntime = true;
   };
 
   programs.coolercontrol.enable = true;

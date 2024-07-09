@@ -51,9 +51,9 @@
       pipewire."92-low-latency" = {
         context.properties = {
           default.clock.rate = 48000;
-          default.clock.quantum = 512;
-          default.clock.min-quantum = 512;
-          default.clock.max-quantum = 512;
+          default.clock.quantum = 1024;
+          default.clock.min-quantum = 1024;
+          default.clock.max-quantum = 1024;
         };
       };
 
@@ -62,18 +62,17 @@
           {
             name = "libpipewire-module-protocol-pulse";
             args = {
-              pulse.min.req = "512/48000";
-              pulse.default.req = "512/48000";
-              pulse.max.req = "512/48000";
-              pulse.min.quantum = "512/48000";
-              pulse.max.quantum = "512/48000";
+              pulse.min.req = "1024/48000";
+              pulse.default.req = "1024/48000";
+              pulse.max.req = "1024/48000";
+              pulse.min.quantum = "1024/48000";
+              pulse.max.quantum = "1024/48000";
             };
           }
         ];
 
         stream.properties = {
-          node.latency = "512/48000";
-          resample.quality = 1;
+          node.latency = "1024/48000";
         };
       };
     };

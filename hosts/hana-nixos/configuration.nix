@@ -46,37 +46,37 @@
     lighthouse-steamvr
   ];
 
-  services.pipewire = {
-    extraConfig = {
-      pipewire."92-low-latency" = {
-        context.properties = {
-          default.clock.rate = 48000;
-          default.clock.quantum = 1024;
-          default.clock.min-quantum = 1024;
-          default.clock.max-quantum = 1024;
-        };
-      };
+  # services.pipewire = {
+  #   extraConfig = {
+  #     pipewire."92-low-latency" = {
+  #       context.properties = {
+  #         default.clock.rate = 48000;
+  #         default.clock.quantum = 1024;
+  #         default.clock.min-quantum = 1024;
+  #         default.clock.max-quantum = 1024;
+  #       };
+  #     };
 
-      pipewire-pulse."92-low-latency" = {
-        context.modules = [
-          {
-            name = "libpipewire-module-protocol-pulse";
-            args = {
-              pulse.min.req = "1024/48000";
-              pulse.default.req = "1024/48000";
-              pulse.max.req = "1024/48000";
-              pulse.min.quantum = "1024/48000";
-              pulse.max.quantum = "1024/48000";
-            };
-          }
-        ];
+  #     pipewire-pulse."92-low-latency" = {
+  #       context.modules = [
+  #         {
+  #           name = "libpipewire-module-protocol-pulse";
+  #           args = {
+  #             pulse.min.req = "1024/48000";
+  #             pulse.default.req = "1024/48000";
+  #             pulse.max.req = "1024/48000";
+  #             pulse.min.quantum = "1024/48000";
+  #             pulse.max.quantum = "1024/48000";
+  #           };
+  #         }
+  #       ];
 
-        stream.properties = {
-          node.latency = "1024/48000";
-        };
-      };
-    };
-  };
+  #       stream.properties = {
+  #         node.latency = "1024/48000";
+  #       };
+  #     };
+  #   };
+  # };
 
   # Steam config taken from:
   # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35

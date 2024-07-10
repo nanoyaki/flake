@@ -68,7 +68,7 @@
     obsidian
 
     # Password manager
-    bitwarden-desktop
+    # bitwarden-desktop
 
     # Terminal
     fastfetch

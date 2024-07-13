@@ -34,6 +34,7 @@
   # Nix settings
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  settings.RCU_LAZY.tristate = lib.mkForce "y";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

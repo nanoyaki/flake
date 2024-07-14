@@ -108,4 +108,6 @@
   programs.coolercontrol.enable = true;
 
   services.xserver.enable = true;
+
+  services.transmission.enable = true;
 }

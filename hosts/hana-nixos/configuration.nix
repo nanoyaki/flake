@@ -110,7 +110,7 @@
   services.xserver.enable = true;
 
   services.transmission = {
-    enable = true;
+    enable = false;
     webHome = pkgs.flood-for-transmission;
   };
 }

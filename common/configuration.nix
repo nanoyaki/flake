@@ -169,8 +169,9 @@
     user = "${username}";
   };
 
-  # Install firefox.
+  # Install browsers.
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
 
   # Zshell
   users.defaultUserShell = pkgs.zsh;

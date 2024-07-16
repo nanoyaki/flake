@@ -44,6 +44,9 @@
     opencomposite-helper
     wlx-overlay-s
     lighthouse-steamvr
+
+    # Email
+    thunderbird-bin
   ];
 
   services.pipewire = {

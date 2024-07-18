@@ -78,7 +78,7 @@
   services.displayManager.defaultSession = "plasmax11";
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     konsole
@@ -222,8 +222,10 @@
         enabled,
         all,
       }:
-        enabled ++ (with all; [
-          mongodb redis
+        enabled
+        ++ (with all; [
+          mongodb
+          redis
         ]);
     })
     php83Packages.phpstan
@@ -350,7 +352,7 @@
     };
     histSize = 10000;
   };
-  
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;

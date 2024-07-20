@@ -17,7 +17,7 @@
   boot.kernelModules = ["kvm-amd" "ryzen_smu" "amdgpu" "it87"];
   boot.kernelParams = ["acpi_enforce_resources=lax"];
   boot.extraModulePackages = with pkgs; [
-    linuxKernel.packages.linux_zen.it87
+    # linuxKernel.packages.linux_zen.it87
   ];
 
   fileSystems."/" = {

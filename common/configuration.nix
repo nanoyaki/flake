@@ -82,7 +82,7 @@
   console.keyMap = "de";
 
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
 
     packages = with pkgs; [
       noto-fonts

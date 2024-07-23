@@ -82,13 +82,20 @@
   console.keyMap = "de";
 
   fonts = {
+    enableDefaultFonts = true;
+
     packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
       mplus-outline-fonts.githubRelease
     ];
 
-    fontconfig.defaultFonts = {
-      serif = ["M PLUS 2"];
-      sansSerif = ["M PLUS 2"];
+    fontconfig = {
+      antialias = true;
+      defaultFonts = {
+        serif = ["M PLUS 2"];
+        sansSerif = ["M PLUS 2"];
+      };
     };
   };
 
@@ -229,6 +236,9 @@
       LANGUAGE = "en_GB";
       XRT_COMPOSITOR_COMPUTE = 1;
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+      XMODIFIERS = "@im=fcitx";
+      QT_IM_MODULE = "fcitx";
+      GTK_IM_MODULE = "fcitx";
     };
 
     variables = {

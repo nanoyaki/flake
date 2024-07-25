@@ -359,7 +359,7 @@
       ];
 
     sessionVariables = {
-      PIPEWIRE_LATENCY = "512/48000";
+      PIPEWIRE_LATENCY = "32/48000";
       FLAKE_DIR = "$HOME/flake";
       LANGUAGE = "en_GB";
       XRT_COMPOSITOR_COMPUTE = 1;

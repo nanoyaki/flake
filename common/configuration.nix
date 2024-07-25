@@ -186,6 +186,11 @@
       "SyncDisabled" = false;
       "PasswordManagerEnabled" = false;
       "SpellcheckEnabled" = true;
+      "ForcedLanguages" = [
+        "en-US"
+        "de-DE"
+        "ja-JP"
+      ];
       "SpellcheckLanguage" = [
         "en-US"
         "de-DE"

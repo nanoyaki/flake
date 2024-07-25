@@ -180,6 +180,18 @@
   programs.firefox.enable = true;
   programs.chromium = {
     enable = true;
+    extraOpts = {
+      # https://admx.help/?Category=Chrome&Policy=Google.Policies.Chrome::BrowserSignin
+      "BrowserSignin" = 1;
+      "SyncDisabled" = false;
+      "PasswordManagerEnabled" = false;
+      "SpellcheckEnabled" = true;
+      "SpellcheckLanguage" = [
+        "en-US"
+        "de-DE"
+        "ja-JP"
+      ];
+    };
 
     # Extensions
     extensions = [

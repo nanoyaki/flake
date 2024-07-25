@@ -333,7 +333,6 @@
 
         # Browser
         chromium
-        google-chrome
 
         # Terminal
         kitty

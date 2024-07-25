@@ -51,12 +51,21 @@
 
   services.pipewire = {
     extraConfig = {
-      pipewire."92-low-latency" = {
-        context.properties = {
-          default.clock.rate = 48000;
-          default.clock.quantum = 32;
-          default.clock.min-quantum = 32;
-          default.clock.max-quantum = 32;
+      pipewire = {
+        "92-low-latency" = {
+          context.properties = {
+            default.clock.rate = 48000;
+            default.clock.quantum = 32;
+            default.clock.min-quantum = 32;
+            default.clock.max-quantum = 32;
+          };
+        };
+        adjust-sample-rate."context.properties" = {
+          "default.clock.rate" = 48000;
+          "defautlt.allowed-rates" = [48000]; # [ 192000 48000 44100 ]
+          "default.clock.quantum" = 32;
+          "default.clock.min-quantum" = 32;
+          "default.clock.max-quantum" = 32;
         };
       };
 

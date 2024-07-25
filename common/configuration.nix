@@ -190,6 +190,7 @@
       "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
       "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
 
       # Japanese
       "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD

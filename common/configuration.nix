@@ -176,15 +176,14 @@
     user = "${username}";
   };
 
-  # Install browsers.
-  programs.firefox.enable = true;
+  # Install chromium
   programs.chromium = {
     enable = true;
 
     extraOpts = {
       # https://chromeenterprise.google/policies/?policy=${OPTION}
-      "BrowserSignin" = 1;
-      "SyncDisabled" = false;
+      "BrowserSignin" = 0;
+      "SyncDisabled" = true;
       "PasswordManagerEnabled" = false;
       "SpellcheckEnabled" = true;
       "RestoreOnStartup" = 1;

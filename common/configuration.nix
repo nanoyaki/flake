@@ -180,12 +180,14 @@
   programs.firefox.enable = true;
   programs.chromium = {
     enable = true;
+
     extraOpts = {
-      # https://admx.help/?Category=Chrome&Policy=Google.Policies.Chrome::BrowserSignin
+      # https://chromeenterprise.google/policies/?policy=${OPTION}
       "BrowserSignin" = 1;
       "SyncDisabled" = false;
       "PasswordManagerEnabled" = false;
       "SpellcheckEnabled" = true;
+      "RestoreOnStartup" = 1; #
       "ForcedLanguages" = [
         "en-US"
         "de-DE"
@@ -198,7 +200,6 @@
       ];
     };
 
-    # Extensions
     extensions = [
       # General
       "oldceeleldhonbafppcapldpdifcinji" # LanguageTool
@@ -224,9 +225,7 @@
       "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
     ];
 
-    # Kde
     enablePlasmaBrowserIntegration = true;
-    plasmaBrowserIntegrationPackage = lib.mkDefault pkgs.kdePackages.plasma-browser-integration;
   };
 
   # Defaults

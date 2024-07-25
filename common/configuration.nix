@@ -187,7 +187,7 @@
       "SyncDisabled" = false;
       "PasswordManagerEnabled" = false;
       "SpellcheckEnabled" = true;
-      "RestoreOnStartup" = 1; #
+      "RestoreOnStartup" = 1;
       "ForcedLanguages" = [
         "en-US"
         "de-DE"
@@ -333,6 +333,7 @@
 
         # Browser
         chromium
+        google-chrome
 
         # Terminal
         kitty

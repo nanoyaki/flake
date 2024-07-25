@@ -187,6 +187,7 @@
       "PasswordManagerEnabled" = false;
       "SpellcheckEnabled" = true;
       "RestoreOnStartup" = 1;
+      "DeveloperToolsAvailability" = 1;
       "ForcedLanguages" = [
         "en-US"
         "de-DE"

@@ -57,7 +57,6 @@
     # })
 
     # Media
-    mpv
     spotify
     yt-dlp
 

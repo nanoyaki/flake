@@ -49,47 +49,6 @@
     thunderbird-bin
   ];
 
-  services.pipewire = {
-    extraConfig = {
-      pipewire = {
-        "92-low-latency" = {
-          context.properties = {
-            default.clock.rate = 48000;
-            default.clock.quantum = 32;
-            default.clock.min-quantum = 32;
-            default.clock.max-quantum = 32;
-          };
-        };
-        adjust-sample-rate."context.properties" = {
-          "default.clock.rate" = 48000;
-          "defautlt.allowed-rates" = [48000]; # [ 192000 48000 44100 ]
-          "default.clock.quantum" = 32;
-          "default.clock.min-quantum" = 32;
-          "default.clock.max-quantum" = 32;
-        };
-      };
-
-      pipewire-pulse."92-low-latency" = {
-        context.modules = [
-          {
-            name = "libpipewire-module-protocol-pulse";
-            args = {
-              pulse.min.req = "32/48000";
-              pulse.default.req = "32/48000";
-              pulse.max.req = "32/48000";
-              pulse.min.quantum = "32/48000";
-              pulse.max.quantum = "32/48000";
-            };
-          }
-        ];
-
-        stream.properties = {
-          node.latency = "32/48000";
-        };
-      };
-    };
-  };
-
   # Steam config taken from:
   # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
   programs.steam = {

@@ -9,7 +9,9 @@
   username,
   settings,
   ...
-}: {
+}: let
+  latency = 512;
+in {
   # Boot settings
   boot = {
     loader = {
@@ -152,9 +154,9 @@
       context.properties = {
         default.clock.rate = 48000;
         default.allowed-rates = [48000];
-        default.clock.quantum = 32;
-        default.clock.min-quantum = 32;
-        default.clock.max-quantum = 32;
+        default.clock.quantum = latency;
+        default.clock.min-quantum = latency;
+        default.clock.max-quantum = latency;
       };
     };
 
@@ -162,9 +164,9 @@
       "context.properties" = {
         "default.clock.rate" = 48000;
         "default.allowed-rates" = [48000]; # [ 192000 48000 44100 ]
-        "default.clock.quantum" = 32;
-        "default.clock.min-quantum" = 32;
-        "default.clock.max-quantum" = 32;
+        "default.clock.quantum" = latency;
+        "default.clock.min-quantum" = latency;
+        "default.clock.max-quantum" = latency;
       };
     };
 
@@ -173,17 +175,17 @@
         {
           name = "libpipewire-module-protocol-pulse";
           args = {
-            pulse.min.req = "32/48000";
-            pulse.default.req = "32/48000";
-            pulse.max.req = "32/48000";
-            pulse.min.quantum = "32/48000";
-            pulse.max.quantum = "32/48000";
+            pulse.min.req = "${toString latency}/48000";
+            pulse.default.req = "${toString latency}/48000";
+            pulse.max.req = "${toString latency}/48000";
+            pulse.min.quantum = "${toString latency}/48000";
+            pulse.max.quantum = "${toString latency}/48000";
           };
         }
       ];
 
       stream.properties = {
-        node.latency = "32/48000";
+        node.latency = "${toString latency}/48000";
       };
     };
   };
@@ -396,7 +398,7 @@
       ];
 
     sessionVariables = {
-      PIPEWIRE_LATENCY = "32/48000";
+      PIPEWIRE_LATENCY = "${toString latency}/48000";
       FLAKE_DIR = "$HOME/flake";
       LANGUAGE = "en_GB";
       XRT_COMPOSITOR_COMPUTE = 1;

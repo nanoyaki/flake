@@ -24,5 +24,8 @@
     unrar
     unzip
     p7zip
+
+    # Misc
+    alarm-clock-applet
   ];
 }

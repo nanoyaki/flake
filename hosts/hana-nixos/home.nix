@@ -26,6 +26,6 @@
     p7zip
 
     # Misc
-    alarm-clock-applet
+    kdePackages.kalarm
   ];
 }

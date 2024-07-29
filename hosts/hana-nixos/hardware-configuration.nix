@@ -69,9 +69,10 @@
   # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  # CPU
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.cpu.amd.ryzen-smu.enable = true;
-
   systemd.services.cpu_undervolt = {
     path = [pkgs.python3];
     enable = true;
@@ -84,13 +85,32 @@
     wantedBy = ["multi-user.target"];
   };
 
+  # GPU
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock.enable = true;
+    gpuOverclock.ppfeaturemask = "0xffffffff";
+  };
+  security.polkit = {
+    enable = true;
+    # Corectrl
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if ((action.id == "org.corectrl.helper.init" ||
+          action.id == "org.corectrl.helperkiller.init") &&
+          subject.local == true &&
+          subject.active == true &&
+          subject.isInGroup("wheel")) {
+            return polkit.Result.YES;
+          }
+      });
+    '';
+  };
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
-
   services.xserver.videoDrivers = ["amdgpu"];
-
   hardware.amdgpu.amdvlk.enable = false;
 
   hardware.steam-hardware.enable = true;

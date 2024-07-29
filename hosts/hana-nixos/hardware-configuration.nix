@@ -116,4 +116,6 @@
   hardware.steam-hardware.enable = true;
 
   hardware.bluetooth.enable = true;
+
+  programs.coolercontrol.enable = true;
 }

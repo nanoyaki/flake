@@ -162,15 +162,11 @@
   environment.pathsToLink = ["/share/zsh"];
   programs.zsh = {
     enable = true;
+    ohMyZsh.enable = true;
     enableCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-
-    ohMyZsh = {
-      enable = true;
-      theme = "powerlevel10k/powerlevel10k";
-    };
 
     shellAliases = {
       ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
@@ -223,6 +219,7 @@
       symfony-cli
 
       # Terminal
+      zsh-powerlevel10k
       kitty
       openssl
 
@@ -237,8 +234,6 @@
       lm_sensors
       gnome-disk-utility
       baobab
-
-      # Default apps
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})

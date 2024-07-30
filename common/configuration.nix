@@ -146,7 +146,7 @@
   # Kanata custom config
   services.kanata = {
     enable = true;
-    keyboards.internalKeyboard = {
+    keyboards.default = {
       devices = [
         "/dev/input/by-id/usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
       ];

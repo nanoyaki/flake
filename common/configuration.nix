@@ -148,7 +148,7 @@
     enable = true;
     keyboards.default = {
       devices = [
-        "usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
+        "/dev/input/by-id/usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
       ];
 
       config = ''

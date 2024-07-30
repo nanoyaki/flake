@@ -20,10 +20,6 @@
   networking.hostName = "${username}-nixos";
 
   environment.systemPackages = with pkgs; [
-    # Programming
-    libgcc
-    gcc
-
     # Games
     mangohud
 
@@ -43,10 +39,5 @@
     extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
-  };
-
-  services.transmission = {
-    enable = false;
-    webHome = pkgs.flood-for-transmission;
   };
 }

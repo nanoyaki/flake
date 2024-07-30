@@ -147,7 +147,7 @@
     QT_IM_MODULE = "fcitx";
     GTK_IM_MODULE = "fcitx";
 
-    FLAKE_DIR = toString ./..;
+    FLAKE_DIR = "$HOME/flake";
     EDITOR = "code";
 
     LANGUAGE = "en_GB";

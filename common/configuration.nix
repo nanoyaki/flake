@@ -150,7 +150,7 @@
       devices = [
         "/dev/input/by-id/usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
       ];
-
+      extraDefCfg = "process-unmapped-keys yes";
       config = ''
         (defsrc
           caps

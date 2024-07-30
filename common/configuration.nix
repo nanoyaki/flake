@@ -52,7 +52,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Hana";
-    extraGroups = ["networkmanager" "wheel" "input" "audio"];
+    extraGroups = ["networkmanager" "wheel" "input" "audio" "uinput"];
   };
 
   security.sudo.extraRules = [

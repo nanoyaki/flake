@@ -143,6 +143,30 @@
     variant = "";
   };
 
+  # Kanata custom config
+  services.kanata = {
+    enable = true;
+    keyboards.default = {
+      devices = [
+        "usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
+      ];
+
+      config = ''
+        (defsrc
+          caps
+        )
+
+        (defalias
+          escctrl (tap-hold 100 100 esc lctrl)
+        )
+
+        (deflayer base
+          @escctrl
+        )
+      '';
+    };
+  };
+
   # Shell
   services.nano.terminal.enable = true;
 

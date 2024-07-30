@@ -76,7 +76,7 @@ in {
 
         # Social media
         "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
-        "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
+        # "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
         "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Reddit Enhancement Suite
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock

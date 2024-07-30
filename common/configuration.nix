@@ -15,6 +15,8 @@
     ./modules/mpv.nix
     ./modules/chrome.nix
     ./modules/audio.nix
+    ./modules/terminal.nix
+    ./modules/files.nix
   ];
 
   # Boot settings
@@ -142,6 +144,8 @@
   };
 
   # Shell
+  services.nano.terminal.enable = true;
+
   environment.sessionVariables = {
     XMODIFIERS = "@im=fcitx";
     QT_IM_MODULE = "fcitx";
@@ -155,28 +159,6 @@
 
   environment.variables = {
     LANGUAGE = "en_GB";
-  };
-
-  # Zsh
-  users.defaultUserShell = pkgs.zsh;
-  environment.pathsToLink = ["/share/zsh"];
-  programs.zsh = {
-    enable = true;
-    ohMyZsh.enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-
-    shellAliases = {
-      ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
-      copy = "rsync -a --info=progress2 --info=name0";
-      nix-conf = "$EDITOR $FLAKE_DIR";
-      nix-op = "$BROWSER \"https://search.nixos.org/options?channel=unstable\"";
-      nix-pac = "$BROWSER \"https://search.nixos.org/packages?channel=unstable\"";
-      nix-hom = "$BROWSER \"https://home-manager-options.extranix.com/\"";
-    };
-    histSize = 10000;
   };
 
   # Audio
@@ -196,6 +178,9 @@
   # Browser
   services.nano.chrome.enable = true;
 
+  # Files
+  services.nano.files.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # https://search.nixos.org/packages?channel=unstable
@@ -206,34 +191,13 @@
       # Programming
       gh
       alejandra
-      # PHP
-      (pkgs.php83.buildEnv {
-        extensions = {
-          enabled,
-          all,
-        }:
-          enabled ++ (with all; [mongodb redis]);
-      })
-      php83Packages.phpstan
-      php83Packages.composer
-      symfony-cli
-
-      # Terminal
-      zsh-powerlevel10k
-      kitty
-      openssl
 
       # Editors
       vscode
 
-      # Files
-      nautilus
-
       # Hardware
       glxinfo
       lm_sensors
-      gnome-disk-utility
-      baobab
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})
@@ -242,14 +206,6 @@
 
   # vcs
   programs.git.enable = true;
-
-  programs.gamemode.enable = true;
-
-  # Nautilus Settings
-  programs.nautilus-open-any-terminal = {
-    enable = true;
-    terminal = "kitty";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

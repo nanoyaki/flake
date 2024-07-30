@@ -10,6 +10,8 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ../../common/modules/gaming.nix
+    ../../common/modules/php.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -19,25 +21,8 @@
   # Networking
   networking.hostName = "${username}-nixos";
 
-  environment.systemPackages = with pkgs; [
-    # Games
-    mangohud
+  programs.thunderbird.enable = true;
 
-    # Email
-    thunderbird-bin
-  ];
-
-  # Steam config taken from:
-  # https://codeberg.org/Scrumplex/flake/src/commit/38473f45c933e3ca98f84d2043692bb062807492/nixosConfigurations/common/desktop/gaming.nix#L20-L35
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-
-    extraPackages = with pkgs; [gamescope];
-    gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
-  };
+  services.nano.gaming.enable = true;
+  services.nano.php.enable = true;
 }

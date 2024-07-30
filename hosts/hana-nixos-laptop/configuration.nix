@@ -28,10 +28,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    jetbrains.phpstorm
-  ];
-
   # Networking
   networking.hostName = "${username}-nixos-laptop";
 

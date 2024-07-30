@@ -18,7 +18,6 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       # VR
-      pavucontrol
       index_camera_passthrough
       opencomposite-helper
       wlx-overlay-s
@@ -26,7 +25,7 @@ in {
     ];
 
     # VR Patch
-    boot.kernelPatches = [
+    boot.kernelPatches = mkIf config.programs.steam.enable [
       {
         name = "cap_sys_nice_begone";
         patch = builtins.fetchurl {
@@ -36,7 +35,7 @@ in {
       }
     ];
 
-    programs.steam.extraCompatPackages = [
+    programs.steam.extraCompatPackages = mkIf config.programs.steam.enable [
       (pkgs.proton-ge-bin.overrideAttrs (finalAttrs: _: {
         version = "GE-Proton9-10-rtsp12";
         src = pkgs.fetchzip {

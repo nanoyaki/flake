@@ -27,7 +27,7 @@ in {
     };
 
     extensions = mkOption {
-      type = types.listOf str;
+      type = types.listOf types.str;
       default = [
         # General
         "oldceeleldhonbafppcapldpdifcinji" # LanguageTool

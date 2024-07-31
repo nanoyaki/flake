@@ -25,6 +25,35 @@ in {
       default = true;
       description = "Set as the default browser.";
     };
+
+    extensions = mkOption {
+      type = types.listOf types.str;
+      default = [
+        # General
+        "oldceeleldhonbafppcapldpdifcinji" # LanguageTool
+        "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+        "pbcodcjpfjdpcineamnnmbkkmkdpajjg" # Link to Text Fragment
+        "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
+        "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
+        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+        "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
+
+        # Japanese
+        "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD
+        "fgnpplmalkhmcilpgbngpmdgfnodknce" # jisho-pitcher
+        "kjpdbjocmacakdfnngpkfjcjlkieogcf" # Jisho On The Fly
+        "odedgbgofldomjnodnnjdlagjpmkjhnb" # Search Jisho
+
+        # Social media
+        "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
+        "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
+        "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Reddit Enhancement Suite
+        "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
+        "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+        "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
+      ];
+      description = "A list of extension to install for chrome.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -58,30 +87,7 @@ in {
         })
       ];
 
-      extensions = [
-        # General
-        "oldceeleldhonbafppcapldpdifcinji" # LanguageTool
-        "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        "pbcodcjpfjdpcineamnnmbkkmkdpajjg" # Link to Text Fragment
-        "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
-        "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
-
-        # Japanese
-        "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD
-        "fgnpplmalkhmcilpgbngpmdgfnodknce" # jisho-pitcher
-        "kjpdbjocmacakdfnngpkfjcjlkieogcf" # Jisho On The Fly
-        "odedgbgofldomjnodnnjdlagjpmkjhnb" # Search Jisho
-
-        # Social media
-        "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
-        "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
-        "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Reddit Enhancement Suite
-        "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
-        "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
-        "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
-      ];
+      extensions = cfg.extensions;
     };
 
     # Defaults

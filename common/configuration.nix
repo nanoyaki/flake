@@ -177,7 +177,26 @@
   services.printing.enable = true;
 
   # Browser
-  services.nano.chrome.enable = true;
+  services.nano.chrome = {
+    enable = true;
+    extensions = [
+      # General
+      "oldceeleldhonbafppcapldpdifcinji" # LanguageTool
+      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+      "pbcodcjpfjdpcineamnnmbkkmkdpajjg" # Link to Text Fragment
+      "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
+      "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
+
+      # Social media
+      "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
+      "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
+      "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Reddit Enhancement Suite
+      "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
+      "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+    ];
+  };
 
   # Files
   services.nano.files.enable = true;

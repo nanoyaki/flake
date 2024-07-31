@@ -51,7 +51,7 @@
   # User
   users.users.${username} = {
     isNormalUser = true;
-    description = "Hana";
+    description = "Niklas UwU";
     extraGroups = ["networkmanager" "wheel" "input" "audio" "uinput"];
   };
 
@@ -71,7 +71,7 @@
   time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "de_DE.UTF-8/UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -86,11 +86,8 @@
   };
 
   i18n.supportedLocales = [
-    "en_GB.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
-    "ja_JP.UTF-8/UTF-8"
-    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
   ];
 
   # Fonts
@@ -143,30 +140,6 @@
     variant = "";
   };
 
-  # Kanata custom config
-  services.kanata = {
-    enable = true;
-    keyboards.default = {
-      devices = [
-        "/dev/input/by-id/usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
-      ];
-
-      config = ''
-        (defsrc
-          caps
-        )
-
-        (defalias
-          escctrl (tap-hold 100 100 esc lctrl)
-        )
-
-        (deflayer base
-          @escctrl
-        )
-      '';
-    };
-  };
-
   # Shell
   services.nano.terminal.enable = true;
 
@@ -186,7 +159,11 @@
   };
 
   # Audio
-  services.nano.audio.enable = true;
+  services.nano.audio = {
+    enable = true;
+    latency = 512; # 2048 1024 512 256 128 64 32
+    samplingRate = 48000; # 192000 48000 44100
+  };
 
   # Audio and video player
   services.nano.mpv.enable = true;
@@ -237,5 +214,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

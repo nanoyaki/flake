@@ -21,8 +21,6 @@
   # Networking
   networking.hostName = "${username}-nixos";
 
-  programs.thunderbird.enable = true;
-
   services.nano.gaming.enable = true;
   services.nano.php.enable = true;
 }

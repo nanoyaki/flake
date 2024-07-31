@@ -217,7 +217,15 @@
       alejandra
 
       # Editors
-      vscode
+      (vscode-with-extensions.override {
+        vscodeExtensions = with vscode-extensions; [
+          bbenoist.nix
+          kamadorueda.alejandra
+          jnoortheen.nix-ide
+          catppuccin.catppuccin-vsc
+          catppuccin.catppuccin-vsc-icons
+        ];
+      })
 
       # Hardware
       glxinfo

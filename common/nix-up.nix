@@ -13,7 +13,7 @@ pkgs.writeShellScriptBin "nix-up" ''
   # check for changes from remote repo
   git fetch origin $CURRENT_BRANCH
 
-  if !(git branch --contains $(git rev-parse origin $CURRENT_BRANCH)); then
+  if !(git branch --contains $(git rev-parse origin/$CURRENT_BRANCH)); then
     echo "Warning: Local branch is behind origin. Consider pulling changes before rebuilding."
     popd
     exit 1

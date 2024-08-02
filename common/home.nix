@@ -12,8 +12,6 @@
   catppuccin.accent = "pink";
 
   # Program theming
-  programs.kitty.catppuccin.enable = true;
-  programs.mpv.catppuccin.enable = true;
   gtk = {
     catppuccin.icon = {
       enable = true;
@@ -28,9 +26,10 @@
     catppuccin.enable = true;
   };
   i18n.inputMethod.fcitx5.catppuccin.enable = true;
-  programs.git.delta.catppuccin.enable = true;
-  programs.zsh.syntaxHighlighting.catppuccin.enable = true;
   qt.style.catppuccin.enable = true;
+  programs.zsh.syntaxHighlighting.catppuccin.enable = true;
+  programs.kitty.catppuccin.enable = true;
+  programs.mpv.catppuccin.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -89,6 +88,7 @@
   programs.git = {
     userName = "nanoyaki";
     userEmail = "hanakretzer@gmail.com";
+    delta.catppuccin.enable = true;
   };
 
   # This value determines the home Manager release that your

@@ -211,7 +211,6 @@
           catppuccin.catppuccin-vsc-icons
         ];
       })
-      xclip
 
       # Hardware
       glxinfo

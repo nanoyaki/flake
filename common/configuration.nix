@@ -195,13 +195,17 @@
     QT_IM_MODULE = "fcitx";
     GTK_IM_MODULE = "fcitx";
 
-    FLAKE_DIR = "$HOME/flake";
-    EDITOR = "nvim";
-
     LANGUAGE = "en_GB";
   };
 
   environment.variables = {
+    XMODIFIERS = "@im=fcitx";
+    QT_IM_MODULE = "fcitx";
+    GTK_IM_MODULE = "fcitx";
+
+    FLAKE_DIR = "$HOME/flake";
+    EDITOR = "nvim";
+
     LANGUAGE = "en_GB";
   };
 

@@ -125,36 +125,19 @@
   console.keyMap = "de";
 
   # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-
-    desktopManager = {
-      xterm.enable = false;
-    };
-
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        dmenu #application launcher most people use
-        i3lock #default i3 screen locker
-        i3blocks #if you are planning on using i3blocks over i3status
-      ];
-    };
-  };
+  services.xserver.enable = true;
 
   services.displayManager = {
     autoLogin = {
       enable = true;
       user = "${username}";
     };
-
-    defaultSession = "none+i3";
   };
 
   programs.neovim.enable = true;
 
   # Desktop Manager
-  services.nano.plasma6.enable = false;
+  services.nano.plasma6.enable = true;
 
   # Input
   services.libinput.mouse.accelProfile = "flat";

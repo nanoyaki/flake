@@ -255,6 +255,9 @@
       # Hardware
       glxinfo
       lm_sensors
+
+      # GTK
+      gtk4
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})

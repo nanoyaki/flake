@@ -97,14 +97,15 @@
     delta.catppuccin.enable = true;
   };
 
-  programs.neovim.coc = {
-    enable = true;
-    settings.languageserver.nix = {
-      command = "nil";
-      filetypes = ["nix"];
-      rootPatterns = ["flake.nix"];
-    };
-  };
+  # see common configuration.nix
+  # programs.neovim.coc = {
+  #   enable = true;
+  #   settings.languageserver.nix = {
+  #     command = "nil";
+  #     filetypes = ["nix"];
+  #     rootPatterns = ["flake.nix"];
+  #   };
+  # };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

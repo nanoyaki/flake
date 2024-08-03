@@ -134,7 +134,8 @@
     };
   };
 
-  programs.neovim.enable = true;
+  # Maybe in the future when i feel like a masochist
+  # programs.neovim.enable = true;
 
   # Desktop Manager
   services.nano.plasma6.enable = true;
@@ -144,30 +145,6 @@
   services.xserver.xkb = {
     layout = "de";
     variant = "";
-  };
-
-  # Kanata custom config
-  services.kanata = {
-    enable = true;
-    keyboards.default = {
-      devices = [
-        "/dev/input/by-id/usb-Cooler_Master_Technology_Inc._SK650-event-kbd"
-      ];
-
-      config = ''
-        (defsrc
-          caps
-        )
-
-        (defalias
-          escctrl (tap-hold 100 100 esc lctrl)
-        )
-
-        (deflayer base
-          @escctrl
-        )
-      '';
-    };
   };
 
   # Shell
@@ -187,7 +164,7 @@
     GTK_IM_MODULE = "fcitx";
 
     FLAKE_DIR = "$HOME/flake";
-    EDITOR = "nvim";
+    EDITOR = "code";
 
     LANGUAGE = "en_GB";
   };
@@ -234,6 +211,7 @@
           catppuccin.catppuccin-vsc-icons
         ];
       })
+      xclip
 
       # Hardware
       glxinfo

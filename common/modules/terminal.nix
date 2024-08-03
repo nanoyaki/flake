@@ -50,7 +50,7 @@ in {
       enableCompletion = true;
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
-      promptInit = mkIf cfg.withP10k "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      promptInit = mkIf cfg.withP10k "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme LANGUAGE=${config.i18n.defaultLocale}";
 
       shellAliases = {
         ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";

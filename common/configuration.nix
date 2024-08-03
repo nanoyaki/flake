@@ -239,6 +239,7 @@
       # Programming
       gh
       alejandra
+      nil
 
       # Editors
       (vscode-with-extensions.override {

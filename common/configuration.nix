@@ -151,6 +151,8 @@
     defaultSession = "none+i3";
   };
 
+  programs.neovim.enable = true;
+
   # Desktop Manager
   services.nano.plasma6.enable = false;
 
@@ -194,7 +196,7 @@
     GTK_IM_MODULE = "fcitx";
 
     FLAKE_DIR = "$HOME/flake";
-    EDITOR = "code";
+    EDITOR = "neovim";
 
     LANGUAGE = "en_GB";
   };

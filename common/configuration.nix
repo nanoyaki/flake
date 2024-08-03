@@ -196,7 +196,7 @@
     GTK_IM_MODULE = "fcitx";
 
     FLAKE_DIR = "$HOME/flake";
-    EDITOR = "neovim";
+    EDITOR = "nvim";
 
     LANGUAGE = "en_GB";
   };

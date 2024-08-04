@@ -17,6 +17,7 @@
     ./modules/audio.nix
     ./modules/terminal.nix
     ./modules/files.nix
+    ./modules/programming.nix
   ];
 
   # Boot settings
@@ -189,29 +190,14 @@
   # Files
   services.nano.files.enable = true;
 
+  services.nano.programming.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # https://search.nixos.org/packages?channel=unstable
-  # TODO: make this modular
   # Environment
   environment.systemPackages =
     (with pkgs; [
-      # Programming
-      gh
-      alejandra
-      nil
-
-      # Editors
-      (vscode-with-extensions.override {
-        vscodeExtensions = with vscode-extensions; [
-          bbenoist.nix
-          kamadorueda.alejandra
-          jnoortheen.nix-ide
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
-        ];
-      })
-
       # Hardware
       glxinfo
       lm_sensors
@@ -220,9 +206,6 @@
       (import ./rebuild.nix {inherit pkgs;})
       (import ./nix-up.nix {inherit pkgs;})
     ];
-
-  # vcs
-  programs.git.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -33,6 +33,7 @@
     nixosConfigurations = {
       # Main System
       hana-nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
         inherit specialArgs;
         modules = [
           nixpkgs-xr.nixosModules.nixpkgs-xr
@@ -61,6 +62,7 @@
 
       # Laptop
       hana-nixos-laptop = nixpkgs.lib.nixosSystem {
+        inherit system;
         inherit specialArgs;
         modules = [
           ./hosts/hana-nixos-laptop/configuration.nix

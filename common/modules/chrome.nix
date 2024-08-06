@@ -37,6 +37,7 @@ in {
         "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
+        "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
 
         # Japanese
         "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD
@@ -57,7 +58,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Install chromium
+    # Configure chrome
     programs.chromium = {
       enable = true;
 
@@ -110,6 +111,7 @@ in {
       "application/epub+zip" = "chromium.desktop";
     };
 
+    # Install chrome
     environment.systemPackages = with pkgs; [
       chromium
       google-chrome

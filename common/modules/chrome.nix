@@ -112,6 +112,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       chromium
+      google-chrome
     ];
 
     environment.sessionVariables.BROWSER = mkIf cfg.defaultBrowser "chromium";

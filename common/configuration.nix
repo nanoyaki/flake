@@ -113,11 +113,18 @@
   # Keyboard input
   i18n.inputMethod = {
     type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-    ];
+    enable = true;
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
+      ];
+      waylandFrontend = true;
+    };
   };
+
+  # For fcitx autostart
+  services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
   # Configure console keymap
   console.keyMap = "de";

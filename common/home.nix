@@ -77,6 +77,9 @@
     # Terminal
     fastfetch
 
+    # eID
+    ausweisapp
+
     # Theming
     catppuccin-cursors.macchiatoPink
     (catppuccin.override {

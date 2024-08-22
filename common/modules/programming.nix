@@ -30,6 +30,8 @@ in {
           jnoortheen.nix-ide
           catppuccin.catppuccin-vsc
           catppuccin.catppuccin-vsc-icons
+          dbaeumer.vscode-eslint
+          esbenp.prettier-vscode
         ];
       })
     ];

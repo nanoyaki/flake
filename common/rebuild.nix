@@ -11,7 +11,7 @@ pkgs.writeShellScriptBin "rebuild" ''
   LAST_COMMIT="$(git rev-parse $CURRENT_BRANCH)"
 
   # In case of the same commit name
-  UNIQUE_VERSION="$(git diff | md5sum | cut -c1-6)"
+  UNIQUE_VERSION="$(echo "$(git diff)$(date)" | md5sum | cut -c1-6)"
 
   # check for changes from remote repo
   git fetch origin $CURRENT_BRANCH

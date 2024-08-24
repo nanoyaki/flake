@@ -24,15 +24,24 @@ in {
 
       # Editors
       (vscode-with-extensions.override {
-        vscodeExtensions = with vscode-extensions; [
-          bbenoist.nix
-          kamadorueda.alejandra
-          jnoortheen.nix-ide
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
-          dbaeumer.vscode-eslint
-          esbenp.prettier-vscode
-        ];
+        vscodeExtensions = with vscode-extensions;
+          [
+            bbenoist.nix
+            kamadorueda.alejandra
+            jnoortheen.nix-ide
+            catppuccin.catppuccin-vsc
+            catppuccin.catppuccin-vsc-icons
+            dbaeumer.vscode-eslint
+            esbenp.prettier-vscode
+          ]
+          ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "javascript-ejs-support";
+              publisher = "DigitalBrainstem";
+              version = "1.3.3";
+              sha256 = "0s2xazs74j7dgq1ndakfgami3kxk758ydqsgswixcv80705pbxjn";
+            }
+          ];
       })
     ];
 

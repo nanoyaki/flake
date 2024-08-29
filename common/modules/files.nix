@@ -23,9 +23,8 @@ in {
       p7zip
 
       # UI
-      gnome-disk-utility
       baobab
-      nautilus
+      kdePackages.filelight
     ];
 
     # Archive manager

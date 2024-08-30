@@ -38,6 +38,7 @@ in {
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
         "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
+        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
 
         # Japanese
         "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD

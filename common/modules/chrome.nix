@@ -39,6 +39,7 @@ in {
         "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
         "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
         "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+        "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
 
         # Japanese
         "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD

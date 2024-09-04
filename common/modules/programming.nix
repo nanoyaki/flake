@@ -35,6 +35,7 @@ in {
             esbenp.prettier-vscode
             tamasfe.even-better-toml
             rust-lang.rust-analyzer
+            prisma.prisma
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

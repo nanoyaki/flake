@@ -33,6 +33,7 @@ in {
             catppuccin.catppuccin-vsc-icons
             dbaeumer.vscode-eslint
             esbenp.prettier-vscode
+            tamasfe.even-better-toml
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

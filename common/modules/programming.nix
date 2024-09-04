@@ -34,6 +34,7 @@ in {
             dbaeumer.vscode-eslint
             esbenp.prettier-vscode
             tamasfe.even-better-toml
+            rust-lang.rust-analyzer
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

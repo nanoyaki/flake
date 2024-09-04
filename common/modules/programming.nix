@@ -36,6 +36,7 @@ in {
             tamasfe.even-better-toml
             rust-lang.rust-analyzer
             prisma.prisma
+            eamodio.gitlens
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

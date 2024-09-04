@@ -5,7 +5,7 @@
     gimp
   ];
 
-  programs.ssh.extraConfig = ''
+  home.file.".ssh/config".text = ''
     Host GitHub
       HostName github.com
       IdentityFile ~/.ssh/id_rsa_gh

@@ -11,7 +11,7 @@ in {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = "Enable custom gaming options.";
+      description = "Enable custom php options.";
     };
 
     withSymfony = mkOption {

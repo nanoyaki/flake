@@ -22,9 +22,8 @@ in {
       unzip
       p7zip
 
-      # UI
-      baobab
-      kdePackages.filelight
+      # Space
+      ncdu
     ];
 
     # Archive manager

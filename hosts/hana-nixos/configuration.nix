@@ -19,8 +19,10 @@
   # Networking
   networking.hostName = "${username}-nixos";
 
-  programs.thunderbird.enable = true;
+  programs.thunderbird.enable = false;
 
   services.nano.gaming.enable = true;
-  services.nano.php.enable = true;
+  services.nano.php.enable = false;
+
+  services.suwayomi-server.enable = true;
 }

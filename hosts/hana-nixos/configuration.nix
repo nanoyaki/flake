@@ -24,5 +24,8 @@
   services.nano.gaming.enable = true;
   services.nano.php.enable = false;
 
-  services.suwayomi-server.enable = true;
+  services.suwayomi-server = {
+    enable = true;
+    settings.server.port = 4567;
+  };
 }

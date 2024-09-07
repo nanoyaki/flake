@@ -28,4 +28,6 @@
     enable = true;
     settings.server.port = 4567;
   };
+
+  programs.droidcam.enable = true;
 }

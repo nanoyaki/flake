@@ -40,6 +40,7 @@ in {
         "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
         "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
         "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
+        "neebplgakaahbhdphmkckjjcegoiijjo" # Keepa - Amazon Price Tracker
 
         # Japanese
         "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD

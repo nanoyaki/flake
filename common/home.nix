@@ -30,7 +30,10 @@
   i18n.inputMethod.fcitx5.catppuccin.enable = true;
   qt.style.catppuccin.enable = true;
   programs.zsh.syntaxHighlighting.catppuccin.enable = true;
-  programs.kitty.catppuccin.enable = true;
+  programs.kitty = {
+    enable = true;
+    catppuccin.enable = true;
+  };
   programs.mpv.catppuccin.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory

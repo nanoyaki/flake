@@ -38,7 +38,7 @@
     syntaxHighlighting.catppuccin.enable = true;
     oh-my-zsh = {
       enable = true;
-      theme = "p10k";
+      theme = "powerlevel10k";
     };
   };
   programs.kitty = {

@@ -27,10 +27,6 @@
     enable = true;
     catppuccin.enable = true;
   };
-  i18n.inputMethod.fcitx5 = {
-    enable = true;
-    catppuccin.enable = true;
-  };
   qt = {
     enable = true;
     style.catppuccin.enable = true;

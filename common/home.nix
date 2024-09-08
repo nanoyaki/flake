@@ -30,6 +30,8 @@
   qt = {
     enable = true;
     style.catppuccin.enable = true;
+    style.name = "kvantum";
+    platformTheme.name = "kvantum";
   };
   programs.zsh = {
     enable = true;

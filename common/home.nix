@@ -36,6 +36,10 @@
   programs.zsh = {
     enable = true;
     syntaxHighlighting.catppuccin.enable = true;
+    oh-my-zsh = {
+      enable = true;
+      theme = "p10k";
+    };
   };
   programs.kitty = {
     enable = true;

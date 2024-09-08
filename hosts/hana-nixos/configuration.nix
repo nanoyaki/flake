@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  pkgs,
   inputs,
   username,
   ...
@@ -29,10 +28,4 @@
     enable = true;
     settings.server.port = 4567;
   };
-
-  programs.droidcam.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    obs-studio
-  ];
 }

@@ -37,6 +37,7 @@ in {
             rust-lang.rust-analyzer
             prisma.prisma
             eamodio.gitlens
+            biomejs.biome
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

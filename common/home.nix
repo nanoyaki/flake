@@ -38,8 +38,11 @@
     syntaxHighlighting.catppuccin.enable = true;
     oh-my-zsh = {
       enable = true;
-      theme = "powerlevel10k";
     };
+  };
+  programs.starship = {
+    enable = true;
+    catppuccin.enable = true;
   };
   programs.kitty = {
     enable = true;

@@ -27,14 +27,26 @@
     enable = true;
     catppuccin.enable = true;
   };
-  i18n.inputMethod.fcitx5.catppuccin.enable = true;
-  qt.style.catppuccin.enable = true;
-  programs.zsh.syntaxHighlighting.catppuccin.enable = true;
+  i18n.inputMethod.fcitx5 = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+  qt = {
+    enable = true;
+    style.catppuccin.enable = true;
+  };
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.catppuccin.enable = true;
+  };
   programs.kitty = {
     enable = true;
     catppuccin.enable = true;
   };
-  programs.mpv.catppuccin.enable = true;
+  programs.mpv = {
+    enable = true;
+    catppuccin.enable = true;
+  };
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;

@@ -31,7 +31,6 @@ in {
             jnoortheen.nix-ide
             catppuccin.catppuccin-vsc
             catppuccin.catppuccin-vsc-icons
-            esbenp.prettier-vscode
             tamasfe.even-better-toml
             rust-lang.rust-analyzer
             prisma.prisma

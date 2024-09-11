@@ -36,6 +36,7 @@ in {
             prisma.prisma
             eamodio.gitlens
             biomejs.biome
+            ms-vscode-remote.remote-ssh
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

@@ -41,7 +41,7 @@ in {
       libsForQt5.qt5.qttools
     ];
 
-    programs.chromium.enablePlasmaBrowserIntegration = true;
+    programs.chromium.enablePlasmaBrowserIntegration = mkIf config.programs.chromium.enable true;
 
     programs.gamemode.settings.custom = mkIf config.programs.gamemode.enable {
       start = "qdbus org.kde.KWin /Compositor suspend";

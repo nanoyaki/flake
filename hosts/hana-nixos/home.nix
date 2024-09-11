@@ -12,6 +12,5 @@
 
     Host Thelessone
       HostName theless.one
-      IdentityFile ~/.ssh/id_ed25519
   '';
 }

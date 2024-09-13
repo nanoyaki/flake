@@ -11,6 +11,7 @@
       IdentityFile ~/.ssh/id_rsa_gh
 
     Host Thelessone
+      User thelessone
       HostName theless.one
   '';
 }

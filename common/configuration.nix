@@ -180,7 +180,10 @@
   };
 
   # Audio
-  services.nano.audio.enable = true;
+  services.nano.audio = {
+    enable = true;
+    latency = 1024;
+  };
 
   # Audio and video player
   services.nano.mpv.enable = true;

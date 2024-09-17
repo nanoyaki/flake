@@ -37,7 +37,6 @@ in {
             eamodio.gitlens
             biomejs.biome
             ms-vscode-remote.remote-ssh
-            oven.bun-vscode
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
@@ -45,6 +44,12 @@ in {
               publisher = "DigitalBrainstem";
               version = "1.3.3";
               sha256 = "0s2xazs74j7dgq1ndakfgami3kxk758ydqsgswixcv80705pbxjn";
+            }
+            {
+              name = "bun-vscode";
+              publisher = "oven";
+              version = "0.0.12";
+              sha256 = "sha256-8+Fqabbwup6Jzm5m8GlWbxTqumqXtWAw5s3VaDht9Us=";
             }
           ];
       })

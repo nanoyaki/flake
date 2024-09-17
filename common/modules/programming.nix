@@ -37,6 +37,7 @@ in {
             eamodio.gitlens
             biomejs.biome
             ms-vscode-remote.remote-ssh
+            oven.bun-vscode
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

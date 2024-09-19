@@ -9,14 +9,15 @@
 
   # Program theming
   gtk = {
+    enable = true;
     catppuccin.icon = {
       enable = true;
       accent = "pink";
       flavor = "macchiato";
     };
+    catppuccin.enable = true;
     catppuccin.gnomeShellTheme = true;
     catppuccin.size = "standard";
-    enable = true;
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };

@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  username,
   ...
 }:
 with lib; let
@@ -26,13 +25,6 @@ in {
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm.enable = true;
     services.displayManager.defaultSession = mkIf cfg.isX11default "plasmax11";
-
-    services.displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "${username}";
-      };
-    };
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole

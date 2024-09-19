@@ -9,6 +9,7 @@
 }: {
   imports = [
     ./modules/plasma.nix
+    ./modules/gnome.nix
     ./modules/mpv.nix
     ./modules/chrome.nix
     ./modules/audio.nix
@@ -133,6 +134,13 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "${username}";
+    };
+  };
 
   modules = {
     audio = {

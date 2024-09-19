@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  lib,
   inputs,
   username,
   ...
@@ -34,4 +35,7 @@
     allowedTCPPorts = [25565];
     allowedUDPPorts = [25565];
   };
+
+  modules.plasma6.enable = lib.mkForce false;
+  modules.gnome.enable = true;
 }

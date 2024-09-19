@@ -147,8 +147,7 @@
       enable = true;
       latency = 1024;
     };
-    gnome.enable = true;
-    plasma6.enable = false;
+    plasma6.enable = true;
     terminal.enable = true;
     files.enable = true;
     chrome.enable = true;

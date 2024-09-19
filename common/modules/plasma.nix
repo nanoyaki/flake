@@ -16,7 +16,7 @@ in {
 
     isX11default = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = "Set X11 as the default compositor.";
     };
   };

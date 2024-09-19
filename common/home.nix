@@ -14,6 +14,7 @@
       accent = "pink";
       flavor = "macchiato";
     };
+    catppuccin.gnomeShellTheme = true;
     catppuccin.size = "standard";
     enable = true;
     gtk4.extraConfig = {

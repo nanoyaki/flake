@@ -10,7 +10,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../common/modules/gaming.nix
-    ../../common/modules/php.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd

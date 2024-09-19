@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.vr;
+  cfg = config.modules.vr;
 in {
-  options.services.nano.vr = {
+  options.modules.vr = {
     enable = mkOption {
       type = types.bool;
       default = false;

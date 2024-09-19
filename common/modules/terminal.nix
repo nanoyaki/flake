@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.terminal;
+  cfg = config.modules.terminal;
 in {
-  options.services.nano.terminal = {
+  options.modules.terminal = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -20,12 +20,6 @@ in {
       description = "Use zsh as the default shell.";
     };
 
-    withP10k = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether to enable the powerlevel10k theme.";
-    };
-
     withOpenssl = mkOption {
       type = types.bool;
       default = false;
@@ -36,7 +30,6 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       # Terminal
-      (mkIf cfg.withP10k zsh-powerlevel10k)
       (mkIf cfg.withOpenssl openssl)
       kitty
     ];
@@ -63,10 +56,7 @@ in {
       histSize = 10000;
     };
 
-    # Nautilus Settings
-    programs.nautilus-open-any-terminal = mkIf config.services.nano.files.enable {
-      enable = true;
-      terminal = "kitty";
-    };
+    # Configure console keymap
+    console.keyMap = "de";
   };
 }

@@ -131,24 +131,26 @@
   # For fcitx autostart
   services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
-  # Configure console keymap
-  console.keyMap = "de";
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.displayManager = {
-    autoLogin = {
+  modules = {
+    audio = {
       enable = true;
-      user = "${username}";
+      latency = 1024;
     };
+    plasma6.enable = true;
+    terminal.enable = true;
+    files.enable = true;
+    chrome.enable = true;
+    mpv.enable = true;
+    programming.enable = true;
   };
 
-  # Maybe in the future when i feel like a masochist
-  # programs.neovim.enable = true;
-
-  # Desktop Manager
-  services.nano.plasma6.enable = true;
+  # Theming
+  catppuccin.enable = true;
+  catppuccin.accent = "pink";
+  catppuccin.flavor = "macchiato";
 
   # Input
   services.libinput.mouse.accelProfile = "flat";
@@ -156,9 +158,6 @@
     layout = "de";
     variant = "";
   };
-
-  # Shell
-  services.nano.terminal.enable = true;
 
   environment.sessionVariables = {
     XMODIFIERS = "@im=fcitx";
@@ -179,30 +178,8 @@
     LANGUAGE = "en_GB";
   };
 
-  # Audio
-  services.nano.audio = {
-    enable = true;
-    latency = 1024;
-  };
-
-  # Audio and video player
-  services.nano.mpv.enable = true;
-
-  # Theming
-  catppuccin.enable = true;
-  catppuccin.accent = "pink";
-  catppuccin.flavor = "macchiato";
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Browser
-  services.nano.chrome.enable = true;
-
-  # Files
-  services.nano.files.enable = true;
-
-  services.nano.programming.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

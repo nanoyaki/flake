@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.programming;
+  cfg = config.modules.programming;
 in {
-  options.services.nano.programming = {
+  options.modules.programming = {
     enable = mkOption {
       type = types.bool;
       default = false;

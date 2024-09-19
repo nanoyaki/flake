@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.chrome;
+  cfg = config.modules.chrome;
 in {
-  options.services.nano.chrome = {
+  options.modules.chrome = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -103,8 +103,6 @@ in {
       "text/plain" = "chromium.desktop";
       "application/xhtml+xml" = "chromium.desktop";
       "application/xml" = "chromium.desktop";
-      "application/json" = "chromium.desktop";
-      "application/javascript" = "chromium.desktop";
       "application/atom+xml" = "chromium.desktop";
       "application/rss+xml" = "chromium.desktop";
       "application/pdf" = "chromium.desktop";

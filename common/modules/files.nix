@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.files;
+  cfg = config.modules.files;
 in {
-  options.services.nano.files = {
+  options.modules.files = {
     enable = mkOption {
       type = types.bool;
       default = false;

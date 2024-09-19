@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.audio;
+  cfg = config.modules.audio;
 in {
-  options.services.nano.audio = {
+  options.modules.audio = {
     enable = mkOption {
       type = types.bool;
       default = true;
@@ -52,16 +52,6 @@ in {
           default.clock.quantum = latency;
           default.clock.min-quantum = latency;
           default.clock.max-quantum = latency;
-        };
-      };
-
-      extraConfig.pipewire.adjust-sample-rate = {
-        "context.properties" = {
-          "default.clock.rate" = samplingRate;
-          "default.allowed-rates" = [samplingRate];
-          "default.clock.quantum" = latency;
-          "default.clock.min-quantum" = latency;
-          "default.clock.max-quantum" = latency;
         };
       };
 

@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.mpv;
+  cfg = config.modules.mpv;
 in {
-  options.services.nano.mpv = {
+  options.modules.mpv = {
     enable = mkOption {
       type = types.bool;
       default = false;

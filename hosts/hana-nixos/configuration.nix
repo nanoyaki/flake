@@ -22,8 +22,7 @@
 
   programs.thunderbird.enable = false;
 
-  services.nano.gaming.enable = true;
-  services.nano.php.enable = false;
+  modules.gaming.enable = true;
 
   services.suwayomi-server = {
     enable = true;

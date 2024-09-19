@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.virtualisation;
+  cfg = config.modules.virtualisation;
 in {
-  options.services.nano.virtualisation = {
+  options.modules.virtualisation = {
     enable = mkOption {
       type = types.bool;
       default = false;

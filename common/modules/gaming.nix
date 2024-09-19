@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.services.nano.gaming;
+  cfg = config.modules.gaming;
 in {
-  options.services.nano.gaming = {
+  options.modules.gaming = {
     enable = mkOption {
       type = types.bool;
       default = false;

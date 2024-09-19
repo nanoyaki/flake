@@ -2,12 +2,13 @@
   lib,
   pkgs,
   config,
+  username,
   ...
 }:
 with lib; let
-  cfg = config.services.nano.plasma6;
+  cfg = config.modules.plasma6;
 in {
-  options.services.nano.plasma6 = {
+  options.modules.plasma6 = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -16,7 +17,7 @@ in {
 
     isX11default = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Set X11 as the default compositor.";
     };
   };
@@ -25,6 +26,13 @@ in {
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm.enable = true;
     services.displayManager.defaultSession = mkIf cfg.isX11default "plasmax11";
+
+    services.displayManager = {
+      autoLogin = {
+        enable = true;
+        user = "${username}";
+      };
+    };
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole

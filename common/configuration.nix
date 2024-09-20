@@ -135,11 +135,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "${username}";
-    };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = username;
   };
 
   modules = {

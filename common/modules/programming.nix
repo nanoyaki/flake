@@ -51,6 +51,12 @@ in {
               version = "0.0.12";
               sha256 = "sha256-8+Fqabbwup6Jzm5m8GlWbxTqumqXtWAw5s3VaDht9Us=";
             }
+            {
+              name = "discord-vscode";
+              publisher = "icrawl";
+              version = "5.8.0";
+              sha256 = lib.fakeSha256;
+            }
           ];
       })
     ];

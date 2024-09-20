@@ -57,6 +57,12 @@ in {
               version = "5.8.0";
               sha256 = "sha256-IU/looiu6tluAp8u6MeSNCd7B8SSMZ6CEZ64mMsTNmU=";
             }
+            {
+              name = "vscode-sqlite";
+              publisher = "alexcvzz";
+              version = "0.14.1";
+              sha256 = lib.fakeSha256;
+            }
           ];
       })
     ];

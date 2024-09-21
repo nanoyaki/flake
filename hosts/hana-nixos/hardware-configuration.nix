@@ -13,7 +13,7 @@
   ];
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = ["amdgpu"];
   boot.kernelModules = ["kvm-amd" "ryzen_smu" "amdgpu" "it87"];
   boot.kernelParams = ["acpi_enforce_resources=lax"];
   # boot.extraModulePackages = with pkgs; [
@@ -85,7 +85,7 @@
     wantedBy = ["multi-user.target"];
   };
 
-  # GPU
+  # Corectrl
   programs.corectrl = {
     enable = true;
     gpuOverclock.enable = true;
@@ -93,7 +93,6 @@
   };
   security.polkit = {
     enable = true;
-    # Corectrl
     extraConfig = ''
       polkit.addRule(function(action, subject) {
         if ((action.id == "org.corectrl.helper.init" ||
@@ -106,16 +105,17 @@
       });
     '';
   };
+
+  # GPU
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [libva-vdpau-driver libvdpau-va-gl];
   };
   services.xserver.videoDrivers = ["amdgpu"];
   hardware.amdgpu.amdvlk.enable = false;
 
   hardware.steam-hardware.enable = true;
-
   hardware.bluetooth.enable = true;
-
   programs.coolercontrol.enable = true;
 }

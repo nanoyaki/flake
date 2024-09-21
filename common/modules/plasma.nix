@@ -14,17 +14,17 @@ in {
       description = "Enable custom plasma 6 options.";
     };
 
-    isX11default = mkOption {
+    isWaylandDefault = mkOption {
       type = types.bool;
       default = true;
-      description = "Set X11 as the default compositor.";
+      description = "Set Wayland as the default session.";
     };
   };
 
   config = mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm.enable = true;
-    services.displayManager.defaultSession = mkIf cfg.isX11default "plasmax11";
+    services.displayManager.defaultSession = mkIf cfg.isWaylandDefault "plasma";
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole

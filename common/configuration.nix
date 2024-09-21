@@ -143,7 +143,7 @@
   modules = {
     audio = {
       enable = true;
-      latency = 1024;
+      latency = 512;
     };
     plasma6.enable = true;
     terminal.enable = true;

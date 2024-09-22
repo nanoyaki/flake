@@ -1,0 +1,50 @@
+{
+  lib,
+  stdenv,
+  pkg-config,
+  makeWrapper,
+  systemd,
+  zulu17,
+  fetchFromGithub,
+}:
+stdenv.mkDerivation (finalAttrs: {
+  pname = "Lavalink";
+  version = "4.0.8";
+
+  src = fetchFromGithub {
+    owner = "lavalink-devs";
+    repo = "Lavalink";
+    rev = finalAttrs.version;
+    hash = "sha256-G4a9ltPq/L0vcazTQjStTlOOtwrBi37bYUNQHy5CV9Y=";
+  };
+
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
+
+  buildInputs = [
+    systemd
+  ];
+
+  dontUnpack = true;
+
+  postFixup = ''
+    makeWrapper ${lib.getExe zulu17} $out/bin/lavalink \
+     --add-flags "-jar $src"
+  '';
+
+  meta = with lib; {
+    description = "A standalone audio sending node based on Lavaplayer and Koe";
+    longDescription = ''
+      A standalone audio sending node based on Lavaplayer and Koe. Allows for sending audio without it ever reaching any of your shards.
+
+      Being used in production by FredBoat, Dyno, LewdBot, and more.
+    '';
+    homepage = "https://lavalink.dev/";
+    changelog = "https://github.com/lavalink-devs/Lavalink/releases/tag/${finalAttrs.version}";
+    license = licenses.mit;
+    mainProgram = "lavalink";
+    platforms = zulu17.meta.platforms;
+  };
+})

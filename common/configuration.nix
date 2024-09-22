@@ -196,11 +196,16 @@
       # Hardware
       glxinfo
       lm_sensors
+      headsetcontrol
     ])
     ++ [
       (import ./rebuild.nix {inherit pkgs;})
       (import ./nix-up.nix {inherit pkgs;})
     ];
+
+  services.udev.packages = with pkgs; [
+    headsetcontrol
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

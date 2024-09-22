@@ -1,26 +1,24 @@
 {
   lib,
   stdenv,
-  pkg-config,
   makeWrapper,
+  pkg-config,
   systemd,
   zulu17,
-  fetchFromGithub,
+  fetchurl,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "Lavalink";
   version = "4.0.8";
 
-  src = fetchFromGithub {
-    owner = "lavalink-devs";
-    repo = "Lavalink";
-    rev = finalAttrs.version;
+  src = fetchurl {
+    url = "https://github.com/lavalink-devs/${finalAttrs.pname}/releases/download/${finalAttrs.version}/Lavalink.jar";
     hash = "sha256-G4a9ltPq/L0vcazTQjStTlOOtwrBi37bYUNQHy5CV9Y=";
   };
 
   nativeBuildInputs = [
-    pkg-config
     makeWrapper
+    pkg-config
   ];
 
   buildInputs = [
@@ -31,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     makeWrapper ${lib.getExe zulu17} $out/bin/lavalink \
-     --add-flags "-jar $src"
+      --add-flags "-jar $src"
   '';
 
   meta = with lib; {

@@ -6,11 +6,7 @@
   ];
 
   home.file.".ssh/config".text = ''
-    Host GitHub
-      HostName github.com
-      IdentityFile ~/.ssh/id_rsa_gh
-
-    Host Thelessone
+    Host server
       User thelessone
       HostName theless.one
   '';

@@ -42,6 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lavalink.dev/";
     changelog = "https://github.com/lavalink-devs/Lavalink/releases/tag/${finalAttrs.version}";
     license = licenses.mit;
+    maintainers = with maintainers; [nanoyaki];
     mainProgram = "lavalink";
     platforms = zulu17.meta.platforms;
   };

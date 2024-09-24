@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.vr;
-in {
+in
+{
   options.modules.vr = {
     enable = mkOption {
       type = types.bool;
@@ -36,13 +38,15 @@ in {
     ];
 
     programs.steam.extraCompatPackages = mkIf config.programs.steam.enable [
-      (pkgs.proton-ge-bin.overrideAttrs (finalAttrs: _: {
-        version = "GE-Proton9-10-rtsp12";
-        src = pkgs.fetchzip {
-          url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
-          hash = "sha256-aHKOKhaOs1v+LwJdtQMDblcd5Oee9GzLC8SLYPA9jQQ=";
-        };
-      }))
+      (pkgs.proton-ge-bin.overrideAttrs (
+        finalAttrs: _: {
+          version = "GE-Proton9-10-rtsp12";
+          src = pkgs.fetchzip {
+            url = "https://github.com/SpookySkeletons/proton-ge-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+            hash = "sha256-aHKOKhaOs1v+LwJdtQMDblcd5Oee9GzLC8SLYPA9jQQ=";
+          };
+        }
+      ))
     ];
 
     # VR Compositor and Envision

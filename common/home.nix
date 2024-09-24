@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.username = "hana";
   home.homeDirectory = "/home/hana";
 
@@ -99,14 +100,9 @@
     ausweisapp
 
     # Theming
-    catppuccin-cursors.macchiatoPink
     (catppuccin.override {
       accent = "pink";
       variant = "macchiato";
-    })
-    (catppuccin-kde.override {
-      flavour = ["macchiato"];
-      accents = ["pink"];
     })
   ];
 

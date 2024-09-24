@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.terminal;
-in {
+in
+{
   options.modules.terminal = {
     enable = mkOption {
       type = types.bool;
@@ -36,7 +38,7 @@ in {
 
     # Zsh
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;
-    environment.pathsToLink = ["/share/zsh"];
+    environment.pathsToLink = [ "/share/zsh" ];
     programs.zsh = {
       enable = true;
       ohMyZsh.enable = true;

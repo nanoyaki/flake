@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.mpv;
-in {
+in
+{
   options.modules.mpv = {
     enable = mkOption {
       type = types.bool;

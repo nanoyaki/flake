@@ -4,9 +4,11 @@
   username,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.virtualisation;
-in {
+in
+{
   options.modules.virtualisation = {
     enable = mkOption {
       type = types.bool;
@@ -17,6 +19,6 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.virtualbox.host.enable = true;
-    users.users.${username}.extraGroups = ["vboxusers"];
+    users.users.${username}.extraGroups = [ "vboxusers" ];
   };
 }

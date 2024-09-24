@@ -16,75 +16,78 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nixpkgs-xr,
-    catppuccin,
-    home-manager,
-    ...
-  } @ inputs: let
-    username = "hana";
-    system = "x86_64-linux";
-    specialArgs = {
-      inherit inputs;
-      inherit username;
-    };
-  in {
-    nixosConfigurations = {
-      # Main System
-      hana-nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        inherit specialArgs;
-        modules = [
-          nixpkgs-xr.nixosModules.nixpkgs-xr
-          ./hosts/hana-nixos/configuration.nix
-          ./common/configuration.nix
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              backupFileExtension = "bac";
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username} = {
-                imports = [
-                  catppuccin.homeManagerModules.catppuccin
-                  ./common/home.nix
-                  ./hosts/hana-nixos/home.nix
-                ];
-              };
-            };
-          }
-        ];
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-xr,
+      catppuccin,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      username = "hana";
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs;
+        inherit username;
       };
-
-      # TODO: MAKE THIS GOOD FOR THE LOVE OF GOD
-
-      # Laptop
-      hana-nixos-laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        inherit specialArgs;
-        modules = [
-          ./hosts/hana-nixos-laptop/configuration.nix
-          ./common/configuration.nix
-          catppuccin.nixosModules.catppuccin
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              backupFileExtension = "bac";
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username} = {
-                imports = [
-                  catppuccin.homeManagerModules.catppuccin
-                  ./common/home.nix
-                  ./hosts/hana-nixos-laptop/home.nix
-                ];
+    in
+    {
+      nixosConfigurations = {
+        # Main System
+        hana-nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit specialArgs;
+          modules = [
+            nixpkgs-xr.nixosModules.nixpkgs-xr
+            ./hosts/hana-nixos/configuration.nix
+            ./common/configuration.nix
+            catppuccin.nixosModules.catppuccin
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bac";
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = {
+                  imports = [
+                    catppuccin.homeManagerModules.catppuccin
+                    ./common/home.nix
+                    ./hosts/hana-nixos/home.nix
+                  ];
+                };
               };
-            };
-          }
-        ];
+            }
+          ];
+        };
+
+        # TODO: MAKE THIS GOOD FOR THE LOVE OF GOD
+
+        # Laptop
+        hana-nixos-laptop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit specialArgs;
+          modules = [
+            ./hosts/hana-nixos-laptop/configuration.nix
+            ./common/configuration.nix
+            catppuccin.nixosModules.catppuccin
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bac";
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = {
+                  imports = [
+                    catppuccin.homeManagerModules.catppuccin
+                    ./common/home.nix
+                    ./hosts/hana-nixos-laptop/home.nix
+                  ];
+                };
+              };
+            }
+          ];
+        };
       };
     };
-  };
 }

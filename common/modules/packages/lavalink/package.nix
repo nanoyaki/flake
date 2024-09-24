@@ -3,285 +3,366 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.services.lavalink;
 
-  format = pkgs.formats.yaml {};
-  plugins =
-    if cfg.enableYouTube
-    then [
-      {
-        name = "youtube";
-        dependency = "dev.lavalink.youtube:youtube-plugin:1.8.0";
-        snapshot = false;
-      }
-    ]
-    else [] ++ cfg.plugins;
-  configFile = format.generate "application.yml" (lib.mkMerge [
-    (lib.mkForce {
-      server = {
-        port = cfg.port;
-        address = cfg.address;
-        http2.enabled = cfg.enableHttp2;
-      };
-      plugins = lib.mapAttrs' (index: pluginConfig: lib.nameValuePair (pluginConfig.name) (pluginConfig.extraConfig)) plugins;
-      lavalink.plugins = lib.forEach (pluginConfig: lib.removeAttrs pluginConfig ["name" "extraConfig" "hash"]) plugins;
-    })
-    cfg.extraConfig
-  ]);
+  format = pkgs.formats.yaml { };
 in
-  with lib; {
-    options.services.lavalink = {
-      enable = mkEnableOption "Lavalink";
+with lib;
+{
+  options.services.lavalink = {
+    enable = mkEnableOption "Lavalink";
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.lavalink;
-        description = "The Lavalink package to use.";
-      };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.lavalink;
+      description = "The Lavalink package to use.";
+    };
 
-      password = mkOption {
-        type = types.str;
-        default = null;
-        description = ''
-          The password for Lavalink's authentication in plain text.
-        '';
-      };
-
-      port = mkOption {
-        type = types.port;
-        default = 2333;
-        example = 4567;
-        description = ''
-          The port that Lavalink will use.
-        '';
-      };
-
-      address = mkOption {
-        type = types.str;
-        default = "0.0.0.0";
-        example = "127.0.0.1";
-        description = ''
-          The network address to bind to.
-        '';
-      };
-
-      openFirewall = mkOption {
-        type = types.bool;
-        default = false;
-        example = true;
-        description = ''
-          Whether to expose the port to the network.
-        '';
-      };
-
-      enableHttp2 = mkEnableOption "HTTP/2 support";
-
-      enableYouTube = mkEnableOption ''
-        the YouTube plugin.
-        This is the recommended way to use YouTube as a source
+    password = mkOption {
+      type = types.str;
+      default = null;
+      description = ''
+        The password for Lavalink's authentication in plain text.
       '';
+    };
 
-      jvmArgs = mkOption {
-        type = types.str;
-        default = "-Xmx6G";
-        example = "-Djava.io.tmpdir=/var/lib/lavalink/tmp -Xmx6G";
-        description = ''
-          Set custom JVM arguments.
-        '';
-      };
+    port = mkOption {
+      type = types.port;
+      default = 2333;
+      example = 4567;
+      description = ''
+        The port that Lavalink will use.
+      '';
+    };
 
-      plugins = mkOption {
-        type = types.listOf (types.submodule {
-          name = mkOption {
-            type = types.str;
-            example = "youtube";
-            description = ''
-              The name of the plugin to use for the plugin configuration.
-            '';
-          };
+    address = mkOption {
+      type = types.str;
+      default = "0.0.0.0";
+      example = "127.0.0.1";
+      description = ''
+        The network address to bind to.
+      '';
+    };
 
-          dependency = mkOption {
-            type = types.str;
-            example = "dev.lavalink.youtube:youtube-plugin:1.8.0";
-            description = ''
-              The coordinates of the plugin.
-            '';
-          };
+    openFirewall = mkOption {
+      type = types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Whether to expose the port to the network.
+      '';
+    };
 
-          repository = mkOption {
-            type = types.str;
-            example = "https://maven.example.com/releases";
-            description = ''
-              The plugin repository. Defaults to the lavalink releases repository.
-            '';
-          };
+    user = mkOption {
+      type = types.str;
+      default = "lavalink";
+      example = "root";
+      description = ''
+        The user of the service.
+      '';
+    };
 
-          snapshot = mkOption {
-            type = types.bool;
-            default = false;
-            example = true;
-            description = ''
-              Whether to use the snapshot repository instead of the release repository.
-            '';
-          };
+    group = mkOption {
+      type = types.str;
+      default = "lavalink";
+      example = "medias";
+      description = ''
+        The group of the service.
+      '';
+    };
 
-          extraConfig = mkOption {
-            type = types.submodule {
-              freeformType = format.type;
+    home = mkOption {
+      type = types.str;
+      default = "/var/lib/lavalink";
+      example = "/home/lavalink";
+      description = ''
+        The home folder for lavalink.
+      '';
+    };
+
+    enableHttp2 = mkEnableOption "HTTP/2 support";
+
+    jvmArgs = mkOption {
+      type = types.str;
+      default = "-Xmx6G";
+      example = "-Djava.io.tmpdir=/var/lib/lavalink/tmp -Xmx6G";
+      description = ''
+        Set custom JVM arguments.
+      '';
+    };
+
+    plugins = mkOption {
+      type = types.listOf (
+        types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+              example = "youtube";
+              description = ''
+                The name of the plugin to use for the plugin configuration.
+              '';
             };
-            description = ''
-              The configuration for the plugin.
-            '';
+
+            dependency = mkOption {
+              type = types.str;
+              example = "dev.lavalink.youtube:youtube-plugin:1.8.0";
+              description = ''
+                The coordinates of the plugin.
+              '';
+            };
+
+            repository = mkOption {
+              type = types.str;
+              example = "https://maven.example.com/releases";
+              default = "https://maven.lavalink.dev/releases";
+              description = ''
+                The plugin repository. Defaults to the lavalink releases repository.
+              '';
+            };
+
+            snapshot = mkOption {
+              type = types.bool;
+              default = false;
+              example = true;
+              description = ''
+                Whether to use the snapshot repository instead of the release repository.
+              '';
+            };
+
+            hash = mkOption {
+              type = types.str;
+              example = fakeSha256;
+              description = ''
+                The hash of the plugin.
+              '';
+            };
+
+            extraConfig = mkOption {
+              type = types.submodule { freeformType = format.type; };
+              description = ''
+                The configuration for the plugin.
+              '';
+            };
+          };
+        }
+      );
+      default = [ ];
+      example = [
+        {
+          name = "youtube";
+          dependency = "dev.lavalink.youtube:youtube-plugin:1.8.0";
+          snapshot = false;
+          extraConfig = {
+            enabled = true;
+            allowSearch = true;
+            allowDirectVideoIds = true;
+            allowDirectPlaylistIds = true;
+          };
+          hash = lib.fakeSha256;
+        }
+      ];
+      description = ''
+        A list of plugins for lavalink.
+      '';
+    };
+
+    extraConfig = mkOption {
+      type = types.submodule { freeformType = format.type; };
+      description = ''
+        Configuration to write to {file}`application.yml`.
+
+        Individual configuration parameters can be overwritten using environment variables.
+        See <https://lavalink.dev/configuration/index.html> for more information.
+      '';
+      default = {
+        lavalink.server = {
+          sources = {
+            youtube = false;
+            bandcamp = true;
+            soundcloud = true;
+            twitch = true;
+            vimeo = true;
+            nico = true;
+            http = false;
+            local = false;
           };
 
-          hash = mkOption {
-            type = types.str;
-            example = fakeSha256;
-            description = ''
-              The hash of the plugin.
-            '';
+          filters = {
+            volume = true;
+            equalizer = true;
+            karaoke = true;
+            timescale = true;
+            tremolo = true;
+            distortion = true;
+            rotation = true;
+            channelMix = true;
+            lowPass = true;
           };
-        });
-        default = [];
-        example = [
-          {
-            name = "youtube";
-            dependency = "dev.lavalink.youtube:youtube-plugin:1.8.0";
-            snapshot = false;
-            extraConfig = {};
-            hash = lib.fakeSha256;
-          }
-        ];
-        description = ''
-          A list of plugins for lavalink.
-        '';
-      };
 
-      extraConfig = mkOption {
-        type = types.submodule {
-          freeformType = format.type;
+          bufferDurationMs = 400;
+          frameBufferDurationMs = 5000;
+          opusEncodingQuality = 10;
+          resamplingQuality = "LOW";
+          trackStuckThresholdMs = 10000;
+          useSeekGhosting = true;
+          youtubePlaylistLoadLimit = 6;
+          playerUpdateInterval = 5;
+          youtubeSearchEnabled = true;
+          soundcloudSearchEnabled = true;
+          gc-warnings = true;
         };
-        description = ''
-          Configuration to write to {file}`application.yml`.
 
-          Individual configuration parameters can be overwritten using environment variables.
-          See <https://lavalink.dev/configuration/index.html> for more information.
-        '';
-        default = {
-          lavalink.server = {
-            sources = {
-              youtube = false;
-              bandcamp = true;
-              soundcloud = true;
-              twitch = true;
-              vimeo = true;
-              nico = true;
-              http = false;
-              local = false;
-            };
+        metrics.prometheus = {
+          enabled = config.prometheus.enable;
+          endpoint = "/metrics";
+        };
 
-            filters = {
-              volume = true;
-              equalizer = true;
-              karaoke = true;
-              timescale = true;
-              tremolo = true;
-              distortion = true;
-              rotation = true;
-              channelMix = true;
-              lowPass = true;
-            };
+        sentry = {
+          dsn = "";
+          environment = "";
+        };
 
-            bufferDurationMs = 400;
-            frameBufferDurationMs = 5000;
-            opusEncodingQuality = 10;
-            resamplingQuality = "LOW";
-            trackStuckThresholdMs = 10000;
-            useSeekGhosting = true;
-            youtubePlaylistLoadLimit = 6;
-            playerUpdateInterval = 5;
-            youtubeSearchEnabled = true;
-            soundcloudSearchEnabled = true;
-            gc-warnings = true;
+        logging = {
+          file.path = "./logs/";
+
+          level = {
+            root = "INFO";
+            lavalink = "INFO";
           };
 
-          metrics.prometheus = {
-            enabled = config.prometheus.enable;
-            endpoint = "/metrics";
+          request = {
+            enabled = true;
+            includeClientInfo = true;
+            includeHeaders = false;
+            includeQueryString = true;
+            includePayload = true;
+            maxPayloadLength = 10000;
           };
 
-          sentry = {
-            dsn = "";
-            environment = "";
-          };
-
-          logging = {
-            file.path = "./logs/";
-
-            level = {
-              root = "INFO";
-              lavalink = "INFO";
-            };
-
-            request = {
-              enabled = true;
-              includeClientInfo = true;
-              includeHeaders = false;
-              includeQueryString = true;
-              includePayload = true;
-              maxPayloadLength = 10000;
-            };
-
-            logback.rollingpolicy = {
-              max-file-size = "1GB";
-              max-history = 30;
-            };
+          logback.rollingpolicy = {
+            max-file-size = "1GB";
+            max-history = 30;
           };
         };
       };
     };
+  };
 
-    config = mkIf cfg.enable {
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
+  config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-      users.groups.lavalink = {};
-      users.users.lavalink = {
+    users.groups = mkIf (cfg.group == "lavalink") { lavalink = { }; };
+    users.users = mkIf (cfg.user == "lavalink") {
+      lavalink = {
         group = "lavalink";
-        home = "/var/lib/lavalink";
+        home = cfg.home;
         description = "The user for the Lavalink server";
         isSystemUser = true;
       };
+    };
 
-      systemd.tmpfiles.settings."10-lavalink" = {
-        "/var/lib/lavalink/".d = {
-          mode = "0700";
-          user = "lavalink";
-          group = "lavalink";
-        };
+    systemd.tmpfiles.settings."10-lavalink" = {
+      "${cfg.home}/plugins".d = {
+        mode = "0700";
+        user = cfg.user;
+        group = cfg.group;
       };
 
-      systemd.services.lavalink = {
-        description = "Lavalink Service";
+      "${cfg.home}/".d = {
+        mode = "0700";
+        user = cfg.user;
+        group = cfg.group;
+      };
+    };
 
-        wantedBy = ["multi-user.target"];
-        after = ["syslog.target" "network.target"];
+    systemd.services.lavalink = {
+      description = "Lavalink Service";
 
-        script = ''
-          echo "${configFile}" > /var/lib/lavalink/application.yml
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "syslog.target"
+        "network.target"
+      ];
+
+      script =
+        let
+          pluginLinks = concatStringsSep "\n" (
+            forEach cfg.plugins (
+              pluginConfig:
+              let
+                pluginInParts = match "^(.*?:(.*?):)(d+.d+.d+)$" pluginConfig.dependency;
+                pluginPath = (
+                  replaceStrings
+                    [
+                      "."
+                      ":"
+                    ]
+                    [
+                      "/"
+                      "/"
+                    ]
+                    (elemAt pluginInParts 0)
+                );
+                pluginFileName = elemAt pluginInParts 1;
+                pluginVersion = elemAt pluginInParts 2;
+                plugin = pkgs.fetchurl {
+                  url = concatStrings [
+                    pluginConfig.repository
+                    "/"
+                    pluginPath
+                    pluginVersion
+                    "/"
+                    pluginFileName
+                    "-"
+                    pluginVersion
+                    ".jar"
+                  ];
+                  hash = pluginConfig.hash;
+                };
+              in
+              "ln -s ${plugin.outPath} plugins/${baseNameOf plugin}"
+            )
+          );
+          configFile = format.generate "application.yml" (mkMerge [
+            (mkForce {
+              server = {
+                port = cfg.port;
+                address = cfg.address;
+                http2.enabled = cfg.enableHttp2;
+              };
+              plugins = mapAttrs' (
+                index: pluginConfig: nameValuePair (pluginConfig.name) (pluginConfig.extraConfig)
+              ) cfg.plugins;
+              lavalink.plugins = forEach (
+                pluginConfig:
+                removeAttrs pluginConfig [
+                  "name"
+                  "extraConfig"
+                  "hash"
+                ]
+              ) cfg.plugins;
+            })
+            cfg.extraConfig
+          ]);
+        in
+        ''
+          ${pluginLinks}
+          echo "${configFile}" > ${cfg.home}/application.yml
           export _JAVA_OPTIONS="${cfg.jvmArgs}"
           ${getExe cfg.package} -Xmx6G
         '';
 
-        serviceConfig = {
-          User = "lavalink";
-          Group = "lavalink";
+      serviceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
 
-          Type = "simple";
-          Restart = "on-failure";
+        Type = "simple";
+        Restart = "on-failure";
 
-          WorkingDirectory = "/var/lib/lavalink";
-        };
+        WorkingDirectory = "/var/lib/lavalink";
       };
     };
-  }
+  };
+}

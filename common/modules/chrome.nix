@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.chrome;
-in {
+in
+{
   options.modules.chrome = {
     enable = mkOption {
       type = types.bool;

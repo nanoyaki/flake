@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   home.file.".ssh/config".text = ''
     Host server
       User thelessone

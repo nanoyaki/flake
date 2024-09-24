@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.gaming;
-in {
+in
+{
   options.modules.gaming = {
     enable = mkOption {
       type = types.bool;
@@ -27,7 +29,7 @@ in {
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
 
-      extraPackages = with pkgs; [gamescope];
+      extraPackages = with pkgs; [ gamescope ];
       gamescopeSession.enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin

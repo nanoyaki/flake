@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.plasma6;
-in {
+in
+{
   options.modules.plasma6 = {
     enable = mkOption {
       type = types.bool;
@@ -40,6 +42,11 @@ in {
 
     environment.systemPackages = with pkgs; [
       libsForQt5.qt5.qttools
+      catppuccin-cursors.macchiatoPink
+      (catppuccin-kde.override {
+        flavour = [ "macchiato" ];
+        accents = [ "pink" ];
+      })
     ];
 
     programs.chromium.enablePlasmaBrowserIntegration = mkIf config.programs.chromium.enable true;

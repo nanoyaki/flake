@@ -6,7 +6,8 @@
   lib,
   username,
   ...
-}: {
+}:
+{
   imports = [
     ./modules/plasma.nix
     ./modules/gnome.nix
@@ -35,14 +36,17 @@
         useOSProber = true;
       };
     };
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = [ "ntfs" ];
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
   time.hardwareClockInLocalTime = true;
 
   # Nix settings
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.gc = {
     automatic = true;
     dates = "daily";
@@ -56,16 +60,22 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Hana";
-    extraGroups = ["networkmanager" "wheel" "input" "audio" "uinput"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "input"
+      "audio"
+      "uinput"
+    ];
   };
 
   security.sudo.extraRules = [
     {
-      users = ["${username}"];
+      users = [ "${username}" ];
       commands = [
         {
           command = "ALL";
-          options = ["NOPASSWD"];
+          options = [ "NOPASSWD" ];
         }
       ];
     }
@@ -110,8 +120,8 @@
     fontconfig = {
       antialias = true;
       defaultFonts = {
-        serif = ["M PLUS 2"];
-        sansSerif = ["M PLUS 2"];
+        serif = [ "M PLUS 2" ];
+        sansSerif = [ "M PLUS 2" ];
       };
     };
   };
@@ -199,8 +209,8 @@
       headsetcontrol
     ])
     ++ [
-      (import ./rebuild.nix {inherit pkgs;})
-      (import ./nix-up.nix {inherit pkgs;})
+      (import ./rebuild.nix { inherit pkgs; })
+      (import ./nix-up.nix { inherit pkgs; })
     ];
 
   services.udev.packages = with pkgs; [

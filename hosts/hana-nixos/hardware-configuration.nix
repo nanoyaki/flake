@@ -7,15 +7,28 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = ["amdgpu"];
-  boot.kernelModules = ["kvm-amd" "ryzen_smu" "amdgpu" "it87"];
-  boot.kernelParams = ["acpi_enforce_resources=lax"];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "ryzen_smu"
+    "amdgpu"
+    "it87"
+  ];
+  boot.kernelParams = [ "acpi_enforce_resources=lax" ];
   # boot.extraModulePackages = with pkgs; [
   #   linuxKernel.packages.linux_zen.it87
   # ];
@@ -28,7 +41,10 @@
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/98B4-F731";
     fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
 
   # FileSystem Mounts
@@ -74,7 +90,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.cpu.amd.ryzen-smu.enable = true;
   systemd.services.cpu_undervolt = {
-    path = [pkgs.python3];
+    path = [ pkgs.python3 ];
     enable = true;
     name = "cpu_undervolt.service";
     description = "Undervolt Ryzen 7 5800X3D";
@@ -82,7 +98,7 @@
       ExecStart = "${pkgs.python3}/bin/python3 /home/hana/git-repos/Ryzen-5800x3d-linux-undervolting/ruv.py -c 8 -o -30";
       User = "root";
     };
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 
   # Corectrl
@@ -110,9 +126,12 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [libva-vdpau-driver libvdpau-va-gl];
+    extraPackages = with pkgs; [
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
   };
-  services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.amdgpu.amdvlk.enable = false;
 
   hardware.steam-hardware.enable = true;

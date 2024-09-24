@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.writeShellScriptBin "rebuild" ''
   # aliases for nixpkgs
   alias git="${pkgs.git}/bin/git"

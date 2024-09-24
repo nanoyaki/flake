@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.programming;
-in {
+in
+{
   options.modules.programming = {
     enable = mkOption {
       type = types.bool;
@@ -19,15 +21,16 @@ in {
     environment.systemPackages = with pkgs; [
       # Programming
       gh
-      alejandra
+      nixfmt-rfc-style
       nil
 
       # Editors
       (vscode-with-extensions.override {
-        vscodeExtensions = with vscode-extensions;
+        vscodeExtensions =
+          with vscode-extensions;
           [
             bbenoist.nix
-            kamadorueda.alejandra
+            brettm12345.nixfmt-vscode
             jnoortheen.nix-ide
             catppuccin.catppuccin-vsc
             catppuccin.catppuccin-vsc-icons

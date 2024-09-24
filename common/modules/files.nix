@@ -4,9 +4,11 @@
   config,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.files;
-in {
+in
+{
   options.modules.files = {
     enable = mkOption {
       type = types.bool;

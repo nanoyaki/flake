@@ -9,23 +9,23 @@
   catppuccin.accent = "pink";
 
   # Program theming
-  gtk = {
-    enable = true;
-    catppuccin.icon = {
-      enable = true;
-      accent = "pink";
-      flavor = "macchiato";
-    };
-    catppuccin.enable = true;
-    catppuccin.gnomeShellTheme = true;
-    catppuccin.size = "standard";
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-  };
+  # gtk = {
+  #   enable = true;
+  #   catppuccin.icon = {
+  #     enable = true;
+  #     accent = "pink";
+  #     flavor = "macchiato";
+  #   };
+  #   catppuccin.enable = true;
+  #   catppuccin.gnomeShellTheme = true;
+  #   catppuccin.size = "standard";
+  #   gtk4.extraConfig = {
+  #     gtk-application-prefer-dark-theme = true;
+  #   };
+  #   gtk3.extraConfig = {
+  #     gtk-application-prefer-dark-theme = true;
+  #   };
+  # };
   programs.btop = {
     enable = true;
     catppuccin.enable = true;

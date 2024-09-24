@@ -31,5 +31,11 @@
 
   environment.systemPackages = with pkgs; [
     protonvpn-gui
+    headsetcontrol
+    xmousepasteblock
+  ];
+
+  services.udev.packages = with pkgs; [
+    headsetcontrol
   ];
 }

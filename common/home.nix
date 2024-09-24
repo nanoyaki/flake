@@ -99,6 +99,7 @@
 
     # Terminal
     fastfetch
+    nvtopPackages.amd
 
     # eID
     ausweisapp

@@ -47,6 +47,10 @@ in
         flavour = [ "macchiato" ];
         accents = [ "pink" ];
       })
+      (catppuccin-papirus-folders.override {
+        flavor = "macchiato";
+        accent = "pink";
+      })
     ];
 
     programs.chromium.enablePlasmaBrowserIntegration = mkIf config.programs.chromium.enable true;

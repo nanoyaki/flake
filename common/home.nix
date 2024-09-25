@@ -47,7 +47,7 @@
     enable = true;
     catppuccin.enable = true;
   };
-  programs.kitty = {
+  programs.alacritty = {
     enable = true;
     catppuccin.enable = true;
   };

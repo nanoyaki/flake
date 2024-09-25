@@ -119,6 +119,12 @@
     delta.catppuccin.enable = true;
   };
 
+  home.file.".ssh/config".text = ''
+    Host server
+      User thelessone
+      HostName theless.one
+  '';
+
   # see common configuration.nix
   # programs.neovim.coc = {
   #   enable = true;

@@ -34,7 +34,7 @@ pkgs.writeShellScriptBin "rebuild" ''
   git diff -U0 $LAST_COMMIT -- '*.nix'
 
   # Rebuild and exit on failure
-  sudo nixos-rebuild switch --flake $FLAKE_DIR 2> $HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
+  sudo nixos-rebuild switch --flake $FLAKE_DIR > $HOME/nixos-switch.log || (cat $HOME/nixos-switch.log | grep --color error && exit 1)
 
   # Add changes made to flake.lock
   git add flake.lock

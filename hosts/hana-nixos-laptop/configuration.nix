@@ -36,7 +36,4 @@
     allowedTCPPorts = [ 25565 ];
     allowedUDPPorts = [ 25565 ];
   };
-
-  modules.plasma6.enable = lib.mkForce false;
-  modules.gnome.enable = true;
 }

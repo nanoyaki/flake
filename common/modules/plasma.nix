@@ -25,8 +25,17 @@ in
 
   config = mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
+    services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      catppuccin = {
+        enable = true;
+        assertQt6Sddm = true;
+        flavor = "macchiato";
+        background = "${/home/hana/Pictures/Wallpaper/Wallpaper.png}";
+        loginBackground = true;
+      };
+    };
     services.displayManager.defaultSession = mkIf cfg.isWaylandDefault "plasma";
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [

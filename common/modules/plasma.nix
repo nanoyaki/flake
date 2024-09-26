@@ -62,11 +62,11 @@ in
       })
     ];
 
-    programs.chromium.enablePlasmaBrowserIntegration = mkIf config.programs.chromium.enable true;
+    programs.chromium.enablePlasmaBrowserIntegration = config.programs.chromium.enable;
 
-    programs.gamemode.settings.custom = mkIf config.programs.gamemode.enable {
-      start = "qdbus org.kde.KWin /Compositor suspend";
-      stop = "qdbus org.kde.KWin /Compositor resume";
-    };
+    # programs.gamemode.settings.custom = mkIf config.programs.gamemode.enable {
+    #   start = "qdbus org.kde.KWin /Compositor suspend";
+    #   stop = "qdbus org.kde.KWin /Compositor resume";
+    # };
   };
 }

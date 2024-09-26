@@ -60,6 +60,20 @@
     enableZshIntegration = true;
   };
 
+  services.unison = {
+    enable = true;
+    pairs = [
+      {
+        sync = {
+          roots = [
+            "/home/hana/Sync"
+            "ssh://sync@theless.one//var/lib/sync/hana"
+          ];
+        };
+      }
+    ];
+  };
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 

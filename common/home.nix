@@ -63,11 +63,10 @@
   services.unison = {
     enable = true;
     pairs.sync = {
-        roots = [
-          "/home/hana/Sync"
-          "ssh://sync@theless.one//var/lib/sync/hana"
-        ];
-      };
+      roots = [
+        "/home/hana/Sync"
+        "ssh://sync@theless.one//var/lib/sync/hana"
+      ];
     };
   };
 

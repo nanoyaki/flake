@@ -2,7 +2,7 @@
   description = "Hana's NixOS System flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";

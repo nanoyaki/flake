@@ -32,7 +32,7 @@ in
         enable = true;
         assertQt6Sddm = true;
         flavor = "macchiato";
-        background = "${/home/hana/Pictures/Wallpaper/Wallpaper.png}";
+        background = /home/hana/Pictures/Wallpaper/Wallpaper.png;
         loginBackground = true;
       };
     };

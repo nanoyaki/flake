@@ -31,9 +31,8 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      # Terminal
       (mkIf cfg.withOpenssl openssl)
-      kitty
+      gnupg
     ];
 
     # Zsh

@@ -113,18 +113,18 @@
 
     packages = with pkgs; [
       cascadia-code
-      noto-fonts
-      noto-fonts-cjk
-      mplus-outline-fonts.githubRelease
+      # noto-fonts
+      # noto-fonts-cjk
+      # mplus-outline-fonts.githubRelease
     ];
 
-    fontconfig = {
-      antialias = true;
-      defaultFonts = {
-        serif = [ "M PLUS 2" ];
-        sansSerif = [ "M PLUS 2" ];
-      };
-    };
+    # fontconfig = {
+    #   antialias = true;
+    #   defaultFonts = {
+    #     serif = [ "M PLUS 2" ];
+    #     sansSerif = [ "M PLUS 2" ];
+    #   };
+    # };
   };
 
   # Keyboard input

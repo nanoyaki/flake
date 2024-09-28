@@ -74,17 +74,20 @@
     delta.catppuccin.enable = true;
   };
 
-  programs.ssh.matchBlocks = {
-    server = {
-      user = "thelessone";
-      hostname = "theless.one";
-      remoteForwards = [
-        {
-          bind.port = 2333;
-          host.address = "localhost";
-          host.port = 2333;
-        }
-      ];
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      server = {
+        user = "thelessone";
+        hostname = "theless.one";
+        remoteForwards = [
+          {
+            bind.port = 2333;
+            host.address = "localhost";
+            host.port = 2333;
+          }
+        ];
+      };
     };
   };
 

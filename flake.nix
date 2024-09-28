@@ -81,7 +81,6 @@
                   imports = [
                     catppuccin.homeManagerModules.catppuccin
                     ./common/home.nix
-                    ./hosts/hana-nixos-laptop/home.nix
                   ];
                 };
               };

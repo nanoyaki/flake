@@ -52,6 +52,10 @@ in
     environment.systemPackages = with pkgs; [
       libsForQt5.qt5.qttools
       catppuccin-cursors.macchiatoPink
+      (catppuccin.override {
+        accent = "pink";
+        variant = "macchiato";
+      })
       (catppuccin-kde.override {
         flavour = [ "macchiato" ];
         accents = [ "pink" ];

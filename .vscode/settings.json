@@ -34,5 +34,7 @@
                 }
             }
         }
-    }
+    },
+    "editor.defaultFormatter": "brettm12345.nixfmt-vscode",
+    "editor.formatOnSave": true
 }

@@ -31,6 +31,11 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      fastfetch
+      nvtopPackages.amd
+
+      yt-dlp
+
       (mkIf cfg.withOpenssl openssl)
       gnupg
     ];

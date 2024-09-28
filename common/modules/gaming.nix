@@ -41,6 +41,7 @@ in
       bottles
       cartridges
       lutris-unwrapped
+      prismlauncher
 
       # Util
       mangohud

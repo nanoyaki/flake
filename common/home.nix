@@ -80,7 +80,7 @@
       server = {
         user = "thelessone";
         hostname = "theless.one";
-        remoteForwards = [
+        localForwards = [
           {
             bind.port = 2333;
             host.address = "localhost";

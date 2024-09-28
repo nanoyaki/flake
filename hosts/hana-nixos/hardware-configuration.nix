@@ -87,18 +87,10 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   # CPU
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.cpu.amd.ryzen-smu.enable = true;
-  systemd.services.cpu_undervolt = {
-    path = [ pkgs.python3 ];
+  services.x3d-undervolt = {
     enable = true;
-    name = "cpu_undervolt.service";
-    description = "Undervolt Ryzen 7 5800X3D";
-    serviceConfig = {
-      ExecStart = "${pkgs.python3}/bin/python3 /home/hana/git-repos/Ryzen-5800x3d-linux-undervolting/ruv.py -c 8 -o -30";
-      User = "root";
-    };
-    wantedBy = [ "multi-user.target" ];
+    cores = 8;
+    milivolts = 30;
   };
 
   # Corectrl

@@ -69,6 +69,7 @@
   };
 
   programs.git = {
+    enable = true;
     userName = "nanoyaki";
     userEmail = "hanakretzer@gmail.com";
     delta.catppuccin.enable = true;

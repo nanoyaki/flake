@@ -47,10 +47,6 @@
     enable = true;
     catppuccin.enable = true;
   };
-  programs.alacritty = {
-    enable = true;
-    catppuccin.enable = true;
-  };
   programs.mpv = {
     enable = true;
     catppuccin.enable = true;
@@ -58,6 +54,15 @@
   programs.zellij = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.alacritty = {
+    enable = true;
+    catppuccin.enable = true;
+    settings.shell = {
+      program = "zellij";
+      args = [ "-l" "welcome" ];
+    };
   };
 
   services.unison = {

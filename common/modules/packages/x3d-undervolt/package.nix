@@ -1,10 +1,12 @@
 {
   lib,
-  buildPythonApplication,
+  stdenv,
   fetchFromGitHub,
+  makeWrapper,
+  python3,
 }:
 
-buildPythonApplication rec {
+stdenv.mkDerivation (finalAttrs: {
   name = "x3d-undervolt";
   version = "0.1";
 
@@ -12,13 +14,21 @@ buildPythonApplication rec {
     repo = "Ryzen-5800x3d-linux-undervolting";
     owner = "svenlange2";
     rev = "0f05965f9939259c27a428065fda5a6c0cbb9225";
-    sha256 = lib.fakeHash;
+    sha256 = "sha256-ngYM4E1xXfk3pbRp32pLHhngOerRHH9gBSN/aK8BPYQ=";
   };
 
-  postInstall = ''
+  nativeBuildInputs = [
+    makeWrapper
+  ];
+
+  buildInputs = [
+    python3
+  ];
+
+  installPhase = ''
     mkdir -p $out/bin
-    cp $src/ruv.py $out/bin/${name}
-    chmod +x $out/bin/${name}
+    makeWrapper "${lib.getExe python3}" $out/bin/x3d-undervolt \
+      --add-flags "$src/ruv.py"
   '';
 
   meta = {
@@ -33,5 +43,6 @@ buildPythonApplication rec {
     changelog = "https://github.com/svenlange2/Ryzen-5800x3d-linux-undervolting/commits/main/";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
+    mainProgram = "x3d-undervolt";
   };
-}
+})

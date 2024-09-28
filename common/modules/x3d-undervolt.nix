@@ -21,6 +21,7 @@ in
 
     cores = mkOption {
       type = types.int;
+      default = 0;
       example = 8;
       description = ''
         The amount of cores to apply the undervolt to.
@@ -29,6 +30,7 @@ in
 
     milivolts = mkOption {
       type = types.int;
+      default = 8;
       example = 30;
       description = ''
         The milivoltage to reduce on the cores.
@@ -46,9 +48,15 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
+      script = ''
+        ${
+          lib.getExe (pkgs.callPackage ./packages/x3d-undervolt/package.nix { })
+        } -c ${toString cfg.cores} -o -${toString cfg.milivolts}
+      '';
+
       serviceConfig = {
-        ExecStart = "${pkgs.callPackage ./packages/x3d-undervolt/default.nix} -c ${toString cfg.cores} -o -${toString cfg.milivolts}";
         User = "root";
+        Group = "wheel";
       };
     };
   };

@@ -24,6 +24,7 @@
 
   services.unison = {
     enable = true;
+    package = pkgs.unison;
     pairs.sync = {
       roots = [
         "/home/hana/Sync"

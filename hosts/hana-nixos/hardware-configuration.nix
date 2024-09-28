@@ -21,7 +21,10 @@
     "usbhid"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [
+    "amdgpu"
+    "it87"
+  ];
   boot.kernelModules = [
     "kvm-amd"
     "ryzen_smu"
@@ -29,9 +32,9 @@
     "it87"
   ];
   boot.kernelParams = [ "acpi_enforce_resources=lax" ];
-  # boot.extraModulePackages = with pkgs; [
-  #   linuxKernel.packages.linux_zen.it87
-  # ];
+  boot.extraModulePackages = with pkgs; [
+    linuxKernel.packages.linux_zen.it87
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4bd44a3e-f38f-4e9a-b64c-1e7381b98b1d";

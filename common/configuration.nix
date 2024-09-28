@@ -112,6 +112,7 @@
     enableDefaultPackages = true;
 
     packages = with pkgs; [
+      cascadia-code
       noto-fonts
       noto-fonts-cjk
       mplus-outline-fonts.githubRelease

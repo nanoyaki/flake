@@ -30,26 +30,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      fastfetch
-      nvtopPackages.amd
-
-      yt-dlp
-
-      (mkIf cfg.withOpenssl openssl)
-      gnupg
-    ];
-
-    # Zsh
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;
+
     environment.pathsToLink = [ "/share/zsh" ];
+
     programs.zsh = {
       enable = true;
       ohMyZsh.enable = true;
       enableCompletion = true;
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
-      # promptInit = mkIf cfg.withP10k "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme LANGUAGE=${config.i18n.defaultLocale}";
 
       shellAliases = {
         ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
@@ -62,7 +52,16 @@ in
       histSize = 10000;
     };
 
-    # Configure console keymap
     console.keyMap = "de";
+
+    environment.systemPackages = with pkgs; [
+      fastfetch
+      nvtopPackages.amd
+
+      yt-dlp
+
+      (mkIf cfg.withOpenssl openssl)
+      gnupg
+    ];
   };
 }

@@ -19,12 +19,10 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      # Files
       unrar
       unzip
       p7zip
 
-      # Space
       ncdu
     ];
 

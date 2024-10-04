@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  username,
   ...
 }:
 with lib;
@@ -25,19 +26,7 @@ in
 
   config = mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      catppuccin = {
-        enable = true;
-        assertQt6Sddm = true;
-        flavor = "macchiato";
-        background = /home/hana/Pictures/Wallpaper/Wallpaper.png;
-        loginBackground = true;
-      };
-    };
-    services.displayManager.defaultSession = mkIf cfg.isWaylandDefault "plasma";
-
+    programs.kdeconnect.enable = false;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole
       kate
@@ -47,7 +36,27 @@ in
       okular
       print-manager
     ];
-    programs.kdeconnect.enable = false;
+
+    services.displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        catppuccin = {
+          enable = true;
+          assertQt6Sddm = true;
+          flavor = "macchiato";
+          background = /home/hana/Pictures/Wallpaper/Wallpaper.png;
+          loginBackground = true;
+        };
+      };
+
+      autoLogin = {
+        enable = true;
+        user = username;
+      };
+
+      defaultSession = mkIf cfg.isWaylandDefault "plasma";
+    };
 
     environment.systemPackages = with pkgs; [
       libsForQt5.qt5.qttools
@@ -65,12 +74,5 @@ in
         accent = "pink";
       })
     ];
-
-    programs.chromium.enablePlasmaBrowserIntegration = config.programs.chromium.enable;
-
-    # programs.gamemode.settings.custom = mkIf config.programs.gamemode.enable {
-    #   start = "qdbus org.kde.KWin /Compositor suspend";
-    #   stop = "qdbus org.kde.KWin /Compositor resume";
-    # };
   };
 }

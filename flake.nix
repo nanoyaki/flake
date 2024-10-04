@@ -6,6 +6,7 @@
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
+    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
@@ -21,6 +22,7 @@
       nixpkgs,
       nixpkgs-xr,
       catppuccin,
+      prismlauncher,
       home-manager,
       ...
     }@inputs:

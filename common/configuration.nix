@@ -17,46 +17,42 @@
     ./modules/terminal.nix
     ./modules/files.nix
     ./modules/programming.nix
+    ./modules/input.nix
   ];
 
-  # Boot settings
   boot = {
-    loader = {
-      efi = {
-        canTouchEfiVariables = lib.mkDefault true;
-        efiSysMountPoint = "/boot/efi";
-      };
-      grub = {
-        catppuccin.enable = true;
-        catppuccin.flavor = "macchiato";
-        configurationLimit = 35;
-        enable = true;
-        efiSupport = true;
-        device = "nodev";
-        useOSProber = true;
-      };
+    loader.efi = {
+      canTouchEfiVariables = lib.mkDefault true;
+      efiSysMountPoint = "/boot/efi";
+    };
+    loader.grub = {
+      catppuccin.enable = true;
+      catppuccin.flavor = "macchiato";
+      configurationLimit = 35;
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      useOSProber = true;
     };
     supportedFilesystems = [ "ntfs" ];
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
-  time.hardwareClockInLocalTime = true;
 
-  # Nix settings
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+
   nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 3d";
   };
 
-  # Enable networking
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   networking.networkmanager.enable = true;
 
-  # User
   users.users.${username} = {
     isNormalUser = true;
     description = "Hana";
@@ -66,6 +62,7 @@
       "input"
       "audio"
       "uinput"
+      "jackaudio"
     ];
   };
 
@@ -81,13 +78,15 @@
     }
   ];
 
-  # Set your time zone.
+  time.hardwareClockInLocalTime = true;
+
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
   i18n.extraLocaleSettings = {
+    LANGUAGE = "en_GB";
+    LC_ALL = "de_DE.UTF-8";
     LC_ADDRESS = "de_DE.UTF-8";
     LC_IDENTIFICATION = "de_DE.UTF-8";
     LC_MEASUREMENT = "de_DE.UTF-8";
@@ -107,7 +106,8 @@
     "C.UTF-8/UTF-8"
   ];
 
-  # Fonts
+  environment.variables.FLAKE_DIR = "$HOME/flake";
+
   fonts = {
     enableDefaultPackages = true;
 
@@ -128,23 +128,10 @@
     };
   };
 
-  # Keyboard input
-  i18n.inputMethod = {
-    type = "fcitx5";
-    enable = true;
-    fcitx5 = {
-      addons = with pkgs; [
-        fcitx5-mozc
-        fcitx5-gtk
-      ];
-      waylandFrontend = true;
-    };
-  };
+  catppuccin.enable = true;
+  catppuccin.accent = "pink";
+  catppuccin.flavor = "macchiato";
 
-  # For fcitx autostart
-  services.xserver.desktopManager.runXdgAutostartIfNone = true;
-
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   services.displayManager.autoLogin = {
@@ -163,49 +150,11 @@
     chrome.enable = true;
     mpv.enable = true;
     programming.enable = true;
+    input.enable = true;
   };
 
-  # Theming
-  catppuccin.enable = true;
-  catppuccin.accent = "pink";
-  catppuccin.flavor = "macchiato";
-
-  # Input
-  services.libinput.mouse.accelProfile = "flat";
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
-  };
-
-  environment.sessionVariables = {
-    XMODIFIERS = "@im=fcitx";
-    QT_IM_MODULE = "fcitx";
-    GTK_IM_MODULE = "fcitx";
-
-    LANGUAGE = "en_GB";
-  };
-
-  environment.variables = {
-    XMODIFIERS = "@im=fcitx";
-    QT_IM_MODULE = "fcitx";
-    GTK_IM_MODULE = "fcitx";
-
-    FLAKE_DIR = "$HOME/flake";
-    EDITOR = "code";
-
-    LANGUAGE = "en_GB";
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # https://search.nixos.org/packages?channel=unstable
-  # Environment
   environment.systemPackages =
     (with pkgs; [
-      # Hardware
       glxinfo
       lm_sensors
     ])
@@ -214,11 +163,5 @@
       (import ./nix-up.nix { inherit pkgs; })
     ];
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.05";
 }

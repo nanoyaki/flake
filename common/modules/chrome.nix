@@ -53,7 +53,6 @@ in
         # Social media
         "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
         "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
-        "kbmfpngjjgdllneeigpgjifpgocmfgmb" # Reddit Enhancement Suite
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
         "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
@@ -96,6 +95,8 @@ in
       extensions = cfg.extensions;
     };
 
+    programs.chromium.enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;
+
     # Defaults
     xdg.mime.defaultApplications = mkIf cfg.defaultBrowser {
       # Browser
@@ -116,7 +117,6 @@ in
 
     # Install chrome
     environment.systemPackages = with pkgs; [
-      chromium
       google-chrome
     ];
 

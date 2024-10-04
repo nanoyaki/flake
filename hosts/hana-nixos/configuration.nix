@@ -17,7 +17,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  # Networking
   networking.hostName = "${username}-nixos";
 
   programs.thunderbird.enable = false;
@@ -38,4 +37,6 @@
   services.udev.packages = with pkgs; [
     headsetcontrol
   ];
+
+  programs.firefox.enable = true;
 }

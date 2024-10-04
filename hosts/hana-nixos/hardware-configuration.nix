@@ -21,20 +21,27 @@
     "usbhid"
     "sd_mod"
   ];
+
   boot.initrd.kernelModules = [
-    "amdgpu"
     "it87"
   ];
+
   boot.kernelModules = [
     "kvm-amd"
     "ryzen_smu"
     "amdgpu"
     "it87"
   ];
+
   boot.kernelParams = [ "acpi_enforce_resources=lax" ];
+
   boot.extraModulePackages = with pkgs; [
     linuxKernel.packages.linux_zen.it87
   ];
+
+  boot.extraModprobeConfig = ''
+    options snd_usb_audio vid=0x1235 pid=0x8211 device_setup=1
+  '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4bd44a3e-f38f-4e9a-b64c-1e7381b98b1d";
@@ -80,28 +87,16 @@
     }
   ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  # CPU
-  services.x3d-undervolt = {
-    enable = true;
-    cores = 8;
-    milivolts = 30;
-  };
-
-  # Corectrl
   programs.corectrl = {
     enable = true;
     gpuOverclock.enable = true;
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };
+
   security.polkit = {
     enable = true;
     extraConfig = ''
@@ -117,7 +112,12 @@
     '';
   };
 
-  # GPU
+  services.x3d-undervolt = {
+    enable = true;
+    cores = 8;
+    milivolts = 30;
+  };
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -126,10 +126,16 @@
       libvdpau-va-gl
     ];
   };
+
   services.xserver.videoDrivers = [ "amdgpu" ];
+
   hardware.amdgpu.amdvlk.enable = false;
 
+  hardware.amdgpu.initrd.enable = true;
+
   hardware.steam-hardware.enable = true;
+
   hardware.bluetooth.enable = true;
+
   programs.coolercontrol.enable = true;
 }

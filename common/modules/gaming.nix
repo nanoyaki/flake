@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 with lib;
@@ -24,6 +25,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    nix.settings.trusted-substituters = [ "https://prismlauncher.cachix.org" ];
+    nix.settings.trusted-public-keys = [
+      "prismlauncher.cachix.org-1:9/n/FGyABA2jLUVfY+DEp4hKds/rwO+SCOtbOkDzd+c="
+    ];
+
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -36,19 +42,22 @@ in
       ];
     };
 
-    environment.systemPackages = with pkgs; [
-      # Launchers
-      bottles
-      cartridges
-      lutris-unwrapped
-      prismlauncher
+    environment.systemPackages =
+      (with pkgs; [
+        # Launchers
+        bottles
+        cartridges
+        lutris-unwrapped
 
-      # Util
-      mangohud
+        # Util
+        mangohud
 
-      # Games
-      (mkIf cfg.withOsu osu-lazer-bin)
-    ];
+        # Games
+        (mkIf cfg.withOsu osu-lazer-bin)
+      ])
+      ++ [
+        inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+      ];
 
     programs.gamemode.enable = true;
   };

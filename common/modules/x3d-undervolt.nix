@@ -50,7 +50,7 @@ in
 
       script = ''
         ${
-          lib.getExe (pkgs.callPackage ./packages/x3d-undervolt/package.nix { })
+          lib.getExe (pkgs.callPackage ../pkgs/x3d-undervolt/package.nix { })
         } -c ${toString cfg.cores} -o -${toString cfg.milivolts}
       '';
 

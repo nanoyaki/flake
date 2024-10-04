@@ -19,12 +19,10 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      # Programming
       gh
       nixfmt-rfc-style
       nil
 
-      # Editors
       (vscode-with-extensions.override {
         vscodeExtensions =
           with vscode-extensions;
@@ -71,7 +69,8 @@ in
       })
     ];
 
-    # VCS
+    environment.variables.EDITOR = "code";
+
     programs.git.enable = true;
   };
 }

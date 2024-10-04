@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib;
@@ -80,5 +81,10 @@ in
       };
 
       environment.sessionVariables.PIPEWIRE_LATENCY = "${toString latency}/${toString samplingRate}";
+
+      environment.systemPackages = with pkgs; [
+        alsa-scarlett-gui
+        reaper
+      ];
     });
 }

@@ -78,6 +78,21 @@ in
             node.latency = "${toString latency}/${toString samplingRate}";
           };
         };
+
+        wireplumber.configPackages = [
+          (pkgs.writeTextDir "share/wireplumber/main.lua.d/92-low-latency.lua" ''
+            alsa_monitor.rules = {
+              {
+                matches = {{{ "node.name", "matches", "alsa_output.*" }}};
+                apply_properties = {
+                  ["audio.format"] = "S32LE",
+                  ["audio.rate"] = "${toString (samplingRate * 2)}",
+                  ["api.alsa.period-size"] = ${toString latency}, -- defaults to 1024, tweak by trial-and-error
+                },
+              },
+            }
+          '')
+        ];
       };
 
       environment.sessionVariables.PIPEWIRE_LATENCY = "${toString latency}/${toString samplingRate}";
@@ -85,6 +100,7 @@ in
       environment.systemPackages = with pkgs; [
         alsa-scarlett-gui
         reaper
+        helvum
       ];
     });
 }

@@ -72,5 +72,6 @@ in
     environment.variables.EDITOR = "code";
 
     programs.git.enable = true;
+    programs.git.lfs.enable = true;
   };
 }

@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    ./modules/amdgpu.nix
     ./modules/plasma.nix
     ./modules/gnome.nix
     ./modules/mpv.nix
@@ -18,6 +19,7 @@
     ./modules/files.nix
     ./modules/programming.nix
     ./modules/input.nix
+    ./modules/vr.nix
   ];
 
   boot = {
@@ -142,7 +144,7 @@
   modules = {
     audio = {
       enable = true;
-      latency = 512;
+      latency = 48;
     };
     plasma6.enable = true;
     terminal.enable = true;
@@ -151,6 +153,11 @@
     mpv.enable = true;
     programming.enable = true;
     input.enable = true;
+
+    vr = {
+      enable = true;
+      enableAmdgpuPatch = true;
+    };
   };
 
   environment.systemPackages =

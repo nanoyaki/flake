@@ -51,13 +51,11 @@
                 backupFileExtension = "bac";
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${username} = {
-                  imports = [
-                    catppuccin.homeManagerModules.catppuccin
-                    ./common/home.nix
-                    ./hosts/hana-nixos/home.nix
-                  ];
-                };
+                users.${username}.imports = [
+                  catppuccin.homeManagerModules.catppuccin
+                  ./common/home.nix
+                  ./hosts/hana-nixos/home.nix
+                ];
               };
             }
           ];
@@ -79,12 +77,10 @@
                 backupFileExtension = "bac";
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${username} = {
-                  imports = [
-                    catppuccin.homeManagerModules.catppuccin
-                    ./common/home.nix
-                  ];
-                };
+                users.${username}.imports = [
+                  catppuccin.homeManagerModules.catppuccin
+                  ./common/home.nix
+                ];
               };
             }
           ];

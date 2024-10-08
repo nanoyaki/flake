@@ -120,6 +120,6 @@ in
       google-chrome
     ];
 
-    environment.sessionVariables.BROWSER = mkIf cfg.defaultBrowser "chromium";
+    environment.variables.BROWSER = mkIf cfg.defaultBrowser "chromium";
   };
 }

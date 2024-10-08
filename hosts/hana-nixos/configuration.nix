@@ -10,9 +10,13 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../common/modules/amdgpu.nix
     ../../common/modules/gaming.nix
+    ../../common/modules/vr.nix
 
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
@@ -21,7 +25,14 @@
 
   programs.thunderbird.enable = false;
 
-  modules.gaming.enable = true;
+  modules = {
+    gaming.enable = true;
+
+    vr = {
+      enable = true;
+      enableAmdgpuPatch = true;
+    };
+  };
 
   services.suwayomi-server = {
     enable = true;

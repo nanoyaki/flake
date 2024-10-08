@@ -10,8 +10,8 @@
       {
         "file_format_version": "1.0.0",
         "runtime": {
-            "name": "Monado",
-            "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+          "name": "Monado",
+          "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
         }
       }
     '';

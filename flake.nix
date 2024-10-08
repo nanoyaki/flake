@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
@@ -20,7 +19,6 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-xr,
       catppuccin,
       prismlauncher,
       home-manager,
@@ -41,7 +39,6 @@
           inherit system;
           inherit specialArgs;
           modules = [
-            nixpkgs-xr.nixosModules.nixpkgs-xr
             ./hosts/hana-nixos/configuration.nix
             ./common/configuration.nix
             catppuccin.nixosModules.catppuccin

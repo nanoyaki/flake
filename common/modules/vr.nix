@@ -53,23 +53,35 @@ in
       ))
     ];
 
-    programs.envision.enable = true;
+    modules.audio.latency = lib.mkForce 2048;
+
+    # Not recommended as of yet
+    # https://lvra.gitlab.io/docs/distros/nixos/#envision
+    # programs.envision.enable = true;
 
     services.monado = {
       enable = true;
-      defaultRuntime = false;
+      defaultRuntime = true;
+      highPriority = true;
+      package = pkgs.monado;
     };
 
     systemd.user.services.monado.environment = {
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
       WMR_HANDTRACKING = "0";
+      SURVIVE_GLOBALSCENESOLVER = "0";
     };
 
+    environment.sessionVariables.LIBMONADO_PATH = "${config.services.monado.package}/lib/libopenxr_monado.so";
+
     environment.systemPackages = with pkgs; [
-      index_camera_passthrough
+      # index_camera_passthrough
+      motoc
       wlx-overlay-s
       lighthouse-steamvr
+      # opencomposite # -vendored
+      # opencomposite-hand-fixes
     ];
   };
 }

@@ -1,4 +1,12 @@
 { pkgs, ... }:
+
+let
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+  };
+in
+
 {
   home.username = "hana";
   home.homeDirectory = "/home/hana";
@@ -6,20 +14,23 @@
   programs.home-manager.enable = true;
 
   # Theming
-  catppuccin.enable = true;
-  catppuccin.flavor = "macchiato";
-  catppuccin.accent = "pink";
+  catppuccin = {
+    inherit (catppuccin) enable flavor;
+    accent = "pink";
+  };
 
   qt = {
     enable = true;
-    style.catppuccin.enable = true;
-    style.name = "kvantum";
+    style = {
+      name = "kvantum";
+      inherit catppuccin;
+    };
     platformTheme.name = "kvantum";
   };
 
   programs.mpv = {
     enable = true;
-    catppuccin.enable = true;
+    inherit catppuccin;
   };
 
   services.unison = {
@@ -36,60 +47,54 @@
   # Terminal
   programs.alacritty = {
     enable = true;
-    catppuccin.enable = true;
-    settings.shell = {
-      program = "zellij";
-      args = [
-        "-l"
-        "welcome"
-      ];
-    };
+    settings.shell.program = "zellij";
+    inherit catppuccin;
   };
 
   programs.zsh = {
     enable = true;
-    syntaxHighlighting.catppuccin.enable = true;
-    oh-my-zsh = {
-      enable = true;
+    syntaxHighlighting = {
+      inherit catppuccin;
     };
   };
 
   programs.starship = {
     enable = true;
-    catppuccin.enable = true;
+    inherit catppuccin;
   };
 
   programs.zellij = {
     enable = true;
     enableZshIntegration = true;
+    inherit catppuccin;
   };
 
   programs.btop = {
     enable = true;
-    catppuccin.enable = true;
+    inherit catppuccin;
   };
 
   programs.git = {
     enable = true;
     userName = "nanoyaki";
     userEmail = "hanakretzer@gmail.com";
-    delta.catppuccin.enable = true;
+    delta = {
+      inherit catppuccin;
+    };
   };
 
   programs.ssh = {
     enable = true;
-    matchBlocks = {
-      server = {
-        user = "thelessone";
-        hostname = "theless.one";
-        localForwards = [
-          {
-            bind.port = 2333;
-            host.address = "localhost";
-            host.port = 2333;
-          }
-        ];
-      };
+    matchBlocks.server = {
+      user = "thelessone";
+      hostname = "theless.one";
+      localForwards = [
+        {
+          bind.port = 2333;
+          host.address = "localhost";
+          host.port = 2333;
+        }
+      ];
     };
   };
 

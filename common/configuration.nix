@@ -9,7 +9,6 @@
 }:
 {
   imports = [
-    ./modules/amdgpu.nix
     ./modules/plasma.nix
     ./modules/gnome.nix
     ./modules/mpv.nix
@@ -153,11 +152,6 @@
     mpv.enable = true;
     programming.enable = true;
     input.enable = true;
-
-    vr = {
-      enable = true;
-      enableAmdgpuPatch = true;
-    };
   };
 
   environment.systemPackages =

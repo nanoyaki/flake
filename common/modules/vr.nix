@@ -24,7 +24,7 @@ in
       description = "Enable custom VR options.";
     };
 
-    enableAmdgpuPatch = mkEnableOption "kernel patch for high priority graphics";
+    enableAmdgpuPatch = mkEnableOption "kernel module patch for high priority graphics";
   };
 
   # https://wiki.nixos.org/wiki/VR#Monado

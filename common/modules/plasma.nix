@@ -5,10 +5,12 @@
   username,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkOption mkIf types;
   cfg = config.modules.plasma6;
 in
+
 {
   options.modules.plasma6 = {
     enable = mkOption {
@@ -25,6 +27,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    home-manager.users.${username}.imports = [ ./home/plasma.nix ];
+
     services.desktopManager.plasma6.enable = true;
     programs.kdeconnect.enable = false;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [

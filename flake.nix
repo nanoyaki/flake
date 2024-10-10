@@ -4,84 +4,58 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    catppuccin.url = "github:catppuccin/nix";
+
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with
-      # the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
-    {
+    inputs@{
       nixpkgs,
       catppuccin,
       prismlauncher,
       home-manager,
+      plasma-manager,
       ...
-    }@inputs:
+    }:
+
     let
-      username = "hana";
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs;
-        inherit username;
-      };
+      defaults = [
+        catppuccin.nixosModules.catppuccin
+        home-manager.nixosModules.home-manager
+        ./common/configuration.nix
+      ];
+
+      # I think this is good :)
+      mkSystem =
+        hostname:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+            username = "hana";
+          };
+
+          modules = defaults ++ [
+            (./. + "/hosts/${hostname}/configuration.nix")
+          ];
+        };
     in
+
     {
       nixosConfigurations = {
-        # Main System
-        hana-nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit specialArgs;
-          modules = [
-            ./hosts/hana-nixos/configuration.nix
-            ./common/configuration.nix
-            catppuccin.nixosModules.catppuccin
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                backupFileExtension = "bac";
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username}.imports = [
-                  catppuccin.homeManagerModules.catppuccin
-                  ./common/home.nix
-                  ./hosts/hana-nixos/home.nix
-                ];
-              };
-            }
-          ];
-        };
-
-        # TODO: MAKE THIS GOOD FOR THE LOVE OF GOD
-
-        # Laptop
-        hana-nixos-laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit specialArgs;
-          modules = [
-            ./hosts/hana-nixos-laptop/configuration.nix
-            ./common/configuration.nix
-            catppuccin.nixosModules.catppuccin
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                backupFileExtension = "bac";
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username}.imports = [
-                  catppuccin.homeManagerModules.catppuccin
-                  ./common/home.nix
-                ];
-              };
-            }
-          ];
-        };
+        hana-nixos = mkSystem "hana-nixos";
+        hana-nixos-laptop = mkSystem "hana-nixos-laptop";
       };
     };
 }

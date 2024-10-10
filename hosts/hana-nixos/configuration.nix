@@ -21,6 +21,8 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
+  home-manager.users.${username}.imports = [ ./home.nix ];
+
   networking.hostName = "${username}-nixos";
 
   programs.thunderbird.enable = false;

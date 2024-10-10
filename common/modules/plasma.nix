@@ -74,5 +74,7 @@ in
         accent = "pink";
       })
     ];
+
+    programs.kde-pim.merkuro = true;
   };
 }

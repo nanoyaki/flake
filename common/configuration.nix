@@ -2,6 +2,7 @@
   pkgs,
   lib,
   username,
+  inputs,
   ...
 }:
 
@@ -160,6 +161,19 @@
       (import ./rebuild.nix { inherit pkgs; })
       (import ./nix-up.nix { inherit pkgs; })
     ];
+
+  home-manager = {
+    sharedModules = [
+      inputs.plasma-manager.homeManagerModules.plasma-manager
+      inputs.catppuccin.homeManagerModules.catppuccin
+    ];
+
+    backupFileExtension = "bac";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+
+    users.${username}.imports = [ ./home.nix ];
+  };
 
   system.stateVersion = "24.05";
 }

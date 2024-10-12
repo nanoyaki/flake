@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  username,
   ...
 }:
 
@@ -20,6 +21,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    home-manager.users.${username}.imports = [ ./home/input.nix ];
+
     services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
     i18n.inputMethod = {
@@ -37,12 +40,6 @@ in
     services.xserver.xkb = {
       layout = "de";
       variant = "";
-    };
-
-    environment.sessionVariables = {
-      XMODIFIERS = "@im=fcitx";
-      QT_IM_MODULE = "fcitx";
-      GTK_IM_MODULE = "fcitx";
     };
   };
 }

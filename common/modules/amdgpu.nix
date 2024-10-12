@@ -17,6 +17,7 @@ in
 {
   options.modules.amdgpu.patches = mkOption {
     type = with types; listOf path;
+    default = [ ];
   };
 
   config = mkIf (cfg.patches != [ ]) {

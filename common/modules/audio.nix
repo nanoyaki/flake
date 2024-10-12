@@ -65,6 +65,7 @@ in
             {
               name = "libpipewire-module-protocol-pulse";
               args = {
+                pulse.min.frag = "${toString latency}/${toString samplingRate}";
                 pulse.min.req = "${toString latency}/${toString samplingRate}";
                 pulse.default.req = "${toString latency}/${toString samplingRate}";
                 pulse.max.req = "${toString latency}/${toString samplingRate}";

@@ -158,8 +158,8 @@
       lm_sensors
     ])
     ++ [
-      (import ./rebuild.nix { inherit pkgs; })
-      (import ./nix-up.nix { inherit pkgs; })
+      (import ./rebuild.nix { inherit pkgs username; })
+      (import ./nix-up.nix { inherit pkgs username; })
     ];
 
   home-manager = {

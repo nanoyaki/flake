@@ -16,12 +16,6 @@ in
       default = false;
       description = "Enable custom gaming options.";
     };
-
-    withOsu = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether to install osu.";
-    };
   };
 
   config = mkIf cfg.enable {
@@ -53,7 +47,22 @@ in
         mangohud
 
         # Games
-        (mkIf cfg.withOsu osu-lazer-bin)
+        (osu-lazer-bin.override {
+          appimageTools = pkgs.appimageTools // {
+            wrapType2 =
+              args:
+              pkgs.appimageTools.wrapType2 (
+                args
+                // rec {
+                  version = "2024.1009.1";
+                  src = pkgs.fetchurl {
+                    url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
+                    hash = "sha256-2H2SPcUm/H/0D9BqBiTFvaCwd0c14/r+oWhyeZdNpoU=";
+                  };
+                }
+              );
+          };
+        })
       ])
       ++ [
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher

@@ -168,7 +168,7 @@
       inputs.catppuccin.homeManagerModules.catppuccin
     ];
 
-    backupFileExtension = "bac";
+    backupFileExtension = "home-bac";
     useGlobalPkgs = true;
     useUserPackages = true;
 

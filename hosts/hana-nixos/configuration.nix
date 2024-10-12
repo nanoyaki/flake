@@ -31,7 +31,7 @@
     gaming.enable = true;
 
     vr = {
-      enable = true;
+      enable = false;
       enableAmdgpuPatch = true;
     };
   };

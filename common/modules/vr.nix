@@ -53,7 +53,7 @@ in
       ))
     ];
 
-    modules.audio.latency = lib.mkForce 2048;
+    modules.audio.latency = mkIf config.modules.audio.enable (lib.mkForce 2048);
 
     # Not recommended as of yet
     # https://lvra.gitlab.io/docs/distros/nixos/#envision

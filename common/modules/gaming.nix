@@ -33,6 +33,15 @@ in
       gamescopeSession.enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin
+        (proton-ge-bin.overrideAttrs (
+          finalAttrs: _: {
+            version = "GE-Proton8-27";
+            src = pkgs.fetchzip {
+              url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+              hash = "sha256-YeibTA2z69bNE3V/sgFHOHaxl0Uf77unQQc7x2w/1AI=";
+            };
+          }
+        ))
       ];
     };
 
@@ -41,7 +50,7 @@ in
         # Launchers
         bottles
         cartridges
-        lutris-unwrapped
+        lutris
 
         # Util
         mangohud

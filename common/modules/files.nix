@@ -4,10 +4,12 @@
   config,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkIf mkOption types;
   cfg = config.modules.files;
 in
+
 {
   options.modules.files = {
     enable = mkOption {

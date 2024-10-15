@@ -156,6 +156,8 @@
     (with pkgs; [
       glxinfo
       lm_sensors
+
+      inotify-tools
     ])
     ++ [
       (import ./rebuild.nix { inherit pkgs username; })

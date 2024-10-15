@@ -45,6 +45,8 @@
     protonvpn-gui
     headsetcontrol
     xmousepasteblock
+
+    imagemagick
   ];
 
   services.udev.packages = with pkgs; [

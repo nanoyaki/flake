@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 let
+  username = "hana";
+
   catppuccin = {
     enable = true;
     flavor = "macchiato";
@@ -8,7 +10,7 @@ let
 in
 
 {
-  home.username = "hana";
+  home.username = username;
   home.homeDirectory = "/home/hana";
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;

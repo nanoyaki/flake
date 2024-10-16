@@ -3,10 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-
-    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
-
+    nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
     catppuccin.url = "github:catppuccin/nix";
   };
 
@@ -26,11 +27,13 @@
       prismlauncher,
       home-manager,
       plasma-manager,
+      nur,
       ...
     }:
 
     let
       defaults = [
+        nur.nixosModules.nur
         catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
         ./common/configuration.nix

@@ -72,6 +72,10 @@ in
               );
           };
         })
+
+        # Emulation
+        dolphin-emu # I own a Wii and every game I play on this I dumped myself
+        config.nur.repos.aprilthepink.suyu-mainline # Same goes for the Switch
       ])
       ++ [
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher

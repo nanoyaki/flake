@@ -44,12 +44,12 @@ in
     services.displayManager = {
       sddm = {
         enable = true;
-        wayland.enable = true;
+        wayland.enable = cfg.isWaylandDefault;
         catppuccin = {
           enable = true;
           assertQt6Sddm = true;
           flavor = "macchiato";
-          background = /home/hana/Pictures/Wallpaper/Wallpaper.png;
+          background = "/home/hana/Pictures/Wallpaper/Wallpaper.png";
           loginBackground = true;
         };
       };
@@ -63,7 +63,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      libsForQt5.qt5.qttools
       catppuccin-cursors.macchiatoPink
       (catppuccin.override {
         accent = "pink";

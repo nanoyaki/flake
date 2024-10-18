@@ -4,10 +4,12 @@
   config,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkIf mkOption types;
   cfg = config.modules.programming;
 in
+
 {
   options.modules.programming = {
     enable = mkOption {
@@ -70,7 +72,7 @@ in
       })
     ];
 
-    environment.variables.EDITOR = "code";
+    environment.variables.EDITOR = "code --wait";
 
     programs.git.enable = true;
     programs.git.lfs.enable = true;

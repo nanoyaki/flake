@@ -9,6 +9,7 @@
 
 {
   imports = [
+    ./sops/sops.nix
     ./modules/plasma.nix
     ./modules/gnome.nix
     ./modules/mpv.nix
@@ -157,8 +158,6 @@
     (with pkgs; [
       glxinfo
       lm_sensors
-
-      inotify-tools
     ])
     ++ [
       (import ./rebuild.nix { inherit pkgs config username; })

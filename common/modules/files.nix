@@ -28,6 +28,8 @@ in
       ncdu
     ];
 
+    environment.sessionVariables.XDG_CONFIG_HOME = "$HOME/.config";
+
     # Archive manager
     programs.file-roller.enable = true;
   };

@@ -3,6 +3,7 @@
   lib,
   username,
   inputs,
+  config,
   ...
 }:
 
@@ -160,8 +161,8 @@
       inotify-tools
     ])
     ++ [
-      (import ./rebuild.nix { inherit pkgs username; })
-      (import ./nix-up.nix { inherit pkgs username; })
+      (import ./rebuild.nix { inherit pkgs config username; })
+      (import ./nix-up.nix { inherit pkgs config username; })
     ];
 
   home-manager = {

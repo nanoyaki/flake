@@ -4,9 +4,9 @@ pkgs.writeShellScriptBin "nix-up" ''
 
   nix flake update
 
-  find /home/${username} -type f -name '*.home-bac' | xargs rm
-
   sudo nixos-rebuild switch --flake $FLAKE_DIR
+
+  find /home/${username} -type f -name '*.home-bac' | xargs rm
 
   popd
 ''

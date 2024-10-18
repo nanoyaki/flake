@@ -75,6 +75,7 @@ in
 
         # Emulation
         dolphin-emu # I own a Wii and every game I play on this I dumped myself
+        cemu # Same goes for the WiiU
         config.nur.repos.aprilthepink.suyu-mainline # Same goes for the Switch
       ])
       ++ [

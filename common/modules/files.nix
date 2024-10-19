@@ -26,6 +26,8 @@ in
       p7zip
 
       ncdu
+
+      gnome-disk-utility
     ];
 
     environment.sessionVariables.XDG_CONFIG_HOME = "$HOME/.config";

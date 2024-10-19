@@ -7,7 +7,7 @@ pkgs.writeShellScriptBin "rebuild" ''
 
   pushd $HOME
 
-  rm $HOME/nixos-rebuild.log
+  [[ -f $HOME/nixos-rebuild.log ]] && rm $HOME/nixos-rebuild.log
   sudo nixos-rebuild switch --flake $FLAKE_DIR#${config.networking.hostName} 2>&1 | tee nixos-rebuild.log
   if grep -q "error" nixos-rebuild.log; then
     cat $HOME/nixos-rebuild.log

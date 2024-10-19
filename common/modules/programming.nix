@@ -19,15 +19,11 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      gh
-      nixfmt-rfc-style
-      nil
-
-      (vscode-with-extensions.override {
+  config =
+    let
+      vscode = pkgs.vscode-with-extensions.override {
         vscodeExtensions =
-          with vscode-extensions;
+          with pkgs.vscode-extensions;
           [
             bbenoist.nix
             brettm12345.nixfmt-vscode
@@ -69,12 +65,20 @@ in
             #   sha256 = "sha256-jOQkRgBkUwJupD+cRo/KRahFRs82X3K49DySw6GlU8U=";
             # }
           ];
-      })
-    ];
+      };
+    in
+    mkIf cfg.enable {
+      environment.systemPackages = with pkgs; [
+        gh
+        nixfmt-rfc-style
+        nil
 
-    environment.variables.EDITOR = "code --wait";
+        vscode
+      ];
 
-    programs.git.enable = true;
-    programs.git.lfs.enable = true;
-  };
+      environment.variables.EDITOR = "${lib.getExe vscode} --wait";
+
+      programs.git.enable = true;
+      programs.git.lfs.enable = true;
+    };
 }

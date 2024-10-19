@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   username = "hana";
@@ -14,6 +14,17 @@ in
   home.homeDirectory = "/home/hana";
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
+
+  # Link several default directories to directories
+  # from the shared-with-windows NTFS drive
+  home.file."Downloads".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Downloads";
+  home.file."Documents".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Documents";
+  home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Videos";
+  home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Pictures";
+
+  # The drives
+  home.file."Windows".source = config.lib.file.mkOutOfStoreSymlink "/mnt/Windows";
+  home.file."1TB-SSD".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD";
 
   # Theming
   catppuccin = {

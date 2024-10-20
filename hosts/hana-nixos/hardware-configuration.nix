@@ -44,7 +44,7 @@
   '';
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/4bd44a3e-f38f-4e9a-b64c-1e7381b98b1d";
+    device = "/dev/disk/by-uuid/6b0f9b6a-1931-46a9-a0a7-9914d65ae2b8";
     fsType = "ext4";
   };
 
@@ -113,7 +113,6 @@
   };
 
   services.x3d-undervolt = {
-    enable = true;
     cores = 8;
     milivolts = 30;
   };

@@ -12,23 +12,13 @@ let
 in
 
 {
-  options.modules.plasma6 = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable custom plasma 6 options.";
-    };
-
-    isWaylandDefault = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Set Wayland as the default session.";
-    };
+  options.modules.plasma6.isWaylandDefault = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Set Wayland as the default session.";
   };
 
-  config = mkIf cfg.enable {
-    home-manager.users.${username}.imports = [ ./home/plasma.nix ];
-
+  config = {
     services.desktopManager.plasma6.enable = true;
     programs.kdeconnect.enable = false;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [

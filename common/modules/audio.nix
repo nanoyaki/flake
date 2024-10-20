@@ -4,18 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkOption types;
+
   cfg = config.modules.audio;
 in
+
 {
   options.modules.audio = {
-    enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable pipewire settings.";
-    };
-
     latency = mkOption {
       type = types.int;
       default = 512; # powers of 2
@@ -34,7 +31,7 @@ in
       latency = cfg.latency;
       samplingRate = cfg.samplingRate;
     in
-    (mkIf cfg.enable {
+    {
       # Enable sound with pipewire.
       hardware.pulseaudio.enable = false;
       security.rtkit.enable = true;
@@ -103,5 +100,5 @@ in
         reaper
         helvum
       ];
-    });
+    };
 }

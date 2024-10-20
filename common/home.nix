@@ -101,13 +101,14 @@ in
     matchBlocks.server = {
       user = "thelessone";
       hostname = "theless.one";
-      localForwards = [
-        {
-          bind.port = 2333;
-          host.address = "localhost";
-          host.port = 2333;
-        }
-      ];
+      identityFile = "${config.home.homeDirectory}/.ssh/hana-nixos-primary";
+      # localForwards = [
+      #   {
+      #     bind.port = 2333;
+      #     host.address = "localhost";
+      #     host.port = 2333;
+      #   }
+      # ];
     };
   };
 

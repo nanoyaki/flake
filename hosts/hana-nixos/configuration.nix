@@ -10,9 +10,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../common/modules/amdgpu.nix
     ../../common/modules/gaming.nix
-    ../../common/modules/vr.nix
+    # ../../common/modules/vr.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -21,20 +20,11 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  home-manager.users.${username}.imports = [ ./home.nix ];
-
   networking.hostName = "${username}-nixos";
 
   programs.thunderbird.enable = false;
 
-  modules = {
-    gaming.enable = true;
-
-    vr = {
-      enable = false;
-      enableAmdgpuPatch = true;
-    };
-  };
+  # modules.vr.enableAmdgpuPatch = true;
 
   services.suwayomi-server = {
     enable = true;
@@ -54,4 +44,10 @@
   ];
 
   programs.firefox.enable = true;
+
+  services.transmission = {
+    enable = true;
+    webHome = pkgs.flood-for-transmission;
+    settings.download-dir = "/mnt/1TB-SSD/Torrents";
+  };
 }

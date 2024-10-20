@@ -4,32 +4,20 @@
   config,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkEnableOption mkIf mkMerge;
+
   cfg = config.modules.mpv;
 in
+
 {
   options.modules.mpv = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable custom mpv options.";
-    };
-
-    defaultAudioPlayer = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Set as the default audio player.";
-    };
-
-    defaultVideoPlayer = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Set as the default video player.";
-    };
+    defaultAudioPlayer = mkEnableOption "default audio player";
+    defaultVideoPlayer = mkEnableOption "default video player";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     xdg.mime.defaultApplications = mkMerge [
       (mkIf cfg.defaultAudioPlayer {
         "audio/aac" = "mpv.desktop";

@@ -9,16 +9,13 @@ let
   inherit (lib)
     types
     mkOption
-    mkEnableOption
-    mkIf
     ;
 
   cfg = config.services.x3d-undervolt;
 in
+
 {
   options.services.x3d-undervolt = {
-    enable = mkEnableOption "Ryzen 7 5800X3D undervolting";
-
     cores = mkOption {
       type = types.int;
       default = 0;
@@ -30,7 +27,7 @@ in
 
     milivolts = mkOption {
       type = types.int;
-      default = 8;
+      default = 0;
       example = 30;
       description = ''
         The milivoltage to reduce on the cores.
@@ -38,7 +35,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = {
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     hardware.cpu.amd.ryzen-smu.enable = true;
 

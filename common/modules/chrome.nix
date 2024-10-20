@@ -4,18 +4,15 @@
   config,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkOption types mkIf;
+
   cfg = config.modules.chrome;
 in
+
 {
   options.modules.chrome = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable custom mpv options.";
-    };
-
     allowSync = mkOption {
       type = types.bool;
       default = true;
@@ -61,12 +58,12 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = {
     # Configure chrome
     programs.chromium = {
       enable = true;
 
-      extraOpts = mkMerge [
+      extraOpts = lib.mkMerge [
         {
           # https://chromeenterprise.google/policies/?policy=${OPTION}
           "BrowserSignin" = 0;

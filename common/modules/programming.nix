@@ -5,23 +5,14 @@
   ...
 }:
 
-let
-  inherit (lib) mkIf mkOption types;
-  cfg = config.modules.programming;
-in
-
 {
-  options.modules.programming = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable VCS and IDE options.";
-    };
-  };
+  environment.systemPackages =
+    with pkgs; [
+      gh
+      nixfmt-rfc-style
+      nil
 
-  config =
-    let
-      vscode = pkgs.vscode-with-extensions.override {
+      (vscode-with-extensions.override {
         vscodeExtensions =
           with pkgs.vscode-extensions;
           [
@@ -65,20 +56,11 @@ in
             #   sha256 = "sha256-jOQkRgBkUwJupD+cRo/KRahFRs82X3K49DySw6GlU8U=";
             # }
           ];
-      };
-    in
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        gh
-        nixfmt-rfc-style
-        nil
+      })
+    ];
 
-        vscode
-      ];
+  environment.variables.EDITOR = "code";
 
-      environment.variables.EDITOR = "${lib.getExe vscode} --wait";
-
-      programs.git.enable = true;
-      programs.git.lfs.enable = true;
-    };
+  programs.git.enable = true;
+  programs.git.lfs.enable = true;
 }

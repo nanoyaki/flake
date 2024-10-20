@@ -9,27 +9,13 @@ let
   cfg = config.modules.terminal;
 in
 {
-  options.modules.terminal = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable custom terminal options.";
-    };
-
-    zshAsDefaultShell = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Use zsh as the default shell.";
-    };
-
-    withOpenssl = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether to enable openssl for cryptography.";
-    };
+  options.modules.terminal.zshAsDefaultShell = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Use zsh as the default shell.";
   };
 
-  config = mkIf cfg.enable {
+  config = {
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;
 
     environment.pathsToLink = [ "/share/zsh" ];
@@ -60,7 +46,6 @@ in
 
       yt-dlp
 
-      (mkIf cfg.withOpenssl openssl)
       gnupg
     ];
   };

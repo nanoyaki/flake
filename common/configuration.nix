@@ -2,7 +2,6 @@
   pkgs,
   lib,
   username,
-  inputs,
   config,
   ...
 }:
@@ -10,8 +9,9 @@
 {
   imports = [
     ./sops/sops.nix
+    ./modules/nanoLib.nix
+    ./modules/hm.nix
     ./modules/plasma.nix
-    ./modules/gnome.nix
     ./modules/mpv.nix
     ./modules/chrome.nix
     ./modules/audio.nix
@@ -140,19 +140,7 @@
     user = username;
   };
 
-  modules = {
-    audio = {
-      enable = true;
-      latency = 32;
-    };
-    plasma6.enable = true;
-    terminal.enable = true;
-    files.enable = true;
-    chrome.enable = true;
-    mpv.enable = true;
-    programming.enable = true;
-    input.enable = true;
-  };
+  modules.audio.latency = 32;
 
   environment.systemPackages =
     (with pkgs; [
@@ -163,19 +151,6 @@
       (import ./rebuild.nix { inherit pkgs config username; })
       (import ./nix-up.nix { inherit pkgs config username; })
     ];
-
-  home-manager = {
-    sharedModules = [
-      inputs.plasma-manager.homeManagerModules.plasma-manager
-      inputs.catppuccin.homeManagerModules.catppuccin
-    ];
-
-    backupFileExtension = "home-bac";
-    useGlobalPkgs = true;
-    useUserPackages = true;
-
-    users.${username}.imports = [ ./home.nix ];
-  };
 
   system.stateVersion = "24.11";
 }

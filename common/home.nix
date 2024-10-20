@@ -46,17 +46,6 @@ in
     inherit catppuccin;
   };
 
-  services.unison = {
-    enable = true;
-    package = pkgs.unison;
-    pairs.sync = {
-      roots = [
-        "/home/hana/Sync"
-        "ssh://sync@theless.one//var/lib/sync/hana"
-      ];
-    };
-  };
-
   # Terminal
   programs.alacritty = {
     enable = true;

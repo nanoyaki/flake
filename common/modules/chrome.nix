@@ -97,19 +97,19 @@ in
     # Defaults
     xdg.mime.defaultApplications = mkIf cfg.defaultBrowser {
       # Browser
-      "text/html" = "chromium.desktop";
-      "text/css" = "chromium.desktop";
-      "text/xml" = "chromium.desktop";
-      "text/plain" = "chromium.desktop";
-      "application/xhtml+xml" = "chromium.desktop";
-      "application/xml" = "chromium.desktop";
-      "application/atom+xml" = "chromium.desktop";
-      "application/rss+xml" = "chromium.desktop";
-      "application/pdf" = "chromium.desktop";
-      "application/x-shockwave-flash" = "chromium.desktop";
-      "application/x-dmg" = "chromium.desktop";
-      "application/x-mobipocket-ebook" = "chromium.desktop";
-      "application/epub+zip" = "chromium.desktop";
+      "text/html" = "google-chrome.desktop";
+      "text/css" = "google-chrome.desktop";
+      "text/xml" = "google-chrome.desktop";
+      "text/plain" = "google-chrome.desktop";
+      "application/xhtml+xml" = "google-chrome.desktop";
+      "application/xml" = "google-chrome.desktop";
+      "application/atom+xml" = "google-chrome.desktop";
+      "application/rss+xml" = "google-chrome.desktop";
+      "application/pdf" = "google-chrome.desktop";
+      "application/x-shockwave-flash" = "google-chrome.desktop";
+      "application/x-dmg" = "google-chrome.desktop";
+      "application/x-mobipocket-ebook" = "google-chrome.desktop";
+      "application/epub+zip" = "google-chrome.desktop";
     };
 
     # Install chrome
@@ -117,6 +117,6 @@ in
       google-chrome
     ];
 
-    environment.variables.BROWSER = mkIf cfg.defaultBrowser "chromium";
+    environment.variables.BROWSER = mkIf cfg.defaultBrowser "google-chrome-stable";
   };
 }

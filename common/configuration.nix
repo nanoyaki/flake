@@ -8,9 +8,17 @@
 
 {
   imports = [
+    # See https://github.com/Scrumplex/flake/blob/main/nixosConfigurations/common/home.nix#L16
+    (lib.modules.mkAliasOptionModule [ "hm" ] [
+      "home-manager"
+      "users"
+      username
+    ])
+    ./home.nix
+
     ./sops/sops.nix
+    ./modules/theme.nix
     ./modules/nanoLib.nix
-    ./modules/hm.nix
     ./modules/plasma.nix
     ./modules/mpv.nix
     ./modules/chrome.nix
@@ -27,8 +35,6 @@
       efiSysMountPoint = "/boot/efi";
     };
     loader.grub = {
-      catppuccin.enable = true;
-      catppuccin.flavor = "macchiato";
       configurationLimit = 35;
       enable = true;
       efiSupport = true;
@@ -36,7 +42,7 @@
       useOSProber = true;
     };
     supportedFilesystems = [ "ntfs" ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -115,7 +121,7 @@
     packages = with pkgs; [
       cascadia-code
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       mplus-outline-fonts.githubRelease
     ];
 
@@ -128,10 +134,6 @@
       };
     };
   };
-
-  catppuccin.enable = true;
-  catppuccin.accent = "pink";
-  catppuccin.flavor = "macchiato";
 
   services.xserver.enable = true;
 

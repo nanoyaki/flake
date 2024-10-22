@@ -1,125 +1,65 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  username,
+  inputs,
+  ...
+}:
 
 let
-  username = "hana";
-
-  catppuccin = {
-    enable = true;
-    flavor = "macchiato";
-  };
+  inherit (inputs) home-manager catppuccin;
 in
 
 {
-  home.username = username;
-  home.homeDirectory = "/home/hana";
-  home.stateVersion = "24.05";
-  programs.home-manager.enable = true;
-
-  # Link several default directories to directories
-  # from the shared-with-windows NTFS drive
-  home.file."Downloads".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Downloads";
-  home.file."Documents".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Documents";
-  home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Videos";
-  home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD/Pictures";
-
-  # The drives
-  home.file."Windows".source = config.lib.file.mkOutOfStoreSymlink "/mnt/Windows";
-  home.file."1TB-SSD".source = config.lib.file.mkOutOfStoreSymlink "/mnt/1TB-SSD";
-
-  # Theming
-  catppuccin = {
-    inherit (catppuccin) enable flavor;
-    accent = "pink";
-  };
-
-  qt = {
-    enable = true;
-    style = {
-      name = "kvantum";
-      inherit catppuccin;
-    };
-    platformTheme.name = "kvantum";
-  };
-
-  programs.mpv = {
-    enable = true;
-    inherit catppuccin;
-  };
-
-  # Terminal
-  programs.alacritty = {
-    enable = true;
-    settings.shell.program = "zellij";
-    inherit catppuccin;
-  };
-
-  programs.zsh = {
-    enable = true;
-    syntaxHighlighting = {
-      inherit catppuccin;
-    };
-  };
-
-  programs.starship = {
-    enable = true;
-    inherit catppuccin;
-  };
-
-  programs.zellij = {
-    enable = true;
-    enableZshIntegration = true;
-    inherit catppuccin;
-  };
-
-  programs.btop = {
-    enable = true;
-    inherit catppuccin;
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "nanoyaki";
-    userEmail = "hanakretzer@gmail.com";
-    delta = {
-      inherit catppuccin;
-    };
-  };
-
-  programs.ssh = {
-    enable = true;
-    matchBlocks.server = {
-      user = "thelessone";
-      hostname = "theless.one";
-      identityFile = "${config.home.homeDirectory}/.ssh/hana-nixos-primary";
-      # localForwards = [
-      #   {
-      #     bind.port = 2333;
-      #     host.address = "localhost";
-      #     host.port = 2333;
-      #   }
-      # ];
-    };
-  };
-
-  xdg.enable = true;
-
-  home.packages = with pkgs; [
-    # Communication
-    vesktop
-    # (discord.override {
-    #   withOpenASAR = true;
-    #   withVencord = false;
-    # })
-
-    # Media
-    spotify
-
-    # Editors
-    obsidian
-
-    # Password manager
-    bitwarden-desktop
+  imports = [
+    home-manager.nixosModules.home-manager
   ];
+
+  home-manager = {
+    sharedModules = [
+      catppuccin.homeManagerModules.catppuccin
+    ];
+
+    backupFileExtension = "home-bac";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
+  hm = {
+    home.username = username;
+    home.homeDirectory = "/home/hana";
+    home.stateVersion = "24.05";
+    programs.home-manager.enable = true;
+
+    home.file =
+      let
+        inherit (config.hm.lib.file) mkOutOfStoreSymlink;
+      in
+      {
+        # Link several default directories to directories
+        # from the shared-with-windows NTFS drive
+        "Downloads".source = mkOutOfStoreSymlink "/mnt/1TB-SSD/Downloads";
+        "Documents".source = mkOutOfStoreSymlink "/mnt/1TB-SSD/Documents";
+        "Videos".source = mkOutOfStoreSymlink "/mnt/1TB-SSD/Videos";
+        "Pictures".source = mkOutOfStoreSymlink "/mnt/1TB-SSD/Pictures";
+
+        # The drives themselves
+        "Windows".source = mkOutOfStoreSymlink "/mnt/Windows";
+        "1TB-SSD".source = mkOutOfStoreSymlink "/mnt/1TB-SSD";
+      };
+
+    home.packages = with pkgs; [
+      vesktop
+
+      spotify
+
+      obsidian
+
+      bitwarden-desktop
+    ];
+
+    xdg.enable = true;
+  };
 }
 
 # see common configuration.nix

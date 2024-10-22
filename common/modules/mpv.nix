@@ -18,6 +18,8 @@ in
   };
 
   config = {
+    hm.programs.mpv.enable = true;
+
     xdg.mime.defaultApplications = mkMerge [
       (mkIf cfg.defaultAudioPlayer {
         "audio/aac" = "mpv.desktop";

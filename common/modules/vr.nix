@@ -31,44 +31,37 @@ in
       trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
     };
 
-    hm.imports = [
-      (
-        { config, ... }:
+    hm.xdg.configFile = {
+      "openxr/1/active_runtime.json".text = ''
         {
-          xdg.configFile = {
-            "openxr/1/active_runtime.json".text = ''
-              {
-                "file_format_version": "1.0.0",
-                "runtime": {
-                  "name": "Monado",
-                  "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
-                }
-              }
-            '';
-
-            "openvr/openvrpaths.vrpath".text = ''
-              {
-                "config" :
-                [
-                  "${config.xdg.dataHome}/Steam/config"
-                ],
-                "external_drivers" : null,
-                "jsonid" : "vrpathreg",
-                "log" :
-                [
-                  "${config.xdg.dataHome}/Steam/logs"
-                ],
-                "runtime" :
-                [
-                  "${pkgs.opencomposite}/lib/opencomposite"
-                ],
-                "version" : 1
-              }
-            '';
-          };
+          "file_format_version": "1.0.0",
+          "runtime": {
+            "name": "Monado",
+            "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+          }
         }
-      )
-    ];
+      '';
+
+      "openvr/openvrpaths.vrpath".text = ''
+        {
+          "config" :
+          [
+            "${config.hm.xdg.dataHome}/Steam/config"
+          ],
+          "external_drivers" : null,
+          "jsonid" : "vrpathreg",
+          "log" :
+          [
+            "${config.hm.xdg.dataHome}/Steam/logs"
+          ],
+          "runtime" :
+          [
+            "${pkgs.opencomposite}/lib/opencomposite"
+          ],
+          "version" : 1
+        }
+      '';
+    };
 
     modules.amdgpu.patches = mkIf cfg.enableAmdgpuPatch [
       (pkgs.fetchpatch {

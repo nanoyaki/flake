@@ -38,7 +38,7 @@ in
         catppuccin = {
           enable = true;
           assertQt6Sddm = true;
-          flavor = "macchiato";
+          flavor = "mocha";
           background = "/home/hana/Pictures/Wallpaper/Wallpaper.png";
           loginBackground = true;
         };
@@ -53,17 +53,17 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      catppuccin-cursors.macchiatoPink
+      catppuccin-cursors.mochaPink
       (catppuccin.override {
         accent = "pink";
-        variant = "macchiato";
+        variant = "mocha";
       })
       (catppuccin-kde.override {
-        flavour = [ "macchiato" ];
+        flavour = [ "mocha" ];
         accents = [ "pink" ];
       })
       (catppuccin-papirus-folders.override {
-        flavor = "macchiato";
+        flavor = "mocha";
         accent = "pink";
       })
     ];

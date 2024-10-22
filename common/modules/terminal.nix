@@ -16,6 +16,33 @@ in
   };
 
   config = {
+    hm.programs = {
+      zsh.enable = true;
+
+      alacritty = {
+        enable = true;
+        settings.shell.program = "zellij";
+      };
+
+      zellij = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      starship.enable = true;
+
+      btop.enable = true;
+
+      ssh = {
+        enable = true;
+        matchBlocks.server = {
+          user = "thelessone";
+          hostname = "theless.one";
+          identityFile = "${config.hm.home.homeDirectory}/.ssh/hana-nixos-primary";
+        };
+      };
+    };
+
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;
 
     environment.pathsToLink = [ "/share/zsh" ];

@@ -31,13 +31,6 @@
     }:
 
     let
-      defaults = [
-        nur.nixosModules.nur
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        ./common/configuration.nix
-      ];
-
       # I think this is good :)
       mkSystem =
         hostname:
@@ -48,7 +41,8 @@
             username = "hana";
           };
 
-          modules = defaults ++ [
+          modules = [
+            ./common/configuration.nix
             (./. + "/hosts/${hostname}/configuration.nix")
           ];
         };

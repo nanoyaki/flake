@@ -5,7 +5,15 @@
   ...
 }:
 
+let
+  inherit (inputs) nur;
+in
+
 {
+  imports = [
+    nur.nixosModules.nur
+  ];
+
   nix.settings.trusted-substituters = [ "https://prismlauncher.cachix.org" ];
   nix.settings.trusted-public-keys = [
     "prismlauncher.cachix.org-1:9/n/FGyABA2jLUVfY+DEp4hKds/rwO+SCOtbOkDzd+c="
@@ -21,7 +29,15 @@
     extraPackages = with pkgs; [ gamescope ];
     gamescopeSession.enable = true;
     extraCompatPackages = with pkgs; [
-      proton-ge-bin
+      (proton-ge-bin.overrideAttrs (
+        finalAttrs: _: {
+          version = "GE-Proton9-16";
+          src = pkgs.fetchzip {
+            url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+            hash = "sha256-n/pU5bAr78Hawo8BMk7VW8uK0FjVsBJGMf78zRMGFPQ=";
+          };
+        }
+      ))
       (proton-ge-bin.overrideAttrs (
         finalAttrs: _: {
           version = "GE-Proton8-5";

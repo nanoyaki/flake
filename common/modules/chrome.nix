@@ -35,7 +35,7 @@ in
         "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
         "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "cmpdlhmnmjhihmcfnigoememnffkimlk" # Catppuccin Macchiato
+        "bkkmolkhemgaeaeggcmfbghljjjoofoh" # Catppuccin Mocha
         "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
         "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
         "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus

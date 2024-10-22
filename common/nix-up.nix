@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  username,
   ...
 }:
 
@@ -23,7 +22,7 @@ pkgs.writeShellScriptBin "nix-up" ''
     exit 1
   fi
 
-  FIND_RESULT="$(find /home/${username} -type f -name '*.home-bac')"
+  FIND_RESULT="$(find ${config.hm.home.homeDirectory} -type f -name '*.home-bac')"
   [[ $FIND_RESULT ]] && rm $FIND_RESULT
 
   ${pkgs.libnotify}/bin/notify-send "NixOS Update" "The system finished updating and rebuilding" -a "NixOS" -i nix-snowflake

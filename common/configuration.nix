@@ -150,8 +150,8 @@
       lm_sensors
     ])
     ++ [
-      (import ./rebuild.nix { inherit pkgs config username; })
-      (import ./nix-up.nix { inherit pkgs config username; })
+      (import ./pkgs/rebuild/package.nix { inherit pkgs config; })
+      (import ./pkgs/nix-up/package.nix { inherit pkgs config; })
     ];
 
   system.stateVersion = "24.11";

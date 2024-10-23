@@ -3,6 +3,7 @@
   lib,
   username,
   config,
+  inputs,
   ...
 }:
 
@@ -46,6 +47,8 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   nix.gc = {
     automatic = true;

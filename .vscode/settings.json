@@ -1,36 +1,21 @@
 {
+    "nix.serverPath": "nixd",
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "nil",
     "nix.serverSettings": {
-        "nil": {
-            "formatting": { "command": ["nixfmt"] },
-            "nix": {
-                "flake": {
-                    // Auto-archiving behavior which may use network.
-                    //
-                    // - null: Ask every time.
-                    // - true: Automatically run `nix flake archive` when necessary.
-                    // - false: Do not archive. Only load inputs that are already on disk.
-                    // Type: null | boolean
-                    // Example: true
-                    "autoArchive": true,
-                    // Whether to auto-eval flake inputs.
-                    // The evaluation result is used to improve completion, but may cost
-                    // lots of time and/or memory.
-                    //
-                    // Type: boolean
-                    // Example: true
-                    "autoEvalInputs": true,
-                    // The input name of nixpkgs for NixOS options evaluation.
-                    //
-                    // The options hierarchy is used to improve completion, but may cost
-                    // lots of time and/or memory.
-                    // If this value is `null` or is not found in the workspace flake's
-                    // inputs, NixOS options are not evaluated.
-                    //
-                    // Type: null | string
-                    // Example: "nixos"
-                    "nixpkgsInputName": "nixpkgs",
+        "nixd": {
+            "nixpkgs": {
+                "expr": "import (builtins.getFlake \"/home/hana/flake\").inputs.nixpkgs { }"
+            },
+            "formatting": {
+                "command": [ "nixfmt" ]
+            },
+            "options": {
+                "enable": true,
+                "nixos": {
+                    "expr": "(builtins.getFlake \"/home/hana/flake\").nixosConfigurations.\"hana-nixos\".options"
+                },
+                "home-manager": {
+                    "expr": "(builtins.getFlake \"/home/hana/flake\").homeConfigurations.\"hana-nixos\".options"
                 }
             }
         }

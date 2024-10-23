@@ -13,14 +13,12 @@
   environment.systemPackages = with pkgs; [
     gh
     nixfmt-rfc-style
-    nil
+    nixd
 
     (vscode-with-extensions.override {
       vscodeExtensions =
         with pkgs.vscode-extensions;
         [
-          bbenoist.nix
-          brettm12345.nixfmt-vscode
           jnoortheen.nix-ide
           catppuccin.catppuccin-vsc
           catppuccin.catppuccin-vsc-icons

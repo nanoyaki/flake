@@ -49,10 +49,10 @@ in
 
         # Social media
         "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
-        "jgejdcdoeeabklepnkdbglgccjpdgpmf" # Old Twitter Layout (2024)
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
         "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
+        "behhbpbpmailcnfbjagknjngnfdojpko" # Sky Follower Bridge
       ];
       description = "A list of extension to install for chrome.";
     };
@@ -89,7 +89,7 @@ in
         })
       ];
 
-      extensions = cfg.extensions;
+      inherit (cfg) extensions;
     };
 
     programs.chromium.enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;

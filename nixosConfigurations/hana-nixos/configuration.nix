@@ -10,8 +10,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../common/modules/gaming.nix
-    # ../../common/modules/vr.nix
+    ../../nixosModules/gaming.nix
+    # ../../nixosModules/vr.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -25,11 +25,6 @@
   programs.thunderbird.enable = false;
 
   # modules.vr.enableAmdgpuPatch = true;
-
-  services.suwayomi-server = {
-    enable = true;
-    settings.server.port = 4567;
-  };
 
   environment.systemPackages = with pkgs; [
     protonvpn-gui

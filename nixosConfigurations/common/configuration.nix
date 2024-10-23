@@ -17,17 +17,17 @@
     ])
     ./home.nix
 
-    ./sops/sops.nix
-    ./modules/theme.nix
-    ./modules/nanoLib.nix
-    ./modules/plasma.nix
-    ./modules/mpv.nix
-    ./modules/chrome.nix
-    ./modules/audio.nix
-    ./modules/terminal.nix
-    ./modules/files.nix
-    ./modules/programming.nix
-    ./modules/input.nix
+    ../../sops/sops.nix
+    ../../nixosModules/theme.nix
+    ../../nixosModules/nanoLib.nix
+    ../../nixosModules/plasma.nix
+    ../../nixosModules/mpv.nix
+    ../../nixosModules/chrome.nix
+    ../../nixosModules/audio.nix
+    ../../nixosModules/terminal.nix
+    ../../nixosModules/files.nix
+    ../../nixosModules/programming.nix
+    ../../nixosModules/input.nix
   ];
 
   boot = {
@@ -153,8 +153,8 @@
       lm_sensors
     ])
     ++ [
-      (import ./pkgs/rebuild/package.nix { inherit pkgs config; })
-      (import ./pkgs/nix-up/package.nix { inherit pkgs config; })
+      (import ../../pkgs/rebuild/package.nix { inherit pkgs config; })
+      (import ../../pkgs/nix-up/package.nix { inherit pkgs config; })
     ];
 
   system.stateVersion = "24.11";

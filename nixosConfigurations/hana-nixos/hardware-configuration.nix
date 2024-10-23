@@ -10,7 +10,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ../../common/modules/x3d-undervolt.nix
+    ../../nixosModules/x3d-undervolt.nix
   ];
 
   boot.initrd.availableKernelModules = [

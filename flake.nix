@@ -23,10 +23,6 @@
   outputs =
     inputs@{
       nixpkgs,
-      catppuccin,
-      prismlauncher,
-      home-manager,
-      nur,
       ...
     }:
 
@@ -42,8 +38,8 @@
           };
 
           modules = [
-            ./common/configuration.nix
-            (./. + "/hosts/${hostname}/configuration.nix")
+            ./nixosConfigurations/common/configuration.nix
+            (./. + "/nixosConfigurations/${hostname}/configuration.nix")
           ];
         };
     in

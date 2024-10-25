@@ -59,6 +59,7 @@
           # }
         ];
     })
+    jetbrains.rider
   ];
 
   environment.variables.EDITOR = "code";

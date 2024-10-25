@@ -28,7 +28,7 @@ in
   hm = {
     home.username = username;
     home.homeDirectory = "/home/hana";
-    home.stateVersion = "24.05";
+    home.stateVersion = "24.11";
     programs.home-manager.enable = true;
 
     home.file =

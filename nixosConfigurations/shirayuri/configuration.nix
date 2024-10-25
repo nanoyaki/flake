@@ -1,9 +1,9 @@
 {
   pkgs,
   inputs,
-  username,
   ...
 }:
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -17,7 +17,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  networking.hostName = "${username}-nixos";
+  networking.hostName = "shirayuri";
 
   modules.vr.enableAmdgpuPatch = true;
 

@@ -12,10 +12,10 @@
             "options": {
                 "enable": true,
                 "nixos": {
-                    "expr": "(builtins.getFlake \"/home/hana/flake\").nixosConfigurations.\"hana-nixos\".options"
+                    "expr": "(builtins.getFlake \"/home/hana/flake\").nixosConfigurations.\"shirayuri\".options"
                 },
                 "home-manager": {
-                    "expr": "(builtins.getFlake \"/home/hana/flake\").homeConfigurations.\"hana-nixos\".options"
+                    "expr": "(builtins.getFlake \"/home/hana/flake\").homeConfigurations.\"shirayuri\".options"
                 }
             }
         }

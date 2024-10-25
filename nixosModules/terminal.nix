@@ -38,7 +38,7 @@ in
         matchBlocks.server = {
           user = "thelessone";
           hostname = "theless.one";
-          identityFile = "${config.hm.home.homeDirectory}/.ssh/hana-nixos-primary";
+          identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
         };
       };
     };

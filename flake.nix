@@ -46,8 +46,8 @@
 
     {
       nixosConfigurations = {
-        hana-nixos = mkSystem "hana-nixos";
-        hana-nixos-laptop = mkSystem "hana-nixos-laptop";
+        shirayuri = mkSystem "shirayuri";
+        kuroyuri = mkSystem "kuroyuri";
       };
     };
 }

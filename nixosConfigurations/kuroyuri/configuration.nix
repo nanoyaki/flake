@@ -1,8 +1,8 @@
 {
   inputs,
-  username,
   ...
 }:
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -20,5 +20,5 @@
     grub.efiInstallAsRemovable = true;
   };
 
-  networking.hostName = "${username}-nixos-laptop";
+  networking.hostName = "kuroyuri";
 }

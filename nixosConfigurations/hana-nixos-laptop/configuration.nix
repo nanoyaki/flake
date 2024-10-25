@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   inputs,
   username,
@@ -18,18 +15,10 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
 
-  # Boot settings
   boot.loader = {
     efi.canTouchEfiVariables = false;
     grub.efiInstallAsRemovable = true;
   };
 
-  # Networking
   networking.hostName = "${username}-nixos-laptop";
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 25565 ];
-    allowedUDPPorts = [ 25565 ];
-  };
 }

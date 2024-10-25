@@ -30,6 +30,7 @@
           ms-vscode-remote.remote-ssh
           editorconfig.editorconfig
           hediet.vscode-drawio
+          yzhang.markdown-all-in-one
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           # {

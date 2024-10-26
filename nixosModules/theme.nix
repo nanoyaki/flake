@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   inputs,
   ...
@@ -32,9 +31,10 @@ in
     inputs.catppuccin.nixosModules.catppuccin
   ];
 
-  catppuccin.enable = true;
-  catppuccin.accent = "pink";
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    inherit (catppuccin) enable flavor;
+    accent = "pink";
+  };
 
   boot.loader.grub = {
     inherit catppuccin;
@@ -42,40 +42,21 @@ in
 
   hm = {
     # Theming (currently unable to use due to catppuccin Qt module)
-    # catppuccin = {
-    #   inherit (catppuccin) enable flavor;
-    #   accent = "pink";
-    # };
+    catppuccin = {
+      inherit (catppuccin) enable flavor;
+      accent = "pink";
+    };
 
     qt = {
       enable = true;
       style.name = "kvantum";
-      # style.catppuccin = {
-      #   inherit (catppuccin) enable flavor;
-      #   apply = true;
-      #   accent = "pink";
-      # };
+      style.catppuccin = {
+        inherit (catppuccin) enable flavor;
+        apply = true;
+        accent = "pink";
+      };
       platformTheme.name = "kvantum";
     };
-
-    # Temporary fix for the qt.style.catppuccin issue
-    xdg.configFile =
-      let
-        theme = pkgs.catppuccin-kvantum.override {
-          accent = "pink";
-          variant = "mocha";
-        };
-        themeName = "Catppuccin-Mocha-Pink";
-      in
-      {
-        "Kvantum/${themeName}".source = "${theme}/share/Kvantum/${themeName}";
-        "Kvantum/kvantum.kvconfig" = {
-          text = ''
-            [General]
-            theme=${themeName}
-          '';
-        };
-      };
 
     programs = lib.mkMerge [
       (mapProgramThemes [

@@ -2,6 +2,7 @@
   lib,
   pkgs,
   modulesPath,
+  config,
   ...
 }:
 
@@ -34,7 +35,7 @@
   boot.kernelParams = [ "acpi_enforce_resources=lax" ];
 
   boot.extraModulePackages = with pkgs; [
-    linuxKernel.packages.linux_xanmod.it87
+    linuxKernel.packages.linux_zen.it87
   ];
 
   boot.extraModprobeConfig = ''
@@ -95,19 +96,10 @@
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };
 
+  hm.home.file."${config.hm.xdg.configHome}/autostart/org.corectrl.CoreCtrl.desktop".source = config.hm.lib.file.mkOutOfStoreSymlink "${pkgs.corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
+
   security.polkit = {
     enable = true;
-    extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if ((action.id == "org.corectrl.helper.init" ||
-          action.id == "org.corectrl.helperkiller.init") &&
-          subject.local == true &&
-          subject.active == true &&
-          subject.isInGroup("wheel")) {
-            return polkit.Result.YES;
-          }
-      });
-    '';
   };
 
   services.x3d-undervolt = {

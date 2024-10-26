@@ -43,7 +43,7 @@
       useOSProber = true;
     };
     supportedFilesystems = [ "ntfs" ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -67,6 +67,7 @@
     isNormalUser = true;
     description = "Hana";
     extraGroups = [
+      "corectrl"
       "networkmanager"
       "wheel"
       "input"

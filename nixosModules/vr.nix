@@ -8,15 +8,34 @@
 
 let
   inherit (lib)
+    types
+    mkOption
     mkEnableOption
     mkIf
     ;
 
   cfg = config.modules.vr;
+
+  isMonado = cfg.enable == "monado";
+  isSteamvr = cfg.enable == "steamvr";
+  isEnvision = cfg.enable == "envision";
 in
 
 {
-  options.modules.vr.enableAmdgpuPatch = mkEnableOption "kernel module patch for high priority graphics";
+  options.modules.vr = {
+    enableAmdgpuPatch = mkEnableOption "kernel module patch for high priority graphics";
+
+    enableMonado = mkEnableOption "the use of monado rather than steamvr";
+
+    enable = mkOption {
+      type = types.enum [
+        "steamvr"
+        "monado"
+        "envision"
+      ];
+      default = "monado";
+    };
+  };
 
   imports = [
     ./amdgpu.nix
@@ -31,36 +50,65 @@ in
       trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
     };
 
-    hm.xdg.configFile = {
-      "openxr/1/active_runtime.json".text = ''
-        {
-          "file_format_version": "1.0.0",
-          "runtime": {
-            "name": "Monado",
-            "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
-          }
-        }
-      '';
+    hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models" = mkIf isMonado {
+      source = pkgs.fetchgit {
+        url = "https://gitlab.freedesktop.org/monado/utilities/hand-tracking-models.git";
+        fetchLFS = true;
+        hash = "sha256-x/X4HyyHdQUxn3CdMbWj5cfLvV7UyQe1D01H93UCk+M=";
+      };
+    };
 
-      "openvr/openvrpaths.vrpath".text = ''
-        {
-          "config" :
-          [
-            "${config.hm.xdg.dataHome}/Steam/config"
-          ],
-          "external_drivers" : null,
-          "jsonid" : "vrpathreg",
-          "log" :
-          [
-            "${config.hm.xdg.dataHome}/Steam/logs"
-          ],
-          "runtime" :
-          [
-            "${pkgs.opencomposite}/lib/opencomposite"
-          ],
-          "version" : 1
-        }
-      '';
+    hm.xdg.configFile = {
+      # Make sure `enableLinuxVulkanAsync = true`
+      # is set for asynchronous reprojection in
+      # .steam/steam/config/steamvr.vrsettings as
+      # that file is mutable
+      "steamargs/steamvr" = {
+        enable = isSteamvr;
+        text = ''PIPEWIRE_LATENCY=2048/48000 QT_QPA_PLATFORMTHEME=kde __GL_MaxFramesAllowed=0 SDL_DYNAMIC_API=${pkgs.SDL2}/lib/libSDL2.so SDL_VIDEODRIVER=wayland %command%'';
+      };
+
+      "steamargs/vrchat" = {
+        enable = isMonado;
+        text = ''env PIPEWIRE_LATENCY=2048/48000 PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/monado_comp_ipc %command%'';
+      };
+
+      "openxr/1/active_runtime.json" = {
+        enable = isMonado;
+        text = ''
+          {
+            "file_format_version": "1.0.0",
+            "runtime": {
+              "name": "Monado",
+              "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+            }
+          }
+        '';
+      };
+
+      # https://steamcommunity.com/app/250820/discussions/5/4757578278663049910/
+      "openvr/openvrpaths.vrpath" = {
+        enable = isMonado;
+        text = ''
+          {
+            "config" :
+            [
+              "${config.hm.xdg.dataHome}/Steam/config"
+            ],
+            "external_drivers" : null,
+            "jsonid" : "vrpathreg",
+            "log" :
+            [
+              "${config.hm.xdg.dataHome}/Steam/logs"
+            ],
+            "runtime" :
+            [
+              "${pkgs.opencomposite}/lib/opencomposite"
+            ],
+            "version" : 1
+          }
+        '';
+      };
     };
 
     modules.amdgpu.patches = mkIf cfg.enableAmdgpuPatch [
@@ -71,7 +119,7 @@ in
       })
     ];
 
-    programs.steam.extraCompatPackages = mkIf config.programs.steam.enable [
+    programs.steam.extraCompatPackages = [
       (pkgs.proton-ge-bin.overrideAttrs (
         finalAttrs: _: {
           version = "GE-Proton9-11-rtsp15";
@@ -83,32 +131,37 @@ in
       ))
     ];
 
-    # modules.audio.latency = lib.mkForce 2048;
+    # modules.audio.latency = lib.mkForce 1024;
 
-    # Not recommended as of yet
-    # https://lvra.gitlab.io/docs/distros/nixos/#envision
-    # programs.envision.enable = true;
-
-    services.monado = {
+    services.monado = mkIf isMonado {
       enable = true;
       defaultRuntime = true;
       highPriority = true;
       package = pkgs.monado;
     };
 
-    systemd.user.services.monado.environment = {
-      STEAMVR_LH_ENABLE = "1";
-      XRT_COMPOSITOR_COMPUTE = "1";
-      WMR_HANDTRACKING = "0";
-      SURVIVE_GLOBALSCENESOLVER = "0";
+    systemd.user.services.monado = mkIf isMonado {
+      environment = {
+        STEAMVR_LH_ENABLE = "1";
+        XRT_COMPOSITOR_COMPUTE = "1";
+        # WMR_HANDTRACKING = "0";
+        SURVIVE_GLOBALSCENESOLVER = "0";
+      };
+
+      # Make sure to `sudo renice -20 -p $(pgrep monado)`
+      # if below doesn't work
+      serviceConfig.Nice = -20;
     };
 
-    environment.sessionVariables.LIBMONADO_PATH = "${config.services.monado.package}/lib/libopenxr_monado.so";
+    environment.sessionVariables.LIBMONADO_PATH = mkIf isMonado "${config.services.monado.package}/lib/libopenxr_monado.so";
+
+    # Not recommended as of yet
+    # https://lvra.gitlab.io/docs/distros/nixos/#envision
+    programs.envision.enable = isEnvision;
 
     environment.systemPackages = with pkgs; [
       index_camera_passthrough
       wlx-overlay-s
-      # lighthouse-steamvr
     ];
   };
 }

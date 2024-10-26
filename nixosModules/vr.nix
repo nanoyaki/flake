@@ -59,6 +59,10 @@ in
       };
     };
 
+    hm.home.file.".alsoftrc".text = ''
+      hrtf = true
+    '';
+
     hm.xdg.configFile = {
       # Make sure `enableLinuxVulkanAsync = true`
       # is set for asynchronous reprojection in
@@ -157,6 +161,8 @@ in
     environment.systemPackages = with pkgs; [
       index_camera_passthrough
       wlx-overlay-s
+
+      openal
     ];
   };
 }

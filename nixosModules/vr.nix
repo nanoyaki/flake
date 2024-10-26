@@ -50,7 +50,8 @@ in
       trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
     };
 
-    hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models" = mkIf isMonado {
+    hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models" = {
+      enable = isMonado;
       source = pkgs.fetchgit {
         url = "https://gitlab.freedesktop.org/monado/utilities/hand-tracking-models.git";
         fetchLFS = true;
@@ -65,12 +66,12 @@ in
       # that file is mutable
       "steamargs/steamvr" = {
         enable = isSteamvr;
-        text = ''PIPEWIRE_LATENCY=2048/48000 QT_QPA_PLATFORMTHEME=kde __GL_MaxFramesAllowed=0 SDL_DYNAMIC_API=${pkgs.SDL2}/lib/libSDL2.so SDL_VIDEODRIVER=wayland %command%'';
+        text = ''QT_QPA_PLATFORMTHEME=kde __GL_MaxFramesAllowed=0 SDL_DYNAMIC_API=${pkgs.SDL2}/lib/libSDL2.so SDL_VIDEODRIVER=wayland %command%'';
       };
 
       "steamargs/vrchat" = {
         enable = isMonado;
-        text = ''env PIPEWIRE_LATENCY=2048/48000 PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/monado_comp_ipc %command%'';
+        text = ''env LC_ALL=en_US.UTF-8 PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/monado_comp_ipc %command%'';
       };
 
       "openxr/1/active_runtime.json" = {
@@ -80,7 +81,7 @@ in
             "file_format_version": "1.0.0",
             "runtime": {
               "name": "Monado",
-              "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
+              "library_path": "${pkgs.monado}/lib/libmonado.so"
             }
           }
         '';
@@ -131,8 +132,9 @@ in
       ))
     ];
 
-    # modules.audio.latency = lib.mkForce 1024;
+    modules.audio.latency = lib.mkForce 2048;
 
+    # Make sure to `sudo renice -20 -p $(pgrep monado)`
     services.monado = mkIf isMonado {
       enable = true;
       defaultRuntime = true;
@@ -140,20 +142,13 @@ in
       package = pkgs.monado;
     };
 
-    systemd.user.services.monado = mkIf isMonado {
-      environment = {
-        STEAMVR_LH_ENABLE = "1";
-        XRT_COMPOSITOR_COMPUTE = "1";
-        # WMR_HANDTRACKING = "0";
-        SURVIVE_GLOBALSCENESOLVER = "0";
-      };
-
-      # Make sure to `sudo renice -20 -p $(pgrep monado)`
-      # if below doesn't work
-      serviceConfig.Nice = -20;
+    systemd.user.services.monado.environment = mkIf isMonado {
+      STEAMVR_LH_ENABLE = "1";
+      XRT_COMPOSITOR_COMPUTE = "1";
+      WMR_HANDTRACKING = "0";
     };
 
-    environment.sessionVariables.LIBMONADO_PATH = mkIf isMonado "${config.services.monado.package}/lib/libopenxr_monado.so";
+    environment.sessionVariables.LIBMONADO_PATH = mkIf isMonado "${config.services.monado.package}/lib/libmonado.so";
 
     # Not recommended as of yet
     # https://lvra.gitlab.io/docs/distros/nixos/#envision

@@ -85,14 +85,14 @@ in
             "file_format_version": "1.0.0",
             "runtime": {
               "name": "Monado",
-              "library_path": "${pkgs.monado}/lib/libmonado.so"
+              "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
             }
           }
         '';
       };
 
       # https://steamcommunity.com/app/250820/discussions/5/4757578278663049910/
-      "openvr/openvrpaths.vrpath" = {
+      "openvr/openvrpaths.vrpath.opencomp" = {
         enable = isMonado;
         text = ''
           {
@@ -114,6 +114,8 @@ in
           }
         '';
       };
+
+      "openvr/openvrpaths.vrpath".source = config.hm.lib.file.mkOutOfStoreSymlink "openvr/openvrpaths.vrpath.opencomp";
     };
 
     modules.amdgpu.patches = mkIf cfg.enableAmdgpuPatch [
@@ -136,8 +138,6 @@ in
       ))
     ];
 
-    modules.audio.latency = lib.mkForce 2048;
-
     # Make sure to `sudo renice -20 -p $(pgrep monado)`
     services.monado = mkIf isMonado {
       enable = true;
@@ -150,9 +150,14 @@ in
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
       WMR_HANDTRACKING = "0";
+      IPC_EXIT_ON_DISCONNECT = "1";
+      XRT_COMPOSITOR_SCALE_PERCENTAGE = "140";
     };
 
-    environment.sessionVariables.LIBMONADO_PATH = mkIf isMonado "${config.services.monado.package}/lib/libmonado.so";
+    environment.sessionVariables = mkIf isMonado {
+      XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
+      LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
+    };
 
     # Not recommended as of yet
     # https://lvra.gitlab.io/docs/distros/nixos/#envision

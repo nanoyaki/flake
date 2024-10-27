@@ -40,13 +40,8 @@ in
         audio.enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
-        pulse.enable = true;
         jack.enable = true;
 
-        # use the example session manager (no others are packaged yet so this is enabled by default,
-        # no need to redefine it in your config for now)
-        # media-session.enable = true;
-        wireplumber.enable = true;
         extraConfig.pipewire."92-low-latency" = {
           context.properties = {
             default.clock.rate = samplingRate;
@@ -57,6 +52,7 @@ in
           };
         };
 
+        pulse.enable = true;
         extraConfig.pipewire-pulse."92-low-latency" = {
           context.modules = [
             {
@@ -77,23 +73,47 @@ in
           };
         };
 
-        wireplumber.configPackages = [
-          (pkgs.writeTextDir "share/wireplumber/main.lua.d/92-low-latency.lua" ''
-            alsa_monitor.rules = {
+        wireplumber.enable = true;
+        wireplumber.extraConfig = {
+          "99-valve-index" = {
+            "monitor.alsa.rules" = [
               {
-                matches = {{{ "node.name", "matches", "alsa_output.*" }}};
-                apply_properties = {
-                  ["audio.format"] = "S32LE",
-                  ["audio.rate"] = "${toString (samplingRate * 2)}",
-                  ["api.alsa.period-size"] = ${toString latency}, -- defaults to 1024, tweak by trial-and-error
-                },
-              },
-            }
-          '')
-        ];
-      };
+                matches = [
+                  {
+                    # wpctl status -> wpctl inspect <id>
+                    "object.path" = "alsa:acp:HDMI:5:playback";
+                  }
+                ];
+                actions = {
+                  update-props = {
+                    "api.alsa.period-size" = 2048;
+                    "api.alsa.headroom" = 8192;
+                  };
+                };
+              }
+            ];
+          };
 
-      environment.sessionVariables.PIPEWIRE_LATENCY = "${toString latency}/${toString samplingRate}";
+          "92-low-latency" = {
+            "monitor.alsa.rules" = [
+              {
+                matches = [
+                  {
+                    # wpctl status -> wpctl inspect <id>
+                    "node.name" = "~alsa_output.*";
+                  }
+                ];
+                actions = {
+                  update-props = {
+                    "audio.rate" = samplingRate * 2;
+                    "api.alsa.period-size" = latency;
+                  };
+                };
+              }
+            ];
+          };
+        };
+      };
 
       environment.systemPackages = with pkgs; [
         alsa-scarlett-gui

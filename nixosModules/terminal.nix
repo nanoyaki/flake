@@ -21,7 +21,7 @@ in
 
       alacritty = {
         enable = true;
-        settings.shell.program = "zellij";
+        settings.terminal.shell.program = "zellij";
       };
 
       zellij = {

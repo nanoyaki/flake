@@ -19,6 +19,19 @@ let
   isMonado = cfg.enable == "monado";
   isSteamvr = cfg.enable == "steamvr";
   isEnvision = cfg.enable == "envision";
+
+  opencomposite = pkgs.opencomposite.overrideAttrs {
+    pname = "opencomposite";
+    version = "e162c7e9be2521a357fba4bee13af85437a1027b";
+    src = pkgs.fetchgit {
+      url = "https://gitlab.com/znixian/OpenOVR.git";
+      rev = "e162c7e9be2521a357fba4bee13af85437a1027b";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-+suq0gV8zRDhF3ApnzQCC/5st59VniU6v7TcDdght6Q=";
+    };
+  };
 in
 
 {
@@ -70,16 +83,19 @@ in
       # that file is mutable
       "steamargs/steamvr" = {
         enable = isSteamvr;
+        force = true;
         text = ''QT_QPA_PLATFORMTHEME=kde __GL_MaxFramesAllowed=0 SDL_DYNAMIC_API=${pkgs.SDL2}/lib/libSDL2.so SDL_VIDEODRIVER=wayland %command%'';
       };
 
       "steamargs/vrchat" = {
         enable = isMonado;
+        force = true;
         text = ''env LC_ALL=en_US.UTF-8 PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/monado_comp_ipc %command%'';
       };
 
       "openxr/1/active_runtime.json" = {
         enable = isMonado;
+        force = true;
         text = ''
           {
             "file_format_version": "1.0.0",
@@ -94,6 +110,7 @@ in
       # https://steamcommunity.com/app/250820/discussions/5/4757578278663049910/
       "openvr/openvrpaths.vrpath.opencomp" = {
         enable = isMonado;
+        force = true;
         text = ''
           {
             "config" :
@@ -108,14 +125,17 @@ in
             ],
             "runtime" :
             [
-              "${pkgs.opencomposite}/lib/opencomposite"
+              "${opencomposite}/lib/opencomposite"
             ],
             "version" : 1
           }
         '';
       };
 
-      "openvr/openvrpaths.vrpath".source = config.hm.lib.file.mkOutOfStoreSymlink "openvr/openvrpaths.vrpath.opencomp";
+      "openvr/openvrpaths.vrpath" = {
+        source = config.hm.lib.file.mkOutOfStoreSymlink "${config.hm.xdg.configHome}/openvr/openvrpaths.vrpath.opencomp";
+        force = true;
+      };
     };
 
     modules.amdgpu.patches = mkIf cfg.enableAmdgpuPatch [
@@ -150,8 +170,9 @@ in
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
       WMR_HANDTRACKING = "0";
-      IPC_EXIT_ON_DISCONNECT = "1";
       XRT_COMPOSITOR_SCALE_PERCENTAGE = "140";
+      SURVIVE_GLOBALSCENESOLVER = "0";
+      SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
     };
 
     environment.sessionVariables = mkIf isMonado {

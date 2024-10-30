@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
@@ -15,39 +19,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    prismlauncher = {
+      url = "github:PrismLauncher/PrismLauncher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
     inputs@{
-      nixpkgs,
+      flake-parts,
       ...
     }:
 
-    let
-      # I think this is good :)
-      mkSystem =
-        hostname:
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-            username = "hana";
-          };
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./nLib
+        ./pkgs
+        ./nixosModules
 
-          modules = [
-            ./nixosConfigurations/common/configuration.nix
-            (./. + "/nixosConfigurations/${hostname}/configuration.nix")
-          ];
-        };
-    in
+        ./nixosConfigurations/shirayuri
+        ./nixosConfigurations/kuroyuri
+      ];
 
-    {
-      nixosConfigurations = {
-        shirayuri = mkSystem "shirayuri";
-        kuroyuri = mkSystem "kuroyuri";
-      };
+      systems = [
+        "x86_64-linux"
+      ];
     };
 }

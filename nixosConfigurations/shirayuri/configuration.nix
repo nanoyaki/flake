@@ -1,25 +1,11 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../nixosModules/gaming.nix
-    ../../nixosModules/vr.nix
-
-    inputs.nixos-hardware.nixosModules.common-cpu-amd
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-  ];
-
-  networking.hostName = "shirayuri";
-
   modules.vr.enableAmdgpuPatch = true;
+  modules.audio.latency = 32;
 
   environment.systemPackages = with pkgs; [
     protonvpn-gui
@@ -27,8 +13,10 @@
   ];
 
   services.transmission = {
-    enable = true;
+    enable = false;
     webHome = pkgs.flood-for-transmission;
     settings.download-dir = "/mnt/1TB-SSD/Torrents";
   };
+
+  system.stateVersion = "24.11";
 }

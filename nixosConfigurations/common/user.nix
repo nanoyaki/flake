@@ -7,9 +7,7 @@
     extraGroups = [
       "wheel"
       "input"
-      "audio"
       "uinput"
-      "jackaudio"
     ];
   };
 

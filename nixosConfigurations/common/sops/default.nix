@@ -15,7 +15,7 @@ in
 
     age.keyFile = "/home/hana/.config/sops/age/keys.txt";
 
-    secrets.test_key = { };
+    secrets."users/hana/password" = { };
   };
 
   environment.systemPackages = with pkgs; [ sops ];

@@ -1,9 +1,10 @@
-{ username, ... }:
+{ username, config, ... }:
 
 {
   users.users.${username} = {
     isNormalUser = true;
     description = "Hana";
+    hashedPasswordFile = config.sops.secrets."users/hana/password".path;
     extraGroups = [
       "wheel"
       "input"

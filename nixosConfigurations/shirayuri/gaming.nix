@@ -55,13 +55,6 @@ in
 
     # Games
     osu-lazer-bin
-    # (config.nanoLib.overrideAppimageTools osu-lazer-bin (rec {
-    #   version = "2024.1009.1";
-    #   src = pkgs.fetchurl {
-    #     url = "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
-    #     hash = "sha256-2H2SPcUm/H/0D9BqBiTFvaCwd0c14/r+oWhyeZdNpoU=";
-    #   };
-    # }))
   ];
 
   programs.gamemode.enable = true;

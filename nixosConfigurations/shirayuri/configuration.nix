@@ -4,7 +4,6 @@
 }:
 
 {
-  modules.vr.enableAmdgpuPatch = true;
   modules.audio.latency = 32;
 
   environment.systemPackages = with pkgs; [

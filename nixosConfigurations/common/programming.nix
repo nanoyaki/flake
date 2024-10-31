@@ -15,10 +15,24 @@ in
   options.modules.programming.enableCsharp = mkEnableOption "csharp required options";
 
   config = {
-    hm.programs.git = {
-      enable = true;
-      userName = "nanoyaki";
-      userEmail = "hanakretzer@gmail.com";
+    hm.programs = {
+      git = {
+        enable = true;
+        userName = "nanoyaki";
+        userEmail = "hanakretzer@gmail.com";
+      };
+
+      neovim = {
+        enable = true;
+        viAlias = true;
+        vimAlias = true;
+        vimdiffAlias = true;
+        plugins = with pkgs.vimPlugins; [
+          nvim-lspconfig
+          nvim-treesitter.withAllGrammars
+          nvim-cmp
+        ];
+      };
     };
 
     programs.git.enable = true;
@@ -40,6 +54,8 @@ in
             editorconfig.editorconfig
             hediet.vscode-drawio
             yzhang.markdown-all-in-one
+            rust-lang.rust-analyzer
+            tamasfe.even-better-toml
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

@@ -7,6 +7,8 @@
       ./hardware
       ./boot.nix
 
+      ./configuration.nix
+
       ../common
     ];
   };

@@ -1,11 +1,20 @@
 {
   pkgs,
+  inputs,
   config,
   username,
-  packages,
   ...
 }:
+
+let
+  inherit (inputs) vermeer-undervolt;
+in
+
 {
+  imports = [
+    vermeer-undervolt.nixosModules.vermeer-undervolt
+  ];
+
   boot.kernelModules = [
     "kvm-amd"
     "ryzen_smu"
@@ -22,12 +31,8 @@
   };
   users.users."${username}".extraGroups = [ "corectrl" ];
 
-  services.x3d-undervolt = {
+  services.vermeer-undervolt = {
     enable = true;
-    package = packages.x3d-undervolt.overrideAttrs {
-      meta.license = [ ];
-      meta.mainProgram = "x3d-undervolt";
-    };
     cores = 8;
     milivolts = 30;
   };

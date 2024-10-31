@@ -1,4 +1,4 @@
-{ nLib, self, ... }:
+{ nLib, ... }:
 
 {
   flake.nixosConfigurations = nLib.mkSystem {
@@ -6,7 +6,6 @@
     modules = [
       ../common
 
-      self.nixosModules.x3d-undervolt
       ./hardware
 
       ./boot.nix

@@ -28,6 +28,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    vermeer-undervolt = {
+      url = "github:nanoyaki/5800x3d-undervolt/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

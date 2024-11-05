@@ -1,6 +1,14 @@
 { lib, pkgs, ... }:
 
 {
+  nixpkgs.overlays = [
+    (_: prev: {
+      amdctl = prev.amdctl.overrideAttrs {
+        patches = [ ./max-vid.patch ];
+      };
+    })
+  ];
+
   boot.kernelModules = [
     "kvm-amd"
     "msr"
@@ -10,15 +18,10 @@
 
   services.power-profiles-daemon.enable = true;
 
+  environment.systemPackages = [ pkgs.amdctl ];
   systemd.services.amdctl-undervolt =
     let
-      amdctl = lib.getExe (
-        pkgs.amdctl.overrideAttrs {
-          patches = [
-            ./max-vid.patch
-          ];
-        }
-      );
+      amdctl = lib.getExe pkgs.amdctl;
     in
     {
       enable = true;

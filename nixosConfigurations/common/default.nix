@@ -7,7 +7,7 @@
     ./home.nix
     ./user.nix
     ./networking.nix
-    ./localization.nix
+    ./locale.nix
     ./sops
     ./input.nix
     ./fonts.nix

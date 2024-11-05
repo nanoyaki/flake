@@ -8,6 +8,7 @@
       ./boot.nix
 
       ./configuration.nix
+      ./gaming.nix
 
       ../common
     ];

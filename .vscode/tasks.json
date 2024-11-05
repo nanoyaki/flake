@@ -4,7 +4,7 @@
         {
             "label": "rebuild",
             "type": "shell",
-            "command": "rebuild",
+            "command": "sudo nixos-rebuild switch --flake $FLAKE_DIR",
             "problemMatcher": [],
             "group": {
                 "kind": "build",

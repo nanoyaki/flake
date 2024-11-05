@@ -50,7 +50,10 @@ in
     loginBackground = true;
   };
 
-  hm = {
-    inherit catppuccin;
+  hm.catppuccin = {
+    inherit (catppuccin) enable flavor accent;
+    pointerCursor = {
+      inherit (catppuccin) enable flavor accent;
+    };
   };
 }

@@ -10,10 +10,7 @@
       "sd_mod"
     ];
 
-    loader.grub = {
-      configurationLimit = 10;
-      useOSProber = true;
-    };
+    loader.grub.useOSProber = true;
 
     supportedFilesystems = [ "ntfs" ];
   };

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   time.hardwareClockInLocalTime = true;
@@ -8,15 +8,15 @@
 
     loader = {
       efi = {
-        canTouchEfiVariables = lib.mkDefault true;
-        efiSysMountPoint = lib.mkDefault "/boot/efi";
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
       };
 
       grub = {
         enable = true;
         efiSupport = true;
         device = "nodev";
-        configurationLimit = lib.mkDefault 10;
+        configurationLimit = 10;
       };
     };
 

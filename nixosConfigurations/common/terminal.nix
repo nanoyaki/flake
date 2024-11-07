@@ -79,7 +79,7 @@ in
       gnupg
       bat
       lsd
-      z-lua
+      zoxide
     ];
   };
 }

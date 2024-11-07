@@ -35,10 +35,18 @@ in
 
       ssh = {
         enable = true;
-        matchBlocks.server = {
-          user = "thelessone";
-          hostname = "theless.one";
-          identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
+        matchBlocks = {
+          server = {
+            user = "thelessone";
+            hostname = "theless.one";
+            identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
+          };
+
+          github = {
+            user = "nanoyaki";
+            hostname = "github.com";
+            identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
+          };
         };
       };
     };
@@ -69,6 +77,9 @@ in
       fastfetch
       nvtopPackages.amd
       gnupg
+      bat
+      lsd
+      z-lua
     ];
   };
 }

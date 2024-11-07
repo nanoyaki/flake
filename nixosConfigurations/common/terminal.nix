@@ -80,6 +80,7 @@ in
       bat
       lsd
       zoxide
+      tealdeer
     ];
   };
 }

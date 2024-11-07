@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  inputs',
   ...
 }:
 
@@ -44,18 +45,23 @@ in
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    # Launchers
-    bottles
-    cartridges
-    lutris
+  environment.systemPackages =
+    with pkgs;
+    [
+      # Launchers
+      bottles
+      cartridges
+      lutris
 
-    # Util
-    mangohud
+      # Util
+      mangohud
 
-    # Games
-    osu-lazer-bin
-  ];
+      # Games
+      osu-lazer-bin
+    ]
+    ++ [
+      inputs'.prismlauncher.packages.prismlauncher
+    ];
 
   programs.gamemode.enable = true;
 }

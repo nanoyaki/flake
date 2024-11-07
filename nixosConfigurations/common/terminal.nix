@@ -49,6 +49,31 @@ in
           };
         };
       };
+
+      tealdeer = {
+        enable = true;
+        settings = {
+          display = {
+            compact = false;
+            use_pager = true;
+          };
+
+          updates = {
+            auto_update = true;
+          };
+        };
+      };
+
+      zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      lsd.enable = true;
+
+      bat.enable = true;
+
+      fastfetch.enable = true;
     };
 
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;
@@ -74,13 +99,8 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      fastfetch
       nvtopPackages.amd
       gnupg
-      bat
-      lsd
-      zoxide
-      tealdeer
     ];
   };
 }

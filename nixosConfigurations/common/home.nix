@@ -40,7 +40,7 @@ in
       packages = with pkgs; [
         vesktop
 
-        spotify
+        spotify-qt
 
         obsidian
 

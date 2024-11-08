@@ -40,9 +40,6 @@ in
       packages = with pkgs; [
         vesktop
 
-        librespot
-        spotify-qt
-
         obsidian
 
         bitwarden-desktop

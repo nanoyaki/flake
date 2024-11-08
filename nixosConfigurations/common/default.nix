@@ -18,6 +18,7 @@
     ./programming.nix
     ./chrome.nix
     ./mpv.nix
+    ./spotify.nix
     ./theme.nix
   ];
 }

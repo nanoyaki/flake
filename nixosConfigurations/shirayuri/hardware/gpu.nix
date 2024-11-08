@@ -1,6 +1,7 @@
 { ... }:
 {
   hardware.amdgpu.initrd.enable = true;
+  boot.kernelModules = [ "amdgpu" ];
 
   hardware.graphics = {
     enable = true;

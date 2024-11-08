@@ -3,7 +3,7 @@
 {
   imports = [
     ./cpu.nix
-    ./amdgpu.nix
+    ./gpu.nix
     ./mounts.nix
     ./cooling.nix
     ./scarlett-solo.nix

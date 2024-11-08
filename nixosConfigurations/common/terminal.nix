@@ -42,8 +42,8 @@ in
             identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
           };
 
-          github = {
-            user = "nanoyaki";
+          "github.com" = {
+            user = "git";
             hostname = "github.com";
             identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
           };

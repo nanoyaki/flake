@@ -10,7 +10,7 @@
 
       ./boot.nix
       ./symlinks.nix
-      ./gaming.nix
+      ./gaming
       ./emulation.nix
       ./vr
       ./configuration.nix

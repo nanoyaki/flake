@@ -1,13 +1,6 @@
-{
-  pkgs,
-  inputs,
-  inputs',
-  ...
-}:
+{ pkgs, ... }:
 
 let
-  inherit (inputs) nur;
-
   mkProtonGeBin =
     version: hash:
     (pkgs.proton-ge-bin.overrideAttrs {
@@ -20,14 +13,6 @@ let
 in
 
 {
-  imports = [
-    nur.nixosModules.nur
-  ];
-
-  nix.settings.trusted-substituters = [ "https://prismlauncher.cachix.org" ];
-  nix.settings.trusted-public-keys = [
-    "prismlauncher.cachix.org-1:9/n/FGyABA2jLUVfY+DEp4hKds/rwO+SCOtbOkDzd+c="
-  ];
 
   # sudo setcap CAP_SYS_NICE+ep ~/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/vrcompositor-launcher
   programs.steam = {
@@ -44,24 +29,4 @@ in
       (mkProtonGeBin "GE-Proton8-5" "sha256-YeibTA2z69bNE3V/sgFHOHaxl0Uf77unQQc7x2w/1AI=")
     ];
   };
-
-  environment.systemPackages =
-    with pkgs;
-    [
-      # Launchers
-      bottles
-      cartridges
-      lutris
-
-      # Util
-      mangohud
-
-      # Games
-      osu-lazer-bin
-    ]
-    ++ [
-      inputs'.prismlauncher.packages.prismlauncher
-    ];
-
-  programs.gamemode.enable = true;
 }

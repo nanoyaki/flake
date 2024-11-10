@@ -36,6 +36,10 @@
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    quickemu = {
+      url = "github:quickemu-project/quickemu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

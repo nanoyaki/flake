@@ -8,6 +8,7 @@
     ./steam.nix
     ./minecraft.nix
     ./anime-games.nix
+    ./virtualization.nix
   ];
 
   environment.systemPackages = with pkgs; [

@@ -9,6 +9,7 @@
     ./minecraft.nix
     ./anime-games.nix
     ./virtualization.nix
+    ./rpgmaker.nix
   ];
 
   environment.systemPackages = with pkgs; [

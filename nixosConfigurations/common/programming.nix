@@ -69,7 +69,10 @@ in
       (lib.mkIf cfg.enableCsharp jetbrains.rider)
     ];
 
-    environment.variables.EDITOR = "code";
+    environment.variables = {
+      EDITOR = lib.mkIf (!config.hm.programs.neovim.defaultEditor) "code";
+      GIT_EDITOR = "code --wait --new-window";
+    };
 
     programs.nix-ld.enable = cfg.enableCsharp;
   };

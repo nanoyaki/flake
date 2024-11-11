@@ -46,7 +46,7 @@ in
     enable = true;
     assertQt6Sddm = true;
     flavor = "mocha";
-    background = "/home/hana/Pictures/Wallpaper/Wallpaper.png";
+    background = "${config.hm.home.homeDirectory}/Pictures/Wallpaper/Wallpaper.png";
     loginBackground = true;
   };
 

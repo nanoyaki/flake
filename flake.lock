@@ -290,11 +290,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1731336490,
-        "narHash": "sha256-hoH/MuM9TDJgxFt2HeHWiF2NOSxSYH7ImFpRvivJkfA=",
+        "lastModified": 1731344688,
+        "narHash": "sha256-geifuq5SUnVSEGjuNRURTpcAm8mvF/hsS1fwhl6VLaM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7a90da52e605c22684cedc506e02d574042baa72",
+        "rev": "c27319f3dc6cb6ca41fe0257f5c383f68524a369",
         "type": "github"
       },
       "original": {
@@ -334,11 +334,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731053561,
-        "narHash": "sha256-HUYAVPxNRLuEAIT5Itp13EAzwb6gR72I5ZJuKC1IeGc=",
+        "lastModified": 1731338668,
+        "narHash": "sha256-p3bOIXVfwlNmslgkZXECCKuVJw1QFlYnYeS6oN3KH6I=",
         "owner": "quickemu-project",
         "repo": "quickemu",
-        "rev": "ec0f276abf6896dab91f6879cc477123eed387ad",
+        "rev": "d0ae72a2510f52ae4a9181d7c65f2c69636ca298",
         "type": "github"
       },
       "original": {

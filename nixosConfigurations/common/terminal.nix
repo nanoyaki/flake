@@ -48,6 +48,9 @@ in
             identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
           };
         };
+        extraConfig = ''
+          IdentityFile ${config.hm.home.homeDirectory}/.ssh/shirayuri-primary
+        '';
       };
 
       tealdeer = {

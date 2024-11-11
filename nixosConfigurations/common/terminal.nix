@@ -20,7 +20,7 @@ in
 
       alacritty = {
         enable = true;
-        settings.terminal.shell.program = "zellij";
+        settings.terminal.shell.program = "zellij -l compact";
       };
 
       zellij = {

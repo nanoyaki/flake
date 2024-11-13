@@ -39,25 +39,35 @@ in
 
       btop.enable = true;
 
-      ssh = {
-        enable = true;
-        matchBlocks = {
-          server = {
-            user = "thelessone";
-            hostname = "theless.one";
-            identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
-          };
+      ssh =
+        let
+          identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
+        in
+        {
+          enable = true;
+          matchBlocks = {
+            server = {
+              user = "thelessone";
+              hostname = "theless.one";
+              inherit identityFile;
+            };
 
-          "github.com" = {
-            user = "git";
-            hostname = "github.com";
-            identityFile = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
+            "github.com" = {
+              user = "git";
+              hostname = "github.com";
+              inherit identityFile;
+            };
+
+            "codeberg.org" = {
+              user = "git";
+              hostname = "codeberg.org";
+              inherit identityFile;
+            };
           };
+          extraConfig = ''
+            IdentityFile ${identityFile}
+          '';
         };
-        extraConfig = ''
-          IdentityFile ${config.hm.home.homeDirectory}/.ssh/shirayuri-primary
-        '';
-      };
 
       tealdeer = {
         enable = true;

@@ -93,6 +93,8 @@ in
       bat.enable = true;
 
       fastfetch.enable = true;
+
+      ripgrep.enable = true;
     };
 
     users.defaultUserShell = mkIf cfg.zshAsDefaultShell pkgs.zsh;

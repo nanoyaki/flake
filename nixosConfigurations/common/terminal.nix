@@ -4,10 +4,13 @@
   config,
   ...
 }:
-with lib;
+
 let
+  inherit (lib) mkIf mkOption types;
+
   cfg = config.modules.terminal;
 in
+
 {
   options.modules.terminal.zshAsDefaultShell = mkOption {
     type = types.bool;
@@ -123,5 +126,10 @@ in
       nvtopPackages.amd
       gnupg
     ];
+
+    environment.sessionVariables = {
+      MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+      MANROFFOPT = "-c";
+    };
   };
 }

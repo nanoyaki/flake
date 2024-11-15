@@ -43,6 +43,8 @@ in
         obsidian
 
         bitwarden-desktop
+
+        anki
       ];
     };
 

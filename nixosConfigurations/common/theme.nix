@@ -22,7 +22,7 @@ in
   inherit catppuccin;
 
   environment.systemPackages = [
-    pkgs.catppuccin-cursors.mochaPink
+    # pkgs.catppuccin-cursors.mochaPink
 
     (pkgs.catppuccin-papirus-folders.override {
       flavor = catppuccin.flavor;
@@ -52,8 +52,9 @@ in
 
   hm.catppuccin = {
     inherit (catppuccin) enable flavor accent;
-    pointerCursor = {
-      inherit (catppuccin) enable flavor accent;
-    };
+    # temporary
+    # pointerCursor = {
+    #   inherit (catppuccin) enable flavor accent;
+    # };
   };
 }

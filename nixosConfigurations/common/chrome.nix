@@ -1,12 +1,18 @@
 {
   lib,
+  nLib,
   pkgs,
   config,
   ...
 }:
 
 let
-  inherit (lib) mkOption types mkIf;
+  inherit (lib)
+    mkOption
+    mkPackageOption
+    types
+    mkIf
+    ;
 
   cfg = config.modules.chrome;
 
@@ -40,6 +46,17 @@ let
     automaticTwitch = "kfhgpagdjjoieckminnmigmpeclkdmjm";
     skyFollowerBridge = "behhbpbpmailcnfbjagknjngnfdojpko";
   };
+
+  defaultBrowserApp = nLib.mapDefaultForMimeTypes [
+    "text/html"
+    "text/css"
+    "text/xml"
+    "application/xhtml+xml"
+    "application/xml"
+    "application/atom+xml"
+    "application/rss+xml"
+    "application/pdf"
+  ] cfg.chromePackage;
 in
 
 {
@@ -61,6 +78,8 @@ in
       default = [ ];
       description = "A list of extension to install for chrome.";
     };
+
+    chromePackage = mkPackageOption pkgs "google-chrome" { };
   };
 
   config = {
@@ -68,60 +87,36 @@ in
     programs.chromium = {
       enable = true;
 
-      extraOpts = lib.mkMerge [
-        {
-          # https://chromeenterprise.google/policies/?policy=${OPTION}
-          "BrowserSignin" = 0;
-          "SyncDisabled" = true;
-          "PasswordManagerEnabled" = false;
-          "SpellcheckEnabled" = true;
-          "RestoreOnStartup" = 1;
-          "DeveloperToolsAvailability" = 1;
-          "ForcedLanguages" = [
-            "en-US"
-            "de-DE"
-            "ja-JP"
-          ];
-          "SpellcheckLanguage" = [
-            "en-US"
-            "de-DE"
-            "ja-JP"
-          ];
-        }
-        (mkIf cfg.allowSync {
-          "BrowserSignin" = 1;
-          "SyncDisabled" = false;
-        })
-      ];
+      extraOpts = {
+        # https://chromeenterprise.google/policies/?policy=${OPTION}
+        "BrowserSignin" = if cfg.allowSync then 1 else 0;
+        "SyncDisabled" = !cfg.allowSync;
+        "PasswordManagerEnabled" = false;
+        "SpellcheckEnabled" = true;
+        "RestoreOnStartup" = 1;
+        "DeveloperToolsAvailability" = 1;
+        "ForcedLanguages" = [
+          "en-US"
+          "de-DE"
+          "ja-JP"
+        ];
+        "SpellcheckLanguage" = [
+          "en-US"
+          "de-DE"
+          "ja-JP"
+        ];
+      };
 
       extensions = builtins.map (attrName: extensionMap.${attrName}) cfg.extensions;
+      enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;
     };
-
-    programs.chromium.enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;
 
     # Defaults
-    xdg.mime.defaultApplications = mkIf cfg.defaultBrowser {
-      # Browser
-      "text/html" = "google-chrome.desktop";
-      "text/css" = "google-chrome.desktop";
-      "text/xml" = "google-chrome.desktop";
-      "text/plain" = "google-chrome.desktop";
-      "application/xhtml+xml" = "google-chrome.desktop";
-      "application/xml" = "google-chrome.desktop";
-      "application/atom+xml" = "google-chrome.desktop";
-      "application/rss+xml" = "google-chrome.desktop";
-      "application/pdf" = "google-chrome.desktop";
-      "application/x-shockwave-flash" = "google-chrome.desktop";
-      "application/x-dmg" = "google-chrome.desktop";
-      "application/x-mobipocket-ebook" = "google-chrome.desktop";
-      "application/epub+zip" = "google-chrome.desktop";
-    };
+    xdg.mime.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
+    hm.xdg.mimeApps.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
 
     # Install chrome
-    environment.systemPackages = with pkgs; [
-      google-chrome
-    ];
-
+    environment.systemPackages = [ cfg.chromePackage ];
     environment.variables.BROWSER = mkIf cfg.defaultBrowser "google-chrome-stable";
   };
 }

@@ -1,7 +1,7 @@
-{ nLib, ... }:
+{ deps, ... }:
 
 {
-  flake.nixosConfigurations = nLib.mkSystem {
+  flake.nixosConfigurations = deps.mkSystem {
     hostname = "shirayuri";
     modules = [
       ../common

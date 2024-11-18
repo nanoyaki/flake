@@ -1,7 +1,7 @@
-{ nLib, ... }:
+{ deps, ... }:
 
 {
-  flake.nixosConfigurations = nLib.mkSystem {
+  flake.nixosConfigurations = deps.mkSystem {
     hostname = "kuroyuri";
     modules = [
       ./hardware

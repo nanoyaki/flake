@@ -9,6 +9,37 @@ let
   inherit (lib) mkOption types mkIf;
 
   cfg = config.modules.chrome;
+
+  extensionMap = {
+    # General
+    languageTool = "oldceeleldhonbafppcapldpdifcinji";
+    bitwarden = "nngceckbapebfimnlniiiahkandclblb";
+    linkToTextFragment = "pbcodcjpfjdpcineamnnmbkkmkdpajjg";
+    steamDb = "kdbmhfkmnlmbkgbabkdealhhbfhlmmon";
+    violentmonkey = "jinjaccalgkegednnccohejagnlnfdag";
+    ublockOrigin = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+    googleDocsOffline = "ghbmnnjooekpmoecnnnilnnbdlolhkhi";
+    darkReader = "eimadpbcbfnmbkopoojfekhnkhdbieeh";
+    keepaAmazonPriceTracker = "neebplgakaahbhdphmkckjjcegoiijjo";
+
+    # Theming
+    catppuccinMocha = "bkkmolkhemgaeaeggcmfbghljjjoofoh";
+    stylus = "clngdbkpkpeebahjckkjfobafhncgmne";
+
+    # Japanese
+    jishoOjad = "dpaojegkimhndjkkgiaookhckojbmakd";
+    jisho-pitcher = "fgnpplmalkhmcilpgbngpmdgfnodknce";
+    jishoOnTheFly = "kjpdbjocmacakdfnngpkfjcjlkieogcf";
+    searchJisho = "odedgbgofldomjnodnnjdlagjpmkjhnb";
+    migaku = "lkhiljgmbeecmljiogckofcalncmfnfo";
+
+    # Social media
+    betterTtv = "ajopnjidmegmdimjlfnijceegpefgped";
+    returnYoutubeDislike = "gebbhagfogifgggkldgodflihgfeippi";
+    sponsorBlock = "mnjggcdmjocbbbhaepdhchncahnbgone";
+    automaticTwitch = "kfhgpagdjjoieckminnmigmpeclkdmjm";
+    skyFollowerBridge = "behhbpbpmailcnfbjagknjngnfdojpko";
+  };
 in
 
 {
@@ -26,35 +57,8 @@ in
     };
 
     extensions = mkOption {
-      type = types.listOf types.str;
-      default = [
-        # General
-        "oldceeleldhonbafppcapldpdifcinji" # LanguageTool
-        "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        "pbcodcjpfjdpcineamnnmbkkmkdpajjg" # Link to Text Fragment
-        "kdbmhfkmnlmbkgbabkdealhhbfhlmmon" # SteamDB
-        "jinjaccalgkegednnccohejagnlnfdag" # Violentmonkey
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "bkkmolkhemgaeaeggcmfbghljjjoofoh" # Catppuccin Mocha
-        "ghbmnnjooekpmoecnnnilnnbdlolhkhi" # Google Docs offline
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-        "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
-        "neebplgakaahbhdphmkckjjcegoiijjo" # Keepa - Amazon Price Tracker
-
-        # Japanese
-        "dpaojegkimhndjkkgiaookhckojbmakd" # Jisho-OJAD
-        "fgnpplmalkhmcilpgbngpmdgfnodknce" # jisho-pitcher
-        "kjpdbjocmacakdfnngpkfjcjlkieogcf" # Jisho On The Fly
-        "odedgbgofldomjnodnnjdlagjpmkjhnb" # Search Jisho
-        "lkhiljgmbeecmljiogckofcalncmfnfo" # Migaku
-
-        # Social media
-        "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV
-        "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
-        "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
-        "kfhgpagdjjoieckminnmigmpeclkdmjm" # Automatic Twitch
-        "behhbpbpmailcnfbjagknjngnfdojpko" # Sky Follower Bridge
-      ];
+      type = types.listOf (types.enum (builtins.attrNames extensionMap));
+      default = [ ];
       description = "A list of extension to install for chrome.";
     };
   };
@@ -90,7 +94,7 @@ in
         })
       ];
 
-      inherit (cfg) extensions;
+      extensions = builtins.map (attrName: extensionMap.${attrName}) cfg.extensions;
     };
 
     programs.chromium.enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;

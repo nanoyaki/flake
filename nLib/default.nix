@@ -19,6 +19,7 @@
       });
 
     # [ string ] -> deriv -> attrs
-    mapDefaultForMimeTypes = mimeTypes: package: lib.genAttrs mimeTypes "${package.pname}.desktop";
+    mapDefaultForMimeTypes =
+      mimeTypes: package: lib.genAttrs mimeTypes (_: "${lib.getName package}.desktop");
   };
 }

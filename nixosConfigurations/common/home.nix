@@ -46,8 +46,6 @@ in
 
         anki
       ];
-
-      enableNixpkgsReleaseCheck = false; # temporary
     };
 
     programs.home-manager.enable = true;

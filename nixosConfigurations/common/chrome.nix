@@ -46,6 +46,7 @@ in
         "fgnpplmalkhmcilpgbngpmdgfnodknce" # jisho-pitcher
         "kjpdbjocmacakdfnngpkfjcjlkieogcf" # Jisho On The Fly
         "odedgbgofldomjnodnnjdlagjpmkjhnb" # Search Jisho
+        "lkhiljgmbeecmljiogckofcalncmfnfo" # Migaku
 
         # Social media
         "ajopnjidmegmdimjlfnijceegpefgped" # BetterTTV

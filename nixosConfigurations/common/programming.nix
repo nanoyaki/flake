@@ -64,9 +64,17 @@ in
               version = "5.8.0";
               sha256 = "sha256-IU/looiu6tluAp8u6MeSNCd7B8SSMZ6CEZ64mMsTNmU=";
             }
+            {
+              name = "language-hugo-vscode";
+              publisher = "budparr";
+              version = "1.3.1";
+              sha256 = "sha256-9dp8/gLAb8OJnmsLVbOAKAYZ5whavPW2Ak+WhLqEbJk=";
+            }
           ];
       })
       (lib.mkIf cfg.enableCsharp jetbrains.rider)
+
+      hugo
     ];
 
     environment.variables = {

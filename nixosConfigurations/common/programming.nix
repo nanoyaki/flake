@@ -24,9 +24,19 @@ in
 
       neovim = {
         enable = true;
+
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
+
+        extraConfig = ''
+          filetype plugin indent on
+          set tabstop=4
+          set shiftwidth=4
+          set softtabstop=4
+          set expandtab
+        '';
+
         plugins = with pkgs.vimPlugins; [
           nvim-lspconfig
           nvim-treesitter.withAllGrammars

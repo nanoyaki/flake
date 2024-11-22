@@ -36,8 +36,6 @@ in
       Type = "simple";
     };
 
-    wantedBy = [ "multi-user.target" ];
-
-    restartTriggers = [ pkgs.librespot ];
+    wantedBy = [ "default.target" ];
   };
 }

@@ -38,7 +38,34 @@ in
         '';
 
         plugins = with pkgs.vimPlugins; [
-          nvim-lspconfig
+          {
+            plugin = pkgs.vimPlugins.nvim-lspconfig;
+            type = "lua";
+            config = ''
+              local nvim_lsp = require("lspconfig")
+              nvim_lsp.nixd.setup({
+                cmd = { "nixd" },
+                settings = {
+                    nixd = {
+                      nixpkgs = {
+                          expr = "import <nixpkgs> { }",
+                      },
+                      formatting = {
+                          command = { "nixfmt" },
+                      },
+                      options = {
+                          nixos = {
+                            expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.shirayuri.options',
+                          },
+                          home_manager = {
+                            expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.shirayuri.options',
+                          },
+                      },
+                    },
+                },
+              })
+            '';
+          }
           nvim-treesitter.withAllGrammars
           nvim-cmp
         ];

@@ -37,6 +37,8 @@
     imagemagick
   ];
 
+  programs.droidcam.enable = true;
+
   services.transmission = {
     enable = false;
     webHome = pkgs.flood-for-transmission;

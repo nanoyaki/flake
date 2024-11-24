@@ -36,11 +36,4 @@
       "x-gvfs-symbolic-icon=1TB-SSD"
     ];
   };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 32 * 1024; # 32GB
-    }
-  ];
 }

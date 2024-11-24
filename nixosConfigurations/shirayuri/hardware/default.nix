@@ -5,6 +5,7 @@
     ./cpu.nix
     ./gpu.nix
     ./mounts.nix
+    ./swap.nix
     ./cooling.nix
     ./scarlett-solo.nix
 

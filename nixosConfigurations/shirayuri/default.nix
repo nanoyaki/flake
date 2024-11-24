@@ -9,7 +9,7 @@
       ./hardware
 
       ./boot.nix
-      ./symlinks.nix
+      ./xdg-user-dirs.nix
       ./gaming
       ./emulation.nix
       ./vr

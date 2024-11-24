@@ -21,19 +21,18 @@ in
     hm.programs = {
       zsh.enable = true;
 
-      alacritty = {
+      kitty = {
         enable = true;
-        settings.terminal.shell.program = "zellij";
-        settings.terminal.shell.args = [
-          "attach"
-          "default"
-          "-c"
-        ];
+
+        font = {
+          package = pkgs.cascadia-code;
+          name = "Cascadia Mono";
+          size = 13;
+        };
       };
 
       zellij = {
         enable = true;
-        enableZshIntegration = true;
         settings.pane_frames = false;
         settings.default_layout = "compact";
       };
@@ -80,9 +79,7 @@ in
             use_pager = true;
           };
 
-          updates = {
-            auto_update = true;
-          };
+          updates.auto_update = true;
         };
       };
 

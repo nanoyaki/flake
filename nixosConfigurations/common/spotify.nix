@@ -11,31 +11,28 @@ let
     str:
     (lib.strings.toUpper (builtins.substring 0 1 str))
     + builtins.substring 1 (builtins.stringLength str) str;
+
+  deviceName = toUppercase config.networking.hostName;
 in
 
 {
-  hm.home.packages = [ pkgs.spotify-qt ];
+  hm = {
+    home.packages = [ pkgs.spotify-qt ];
 
-  systemd.user.services.librespot = {
-    enable = true;
-    description = "Librespot";
+    programs.spotify-player = {
+      enable = true;
 
-    unitConfig.ConditionUser = "!root";
+      settings = {
+        client_id = "3b1a5d62ca66440db8227a697909ce1f";
 
-    script = ''
-      ${lib.getExe pkgs.librespot} --username "aex77xiuiva5s17odjzngj6jb" \
-        --cache $XDG_CACHE_HOME/librespot \
-        --enable-oauth \
-        --name "${toUppercase config.networking.hostName}" \
-        --bitrate 320 \
-        --device-type "computer"
-    '';
-
-    serviceConfig = {
-      Restart = "no";
-      Type = "simple";
+        default_device = deviceName;
+        device = {
+          device_type = "computer";
+          name = deviceName;
+          bitrate = 320;
+          audio_cache = true;
+        };
+      };
     };
-
-    wantedBy = [ "default.target" ];
   };
 }

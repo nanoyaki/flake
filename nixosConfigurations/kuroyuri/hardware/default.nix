@@ -9,6 +9,7 @@ in
     ./cpu.nix
     ./gpu.nix
     ./mounts.nix
+    ./swap.nix
 
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-cpu-amd-pstate

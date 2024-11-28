@@ -34,5 +34,33 @@ in
         };
       };
     };
+
+    # for spotify-qt to always find librespot
+    home.file.".local/bin/librespot".source = config.hm.lib.file.mkOutOfStoreSymlink (
+      lib.getExe pkgs.librespot
+    );
+  };
+
+  systemd.user.services.librespot = {
+    enable = true;
+    description = "Librespot";
+
+    unitConfig.ConditionUser = "!root";
+
+    script = ''
+      ${lib.getExe pkgs.librespot} --username "aex77xiuiva5s17odjzngj6jb" \
+        --cache $XDG_CACHE_HOME/librespot \
+        --enable-oauth \
+        --name "${deviceName}" \
+        --bitrate 320 \
+        --device-type "computer"
+    '';
+
+    serviceConfig = {
+      Restart = "no";
+      Type = "simple";
+    };
+
+    wantedBy = [ "default.target" ];
   };
 }

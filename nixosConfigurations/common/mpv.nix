@@ -11,10 +11,13 @@ let
     types
     mkOption
     mkIf
+    mkMerge
     ;
   inherit (nLib) mapDefaultForMimeTypes;
 
   cfg = config.modules.mpv;
+
+  mpv = pkgs.mpv.overrideAttrs { name = "mpv"; };
 
   defaultAudioApp = mapDefaultForMimeTypes [
     "audio/aac"
@@ -45,7 +48,8 @@ let
     "audio/x-wav"
     "audio/x-wavpack"
     "audio/x-xm"
-  ] pkgs.mpv;
+  ] mpv;
+
   defaultVideoApp = mapDefaultForMimeTypes [
     "video/3gpp"
     "video/3gpp2"
@@ -71,7 +75,7 @@ let
     "video/vnd.mpegurl"
     "video/webm"
     "video/x-ogm+ogg"
-  ] pkgs.mpv;
+  ] mpv;
 in
 
 {
@@ -88,10 +92,19 @@ in
   };
 
   config = {
-    hm.programs.mpv.enable = true;
-    xdg.mime.defaultApplications =
-      (mkIf cfg.defaultAudioPlayer defaultAudioApp) // (mkIf cfg.defaultVideoPlayer defaultVideoApp);
-    hm.xdg.mimeApps.defaultApplications =
-      (mkIf cfg.defaultAudioPlayer defaultAudioApp) // (mkIf cfg.defaultVideoPlayer defaultVideoApp);
+    hm.programs.mpv = {
+      package = mpv;
+      enable = true;
+    };
+
+    xdg.mime.defaultApplications = mkMerge [
+      (mkIf cfg.defaultAudioPlayer defaultAudioApp)
+      (mkIf cfg.defaultVideoPlayer defaultVideoApp)
+    ];
+
+    hm.xdg.mimeApps.defaultApplications = mkMerge [
+      (mkIf cfg.defaultAudioPlayer defaultAudioApp)
+      (mkIf cfg.defaultVideoPlayer defaultVideoApp)
+    ];
   };
 }

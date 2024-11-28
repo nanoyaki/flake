@@ -23,7 +23,7 @@ in
   hardware.cpu.amd.updateMicrocode = true;
 
   security.polkit.enable = true;
-  hm.home.file."${config.hm.xdg.configHome}/autostart/org.corectrl.CoreCtrl.desktop".source = config.hm.lib.file.mkOutOfStoreSymlink "${pkgs.corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
+  hm.xdg.configFile."autostart/org.corectrl.CoreCtrl.desktop".source = config.hm.lib.file.mkOutOfStoreSymlink "${pkgs.corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
   programs.corectrl = {
     enable = true;
     gpuOverclock.enable = true;

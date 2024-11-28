@@ -22,10 +22,15 @@ in
     xdg.userDirs = {
       enable = true;
 
+      desktop = "/home/hana/Desktop";
       download = "/mnt/1TB-SSD/Downloads";
       documents = "/mnt/1TB-SSD/Documents";
       videos = "/mnt/1TB-SSD/Videos";
       pictures = "/mnt/1TB-SSD/Pictures";
+
+      publicShare = null;
+      templates = null;
+      music = null;
     };
   };
 }

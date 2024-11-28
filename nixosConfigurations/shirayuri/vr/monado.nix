@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  packages,
+  config,
+  ...
+}:
 
 # https://wiki.nixos.org/wiki/VR#Monado
 {
@@ -58,13 +64,20 @@
     package = pkgs.monado;
   };
 
-  systemd.user.services.monado.environment = {
-    STEAMVR_LH_ENABLE = "1";
-    XRT_COMPOSITOR_COMPUTE = "1";
-    WMR_HANDTRACKING = "0";
-    XRT_COMPOSITOR_SCALE_PERCENTAGE = "140";
-    SURVIVE_GLOBALSCENESOLVER = "0";
-    SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
+  systemd.user.services.monado = {
+    serviceConfig = {
+      ExecStartPost = "${lib.getExe packages.lighthouse} -s ON";
+      ExecStopPost = "${lib.getExe packages.lighthouse} -s OFF";
+    };
+
+    environment = {
+      STEAMVR_LH_ENABLE = "1";
+      XRT_COMPOSITOR_COMPUTE = "1";
+      WMR_HANDTRACKING = "0";
+      XRT_COMPOSITOR_SCALE_PERCENTAGE = "140";
+      SURVIVE_GLOBALSCENESOLVER = "0";
+      SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
+    };
   };
 
   environment.sessionVariables.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";

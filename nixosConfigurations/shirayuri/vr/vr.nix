@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  packages,
   config,
   inputs,
   ...
@@ -53,10 +54,14 @@
 
   environment.sessionVariables.XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
 
-  environment.systemPackages = with pkgs; [
-    index_camera_passthrough
-    wlx-overlay-s
+  environment.systemPackages =
+    (with pkgs; [
+      index_camera_passthrough
+      wlx-overlay-s
 
-    openal
-  ];
+      openal
+    ])
+    ++ [
+      packages.lighthouse
+    ];
 }

@@ -19,7 +19,17 @@
       });
 
     # [ string ] -> deriv -> attrs
-    mapDefaultForMimeTypes =
-      mimeTypes: package: lib.genAttrs mimeTypes (_: "${lib.getName package}.desktop");
+    mapDefaultForMimeTypes = mimeTypes: pkg: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
+
+    # string -> string -> deriv
+    mkProtonGeBin =
+      version: hash:
+      (pkgs.proton-ge-bin.overrideAttrs {
+        inherit version;
+        src = pkgs.fetchzip {
+          url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
+          inherit hash;
+        };
+      });
   };
 }

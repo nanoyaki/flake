@@ -93,6 +93,7 @@ in
             yzhang.markdown-all-in-one
             rust-lang.rust-analyzer
             tamasfe.even-better-toml
+            denoland.vscode-deno
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {

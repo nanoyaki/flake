@@ -115,6 +115,7 @@ in
         nix-op = "$BROWSER \"https://search.nixos.org/options?channel=unstable\"";
         nix-pac = "$BROWSER \"https://search.nixos.org/packages?channel=unstable\"";
         nix-hom = "$BROWSER \"https://home-manager-options.extranix.com/\"";
+        rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR";
       };
       histSize = 10000;
     };

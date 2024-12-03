@@ -88,7 +88,10 @@ in
         enableZshIntegration = true;
       };
 
-      lsd.enable = true;
+      lsd = {
+        enable = true;
+        enableAliases = true;
+      };
 
       bat.enable = true;
 
@@ -109,13 +112,14 @@ in
       syntaxHighlighting.enable = true;
 
       shellAliases = {
-        ll = "LANG=de_DE.UTF-8 ls -latr --color=auto";
         copy = "rsync -a --info=progress2 --info=name0";
+        rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR";
+        cat = "bat";
+
         nix-conf = "$EDITOR $FLAKE_DIR";
         nix-op = "$BROWSER \"https://search.nixos.org/options?channel=unstable\"";
         nix-pac = "$BROWSER \"https://search.nixos.org/packages?channel=unstable\"";
         nix-hom = "$BROWSER \"https://home-manager-options.extranix.com/\"";
-        rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR";
       };
       histSize = 10000;
     };

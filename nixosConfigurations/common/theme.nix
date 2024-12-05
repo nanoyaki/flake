@@ -42,11 +42,11 @@ in
     ))
   ];
 
-  services.displayManager.sddm.catppuccin = lib.mkIf config.services.displayManager.sddm.enable {
+  services.displayManager.sddm.catppuccin = {
     enable = true;
     assertQt6Sddm = true;
     flavor = "mocha";
-    background = "${config.hm.home.homeDirectory}/Pictures/Wallpaper/Wallpaper.png";
+    background = "${config.hm.xdg.userDirs.pictures}/Wallpaper/Wallpaper.png";
     loginBackground = true;
   };
 

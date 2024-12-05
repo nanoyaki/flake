@@ -124,5 +124,7 @@ in
     };
 
     programs.nix-ld.enable = cfg.enableCsharp;
+
+    programs.direnv.enable = true;
   };
 }

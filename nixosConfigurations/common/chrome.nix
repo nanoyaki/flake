@@ -89,18 +89,18 @@ in
 
       extraOpts = {
         # https://chromeenterprise.google/policies/?policy=${OPTION}
-        "BrowserSignin" = if cfg.allowSync then 1 else 0;
-        "SyncDisabled" = !cfg.allowSync;
-        "PasswordManagerEnabled" = false;
-        "SpellcheckEnabled" = true;
-        "RestoreOnStartup" = 1;
-        "DeveloperToolsAvailability" = 1;
-        "ForcedLanguages" = [
+        BrowserSignin = if cfg.allowSync then 1 else 0;
+        SyncDisabled = !cfg.allowSync;
+        PasswordManagerEnabled = false;
+        SpellcheckEnabled = true;
+        RestoreOnStartup = 1;
+        DeveloperToolsAvailability = 1;
+        ForcedLanguages = [
           "en-US"
           "de-DE"
           "ja-JP"
         ];
-        "SpellcheckLanguage" = [
+        SpellcheckLanguage = [
           "en-US"
           "de-DE"
           "ja-JP"

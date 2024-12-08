@@ -19,6 +19,10 @@ in
     inputs.catppuccin.nixosModules.catppuccin
   ];
 
+  home-manager.sharedModules = [
+    inputs.catppuccin.homeManagerModules.catppuccin
+  ];
+
   inherit catppuccin;
 
   environment.systemPackages = [

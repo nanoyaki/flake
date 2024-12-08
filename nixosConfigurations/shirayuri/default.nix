@@ -3,17 +3,19 @@
 {
   flake.nixosConfigurations = deps.mkSystem {
     hostname = "shirayuri";
+    username = "hana";
     modules = [
       ../common
 
       ./hardware
 
-      ./boot.nix
+      ./configuration.nix
       ./xdg-user-dirs.nix
       ./gaming
       ./emulation.nix
       ./vr
-      ./configuration.nix
+      ./shell.nix
+      ./git.nix
     ];
   };
 }

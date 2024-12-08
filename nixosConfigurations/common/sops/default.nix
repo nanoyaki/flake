@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   config,
@@ -6,7 +7,11 @@
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (inputs) sops-nix;
+
+  # String -> String
+  ifUser = user: mkIf (builtins.elem user (builtins.attrNames config.users.users)) user;
 in
 
 {
@@ -20,8 +25,9 @@ in
 
     age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
 
-    secrets."users/hana/password" = { };
+    secrets."nixos/users/hana".owner = ifUser "hana";
+    secrets."nixos/users/thelessone".owner = ifUser "thelessone";
   };
 
-  environment.systemPackages = with pkgs; [ sops ];
+  environment.systemPackages = [ pkgs.sops ];
 }

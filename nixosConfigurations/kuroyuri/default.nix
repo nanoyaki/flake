@@ -3,12 +3,13 @@
 {
   flake.nixosConfigurations = deps.mkSystem {
     hostname = "kuroyuri";
+    username = "hana";
     modules = [
       ./hardware
-      ./boot.nix
 
       ./configuration.nix
       ./gaming.nix
+      ./git.nix
 
       ../common
     ];

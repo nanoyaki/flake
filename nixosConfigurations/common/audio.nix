@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   username,
   ...
 }:
@@ -36,20 +35,15 @@ in
       alsa.support32Bit = true;
       jack.enable = true;
 
-      extraConfig.pipewire."92-low-latency" =
-        let
-          latency = cfg.latency;
-          samplingRate = cfg.samplingRate;
-        in
-        {
-          context.properties = {
-            default.clock.rate = samplingRate;
-            default.allowed-rates = [ samplingRate ];
-            default.clock.quantum = latency;
-            default.clock.min-quantum = latency;
-            default.clock.max-quantum = latency;
-          };
+      extraConfig.pipewire."92-low-latency" = {
+        context.properties = {
+          default.allowed-rates = [ cfg.samplingRate ];
+          default.clock.rate = cfg.samplingRate;
+          default.clock.quantum = cfg.latency;
+          default.clock.min-quantum = cfg.latency;
+          default.clock.max-quantum = cfg.latency;
         };
+      };
 
       pulse.enable = true;
       extraConfig.pipewire-pulse."92-low-latency" =
@@ -77,51 +71,25 @@ in
         };
 
       wireplumber.enable = true;
-      wireplumber.extraConfig = {
-        "99-valve-index" = {
-          "monitor.alsa.rules" = [
-            {
-              matches = [
-                {
-                  # wpctl status -> wpctl inspect <id>
-                  "object.path" = "alsa:acp:HDMI:5:playback";
-                }
-              ];
-              actions = {
-                update-props = {
-                  "api.alsa.period-size" = 2048;
-                  "api.alsa.headroom" = 8192;
-                };
+      wireplumber.extraConfig."92-low-latency" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              {
+                # wpctl status -> wpctl inspect <id>
+                "node.name" = "~alsa_output.*";
+              }
+            ];
+            actions = {
+              update-props = {
+                "audio.rate" = cfg.samplingRate * 2;
+                "api.alsa.period-size" = cfg.latency;
               };
-            }
-          ];
-        };
-
-        "92-low-latency" = {
-          "monitor.alsa.rules" = [
-            {
-              matches = [
-                {
-                  # wpctl status -> wpctl inspect <id>
-                  "node.name" = "~alsa_output.*";
-                }
-              ];
-              actions = {
-                update-props = {
-                  "audio.rate" = cfg.samplingRate * 2;
-                  "api.alsa.period-size" = cfg.latency;
-                };
-              };
-            }
-          ];
-        };
+            };
+          }
+        ];
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      reaper
-      helvum
-    ];
 
     users.users."${username}".extraGroups = [
       "jackaudio"

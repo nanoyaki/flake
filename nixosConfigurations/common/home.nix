@@ -1,8 +1,8 @@
 {
   lib,
-  pkgs,
   username,
   inputs,
+  config,
   ...
 }:
 
@@ -34,17 +34,9 @@ in
       inherit username;
 
       homeDirectory = "/home/${username}";
-      stateVersion = "24.11";
-
-      packages = with pkgs; [
-        vesktop
-
-        obsidian
-
-        bitwarden-desktop
-
-        anki
-      ];
+      stateVersion = lib.mkDefault (
+        builtins.trace "Home manager state version not set. Defaulting to system.stateVersion" config.system.stateVersion
+      );
     };
 
     programs.home-manager.enable = true;

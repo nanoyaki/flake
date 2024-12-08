@@ -18,10 +18,10 @@
         };
       });
 
-    # [ string ] -> deriv -> attrs
+    # [ String ] -> deriv -> attrs
     mapDefaultForMimeTypes = mimeTypes: pkg: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
 
-    # string -> string -> deriv
+    # String -> String -> deriv
     mkProtonGeBin =
       version: hash:
       (pkgs.proton-ge-bin.overrideAttrs {
@@ -31,5 +31,11 @@
           inherit hash;
         };
       });
+
+    # String -> String
+    toUppercase =
+      str:
+      (lib.strings.toUpper (builtins.substring 0 1 str))
+      + builtins.substring 1 (builtins.stringLength str) str;
   };
 }

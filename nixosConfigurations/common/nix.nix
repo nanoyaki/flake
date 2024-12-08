@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -26,4 +26,9 @@
   };
 
   environment.variables.FLAKE_DIR = "$HOME/flake";
+
+  environment.systemPackages = with pkgs; [
+    nixfmt-rfc-style
+    nixd
+  ];
 }

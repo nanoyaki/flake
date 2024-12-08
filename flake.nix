@@ -9,7 +9,10 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,6 +28,10 @@
     };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
@@ -56,6 +63,7 @@
 
         ./nixosConfigurations/shirayuri
         ./nixosConfigurations/kuroyuri
+        ./nixosConfigurations/thelessone
       ];
 
       systems = [

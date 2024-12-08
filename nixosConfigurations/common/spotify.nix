@@ -1,16 +1,13 @@
 {
   lib,
+  nLib,
   pkgs,
   config,
   ...
 }:
 
 let
-  # String -> String
-  toUppercase =
-    str:
-    (lib.strings.toUpper (builtins.substring 0 1 str))
-    + builtins.substring 1 (builtins.stringLength str) str;
+  inherit (nLib) toUppercase;
 
   deviceName = toUppercase config.networking.hostName;
 in

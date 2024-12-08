@@ -10,7 +10,7 @@
     {
       hostname,
       modules,
-      username ? "hana",
+      username,
       platform ? "x86_64-linux",
     }:
 
@@ -31,7 +31,7 @@
               nLib
               ;
 
-            packages = config.packages;
+            inherit (config) packages;
           };
 
           modules = [

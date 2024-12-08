@@ -9,8 +9,11 @@
 
     zellij = {
       enable = true;
-      settings.pane_frames = false;
-      settings.default_layout = "compact";
+
+      settings = {
+        pane_frames = false;
+        default_layout = "compact";
+      };
     };
 
     starship = {
@@ -22,6 +25,7 @@
 
     tealdeer = {
       enable = true;
+
       settings = {
         display = {
           compact = false;
@@ -53,7 +57,7 @@
 
   programs.zsh = {
     enable = true;
-    ohMyZsh.enable = true;
+
     enableCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
@@ -64,10 +68,10 @@
       cat = "bat";
 
       nix-conf = "$EDITOR $FLAKE_DIR";
-      nix-op = "$BROWSER \"https://search.nixos.org/options?channel=unstable\"";
-      nix-pac = "$BROWSER \"https://search.nixos.org/packages?channel=unstable\"";
-      nix-hom = "$BROWSER \"https://home-manager-options.extranix.com/\"";
+      nix-op = "man configuration.nix";
+      nix-hom = "man home-configuration.nix";
     };
+
     histSize = 10000;
   };
 
@@ -78,8 +82,5 @@
     MANROFFOPT = "-c";
   };
 
-  environment.systemPackages = with pkgs; [
-    nvtopPackages.amd
-    gnupg
-  ];
+  environment.systemPackages = [ pkgs.gnupg ];
 }

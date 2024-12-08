@@ -8,6 +8,7 @@ in
   imports = [
     ./cpu.nix
     ./gpu.nix
+    ./boot.nix
     ./mounts.nix
     ./swap.nix
 

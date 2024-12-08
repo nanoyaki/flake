@@ -1,15 +1,16 @@
-{ username, config, ... }:
+{
+  nLib,
+  username,
+  config,
+  ...
+}:
 
 {
   users.users.${username} = {
     isNormalUser = true;
-    description = "Hana";
-    hashedPasswordFile = config.sops.secrets."users/hana/password".path;
-    extraGroups = [
-      "wheel"
-      "input"
-      "uinput"
-    ];
+    description = nLib.toUppercase username;
+    hashedPasswordFile = config.sops.secrets."nixos/users/${username}".path;
+    extraGroups = [ "wheel" ];
   };
 
   security.sudo.extraRules = [

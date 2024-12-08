@@ -22,7 +22,11 @@ in
   hm.programs.ssh = {
     enable = true;
 
-    matchBlocks =
+    # mkMerge needed since it outputs an attrset with
+    # { _type = "merge"; contents = [ ... ]; }
+    # The update operator would basically get ignored
+    # since it's not in the contents
+    matchBlocks = mkMerge [
       {
         server = {
           user = "thelessone";
@@ -30,11 +34,13 @@ in
           inherit identityFile;
         };
       }
-      // (mkGitBlocks [
+
+      (mkGitBlocks [
         "github.com"
         "codeberg.org"
         "gitlab.com"
-      ]);
+      ])
+    ];
 
     extraConfig = ''
       IdentityFile ${identityFile}

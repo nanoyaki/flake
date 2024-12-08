@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   imports = [
     ./nix.nix
@@ -11,6 +9,8 @@
     ./sops
     ./input.nix
     ./fonts.nix
+    ./shell.nix
+    ./ssh.nix
     ./terminal.nix
     ./audio.nix
     ./plasma.nix

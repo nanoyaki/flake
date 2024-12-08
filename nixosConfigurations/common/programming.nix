@@ -75,6 +75,11 @@ in
     programs.git = {
       enable = true;
       lfs.enable = true;
+
+      config.user = {
+        name = "nanoyaki";
+        email = "hanakretzer@gmail.com";
+      };
     };
 
     environment.systemPackages = with pkgs; [

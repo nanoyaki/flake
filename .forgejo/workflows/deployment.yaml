@@ -9,8 +9,6 @@ on:
 
 jobs:
   deployment:
-    if: github.ref == 'refs/heads/main'
-
     runs-on: native
     steps:
       - name: "Checkout Repo"

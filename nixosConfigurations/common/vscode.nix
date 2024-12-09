@@ -18,6 +18,7 @@ let
       yzhang.markdown-all-in-one
       rust-lang.rust-analyzer
       tamasfe.even-better-toml
+      github.vscode-github-actions
     ]
     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {

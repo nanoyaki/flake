@@ -1,15 +1,27 @@
-on: [push, workflow_dispatch]
+on:
+  push:
+    paths:
+      - '**/*.nix'
 
 env:
   TARGET_HOST: theless.one
 
 jobs:
-  deployment:
+  static-checks:
     runs-on: native
     steps:
-      - name: 'Checkout Repo'
+      - name: Checkout Repo
         uses: https://code.forgejo.org/actions/checkout@v4
-      - name: 'Run deployment'
+      - name: Static Checks
+        run: nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
+
+  deployment:
+    needs: static-checks
+    runs-on: native
+    steps:
+      - name: Checkout Repo
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Run deployment
         run: |
           echo "${{ secrets.DEPLOYMENT_KEY }}" > deployment
           chmod 600 deployment

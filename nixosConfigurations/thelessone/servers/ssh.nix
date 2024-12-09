@@ -1,4 +1,4 @@
-{ config, username, ... }:
+{ username, ... }:
 
 {
   services.openssh = {
@@ -19,8 +19,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP3poqMv85Pqb5gwZRZYN2BLW+OAiMT5ZA0tQHUo977W hana@shirayuri" # shirayuri-primary
     ];
 
+    # i HATE this
     keyFiles = [
-      config.sops.secrets."deployment/public".path
+      ./keys/deployment.pub
     ];
   };
 

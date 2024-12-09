@@ -31,7 +31,6 @@ in
       "nixos/users/thelessone".owner = ifUser "thelessone";
 
       "deployment/private".owner = username;
-      "deployment/public".mode = "0444";
     };
   };
 

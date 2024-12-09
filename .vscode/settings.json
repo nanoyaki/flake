@@ -28,5 +28,6 @@
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.insertSpaces": true
-    }
+    },
+    "yaml.format.singleQuote": true
 }

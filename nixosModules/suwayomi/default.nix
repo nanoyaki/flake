@@ -67,18 +67,21 @@ in
       }
     ) cfg.instances;
 
-    systemd.tmpfiles.settings."10-suwayomi-server" = mapAttrs' (
+    systemd.tmpfiles.settings = mapAttrs' (
       name: instCfg:
       let
         dataDir = "${cfg.dataDir}/${name}";
         user = "suwayomi-${name}";
-      in
-      nameValuePair "${dataDir}/.local/share/Tachidesk" {
-        d = {
+
+        dirConf = {
           mode = "0700";
           inherit user;
           group = user;
         };
+      in
+      nameValuePair "10-${user}" {
+        "${dataDir}/.local/share/Tachidesk".d = dirConf;
+        "${dataDir}/tmp".d = dirConf;
       }
     ) cfg.instances;
 

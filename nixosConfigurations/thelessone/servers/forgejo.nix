@@ -50,6 +50,7 @@ in
 
         # extra
         nix
+        openssh
       ];
     };
   };

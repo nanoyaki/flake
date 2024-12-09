@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "nixosConfigurations/{common,thelessone}/**/*.nix"
+      - "{nixosModules,nLib,pkgs,overlays}/**/*.nix"
+      - "flake.*"
+
+jobs:
+  deployment:
+    if: github.ref == 'refs/heads/main'
+
+    runs-on: native
+    steps:
+      - name: "Checkout Repo"
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - run: 'nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs'

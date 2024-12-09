@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   cfg = config.services.forgejo;
@@ -8,7 +13,10 @@ let
 in
 
 {
-  sops.secrets."forgejo/users/nanoyaki".owner = cfg.user;
+  sops.secrets = {
+    "forgejo/users/nanoyaki".owner = cfg.user;
+    "forgejo/runners/default".mode = "0444";
+  };
 
   users.groups.${group} = { };
 
@@ -17,6 +25,22 @@ in
     useDefaultShell = true;
     group = group;
     isSystemUser = true;
+  };
+
+  services.gitea-actions-runner = {
+    package = pkgs.forgejo-actions-runner;
+
+    instances.default = {
+      enable = true;
+      name = "monolith";
+      url = "https://git.theless.one";
+      # Obtaining the path to the runner token file may differ
+      # tokenFile should be in format TOKEN=<secret>, since it's EnvironmentFile for systemd
+      tokenFile = config.sops.secrets."forgejo/runners/default".path;
+      labels = [
+        "native:host"
+      ];
+    };
   };
 
   services.forgejo = {

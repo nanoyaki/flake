@@ -31,7 +31,6 @@ in
 
       name = user;
       type = "postgres";
-      createDatabase = true;
     };
 
     settings = {
@@ -41,7 +40,6 @@ in
         HTTP_PORT = 12500;
 
         DISABLE_SSH = false;
-        START_SSH_SERVER = true;
       };
 
       service.DISABLE_REGISTRATION = true;

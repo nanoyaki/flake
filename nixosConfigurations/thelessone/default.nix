@@ -43,7 +43,10 @@
       ];
       remoteBuild = true;
 
-      profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server-nixos;
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server-nixos;
+      };
     };
 
     checks = builtins.mapAttrs (

@@ -46,5 +46,9 @@ in
     };
 
     programs.kde-pim.merkuro = true;
+
+    environment.sessionVariables = mkIf cfg.enableWaylandDefault {
+      NIXOS_OZONE_WL = "1";
+    };
   };
 }

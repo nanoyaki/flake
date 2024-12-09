@@ -13,6 +13,7 @@
       ../common/audio.nix
       ../common/input.nix
       ../common/programming.nix
+      ../common/shell.nix
 
       ./hardware
 

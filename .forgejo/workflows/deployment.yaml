@@ -2,12 +2,19 @@ on:
   push:
     paths:
       - '**/*.nix'
+  workflow_dispatch:
+    inputs:
+      onlyDeploy:
+        default: false
+        description: 'Whether to skip static checks.'
+        type: boolean
 
 env:
   TARGET_HOST: theless.one
 
 jobs:
   static-checks:
+    if: ${{ inputs.onlyDeploy }} == false
     runs-on: native
     steps:
       - name: Checkout Repo

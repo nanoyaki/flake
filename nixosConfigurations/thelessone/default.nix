@@ -31,6 +31,7 @@
         ./locale.nix
         ./minecraft
         ./servers
+        ./terminal.nix
       ];
     };
 

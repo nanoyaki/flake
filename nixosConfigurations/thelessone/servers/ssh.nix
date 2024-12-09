@@ -7,7 +7,6 @@
 
     settings = {
       PasswordAuthentication = false;
-      X11Forwarding = true;
       AcceptEnv = "GIT_PROTOCOL";
     };
   };

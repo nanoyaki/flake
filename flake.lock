@@ -408,11 +408,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1733717122,
-        "narHash": "sha256-RQxRAFHNyY7bKY+Q4IOoc47PCu63Q0cLPTAhLmJgxoA=",
+        "lastModified": 1733751628,
+        "narHash": "sha256-YRM/6LHS6Ik7EJoy/vwsQurU8ddmXhXmQIxgrW7/BQQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3b59dc022f577428e8f8af9018b01cda73eeeb4b",
+        "rev": "f736cfa546fbbb84c2617faa6e2901f151929d91",
         "type": "github"
       },
       "original": {
@@ -431,11 +431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733481465,
-        "narHash": "sha256-4uyNo63seKE9TuArW4+YRNkTB6dBz1bSwXeMSuyRhGc=",
+        "lastModified": 1733728465,
+        "narHash": "sha256-b1r2MZIz7UCK4Ank2iVGn3Bu8d0tHGO52JYysKQGJj0=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "28a471777ad491eb3512c6c8c4bafd88713bf42d",
+        "rev": "15e58589d5e28f0f9c17d518c057d65808f703bd",
         "type": "github"
       },
       "original": {

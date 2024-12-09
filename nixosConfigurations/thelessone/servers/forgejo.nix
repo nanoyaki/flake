@@ -21,9 +21,10 @@ in
   users.groups.${group} = { };
 
   users.users.${user} = {
+    inherit group;
+
     home = cfg.stateDir;
     useDefaultShell = true;
-    group = group;
     isSystemUser = true;
   };
 

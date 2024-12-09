@@ -42,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     # maintainers = with lib.maintainers; [ nanoyaki ];
     mainProgram = "lavalink";
-    platforms = jdk.meta.platforms;
+    inherit (jdk.meta) platforms;
   };
 })

@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   modules.chrome.extensions = [
     "languageTool"

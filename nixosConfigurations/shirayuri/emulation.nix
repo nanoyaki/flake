@@ -4,11 +4,5 @@
 }:
 
 {
-  environment.systemPackages =
-    (with pkgs; [
-      dolphin-emu
-    ])
-    ++ [
-      # config.nur.repos.aprilthepink.suyu-mainline
-    ];
+  environment.systemPackages = [ pkgs.dolphin-emu ];
 }

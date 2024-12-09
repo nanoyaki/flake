@@ -10,7 +10,7 @@ let
   inherit (lib) mkIf mkOption types;
 
   amdgpu-kernel-module = packages.amdgpu.override {
-    kernel = config.boot.kernelPackages.kernel;
+    inherit (config.boot.kernelPackages) kernel;
   };
 in
 

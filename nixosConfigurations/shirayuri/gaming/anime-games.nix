@@ -8,7 +8,9 @@ in
   imports = [ aagl.nixosModules.default ];
   nix.settings = aagl.nixConfig; # Cachix
 
-  programs.anime-game-launcher.enable = true;
-  programs.honkers-railway-launcher.enable = true;
-  programs.sleepy-launcher.enable = true;
+  programs = {
+    anime-game-launcher.enable = true;
+    honkers-railway-launcher.enable = true;
+    sleepy-launcher.enable = true;
+  };
 }

@@ -1,30 +1,35 @@
 {
-  networking.nftables.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    nftables.enable = true;
 
-  # Allowed TCP ports
-  networking.firewall.allowedTCPPorts = [
-    # HTTP(S)
-    80
-    443
+    firewall = {
+      enable = true;
 
-    # SCP query
-    7777
-  ];
+      # Allowed TCP ports
+      allowedTCPPorts = [
+        # HTTP(S)
+        80
+        443
 
-  # TCP port ranges
-  networking.firewall.allowedTCPPortRanges = [
+        # SCP query
+        7777
+      ];
 
-  ];
+      # TCP port ranges
+      allowedTCPPortRanges = [
 
-  # Allowed UDP Ports
-  networking.firewall.allowedUDPPorts = [
-    # SCP
-    7777
-  ];
+      ];
 
-  # UDP port ranges
-  networking.firewall.allowedUDPPortRanges = [
+      # Allowed UDP Ports
+      allowedUDPPorts = [
+        # SCP
+        7777
+      ];
 
-  ];
+      # UDP port ranges
+      allowedUDPPortRanges = [
+
+      ];
+    };
+  };
 }

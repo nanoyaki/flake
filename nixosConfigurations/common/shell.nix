@@ -75,12 +75,14 @@
     histSize = 10000;
   };
 
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment = {
+    pathsToLink = [ "/share/zsh" ];
 
-  environment.sessionVariables = {
-    MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
-    MANROFFOPT = "-c";
+    sessionVariables = {
+      MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+      MANROFFOPT = "-c";
+    };
+
+    systemPackages = [ pkgs.gnupg ];
   };
-
-  environment.systemPackages = [ pkgs.gnupg ];
 }

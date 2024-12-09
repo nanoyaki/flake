@@ -156,8 +156,8 @@ in
     users.groups = mkIf (cfg.group == "lavalink") { lavalink = { }; };
     users.users = mkIf (cfg.user == "lavalink") {
       lavalink = {
+        inherit (cfg) home;
         group = "lavalink";
-        home = cfg.home;
         description = "The user for the Lavalink server";
         isSystemUser = true;
       };
@@ -166,9 +166,8 @@ in
     systemd.tmpfiles.settings."10-lavalink" =
       let
         dirConfig = {
+          inherit (cfg) user group;
           mode = "0700";
-          user = cfg.user;
-          group = cfg.group;
         };
       in
       {
@@ -193,7 +192,7 @@ in
               let
                 pluginParts = lib.match ''^(.*?:(.*?):)([0-9]+\.[0-9]+\.[0-9]+)$'' pluginConfig.dependency;
 
-                pluginWebPath = (
+                pluginWebPath =
                   lib.replaceStrings
                     [
                       "."
@@ -203,8 +202,7 @@ in
                       "/"
                       "/"
                     ]
-                    (lib.elemAt pluginParts 0)
-                );
+                    (lib.elemAt pluginParts 0);
 
                 pluginFileName = lib.elemAt pluginParts 1;
                 pluginVersion = lib.elemAt pluginParts 2;
@@ -214,7 +212,7 @@ in
 
                 plugin = pkgs.fetchurl {
                   url = pluginUrl;
-                  hash = pluginConfig.hash;
+                  inherit (pluginConfig) hash;
                 };
               in
               "ln -sf ${plugin} plugins/${pluginJarFile}"
@@ -238,8 +236,7 @@ in
 
           config = lib.recursiveUpdate cfg.extraConfig {
             server = {
-              port = cfg.port;
-              address = cfg.address;
+              inherit (cfg) port address;
               http2.enabled = cfg.enableHttp2;
             };
             plugins = pluginExtraConfigs;

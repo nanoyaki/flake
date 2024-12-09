@@ -17,9 +17,11 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
 
-  hardware.steam-hardware.enable = true;
+    steam-hardware.enable = true;
 
-  hardware.bluetooth.enable = true;
+    bluetooth.enable = true;
+  };
 }

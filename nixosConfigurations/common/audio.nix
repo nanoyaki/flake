@@ -37,11 +37,11 @@ in
 
       extraConfig.pipewire."92-low-latency" = {
         context.properties = {
-          default.allowed-rates = [ cfg.samplingRate ];
-          default.clock.rate = cfg.samplingRate;
-          default.clock.quantum = cfg.latency;
-          default.clock.min-quantum = cfg.latency;
-          default.clock.max-quantum = cfg.latency;
+          "default.allowed-rates" = [ cfg.samplingRate ];
+          "default.clock.rate" = cfg.samplingRate;
+          "default.clock.quantum" = cfg.latency;
+          "default.clock.min-quantum" = cfg.latency;
+          "default.clock.max-quantum" = cfg.latency;
         };
       };
 

@@ -111,7 +111,7 @@ in
         configFile = format.generate "server.conf" filteredSettings;
       in
       nameValuePair serverName {
-        enable = instCfg.enable;
+        inherit (instCfg) enable;
 
         description = ''Instance "${name}" of Suwayomi Server.'';
 

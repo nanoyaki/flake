@@ -22,11 +22,13 @@
       config.services.xserver.displayManager.gdm.wayland || config.modules.plasma6.enableWaylandDefault;
   };
 
-  services.xserver.desktopManager.runXdgAutostartIfNone = true;
+  services.xserver = {
+    desktopManager.runXdgAutostartIfNone = true;
 
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
+    xkb = {
+      layout = "de";
+      variant = "";
+    };
   };
 
   services.libinput.mouse.accelProfile = "flat";

@@ -55,8 +55,8 @@
       }
     ];
     extraConfig = {
-      lavalink = {
-        server.sources = {
+      lavalink.server = {
+        sources = {
           # Default youtube is deprecated
           youtube = false;
           bandcamp = true;
@@ -68,7 +68,8 @@
           # configured could expose your server's IP address.
           http = false;
         };
-        server.filters = {
+
+        filters = {
           volume = true;
           equalizer = true;
           karaoke = true;
@@ -77,17 +78,17 @@
 
         # Least to most expensive
         # 0-10
-        server.opusEncodingQuality = 10;
-        server.resamplingQuality = "HIGH";
-        server.trackStuckThresholdMs = 10000;
-        server.useSeekGhosting = true;
+        opusEncodingQuality = 10;
+        resamplingQuality = "HIGH";
+        trackStuckThresholdMs = 10000;
+        useSeekGhosting = true;
 
         # Number of pages at 100 each
-        server.youtubePlaylistLoadLimit = 6;
-        server.playerUpdateInterval = 5;
-        server.youtubeSearchEnabled = true;
-        server.soundcloudSearchEnabled = true;
-        server.gc-warnings = true;
+        youtubePlaylistLoadLimit = 6;
+        playerUpdateInterval = 5;
+        youtubeSearchEnabled = true;
+        soundcloudSearchEnabled = true;
+        gc-warnings = true;
 
         # Squid has major sequirity vulnerabilities
         # httpConfig = {

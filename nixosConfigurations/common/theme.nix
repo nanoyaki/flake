@@ -29,12 +29,11 @@ in
     # pkgs.catppuccin-cursors.mochaPink
 
     (pkgs.catppuccin-papirus-folders.override {
-      flavor = catppuccin.flavor;
-      accent = catppuccin.accent;
+      inherit (catppuccin) accent flavor;
     })
 
     (pkgs.catppuccin.override {
-      accent = catppuccin.accent;
+      inherit (catppuccin) accent;
       variant = catppuccin.flavor;
     })
 

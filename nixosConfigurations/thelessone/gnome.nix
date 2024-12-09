@@ -1,11 +1,24 @@
 { pkgs, username, ... }:
 
 {
-  services.displayManager.sddm.enable = false;
-  services.desktopManager.plasma6.enable = false;
+  services = {
+    displayManager = {
+      sddm.enable = false;
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+      autoLogin = {
+        enable = true;
+        user = username;
+      };
+    };
+
+    xserver = {
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
+
+    desktopManager.plasma6.enable = false;
+  };
+
   environment.gnome.excludePackages = with pkgs; [
     gnome-photos
     gnome-tour
@@ -24,15 +37,18 @@
     atomix
   ];
 
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = username;
-
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  systemd = {
+    services = {
+      "getty@tty1".enable = false;
+      "autovt@tty1".enable = false;
+    };
 
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
 }

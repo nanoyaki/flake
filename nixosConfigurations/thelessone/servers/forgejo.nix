@@ -2,16 +2,36 @@
 
 let
   cfg = config.services.forgejo;
+
+  user = "git";
+  group = "git";
 in
 
 {
   sops.secrets."forgejo/users/nanoyaki".owner = cfg.user;
 
+  users.groups.${group} = { };
+
+  users.users.${user} = {
+    home = cfg.stateDir;
+    useDefaultShell = true;
+    group = group;
+    isSystemUser = true;
+  };
+
   services.forgejo = {
     enable = true;
     lfs.enable = true;
 
-    database.type = "postgres";
+    inherit user group;
+
+    database = {
+      inherit user;
+
+      name = user;
+      type = "postgres";
+      createDatabase = true;
+    };
 
     settings = {
       server = {

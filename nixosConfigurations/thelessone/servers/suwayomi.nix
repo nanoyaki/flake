@@ -22,11 +22,15 @@ in
     ../../../nixosModules/suwayomi
   ];
 
-  services.suwayomi.instances = (
-    builtins.listToAttrs [
-      (mkInstance "thomas" 4555)
-      (mkInstance "niklas" 4556)
-      (mkInstance "hana" 4557)
-    ]
-  );
+  services.suwayomi = {
+    enable = true;
+
+    instances = (
+      builtins.listToAttrs [
+        (mkInstance "thomas" 4555)
+        (mkInstance "niklas" 4556)
+        (mkInstance "hana" 4557)
+      ]
+    );
+  };
 }

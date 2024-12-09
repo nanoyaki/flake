@@ -1,26 +1,6 @@
-on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - 'nixosConfigurations/{common,thelessone}/**/*.nix'
-      - '{nixosModules,nLib,pkgs,overlays}/**/*.nix'
-      - 'flake.*'
-  workflow_dispatch:
-    inputs:
-      trigger:
-        description: 'Deploy now?'
-        required: true
-        type: boolean
+on: [push, workflow_dispatch]
 
 jobs:
-  manual_trigger:
-    if: ${{ inputs.trigger }}
-    needs: deployment
-    runs-on: native
-    steps:
-      - run: echo "Deployment was triggered manually."
-
   deployment:
     runs-on: native
     steps:

@@ -17,11 +17,6 @@ in
     useDefaultShell = true;
     group = group;
     isSystemUser = true;
-
-    openssh.authorizedKeys.keys = [
-      # codeberg mirror
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0JzEA4gTAiZGvasDkLILV9HEbwQehYT/Zo1FB1sjlp"
-    ];
   };
 
   services.forgejo = {
@@ -44,6 +39,9 @@ in
         DOMAIN = "git.theless.one";
         ROOT_URL = "https://${cfg.settings.server.DOMAIN}/";
         HTTP_PORT = 12500;
+
+        DISABLE_SSH = false;
+        START_SSH_SERVER = true;
       };
 
       service.DISABLE_REGISTRATION = true;

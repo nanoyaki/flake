@@ -8,6 +8,7 @@
     settings = {
       PasswordAuthentication = false;
       X11Forwarding = true;
+      AcceptEnv = "GIT_PROTOCOL";
     };
   };
 
@@ -20,7 +21,7 @@
   ];
 
   services.fail2ban = {
-    enable = true;
+    enable = false;
     maxretry = 2;
     bantime = "1h";
   };

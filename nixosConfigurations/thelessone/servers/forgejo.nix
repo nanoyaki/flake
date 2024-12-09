@@ -17,6 +17,11 @@ in
     useDefaultShell = true;
     group = group;
     isSystemUser = true;
+
+    openssh.authorizedKeys.keys = [
+      # codeberg mirror
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0JzEA4gTAiZGvasDkLILV9HEbwQehYT/Zo1FB1sjlp"
+    ];
   };
 
   services.forgejo = {

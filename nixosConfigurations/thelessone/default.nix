@@ -40,6 +40,10 @@
       sshOpts = [
         "-i"
         self.nixosConfigurations.server-nixos.config.sops.secrets."deployment/private".path
+        "-o"
+        "StrictHostKeyChecking=no"
+        "-l"
+        "thelessone"
       ];
       remoteBuild = true;
 

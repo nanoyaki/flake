@@ -2,7 +2,6 @@ on: [push, workflow_dispatch]
 
 env:
   TARGET_HOST: theless.one
-  SSH_AUTH_SOCK: /tmp/run_${{ github.run_id }}_ssh.socket
 
 jobs:
   deployment:
@@ -10,15 +9,5 @@ jobs:
     steps:
       - name: 'Checkout Repo'
         uses: https://code.forgejo.org/actions/checkout@v4
-      - env:
-          KEY_PATH: ${{ env.HOME }}/.ssh/deployment
-        run: |
-          mkdir -p $HOME/.ssh
-
-          ssh-keyscan $TARGET_HOST >> $HOME/.ssh/known_hosts
-          echo "${{ secrets.DEPLOYMENT_KEY }}" > $KEY_PATH
-          chmod 600 $KEY_PATH
-
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add $KEY_PATH
-      - run: 'nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs'
+      - name: 'Run deployment'
+        run: 'nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs'

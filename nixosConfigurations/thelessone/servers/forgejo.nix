@@ -37,7 +37,20 @@ in
       tokenFile = config.sops.secrets."forgejo/runners/default".path;
 
       labels = [ "native:host" ];
-      hostPackages = [ pkgs.nix ];
+      hostPackages = with pkgs; [
+        # defaults
+        bash
+        coreutils
+        curl
+        gawk
+        gitMinimal
+        gnused
+        nodejs
+        wget
+
+        # extra
+        nix
+      ];
     };
   };
 

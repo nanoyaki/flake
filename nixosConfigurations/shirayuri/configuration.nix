@@ -1,4 +1,5 @@
 {
+  inputs',
   pkgs,
   ...
 }:
@@ -32,10 +33,14 @@
     "skyFollowerBridge"
   ];
 
-  environment.systemPackages = with pkgs; [
-    protonvpn-gui
-    imagemagick
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      protonvpn-gui
+      imagemagick
+    ])
+    ++ [
+      inputs'.deploy-rs.packages.deploy-rs
+    ];
 
   programs.droidcam.enable = true;
 

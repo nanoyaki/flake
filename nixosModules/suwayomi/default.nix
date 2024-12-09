@@ -43,10 +43,11 @@ in
 
     instances = mkOption {
       type = types.attrsOf (types.submodule (import ./instance.nix { inherit lib format; }));
+      default = { };
     };
   };
 
-  config = {
+  config = lib.mkIf (cfg.enable && cfg.instances != { }) {
     networking.firewall.allowedTCPPorts = builtins.map (
       instance: cfg.instances.${instance}.settings.server.port
     ) (builtins.attrNames cfg.instances);

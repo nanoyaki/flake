@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   config,
+  username,
   ...
 }:
 
@@ -25,8 +26,13 @@ in
 
     age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
 
-    secrets."nixos/users/hana".owner = ifUser "hana";
-    secrets."nixos/users/thelessone".owner = ifUser "thelessone";
+    secrets = {
+      "nixos/users/hana".owner = ifUser "hana";
+      "nixos/users/thelessone".owner = ifUser "thelessone";
+
+      "deployment/private".owner = username;
+      "deployment/public".mode = "0444";
+    };
   };
 
   environment.systemPackages = [ pkgs.sops ];

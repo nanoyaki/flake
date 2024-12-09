@@ -7,6 +7,8 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    # Don't follow nixpkgs for easier deployment
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur = {

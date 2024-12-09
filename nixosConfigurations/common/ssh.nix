@@ -1,20 +1,21 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) mkMerge;
+  inherit (lib) nameValuePair;
 
   identityFile = "${config.hm.home.homeDirectory}/.ssh/${config.networking.hostName}-primary";
 
   mkGitBlocks =
     domains:
-    mkMerge (
-      builtins.map (domain: {
-        ${domain} = {
+    builtins.listToAttrs (
+      builtins.map (
+        domain:
+        nameValuePair domain {
           user = "git";
           hostname = domain;
           inherit identityFile;
-        };
-      }) domains
+        }
+      ) domains
     );
 in
 
@@ -34,7 +35,7 @@ in
         "github.com"
         "codeberg.org"
         "gitlab.com"
-      ]).contents;
+      ]);
 
     extraConfig = ''
       IdentityFile ${identityFile}

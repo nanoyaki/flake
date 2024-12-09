@@ -24,6 +24,7 @@ in
     lfs.enable = true;
 
     inherit user group;
+    stateDir = "/var/lib/${user}";
 
     database = {
       inherit user;

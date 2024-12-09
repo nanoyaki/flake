@@ -76,6 +76,7 @@ in
       (mkMangaHost 4557 "hana")
 
       # (mkHost "map" (mkReverseProxyConfig 8100))
+      (mkHost "git" (mkReverseProxyConfig 12500))
       (mkHost "metrics" ''
         ${mkReverseProxyConfig 9090}
 

@@ -12,7 +12,7 @@
   services.lavalink = {
     enable = true;
     enableHttp2 = true;
-    password = "s3cRe!p4SsW0rD";
+    password = "s3cRe!p4SsW0rd";
     package = packages.lavalink;
     port = 2333;
     plugins = [

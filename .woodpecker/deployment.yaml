@@ -11,9 +11,6 @@ depends_on:
   - static-check
   - flake-check
 
-variables:
-  TARGET_HOST: theless.one
-
 steps:
   - name: deploy
     image: native

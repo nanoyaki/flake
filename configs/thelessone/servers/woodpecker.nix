@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   sec = {
@@ -30,7 +30,7 @@
     mode = "0770";
   };
 
-  services.woodpecker-agents = {
+  services.woodpecker-agents.agents = {
     "native" = {
       enable = true;
 
@@ -42,6 +42,17 @@
         WOODPECKER_BACKEND = "local";
         WOODPECKER_BACKEND_LOCAL_TEMP_DIR = "/var/lib/woodpecker/tmp";
       };
+
+      path = with pkgs; [
+        git
+        git-lfs
+        woodpecker-plugin-git
+
+        bash
+        coreutils
+
+        nix
+      ];
     };
 
     "docker" = {

@@ -6,7 +6,7 @@
 
 {
   imports = [
-    ../../../nixosModules/lavalink
+    ../../../modules/lavalink
   ];
 
   services.lavalink = {

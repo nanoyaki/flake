@@ -19,7 +19,7 @@ in
 
 {
   imports = [
-    ../../../nixosModules/suwayomi
+    ../../../modules/suwayomi
   ];
 
   services.suwayomi = {

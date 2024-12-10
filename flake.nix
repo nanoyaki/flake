@@ -59,13 +59,13 @@
 
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./nLib
+        ./lib
         ./pkgs
-        ./nixosModules
+        ./modules
 
-        ./nixosConfigurations/shirayuri
-        ./nixosConfigurations/kuroyuri
-        ./nixosConfigurations/thelessone
+        ./configs/shirayuri
+        ./configs/kuroyuri
+        ./configs/thelessone
       ];
 
       systems = [

@@ -11,16 +11,25 @@ jobs:
   static-checks:
     runs-on: native
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: https://code.forgejo.org/actions/checkout@v4
-      - name: Static Checks
+      - name: Static checks
         run: nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
 
-  deployment:
+  flake-check:
     needs: static-checks
     runs-on: native
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Flake check
+        run: nix --extra-experimental-features "nix-command flakes" flake check
+
+  deployment:
+    needs: flake-check
+    runs-on: native
+    steps:
+      - name: Checkout repo
         uses: https://code.forgejo.org/actions/checkout@v4
       - name: Run deployment
         run: |
@@ -28,4 +37,4 @@ jobs:
           chmod 600 deployment
 
           nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs -- \
-            --ssh-opts "-o StrictHostKeyChecking=no -i deployment"
+            --ssh-opts "-o StrictHostKeyChecking=no -i deployment" --skip-checks

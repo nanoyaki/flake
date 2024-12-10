@@ -29,7 +29,6 @@
         ./programming.nix
         ./git.nix
         ./locale.nix
-        ./minecraft
         ./servers
         ./terminal.nix
       ];

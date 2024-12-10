@@ -5,5 +5,6 @@
     ./ssh.nix
     ./suwayomi.nix
     ./forgejo.nix
+    ./minecraft
   ];
 }

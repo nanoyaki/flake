@@ -5,7 +5,7 @@ when:
       exclude:
         - 'configs/{shirayuri,kuroyuri}/**'
       on_empty: true
-  - event: manual
+  - event: deployment
 
 depends_on:
   - static-check

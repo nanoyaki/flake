@@ -5,10 +5,10 @@ when:
 
 steps:
   - name: static-check
-    image: native
+    image: bash
     commands:
       - nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
   - name: flake-check
-    image: native
+    image: bash
     commands:
       - nix --extra-experimental-features "nix-command flakes" flake check

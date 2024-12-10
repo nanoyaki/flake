@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - '**/*.nix'
+      - 'flake.lock'
 
 env:
   TARGET_HOST: theless.one

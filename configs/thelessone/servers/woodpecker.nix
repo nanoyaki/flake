@@ -1,4 +1,23 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
+
+let
+  overrideVer =
+    pkg: version:
+    pkg.overrideAttrs (
+      finalAttrs: _: {
+        version = "2.8.0";
+        src = pkgs.fetchzip {
+          url = "https://github.com/woodpecker-ci/woodpecker/releases/download/v${finalAttrs.version}/woodpecker-src.tar.gz";
+          hash = "sha256-0aYEZaLFPLyGoHplyGZsn4xerUlYi00aLfgkqO2Yb2E=";
+          stripRoot = false;
+        };
+      }
+    );
+in
 
 {
   sec = {
@@ -10,6 +29,7 @@
 
   services.woodpecker-server = {
     enable = true;
+    package = overrideVer pkgs.woodpecker-server "2.8.0";
 
     environment = {
       WOODPECKER_OPEN = "true";
@@ -38,6 +58,7 @@
   services.woodpecker-agents.agents = {
     "native" = {
       enable = true;
+      package = overrideVer pkgs.woodpecker-agent "2.8.0";
 
       extraGroups = [ "woodpecker-tmp" ];
 
@@ -64,6 +85,7 @@
 
     "docker" = {
       enable = true;
+      package = overrideVer pkgs.woodpecker-agent "2.8.0";
 
       extraGroups = [ "podman" ];
 

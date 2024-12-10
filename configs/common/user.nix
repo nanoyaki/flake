@@ -9,7 +9,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = nLib.toUppercase username;
-    hashedPasswordFile = config.sops.secrets."nixos/users/${username}".path;
+    hashedPasswordFile = config.sec."nixos/users/${username}".path;
     extraGroups = [ "wheel" ];
   };
 

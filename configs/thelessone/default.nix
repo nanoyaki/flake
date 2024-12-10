@@ -40,7 +40,7 @@
       sshUser = "thelessone";
       sshOpts = [
         "-i"
-        self.nixosConfigurations.server-nixos.config.sops.secrets."deployment/private".path
+        self.nixosConfigurations.server-nixos.config.sec."deployment/private".path
       ];
       remoteBuild = true;
 

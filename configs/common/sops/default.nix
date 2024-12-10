@@ -9,6 +9,7 @@
 
 let
   inherit (lib) mkIf;
+  inherit (lib.modules) mkAliasOptionModule;
   inherit (inputs) sops-nix;
 
   # String -> String
@@ -18,6 +19,13 @@ in
 {
   imports = [
     sops-nix.nixosModules.sops
+    (mkAliasOptionModule
+      [ "sec" ]
+      [
+        "sops"
+        "secrets"
+      ]
+    )
   ];
 
   sops = {
@@ -25,13 +33,13 @@ in
     defaultSopsFormat = "yaml";
 
     age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
+  };
 
-    secrets = {
-      "nixos/users/hana".owner = ifUser "hana";
-      "nixos/users/thelessone".owner = ifUser "thelessone";
+  sec = {
+    "nixos/users/hana".owner = ifUser "hana";
+    "nixos/users/thelessone".owner = ifUser "thelessone";
 
-      "deployment/private".owner = username;
-    };
+    "deployment/private".owner = username;
   };
 
   environment.systemPackages = [ pkgs.sops ];

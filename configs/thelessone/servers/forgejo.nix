@@ -13,7 +13,7 @@ let
 in
 
 {
-  sops.secrets = {
+  sec = {
     "forgejo/users/nanoyaki".owner = cfg.user;
     "forgejo/runners/default".mode = "0444";
   };
@@ -35,7 +35,7 @@ in
       enable = true;
       name = "monolith";
       url = "https://git.theless.one";
-      tokenFile = config.sops.secrets."forgejo/runners/default".path;
+      tokenFile = config.sec."forgejo/runners/default".path;
 
       labels = [ "native:host" ];
       hostPackages = with pkgs; [

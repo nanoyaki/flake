@@ -41,7 +41,7 @@ let
   # String -> String
   mkBasicAuthConfig = user: ''
     basic_auth * {
-      import ${config.sops.secrets."caddy/users/${user}".path}
+      import ${config.sec."caddy/users/${user}".path}
     }
   '';
 
@@ -53,7 +53,7 @@ let
 in
 
 {
-  sops.secrets = mapSecretsOwner [
+  sec = mapSecretsOwner [
     "shared"
     "thelessone"
     "nik"

@@ -24,7 +24,6 @@
     "jisho-pitcher"
     "jishoOnTheFly"
     "searchJisho"
-    "migaku"
 
     "betterTtv"
     "returnYoutubeDislike"

@@ -17,7 +17,6 @@
     "jisho-pitcher"
     "jishoOnTheFly"
     "searchJisho"
-    "migaku"
   ];
 
   system.stateVersion = "24.05";

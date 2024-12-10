@@ -15,6 +15,7 @@
       WOODPECKER_OPEN = "true";
       WOODPECKER_HOST = "https://woodpecker.theless.one";
       WOODPECKER_SERVER_ADDR = ":3007";
+      WOODPECKER_GRPC_ADDR = ":9000";
 
       WOODPECKER_FORGEJO = "true";
       WOODPECKER_FORGEJO_URL = "https://git.theless.one";
@@ -41,7 +42,7 @@
       extraGroups = [ "woodpecker-tmp" ];
 
       environment = {
-        WOODPECKER_SERVER = "localhost:3007";
+        WOODPECKER_SERVER = "localhost:9000";
         WOODPECKER_MAX_WORKFLOWS = "1";
         WOODPECKER_BACKEND = "local";
         WOODPECKER_BACKEND_LOCAL_TEMP_DIR = "/var/lib/woodpecker/tmp";
@@ -67,7 +68,7 @@
       extraGroups = [ "podman" ];
 
       environment = {
-        WOODPECKER_SERVER = "localhost:3007";
+        WOODPECKER_SERVER = "localhost:9000";
         WOODPECKER_MAX_WORKFLOWS = "4";
         WOODPECKER_BACKEND = "docker";
         DOCKER_HOST = "unix:///run/podman/podman.sock";

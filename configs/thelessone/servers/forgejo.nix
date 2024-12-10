@@ -93,7 +93,7 @@ in
   systemd.services.forgejo.preStart =
     let
       adminCmd = "${lib.getExe cfg.package} admin user";
-      passwordFile = config.sops.secrets."forgejo/users/nanoyaki".path;
+      passwordFile = config.sec."forgejo/users/nanoyaki".path;
     in
     ''
       ${adminCmd} create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(cat ${passwordFile})" || true

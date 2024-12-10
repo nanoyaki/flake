@@ -86,6 +86,8 @@ in
         DEFAULT_ACTIONS_URL = "github";
       };
 
+      webhook.ALLOWED_HOST_LIST = "external,loopback";
+
       mailer.ENABLED = false;
     };
   };

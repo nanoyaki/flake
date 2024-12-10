@@ -4,6 +4,8 @@
   sec = {
     "woodpecker/forgejo/clientId" = { };
     "woodpecker/forgejo/clientSecret" = { };
+    "woodpecker/agents/native/secret" = { };
+    "woodpecker/agents/docker/secret" = { };
   };
 
   services.woodpecker-server = {
@@ -45,6 +47,8 @@
         WOODPECKER_BACKEND_LOCAL_TEMP_DIR = "/var/lib/woodpecker/tmp";
       };
 
+      environmentFile = [ config.sec."woodpecker/agents/native/secret".path ];
+
       path = with pkgs; [
         git
         git-lfs
@@ -68,6 +72,8 @@
         WOODPECKER_BACKEND = "docker";
         DOCKER_HOST = "unix:///run/podman/podman.sock";
       };
+
+      environmentFile = [ config.sec."woodpecker/agents/docker/secret".path ];
     };
   };
 

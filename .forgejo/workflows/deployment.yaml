@@ -3,6 +3,8 @@ on:
     paths:
       - '**/*.nix'
       - 'flake.lock'
+      - 'configs/common/sops/secrets.yaml'
+      - '.sops.yaml'
 
 env:
   TARGET_HOST: theless.one

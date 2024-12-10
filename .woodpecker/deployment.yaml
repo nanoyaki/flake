@@ -12,7 +12,7 @@ depends_on:
   - flake-check
 
 steps:
-  - name: deploy
+  - name: deployment
     image: native
     secrets:
       - DEPLOYMENT_KEY

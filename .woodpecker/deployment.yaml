@@ -14,8 +14,9 @@ depends_on:
 steps:
   - name: deployment
     image: native
-    secrets:
-      - DEPLOYMENT_KEY
+    environment:
+      DEPLOYMENT_KEY:
+        from_secret: DEPLOYMENT_KEY
     commands:
       - echo "$DEPLOYMENT_KEY" > deployment
       - chmod 600 deployment

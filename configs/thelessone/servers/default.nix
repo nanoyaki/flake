@@ -6,5 +6,6 @@
     ./suwayomi.nix
     ./forgejo.nix
     ./minecraft
+    ./woodpecker.nix
   ];
 }

@@ -1,0 +1,25 @@
+when:
+  - event: push
+    branch: main
+    path:
+      exclude:
+        - 'configs/{shirayuri,kuroyuri}/**'
+      on_empty: true
+  - event: manual
+
+depends_on:
+  - static-check
+  - flake-check
+
+variables:
+  TARGET_HOST: theless.one
+
+steps:
+  - name: deploy
+    image: native
+    commands:
+      - echo "${{ secrets.DEPLOYMENT_KEY }}" > deployment
+      - chmod 600 deployment
+      - >
+        nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs --
+          --ssh-opts "-o StrictHostKeyChecking=no -i deployment" --skip-checks

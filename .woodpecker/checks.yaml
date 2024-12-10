@@ -1,0 +1,14 @@
+when:
+  - event: [push, pull_request]
+    path: '**/*.nix'
+  - event: manual
+
+steps:
+  - name: static-check
+    image: native
+    commands:
+      - nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
+  - name: flake-check
+    image: native
+    commands:
+      - nix --extra-experimental-features "nix-command flakes" flake check

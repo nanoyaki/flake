@@ -26,7 +26,6 @@
         ./firewall.nix
         ./gnome.nix
         ./configuration.nix
-        ./programming.nix
         ./git.nix
         ./locale.nix
         ./servers

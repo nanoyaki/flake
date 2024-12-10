@@ -14,8 +14,10 @@ depends_on:
 steps:
   - name: deploy
     image: native
+    secrets:
+      - DEPLOYMENT_KEY
     commands:
-      - echo "${{ secrets.DEPLOYMENT_KEY }}" > deployment
+      - echo "$DEPLOYMENT_KEY" > deployment
       - chmod 600 deployment
       - >
         nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs --

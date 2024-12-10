@@ -16,6 +16,8 @@
 
       WOODPECKER_FORGEJO = "true";
       WOODPECKER_FORGEJO_URL = "https://git.theless.one";
+
+      WOODPECKER_ADMIN = "nanoyaki";
     };
 
     environmentFile = [

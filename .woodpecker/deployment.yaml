@@ -5,12 +5,20 @@ when:
       exclude:
         - 'configs/{shirayuri,kuroyuri}/**'
       on_empty: true
-  - event: deployment
+  - event: manual
 
 labels:
   backend: local
 
 steps:
+  - name: static-check
+    image: bash
+    commands:
+      - nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
+  - name: flake-check
+    image: bash
+    commands:
+      - nix --extra-experimental-features "nix-command flakes" flake check
   - name: deployment
     image: bash
     depends_on:

@@ -72,6 +72,7 @@ in
         coreutils
 
         nix
+        openssh
       ];
     };
 

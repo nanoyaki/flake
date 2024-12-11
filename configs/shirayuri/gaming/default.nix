@@ -8,7 +8,6 @@
     ./steam.nix
     ./minecraft.nix
     ./anime-games.nix
-    ./virtualization.nix
     ./rpgmaker.nix
   ];
 

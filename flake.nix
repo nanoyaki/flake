@@ -11,10 +11,6 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,10 +39,6 @@
     };
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    quickemu = {
-      url = "github:quickemu-project/quickemu";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

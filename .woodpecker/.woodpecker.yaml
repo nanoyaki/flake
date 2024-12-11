@@ -1,10 +1,6 @@
 when:
   - event: push
     branch: main
-    path:
-      exclude:
-        - 'configs/{shirayuri,kuroyuri}/**'
-      on_empty: true
   - event: manual
 
 labels:

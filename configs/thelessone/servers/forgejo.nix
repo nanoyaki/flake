@@ -59,6 +59,7 @@ in
   services.forgejo = {
     enable = true;
     lfs.enable = true;
+    package = pkgs.forgejo;
 
     inherit user group;
     stateDir = "/var/lib/${user}";

@@ -7,16 +7,15 @@ when:
       on_empty: true
   - event: deployment
 
-depends_on:
-  - static-check
-  - flake-check
-
 labels:
   backend: local
 
 steps:
   - name: deployment
     image: bash
+    depends_on:
+      - static-check
+      - flake-check
     environment:
       DEPLOYMENT_KEY:
         from_secret: DEPLOYMENT_KEY

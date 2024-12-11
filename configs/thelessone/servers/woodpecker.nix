@@ -67,6 +67,7 @@ in
         WOODPECKER_MAX_WORKFLOWS = "1";
         WOODPECKER_BACKEND = "local";
         WOODPECKER_BACKEND_LOCAL_TEMP_DIR = "/var/lib/woodpecker/tmp";
+        WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=local,repo=*";
       };
 
       environmentFile = [ config.sec."woodpecker/agents/native/secret".path ];
@@ -94,6 +95,7 @@ in
         WOODPECKER_MAX_WORKFLOWS = "4";
         WOODPECKER_BACKEND = "docker";
         DOCKER_HOST = "unix:///run/podman/podman.sock";
+        WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=docker,repo=*";
       };
 
       environmentFile = [ config.sec."woodpecker/agents/docker/secret".path ];

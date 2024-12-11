@@ -11,9 +11,12 @@ depends_on:
   - static-check
   - flake-check
 
+labels:
+  backend: local
+
 steps:
   - name: deployment
-    image: local
+    image: bash
     environment:
       DEPLOYMENT_KEY:
         from_secret: DEPLOYMENT_KEY

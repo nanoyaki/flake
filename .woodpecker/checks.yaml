@@ -3,6 +3,9 @@ when:
     path: '**/*.nix'
   - event: manual
 
+labels:
+  backend: local
+
 steps:
   - name: static-check
     image: bash

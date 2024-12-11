@@ -49,24 +49,15 @@ in
     ];
   };
 
-  users.groups."woodpecker-tmp" = { };
-  systemd.tmpfiles.settings."10-woodpecker"."/var/lib/woodpecker/tmp".d = {
-    group = "woodpecker-tmp";
-    mode = "0770";
-  };
-
   services.woodpecker-agents.agents = {
     "native" = {
       enable = true;
       package = overrideVer pkgs.woodpecker-agent "2.8.0";
 
-      extraGroups = [ "woodpecker-tmp" ];
-
       environment = {
         WOODPECKER_SERVER = "localhost:9000";
         WOODPECKER_MAX_WORKFLOWS = "1";
         WOODPECKER_BACKEND = "local";
-        WOODPECKER_BACKEND_LOCAL_TEMP_DIR = "/var/lib/woodpecker/tmp";
         WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=local,repo=*";
       };
 

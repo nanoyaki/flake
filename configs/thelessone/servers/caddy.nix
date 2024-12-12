@@ -17,20 +17,29 @@ let
   # Int -> String -> attrset
   mkMangaHost =
     port: user:
-    mkHost "${user}-manga" ''
-      ${mkReverseProxyConfig port}
+    mkHost {
+      subdomain = "${user}-manga";
+      config = ''
+        ${mkReverseProxyConfig port}
 
-      ${mkBasicAuthConfig user}
-    '';
+        ${mkBasicAuthConfig user}
+      '';
+    };
 
-  # String -> String -> attrset
+  # attrset -> attrset
   mkHost =
-    subdomain: config:
+    {
+      domainOverride ? domain,
+      subdomain ? null,
+      config,
+    }:
+
     let
       actual = if subdomain != null then "${subdomain}." else "";
     in
+
     {
-      "${actual}${domain}".extraConfig = config;
+      "${actual}${domainOverride}".extraConfig = config;
     };
 
   # Int -> String
@@ -64,25 +73,46 @@ in
     enable = true;
 
     virtualHosts = mkMerge [
-      (mkHost "na55l3zepb4kcg0zryqbdnay" (mkFileServerConfig "/var/www/theless.one"))
-      (mkHost "files" ''
-        ${mkFileServerConfig "/var/lib/caddy/files"}
+      (mkHost {
+        subdomain = "na55l3zepb4kcg0zryqbdnay";
+        config = mkFileServerConfig "/var/www/theless.one";
+      })
+      (mkHost {
+        subdomain = "files";
+        config = ''
+          ${mkFileServerConfig "/var/lib/caddy/files"}
 
-        ${mkBasicAuthConfig "shared"}
-      '')
+          ${mkBasicAuthConfig "shared"}
+        '';
+      })
 
       (mkMangaHost 4555 "thelessone")
       (mkMangaHost 4556 "nik")
       (mkMangaHost 4557 "hana")
 
-      # (mkHost "map" (mkReverseProxyConfig 8100))
-      (mkHost "woodpecker" (mkReverseProxyConfig 3007))
-      (mkHost "git" (mkReverseProxyConfig 12500))
-      (mkHost "metrics" ''
-        ${mkReverseProxyConfig 9090}
+      (mkHost {
+        subdomain = "woodpecker";
+        config = mkReverseProxyConfig 3007;
+      })
+      (mkHost {
+        subdomain = "git";
+        config = mkReverseProxyConfig 12500;
+      })
+      (mkHost {
+        domainOverride = "nanoyaki.space";
+        subdomain = "git";
+        config = mkReverseProxyConfig 12500;
+      })
 
-        ${mkBasicAuthConfig "hana"}
-      '')
+      # (mkHost "map" (mkReverseProxyConfig 8100))
+      (mkHost {
+        subdomain = "metrics";
+        config = ''
+          ${mkReverseProxyConfig 9090}
+
+          ${mkBasicAuthConfig "hana"}
+        '';
+      })
     ];
   };
 }

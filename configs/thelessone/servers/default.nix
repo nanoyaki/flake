@@ -7,5 +7,6 @@
     ./forgejo.nix
     ./minecraft
     ./woodpecker.nix
+    ./dynamicdns.nix
   ];
 }

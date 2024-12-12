@@ -70,52 +70,59 @@ in
       };
     };
 
-    systemd.services = mapAttrs' (
-      domain: domainCfg:
-      let
-        inherit (domainCfg) passwordFile;
+    systemd = {
+      tmpfiles.settings."10-namecheapDynDns".${cfg.home}.d = {
+        inherit (cfg) user group;
+        mode = "0700";
+      };
 
-        subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
-      in
-      nameValuePair "namecheapDynDns-${domain}" {
-        description = "Namecheap Dynamic DNS Service for ${domain}";
+      services = mapAttrs' (
+        domain: domainCfg:
+        let
+          inherit (domainCfg) passwordFile;
 
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "network.target"
-        ];
+          subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
+        in
+        nameValuePair "namecheapDynDns-${domain}" {
+          description = "Namecheap Dynamic DNS Service for ${domain}";
 
-        path = [
-          pkgs.curl
-        ];
+          wantedBy = [ "multi-user.target" ];
+          after = [
+            "network.target"
+          ];
 
-        script = ''
-          basedomain="${domain}"
-          subdomains="${subdomains}"
-          password=$(cat ${passwordFile})
-          ip=$(curl -4 icanhazip.com --fail)
+          path = [
+            pkgs.curl
+          ];
 
-          for subdomain in ''${subdomains}; do
-            curl "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$basedomain&password=$password&ip=$ip" --fail
-          done
-        '';
+          script = ''
+            basedomain="${domain}"
+            subdomains="${subdomains}"
+            password=$(cat ${passwordFile})
+            ip=$(curl -4 icanhazip.com --fail)
 
-        startAt = "hourly";
+            for subdomain in ''${subdomains}; do
+              curl "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$basedomain&password=$password&ip=$ip" --fail
+            done
+          '';
 
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
+          startAt = "hourly";
 
-          Type = "simple";
-          Restart = "no";
+          serviceConfig = {
+            User = cfg.user;
+            Group = cfg.group;
 
-          WorkingDirectory = cfg.home;
-        };
-      }
-    ) cfg.domains;
+            Type = "simple";
+            Restart = "no";
 
-    systemd.timers = mapAttrs' (
-      domain: _: nameValuePair "namecheapDynDns-${domain}" { timerConfig.RandomizedDelaySec = "30s"; }
-    ) cfg.domains;
+            WorkingDirectory = cfg.home;
+          };
+        }
+      ) cfg.domains;
+
+      timers = mapAttrs' (
+        domain: _: nameValuePair "namecheapDynDns-${domain}" { timerConfig.RandomizedDelaySec = "30s"; }
+      ) cfg.domains;
+    };
   };
 }

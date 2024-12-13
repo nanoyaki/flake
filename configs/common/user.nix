@@ -6,6 +6,8 @@
 }:
 
 {
+  sec."nixos/users/${username}".owner = username;
+
   users.users.${username} = {
     isNormalUser = true;
     description = nLib.toUppercase username;

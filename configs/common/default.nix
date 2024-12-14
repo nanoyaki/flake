@@ -16,7 +16,7 @@
     ./plasma.nix
     ./files.nix
     ./programming.nix
-    ./chrome.nix
+    ./firefox.nix
     ./mpv.nix
     ./spotify.nix
     ./vscode.nix

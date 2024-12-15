@@ -79,8 +79,9 @@ in
     };
   };
 
-  systemd.tmpfiles.settings."10-na55l3zepb4kcg0zryqbdnay.theless.one"."/var/www/theless.one".d =
-    dirConfig;
-  systemd.tmpfiles.settings."10-files.theless.one"."/var/lib/caddy/files".d = dirConfig;
-  systemd.tmpfiles.settings."10-files.nanoyaki.space"."/var/lib/caddy/nanoyaki-files".d = dirConfig;
+  systemd.tmpfiles.settings = {
+    "10-na55l3zepb4kcg0zryqbdnay.theless.one"."/var/www/theless.one".d = dirConfig;
+    "10-files.theless.one"."/var/lib/caddy/files".d = dirConfig;
+    "10-files.nanoyaki.space"."/var/lib/caddy/nanoyaki-files".d = dirConfig;
+  };
 }

@@ -1,46 +1,22 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) mkMerge;
-
-  domain = "theless.one";
+  inherit (lib) nameValuePair;
+  cfg = config.services.caddy;
 
   # [ String ] -> attrset
   mapSecretsOwner =
     users:
-    mkMerge (
-      builtins.map (authUser: {
-        "caddy/users/${authUser}".owner = config.services.caddy.user;
-      }) users
+    builtins.listToAttrs (
+      builtins.map (authUser: nameValuePair "caddy/users/${authUser}" { owner = cfg.user; }) users
     );
 
-  # Int -> String -> attrset
-  mkMangaHost =
-    port: user:
-    mkHost {
-      subdomain = "${user}-manga";
-      config = ''
-        ${mkReverseProxyConfig port}
+  # Int -> String -> String
+  mkProtectedHost = port: user: ''
+    ${mkReverseProxyConfig port}
 
-        ${mkBasicAuthConfig user}
-      '';
-    };
-
-  # attrset -> attrset
-  mkHost =
-    {
-      domainOverride ? domain,
-      subdomain ? null,
-      config,
-    }:
-
-    let
-      actual = if subdomain != null then "${subdomain}." else "";
-    in
-
-    {
-      "${actual}${domainOverride}".extraConfig = config;
-    };
+    ${mkBasicAuthConfig user}
+  '';
 
   # Int -> String
   mkReverseProxyConfig = port: ''
@@ -59,6 +35,11 @@ let
     root * ${directory}
     file_server * browse
   '';
+
+  dirConfig = {
+    inherit (cfg) group user;
+    mode = "0700";
+  };
 in
 
 {
@@ -72,47 +53,34 @@ in
   services.caddy = {
     enable = true;
 
-    virtualHosts = mkMerge [
-      (mkHost {
-        subdomain = "na55l3zepb4kcg0zryqbdnay";
-        config = mkFileServerConfig "/var/www/theless.one";
-      })
-      (mkHost {
-        subdomain = "files";
-        config = ''
-          ${mkFileServerConfig "/var/lib/caddy/files"}
+    virtualHosts = {
+      "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServerConfig "/var/www/theless.one";
+      "files.theless.one".extraConfig = ''
+        ${mkFileServerConfig "/var/lib/caddy/files"}
 
-          ${mkBasicAuthConfig "shared"}
-        '';
-      })
+        ${mkBasicAuthConfig "shared"}
+      '';
+      "files.nanoyaki.space".extraConfig = ''
+        ${mkFileServerConfig "/var/lib/caddy/nanoyaki-files"}
 
-      (mkMangaHost 4555 "thelessone")
-      (mkMangaHost 4556 "nik")
-      (mkMangaHost 4557 "hana")
+        ${mkBasicAuthConfig "hana"}
+      '';
 
-      (mkHost {
-        subdomain = "woodpecker";
-        config = mkReverseProxyConfig 3007;
-      })
-      (mkHost {
-        subdomain = "git";
-        config = mkReverseProxyConfig 12500;
-      })
-      (mkHost {
-        domainOverride = "nanoyaki.space";
-        subdomain = "git";
-        config = mkReverseProxyConfig 12500;
-      })
+      "manga.theless.one".extraConfig = mkProtectedHost 4555 "thelessone";
+      "nik-manga.theless.one".extraConfig = mkProtectedHost 4556 "nik";
+      "hana-manga.theless.one".extraConfig = mkProtectedHost 4557 "hana";
 
-      # (mkHost "map" (mkReverseProxyConfig 8100))
-      (mkHost {
-        subdomain = "metrics";
-        config = ''
-          ${mkReverseProxyConfig 9090}
+      "git.theless.one".extraConfig = mkReverseProxyConfig 12500;
+      "git.nanoyaki.space".extraConfig = mkReverseProxyConfig 12500;
+      "woodpecker.theless.one".extraConfig = mkReverseProxyConfig 3007;
 
-          ${mkBasicAuthConfig "hana"}
-        '';
-      })
-    ];
+      # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
+      "metrics.theless.one".extraConfig = mkProtectedHost 9090 "hana";
+    };
   };
+
+  systemd.tmpfiles.settings."10-na55l3zepb4kcg0zryqbdnay.theless.one"."/var/www/theless.one".d =
+    dirConfig;
+  systemd.tmpfiles.settings."10-files.theless.one"."/var/lib/caddy/files".d = dirConfig;
+  systemd.tmpfiles.settings."10-files.nanoyaki.space"."/var/lib/caddy/nanoyaki-files".d = dirConfig;
 }

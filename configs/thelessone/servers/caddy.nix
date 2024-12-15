@@ -13,25 +13,25 @@ let
 
   # Int -> String -> String
   mkProtectedHost = port: user: ''
-    ${mkReverseProxyConfig port}
+    ${mkReverseProxy port}
 
-    ${mkBasicAuthConfig user}
+    ${mkBasicAuth user}
   '';
 
   # Int -> String
-  mkReverseProxyConfig = port: ''
+  mkReverseProxy = port: ''
     reverse_proxy localhost:${toString port}
   '';
 
   # String -> String
-  mkBasicAuthConfig = user: ''
+  mkBasicAuth = user: ''
     basic_auth * {
       import ${config.sec."caddy/users/${user}".path}
     }
   '';
 
   # String -> String
-  mkFileServerConfig = directory: ''
+  mkFileServer = directory: ''
     root * ${directory}
     file_server * browse
   '';
@@ -54,25 +54,25 @@ in
     enable = true;
 
     virtualHosts = {
-      "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServerConfig "/var/www/theless.one";
+      "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
       "files.theless.one".extraConfig = ''
-        ${mkFileServerConfig "/var/lib/caddy/files"}
+        ${mkFileServer "/var/lib/caddy/files"}
 
-        ${mkBasicAuthConfig "shared"}
+        ${mkBasicAuth "shared"}
       '';
       "files.nanoyaki.space".extraConfig = ''
-        ${mkFileServerConfig "/var/lib/caddy/nanoyaki-files"}
+        ${mkFileServer "/var/lib/caddy/nanoyaki-files"}
 
-        ${mkBasicAuthConfig "hana"}
+        ${mkBasicAuth "hana"}
       '';
 
       "manga.theless.one".extraConfig = mkProtectedHost 4555 "thelessone";
       "nik-manga.theless.one".extraConfig = mkProtectedHost 4556 "nik";
       "hana-manga.theless.one".extraConfig = mkProtectedHost 4557 "hana";
 
-      "git.theless.one".extraConfig = mkReverseProxyConfig 12500;
-      "git.nanoyaki.space".extraConfig = mkReverseProxyConfig 12500;
-      "woodpecker.theless.one".extraConfig = mkReverseProxyConfig 3007;
+      "git.theless.one".extraConfig = mkReverseProxy 12500;
+      "git.nanoyaki.space".extraConfig = mkReverseProxy 12500;
+      "woodpecker.theless.one".extraConfig = mkReverseProxy 3007;
 
       # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
       "metrics.theless.one".extraConfig = mkProtectedHost 9090 "hana";

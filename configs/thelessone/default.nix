@@ -8,7 +8,7 @@
 {
   flake = {
     nixosConfigurations = deps.mkSystem {
-      hostname = "server-nixos";
+      hostname = "thelessone";
       username = "thelessone";
       modules = [
         ../common/sops
@@ -33,18 +33,18 @@
       ];
     };
 
-    deploy.nodes.server-nixos = {
+    deploy.nodes.thelessone = {
       hostname = "theless.one";
       sshUser = "thelessone";
       sshOpts = [
         "-i"
-        self.nixosConfigurations.server-nixos.config.sec."deployment/private".path
+        self.nixosConfigurations.thelessone.config.sec."deployment/private".path
       ];
       remoteBuild = true;
 
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server-nixos;
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.thelessone;
       };
     };
 

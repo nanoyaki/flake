@@ -38,7 +38,7 @@ let
 
   dirConfig = {
     inherit (cfg) group user;
-    mode = "0700";
+    mode = "0776";
   };
 in
 

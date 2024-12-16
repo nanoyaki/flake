@@ -74,7 +74,6 @@ in
       "git.nanoyaki.space".extraConfig = mkReverseProxy 12500;
       "woodpecker.theless.one".extraConfig = mkReverseProxy 3007;
 
-      "syncthing.theless.one".extraConfig = mkProtectedHost 8384 "hana";
       # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
       "metrics.theless.one".extraConfig = mkProtectedHost 9090 "hana";
     };

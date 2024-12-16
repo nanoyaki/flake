@@ -26,7 +26,7 @@ in
       devices."thelessone".id = "4MLMRMK-3Y4OSRK-BVJHBRW-NRGIYRC-HOHOOOB-KJKUUTO-X7LGP4M-3LNTOQE";
 
       folders."Shared" = {
-        path = "/var/lib/syncthing/shared";
+        path = "/home/shared";
         devices = builtins.attrNames cfg.settings.devices;
         label = "Shared Directory";
       };
@@ -34,5 +34,5 @@ in
   };
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
-  systemd.tmpfiles.settings."10-syncthing-shared"."/var/lib/syncthing/shared".d = dirCfg;
+  systemd.tmpfiles.settings."10-syncthing-shared"."/home/shared".d = dirCfg;
 }

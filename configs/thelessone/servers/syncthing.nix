@@ -28,7 +28,7 @@ in
       };
 
       folders."Shared" = {
-        path = "/var/lib/syncthing/shared";
+        path = "/home/shared";
         devices = builtins.attrNames cfg.settings.devices;
         label = "Shared Directory";
       };
@@ -36,5 +36,5 @@ in
   };
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
-  systemd.tmpfiles.settings."10-syncthing-shared"."/var/lib/syncthing/shared".d = dirCfg;
+  systemd.tmpfiles.settings."10-syncthing-shared"."/home/shared".d = dirCfg;
 }

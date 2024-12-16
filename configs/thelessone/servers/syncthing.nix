@@ -4,7 +4,7 @@ let
   cfg = config.services.syncthing;
   dirCfg = {
     inherit (cfg) user group;
-    mode = "0700";
+    mode = "0774";
   };
 in
 

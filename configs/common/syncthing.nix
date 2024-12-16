@@ -5,7 +5,7 @@ let
   dirCfg = {
     user = config.hm.home.username;
     group = "users";
-    mode = "0700";
+    mode = "0777";
   };
 in
 

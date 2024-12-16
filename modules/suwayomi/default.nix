@@ -48,9 +48,9 @@ in
   };
 
   config = lib.mkIf (cfg.enable && cfg.instances != { }) {
-    networking.firewall.allowedTCPPorts = builtins.map (
-      instance: cfg.instances.${instance}.settings.server.port
-    ) (builtins.attrNames cfg.instances);
+    # networking.firewall.allowedTCPPorts = builtins.map (
+    #   instance: cfg.instances.${instance}.settings.server.port
+    # ) (builtins.attrNames cfg.instances);
 
     users.groups = mapAttrs' (name: instCfg: nameValuePair "suwayomi-${name}" { }) cfg.instances;
 

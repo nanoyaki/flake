@@ -12,7 +12,7 @@
         443
 
         # SCP query
-        7777
+        # 7777
       ];
 
       # TCP port ranges
@@ -23,7 +23,7 @@
       # Allowed UDP Ports
       allowedUDPPorts = [
         # SCP
-        7777
+        # 7777
       ];
 
       # UDP port ranges

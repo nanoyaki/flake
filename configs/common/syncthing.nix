@@ -22,7 +22,7 @@ in
     key = config.sec."syncthing/${config.networking.hostName}/key".path;
 
     settings = {
-      devices."thelessone".id = "YEOMDVN-YO4L6A7-RDT7BYL-6ZKOM7L-G2Q6PZU-EHYJNGZ-USQDY25-7V6SLAO";
+      devices."thelessone".id = "4MLMRMK-3Y4OSRK-BVJHBRW-NRGIYRC-HOHOOOB-KJKUUTO-X7LGP4M-3LNTOQE";
 
       folders."Shared" = {
         path = "/var/lib/syncthing/shared";

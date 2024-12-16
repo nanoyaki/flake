@@ -23,5 +23,6 @@
     ./neovim.nix
     ./user-programs.nix
     ./theme.nix
+    ./syncthing.nix
   ];
 }

@@ -8,5 +8,6 @@
     ./minecraft
     ./woodpecker.nix
     ./dynamicdns.nix
+    ./syncthing.nix
   ];
 }

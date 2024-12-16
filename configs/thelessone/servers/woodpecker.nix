@@ -9,7 +9,7 @@ let
     pkg: version:
     pkg.overrideAttrs (
       finalAttrs: _: {
-        version = version;
+        inherit version;
         src = pkgs.fetchzip {
           url = "https://github.com/woodpecker-ci/woodpecker/releases/download/v${version}/woodpecker-src.tar.gz";
           hash = "sha256-0aYEZaLFPLyGoHplyGZsn4xerUlYi00aLfgkqO2Yb2E=";

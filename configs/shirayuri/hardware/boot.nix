@@ -9,7 +9,14 @@
       "sd_mod"
     ];
 
-    loader.grub.useOSProber = true;
+    loader.efi.efiSysMountPoint = "/boot/efi";
+    loader.grub = {
+      enable = true;
+      efiSupport = true;
+      useOSProber = true;
+      device = "nodev";
+      configurationLimit = 10;
+    };
 
     supportedFilesystems = [ "ntfs" ];
   };

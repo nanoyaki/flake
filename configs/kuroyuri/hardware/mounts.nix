@@ -5,7 +5,7 @@
       fsType = "ext4";
     };
 
-    "/boot/efi" = {
+    "/boot" = {
       device = "/dev/disk/by-uuid/746D-88D6";
       fsType = "vfat";
       options = [

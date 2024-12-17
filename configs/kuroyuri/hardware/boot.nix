@@ -1,4 +1,9 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -21,7 +26,7 @@
     loader = {
       efi.efiSysMountPoint = "/boot";
       systemd-boot.enable = lib.mkForce false;
-      timeout = 0;
+      timeout = 5;
     };
 
     # replaces systemd-boot
@@ -30,4 +35,6 @@
       pkiBundle = "/var/lib/sbctl";
     };
   };
+
+  environment.systemPackages = [ pkgs.sbctl ];
 }

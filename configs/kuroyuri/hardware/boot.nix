@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -35,6 +34,4 @@
       pkiBundle = "/var/lib/sbctl";
     };
   };
-
-  environment.systemPackages = [ pkgs.sbctl ];
 }

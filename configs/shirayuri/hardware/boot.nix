@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 {
   boot = {
     initrd.availableKernelModules = [
@@ -9,13 +11,20 @@
       "sd_mod"
     ];
 
-    loader.efi.efiSysMountPoint = "/boot/efi";
-    loader.grub = {
+    loader = {
+      efi.efiSysMountPoint = "/boot";
+
+      systemd-boot = {
+        enable = lib.mkForce false;
+        configurationLimit = 10;
+      };
+
+      timeout = 5;
+    };
+
+    lanzaboote = {
       enable = true;
-      efiSupport = true;
-      useOSProber = true;
-      device = "nodev";
-      configurationLimit = 10;
+      pkiBundle = "/var/lib/sbctl";
     };
 
     supportedFilesystems = [ "ntfs" ];

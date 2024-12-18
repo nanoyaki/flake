@@ -8,6 +8,13 @@
 
 let
   inherit (inputs) vermeer-undervolt;
+
+  corectrl = pkgs.corectrl.overrideAttrs {
+    patches = [
+      ./corectrl/polkit-dir.patch
+      ./corectrl/systray.patch
+    ];
+  };
 in
 
 {
@@ -23,9 +30,11 @@ in
   hardware.cpu.amd.updateMicrocode = true;
 
   security.polkit.enable = true;
-  hm.xdg.configFile."autostart/org.corectrl.CoreCtrl.desktop".source = config.hm.lib.file.mkOutOfStoreSymlink "${pkgs.corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
+  hm.xdg.configFile."autostart/org.corectrl.CoreCtrl.desktop".source =
+    config.hm.lib.file.mkOutOfStoreSymlink "${corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
   programs.corectrl = {
     enable = true;
+    package = corectrl;
     gpuOverclock.enable = true;
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };

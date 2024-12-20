@@ -57,9 +57,9 @@ in
     catppuccin = {
       inherit (catppuccin) enable flavor accent;
 
-      # pointerCursor = {
-      #   inherit (catppuccin) enable flavor accent;
-      # };
+      pointerCursor = {
+        inherit (catppuccin) enable flavor accent;
+      };
     };
 
     # https://github.com/catppuccin/lsd/blob/92d4a10318e5dfde29dbe52d166952dbf1834a0d/themes/catppuccin-mocha/colors.yaml

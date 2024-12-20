@@ -8,6 +8,7 @@
 
   users.groups.hana = { };
   users.users.hana = {
+    isSystemUser = true;
     group = "hana";
     hashedPasswordFile = config.sec."nixos/users/hana".path;
   };

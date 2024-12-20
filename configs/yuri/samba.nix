@@ -8,8 +8,12 @@
 
   users.groups.hana = { };
   users.users.hana = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "hana";
+    createHome = false;
+    home = "/mnt/shares/Hana";
+    homeMode = "755";
+    useDefaultShell = true;
     hashedPasswordFile = config.sec."nixos/users/hana".path;
   };
 

@@ -23,8 +23,6 @@ in
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
-  inherit catppuccin;
-
   environment.systemPackages = [
     # pkgs.catppuccin-cursors.mochaPink
 
@@ -45,19 +43,23 @@ in
     ))
   ];
 
-  services.displayManager.sddm.catppuccin = {
-    enable = true;
-    assertQt6Sddm = true;
-    flavor = "mocha";
-    background = "${config.hm.xdg.userDirs.pictures}/Wallpaper/Wallpaper.png";
-    loginBackground = true;
+  catppuccin = {
+    inherit (catppuccin) enable flavor accent;
+
+    sddm = {
+      enable = true;
+      assertQt6Sddm = true;
+      flavor = "mocha";
+      background = "${config.hm.xdg.userDirs.pictures}/Wallpaper/Wallpaper.png";
+      loginBackground = true;
+    };
   };
 
   hm = {
     catppuccin = {
       inherit (catppuccin) enable flavor accent;
 
-      pointerCursor = {
+      cursors = {
         inherit (catppuccin) enable flavor accent;
       };
     };

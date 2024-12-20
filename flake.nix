@@ -66,6 +66,7 @@
         ./configs/shirayuri
         ./configs/kuroyuri
         ./configs/thelessone
+        ./configs/yuri
       ];
 
       systems = [

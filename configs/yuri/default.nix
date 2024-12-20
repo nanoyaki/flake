@@ -11,6 +11,7 @@
       ../common/networking.nix
       ../common/nix.nix
       ../common/shell.nix
+      ../common/ssh.nix
 
       ./hardware
       ./configuration.nix

@@ -68,6 +68,7 @@
         "directory mask" = "0755";
         "force user" = "hana";
         "force group" = "hana";
+        "valid users" = "hana";
       };
     };
   };

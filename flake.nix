@@ -11,6 +11,10 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Don't follow nixpkgs for easier deployment
     deploy-rs.url = "github:serokell/deploy-rs";
 

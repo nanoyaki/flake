@@ -10,18 +10,21 @@
 
   services.samba = {
     enable = true;
-    securityType = "user";
     openFirewall = true;
 
-    settings.public = {
-      path = "/mnt/shares/Public";
-      browseable = "yes";
-      "read only" = "no";
-      "guest ok" = "yes";
-      "create mask" = "0644";
-      "directory mask" = "0755";
-      "force user" = "nas";
-      "force group" = "nas";
+    settings = {
+      global.security = "user";
+
+      public = {
+        path = "/mnt/shares/Public";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "nas";
+        "force group" = "nas";
+      };
     };
   };
 

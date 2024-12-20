@@ -3,7 +3,6 @@
   pkgs,
   inputs,
   config,
-  username,
   ...
 }:
 
@@ -30,8 +29,6 @@ in
 
     age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
   };
-
-  sec."deployment/private".owner = username;
 
   environment.systemPackages = [ pkgs.sops ];
 }

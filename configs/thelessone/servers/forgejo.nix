@@ -32,7 +32,7 @@ in
     package = pkgs.forgejo-actions-runner;
 
     instances.default = {
-      enable = true;
+      enable = false;
       name = "monolith";
       url = "https://git.theless.one";
       tokenFile = config.sec."forgejo/runners/default".path;

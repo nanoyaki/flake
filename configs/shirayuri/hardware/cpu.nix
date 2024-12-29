@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  config,
   username,
   ...
 }:
@@ -31,7 +30,7 @@ in
 
   security.polkit.enable = true;
   hm.xdg.configFile."autostart/org.corectrl.CoreCtrl.desktop".source =
-    config.hm.lib.file.mkOutOfStoreSymlink "${corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
+    "${corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
   programs.corectrl = {
     enable = true;
     package = corectrl;

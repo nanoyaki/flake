@@ -33,9 +33,7 @@ in
     };
 
     # for spotify-qt to always find librespot
-    home.file.".local/bin/librespot".source = config.hm.lib.file.mkOutOfStoreSymlink (
-      lib.getExe pkgs.librespot
-    );
+    home.file.".local/bin/librespot".source = lib.getExe pkgs.librespot;
   };
 
   systemd.user.services.librespot = {

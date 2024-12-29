@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  sec."nixos/users/hana".owner = "hana";
+  sec."nixos/users/hana".neededForUsers = true;
 
   users.users.nas.extraGroups = [ "nas" ];
   users.groups.nas = { };

@@ -17,11 +17,21 @@ in
 {
   imports = [
     inputs.catppuccin.nixosModules.catppuccin
+    inputs.stylix.nixosModules.stylix
   ];
 
   home-manager.sharedModules = [
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
+
+  stylix = {
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
+    image = pkgs.fetchurl {
+      url = "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:n3xxlxmlutbyeih4rphvn5o3/bafkreie6qpaxgmgbelgddjezoqknolhqvhtwdpeq4ucfbup35oytb5i3ma@png";
+      hash = lib.fakeHash;
+    };
+    polarity = "dark";
+  };
 
   environment.systemPackages = [
     # pkgs.catppuccin-cursors.mochaPink

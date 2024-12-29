@@ -15,4 +15,9 @@
   ];
 
   zramSwap.enable = true;
+
+  systemd.tmpfiles.settings."10-os-shared-xdg-user-dirs"."/var/lib/swap".d = {
+    user = "root";
+    mode = "0700";
+  };
 }

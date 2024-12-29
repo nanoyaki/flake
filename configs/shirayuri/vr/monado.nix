@@ -8,46 +8,42 @@
 
 # https://wiki.nixos.org/wiki/VR#Monado
 {
-  hm.xdg.configFile = {
-    "steamargs/vrchat" = {
-      force = true;
-      text = ''env PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/monado_comp_ipc %command%'';
-    };
+  nixpkgs.overlays = [
+    (self: super: {
+      monado = super.monado.overrideAttrs (oldAttrs: {
+        cmakeFlags = [
+          (lib.cmakeBool "XRT_FEATURE_SERVICE" true)
+          (lib.cmakeBool "XRT_OPENXR_INSTALL_ABSOLUTE_RUNTIME_PATH" true)
+          (lib.cmakeBool "XRT_HAVE_STEAM" true)
+          (lib.cmakeBool "CMAKE_EXPORT_COMPILE_COMMANDS" true)
+          (lib.cmakeBool "XRT_HAVE_SYSTEM_CJSON" true)
+        ];
+      });
+    })
+  ];
 
-    "openxr/1/active_runtime.json".text = ''
+  hm.xdg.configFile = {
+    "openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
+
+    "openvr/openvrpaths.vrpath".text = ''
       {
-        "file_format_version": "1.0.0",
-        "runtime": {
-          "name": "Monado",
-          "library_path": "${pkgs.monado}/lib/libopenxr_monado.so"
-        }
+        "config" :
+        [
+          "${config.hm.xdg.dataHome}/Steam/config"
+        ],
+        "external_drivers" : null,
+        "jsonid" : "vrpathreg",
+        "log" :
+        [
+          "${config.hm.xdg.dataHome}/Steam/logs"
+        ],
+        "runtime" :
+        [
+          "${pkgs.opencomposite}/lib/opencomposite"
+        ],
+        "version" : 1
       }
     '';
-
-    "openvr/openvrpaths.vrpath.opencomp" = {
-      force = true;
-      text = ''
-        {
-          "config" :
-          [
-            "${config.hm.xdg.dataHome}/Steam/config"
-          ],
-          "external_drivers" : null,
-          "jsonid" : "vrpathreg",
-          "log" :
-          [
-            "${config.hm.xdg.dataHome}/Steam/logs"
-          ],
-          "runtime" :
-          [
-            "${pkgs.opencomposite}/lib/opencomposite"
-          ],
-          "version" : 1
-        }
-      '';
-    };
-
-    "openvr/openvrpaths.vrpath".source = config.hm.lib.file.mkOutOfStoreSymlink "${config.hm.xdg.configHome}/openvr/openvrpaths.vrpath.opencomp";
   };
 
   hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models".source = pkgs.fetchgit {
@@ -71,9 +67,10 @@
     };
 
     environment = {
+      STEAMVR_PATH = "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR";
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
-      WMR_HANDTRACKING = "0";
+      WMR_HANDTRACKING = "1";
       XRT_COMPOSITOR_SCALE_PERCENTAGE = "140";
       SURVIVE_GLOBALSCENESOLVER = "0";
       SURVIVE_TIMECODE_OFFSET_MS = "-6.94";

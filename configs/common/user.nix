@@ -6,7 +6,7 @@
 }:
 
 {
-  sec."nixos/users/${username}".owner = username;
+  sec."nixos/users/${username}".neededForUsers = true;
 
   users.users.${username} = {
     isNormalUser = true;

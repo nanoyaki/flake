@@ -12,8 +12,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    bottles
-    cartridges
     lutris
 
     mangohud

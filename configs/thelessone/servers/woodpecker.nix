@@ -18,13 +18,9 @@ let
       }
     );
 
-  agentPkg =
-    overrideVer pkgs.woodpecker-agent "3.0.0-rc.0"
-      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
+  agentPkg = pkgs.woodpecker-agent;
 
-  serverPkg =
-    overrideVer pkgs.woodpecker-server "3.0.0-rc.0"
-      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
+  serverPkg = pkgs.woodpecker-server;
 in
 
 {

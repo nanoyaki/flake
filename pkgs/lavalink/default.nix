@@ -11,7 +11,7 @@ let
 in
 
 stdenv.mkDerivation (finalAttrs: {
-  name = "lavalink";
+  pname = "lavalink";
   version = "4.0.8";
 
   src = fetchurl {

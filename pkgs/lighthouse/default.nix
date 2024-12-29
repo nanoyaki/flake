@@ -6,13 +6,14 @@
   dbus,
 }:
 
-rustPlatform.buildRustPackage {
-  name = "lighthouse";
+rustPlatform.buildRustPackage rec {
+  pname = "lighthouse";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "ShayBox";
     repo = "Lighthouse";
-    rev = "1.2.0";
+    rev = version;
     hash = "sha256-uJ8U4knNKAliHjxP0JnV1lSCEsB6OHyYSbb5aWboYV4=";
   };
 
@@ -25,7 +26,7 @@ rustPlatform.buildRustPackage {
     dbus
   ];
 
-  cargoHash = "sha256-oRE6OGG4jCr1GdrRBAfadoYbjS3mYTXPCqlZvqHh3x8=";
+  cargoHash = "sha256-9tJ8TB0oHlriCKFTBhuKQS+Y3oz8QK9/GGLiekoWPa8=";
 
   meta = {
     description = "Virtual reality basestation power management in Rust";

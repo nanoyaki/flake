@@ -98,7 +98,7 @@
       };
 
       metrics.prometheus = {
-        enabled = true;
+        enabled = false;
         endpoint = "/metrics";
       };
 
@@ -117,7 +117,7 @@
   };
 
   services.prometheus = {
-    enable = true;
+    enable = false;
     port = 9090;
     globalConfig.scrape_interval = "10s"; # "1m"
     scrapeConfigs = [

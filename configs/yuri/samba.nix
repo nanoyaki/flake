@@ -38,8 +38,8 @@
     settings = {
       global = {
         security = "user";
-        "netbios name" = "home-nas";
-        "server string" = "NixOS NAS";
+        "netbios name" = "nas";
+        "server string" = "NAS";
 
         "hosts allow" = "192.168.8. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
@@ -86,5 +86,6 @@
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
+    hostname = "NAS";
   };
 }

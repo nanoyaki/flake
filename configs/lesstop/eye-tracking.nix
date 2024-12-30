@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    oscavmgr
-    vrcadvert
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "facetracking" ''
+      trap 'jobs -p | xargs kill' EXIT
+
+      ${lib.getExe pkgs.vrcadvert} OscAvMgr 9402 9000 --tracking &
+
+      # If using WiVRn
+      ${lib.getExe pkgs.oscavmgr} openxr
+    '')
   ];
 }

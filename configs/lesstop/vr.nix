@@ -12,5 +12,8 @@
     '')
   ];
 
-  services.wivrn.package = pkgs.wivrn.override { cudaSupport = true; };
+  services.wivrn.package = pkgs.wivrn.override {
+    cudaSupport = true;
+    cudaPackages = pkgs.cudaPackages;
+  };
 }

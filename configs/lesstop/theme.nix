@@ -1,14 +1,15 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
 {
-  imports = [ inputs.stylix.nixosModules.stylix ];
+  imports = [ ../common/theme.nix ];
 
-  stylix = {
+  stylix = lib.mkForce {
+    enable = true;
+
     cursor.package = pkgs.rose-pine-cursor;
     cursor.name = "BreezeX-RosePine-Linux";
 
@@ -17,7 +18,7 @@
 
     image = pkgs.fetchurl {
       url = "https://na55l3zepb4kcg0zryqbdnay.theless.one/nix.png";
-      hash = lib.fakeHash;
+      hash = "sha256-G2a9UxqPXQNj+sLxDKwkT5D8/6W6rWWoQFL23jXxsrU=";
     };
   };
 }

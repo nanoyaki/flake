@@ -1,30 +1,10 @@
 { pkgs, config, ... }:
 
 {
-  hm.xdg.configFile = {
-    "openxr/1/active_runtime.json".source =
-      "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
+  hm.xdg.configFile."openxr/1/active_runtime.json".source =
+    "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
 
-    "openvr/openvrpaths.vrpath".text = ''
-      {
-        "config" :
-        [
-          "${config.hm.xdg.dataHome}/Steam/config"
-        ],
-        "external_drivers" : null,
-        "jsonid" : "vrpathreg",
-        "log" :
-        [
-          "${config.hm.xdg.dataHome}/Steam/logs"
-        ],
-        "runtime" :
-        [
-          "${pkgs.opencomposite}/lib/opencomposite"
-        ],
-        "version" : 1
-      }
-    '';
-  };
+  environment.systemPackages = [ pkgs.monado-vulkan-layers ];
 
   services.wivrn = {
     enable = true;

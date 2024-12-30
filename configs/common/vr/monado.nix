@@ -22,29 +22,8 @@
     })
   ];
 
-  hm.xdg.configFile = {
-    "openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
-
-    "openvr/openvrpaths.vrpath".text = ''
-      {
-        "config" :
-        [
-          "${config.hm.xdg.dataHome}/Steam/config"
-        ],
-        "external_drivers" : null,
-        "jsonid" : "vrpathreg",
-        "log" :
-        [
-          "${config.hm.xdg.dataHome}/Steam/logs"
-        ],
-        "runtime" :
-        [
-          "${pkgs.opencomposite}/lib/opencomposite"
-        ],
-        "version" : 1
-      }
-    '';
-  };
+  hm.xdg.configFile."openxr/1/active_runtime.json".source =
+    "${pkgs.monado}/share/openxr/1/openxr_monado.json";
 
   hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models".source = pkgs.fetchgit {
     url = "https://gitlab.freedesktop.org/monado/utilities/hand-tracking-models.git";

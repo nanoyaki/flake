@@ -16,6 +16,26 @@
     hrtf = true
   '';
 
+  hm.xdg.configFile."openvr/openvrpaths.vrpath".text = ''
+    {
+      "config" :
+      [
+        "${config.hm.xdg.dataHome}/Steam/config"
+      ],
+      "external_drivers" : null,
+      "jsonid" : "vrpathreg",
+      "log" :
+      [
+        "${config.hm.xdg.dataHome}/Steam/logs"
+      ],
+      "runtime" :
+      [
+        "${pkgs.opencomposite}/lib/opencomposite"
+      ],
+      "version" : 1
+    }
+  '';
+
   programs.steam.extraCompatPackages = [
     pkgs.proton-ge-rtsp-bin
   ];

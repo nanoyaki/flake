@@ -30,6 +30,7 @@
       ./locale.nix
       ./theme.nix
       ./programs.nix
+      ./eye-tracking.nix
     ];
   };
 }

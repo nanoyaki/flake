@@ -5,8 +5,6 @@
 
 {
   imports = [
-    ./steam.nix
-    ./minecraft.nix
     ./anime-games.nix
     ./rpgmaker.nix
   ];

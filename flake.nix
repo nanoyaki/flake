@@ -72,6 +72,7 @@
         ./configs/kuroyuri
         ./configs/thelessone
         ./configs/yuri
+        ./configs/lesstop
       ];
 
       systems = [

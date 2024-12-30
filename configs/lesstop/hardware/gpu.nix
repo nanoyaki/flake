@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   hardware.graphics = {
@@ -11,6 +11,7 @@
 
   hardware.nvidia = {
     open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
 
     prime = {
       offload.enable = true;

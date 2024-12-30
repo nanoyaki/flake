@@ -1,4 +1,6 @@
 {
+  imports = [ ../../common/boot.nix ];
+
   boot = {
     initrd = {
       availableKernelModules = [
@@ -11,10 +13,7 @@
       kernelModules = [ ];
     };
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+    loader.systemd-boot.enable = true;
 
     kernelModules = [
       "kvm-intel"

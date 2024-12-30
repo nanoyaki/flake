@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 
 {
   imports = [
@@ -54,7 +51,7 @@
         type = "gpt";
 
         partitions.main = {
-          name = "os-shared";
+          name = "main";
           size = "100%";
 
           content = {

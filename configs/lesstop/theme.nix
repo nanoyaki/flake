@@ -8,7 +8,7 @@
   imports = [ ../common/theme.nix ];
 
   stylix = {
-    base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/pasque.yaml";
+    base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/da-one-sea.yaml";
     image = lib.mkForce (
       pkgs.fetchurl {
         url = "https://na55l3zepb4kcg0zryqbdnay.theless.one/nix.png";

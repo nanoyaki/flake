@@ -27,8 +27,6 @@ in
 
       systemctl --user start wivrn.service
 
-      ${lib.getExe ft-pkg} &
-
       echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
 
       systemctl --user start wlx-overlay-s.service
@@ -39,7 +37,11 @@ in
 
       ein Spiel starten. Bei VRC:
 
-      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%'
+      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%
+
+      für face tracking diesen Befehl ausführen:
+
+      facetracking'
     '')
   ];
 

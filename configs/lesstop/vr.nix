@@ -22,9 +22,8 @@ in
   environment.systemPackages = [
     packages.startvrc
     pkgs.motoc
+    ft-pkg
     (pkgs.writeShellScriptBin "startvr" ''
-      trap 'jobs -p | xargs kill' EXIT
-
       systemctl --user start wivrn.service
 
       echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
@@ -41,7 +40,7 @@ in
 
       für face tracking diesen Befehl ausführen:
 
-      facetracking'
+      ${lib.getExe ft-pkg}'
     '')
   ];
 

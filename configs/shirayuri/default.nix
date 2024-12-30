@@ -7,6 +7,7 @@
     modules = [
       ../common
       ../common/vr
+      ../common/vr/monado.nix
       ../common/gaming
 
       ./hardware

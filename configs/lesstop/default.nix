@@ -21,6 +21,7 @@
       ../common/mpv.nix
       ../common/terminal.nix
       ../common/vr
+      ../common/vr/wivrn.nix
       ../common/gaming
 
       ./hardware

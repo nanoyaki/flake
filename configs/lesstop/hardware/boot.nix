@@ -16,7 +16,10 @@
       efi.canTouchEfiVariables = true;
     };
 
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "nvidia_uvm"
+    ];
     extraModulePackages = [ ];
   };
 }

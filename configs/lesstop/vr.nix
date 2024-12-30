@@ -11,4 +11,6 @@
       ${lib.getExe pkgs.oscavmgr} openxr
     '')
   ];
+
+  services.wivrn.package = pkgs.wivrn.override { cudaSupport = true; };
 }

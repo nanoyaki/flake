@@ -15,7 +15,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/pasque.yaml";
     polarity = "dark";
 
-    wallpaper = pkgs.fetchurl {
+    image = pkgs.fetchurl {
       url = "https://na55l3zepb4kcg0zryqbdnay.theless.one/nix.png";
       hash = lib.fakeHash;
     };

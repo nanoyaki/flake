@@ -68,6 +68,7 @@
 
     environment = {
       STEAMVR_PATH = "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR";
+      XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
       WMR_HANDTRACKING = "1";
@@ -76,6 +77,4 @@
       SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
     };
   };
-
-  environment.sessionVariables.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
 }

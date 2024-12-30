@@ -6,6 +6,8 @@
     username = "hana";
     modules = [
       ../common
+      ../common/vr
+      ../common/gaming
 
       ./hardware
 
@@ -13,7 +15,6 @@
       ./xdg-user-dirs.nix
       ./gaming
       ./emulation.nix
-      ./vr
       ./shell.nix
       ./git.nix
     ];

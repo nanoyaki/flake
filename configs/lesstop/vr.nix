@@ -30,17 +30,17 @@ in
 
       systemctl --user start wlx-overlay-s.service
 
-      und danach mit: 
+      und danach mit folgenden start arguments ein Spiel auf Steam starten:
 
       PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc nvidia-offload %command%
 
-      ein Spiel starten. Bei VRC:
+      Bei VRC diese start arguments auf Steam verwenden:
 
       PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%
 
       für face tracking diesen Befehl ausführen:
 
-      ${lib.getExe ft-pkg}'
+      facetracking'
     '')
   ];
 

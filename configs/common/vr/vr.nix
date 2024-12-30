@@ -47,14 +47,13 @@
 
     serviceConfig = {
       ExecStart = "${lib.getExe pkgs.wlx-overlay-s} --openxr";
-      Restart = "no";
+      Restart = "on-failure";
       Type = "simple";
     };
 
     environment = {
       OXR_VIEWPORT_SCALE_PERCENTAGE = "120";
       XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
-      LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
     };
 
     restartTriggers = [ pkgs.wlx-overlay-s ];

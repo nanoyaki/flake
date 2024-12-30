@@ -56,4 +56,16 @@
       SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
     };
   };
+
+  systemd.user.services.wlx-overlay-s = {
+    environment.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
+
+    after = [ "monado.service" ];
+    bindsTo = [ "monado.service" ];
+    wantedBy = [ "monado.service" ];
+    requires = [
+      "monado.socket"
+      "graphical-session.target"
+    ];
+  };
 }

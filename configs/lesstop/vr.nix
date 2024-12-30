@@ -1,14 +1,45 @@
-{ lib, pkgs, ... }:
-
 {
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "facetracking" ''
+  lib,
+  pkgs,
+  packages,
+  ...
+}:
+
+let
+  ft-pkg = (
+    pkgs.writeShellScriptBin "facetracking" ''
       trap 'jobs -p | xargs kill' EXIT
 
       ${lib.getExe pkgs.vrcadvert} OscAvMgr 9402 9000 --tracking &
 
       # If using WiVRn
       ${lib.getExe pkgs.oscavmgr} openxr
+    ''
+  );
+in
+
+{
+  environment.systemPackages = [
+    packages.startvrc
+    pkgs.motoc
+    (pkgs.writeShellScriptBin "startvr" ''
+      trap 'jobs -p | xargs kill' EXIT
+
+      systemctl --user start wivrn.service
+
+      ${lib.getExe ft-pkg} &
+
+      echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
+
+      systemctl --user start wlx-overlay-s.service
+
+      und danach mit: 
+
+      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc nvidia-offload %command%
+
+      ein Spiel starten. Bei VRC:
+
+      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%'
     '')
   ];
 

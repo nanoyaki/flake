@@ -28,7 +28,7 @@
         bitrate = 300000000;
         encoders = [
           {
-            encoder = "nvenc";
+            encoder = "vaapi";
             codec = "h265";
             # 1.0 x 1.0 scaling
             width = 1.0;

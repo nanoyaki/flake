@@ -40,7 +40,11 @@ in
 
       für face tracking diesen Befehl ausführen:
 
-      facetracking'
+      facetracking
+
+      Anweisungen für motoc:
+
+      https://github.com/galister/motoc?tab=readme-ov-file#how-to-use'
     '')
   ];
 

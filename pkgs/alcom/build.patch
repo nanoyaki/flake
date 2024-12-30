@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index cee7922e..f5075588 100644
+--- a/package.json
++++ b/package.json
+@@ -6,7 +6,7 @@
+ 		"tauri": "npm install && tauri",
+ 		"biome": "npm ci && biome",
+ 		"dev": "next dev -p 3030",
+-		"build": "npm install && npm run build:licenses && npm run build:next",
++		"build": "npm run build:next",
+ 		"build:next": "next build",
+ 		"build:licenses": "node ./scripts/build-license-json.mjs",
+ 		"format": "biome format",

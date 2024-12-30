@@ -3,6 +3,7 @@
 {
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
 
     extraPackages = with pkgs; [
       nvidia-vaapi-driver
@@ -10,7 +11,7 @@
   };
 
   hardware.nvidia = {
-    open = true;
+    open = false;
     package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     prime = {
@@ -21,5 +22,10 @@
     };
   };
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   environment.variables.LIBVA_DRIVER_NAME = "nvidia";
+  environment.systemPackages = [
+    pkgs.cudaPackages_12_4.cudatoolkit
+  ];
 }

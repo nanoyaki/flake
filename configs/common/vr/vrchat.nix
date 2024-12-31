@@ -4,6 +4,7 @@
   environment.systemPackages = [
     packages.startvrc
     pkgs.vrc-get
-    # pkgs.unityhub
+    pkgs.unityhub
+    pkgs.blender
   ];
 }

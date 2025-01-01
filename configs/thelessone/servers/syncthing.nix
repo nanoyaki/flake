@@ -10,16 +10,16 @@ in
 
 {
   sec = {
-    "syncthing/thelessone/cert".owner = cfg.user;
-    "syncthing/thelessone/key".owner = cfg.user;
+    "syncthing/cert".owner = cfg.user;
+    "syncthing/key".owner = cfg.user;
   };
 
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
 
-    cert = config.sec."syncthing/thelessone/cert".path;
-    key = config.sec."syncthing/thelessone/key".path;
+    cert = config.sec."syncthing/cert".path;
+    key = config.sec."syncthing/key".path;
 
     settings = {
       devices = {

@@ -1,10 +1,13 @@
 {
   inputs',
   pkgs,
+  username,
   ...
 }:
 
 {
+  sec."deployment/private".owner = username;
+
   modules.audio.latency = 32;
 
   environment.systemPackages =

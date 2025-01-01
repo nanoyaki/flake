@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  sec."deployment/private" = { };
+
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [

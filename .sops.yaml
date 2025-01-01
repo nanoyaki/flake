@@ -1,7 +1,31 @@
 keys:
-  - &primary age1g76tzmg5pr368e8acvxzlz8rvakzy7atjl0qzm0xsdy56u9m4ejswcss5g
+  - &shirayuri age1g76tzmg5pr368e8acvxzlz8rvakzy7atjl0qzm0xsdy56u9m4ejswcss5g
+  - &lesstop age1gezu4gq0a9s4fcmnjfjrc04f5y4748lddnufpt7qsq4t0cyq046qa2749t
+  - &thelessone age1t5w4gj3d8ulk2xud6kgkdpgtugcycd3vqeu05jth6wcflvu3fd0qucklu8
+  - &yuri age1se8sv8c084c5hqg8y448yhu3x4q4lw843v7l9dfyt08qaxyh2d6supwezt
+  - &kuroyuri age152k4hxe5vyj6kq48w4dqcm3tadyr7f6u02ydgfu8s2uuu478jawsj5q3yl
 creation_rules:
-  - path_regex: configs/common/sops/secrets.yaml$
+  - path_regex: configs/thelessone/secrets.yaml$
     key_groups:
       - age:
-          - *primary
+          - *thelessone
+          - *shirayuri
+  - path_regex: configs/yuri/secrets.yaml$
+    key_groups:
+      - age:
+          - *yuri
+          - *shirayuri
+  - path_regex: configs/shirayuri/secrets.yaml$
+    key_groups:
+      - age:
+          - *shirayuri
+  - path_regex: configs/kuroyuri/secrets.yaml$
+    key_groups:
+      - age:
+          - *kuroyuri
+          - *shirayuri
+  - path_regex: configs/lesstop/secrets.yaml$
+    key_groups:
+      - age:
+          - *lesstop
+          - *shirayuri

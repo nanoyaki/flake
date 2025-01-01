@@ -11,16 +11,16 @@ in
 
 {
   sec = {
-    "syncthing/${config.networking.hostName}/cert".owner = cfg.user;
-    "syncthing/${config.networking.hostName}/key".owner = cfg.user;
+    "syncthing/cert".owner = cfg.user;
+    "syncthing/key".owner = cfg.user;
   };
 
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
 
-    cert = config.sec."syncthing/${config.networking.hostName}/cert".path;
-    key = config.sec."syncthing/${config.networking.hostName}/key".path;
+    cert = config.sec."syncthing/cert".path;
+    key = config.sec."syncthing/key".path;
 
     settings = {
       devices."thelessone".id = "4MLMRMK-3Y4OSRK-BVJHBRW-NRGIYRC-HOHOOOB-KJKUUTO-X7LGP4M-3LNTOQE";

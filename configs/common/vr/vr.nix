@@ -57,14 +57,6 @@
     };
 
     restartTriggers = [ pkgs.wlx-overlay-s ];
-
-    after = [ "monado.service" ];
-    bindsTo = [ "monado.service" ];
-    wantedBy = [ "monado.service" ];
-    requires = [
-      "monado.socket"
-      "graphical-session.target"
-    ];
   };
 
   environment.systemPackages = [

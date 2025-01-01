@@ -16,14 +16,9 @@ let
       ${lib.getExe pkgs.oscavmgr} openxr
     ''
   );
-in
 
-{
-  environment.systemPackages = [
-    packages.startvrc
-    pkgs.motoc
-    ft-pkg
-    (pkgs.writeShellScriptBin "startvr" ''
+  startvr-pkg = (
+    pkgs.writeShellScriptBin "startvr" ''
       systemctl --user start wivrn.service
 
       echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
@@ -45,29 +40,45 @@ in
       Anweisungen für motoc:
 
       https://github.com/galister/motoc?tab=readme-ov-file#how-to-use'
-    '')
+    ''
+  );
+in
+
+{
+  environment.systemPackages = [
+    packages.startvrc
+    pkgs.motoc
+    ft-pkg
+    startvr-pkg
   ];
 
-  services.wivrn.package = pkgs.wivrn.override {
-    cudaPackages = pkgs.cudaPackages_12_4;
-    cudaSupport = true;
-  };
+  services.wivrn = {
+    package = pkgs.wivrn.override {
+      cudaPackages = pkgs.cudaPackages_12_4;
+      cudaSupport = true;
+    };
 
-  services.wivrn.config.json = {
-    # 1.0x foveation scaling
-    scale = 1;
-    # 300 Mb/s
-    bitrate = 300000000;
-    encoders = [
-      {
-        encoder = "nvenc";
-        codec = "h265";
-        # 1.0 x 1.0 scaling
-        width = 1.0;
-        height = 1.0;
-        offset_x = 0.0;
-        offset_y = 0.0;
-      }
-    ];
+    monadoEnvironment = {
+      WIVRN_USE_STEAMVR_LH = "1";
+      LH_DISCOVER_WAIT_MS = "6000";
+    };
+
+    config.json = {
+      # 1.0x foveation scaling
+      scale = 1;
+      # 300 Mb/s
+      bitrate = 300000000;
+      encoders = [
+        {
+          encoder = "nvenc";
+          codec = "h265";
+          # 1.0 x 1.0 scaling
+          width = 1.0;
+          height = 1.0;
+          offset_x = 0.0;
+          offset_y = 0.0;
+        }
+      ];
+    };
   };
 }

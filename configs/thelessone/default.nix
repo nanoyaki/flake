@@ -11,7 +11,7 @@
       hostname = "thelessone";
       username = "thelessone";
       modules = [
-        ../common/sops
+        ../common/sops.nix
         ../common/home.nix
         ../common/nix.nix
         ../common/user.nix

@@ -24,7 +24,7 @@ in
   ];
 
   sops = {
-    defaultSopsFile = ./. + "../../../${config.networking.hostName}/secrets.yaml";
+    defaultSopsFile = ./. + "../../${config.networking.hostName}/secrets.yaml";
     defaultSopsFormat = "yaml";
 
     age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";

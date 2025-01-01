@@ -5,7 +5,7 @@
     hostname = "yuri";
     username = "nas";
     modules = [
-      ../common/sops
+      ../common/sops.nix
       ../common/home.nix
       ../common/user.nix
       ../common/networking.nix

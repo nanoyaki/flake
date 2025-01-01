@@ -6,7 +6,7 @@
     ./user.nix
     ./networking.nix
     ./locale.nix
-    ./sops
+    ./sops.nix
     ./input.nix
     ./fonts.nix
     ./shell.nix

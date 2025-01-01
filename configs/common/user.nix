@@ -8,6 +8,7 @@
 {
   sec."nixos/users/${username}".neededForUsers = true;
 
+  users.mutableUsers = false;
   users.users.${username} = {
     isNormalUser = true;
     description = nLib.toUppercase username;
@@ -17,7 +18,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ "${username}" ];
+      users = [ username ];
       commands = [
         {
           command = "ALL";

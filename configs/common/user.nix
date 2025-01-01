@@ -1,5 +1,5 @@
 {
-  nLib,
+  lib',
   username,
   config,
   ...
@@ -11,7 +11,7 @@
   users.mutableUsers = false;
   users.users.${username} = {
     isNormalUser = true;
-    description = nLib.toUppercase username;
+    description = lib'.toUppercase username;
     hashedPasswordFile = config.sec."nixos/users/${username}".path;
     extraGroups = [ "wheel" ];
   };

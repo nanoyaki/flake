@@ -1,6 +1,6 @@
 {
   lib,
-  nLib,
+  lib',
   pkgs,
   config,
   ...
@@ -47,7 +47,7 @@ let
     skyFollowerBridge = "behhbpbpmailcnfbjagknjngnfdojpko";
   };
 
-  defaultBrowserApp = nLib.mapDefaultForMimeTypes [
+  defaultBrowserApp = lib'.mapDefaultForMimeTypes [
     "text/html"
     "text/css"
     "text/xml"

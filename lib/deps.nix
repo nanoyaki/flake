@@ -1,5 +1,5 @@
 {
-  nLib,
+  lib',
   inputs,
   withSystem,
   ...
@@ -28,7 +28,7 @@
               inputs
               inputs'
               username
-              nLib
+              lib'
               ;
 
             inherit (config) packages;

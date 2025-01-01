@@ -1,6 +1,6 @@
 {
   lib,
-  nLib,
+  lib',
   pkgs,
   ...
 }:
@@ -15,7 +15,7 @@ let
 
   mkForce = id: mkAddon "force_installed" id;
 
-  defaultBrowserApp = nLib.mapDefaultForMimeTypes [
+  defaultBrowserApp = lib'.mapDefaultForMimeTypes [
     "text/html"
     "text/css"
     "text/xml"

@@ -1,6 +1,6 @@
 {
   lib,
-  nLib,
+  lib',
   pkgs,
   config,
   ...
@@ -13,7 +13,7 @@ let
     mkIf
     mkMerge
     ;
-  inherit (nLib) mapDefaultForMimeTypes;
+  inherit (lib') mapDefaultForMimeTypes;
 
   cfg = config.modules.mpv;
 

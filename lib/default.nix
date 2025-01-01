@@ -8,7 +8,7 @@
     ./deps.nix
   ];
 
-  _module.args.nLib = {
+  _module.args.lib' = {
     # pkg -> attrs -> deriv
     overrideAppimageTools =
       pkg: finalAttrs:

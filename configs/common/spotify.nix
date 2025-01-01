@@ -1,13 +1,13 @@
 {
   lib,
-  nLib,
+  lib',
   pkgs,
   config,
   ...
 }:
 
 let
-  inherit (nLib) toUppercase;
+  inherit (lib') toUppercase;
 
   deviceName = toUppercase config.networking.hostName;
 in

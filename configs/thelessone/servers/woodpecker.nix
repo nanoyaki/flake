@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -18,9 +19,13 @@ let
       }
     );
 
-  agentPkg = pkgs.woodpecker-agent;
+  agentPkg =
+    overrideVer pkgs.woodpecker-agent "3.0.0-rc.0"
+      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
 
-  serverPkg = pkgs.woodpecker-server;
+  serverPkg =
+    overrideVer pkgs.woodpecker-server "3.0.0-rc.0"
+      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
 in
 
 {

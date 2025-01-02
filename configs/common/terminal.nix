@@ -2,20 +2,17 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 
 let
-  inherit (inputs) ghostty;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption;
 
   cfg = config.modules.terminal;
 in
 
 {
   options.modules.terminal = {
-    enableGhostty = mkEnableOption "ghostty";
     enableKitty = mkEnableOption "kitty";
   };
 
@@ -44,14 +41,5 @@ in
         };
       };
     };
-
-    nixpkgs.overlays = [ ghostty.overlays.default ];
-
-    nix.settings = {
-      trusted-substituters = [ "https://ghostty.cachix.org" ];
-      trusted-public-keys = [ "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns=" ];
-    };
-
-    environment.systemPackages = [ (mkIf cfg.enableGhostty pkgs.ghostty) ];
   };
 }

@@ -14,6 +14,9 @@
     (with pkgs; [
       protonvpn-gui
       imagemagick
+
+      winetricks
+      wineWowPackages.stableFull
     ])
     ++ [
       inputs'.deploy-rs.packages.deploy-rs

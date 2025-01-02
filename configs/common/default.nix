@@ -24,5 +24,6 @@
     ./user-programs.nix
     ./theme.nix
     ./syncthing.nix
+    ./wakatime.nix
   ];
 }

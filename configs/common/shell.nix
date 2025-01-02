@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -76,7 +77,7 @@
     shellAliases = {
       copy = "rsync -a --info=progress2 --info=name0";
       rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR";
-      cat = "bat";
+      cat = "${lib.getExe pkgs.bat}";
 
       nix-conf = "$EDITOR $FLAKE_DIR";
       nix-op = "man configuration.nix";
@@ -90,7 +91,7 @@
     pathsToLink = [ "/share/zsh" ];
 
     sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+      MANPAGER = "sh -c 'col -bx | ${lib.getExe pkgs.bat} -l man -p'";
       MANROFFOPT = "-c";
     };
 

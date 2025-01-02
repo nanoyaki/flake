@@ -1,5 +1,6 @@
 {
   lib,
+  lib',
   username,
   inputs,
   config,
@@ -27,6 +28,8 @@ in
     backupFileExtension = "home-bac";
     useGlobalPkgs = true;
     useUserPackages = true;
+
+    extraSpecialArgs = { inherit lib'; };
   };
 
   hm = {

@@ -98,7 +98,7 @@ in
           script = ''
             basedomain="${domain}"
             subdomains="${subdomains}"
-            password=$(cat ${passwordFile})
+            password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})
             ip=$(curl -4 icanhazip.com --fail)
 
             for subdomain in ''${subdomains}; do

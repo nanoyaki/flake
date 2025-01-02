@@ -99,6 +99,6 @@ in
       passwordFile = config.sec."forgejo/users/nanoyaki".path;
     in
     ''
-      ${adminCmd} create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(cat ${passwordFile})" || true
+      ${adminCmd} create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})" || true
     '';
 }

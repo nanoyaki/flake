@@ -37,5 +37,27 @@
       str:
       (lib.strings.toUpper (builtins.substring 0 1 str))
       + builtins.substring 1 (builtins.stringLength str) str;
+
+    wrapEnvVars =
+      pkg: variables:
+      pkgs.writeShellScriptBin (pkg.pname or pkg.name) (
+        let
+          parsedEnvVars = builtins.concatStringsSep " " (
+            lib.mapAttrsToList (name: value: "${name}=${value}") variables
+          );
+        in
+        ''${parsedEnvVars} ${lib.getExe pkg}''
+      );
+
+    wrapEnvVars' =
+      pkg: mainProgram: variables:
+      pkgs.writeShellScriptBin (pkg.pname or pkg.name) (
+        let
+          parsedEnvVars = builtins.concatStringsSep " " (
+            lib.mapAttrsToList (name: value: "${name}=\"${value}\"") variables
+          );
+        in
+        ''${parsedEnvVars} ${lib.getExe' pkg mainProgram}''
+      );
   };
 }

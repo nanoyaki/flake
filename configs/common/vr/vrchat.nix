@@ -1,10 +1,10 @@
-{ pkgs, packages, ... }:
+{ pkgs, ... }:
 
 {
-  environment.systemPackages = [
-    packages.startvrc
-    pkgs.vrc-get
-    pkgs.unityhub
-    pkgs.blender
+  environment.systemPackages = with pkgs; [
+    startvrc
+    vrc-get
+    unityhub
+    blender
   ];
 }

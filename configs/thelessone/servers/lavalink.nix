@@ -1,5 +1,5 @@
 {
-  packages,
+  pkgs,
   config,
   ...
 }:
@@ -13,7 +13,7 @@
     enable = true;
     enableHttp2 = true;
     password = "s3cRe!p4SsW0rD";
-    package = packages.lavalink;
+    package = pkgs.lavalink;
     port = 2333;
     plugins = [
       {

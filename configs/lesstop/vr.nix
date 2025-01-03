@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  packages,
   ...
 }:
 
@@ -46,7 +45,7 @@ in
 
 {
   environment.systemPackages = [
-    packages.startvrc
+    pkgs.startvrc
     pkgs.motoc
     ft-pkg
     startvr-pkg

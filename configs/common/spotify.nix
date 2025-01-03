@@ -40,7 +40,12 @@ in
     xdg.desktopEntries.librespot = {
       name = "Librespot";
       comment = "The spotify background process";
-      exec = "systemctl --user start librespot";
+      exec = lib.getExe (
+        pkgs.writeSystemdToggle.override {
+          service = "librespot";
+          isUserService = true;
+        }
+      );
       icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/spotify.svg";
       categories = [
         "AudioVideo"

@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  packages,
   config,
   inputs,
   ...
@@ -59,12 +58,12 @@
     restartTriggers = [ pkgs.wlx-overlay-s ];
   };
 
-  environment.systemPackages = [
-    pkgs.index_camera_passthrough
-    pkgs.wlx-overlay-s
+  environment.systemPackages = with pkgs; [
+    index_camera_passthrough
+    wlx-overlay-s
 
-    packages.lighthouse
+    lighthouse
 
-    pkgs.openal
+    openal
   ];
 }

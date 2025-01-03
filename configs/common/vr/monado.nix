@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  packages,
   config,
   ...
 }:
@@ -41,8 +40,8 @@
 
   systemd.user.services.monado = {
     serviceConfig = {
-      ExecStartPost = "${lib.getExe packages.lighthouse} -s ON";
-      ExecStopPost = "${lib.getExe packages.lighthouse} -s OFF";
+      ExecStartPost = "${lib.getExe pkgs.lighthouse} -s ON";
+      ExecStopPost = "${lib.getExe pkgs.lighthouse} -s OFF";
     };
 
     environment = {
@@ -72,7 +71,12 @@
   hm.xdg.desktopEntries.monado = {
     name = "Monado";
     comment = "Starts the Monado OpenXR service";
-    exec = "systemctl --user start monado";
+    exec = lib.getExe (
+      pkgs.writeSystemdToggle.override {
+        service = "monado";
+        isUserService = true;
+      }
+    );
     icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
     categories = [
       "Game"

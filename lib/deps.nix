@@ -1,4 +1,5 @@
 {
+  self,
   lib',
   inputs,
   withSystem,
@@ -29,6 +30,7 @@
               inputs'
               username
               lib'
+              self
               ;
 
             inherit (config) packages;

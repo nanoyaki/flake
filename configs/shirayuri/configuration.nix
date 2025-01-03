@@ -30,6 +30,15 @@
     settings.download-dir = "/mnt/os-shared/Torrents";
   };
 
+  hm.xdg.desktopEntries.windows = {
+    name = "Windows";
+    comment = "Reboot to Windows";
+    exec = "sudo systemctl reboot --boot-loader-entry=auto-windows";
+    icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/windows95.svg";
+    categories = [ "System" ];
+    terminal = false;
+  };
+
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";
 }

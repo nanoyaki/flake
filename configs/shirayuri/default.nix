@@ -18,6 +18,7 @@
       ./emulation.nix
       ./shell.nix
       ./git.nix
+      ./transmission.nix
     ];
   };
 }

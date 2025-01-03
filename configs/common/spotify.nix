@@ -13,29 +13,6 @@ let
 in
 
 {
-  hm = {
-    home.packages = [ pkgs.spotify-qt ];
-
-    programs.spotify-player = {
-      enable = true;
-
-      settings = {
-        client_id = "3b1a5d62ca66440db8227a697909ce1f";
-
-        default_device = deviceName;
-        device = {
-          device_type = "computer";
-          name = deviceName;
-          bitrate = 320;
-          audio_cache = true;
-        };
-      };
-    };
-
-    # for spotify-qt to always find librespot
-    home.file.".local/bin/librespot".source = lib.getExe pkgs.librespot;
-  };
-
   systemd.user.services.librespot = {
     enable = true;
     description = "Librespot";
@@ -57,5 +34,24 @@ in
     };
 
     wantedBy = [ "default.target" ];
+  };
+
+  hm = {
+    xdg.desktopEntries.librespot = {
+      name = "Librespot";
+      comment = "The spotify background process";
+      exec = "systemctl --user start librespot";
+      icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/spotify.svg";
+      categories = [
+        "AudioVideo"
+        "Audio"
+        "Music"
+      ];
+      terminal = false;
+    };
+
+    # for spotify-qt to always find librespot
+    home.file.".local/bin/librespot".source = lib.getExe pkgs.librespot;
+    home.packages = [ pkgs.spotify-qt ];
   };
 }

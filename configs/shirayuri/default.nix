@@ -13,7 +13,7 @@
       ./hardware
 
       ./configuration.nix
-      ./xdg-user-dirs.nix
+      ./xdg.nix
       ./gaming
       ./emulation.nix
       ./shell.nix

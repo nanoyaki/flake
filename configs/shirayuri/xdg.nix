@@ -1,4 +1,9 @@
-{ config, username, ... }:
+{
+  pkgs,
+  config,
+  username,
+  ...
+}:
 
 let
   inherit (config.hm.lib.file) mkOutOfStoreSymlink;
@@ -36,6 +41,15 @@ in
       templates = null;
       music = null;
     };
+  };
+
+  hm.xdg.desktopEntries.windows = {
+    name = "Windows";
+    comment = "Reboot to Windows";
+    exec = "sudo systemctl reboot --boot-loader-entry=auto-windows";
+    icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/windows95.svg";
+    categories = [ "System" ];
+    terminal = false;
   };
 
   systemd.tmpfiles.settings."10-os-shared-xdg-user-dirs" = {

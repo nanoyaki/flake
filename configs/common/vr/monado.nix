@@ -68,4 +68,17 @@
       "graphical-session.target"
     ];
   };
+
+  hm.xdg.desktopEntries.monado = {
+    name = "Monado";
+    comment = "Starts the Monado OpenXR service";
+    exec = "systemctl --user start monado";
+    icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
+    categories = [
+      "Game"
+      "Graphics"
+      "3DGraphics"
+    ];
+    terminal = false;
+  };
 }

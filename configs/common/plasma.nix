@@ -45,8 +45,6 @@ in
       defaultSession = mkIf cfg.enableWaylandDefault "plasma";
     };
 
-    programs.kde-pim.merkuro = true;
-
     environment.sessionVariables = mkIf cfg.enableWaylandDefault {
       NIXOS_OZONE_WL = "1";
     };

@@ -39,6 +39,8 @@
     terminal = false;
   };
 
+  hm.news.display = "show";
+
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";
 }

@@ -25,7 +25,7 @@
   hm.xdg.configFile."openxr/1/active_runtime.json".source =
     "${pkgs.monado}/share/openxr/1/openxr_monado.json";
 
-  hm.home.file."${config.hm.xdg.dataHome}/monado/hand-tracking-models".source = pkgs.fetchgit {
+  hm.xdg.dataFile."monado/hand-tracking-models".source = pkgs.fetchgit {
     url = "https://gitlab.freedesktop.org/monado/utilities/hand-tracking-models.git";
     fetchLFS = true;
     hash = "sha256-x/X4HyyHdQUxn3CdMbWj5cfLvV7UyQe1D01H93UCk+M=";

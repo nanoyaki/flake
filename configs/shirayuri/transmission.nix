@@ -21,4 +21,6 @@ in
     group = "users";
     mode = "0774";
   };
+
+  services.mullvad-vpn.enable = true;
 }

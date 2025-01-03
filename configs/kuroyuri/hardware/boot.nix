@@ -15,7 +15,7 @@
     loader = {
       efi.efiSysMountPoint = "/boot";
       systemd-boot.enable = lib.mkForce false;
-      timeout = 5;
+      timeout = 0;
     };
 
     # replaces systemd-boot

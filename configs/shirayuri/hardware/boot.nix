@@ -19,7 +19,7 @@
         configurationLimit = 30;
       };
 
-      timeout = 5;
+      timeout = 0;
     };
 
     lanzaboote = {

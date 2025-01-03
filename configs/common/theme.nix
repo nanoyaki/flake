@@ -10,6 +10,10 @@ let
     flavor = "mocha";
     accent = "pink";
   };
+
+  patchedBase16 = pkgs.base16-schemes.overrideAttrs {
+    patches = [ ./patches/pink-accent-mocha.patch ];
+  };
 in
 
 {
@@ -31,7 +35,7 @@ in
       size = 32;
     };
 
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
+    base16Scheme = "${patchedBase16}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
     polarity = "dark";
 
     image = pkgs.fetchurl {

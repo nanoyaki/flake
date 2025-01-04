@@ -6,8 +6,8 @@
   ];
 
   sec = {
-    "dynamicdns/nanoyaki.space".owner = config.services.namecheapDynDns.user;
-    "dynamicdns/theless.one".owner = config.services.namecheapDynDns.user;
+    "dynamicdns/nanoyaki.space" = { };
+    "dynamicdns/theless.one" = { };
   };
 
   services.namecheapDynDns = {

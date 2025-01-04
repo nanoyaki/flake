@@ -22,24 +22,6 @@ in
   options.services.namecheapDynDns = {
     enable = mkEnableOption "dynamic dns";
 
-    user = mkOption {
-      type = types.str;
-      default = "namecheapDynDns";
-      description = "The user to use for the updater services";
-    };
-
-    group = mkOption {
-      type = types.str;
-      default = "namecheapDynDns";
-      description = "The group to use for the updater services";
-    };
-
-    home = mkOption {
-      type = types.str;
-      default = "/var/lib/namecheapdyndns";
-      description = "The namecheap dynamic dns user's home";
-    };
-
     domains = mkOption {
       type = types.attrsOf (
         types.submodule {
@@ -61,68 +43,37 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = mkIf (cfg.group == "namecheapDynDns") { namecheapDynDns = { }; };
+    systemd.services = mapAttrs' (
+      domain: domainCfg:
+      let
+        inherit (domainCfg) passwordFile;
 
-    users.users = mkIf (cfg.user == "namecheapDynDns") {
-      namecheapDynDns = {
-        inherit (cfg) home group;
-        isSystemUser = true;
-      };
-    };
+        subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
+      in
+      nameValuePair "namecheap-dynamic-dns-${domain}" {
+        description = "Namecheap Dynamic DNS Service for ${domain}";
 
-    systemd = {
-      tmpfiles.settings."10-namecheapDynDns".${cfg.home}.d = {
-        inherit (cfg) user group;
-        mode = "0700";
-      };
+        wantedBy = [ "multi-user.target" ];
+        requires = [ "network-online.target" ];
+        after = [ "network-online.target" ];
 
-      services = mapAttrs' (
-        domain: domainCfg:
-        let
-          inherit (domainCfg) passwordFile;
+        script = ''
+          subdomains="${subdomains}"
+          password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})
+          ip=$(${lib.getExe pkgs.curl} -4 icanhazip.com --fail)
 
-          subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
-        in
-        nameValuePair "namecheapDynDns-${domain}" {
-          description = "Namecheap Dynamic DNS Service for ${domain}";
+          for subdomain in ''${subdomains}; do
+            ${lib.getExe pkgs.curl} "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=${domain}&password=$password&ip=$ip" --fail
+          done
+        '';
 
-          wantedBy = [ "multi-user.target" ];
-          after = [
-            "network.target"
-          ];
+        startAt = "*:0/20";
 
-          path = [
-            pkgs.curl
-          ];
-
-          script = ''
-            basedomain="${domain}"
-            subdomains="${subdomains}"
-            password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})
-            ip=$(curl -4 icanhazip.com --fail)
-
-            for subdomain in ''${subdomains}; do
-              curl "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$basedomain&password=$password&ip=$ip" --fail
-            done
-          '';
-
-          startAt = "hourly";
-
-          serviceConfig = {
-            User = cfg.user;
-            Group = cfg.group;
-
-            Type = "simple";
-            Restart = "no";
-
-            WorkingDirectory = cfg.home;
-          };
-        }
-      ) cfg.domains;
-
-      timers = mapAttrs' (
-        domain: _: nameValuePair "namecheapDynDns-${domain}" { timerConfig.RandomizedDelaySec = "30s"; }
-      ) cfg.domains;
-    };
+        serviceConfig = {
+          Type = "simple";
+          Restart = "no";
+        };
+      }
+    ) cfg.domains;
   };
 }

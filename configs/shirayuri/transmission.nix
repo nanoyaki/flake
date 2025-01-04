@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  username,
   ...
 }:
 
@@ -13,12 +14,13 @@ in
     enable = true;
 
     webHome = pkgs.flood-for-transmission;
-    downloadDirPermissions = "775";
+    downloadDirPermissions = "770";
     settings = {
       download-dir = "/mnt/os-shared/Torrents";
       rpc-port = 9091;
     };
   };
+  users.users.${username}.extraGroups = [ cfg.group ];
 
   systemd.tmpfiles.settings."10-transmission".${cfg.settings.download-dir}.d = {
     inherit (cfg) user group;

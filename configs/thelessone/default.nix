@@ -30,6 +30,7 @@
         ./locale.nix
         ./servers
         ./terminal.nix
+        ./mullvad.nix
       ];
     };
 

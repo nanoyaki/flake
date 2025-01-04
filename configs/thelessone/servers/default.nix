@@ -9,5 +9,6 @@
     ./woodpecker.nix
     ./dynamicdns.nix
     ./syncthing.nix
+    ./jellyfin.nix
   ];
 }

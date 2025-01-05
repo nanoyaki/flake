@@ -17,6 +17,8 @@
 
       winetricks
       wineWowPackages.stableFull
+
+      ffmpeg-full
     ])
     ++ [
       inputs'.deploy-rs.packages.deploy-rs

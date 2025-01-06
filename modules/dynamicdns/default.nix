@@ -58,12 +58,13 @@ in
         after = [ "network-online.target" ];
 
         script = ''
+          domain="${domain}"
           subdomains="${subdomains}"
           password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})
-          ip=$(${lib.getExe pkgs.curl} -4 icanhazip.com --fail)
+          ip=$(${lib.getExe pkgs.curl} "https://am.i.mullvad.net/ip" --fail)
 
           for subdomain in ''${subdomains}; do
-            ${lib.getExe pkgs.curl} "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=${domain}&password=$password&ip=$ip" --fail
+            ${lib.getExe pkgs.curl} "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$domain&password=$password&ip=$ip" --fail
           done
         '';
 

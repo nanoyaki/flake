@@ -58,6 +58,8 @@ in
         after = [ "network-online.target" ];
 
         script = ''
+          set -f
+
           domain="${domain}"
           subdomains="${subdomains}"
           password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})

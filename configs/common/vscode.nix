@@ -1,6 +1,4 @@
 {
-  lib,
-  config,
   pkgs,
   ...
 }:
@@ -43,9 +41,4 @@ in
       inherit vscodeExtensions;
     })
   ];
-
-  environment.variables = {
-    EDITOR = lib.mkIf (!config.hm.programs.neovim.defaultEditor) "code";
-    GIT_EDITOR = "code --wait --new-window";
-  };
 }

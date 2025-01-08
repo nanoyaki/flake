@@ -1,56 +1,50 @@
-{ pkgs, ... }:
+{ lib, config, inputs, pkgs, ... }:
 
 let
-  nvimLspExtraConfig = ''
-    local nvim_lsp = require("lspconfig")
-    nvim_lsp.nixd.setup({
-      cmd = { "nixd" },
-      settings = {
-          nixd = {
-            nixpkgs = {
-                expr = "import <nixpkgs> { }",
-            },
-            formatting = {
-                command = { "nixfmt" },
-            },
-            options = {
-                nixos = {
-                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.shirayuri.options',
-                },
-                home_manager = {
-                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.shirayuri.options',
-                },
-            },
-          },
-      },
-    })
-  '';
+  inherit (inputs) nvf;
 in
 
 {
-  hm.programs.neovim = {
+  imports = [ nvf.nixosModules.default ];
+
+  programs.nvf = {
     enable = true;
 
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
+    settings.vim = {
+      theme = {
+        enable = true;
+        name = "catppuccin";
+        style = "mocha";
+      };
 
-    extraConfig = ''
-      filetype plugin indent on
-      set tabstop=4
-      set shiftwidth=4
-      set softtabstop=4
-      set expandtab
-    '';
+      statusline.lualine.enable = true;
+      telescope.enable = true;
+      autocomplete.nvim-cmp.enable = true;
+      presence.neocord.enable = true;
+      enableEditorconfig = true;
 
-    plugins = with pkgs.vimPlugins; [
-      {
-        plugin = pkgs.vimPlugins.nvim-lspconfig;
-        type = "lua";
-        config = nvimLspExtraConfig;
-      }
-      nvim-treesitter.withAllGrammars
-      nvim-cmp
-    ];
+      languages = {
+        enableLSP = true;
+        enableTreesitter = true;
+
+        sql.enable = true;
+        php.enable = true;
+        html.enable = true;
+        css.enable = true;
+
+        markdown.enable = true;
+        bash.enable = true;
+        rust.enable = true;
+
+        nix.enable = true;
+        nix.format = {
+          enable = true;
+          type = "nixfmt";
+          package = pkgs.nixfmt-rfc-style;
+        };
+      };
+    };
   };
+
+  environment.variables.EDITOR = lib.getExe config.programs.nvf.settings.vim.package;
 }

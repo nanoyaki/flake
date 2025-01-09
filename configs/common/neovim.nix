@@ -1,4 +1,10 @@
-{ lib, config, inputs, pkgs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 
 let
   inherit (inputs) nvf;
@@ -43,8 +49,39 @@ in
           package = pkgs.nixfmt-rfc-style;
         };
       };
+
+      lazy.plugins."yazi.nvim" = {
+        package = pkgs.vimPlugins.yazi-nvim;
+        setupModule = "yazi";
+        setupOpts.open_for_directories = false;
+        keys = [
+          {
+            mode = "n";
+            key = "<leader>y";
+            action = ''
+              function()
+                require("yazi").yazi()
+              end
+            '';
+            lua = true;
+            desc = "Open yazi";
+          }
+          {
+            mode = "n";
+            key = "<leader>cy";
+            action = ''
+              function()
+                require("yazi").yazi(nil, vim.fn.getcwd())
+              end
+            '';
+            lua = true;
+            desc = "Open yazi in working directory (yazi)";
+          }
+        ];
+      };
     };
   };
 
   environment.variables.EDITOR = lib.getExe config.programs.nvf.settings.vim.package;
+  environment.systemPackages = [ pkgs.yazi ];
 }

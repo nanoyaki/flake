@@ -22,6 +22,7 @@
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
+      settings.default = "nixos";
     };
   };
 }

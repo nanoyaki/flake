@@ -27,7 +27,7 @@ in
       telescope.enable = true;
       autocomplete.nvim-cmp.enable = true;
       presence.neocord.enable = true;
-      enableEditorconfig = true;
+      globals.editorconfig = true;
 
       languages = {
         enableLSP = true;

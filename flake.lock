@@ -1119,11 +1119,11 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1736520152,
-        "narHash": "sha256-0TClUw4txxpRiCFvDdKwDlSpEeYETT9ySUJRAy0ibEk=",
+        "lastModified": 1736606161,
+        "narHash": "sha256-ucLvMRVMwpT//Ilaa1dohDXbFJ/4zX60vhn0/ZkN1cE=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "4df1cc3a7f161def084c6eca799e3a6c10dbf480",
+        "rev": "a5a5aba34aab206a8d562abff5a142f733dcb5c1",
         "type": "github"
       },
       "original": {

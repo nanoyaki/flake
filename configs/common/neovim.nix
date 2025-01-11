@@ -37,6 +37,7 @@ in
         php.enable = true;
         html.enable = true;
         css.enable = true;
+        python.enable = true;
 
         markdown.enable = true;
         bash.enable = true;

@@ -9,6 +9,13 @@
 let
   inherit (lib.modules) mkAliasOptionModule;
   inherit (inputs) sops-nix;
+
+  cfg = {
+    defaultSopsFile = ./. + "../../${config.networking.hostName}/secrets.yaml";
+    defaultSopsFormat = "yaml";
+
+    age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
+  };
 in
 
 {
@@ -23,12 +30,21 @@ in
     )
   ];
 
-  sops = {
-    defaultSopsFile = ./. + "../../${config.networking.hostName}/secrets.yaml";
-    defaultSopsFormat = "yaml";
+  home-manager.sharedModules = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
 
-    age.keyFile = "${config.hm.xdg.configHome}/sops/age/keys.txt";
-  };
+  sops = cfg;
+  hm.sops = cfg;
+  hm.imports = [
+    (mkAliasOptionModule
+      [ "sec" ]
+      [
+        "sops"
+        "secrets"
+      ]
+    )
+  ];
 
   environment.systemPackages = [ pkgs.sops ];
 }

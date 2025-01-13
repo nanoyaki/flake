@@ -1,3 +1,5 @@
+{ username, ... }:
+
 {
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -14,6 +16,18 @@
     enable = true;
     allowPing = true;
   };
+
+  security.sudo.extraRules = [
+    {
+      users = [ username ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   console.keyMap = "de";
   system.stateVersion = "25.05";

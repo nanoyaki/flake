@@ -1,4 +1,5 @@
 {
+  lib,
   lib',
   username,
   config,
@@ -14,17 +15,9 @@
     description = lib'.toUppercase username;
     hashedPasswordFile = config.sec."nixos/users/${username}".path;
     extraGroups = [ "wheel" ];
-  };
 
-  security.sudo.extraRules = [
-    {
-      users = [ username ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+    openssh.authorizedKeys.keys = lib.lists.map (key: builtins.readFile key) (
+      lib.filesystem.listFilesRecursive ./sec/keys
+    );
+  };
 }

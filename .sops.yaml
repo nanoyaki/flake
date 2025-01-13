@@ -29,3 +29,9 @@ creation_rules:
       - age:
           - *lesstop
           - *shirayuri
+  - path_regex: configs/common/sec/yuri.yaml$
+    key_groups:
+      - age:
+          - *shirayuri
+          - *kuroyuri
+          - *yuri

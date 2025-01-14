@@ -10,5 +10,6 @@
     ./dynamicdns.nix
     ./syncthing.nix
     ./jellyfin.nix
+    ./calendar.nix
   ];
 }

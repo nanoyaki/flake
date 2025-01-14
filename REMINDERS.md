@@ -7,9 +7,5 @@ or use my brain on.
 
 ## Caddy plugins
 
-It seems there's a lot of 
-[discourse around caddy plugin packaging](https://github.com/NixOS/nixpkgs/issues/89268#issuecomment-636529668).
-This looks like a caddy package that includes the plugins in the
-build process of caddy. I want to tinker around with the
-[layer 4](https://github.com/mholt/caddy-l4) plugin, so something
-like this might be needed in the future?
+[Plugin Wiki](https://wiki.nixos.org/wiki/Caddy#Adding_plug-ins)
+[layer 4](https://github.com/mholt/caddy-l4) plugin

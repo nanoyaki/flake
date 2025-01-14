@@ -58,6 +58,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    discord-events-to-ics = {
+      url = "github:nanoyaki/discord-events-to-ics/v0.1.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -18,6 +18,12 @@ in
     root * /var/lib/caddy/nanoyaki-events/public
     file_server
     php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket}
+
+    @dotfiles {
+      not path /.well-known/*
+      path /.*
+    }
+    redir @dotfiles /
   '';
 
   home-manager.users.nanoyaki-events.home = {

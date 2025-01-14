@@ -25,6 +25,7 @@ in
     }
     redir @dotfiles /
   '';
+  users.users.caddy.extraGroups = [ "nanoyaki-events" ];
 
   home-manager.users.nanoyaki-events.home = {
     username = "nanoyaki-events";
@@ -67,6 +68,7 @@ in
     isSystemUser = true;
     createHome = true;
     home = "/var/lib/caddy/nanoyaki-events";
+    homeMode = "750";
     group = "nanoyaki-events";
   };
 }

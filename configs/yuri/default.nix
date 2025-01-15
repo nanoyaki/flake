@@ -17,7 +17,7 @@
       ./configuration.nix
       ./ssh.nix
       ./locale.nix
-      ./samba.nix
+      ./servers
     ];
   };
 }

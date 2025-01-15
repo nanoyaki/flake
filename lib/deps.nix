@@ -20,6 +20,7 @@
         {
           config,
           inputs',
+          self',
           ...
         }:
 
@@ -31,6 +32,7 @@
               username
               lib'
               self
+              self'
               ;
 
             inherit (config) packages;

@@ -1,12 +1,13 @@
 {
   pkgs,
   config,
+  self,
   ...
 }:
 
 {
   imports = [
-    ../../../modules/lavalink
+    self.nixosModules.lavalink
   ];
 
   services.lavalink = {

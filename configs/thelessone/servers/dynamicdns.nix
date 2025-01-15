@@ -1,8 +1,8 @@
-{ config, ... }:
+{ config, self, ... }:
 
 {
   imports = [
-    ../../../modules/dynamicdns
+    self.nixosModules.dynamicdns
   ];
 
   sec = {

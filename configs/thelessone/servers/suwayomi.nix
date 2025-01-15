@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   ...
 }:
 
@@ -19,7 +20,7 @@ in
 
 {
   imports = [
-    ../../../modules/suwayomi
+    self.nixosModules.suwayomi
   ];
 
   services.suwayomi = {

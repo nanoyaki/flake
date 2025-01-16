@@ -1,15 +1,11 @@
 {
   pkgs,
   config,
-  inputs',
   self,
   ...
 }:
 
 let
-  inherit (inputs') discord-events-to-ics;
-
-  eventsPkg = "${discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
   home = "/var/www/nanoyaki-events";
 in
 
@@ -49,18 +45,6 @@ in
       }
       redir @dotfiles /
     '';
-  };
-
-  home-manager.users.nanoyaki-events.home = {
-    username = "nanoyaki-events";
-    homeDirectory = home;
-    stateVersion = config.system.stateVersion;
-
-    file = {
-      "${home}/public".source = "${eventsPkg}/public";
-      "${home}/src".source = "${eventsPkg}/src";
-      "${home}/vendor".source = "${eventsPkg}/vendor";
-    };
   };
 
   services.phpfpm.pools.nanoyaki-events = {

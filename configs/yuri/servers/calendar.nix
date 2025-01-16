@@ -33,7 +33,7 @@ in
       encode zstd gzip
       file_server
 
-      php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket} {
+      php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
         root ${home}/public
 
         import ${config.sec."caddy/nanoyaki-events/environment".path}
@@ -66,6 +66,7 @@ in
 
     settings = {
       "listen.owner" = config.services.caddy.user;
+      "listen.group" = config.services.caddy.group;
       "pm" = "dynamic";
       "pm.max_children" = 75;
       "pm.start_servers" = 10;

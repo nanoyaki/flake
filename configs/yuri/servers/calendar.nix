@@ -50,6 +50,12 @@ in
   };
   users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
 
+  users.groups.nanoyaki-events = { };
+  users.users.nanoyaki-events = {
+    isSystemUser = true;
+    group = "nanoyaki-events";
+  };
+
   services.phpfpm.pools.nanoyaki-events = {
     user = "nanoyaki-events";
 
@@ -70,14 +76,6 @@ in
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
-  };
-
-  users.groups.nanoyaki-events = { };
-  users.users.nanoyaki-events = {
-    isSystemUser = true;
-    inherit home;
-    homeMode = "775";
-    group = "nanoyaki-events";
   };
 
   sec."dynamicdns/nanoyaki.space" = { };

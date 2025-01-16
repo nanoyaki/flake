@@ -24,13 +24,23 @@ in
     443
   ];
 
+  sec."caddy/nanoyaki-events/environment".owner = config.services.caddy.user;
   services.caddy = {
     enable = true;
+    logFormat = ''
+      format console
+      level INFO
+    '';
 
     virtualHosts."events.nanoyaki.space".extraConfig = ''
       root * ${home}/public
+
+      encode zstd gzip
       file_server
-      php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket}
+
+      php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket} {
+        import ${config.sec."caddy/nanoyaki-events/environment".path}
+      }
 
       @dotfiles {
         not path /.well-known/*
@@ -39,7 +49,6 @@ in
       redir @dotfiles /
     '';
   };
-  users.users.caddy.extraGroups = [ "nanoyaki-events" ];
 
   home-manager.users.nanoyaki-events.home = {
     username = "nanoyaki-events";
@@ -53,36 +62,31 @@ in
     };
   };
 
-  sec."caddy/nanoyaki-events/environment" = {
-    owner = "nanoyaki-events";
-    group = "nanoyaki-events";
-    mode = "440";
-    path = "${home}/.env";
-  };
-
   services.phpfpm.pools.nanoyaki-events = {
     user = "nanoyaki-events";
-    group = "nanoyaki-events";
-    phpPackage = pkgs.php84.withExtensions ({ enabled, all }: enabled ++ [ all.mongodb ]);
-    settings = {
-      "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
-      "pm.max_requests" = 500;
-    };
-    phpEnv.PATH = lib.makeBinPath [ config.services.phpfpm.pools.nanoyaki-events.phpPackage ];
+
+    phpPackage = pkgs.php84;
     phpOptions = ''
       extension=${pkgs.php84Extensions.mongodb}/lib/php/extensions/mongodb.so
     '';
+
+    settings = {
+      "listen.owner" = config.services.caddy.user;
+      "pm" = "dynamic";
+      "pm.max_children" = 75;
+      "pm.start_servers" = 10;
+      "pm.min_spare_servers" = 5;
+      "pm.max_spare_servers" = 20;
+      "pm.max_requests" = 500;
+      "php_admin_value[error_log]" = "stderr";
+      "php_admin_flag[log_errors]" = true;
+      "catch_workers_output" = true;
+    };
   };
 
   users.groups.nanoyaki-events = { };
   users.users.nanoyaki-events = {
     isSystemUser = true;
-    createHome = true;
     inherit home;
     homeMode = "775";
     group = "nanoyaki-events";

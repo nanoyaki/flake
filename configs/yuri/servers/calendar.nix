@@ -109,7 +109,11 @@ in
     };
   };
 
-  sec."mongodb/initialScript" = { };
+  sec."mongodb/initialScript" = {
+    owner = "mongodb";
+    group = "mongodb";
+    mode = "400";
+  };
   services.mongodb = {
     enable = true;
     package = pkgs.mongodb-ce;

@@ -111,7 +111,7 @@ in
 
   sec."mongodb/initialScript" = { };
   services.mongodb = {
-    enable = false;
+    enable = true;
     package = pkgs.mongodb-ce;
     bind_ip = "127.0.0.1";
     initialScript = config.sec."mongodb/initialScript".path;

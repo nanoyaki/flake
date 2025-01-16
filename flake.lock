@@ -181,16 +181,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1737051493,
-        "narHash": "sha256-e+Ei4EY2DMcM7Um3PIk1IspeP4Ellb0pUnjMhz39m8g=",
+        "lastModified": 1737054233,
+        "narHash": "sha256-BgVb7WntPghuwVaKL+9vSbM5epPFn5vmcSVY+npIEgE=",
         "owner": "nanoyaki",
         "repo": "discord-events-to-ics",
-        "rev": "6c330a1055aa336ee40cc654da9418ae4cbf5563",
+        "rev": "dbeba3d78e13d2f684eba535303fc6aa0b374291",
         "type": "github"
       },
       "original": {
         "owner": "nanoyaki",
-        "ref": "v0.1.5",
+        "ref": "v0.1.6",
         "repo": "discord-events-to-ics",
         "type": "github"
       }

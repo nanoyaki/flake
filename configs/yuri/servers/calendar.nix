@@ -34,6 +34,8 @@ in
       file_server
 
       php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket} {
+        root ${home}/public
+
         import ${config.sec."caddy/nanoyaki-events/environment".path}
 
         resolve_root_symlink
@@ -46,6 +48,7 @@ in
       redir @dotfiles /
     '';
   };
+  users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
 
   services.phpfpm.pools.nanoyaki-events = {
     user = "nanoyaki-events";

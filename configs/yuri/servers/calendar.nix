@@ -109,7 +109,7 @@ in
     };
   };
 
-  sec."mongodb/initialScript".owner = config.services.mongodb.user;
+  sec."mongodb/initialScript" = { };
   services.mongodb = {
     enable = false;
     package = pkgs.mongodb-ce;

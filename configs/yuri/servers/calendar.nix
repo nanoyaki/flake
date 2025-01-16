@@ -73,8 +73,9 @@ in
       "pm.min_spare_servers" = 5;
       "pm.max_spare_servers" = 20;
       "pm.max_requests" = 500;
-      "php_admin_value[error_log]" = "stderr";
-      "php_admin_flag[log_errors]" = true;
+      "php_flag[display_errors]" = "on";
+      "php_admin_value[error_log]" = "/var/log/phpfpm.events.nanoyaki.space.log";
+      "php_admin_flag[log_errors]" = "on";
       "catch_workers_output" = true;
     };
   };

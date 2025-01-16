@@ -59,7 +59,7 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     discord-events-to-ics = {
-      url = "github:nanoyaki/discord-events-to-ics/v0.1.8";
+      url = "github:nanoyaki/discord-events-to-ics/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

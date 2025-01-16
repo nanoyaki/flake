@@ -1,11 +1,13 @@
 {
   pkgs,
   config,
+  inputs',
   self,
   ...
 }:
 
 let
+  webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
   home = "/var/www/nanoyaki-events";
 in
 
@@ -52,6 +54,18 @@ in
   };
   users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
 
+  home-manager.users.nanoyaki-events.home = {
+    username = "nanoyaki-events";
+    homeDirectory = home;
+    stateVersion = config.system.stateVersion;
+
+    file = {
+      "public".source = "${webPkg}/public";
+      "src".source = "${webPkg}/src";
+      "vendor".source = "${webPkg}/vendor";
+    };
+  };
+
   users.groups.nanoyaki-events = { };
   users.users.nanoyaki-events = {
     isSystemUser = true;
@@ -90,5 +104,13 @@ in
       subdomains = [ "events" ];
       passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
     };
+  };
+
+  sec."mongodb/initialScript".owner = config.services.mongodb.user;
+  services.mongodb = {
+    enable = true;
+    package = pkgs.mongodb-ce;
+    bind_ip = "127.0.0.1";
+    initialScript = config.sec."mongodb/initialScript".path;
   };
 }

@@ -125,7 +125,7 @@ in
     let
       cfg = config.services.mongodb;
     in
-    {
+    lib.optionalAttrs cfg.enable {
       postStart = lib.mkForce ''
         if test -e "${cfg.dbpath}/.first_startup"; then
           ${lib.optionalString (cfg.initialScript != null) ''

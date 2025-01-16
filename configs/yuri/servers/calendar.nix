@@ -19,7 +19,11 @@ in
     443
   ];
 
-  sec."caddy/nanoyaki-events/environment".owner = config.services.caddy.user;
+  sec."caddy/nanoyaki-events/environment" = {
+    owner = "nanoyaki-events";
+    path = "${home}/.env";
+  };
+
   services.caddy = {
     enable = true;
     logFormat = ''
@@ -35,8 +39,6 @@ in
 
       php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
         root ${home}/public
-
-        import ${config.sec."caddy/nanoyaki-events/environment".path}
 
         resolve_root_symlink
       }

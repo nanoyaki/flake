@@ -116,16 +116,75 @@ in
     bind_ip = "127.0.0.1";
     initialScript = config.sec."mongodb/initialScript".path;
   };
-  systemd.services.mongodb.postStart =
+
+  systemd.services.mongodb =
     let
+      mongoCnf =
+        cfg:
+        pkgs.writeText "mongodb.conf" ''
+          net.bindIp: ${cfg.bind_ip}
+          ${lib.optionalString cfg.quiet "systemLog.quiet: true"}
+          systemLog.destination: syslog
+          storage.dbPath: ${cfg.dbpath}
+          ${lib.optionalString cfg.enableAuth "security.authorization: enabled"}
+          ${lib.optionalString (cfg.replSetName != "") "replication.replSetName: ${cfg.replSetName}"}
+          ${cfg.extraConfig}
+        '';
+
       cfg = config.services.mongodb;
     in
-    ''
-      if test -e "${cfg.dbpath}/.first_startup"; then
-        ${lib.optionalString (cfg.initialScript != null) ''
-          ${lib.getExe pkgs.mongosh} ${lib.optionalString (cfg.enableAuth) "-u root -p ${cfg.initialRootPassword}"} admin "${cfg.initialScript}"
-        ''}
-        rm -f "${cfg.dbpath}/.first_startup"
-      fi
-    '';
+    {
+      postStart = lib.mkForce ''
+        if test -e "${cfg.dbpath}/.first_startup"; then
+          ${lib.optionalString (cfg.initialScript != null) ''
+            ${lib.getExe pkgs.mongosh} ${lib.optionalString (cfg.enableAuth) "-u root -p ${cfg.initialRootPassword}"} admin "${cfg.initialScript}"
+          ''}
+          rm -f "${cfg.dbpath}/.first_startup"
+        fi
+      '';
+
+      preStart = lib.mkForce (
+        let
+          cfg_ = cfg // {
+            enableAuth = false;
+            bind_ip = "127.0.0.1";
+          };
+        in
+        ''
+          rm ${cfg.dbpath}/mongod.lock || true
+          if ! test -e ${cfg.dbpath}; then
+              install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
+              # See postStart!
+              touch ${cfg.dbpath}/.first_startup
+          fi
+          if ! test -e ${cfg.pidFile}; then
+              install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
+          fi ''
+        + lib.optionalString cfg.enableAuth ''
+
+          if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
+            systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${lib.getExe pkgs.mongosh} --config ${mongoCnf cfg_}
+            # wait for mongodb
+            while ! ${lib.getExe pkgs.mongosh} --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
+
+          ${lib.getExe pkgs.mongosh} <<EOF
+            use admin
+            db.createUser(
+              {
+                user: "root",
+                pwd: "${cfg.initialRootPassword}",
+                roles: [
+                  { role: "userAdminAnyDatabase", db: "admin" },
+                  { role: "dbAdminAnyDatabase", db: "admin" },
+                  { role: "readWriteAnyDatabase", db: "admin" }
+                ]
+              }
+            )
+          EOF
+            touch "${cfg.dbpath}/.auth_setup_complete"
+            systemctl stop mongodb-for-setup
+          fi
+        ''
+      );
+    };
 }

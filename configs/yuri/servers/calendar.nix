@@ -70,6 +70,8 @@ in
   users.users.nanoyaki-events = {
     isSystemUser = true;
     group = "nanoyaki-events";
+    inherit home;
+    homeMode = "770";
   };
 
   services.phpfpm.pools.nanoyaki-events = {

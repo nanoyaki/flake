@@ -39,6 +39,8 @@ in
 
       php_fastcgi unix/${config.services.phpfpm.pools.nanoyaki-events.socket} {
         import ${config.sec."caddy/nanoyaki-events/environment".path}
+
+        resolve_root_symlink
       }
 
       @dotfiles {

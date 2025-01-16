@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   inputs',
@@ -110,9 +111,21 @@ in
 
   sec."mongodb/initialScript".owner = config.services.mongodb.user;
   services.mongodb = {
-    enable = true;
+    enable = false;
     package = pkgs.mongodb-ce;
     bind_ip = "127.0.0.1";
     initialScript = config.sec."mongodb/initialScript".path;
   };
+  systemd.services.mongodb.postStart =
+    let
+      cfg = config.services.mongodb;
+    in
+    ''
+      if test -e "${cfg.dbpath}/.first_startup"; then
+        ${lib.optionalString (cfg.initialScript != null) ''
+          ${lib.getExe pkgs.mongosh} ${lib.optionalString (cfg.enableAuth) "-u root -p ${cfg.initialRootPassword}"} admin "${cfg.initialScript}"
+        ''}
+        rm -f "${cfg.dbpath}/.first_startup"
+      fi
+    '';
 }

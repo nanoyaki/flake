@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   config,
   inputs',
@@ -65,6 +64,12 @@ in
     };
   };
 
+  systemd.tmpfiles.settings."10-nanoyaki-events"."${home}/cache".d = {
+    user = "nanoyaki-events";
+    group = "nanoyaki-events";
+    mode = "0770";
+  };
+
   users.groups.nanoyaki-events = { };
   users.users.nanoyaki-events = {
     isSystemUser = true;
@@ -106,31 +111,4 @@ in
       passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
     };
   };
-
-  sec."mongodb/initialScript" = {
-    owner = "mongodb";
-    group = "mongodb";
-    mode = "400";
-  };
-  services.mongodb = {
-    enable = true;
-    package = pkgs.mongodb-ce;
-    bind_ip = "127.0.0.1";
-    initialScript = config.sec."mongodb/initialScript".path;
-  };
-
-  systemd.services.mongodb =
-    let
-      cfg = config.services.mongodb;
-    in
-    lib.optionalAttrs cfg.enable {
-      postStart = lib.mkForce ''
-        if test -e "${cfg.dbpath}/.first_startup"; then
-          ${lib.optionalString (cfg.initialScript != null) ''
-            ${lib.getExe pkgs.mongosh} admin "${cfg.initialScript}"
-          ''}
-          rm -f "${cfg.dbpath}/.first_startup"
-        fi
-      '';
-    };
 }

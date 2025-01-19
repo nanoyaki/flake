@@ -2,7 +2,6 @@
   pkgs,
   config,
   inputs',
-  self,
   ...
 }:
 
@@ -13,10 +12,6 @@ let
 in
 
 {
-  imports = [
-    self.nixosModules.dynamicdns
-  ];
-
   sec."caddy/${app}/environment".owner = config.services.caddy.user;
   services.caddy.virtualHosts."events.austria.nanoyaki.space".extraConfig = ''
     root * ${home}/public

@@ -1,6 +1,4 @@
 {
-  lib,
-  config,
   inputs,
   pkgs,
   ...
@@ -87,6 +85,5 @@ in
     };
   };
 
-  environment.variables.EDITOR = lib.getExe config.programs.nvf.settings.vim.package;
   environment.systemPackages = [ pkgs.yazi ];
 }

@@ -20,7 +20,6 @@
     ./mpv.nix
     ./spotify.nix
     ./vscode.nix
-    ./neovim.nix
     ./user-programs.nix
     ./theme.nix
     ./syncthing.nix

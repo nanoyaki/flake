@@ -7,10 +7,6 @@
 
       # Allowed TCP ports
       allowedTCPPorts = [
-        # HTTP(S)
-        80
-        443
-
         # SCP query
         # 7777
       ];

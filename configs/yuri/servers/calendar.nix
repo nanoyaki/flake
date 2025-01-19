@@ -82,9 +82,6 @@ in
     user = "nanoyaki-events";
 
     phpPackage = pkgs.php84;
-    phpOptions = ''
-      extension=${pkgs.php84Extensions.mongodb}/lib/php/extensions/mongodb.so
-    '';
 
     settings = {
       "listen.owner" = config.services.caddy.user;

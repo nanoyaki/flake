@@ -50,8 +50,17 @@ in
     "hana"
   ];
 
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
   services.caddy = {
     enable = true;
+    logFormat = ''
+      format console
+      level INFO
+    '';
 
     virtualHosts = {
       "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";

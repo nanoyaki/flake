@@ -8,7 +8,10 @@
 
 let
   tcVid = pkgs.writeShellScriptBin "tcVid" ''
-    ${lib.getExe pkgs.ffmpeg-full} -i "$1" -c:v h264 -pix_fmt yuv420p -profile:v high422 -movflags +faststart -c:a aac -profile:a aac_main -b:a 320k -ac 2 -dn "$1".mp4
+    ${lib.getExe pkgs.ffmpeg-full} -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 -i "$1" -c:v av1_vaapi -b:v 3000k -maxrate 4000k "$1_AV1".mp4
+  '';
+  tcVidAac = pkgs.writeShellScriptBin "tcVidAac" ''
+    ${lib.getExe pkgs.ffmpeg-full} -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 -i "$1" -c:v av1_vaapi -b:v 3000k -maxrate 4000k -c:a aac -profile:a aac_main -b:a 320k -ac 2 -dn "$1_AV1".mp4
   '';
 in
 
@@ -29,6 +32,7 @@ in
     ])
     ++ [
       tcVid
+      tcVidAac
       inputs'.deploy-rs.packages.deploy-rs
     ];
 

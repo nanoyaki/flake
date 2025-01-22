@@ -41,10 +41,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    vermeer-undervolt = {
-      url = "github:nanoyaki/5800x3d-undervolt/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,10 +54,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+
+    # own stuff
+    vermeer-undervolt = {
+      url = "github:nanoyaki/5800x3d-undervolt/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     discord-events-to-ics = {
       url = "github:nanoyaki/discord-events-to-ics/v0.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    owned-material.url = "git+ssh://git@codeberg.org/nanoyaki/owned-material.git?ref=main&shallow=1";
   };
 
   outputs =

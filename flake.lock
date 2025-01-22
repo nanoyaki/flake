@@ -647,11 +647,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737478403,
-        "narHash": "sha256-e6PJI4Bd+QdpukHyd5F/fQY8fRUiNfCwvCRU8WXMSk8=",
+        "lastModified": 1737480538,
+        "narHash": "sha256-rk/cmrvq3In0TegW9qaAxw+5YpJhRWt2p74/6JStrw0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "96dee79b178d295b716052feca3ee46abc085abe",
+        "rev": "4481a16d1ac5bff4a77c608cefe08c9b9efe840d",
         "type": "github"
       },
       "original": {
@@ -1189,6 +1189,23 @@
         "owner": "NotAShelf",
         "repo": "nvf",
         "type": "github"
+      }
+    },
+    "owned-material": {
+      "locked": {
+        "lastModified": 1737496011,
+        "narHash": "sha256-OyfxXIz/q/1Ui+jUeMPjxp0xz0fvmDjHnVFYEEdjPHc=",
+        "ref": "main",
+        "rev": "a3a1c190fc8d7d75c65a41e09f02f8c52bffbe75",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/nanoyaki/owned-material.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/nanoyaki/owned-material.git"
       }
     },
     "plugin-aerial-nvim": {
@@ -3870,11 +3887,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737467580,
-        "narHash": "sha256-6GSw1BqpXaG0Gfj2h9HuKCYKjNg7iW0gjpq0zbtEwIY=",
+        "lastModified": 1737495757,
+        "narHash": "sha256-EDrnNX1RbpTPwK+XyXNBi8DqkuzzjC3JsT3LdjdYRAc=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "8d3684c484342fe0e6bb9d90572ffb327991c7cf",
+        "rev": "fdb4159f2aec55d09830289e5eec6b74c1bfde4b",
         "type": "github"
       },
       "original": {
@@ -3898,6 +3915,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-xr": "nixpkgs-xr",
         "nvf": "nvf",
+        "owned-material": "owned-material",
         "prismlauncher": "prismlauncher",
         "sops-nix": "sops-nix",
         "stylix": "stylix",

@@ -64,7 +64,6 @@
       url = "github:nanoyaki/discord-events-to-ics/v0.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    owned-material.url = "git+ssh://git@codeberg.org/nanoyaki/owned-material.git?ref=main&shallow=1";
   };
 
   outputs =

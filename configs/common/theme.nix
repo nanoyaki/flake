@@ -5,8 +5,6 @@
 }:
 
 let
-  inherit (inputs.owned-material) images;
-
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -40,7 +38,11 @@ in
     base16Scheme = "${patchedBase16}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
     polarity = "dark";
 
-    image = images.szcb911."2024-10-15.jpeg";
+    # revert until https://github.com/NixOS/nix/pull/10153 is merged
+    image = pkgs.fetchurl {
+      url = "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:n3xxlxmlutbyeih4rphvn5o3/bafkreie6qpaxgmgbelgddjezoqknolhqvhtwdpeq4ucfbup35oytb5i3ma@png";
+      hash = "sha256-b9z6cs9hkaC1iC4oU5S7iYIYvfroPhepehHf3aLXFoc=";
+    };
 
     fonts = {
       serif = {

@@ -23,6 +23,7 @@ in
       root ${home}/public
 
       import ${config.sec."caddy/${app}/environment".path}
+      env CACHE_DIR "${home}/cache"
 
       resolve_root_symlink
     }

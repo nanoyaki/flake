@@ -39,6 +39,7 @@ in
         root ${home}/public
 
         import ${config.sec."caddy/nanoyaki-events/environment".path}
+        env CACHE_DIR "${home}/cache"
 
         resolve_root_symlink
       }

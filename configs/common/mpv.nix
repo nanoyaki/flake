@@ -93,8 +93,20 @@ in
 
   config = {
     hm.programs.mpv = {
-      package = mpv;
       enable = true;
+
+      config.osc = "no";
+
+      scripts = with pkgs.mpvScripts; [
+        sponsorblock
+        thumbfast
+        modernx
+        mpvacious
+        mpv-discord
+        mpv-subtitle-lines
+        mpv-playlistmanager
+        mpv-cheatsheet
+      ];
     };
 
     xdg.mime.defaultApplications = mkMerge [

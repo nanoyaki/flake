@@ -15,8 +15,9 @@
     enable = true;
     type = "fcitx5";
     fcitx5 = {
-      addons = [
-        pkgs.fcitx5-mozc
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
       ];
       waylandFrontend =
         config.services.xserver.displayManager.gdm.wayland || config.modules.plasma6.enableWaylandDefault;

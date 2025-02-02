@@ -14,6 +14,7 @@
           lavalink
           startvrc
           writeSystemdToggle
+          vrcx
           ;
       };
 
@@ -23,6 +24,7 @@
         startvrc = pkgs.callPackage ./startvrc { };
         alcom = pkgs.callPackage ./alcom { };
         writeSystemdToggle = pkgs.callPackage ./writeSystemdToggle { };
+        vrcx = pkgs.callPackage ./vrcx { };
       };
     };
 }

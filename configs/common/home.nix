@@ -40,6 +40,8 @@ in
       stateVersion = lib.mkDefault (
         builtins.trace "Home manager state version not set. Defaulting to system.stateVersion" config.system.stateVersion
       );
+
+      preferXdgDirectories = true;
     };
 
     programs.home-manager.enable = true;

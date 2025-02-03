@@ -29,8 +29,7 @@ in
   hardware.cpu.amd.updateMicrocode = true;
 
   security.polkit.enable = true;
-  hm.xdg.configFile."autostart/org.corectrl.CoreCtrl.desktop".source =
-    "${corectrl}/share/applications/org.corectrl.CoreCtrl.desktop";
+  hm.xdg.autostart.entries = [ "${corectrl}/share/applications/org.corectrl.CoreCtrl.desktop" ];
   programs.corectrl = {
     enable = true;
     package = corectrl;

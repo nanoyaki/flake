@@ -3,6 +3,10 @@ let
 in
 
 {
+  users.groups.videos = { };
+  users.users.caddy.extraGroups = [ "videos" ];
+  users.users.hana.extraGroups = [ "videos" ];
+
   services.caddy.virtualHosts."videos.nanoyaki.space".extraConfig = ''
     root * ${directory}
     file_server * browse
@@ -10,7 +14,7 @@ in
 
   systemd.tmpfiles.settings."10-caddy-videos-file-server".${directory}.d = {
     user = "caddy";
-    group = "caddy";
+    group = "videos";
     mode = "0770";
   };
 
@@ -19,10 +23,10 @@ in
     browseable = "yes";
     "read only" = "no";
     "guest ok" = "no";
-    "create mask" = "0660";
+    "create mask" = "0770";
     "directory mask" = "0770";
     "force user" = "hana";
-    "force group" = "hana";
+    "force group" = "videos";
     "valid users" = "hana";
   };
 

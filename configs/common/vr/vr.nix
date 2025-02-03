@@ -59,7 +59,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    index_camera_passthrough
+    # index_camera_passthrough
     wlx-overlay-s
 
     lighthouse

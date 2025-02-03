@@ -1,6 +1,8 @@
 {
   pkgs,
   inputs,
+  config,
+  lib,
   ...
 }:
 
@@ -9,10 +11,6 @@ let
     enable = true;
     flavor = "mocha";
     accent = "pink";
-  };
-
-  patchedBase16 = pkgs.base16-schemes.overrideAttrs {
-    patches = [ ./patches/pink-accent-mocha.patch ];
   };
 in
 
@@ -26,8 +24,15 @@ in
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
+  catppuccin = {
+    inherit (catppuccin) enable flavor accent;
+
+    sddm.background = "${config.stylix.image}";
+  };
+
   stylix = {
     enable = true;
+    autoEnable = false;
 
     cursor = {
       package = pkgs.rose-pine-cursor;
@@ -35,7 +40,7 @@ in
       size = 32;
     };
 
-    base16Scheme = "${patchedBase16}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-${catppuccin.flavor}.yaml";
     polarity = "dark";
 
     # revert until https://github.com/NixOS/nix/pull/10153 is merged
@@ -74,5 +79,32 @@ in
     };
   };
 
-  hm.catppuccin.gtk.icon = catppuccin;
+  environment.systemPackages = [
+    (pkgs.catppuccin-papirus-folders.override {
+      inherit (catppuccin) accent flavor;
+    })
+
+    (pkgs.catppuccin.override {
+      inherit (catppuccin) accent;
+      variant = catppuccin.flavor;
+    })
+
+    (lib.mkIf config.services.desktopManager.plasma6.enable (
+      pkgs.catppuccin-kde.override {
+        flavour = [ catppuccin.flavor ];
+        accents = [ catppuccin.accent ];
+      }
+    ))
+  ];
+
+  hm.catppuccin = {
+    inherit (catppuccin) enable flavor accent;
+
+    kvantum = {
+      inherit (catppuccin) enable flavor accent;
+      apply = true;
+    };
+
+    gtk.icon = catppuccin;
+  };
 }

@@ -45,6 +45,18 @@ in
       defaultSession = mkIf cfg.enableWaylandDefault "plasma";
     };
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      config.common.default = [ "kde" ];
+    };
+
+    hm.xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      config.common.default = [ "kde" ];
+    };
+
     environment.sessionVariables = mkIf cfg.enableWaylandDefault {
       NIXOS_OZONE_WL = "1";
     };

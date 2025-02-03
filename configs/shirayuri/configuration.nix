@@ -29,6 +29,8 @@ in
       wineWowPackages.stableFull
 
       ffmpeg-full
+
+      meow
     ])
     ++ [
       tcVid

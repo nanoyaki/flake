@@ -1,5 +1,5 @@
 let
-  directory = "/var/lib/caddy/videos";
+  directory = "/mnt/shares/Videos";
 in
 
 {
@@ -12,6 +12,18 @@ in
     user = "caddy";
     group = "caddy";
     mode = "0770";
+  };
+
+  services.samba.settings.videos = {
+    path = directory;
+    browseable = "yes";
+    "read only" = "no";
+    "guest ok" = "no";
+    "create mask" = "0660";
+    "directory mask" = "0770";
+    "force user" = "hana";
+    "force group" = "hana";
+    "valid users" = "hana";
   };
 
   services.namecheapDynDns.domains."nanoyaki.space".subdomains = [ "videos" ];

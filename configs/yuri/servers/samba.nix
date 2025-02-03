@@ -64,8 +64,8 @@
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
+        "create mask" = "0640";
+        "directory mask" = "0750";
         "force user" = "hana";
         "force group" = "hana";
         "valid users" = "hana";

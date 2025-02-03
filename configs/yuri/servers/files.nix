@@ -7,10 +7,10 @@ in
   users.users.caddy.extraGroups = [ "videos" ];
   users.users.hana.extraGroups = [ "videos" ];
 
-  services.caddy.virtualHosts."videos.nanoyaki.space".extraConfig = ''
-    root * ${directory}
-    file_server * browse
-  '';
+  # services.caddy.virtualHosts."videos.nanoyaki.space".extraConfig = ''
+  #   root * ${directory}
+  #   file_server * browse
+  # '';
 
   systemd.tmpfiles.settings."10-caddy-videos-file-server".${directory}.d = {
     user = "caddy";

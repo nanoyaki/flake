@@ -25,7 +25,7 @@ in
     "guest ok" = "no";
     "create mask" = "0770";
     "directory mask" = "0770";
-    "force user" = "hana";
+    "force user" = "caddy";
     "force group" = "videos";
     "valid users" = "hana";
   };

@@ -1,0 +1,1488 @@
+diff --git a/cats/cat1.txt b/cats/cat1.txt
+deleted file mode 100644
+index e68079e..0000000
+--- a/cats/cat1.txt
++++ /dev/null
+@@ -1,3 +0,0 @@
+-|\---/|
+-| o_o |
+- \_^_/
+\ No newline at end of file
+diff --git a/cats/cat10.txt b/cats/cat10.txt
+deleted file mode 100644
+index 8ba4fa8..0000000
+--- a/cats/cat10.txt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-@          (@
+-@#@@#@@#@#@@C^
+-@@@@@##@@@##K
+-@@#@@#@@@@@@
+-@##@@##@@@#@G
+-C@@#@@@#@#@G
+-C##@@#@#@#@G
+-  (#@@@#tG@
+- O/t###/#@@
+- @@@C^C@#@@@
+- #@#@@@#@#@#@
+- @#@@##@#@@@@@
+- @@@#@@#@#@@@@@G
+- #@#@#@#@#@@@@@#@@@(
+- @@@#@#@#@@@#@#@#@#@7
+- ##@@#@#@#@@#@@@@@#@G/
+- @#@@#@#@#@@#@#@@#@@@@C
+- #@#@@@@@@#@@@@#@@#@##G
+- @@@#@#@#@@@@@@#@@#@@@@O
+-  ^O@@#@#@@@@@#@@@#@@@@G
+-  @O^(#@@@#@#C//#@@#@##@
+-  @@#t#@@@##/C@@#@@#@##@
+-  @@####@#@^G#@@@@@@@@@@@
+-  @@#@G@@@G###@@@#@#@#@#@
+-  C##@t@@#/@#@#@@@#@@@@@@O
+- @C@@#C@@tt#@#@@@#@@##@@@@C
+-@###@@C@@t/#@#@@@#@@#@@@@#@%
+-@@G@#@t@@#C@##@@@#@@#@@@@#@@
+-@G@@@@G@#@##@#@@@#@@@C@@#@@#O
+-@@t  ##@@@@##@@##@#  ##@#@@@#
+-@@@@@G            C@@##@#@#
+- O@#@#@@@@##@@@@@@#@@##@@
+-    C@G@#@@@@@@##@@##
+\ No newline at end of file
+diff --git a/cats/cat101.txt b/cats/cat101.txt
+deleted file mode 100644
+index 4d569c6..0000000
+--- a/cats/cat101.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-      |\__-----__/|
+- _____/::::::  :::\_____
+-'__--(:::::::::..::)--__`
+-/  _- \/: :::::::\/ -_  \
+-  /   /::.   .::::\   \
+-     |:::::::::::::|
+-    _|/:::::____::\|_
+-  /::/:::::/:_::\::\:.\
+- |::|  ..:(_/ \::|::|::|
+- |::|:::::. ::|: |::|.:|
+-  \:|::  :::_/::/: :|:/
+-((___\____\____/___/___))
+\ No newline at end of file
+diff --git a/cats/cat102.txt b/cats/cat102.txt
+index 0331ff1..fc85868 100644
+--- a/cats/cat102.txt
++++ b/cats/cat102.txt
+@@ -1,14 +1,11 @@
+-                                               .-..--.
+-                                              /     \ `.
+-                                              o/' o>|   \
+-          .-------.                         .'      |   |
+-         /         `----.___                m__.-'' \__/
+-        J                   ` __    /|         |`    |
+-       /|           /        |\/`--' (         /     `.
+-     .' \     |     |    |      _   _ \       /        \
+-  .-' .' \    |     \       _   `   `_ )     J          L
+--' .-'  | )   \      `.  \.' `.     _X/       \         |\
+-.-'  |    (   \ `````` \ \  \| `-._.-'        | |     | | |
+- |     |  |`.  \  \   | \ \  \ \  |  | |      | |-._.-| | |
+-    ||       `. `._`._   \ \_ \ `_           -' |(('  | `-))
+- |       | |   `.__)__) | `._) `._)  |      (((/       \)))
+\ No newline at end of file
++          .-------.
++         /         `----.___
++        J                   ` __    /|
++       /|           /        |\/`--' (
++     .' \     |     |    |      _   _ \
++  .-' .' \    |     \       _   `   `_ )
++-' .-'  | )   \      `.  \.' `.     _X/
++.-'  |    (   \ `````` \ \  \| `-._.-'
++ |     |  |`.  \  \   | \ \  \ \  |  | |
++    ||       `. `._`._   \ \_ \ `_
++ |       | |   `.__)__) | `._) `._)  |
+\ No newline at end of file
+diff --git a/cats/cat106.txt b/cats/cat106.txt
+deleted file mode 100644
+index 8069214..0000000
+--- a/cats/cat106.txt
++++ /dev/null
+@@ -1,19 +0,0 @@
+-                                        _.,._./)
+-                                    .-''        `-.
+-         ___                      .'               `.
+-  ____.-'   `--.____             /                 <)
+-<_.  /__---.    `.  `-""------.-'                   L
+- `. //  `,                                        -.|
+-   \ \    )                                         `._
+-    | )                                                `-.
+-    J                                                     `-.
+-     L  _.      /         \                      _           `--.__
+-     `. \)     /           `.                     `-._             `-.___
+-       \    .'              |                   _.'   `-._               `-.
+-        |"-'\`-._    \      |     .--._    _.--'          ``-.___           )
+-        J  J\`.  `-._ \     |_.--'     """"                      `----.___.'
+-         L  )        "J    J
+-          `"           L   |
+-                       ( ...\
+-                        \\\\'
+-                         `-'
+\ No newline at end of file
+diff --git a/cats/cat112.txt b/cats/cat112.txt
+deleted file mode 100644
+index 5831d31..0000000
+--- a/cats/cat112.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+- (\_/)
+- /. .\
+-=\_T_/=
+- /   \ .-.
+- | _ |/
+-/| | |\
+-\)_|_(/  _
+-`"" ""` (_)_.-.
+-              '-'
+\ No newline at end of file
+diff --git a/cats/cat122.txt b/cats/cat122.txt
+deleted file mode 100644
+index ee9d2d4..0000000
+--- a/cats/cat122.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  /\-/\
+- /a a  \                                 _
+-=\ Y  =/-~~~~~~-,_______________________/ )
+-  '^--'          ________________________/
+-    \           /
+-    ||  |---'\  \  
+-   (_(__|   ((__|   
+\ No newline at end of file
+diff --git a/cats/cat124.txt b/cats/cat124.txt
+deleted file mode 100644
+index e59b236..0000000
+--- a/cats/cat124.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+-     _     _
+-    /\`-"-`/\
+-    )` _ _ `(
+-(`\ |=  Y  =|
+- ) )_\  ^  /_
+-( (/ ;`-u-`; \
+- \| /       \ |
+-  \ \_ \ / _/ /
+-  (,(,,)~(,,),)
+\ No newline at end of file
+diff --git a/cats/cat127.txt b/cats/cat127.txt
+deleted file mode 100644
+index f0239ba..0000000
+--- a/cats/cat127.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-    _             _
+-   | '-.       .-' |
+-    \'-.'-"""-'.-'/    _
+-     |= _:'.':_ =|    /:`)
+-     \ <6>   <6> /   /  /
+-     |=   |_|   =|   |:'\
+-     >\:.  "  .:/<    ) .|
+-      /'-._^_.-'\    /.:/
+-     /::.     .::\  /' /
+-   .| '::.  .::'  |;.:/
+-  /`\:.         .:/`\(
+- |:. | ':.   .:' | .:|
+- | ` |:.;     ;.:| ` |
+-  \:.|  |:. .:|  |.:/
+-   \ |:.|     |.:| /
+-/'|  |\   /|  |`\
+-  (,,/:.|.-'-.|.:\,,)
+-    (,,,/     \,,,)
+\ No newline at end of file
+diff --git a/cats/cat129.txt b/cats/cat129.txt
+deleted file mode 100644
+index 25503fe..0000000
+--- a/cats/cat129.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-         //Z/Z//
+-  |\    //Z/Z//   _,,,--,,_
+-  /x`. //Z/Z//-'`'   ._  \-;;,_
+- |x4- //Z/Z//  ) )_   .;.(  `'-'
+-'---'//Z/Z//'(_/._)-'(_\_)
+-    //Z/Z//
+-   //Z/Z//
+\ No newline at end of file
+diff --git a/cats/cat132.txt b/cats/cat132.txt
+deleted file mode 100644
+index f4c19e2..0000000
+--- a/cats/cat132.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-  _
+- //
+-||              |\_/|
+- \\  .-""""-._,' e e(
+-  \\/         \  =_Y/=
+-   \    \       /`"`
+-    \   | /    |
+-    /  / -\   /
+-    `\ \\  | ||
+-      \_)) |_))
+\ No newline at end of file
+diff --git a/cats/cat133.txt b/cats/cat133.txt
+deleted file mode 100644
+index c239f1c..0000000
+--- a/cats/cat133.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+- _ 
+-((
+- \\
+-  ))       
+- //.--.     |\_/|
+-|      `'..' a a(
+- \  \      \ =_Y/=
+- /   |   /  /`"`
+- > /` --< <<
+- \__))   \_))
+\ No newline at end of file
+diff --git a/cats/cat136.txt b/cats/cat136.txt
+deleted file mode 100644
+index 0537234..0000000
+--- a/cats/cat136.txt
++++ /dev/null
+@@ -1,3 +0,0 @@
+-       (\_/)
+-   (  =(^Y^)=
+-____\_(m___m)_______
+\ No newline at end of file
+diff --git a/cats/cat141.txt b/cats/cat141.txt
+deleted file mode 100644
+index 645a2b0..0000000
+--- a/cats/cat141.txt
++++ /dev/null
+@@ -1,16 +0,0 @@
+-              .-.   _                __
+-             `  )`'-,`\        .-''``.-'
+-_.-''-.      _.'       `'--._.' ,-'  /
+-`\    _`'--'`                      .'
+-  '._ _`-       .--.   .--.      (`
+-     `.'       /    '.'    \      '.
+-    .'         \  0  |  0  /        '.
+-   /   _        '._.---._.'      _    \
+-   /    `'-.      (     )    .-'`     \
+-   / .---'_.   .   `-,-`  .  ._'---.  \
+-   |   -'`   .       |      .  `'-    |
+-   /_       .   '   /;\  '    .     ,_\
+-     '-.     '-..-`( ' )`-..-'     /
+-        '._         '-'         _.'
+-           '-..,__       __,..-'
+-                  `'---'`
+\ No newline at end of file
+diff --git a/cats/cat143.txt b/cats/cat143.txt
+deleted file mode 100644
+index 1a2b224..0000000
+--- a/cats/cat143.txt
++++ /dev/null
+@@ -1,8 +0,0 @@
+- |\.-"-./|
+- \`     `/
+- |= ^Y^ =|
+- \__ ^ __/
+- /`=+o+=`\
+-|         |
+-| (     ) |
+-(,,)---(,,)
+\ No newline at end of file
+diff --git a/cats/cat146.txt b/cats/cat146.txt
+deleted file mode 100644
+index 39ce1ad..0000000
+--- a/cats/cat146.txt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-  ,__         __,
+-   | \,-"""-,/ |
+-   \.'_     _'./
+-   / <o>   <o>  \
+- >|      Y      |<
+-  \   \  :  /   /
+-   '.  '-^-'  .'
+-    /`-------'\
+-   /    >o<    \
+-   |           |
+- .-|           |-.
+-|  |  |     |  |  |
+-|  |  |     |  |  |
+- \ |  |     |  | /
+-  )|  \     /  |(`.
+-.' /\__)._.(__/_,) )
+-""`     (_______,.'
+\ No newline at end of file
+diff --git a/cats/cat147.txt b/cats/cat147.txt
+deleted file mode 100644
+index c88a913..0000000
+--- a/cats/cat147.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+-      ,-~-,       ,-~~~~-,    /\  /\
+-(\   / ,-, \    ,'        ', /  ~~  \
+- \'-' /   \ \  /     _      #  <0 0> \
+-  '--'     \ \/    .' '.    # =  Y  =/
+-            \     / \   \   `#-..!.-'
+-             \   \   \   `\ \\
+-              )  />  /     \ \\
+-             / /`/ /`__     \ \\__
+-            (____)))_)))     \__)))
+\ No newline at end of file
+diff --git a/cats/cat15.txt b/cats/cat15.txt
+deleted file mode 100644
+index 6ce6d35..0000000
+--- a/cats/cat15.txt
++++ /dev/null
+@@ -1,40 +0,0 @@
+-                                             ~~
+-      C7                                   77/7~7(~
+-    @@@@@/                                S7@@~@ @K
+-   ^@@K@@BK~                           7@@@BSS(S7CC7
+-   @S@@~(S@@@R                        @@@/777((77S7@7
+-   ^S@@@(7@@@@/                      S@@B@77(~@7@KKS/
+-    7@@B(~(7S@@B@7                 K@@@B~7((~(77@@@@7
+-    7@@S7((77@@@@@~ S7 7(@S@SB@7@@@@@S@@777((~7@@S@@7
+-  7~(@@@7((~(7@@@@77@B@@R@BS@@@K@@@C@S77(~(@@(77@B@@K(
+-     S@@@7(~@(@B@K@  ~SS^//      7CS@S/K@B(~((7S@@@@@/
+-     7@@@77(@@@@K~              /@7RS7@@@7/R@777@@@SBCC/
+-  7S77@@@@7@@7 /@C            7@~~~BSS@K@@@@B@B@@@@@@~
+-      SB@B@@7@@7~(              S@7  @@(  @@@@@SS@@S@7
+-    KK@@CS7  ^~SB                       KKS/C(C@@SS@@@(
+-    @@@@/        ~@        @  @@@BS/       ^   7K77@B@7
+-      // S@77@@@B@@@     @  @@@B@ @@ S@@7          S~ 7
+-      / 7@@7@@@@@@@@@    @ @@@@@@@KB 7@@@S          7K7~
+-     ~S7@@C @@@@@@@SB    @ @@@SCSSCB (KB@@@S   ~SCSCSCRSS7
+-    7@S@@@C 7@@@@K@@S     @S 7SS@S   @@@@@@R     7K@@SKB/(S/
+-   7@7@B@@7  ^S@7^@@  S   @    ~    S@@B@@@~    /S7 /@77@7
+- K7K@@C@@@B@S~C   7@7          7@@@B@@@B@S77@S(    7@R7/SCS@/
+-7S~@S7/B@B@@@@BK  7@/ ~/7       (@B@@B@@@@@7~      SBSB7 S/
+- @S@@S   7K@K   @C7@@@@@K 7S777777S@S         ~@7 ^ CB@@B^ 7@C
+-@  CC@ ~7@@@@SS@S7S  @B~ @S7S  7      7S@7    @   B/ SB@S(@7
+-   BC@K7~  K@~^7S~7 KB@K ~ 7CS7R ^SK@~  ^~7S7^7S^ /@K(SS7SS^
+-  7@S  ~/ (SB@S  7S@@K S@@@S7~ CK@@S          ^ S~ 7@S@7~@7
+-  ^@^~S 7K    7RB@@@^    K@@@@RC7   7RC^   7^  K~(@K~@~/K7
+-  S^/@~/S        7S@S(  (@@@K@7~      7@   7S  ~@/@B@7@7/7
+-   /@^SS            ~C@@BKC//           77@~/S   S7K@@7^K/
+- S@K SCKS~^   @   ~/                   7   R/  7@ ^7 S@~
+-S@S~~@@@@S( ~(S   SS          C7       K   7S  ~@SCS77@S
+-@S   /7@B~ @~KKB/~@  ~7     @/ @   7/K 7@  (@@ @ SS  @@7@^
+- @    7@~ 77@7S7SR   (7 K   @  S~ @KS7K BS  SB(~B 7SS(   @
+- @@   7^  S~RC~@7C  KR^~R7  @  ^S RSK~@~^@C (@~ ~C @K    /
+-    @ /7@C  ~S@77~  CK7@C@@~BS@~CC7@7@CS  @S@ @  @7
+-    @@CC   (K @~ C 7CC7@CB@~B7@7KK @K77C  (7KS   ^/
+-      S   (  (/S~ /@7~S7 @7S7 S@SS/7@@@~@ @77  7
+-       @@@B@@@S@ C7/7 S7S@^@@ @@B R77@K77K@  SB
+-                 R/~ 77@S7 @@ @@@ S(/7@K @
+-                               /R  (  S(~S
+\ No newline at end of file
+diff --git a/cats/cat150.txt b/cats/cat150.txt
+deleted file mode 100644
+index d51d780..0000000
+--- a/cats/cat150.txt
++++ /dev/null
+@@ -1,8 +0,0 @@
+-  ,_         _,
+-  |\\`-"""-`//|
+-  \   :'.':   /
+-  /=-<0> <0>-=\
+-  |=    Y    =|
+-  \'._.-'-._.'/
+- { '. `'-'` .' }
+-{=.  ` '-' `  .=}
+\ No newline at end of file
+diff --git a/cats/cat154.txt b/cats/cat154.txt
+deleted file mode 100644
+index c77b08c..0000000
+--- a/cats/cat154.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+- |____|____|____|____|____|____|____|____|____|____|____|____|____
+- ____|____|____|____|____|____|____|____|____|____|____|____|____|
+- __|____|____|____|____|___|_         ____|____|____|____|____|__
+- |____|____|____|____|___|    (\.-./)  _|____|____|____|___|___|_ 
+-____|____|____|____|____|_  = (^ Y ^) =  _|____|____|____|____|__
+-|____|____|____|____|____|___ /`---`\ __|____|____|____|____|____|
+- __|____|____|____|____|____|_U___|_U|____|____|____|____|____|_  
+- |____|____|____|____|____|____|____|____|____|____|____|____|____
+-____|____|____|____|____|____|____|____|____|____|____|____|____|_
+\ No newline at end of file
+diff --git a/cats/cat155.txt b/cats/cat155.txt
+deleted file mode 100644
+index 7454d70..0000000
+--- a/cats/cat155.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-             /\             /\
+-            |`\\_,--="=--,_//`|  
+-            \ ."  :'. .':  ". /
+-           ==)  _ :  '  : _  (==
+-             |>/O\   _   /O\<|
+-             | \-"~` _ `~"-/ |
+-            >|`===. \_/ .===`|<
+-      .-"-.   \==='  |  '===/   .-"-.
+------{'. '`}---\,  .-'-.  ,/---{.'. '}-----
+-     `"---"`     `~-===-~`     `"---"`
+\ No newline at end of file
+diff --git a/cats/cat156.txt b/cats/cat156.txt
+deleted file mode 100644
+index 7b6fb23..0000000
+--- a/cats/cat156.txt
++++ /dev/null
+@@ -1,41 +0,0 @@
+-                   /\             /\
+-                  |`\\_,--="=--,_//`|  
+-                  \ ."  :'. .':  ". /
+-                 ==)  _ :  '  : _  (==
+-                   |>/O\   _   /O\<|
+-                   | \-"~` _ `~"-/ |
+-                  >|`===. \_/ .===`|<
+-            .-"-.   \==='  |  '===/   .-"-.
+-     .-----{'. '`}---\,  .-'-.  ,/---{.'. '}-----.
+-     |     `"---"`     `~-===-~`     `"---"`     |
+-     |     .-------------------------------.     |
+-     |     |                               |     |
+-     |     |                               |     |
+-     |     |                    .--.       |     |
+-     |     |                  ."  o \__    |     |
+-     |     |               _.-"    ,(  `   |     |
+-     |     |           _.-"      ,;;|      |     |
+-     |     |      _.-=" _,"    ,,;;;'      |     |\  
+-     |     |  .-"`_.-"``-..,,;;;;:'        |     |'\
+-     |     |  `"'`          `\`\           |     |.'`\
+-     |     |                 /^\\\         |     |'.'`}
+-     |     |                               |     } '. }
+-     |     |                               |    /.'`./
+-     |     '-------------------------------'   /. './
+-    _|  _                                     /.`'./
+-   (.\-/.)--------.__________________.-------{.'. {
+-    \6 6/         /                  \       `\.'`\
+-(   =\ /=  ______/....................\______  \.'.\
+- \   /O\  |                                  |  }'.'}
+-  ) /   \ | [[[[[[[[[[ ===       ()  ()  ()  | {'.'/
+- (  U   U |                       ________   |  `~`
+-  \(|   |)| [[[[[[[[[[ ===       [________]  |
+-   _w___w_:----------------------------------:_______
+-  |  []  [][][][] [][][][] [][][][] [][][]  == ===== |
+-  |                                                  |
+-  |   [][][][][][][][][][][][][][]_ [][][] [][][][]  |
+-  |   [_][][][][][][][][][][][][]| |[][][] [][][]||  |
+-  |   []  [][][][][][][][][][][][__|       [][][]||  |
+-  |   [__] [][][][][][][][][][][___]  []   [][][]||  |
+-  |   [_]  [_][_____________][_] [_][][][] [__][]||  |
+-  '--------------------------------------------------'
+\ No newline at end of file
+diff --git a/cats/cat157.txt b/cats/cat157.txt
+deleted file mode 100644
+index 8e0e04c..0000000
+--- a/cats/cat157.txt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-                              ==
+-                             ==
+-                            ==
+-            ``````````      ==
+-        ```==========```     ==
+- /\```/\================`````==
+-(  O O  )=====================
+-=== ^ === ================
+-  \ O / ==================
+-   ''' ======        =====
+-        ====         ====
+-        ===          ===
+-         ==          ==
+-         ==          ==
+-         ==          ==
+-         WW          WW
+-        ''          ''
+\ No newline at end of file
+diff --git a/cats/cat16.txt b/cats/cat16.txt
+deleted file mode 100644
+index 44602bc..0000000
+--- a/cats/cat16.txt
++++ /dev/null
+@@ -1,30 +0,0 @@
+-   3/         %
+-    G%       Rs
+-    @^%RK(^@@R3
+-    @#// ^^~%~/t(
+-    tC // sStt^~(
+-   @@@@@@@@R7 (s7
+-   @t~%~R@Ct^(@(3Q
+-7~7R@^(e(/C%@C/^/#@
+-   @@C#SSs#@7//((%@
+-  KR@@@@S@C//%(@RsSG
+- QQQ@#eQt%%SRK@OO%G#KS
+-OSsO#RG%O#tR~@7tt%SsORS%
+- OtKRSK3CS(Ot/(((CKt/%OsK(/t
+- tG@(eRK(/7~/t%7st~  /( (tCC^%
+-  3O%O~~^(~/t77OS~  (^^   ~((/^t
+-  tt%t(%COt(C%t(  ^ //^   ^//~(sC/
+-  t%(tsQtt(Ss^^ ~ /~O(^      ^~%SQ
+-   es%%COK7^ /t7tOQ%3/     ^(((%SQK
+-   (SKS%3%~(#7COG(OOs / ^  /t%O3SQS
+-     SRKOS%3(%7sSOK(/~// ^(%OeGC3Q@Q
+-       (#RGCO%~t%eS  ((/(sCKt///t3Q@
+-        S CO~~S#sOe%ts%(t#%/^^/(t3e@
+-         KK^/teOK@@SOOt%t(///~/~tG%@@
+-         #O//7%S@G@@@%CS(///(t((SQs@@@     ^/t7eCt
+-         K/^~3R@@#%tKKC7/~//t%OQ%C@@@Rs3%/ t//~%%((C%(%st/
+-        S% /tS@@(tC3%(%t(7%eSQC%eQQR%O3t((tCC(t%Ot//(%%t// /(%/(
+-        s(^(s#@    /s@SCOOs@#C3(CR@ssKCC%O@Ct(t%OsO3SSOeSQRG%(t%t
+-       O//3CR@@   S( ~K@@@@@@R#@@@@ @@@R@@@@#@@@R@@@@@@@@Q@G^ (CS%
+-    (~%StCs/      SKS                                    % ^/t%Gt
+-                                                        O tt#s%%
+\ No newline at end of file
+diff --git a/cats/cat160.txt b/cats/cat160.txt
+index b995939..14204a1 100644
+--- a/cats/cat160.txt
++++ b/cats/cat160.txt
+@@ -1,7 +1,7 @@
+    ,     ,
+    |\."./|
+   / _   _ \
+- / {|} {|} \   ______
++ /  .   .  \   ______
+  \==  Y  ==/"'`      `.
+  /`-._^_.-'\     ,-  . \
+ /     `     \   /     \ \
+diff --git a/cats/cat161.txt b/cats/cat161.txt
+index b6a211e..190c75c 100644
+--- a/cats/cat161.txt
++++ b/cats/cat161.txt
+@@ -1,7 +1,7 @@
+     ,     ,
+     |\."./|
+    / _   _ \
+-  / {|} {|} \  _
++  /  .   .  \  _
+   \==  Y  ==/ ( \
+    ;-._^_.-;   ) )
+   /   \_/   \ / /
+diff --git a/cats/cat163.txt b/cats/cat163.txt
+deleted file mode 100644
+index eae7cfb..0000000
+--- a/cats/cat163.txt
++++ /dev/null
+@@ -1,6 +0,0 @@
+- |\=/|.-"""-.  
+- /6 6\       \
+-=\_Y_/=  (_  ;\
+-  _U//_/-/__///
+- /kit\      ((
+- ^^^^^       `
+\ No newline at end of file
+diff --git a/cats/cat164.txt b/cats/cat164.txt
+deleted file mode 100644
+index f7f7099..0000000
+--- a/cats/cat164.txt
++++ /dev/null
+@@ -1,8 +0,0 @@
+-     |\=/|   
+- _   /6 6\ 
+- )) =\_Y_/=     |\=/|.-"""-.  
+-((   / ^ \      /6 6\       \
+- \\ /| | |\    =\_Y_/=  (_  ;\
+-  \( | | | )     _U//_/-/__///
+-    `"" ""`     /kit\      ((
+-                ^^^^^       `
+\ No newline at end of file
+diff --git a/cats/cat165.txt b/cats/cat165.txt
+deleted file mode 100644
+index f435c5f..0000000
+--- a/cats/cat165.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-     ,_     _,
+-     |\\___//|
+-     |=6   6=|
+-     \=._Y_.=/
+- ,    )  `  (
+- ))  /       \
+-((   |      _|   __
+- \\_/| |   (,).-"  ".
+-  `-\| |._/',  _ (   )_______,
+-     '"'  `^'"` """"'`
+\ No newline at end of file
+diff --git a/cats/cat166.txt b/cats/cat166.txt
+deleted file mode 100644
+index c200553..0000000
+--- a/cats/cat166.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-    ,___  _______  ___,
+-      \ \`       `/ /
+- _    /  0       0  \  
+-( \  >=      Y      =<
+- ) )  \__    w    __/
+-( (    /`+=+=o=+=+`\
+- \ \__/             \__
+-  \/   )           (   \ 
+-  /   /             \   \
+-  \  / /           \ \  /
+-   \/ /-._________.-\ \/
+-  (((_)             (_)))
+\ No newline at end of file
+diff --git a/cats/cat168.txt b/cats/cat168.txt
+deleted file mode 100644
+index bda9874..0000000
+--- a/cats/cat168.txt
++++ /dev/null
+@@ -1,83 +0,0 @@
+-  M.                                         .:M
+-   MMMM.                                   .:MMMM
+-   MMMMMMMM                             .:MMMMMMM
+-   :MMHHHMMMMHMM.  .:MMMMMMMMM:.      .:MMHHMHMM:
+-    :MMHHIIIHMMMM.:MMHHHHIIIHHMMMM. .:MMHIHIIHHM:
+-     MMMHIIIIHHMMMIIHHMHHIIIIIHHMMMMMMHHHIIIIHHM:
+-     :MMHIIIIIHMMMMMMMHHIIIIIIHHHMMMMMHHII:::IHM.
+-      MH:I:::IHHMMMMMHHII:::IIHHMMMHHHMMM:I:IHMM
+-      :MHI:HHIHMMHHIIHII::.::IIHMMHHIHHMMM::HMM:
+-       MI::HHMMIIM:IIHII::..::HM:MHHII:::IHHMM:
+-       MMMHII::..:::IHMMHHHMHHMMI:::...::IHM:
+-       :MHHI::....::::HMMMMMMHHI::.. ..:::HM:
+-        :MI:.:MH:.....:HMMMMHHMIHMMHHI:HH.:M
+-        M:.I..MHHHHHMMMIHMMMMHMMHHHHHMMH:.:M.
+-        M:.H..H  I:HM:MHMHI:IM:I:MM::  MMM:M:
+-        :M:HM:.M I:MHMIIMMIIHM I:MM::.:MMI:M.
+-        'M::MM:IMH:MMII MMHIMHI :M::IIHMM:MM
+-         MH:HMMHIHMMMMMMHMMIMHIIHHHHIMMHHMM
+-          MI:MMMMHI:::::IMM:MHI:::IMMMMHIM
+-          :IMHIHMMMMMM:MMMMMHHHHMMMHI:M
+-            HI:IMIHMMMM:MMMMMMHHHMI:.:M      .....
+-............M::..:HMMMMIMHIIHMMMMHII:M:::''''
+-    ....:::MHI:.:HMMMMMMMMHHHMHHI::M:::::::''''''
+-   ''   ...:MHI:.::MMHHHMHMIHMMMMHH.MI..........
+-      ''  ...MHI::.::MHHHHIHHMM:::IHM           '''
+-         '  IMH.::..::HMMHMMMH::..:HM:
+-           :M:.H.IHMIIII::IIMHMMM:H.MH
+-            IMMMH:HI:MMIMI:IHI:HIMIHM:
+-          .MMI:.HIHMIMI:IHIHMMHIHI:MIM.
+-         .MHI:::HHIIIIIHHI:IIII::::M:IM.
+-        .MMHII:::IHIII::::::IIIIIIHMHIIM
+-        MHHHI::.:IHHII:::.:::IIIIHMHIIHM:
+-       MHHHII::..::MII::.. ..:IIIHHHII:IM.
+-      .MHHII::....:MHII::.  .:IHHHI::IIHMM.
+-      MMHHII::.....:IHMI:. ..:IHII::..:HHMM
+-      MHHII:::......:IIHI...:IHI::.....::HM:
+-     :MMH:::........ ...::..::....  ...:IHMM
+-     IMHIII:::..........     .........::IHMM.
+-     :MHIII::::......          .......::IHMM:
+-      MHHIII::::...             ......::IHMM:
+-      IMHHIII:::...             .....::IIHMM,
+-      :MHHIII:::I:::...     ....:::I:::IIHMM
+-       MMHHIII::IHI:::...........:::IIH:IHMM
+-       :MMHHII:IIHHI::::::.....:::::IH:IHMIM
+-        MMMHHII:IIHHI:::::::::::::IHI:IIHM:M.
+-        MMMHHIII::IHHII:::::::::IHI:IIIHMM:M:
+-        :MMHHHIII::IIIHHII::::IHI..IIIHHM:MHM
+-        :MMMHHII:..:::IHHMMHHHHI:IIIIHHMM:MIM
+-        .MMMMHHII::.:IHHMM:::IIIIIIHHHMM:MI.M
+-      .MMMMHHII::.:IHHMM:::IIIIIIHHHMM:MI.M
+-    .MMMMHHMHHII:::IHHMM:::IIIIIHHHHMM:MI.IM.
+-   .MMHMMMHHHII::::IHHMM::I&&&IHHHHMM:MMH::IM.
+-  .MMHHMHMHHII:::.::IHMM::IIIIHHHMMMM:MMH::IHM
+-  :MHIIIHMMHHHII:::IIHMM::IIIHHMMMMM::MMMMHHHMM.
+-  MMHI:IIHMMHHHI::::IHMM:IIIIHHHMMMM:MMMHI::IHMM.
+-  MMH:::IHMMHHHHI:::IHMM:IIIHHHHMMMM:MMHI:.:IHHMM.
+-  :MHI:::IHMHMHHII::IHMM:IIIHHHMMMMM:MHH::.::IHHM:
+-  'MHHI::IHMMHMHHII:IHMM:IIHHHHMMMM:MMHI:...:IHHMM.
+-   :MHII:IIHMHIHHIIIIHMM:IIHHHHMMMM:MHHI:...:IIHMM:
+-   'MHIII:IHHMIHHHIIHHHMM:IHHHMMMMM:MHHI:..::IIHHM:
+-    :MHHIIIHHMIIHHHIHHHMM:HHHHMMMMM:MHII::::IIIHHMM
+-     MHHIIIIHMMIHHHIIHHMM:HHHHMMMM:MMHHIIHIIIIIHHMM.
+-     'MHHIIIHHMIIHHIIIHMM:HHHMMMMH:MHHMHII:IIIHHHMM:
+-      'MHHIIIHMMIHHHIHHMM:HHHMMMHH:MMIMMMHHHIIIHHMM:
+-       'MHHIIHHMIHHHHHMMM:HHHMMMH:MIMMMMMMMMMMHIHHM:
+-        'MHIIIHMMIHHHHHMM:HHHMMMH:IMMMMMHHIHHHMMHHM'
+-         :MHHIIHMIHHHHHMM:HHHMMMM:MMHMMHIHMHI:IHHHM
+-          MHHIIHM:HHHHHMM:HHHMMMM:MMMHIHHIHMM:HHIHM
+-           MHHIHM:IHHHHMM:HHHHMM:MMHMIIHMIMMMHMHIM:
+-           :MHIHMH:HHHHMM:HHHHMM:MMHIIHMIIHHMMHIHM:
+-            MMHHMH:HHHHMM:HHHHMM:MHHIHMMIIIMMMIIHM'
+-            'MMMMH:HHHHMM:HHHMM:MHHHIMMHIIII::IHM:
+-             :MMHM:HHHHMM:HHHMM:MHIHIMMHHIIIIIHM:
+-              MMMM:HHHHMM:HHHHM:MHHMIMMMHHHIHHM:MMMM.
+-              :MMM:IHHHMM:HHHMM:MHHMIIMMMHHMM:MMMMMMM:
+-              :MMM:IHHHM:HHHHMM:MMHHHIHHMMM:MMMMMMMMMM
+-               MHM:IHHHM:HHHMMM:MMHHHHIIIMMIIMMMMMMMMM
+-               MHM:HHHHM:HHHMMM:HMMHHHHHHHHHMMMMMMMMM:
+-            .MI:MM:MHHMM:MHMMHMHHMMMMHHHHHHHMMMMMMMMM'
+-           :IM:MMIM:M:MM:MH:MM:MH:MMMMMHHHHHMMMMMMMM'
+-           :IM:M:IM:M:HM:IMIHM:IMI:MMMMMHHHMMMMMM:'
+-            'M:MHM:HM:MN:HMIHM::M'   '::MMMMMMM:'
+-               'M'HMM'M''M''HM'I'
+\ No newline at end of file
+diff --git a/cats/cat17.txt b/cats/cat17.txt
+deleted file mode 100644
+index 8aa7702..0000000
+--- a/cats/cat17.txt
++++ /dev/null
+@@ -1,29 +0,0 @@
+-                  ;,_            ,
+-                 _uP~"b          d"u,
+-                dP'   "b       ,d"  "o
+-               d"    , `b     d"'    "b
+-              l] [    " `l,  d"       lb
+-              Ol ?     "  "b`"=uoqo,_  "l
+-            ,dBb "b        "b,    `"~~TObup,_
+-          ,d" (db.`"         ""     "tbc,_ `~"Yuu,_
+-        .d" l`T'  '=                      ~     `""Yu,
+-      ,dO` gP,                           `u,   b,_  "b7
+-     d?' ,d" l,                           `"b,_ `~b  "1
+-   ,8i' dl   `l                 ,ggQOV",dbgq,._"  `l  lb
+-  .df' (O,    "             ,ggQY"~  , @@@@@d"bd~  `b "1
+- .df'   `"           -=@QgpOY""     (b  @@@@P db    `Lp"b,
+-.d(                  _               "ko "=d_,Q`  ,_  "  "b,
+-Ql         .         `"qo,._          "tQo,_`""bo ;tb,    `"b,
+-qQ         |L           ~"QQQgggc,_.,dObc,opooO  `"~~";.   __,7,
+-qp         t\io,_           `~"TOOggQV""""        _,dg,_ =PIQHib.
+-`qp        `Q["tQQQo,_                          ,pl{QOP"'   7AFR`
+-  `         `tb  '""tQQQg,_             p" "b   `       .;-.`Vl'
+-             "Yb      `"tQOOo,__    _,edb    ` .__   /`/'|  |b;=;.__
+-                           `"tQQQOOOOP""`"\QV;qQObob"`-._`\_~~-._
+-                                """"    ._        /   | |oP"\_   ~\ ~\_~\
+-                                        `~"\ic,qggddOOP"|  |  ~\   `\~-._
+-                                          ,qP`"""|"   | `\ `;   `\   `\
+-                               _        _,p"     |    |   `\`;    |    |
+-                               "boo,._dP"       `\_  `\    `\|   `\   ;
+-                                 `"7tY~'            `\  `\    `|_   |
+-                                                      `~\  |
+\ No newline at end of file
+diff --git a/cats/cat171.txt b/cats/cat171.txt
+index a1c1d8c..a0d014c 100644
+--- a/cats/cat171.txt
++++ b/cats/cat171.txt
+@@ -6,8 +6,8 @@
+                            `-.__     \:::::/              :   ~;;~  .'
+                              ;;:\--.__`--.--._             `._____.'
+                            ,;;'` `    `--.__  `-._
+-                           `,  ,\       /,  `--.__;
+-                           <   (o) ___ (o)   >
++                           `,               `--.__;
++                           <    o  ___  o    >
+                           <        \:/        >
+                            <     ._,"._,     >
+                    _.---._  `-.    ~~~    .-'
+diff --git a/cats/cat174.txt b/cats/cat174.txt
+deleted file mode 100644
+index ddd6fc0..0000000
+--- a/cats/cat174.txt
++++ /dev/null
+@@ -1,29 +0,0 @@
+-|/__\|/___\|/___\|/___\|
+-|    ||||||  ||||||   ||
+-|    ||||||  ||||||   ||
+-|\    |||||  |||||   /||
+-||\    \||/   \||/   /||
+-||      ""     ""     ||
+-||      ()     ()     ||
+-||\     ||  _  ||     /|
+-|||\    |  'Y'  |    /||
+-||||\   | |\ /| |   /|||
+-||||\\   \     /   //|||
+-|||||\\   |   |   //||||
+-|||     ""|   |""    |||
+-||      ()|   |()     ||
+-|       ||     ||      |
+-|       ||     ||      |
+-|       \       /      |
+-|        \__ __/       |
+-||          ||        ||
+-||\         \\       /||
+-|||\         \\     /|||
+-||||          ||    ||||
+-||||\        //    /||||
+-|||||       //     |||||
+-|||||\      ||    /|||||
+-||||||      -     ||||||
+-||||||\          /||||||
+-|||||||\        /|||||||
+-||||||||||||||||||||||||
+\ No newline at end of file
+diff --git a/cats/cat178.txt b/cats/cat178.txt
+deleted file mode 100644
+index 7798e69..0000000
+--- a/cats/cat178.txt
++++ /dev/null
+@@ -1,36 +0,0 @@
+-        ,.                 .,
+-       ,: ':.    .,.    .:' :,
+-       ,',   '.:'   ':.'   ,',
+-       : '.  '         '  .' :
+-       ', : '           ' : ,'
+-       '.' .,:,.   .,:,. '.'
+-        ,:    V '. .' V    :,
+-       ,:        / '        :,
+-       ,:                   :,
+-        ,:       =:=       :,
+-         ,: ,     :     , :,
+-          :' ',.,' ',.,:' ':
+-         :'      ':WW::'   '.
+-        .:'       '::::'   ':
+-        ,:        '::::'    :,
+-        :'         ':::'    ':
+-       ,:           ':''     :.
+-      .:'             '.     ',.
+-     ,:'               ''     '.
+-     .:'               .',    ':
+-    .:'               .'.,     :
+-    .:                .,''     :
+-    ::                .,''    ,:
+-    ::              .,'','   .:'
+-  .,::'.           .,','     ::::.
+-.:'     ',.       ,:,       ,WWWWW,
+-:'        :       :W:'     :WWWWWWW,          .,.
+-:         ',      WWW      WWWWWWWWW          '::,
+-'.         ',     WWW     :WWWWWWWWW            '::,
+- '.         :     WWW     :WWWWWWWW'             :::
+-  '.       ,:     WWW     :WWWWWWW'             .:::
+-   '.     .W:     WWW     :WWWWWW'           .,:::'
+-    '.   :WW:     WWW     :WWWWW'      .,,:::::''
+-   .,'   ''::     :W:     :WWWWW.  .,::::''
+-,'        ''','',',','','''WWWWW::::''
+- ':,,,,,,,':  :  : : :  :  :WWWW'''
+\ No newline at end of file
+diff --git a/cats/cat180.txt b/cats/cat180.txt
+deleted file mode 100644
+index 3646c1a..0000000
+--- a/cats/cat180.txt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-               =-/
+-\            \\ /                                               /~~ ~
+-\     /_  //-<_ \\ /=-//=-//=-///=-///=-/                    /~~
+-\   / \|//-= / - ////~~~                 !                  {
+-\\  \////_                (((       !                        \  _-
+- \ \\\//  /            !   " `,   !   )))                     ~~  \\ //
+- \ \\\////                 /"/       |' /                          | |
+-\ |||//              !    """|        |""                          | |
+- |||||                    |"||        \"|    !                 _-_
+-|||||                     "" "        |"|\                  /~~   ~~\
+-|)|(|//          !       /""~\\.      /" ""~,            /~~         ~
+-||||(|                  ""~""""`"",~`~"!!"!" \          (
+-||||||                  /"""""/""! "~""" "" "~",         \  _-     -_
+-|||0||                 //\""!!""~"!"!"\"""/~!~, C~"~P     ~~  \\ //  ~
+-|)|(|//           !   // !!"""""! "~ " !!"!! "," O o "         | |
+-||||(|                ||   !!"!!~!!~||"  !     "" Y ""         | |(__)
+-||||||                \\     !  !  !            `"U"'          | |(oo)
+-|||0||          !      \\                                      | | \/
+-||||||                  \\  0))                               // \\
+-||||||                   \`-~/~
+-||||||                    `~'
+\ No newline at end of file
+diff --git a/cats/cat19.txt b/cats/cat19.txt
+deleted file mode 100644
+index b49bc67..0000000
+--- a/cats/cat19.txt
++++ /dev/null
+@@ -1,11 +0,0 @@
+-( \
+- \ \
+- / /                |\\
+-/ /     .-`````-.   / ^`-.
+-\ \    /         \_/  {|} `o
+- \ \  /   .---.   \\ _  ,--'
+-  \ \/   /     \,  \( `^^^
+-   \   \/\      (\  )
+-    \   ) \     ) \ \
+-     ) /__ \__  ) (\ \___
+-    (___)))__))(__))(__)))
+\ No newline at end of file
+diff --git a/cats/cat20.txt b/cats/cat20.txt
+deleted file mode 100644
+index b3ff721..0000000
+--- a/cats/cat20.txt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-           .               ,.
+-          T."-._..---.._,-"/|
+-          l|"-.  _.v._   (" |
+-          [l /.'_ \; _~"-.`-t
+-          Y " _(o} _{o)._ ^.|
+-          j  T  ,-<v>-.  T  ]
+-          \  l ( /-^-\ ) !  !
+-           \. \.  "~"  ./  /c-..,__
+-             ^r- .._ .- .-"  `- .  ~"--.
+-              > \.                      \
+-              ]   ^.                     \
+-              3  .  ">            .       Y
+- ,.__.--._   _j   \ ~   .         ;       |
+-(    ~"-._~"^._\   ^.    ^._      I     . l
+- "-._ ___ ~"-,_7    .Z-._   7"   Y      ;  \        _
+-    /"   "~-(r r  _/_--._~-/    /      /,.--^-._   / Y
+-    "-._    '"~~~>-._~]>--^---./____,.^~        ^.^  !
+-        ~--._    '   Y---.                        \./
+-             ~~--._  l_   )                        \
+-                   ~-._~~~---._,____..---           \
+-                       ~----"~       \
+\ No newline at end of file
+diff --git a/cats/cat22.txt b/cats/cat22.txt
+deleted file mode 100644
+index c04fb1f..0000000
+--- a/cats/cat22.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-                   ,
+-                  /|
+-             ___,/'\
+-         ,-"`    ~ `;
+-        .`\  /     `\.
+-      ,/_ _ |\       `\   ,--,__,-"
+-,_,-'"`   \`\ `- ,     \ /     /   _/
+-  `"~-\    \    /  .-' |/         /
+-       `\ __, .-; '.-' /
+-         `\_. `-'__, _/   _/
+-           `\`  /`__/    /
+-          _,-`--'/
+-       .-"     _/   /    /
+-      /   _,-"`/  /'    /
+-      \__/
+\ No newline at end of file
+diff --git a/cats/cat26.txt b/cats/cat26.txt
+deleted file mode 100644
+index 8abfc6e..0000000
+--- a/cats/cat26.txt
++++ /dev/null
+@@ -1,5 +0,0 @@
+-  ("`-''-/").___..--''"`-._
+-   `6_ 6  )   `-.  (     ).`-.__.`)
+-   (_Y_.)'  ._   )  `._ `. ``-..-'
+- _..`--'_..-_/  /--'_.' ,'
+-(il),-''  (li),'  ((!.-'
+\ No newline at end of file
+diff --git a/cats/cat27.txt b/cats/cat27.txt
+deleted file mode 100644
+index 2444c74..0000000
+--- a/cats/cat27.txt
++++ /dev/null
+@@ -1,5 +0,0 @@
+-   ("`-/")_.-'"``-._
+-    . . `; -._    )-;-,_`)
+-   (v_,)'  _  )`-.\  ``-'
+-  _.- _..-_/ / ((.'
+-((,.-'   ((,/
+\ No newline at end of file
+diff --git a/cats/cat30.txt b/cats/cat30.txt
+deleted file mode 100644
+index 79d3e33..0000000
+--- a/cats/cat30.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-   _.---.._             _.---...__
+-.-'   /\   \          .'  /\     /
+-`.   (  )   \        /   (  )   /
+-  `.  \/   .'\      /`.   \/  .'
+-    ``---''   )    (   ``---''
+-            .';.--.;`.
+-          .' /_...._\ `.
+-        .'   `.a  a.'   `.
+-       (        \/        )
+-        `.___..-'`-..___.'
+-           \          /
+-            `-.____.-'
+\ No newline at end of file
+diff --git a/cats/cat43.txt b/cats/cat43.txt
+deleted file mode 100644
+index 63765ab..0000000
+--- a/cats/cat43.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |\_._/|
+-  | 0 0 |
+-  (  T  )
+- .^`-^-'^.
+- `.  ;  .'
+- | | | | |
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat45.txt b/cats/cat45.txt
+deleted file mode 100644
+index e678f16..0000000
+--- a/cats/cat45.txt
++++ /dev/null
+@@ -1,5 +0,0 @@
+-            |\__/,|   (`\
+-            |o o  |__ _) )
+-          _.( T   )  `  /
+-n n._    ((_ `^--' /_<  \
+-<" _ }=- `` `-'(((/  (((/
+\ No newline at end of file
+diff --git a/cats/cat48.txt b/cats/cat48.txt
+deleted file mode 100644
+index 0033914..0000000
+--- a/cats/cat48.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+- )\_/(
+- 'o.o'
+-=(_ _)=
+-   U
+\ No newline at end of file
+diff --git a/cats/cat49.txt b/cats/cat49.txt
+deleted file mode 100644
+index ae24380..0000000
+--- a/cats/cat49.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-   /\_/\
+-  ( o o )
+-G-==_Y_==-M
+-    `-'
+\ No newline at end of file
+diff --git a/cats/cat5.txt b/cats/cat5.txt
+deleted file mode 100644
+index 4f50d1e..0000000
+--- a/cats/cat5.txt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-          @/@                @/@
+-         @/ /@              @/ ~@
+-         @/  ~@            @/  ~@
+-        @  ~/ ~@ @@@@@@@@ @/ ^( /@
+-       @/ ~^///~@^      ^@/ ^^/(^(@
+-       @  ^^///^^       ^   ^^//^~@
+-       @ @^~((^^~      ^^~  ~(t~(~@
+-       @@  ^^^((^^     ^^^((//~~~@@
+-       @~   ^^^^(^^    ^^(^^//~~~7@
+-     @~~~  ~@@~(^^^    ^^^((@@7//t((@
+-    @~     SO/@@Q/Q    Q~Q@@~GQ ////t@
+-    @~~~   ~SO@@ OQ    QG @@GQ( //tt7@
+-    @~~ ^^^    (^  ~7~~  /t^^^^//~~%%@
+-    @~~~(^^^^^^/   ssss  ^////~~~%%%%@
+-@@@@@(//~~~~~~~~~   s7  ^(((((ttt777%@@@@@
+-      @(~////(/^/   @ ^^^(~(%~(((7%@
+-     @ @6~~/^^^/ /@@@@@@(^(~~~(77O@ @
+-@@ @     @/^^^^^^/^^^^^^//~~~~~t@     @ @@
+-         @//  ^/^7s((/(s7/~~//((@
+-        @~//^^ //~(%Os7(~~~/~~((7@
+-       @~/(~/^////~~//~~/////~(7(t@
+\ No newline at end of file
+diff --git a/cats/cat50.txt b/cats/cat50.txt
+deleted file mode 100644
+index 95c367e..0000000
+--- a/cats/cat50.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-  /\ /\
+-  (O o)
+-=(: ^ :)= 
+-  '*v*'
+\ No newline at end of file
+diff --git a/cats/cat51.txt b/cats/cat51.txt
+deleted file mode 100644
+index 17f36e4..0000000
+--- a/cats/cat51.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+- |\---/|
+- (.ì ì.)
+--=ð-Ï-ð=-
+-  -`~'-
+\ No newline at end of file
+diff --git a/cats/cat53.txt b/cats/cat53.txt
+deleted file mode 100644
+index 9f1b696..0000000
+--- a/cats/cat53.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-  /\_/\
+- ( o o )
+--==_Y_==-
+-   `-'
+\ No newline at end of file
+diff --git a/cats/cat56.txt b/cats/cat56.txt
+deleted file mode 100644
+index 1ca233e..0000000
+--- a/cats/cat56.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-      /\_/\
+- /\  / o o \
+-//\\ \~(*)~/
+-`  \/   ^ /
+-   | \|| || 
+-   \ '|| || 
+-    \)()-())
+\ No newline at end of file
+diff --git a/cats/cat6.txt b/cats/cat6.txt
+deleted file mode 100644
+index 1757f12..0000000
+--- a/cats/cat6.txt
++++ /dev/null
+@@ -1,34 +0,0 @@
+-  eQO
+-  (3QKs
+-  CCSSQG                     6C6
+-  CCGse#e                  %CGGG
+-  s6OQQeR6S   RRRR@O      t6GQSS
+-  GOC6e#%3%%7t7((7tt%CQ3(CQR@@@@
+-  O%66%t%%%7Ces7(6%%O3((((tO@RB
+-  GtC(7((73sG%Q(7S7%CGt(((6R@R@
+-  G((((77O67%C%77#%%#(OS%%O###
+- %(((((%6%73O7%%QQOCsGCe3OSQS@
+- t7t(((((tt7OC%3#Os%%OCOOOSSQ@
+- s7(((t(C@@@s3%7%%%C6G@@BeSSGS
+- 3(((7%s@R@RB%%%C%CsK@@#@@QQQS
+- %((3G%/3OSOGOCCC736@S@S#%O#B#
+- (~(t~t(3OsGC333CCO6C%R@#QOQSS
+- 7(~(7((7(t%%CsOssOOOsSSSeSQSS
+-######QGeSC/(^s#SRK%%7eSQGSSS
+-#B6eKQQssQ3(((7%C%CCt%#@@@SQ#
+- @CtCO#QOOC^^/7t@(CC6Q@RK#@@@
+-  #t3%SQCCCQ##K7C%Q@@#SR@B@@
+-   eOC%%6%7%OSS6OQ@#QK#R
+-    K6C%t3%%76#@@##KQ#B
+-      3%7%%%%3CSee#B@
+-      KB%%(%%CCCOGQSe
+-       Q%t((77%CCOS#G@
+-        (t%(%(%CSS##Se
+-        %7((77%%OQ#SQQ
+-        %((s3%%6CeRQSS
+-         Rs3OOOOKQS#QQ
+-          OCSOSSS#Q##Q
+-            6%OOQGSKQ
+-             %3OeQQ
+-              O3OG
+-              SCO
+\ No newline at end of file
+diff --git a/cats/cat61.txt b/cats/cat61.txt
+deleted file mode 100644
+index c69b3a3..0000000
+--- a/cats/cat61.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |,\__/|  
+-  |  o o|  
+-  (   T )  
+- .^`--^'^. 
+- `.  ;  .' 
+- | | | | | 
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat62.txt b/cats/cat62.txt
+deleted file mode 100644
+index 462902a..0000000
+--- a/cats/cat62.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |\__/,|  
+-  |o o  |  
+-  ( T   )  
+- .^`^--'^. 
+- `.  ;  .' 
+- | | | | | 
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat63.txt b/cats/cat63.txt
+deleted file mode 100644
+index 65eeff7..0000000
+--- a/cats/cat63.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |\_._/|  
+-  | o o |  
+-  (  T  )  
+- .^`-^-'^. 
+- `.  ;  .' 
+- | | | | | 
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat64.txt b/cats/cat64.txt
+deleted file mode 100644
+index 0cf648f..0000000
+--- a/cats/cat64.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |\_._/|  
+-  |-o^o-|  
+-  (  T  )  
+- .^`-^-'^. 
+- `.  ;  .' 
+- | | | | | 
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat65.txt b/cats/cat65.txt
+deleted file mode 100644
+index afc927a..0000000
+--- a/cats/cat65.txt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-  |\_._/|
+-  |-@~@-|
+-  (  T  )
+- .^`-^-'^.
+- `.  ;  .' 
+- | | | | | 
+-((_((|))_))
+\ No newline at end of file
+diff --git a/cats/cat66.txt b/cats/cat66.txt
+deleted file mode 100644
+index 583c6a0..0000000
+--- a/cats/cat66.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-   /\     /\
+-  {  `---'  }
+-  {  O   O  } 
+-~~|~   V   ~|~~ 
+-   \  \|/  /  
+-    `-----'__
+-    /     \  `^\_
+-   {       }\ |\_\_   W
+-   |  \_/  |/ /  \_\_( )
+-    \__/  /(_E     \__/
+-      (  /
+-       MM
+\ No newline at end of file
+diff --git a/cats/cat67.txt b/cats/cat67.txt
+deleted file mode 100644
+index e820174..0000000
+--- a/cats/cat67.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-                       __,,,,_
+-       _ ___.--'''`--''       `-.
+-   C`f' '                        `._
+-  /'`                         -..__ `-.
+- /<"                 /       /    |`-._`-.____
+-/  _.-.  .-\.___|    |      /|   |     `-.____)
+-`-'  f/ |       /   / \    /  \   |
+-     `-'       |   |   \   \  |   |
+-            __/   /__.-'    ).'  |
+-           ((__.-'((____..-  \__.'
+\ No newline at end of file
+diff --git a/cats/cat68.txt b/cats/cat68.txt
+deleted file mode 100644
+index eebacf2..0000000
+--- a/cats/cat68.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+-  __         ___      ___   _/'
+- /  \      _/   \----'   \-' O`-g
+-|    |    / > __/_   / __/_`,  _|
+-      \__/  \____\`--\____\ ;/'
+\ No newline at end of file
+diff --git a/cats/cat70.txt b/cats/cat70.txt
+deleted file mode 100644
+index ab3030c..0000000
+--- a/cats/cat70.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-(`,---.')  (\
+- (w,_,w)    ))
+--=>_Y_<=- _,;'
+-  /`"'\.-'.'
+-.'     `<'
+-| ;   ; |
+-|`,   , |  
+- \ ;`; /
+-  ||,||
+- /|| ||\
+-(,|( )|,)
+- (,,Y,,) 
+\ No newline at end of file
+diff --git a/cats/cat72.txt b/cats/cat72.txt
+deleted file mode 100644
+index 0b5ce81..0000000
+--- a/cats/cat72.txt
++++ /dev/null
+@@ -1,28 +0,0 @@
+-       .                .                   
+-       :"-.          .-";                   
+-       |:`.`.__..__.'.';|                   
+-       || :-"      "-; ||                   
+-       :;              :;                   
+-       /  .==.    .==.  \                   
+-      :      _.--._      ;                  
+-      ; .--.' `--' `.--. :                  
+-     :   __;`      ':__   ;                 
+-     ;  '  '-._:;_.-'  '  :                 
+-     '.       `--'       .'                 
+-      ."-._          _.-".                  
+-    .'     ""------""     `.                
+-   /`-                    -'\               
+-  /`-                      -'\              
+- :`-   .'              `.   -';             
+- ;    /                  \    :             
+-:    :                    ;    ;            
+-;    ;                    :    :            
+-':_:.'                    '.;_;'            
+-   :_                      _;               
+-   ; "-._                -" :`-.     _.._   
+-   :_          ()          _;   "--::__. `. 
+-    \"-                  -"/`._           : 
+-   .-"-.                 -"-.  ""--..____.' 
+-  /         .__  __.         \              
+- : / ,       / "" \       . \ ;         
+-  "-:___..--"      "--..___;-"
+\ No newline at end of file
+diff --git a/cats/cat75.txt b/cats/cat75.txt
+deleted file mode 100644
+index 452eb88..0000000
+--- a/cats/cat75.txt
++++ /dev/null
+@@ -1,4 +0,0 @@
+- _._     _,-'""`-._
+-(,-.`._,'(       |\`-/|
+-    `-.-' \ )-`( , o o)
+-          `-    \`_`"'-
+\ No newline at end of file
+diff --git a/cats/cat79.txt b/cats/cat79.txt
+deleted file mode 100644
+index f57d470..0000000
+--- a/cats/cat79.txt
++++ /dev/null
+@@ -1,8 +0,0 @@
+-      .^----^.
+-     (= o  O =)
+-      (___V__)
+-       _|==|_
+-  ___/' |--| |
+- / ,._| |  | '
+-| \__ |__}-|__}
+- \___)`
+\ No newline at end of file
+diff --git a/cats/cat80.txt b/cats/cat80.txt
+deleted file mode 100644
+index 483e987..0000000
+--- a/cats/cat80.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+- )\   _,
+- | "^" (
+- (e  a )
+-=-\Y  -=
+-   T"^)   _
+-  /   (  ((
+- /    < _ ';,
+-(      ) )  \\
+- \ Y  '  /  ))
+-  || ;  /   //
+-  )| ( (__,</
+-c{{i.}}=oo-^
+\ No newline at end of file
+diff --git a/cats/cat81.txt b/cats/cat81.txt
+deleted file mode 100644
+index 2be589e..0000000
+--- a/cats/cat81.txt
++++ /dev/null
+@@ -1,14 +0,0 @@
+-   /\
+-   \ \
+-    \ \
+-    / /
+-   / /
+-  _\ \_/\/\
+- /  *  \@@ =
+-|       |Y/
+-|       |~
+- \ /_\ /
+-  \\ //
+-   |||
+-  _|||_
+- ( / \ )
+\ No newline at end of file
+diff --git a/cats/cat84.txt b/cats/cat84.txt
+deleted file mode 100644
+index c9f70b7..0000000
+--- a/cats/cat84.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-  '.-----/`.
+-  /       '/
+-  __'`__ .''-.
+-  \o) o/      \
+-  (`Y   .)     \
+-    `--|__7     \
+-      /         |
+-__   /         /
+-\ )  \        //
+- \ \--X   Y  //
+-(-`.`--_.-' /_)
+-    `-.__.-'
+\ No newline at end of file
+diff --git a/cats/cat86.txt b/cats/cat86.txt
+deleted file mode 100644
+index aa3bda4..0000000
+--- a/cats/cat86.txt
++++ /dev/null
+@@ -1,12 +0,0 @@
+-.
+-|'.._     __......._    _.-'.
+-\M\  ^'.-'          ''-/   /
+- :M'._                ^'\ ;
+- 'MMM'.                  '
+-'.MMMM/ ;._            ,,|
+-  \M; .   /.#\      /''  |
+-   ;     /d' #.___./d \ ":
+-   "|    '---:dM   +\-/  ;
+-    :        _.d._'^.    \
+-    ',      /    |   ;   ;
+-      ..,___'.._,:\..' \\
+\ No newline at end of file
+diff --git a/cats/cat87.txt b/cats/cat87.txt
+deleted file mode 100644
+index 54790ae..0000000
+--- a/cats/cat87.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+-            .--.
+-            (    )
+-               _/
+-    ,         |
+-  _/|_________|
+- /+  _        o
+-( __( | _____ |
+- '    ||     ||
+-     (_|    (_|
+\ No newline at end of file
+diff --git a/cats/cat90.txt b/cats/cat90.txt
+deleted file mode 100644
+index a6fa516..0000000
+--- a/cats/cat90.txt
++++ /dev/null
+@@ -1,16 +0,0 @@
+-                         _,-;''';`'-,.
+-                      _/',  `;  `;    `\
+-      ,        _..,-''    '   `  `      `\
+-     | ;._.,,-' .| |,_        ,,          `\
+-     | `;'      ;' ;, `,   ; |    '  '  .   \
+-     `; __`  ,'__  ` ,  ` ;  |      ;        \
+-     ; (6_);  (6_) ; |   ,    \        '      |       /
+-    ;;   _,' ,.    ` `,   '    `-._           |   __//_________
+-     ,;.=..`_..=.,' -'          ,''        _,--''------''''
+-_pb__\,`"=,,,=="',___,,,-----'''----'_'_'_''-;''
+------------------------''''''\ \'''''   )   /'
+-                              `\`,,,___/__/'_____,
+-                                `--,,,--,-,'''\
+-                               __,,-' /'       `
+-                             /'_,,--''
+-                            | (
+\ No newline at end of file
+diff --git a/cats/cat99.txt b/cats/cat99.txt
+deleted file mode 100644
+index 24a94f5..0000000
+--- a/cats/cat99.txt
++++ /dev/null
+@@ -1,16 +0,0 @@
+-\;,._                           _,,-
+-\`;, `-._ _..--'''```--.._ __.-',;(
+- \ `;,  `:.  ,   ;.   .   :'  .;` /
+-  ; `;;,      .:    :.      ,;;` /
+-   \ ';/    \:: :  . ::/    \;` ;
+-    ).' __.._`        '_..__ `./
+-    /<  \\ /I`,      ,'I\ //   >
+-    /\   `;-7/_\ -- /_\7-;'   /\
+-    //.    `"':" ;; ":`"'     /\
+-     |/ .  .:' __..__ `.     \|
+-     /\|: ./. `=_  _=' .\   |/\
+-        /:(/::.  \/  .::\) /
+-         ////=-v-'`-v-=\\\\
+-         ///`Nx_\;;/_xN'\\\
+-        / /   `"w==w"'   \ \
+-         /                \
+\ No newline at end of file

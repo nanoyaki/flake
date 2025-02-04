@@ -15,6 +15,7 @@
           startvrc
           writeSystemdToggle
           vrcx
+          meow
           ;
       };
 
@@ -25,6 +26,9 @@
         alcom = pkgs.callPackage ./alcom { };
         writeSystemdToggle = pkgs.callPackage ./writeSystemdToggle { };
         vrcx = pkgs.callPackage ./vrcx { };
+        meow = pkgs.meow.overrideAttrs {
+          patches = [ ./patches/ominous-cats.patch ];
+        };
       };
     };
 }

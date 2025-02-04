@@ -27,6 +27,7 @@
       settings = {
         pane_frames = false;
         default_layout = "compact";
+        session_serialization = false;
       };
     };
 

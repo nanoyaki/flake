@@ -1,8 +1,8 @@
 {
+  lib,
   pkgs,
   inputs,
   config,
-  lib,
   ...
 }:
 
@@ -11,6 +11,13 @@ let
     enable = true;
     flavor = "mocha";
     accent = "pink";
+  };
+
+  midnight-theme = pkgs.fetchFromGitHub {
+    owner = "refact0r";
+    repo = "midnight-discord";
+    rev = "ddb8a946c526a64523563fde0dc208ce60734790";
+    hash = "sha256-dufz6GPTLux9df2AQMI4TxGCHvsWSKDMvK3VBXVOOWU=";
   };
 in
 
@@ -97,14 +104,18 @@ in
     ))
   ];
 
-  hm.catppuccin = {
-    inherit (catppuccin) enable flavor accent;
-
-    kvantum = {
+  hm = {
+    catppuccin = {
       inherit (catppuccin) enable flavor accent;
-      apply = true;
+
+      kvantum = {
+        inherit (catppuccin) enable flavor accent;
+        apply = true;
+      };
+
+      gtk.icon = catppuccin;
     };
 
-    gtk.icon = catppuccin;
+    xdg.configFile."vesktop/themes".source = "${midnight-theme}/flavors";
   };
 }

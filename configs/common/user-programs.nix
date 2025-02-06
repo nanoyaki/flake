@@ -2,7 +2,7 @@
 
 {
   hm.home.packages = with pkgs; [
-    vesktop
+    (vesktop.override { withMiddleClickScroll = true; })
 
     obsidian
 

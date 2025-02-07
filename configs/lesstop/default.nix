@@ -9,6 +9,7 @@
     username = "thelessone";
     modules = [
       ../common/required
+      ../common/optional/audio.nix
       ../common/optional/fonts.nix
       ../common/optional/shell-utils.nix
       ../common/optional/desktopmanagers/plasma.nix

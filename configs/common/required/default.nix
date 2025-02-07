@@ -9,7 +9,6 @@
     ./sops.nix
     ./input.nix
     ./shell.nix
-    ./audio.nix
     ./git.nix
   ];
 }

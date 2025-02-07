@@ -6,6 +6,7 @@
     username = "hana";
     modules = [
       ../common/required
+      ../common/optional/audio.nix
       ../common/optional/passkeys
       ../common/optional/fonts.nix
       ../common/optional/shell-utils.nix

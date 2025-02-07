@@ -17,7 +17,7 @@
     extraGroups = [ "wheel" ];
 
     openssh.authorizedKeys.keys = lib.lists.map (key: builtins.readFile key) (
-      lib.filesystem.listFilesRecursive ./sec/keys
+      lib.filesystem.listFilesRecursive ../optional/passkeys/keys
     );
   };
 }

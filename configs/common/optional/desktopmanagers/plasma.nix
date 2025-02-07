@@ -7,20 +7,29 @@
 }:
 
 let
-  inherit (lib) mkOption mkIf types;
-  cfg = config.modules.plasma6;
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    mkIf
+    types
+    ;
+  cfg = config.nanoflake.plasma6;
 in
 
 {
-  options.modules.plasma6.enableWaylandDefault = mkOption {
-    type = types.bool;
-    default = true;
-    description = "Set Wayland as the default session.";
+  options.nanoflake.plasma6 = {
+    enableWaylandDefault = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Set Wayland as the default session";
+    };
+
+    withKdeConnect = mkEnableOption "KDE connect";
   };
 
   config = {
     services.desktopManager.plasma6.enable = true;
-    programs.kdeconnect.enable = false;
+    programs.kdeconnect.enable = cfg.withKdeConnect;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole
       kate

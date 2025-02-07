@@ -11,15 +11,10 @@
       hostname = "thelessone";
       username = "thelessone";
       modules = [
-        ../common/sops.nix
-        ../common/home.nix
-        ../common/nix.nix
-        ../common/user.nix
-        ../common/networking.nix
-        ../common/audio.nix
-        ../common/input.nix
-        ../common/programming.nix
-        ../common/shell.nix
+        ../common/required
+        ../common/optional/fonts.nix
+        ../common/optional/shell-utils.nix
+        ../common/optional/browsers/firefox.nix
 
         ./hardware
 
@@ -27,7 +22,6 @@
         ./gnome.nix
         ./configuration.nix
         ./git.nix
-        ./locale.nix
         ./servers
         ./terminal.nix
         # ./mullvad.nix

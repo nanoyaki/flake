@@ -19,7 +19,7 @@
       });
 
     # [ String ] -> deriv -> attrs
-    mapDefaultForMimeTypes = mimeTypes: pkg: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
+    mapDefaultForMimeTypes = pkg: mimeTypes: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
 
     # String -> String -> deriv
     mkProtonGeBin =

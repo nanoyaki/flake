@@ -8,26 +8,22 @@
     hostname = "lesstop";
     username = "thelessone";
     modules = [
-      ../common/sops.nix
-      ../common/home.nix
-      ../common/nix.nix
-      ../common/user.nix
-      ../common/networking.nix
-      ../common/audio.nix
-      ../common/input.nix
-      ../common/shell.nix
-      ../common/plasma.nix
-      ../common/firefox.nix
-      ../common/mpv.nix
-      ../common/terminal.nix
-      ../common/vr
-      ../common/vr/wivrn.nix
-      ../common/gaming
+      ../common/required
+      ../common/optional/fonts.nix
+      ../common/optional/shell-utils.nix
+      ../common/optional/desktopmanagers/plasma.nix
+      ../common/optional/browsers/firefox.nix
+      ../common/optional/terminal.nix
+      ../common/optional/theme.nix
+      ../common/optional/user-programs.nix
+      ../common/optional/mediaplayers/mpv.nix
+      ../common/optional/vr
+      ../common/optional/vr/wivrn.nix
+      ../common/optional/gaming
 
       ./hardware
 
       ./configuration.nix
-      ./locale.nix
       ./theme.nix
       ./programs.nix
       ./vr.nix

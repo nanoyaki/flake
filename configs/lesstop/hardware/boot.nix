@@ -1,6 +1,4 @@
 {
-  imports = [ ../../common/boot.nix ];
-
   boot = {
     initrd = {
       availableKernelModules = [

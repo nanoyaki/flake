@@ -15,11 +15,11 @@ let
     ;
   inherit (lib') mapDefaultForMimeTypes;
 
-  cfg = config.modules.mpv;
+  cfg = config.nanoflake.mpv;
 
   mpv = pkgs.mpv.overrideAttrs { name = "mpv"; };
 
-  defaultAudioApp = mapDefaultForMimeTypes [
+  defaultAudioApp = mapDefaultForMimeTypes mpv [
     "audio/aac"
     "audio/ac3"
     "audio/AMR"
@@ -48,9 +48,9 @@ let
     "audio/x-wav"
     "audio/x-wavpack"
     "audio/x-xm"
-  ] mpv;
+  ];
 
-  defaultVideoApp = mapDefaultForMimeTypes [
+  defaultVideoApp = mapDefaultForMimeTypes mpv [
     "video/3gpp"
     "video/3gpp2"
     "video/annodex"
@@ -75,11 +75,11 @@ let
     "video/vnd.mpegurl"
     "video/webm"
     "video/x-ogm+ogg"
-  ] mpv;
+  ];
 in
 
 {
-  options.modules.mpv = {
+  options.nanoflake.mpv = {
     defaultAudioPlayer = mkOption {
       type = types.bool;
       default = true;

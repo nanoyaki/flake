@@ -18,7 +18,10 @@ in
 {
   sec."deployment/private".owner = username;
 
-  modules.audio.latency = 32;
+  nanoflake = {
+    localization.extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
+    audio.latency = 32;
+  };
 
   environment.systemPackages =
     (with pkgs; [

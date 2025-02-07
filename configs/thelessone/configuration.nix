@@ -3,7 +3,11 @@
 {
   sec."deployment/private" = { };
 
-  programs.firefox.enable = true;
+  nanoflake.localization = {
+    timezone = "Europe/Vienna";
+    language = "de_AT";
+    locale = "de_AT.UTF-8";
+  };
 
   environment.systemPackages = with pkgs; [
     vesktop

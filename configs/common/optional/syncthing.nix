@@ -1,9 +1,9 @@
-{ config, ... }:
+{ username, config, ... }:
 
 let
   cfg = config.services.syncthing;
   dirCfg = {
-    user = config.hm.home.username;
+    user = username;
     group = "users";
     mode = "0777";
   };

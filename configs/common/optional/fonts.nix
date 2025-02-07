@@ -5,18 +5,18 @@
     enableDefaultPackages = true;
 
     packages = with pkgs; [
-      cascadia-code
-      noto-fonts
       noto-fonts-cjk-sans
-      mplus-outline-fonts.githubRelease
+      cascadia-code
+      twemoji-color-font
     ];
 
     fontconfig = {
       antialias = true;
       defaultFonts = {
-        serif = [ "M PLUS 2" ];
-        sansSerif = [ "M PLUS 2" ];
+        serif = [ "Noto Sans" ];
+        sansSerif = [ "Noto Sans" ];
         monospace = [ "Cascadia Mono" ];
+        emoji = [ "Twitter Color Emoji" ];
       };
     };
   };

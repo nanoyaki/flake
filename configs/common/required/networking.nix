@@ -5,5 +5,5 @@
 
   networking.useDHCP = lib.mkDefault true;
 
-  users.users."${username}".extraGroups = [ "networkmanager" ];
+  users.users.${username}.extraGroups = [ "networkmanager" ];
 }

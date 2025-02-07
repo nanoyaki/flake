@@ -36,7 +36,7 @@ in
     gpuOverclock.enable = true;
     gpuOverclock.ppfeaturemask = "0xffffffff";
   };
-  users.users."${username}".extraGroups = [ "corectrl" ];
+  users.users.${username}.extraGroups = [ "corectrl" ];
 
   services.vermeer-undervolt = {
     enable = true;

@@ -11,10 +11,9 @@ let
     mkOption
     mkPackageOption
     types
-    mkIf
     ;
 
-  cfg = config.modules.chrome;
+  cfg = config.nanoflake.chrome;
 
   extensionMap = {
     # General
@@ -47,7 +46,7 @@ let
     skyFollowerBridge = "behhbpbpmailcnfbjagknjngnfdojpko";
   };
 
-  defaultBrowserApp = lib'.mapDefaultForMimeTypes [
+  defaultBrowserApp = lib'.mapDefaultForMimeTypes cfg.chromePackage [
     "text/html"
     "text/css"
     "text/xml"
@@ -56,20 +55,22 @@ let
     "application/atom+xml"
     "application/rss+xml"
     "application/pdf"
-  ] cfg.chromePackage;
+  ];
 in
 
 {
-  options.modules.chrome = {
+  options.nanoflake.chrome = {
     allowSync = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
+      example = true;
       description = "Whether to allow google account synchronisation.";
     };
 
     defaultBrowser = mkOption {
       type = types.bool;
       default = true;
+      example = false;
       description = "Set as the default browser.";
     };
 
@@ -95,16 +96,6 @@ in
         SpellcheckEnabled = true;
         RestoreOnStartup = 1;
         DeveloperToolsAvailability = 1;
-        ForcedLanguages = [
-          "en-US"
-          "de-DE"
-          "ja-JP"
-        ];
-        SpellcheckLanguage = [
-          "en-US"
-          "de-DE"
-          "ja-JP"
-        ];
       };
 
       extensions = builtins.map (attrName: extensionMap.${attrName}) cfg.extensions;
@@ -112,11 +103,13 @@ in
     };
 
     # Defaults
-    xdg.mime.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
-    hm.xdg.mimeApps.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
+    xdg.mime.defaultApplications = lib.optionalAttrs cfg.defaultBrowser defaultBrowserApp;
+    hm.xdg.mimeApps.defaultApplications = lib.optionalAttrs cfg.defaultBrowser defaultBrowserApp;
 
     # Install chrome
     environment.systemPackages = [ cfg.chromePackage ];
-    environment.variables.BROWSER = mkIf cfg.defaultBrowser "google-chrome-stable";
+    environment.variables = lib.optionalAttrs cfg.defaultBrowser {
+      BROWSER = lib.getExe cfg.chromePackage;
+    };
   };
 }

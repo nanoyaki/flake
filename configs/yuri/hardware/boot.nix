@@ -1,9 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-
-{
   boot = {
     initrd.availableKernelModules = [
       "ehci_pci"
@@ -14,11 +9,7 @@
       "sr_mod"
     ];
     kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+    loader.systemd-boot.enable = true;
   };
 }

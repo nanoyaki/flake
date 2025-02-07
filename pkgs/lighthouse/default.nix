@@ -26,7 +26,8 @@ rustPlatform.buildRustPackage rec {
     dbus
   ];
 
-  cargoHash = "sha256-9tJ8TB0oHlriCKFTBhuKQS+Y3oz8QK9/GGLiekoWPa8=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-YJgtkrDs7cBpjux0SE6TTXcduZRC+8+4SMMiCXYeCYI=";
 
   meta = {
     description = "Virtual reality basestation power management in Rust";

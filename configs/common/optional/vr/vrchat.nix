@@ -6,7 +6,7 @@
     vrcx
     vrc-get
     unityhub
-    blender
+    # blender
   ];
 
   hm.xdg.autostart.entries = [ "${pkgs.vrcx}/share/applications/vrcx.desktop" ];

@@ -1,0 +1,14 @@
+{
+  imports = [
+    ./nix.nix
+    ./boot.nix
+    ./home.nix
+    ./user.nix
+    ./networking.nix
+    ./locale.nix
+    ./sops.nix
+    ./input.nix
+    ./shell.nix
+    ./git.nix
+  ];
+}

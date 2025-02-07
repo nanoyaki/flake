@@ -16,7 +16,7 @@
     }:
 
     {
-      "${hostname}" = withSystem platform (
+      ${hostname} = withSystem platform (
         {
           config,
           inputs',

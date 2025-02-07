@@ -1,16 +1,21 @@
 {
+  lib,
   pkgs,
   ...
 }:
 
 {
-  programs.git.enable = true;
+  nanoflake.localization = {
+    timezone = "Europe/Vienna";
+    language = "de_AT";
+    locale = "de_AT.UTF-8";
+  };
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "update" ''
       find ~ -name "*home-bac" | xargs rm
       pushd $FLAKE_DIR
-      git pull
+      ${lib.getExe pkgs.git} pull
       sudo nixos-rebuild switch --flake $FLAKE_DIR
       popd
     '')

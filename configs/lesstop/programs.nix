@@ -1,9 +1,5 @@
 { pkgs, ... }:
 
 {
-  hm.home.packages = with pkgs; [
-    vesktop
-    bitwarden-desktop
-    vscodium
-  ];
+  nanoflake.homePackages = [ pkgs.vscodium ];
 }

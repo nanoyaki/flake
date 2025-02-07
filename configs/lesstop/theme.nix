@@ -5,8 +5,6 @@
 }:
 
 {
-  imports = [ ../common/theme.nix ];
-
   stylix = {
     base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/da-one-sea.yaml";
     image = lib.mkForce (

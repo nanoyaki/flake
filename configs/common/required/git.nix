@@ -1,10 +1,14 @@
+{ pkgs, ... }:
+
 {
   hm.programs.git.enable = true;
 
   programs.git = {
     enable = true;
     lfs.enable = true;
+
+    config.init.defaultBranch = "main";
   };
 
-  programs.direnv.enable = true;
+  environment.systemPackages = [ pkgs.gnupg ];
 }

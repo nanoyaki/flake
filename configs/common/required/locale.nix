@@ -104,6 +104,8 @@ in
       );
     };
 
-    environment.sessionVariables.LC_ALL = "";
+    environment.sessionVariables = {
+      LC_ALL = "";
+    } // config.i18n.extraLocaleSettings;
   };
 }

@@ -43,6 +43,8 @@ in
 
   programs.droidcam.enable = true;
 
+  programs.kde-pim.merkuro = true;
+
   hm.news.display = "show";
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";

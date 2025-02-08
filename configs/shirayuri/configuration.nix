@@ -19,7 +19,14 @@ in
   sec."deployment/private".owner = username;
 
   nanoflake = {
-    localization.extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
+    localization = {
+      language = [
+        "en_GB"
+        "de_DE"
+        "ja_JP"
+      ];
+      extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
+    };
     audio.latency = 32;
   };
 

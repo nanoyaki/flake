@@ -12,6 +12,7 @@
     enableCompletion = true;
     enableBashCompletion = true;
     syntaxHighlighting.enable = true;
+    autosuggestions.enable = true;
 
     interactiveShellInit = ''
       bindkey "^[[H"    beginning-of-line

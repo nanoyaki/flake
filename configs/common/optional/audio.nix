@@ -46,29 +46,8 @@ in
           };
         };
 
-        pipewire-pulse."92-low-latency" =
-          let
-            latency = "${toString cfg.latency}/${toString cfg.samplingRate}";
-          in
-          {
-            "context.modules" = [
-              {
-                name = "libpipewire-module-protocol-pulse";
-                args = {
-                  "pulse.min.frag" = latency;
-                  "pulse.min.req" = latency;
-                  "pulse.default.req" = latency;
-                  "pulse.max.req" = latency;
-                  "pulse.min.quantum" = latency;
-                  "pulse.max.quantum" = latency;
-                };
-              }
-            ];
-
-            "stream.properties" = {
-              "node.latency" = latency;
-            };
-          };
+        pipewire-pulse."92-low-latency"."stream.properties"."node.latency" =
+          "${toString cfg.latency}/${toString cfg.samplingRate}";
       };
 
       wireplumber.enable = true;

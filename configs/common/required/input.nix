@@ -8,6 +8,8 @@
 
 let
   cfg = config.nanoflake.keyboard;
+
+  hasDesktop = builtins.elem "desktop" (builtins.attrNames config.nanoflake);
 in
 
 {
@@ -33,7 +35,9 @@ in
       "uinput"
     ];
 
-    i18n.inputMethod = {
+    console.keyMap = cfg.layout;
+
+    i18n.inputMethod = lib.optionalAttrs hasDesktop {
       enable = true;
       type = "fcitx5";
       fcitx5 = {
@@ -42,14 +46,15 @@ in
           fcitx5-gtk
         ];
         waylandFrontend =
-          config.services.xserver.displayManager.gdm.wayland || config.nanoflake.plasma6.enableWaylandDefault;
+          config.services.xserver.displayManager.gdm.wayland
+          || config.nanoflake.desktop.plasma6.enableWaylandDefault;
       };
     };
 
-    services.xserver.desktopManager.runXdgAutostartIfNone = true;
-
-    services.libinput.mouse.accelProfile = "flat";
-    services.xserver.xkb = { inherit (cfg) layout variant; };
-    console.keyMap = cfg.layout;
+    services = lib.optionalAttrs hasDesktop {
+      libinput.mouse.accelProfile = "flat";
+      xserver.desktopManager.runXdgAutostartIfNone = true;
+      xserver.xkb = { inherit (cfg) layout variant; };
+    };
   };
 }

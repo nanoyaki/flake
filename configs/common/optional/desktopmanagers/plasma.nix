@@ -13,11 +13,11 @@ let
     mkIf
     types
     ;
-  cfg = config.nanoflake.plasma6;
+  cfg = config.nanoflake.desktop.plasma6;
 in
 
 {
-  options.nanoflake.plasma6 = {
+  options.nanoflake.desktop.plasma6 = {
     enableWaylandDefault = mkOption {
       type = types.bool;
       default = true;

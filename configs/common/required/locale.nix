@@ -65,7 +65,10 @@ in
       extraLocaleSettings =
         {
           LANGUAGE =
-            if builtins.isString cfg.language then cfg.language else lib.strings.intersperse ":" cfg.language;
+            if builtins.isString cfg.language then
+              cfg.language
+            else
+              lib.strings.concatStrings (lib.strings.intersperse ":" cfg.language);
           LC_MESSAGES =
             if builtins.isString cfg.language then
               "${cfg.language}.${characterSet}"

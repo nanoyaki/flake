@@ -53,6 +53,15 @@ in
     programs.firefox = {
       enable = true;
 
+      preferences = {
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.use-xdg-desktop-portal.location" = 1;
+        "widget.use-xdg-desktop-portal.mime-handler" = 1;
+        "widget.use-xdg-desktop-portal.native-messaging" = 1;
+        "widget.use-xdg-desktop-portal.open-uri" = 1;
+        "widget.use-xdg-desktop-portal.settings" = 1;
+      };
+
       policies = optionalAttrs cfg.enablePolicies {
         Homepage.StartPage = "previous-session";
         PasswordManagerEnabled = false;

@@ -11,7 +11,7 @@ let
     mkOption
     mkEnableOption
     types
-    optionalAttrs
+    mkIf
     ;
 
   cfg = config.nanoflake.firefox;
@@ -62,7 +62,7 @@ in
         "widget.use-xdg-desktop-portal.settings" = 1;
       };
 
-      policies = optionalAttrs cfg.enablePolicies {
+      policies = mkIf cfg.enablePolicies {
         Homepage.StartPage = "previous-session";
         PasswordManagerEnabled = false;
         # nix run nixpkgs#jq -- -r '.guid' $(curl https://addons.mozilla.org/api/v5/addons/addon/<ID>/)
@@ -94,9 +94,9 @@ in
       };
     };
 
-    xdg.mime.defaultApplications = optionalAttrs cfg.defaultBrowser defaultBrowserApp;
-    hm.xdg.mimeApps.defaultApplications = optionalAttrs cfg.defaultBrowser defaultBrowserApp;
+    xdg.mime.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
+    hm.xdg.mimeApps.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
 
-    environment.variables = optionalAttrs cfg.defaultBrowser { BROWSER = lib.getExe pkgs.firefox; };
+    environment.variables = mkIf cfg.defaultBrowser { BROWSER = lib.getExe pkgs.firefox; };
   };
 }

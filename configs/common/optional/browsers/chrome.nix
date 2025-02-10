@@ -11,6 +11,7 @@ let
     mkOption
     mkPackageOption
     types
+    mkIf
     ;
 
   cfg = config.nanoflake.chrome;
@@ -103,12 +104,12 @@ in
     };
 
     # Defaults
-    xdg.mime.defaultApplications = lib.optionalAttrs cfg.defaultBrowser defaultBrowserApp;
-    hm.xdg.mimeApps.defaultApplications = lib.optionalAttrs cfg.defaultBrowser defaultBrowserApp;
+    xdg.mime.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
+    hm.xdg.mimeApps.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
 
     # Install chrome
     environment.systemPackages = [ cfg.chromePackage ];
-    environment.variables = lib.optionalAttrs cfg.defaultBrowser {
+    environment.variables = mkIf cfg.defaultBrowser {
       BROWSER = lib.getExe cfg.chromePackage;
     };
   };

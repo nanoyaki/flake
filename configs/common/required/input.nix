@@ -7,6 +7,8 @@
 }:
 
 let
+  inherit (lib) mkOption mkIf types;
+
   cfg = config.nanoflake.keyboard;
 
   hasDesktop = builtins.elem "desktop" (builtins.attrNames config.nanoflake);
@@ -14,15 +16,15 @@ in
 
 {
   options.nanoflake.keyboard = {
-    layout = lib.mkOption {
-      type = lib.types.str;
+    layout = mkOption {
+      type = types.str;
       default = "de";
       example = "at";
       description = "Sets the xkb and tty keyboard layout";
     };
 
-    variant = lib.mkOption {
-      type = lib.types.str;
+    variant = mkOption {
+      type = types.str;
       default = "";
       example = "dvorak";
       description = "Sets the xkb keyboard layout variant";
@@ -37,7 +39,7 @@ in
 
     console.keyMap = cfg.layout;
 
-    i18n.inputMethod = lib.optionalAttrs hasDesktop {
+    i18n.inputMethod = mkIf hasDesktop {
       enable = true;
       type = "fcitx5";
       fcitx5 = {
@@ -51,7 +53,7 @@ in
       };
     };
 
-    services = lib.optionalAttrs hasDesktop {
+    services = mkIf hasDesktop {
       libinput.mouse.accelProfile = "flat";
       xserver.desktopManager.runXdgAutostartIfNone = true;
       xserver.xkb = { inherit (cfg) layout variant; };

@@ -20,7 +20,7 @@
 
       packages = {
         lighthouse = pkgs.callPackage ./lighthouse { };
-        lavalink = pkgs.callPackage ./lavalink { };
+        lavalink = pkgs.callPackage ./lavalink { jdk = pkgs.zulu17; };
         startvrc = pkgs.callPackage ./startvrc { };
         writeSystemdToggle = pkgs.callPackage ./writeSystemdToggle { };
         meow = pkgs.meow.overrideAttrs {

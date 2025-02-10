@@ -1,16 +1,12 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   makeWrapper,
-  zulu17,
+  jdk,
   fetchurl,
 }:
 
-let
-  jdk = zulu17;
-in
-
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lavalink";
   version = "4.0.8";
 
@@ -21,6 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper
+  ];
+
+  buildInputs = [
+    jdk
   ];
 
   dontUnpack = true;

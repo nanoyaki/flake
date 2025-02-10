@@ -14,7 +14,6 @@
           lavalink
           startvrc
           writeSystemdToggle
-          vrcx
           meow
           ;
       };
@@ -23,9 +22,7 @@
         lighthouse = pkgs.callPackage ./lighthouse { };
         lavalink = pkgs.callPackage ./lavalink { };
         startvrc = pkgs.callPackage ./startvrc { };
-        alcom = pkgs.callPackage ./alcom { };
         writeSystemdToggle = pkgs.callPackage ./writeSystemdToggle { };
-        vrcx = pkgs.callPackage ./vrcx { };
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];
         };

@@ -1,13 +1,10 @@
 {
   pkgs,
-  config,
   username,
   ...
 }:
 
 let
-  inherit (config.hm.lib.file) mkOutOfStoreSymlink;
-
   dirConfig = {
     user = username;
     group = "users";
@@ -16,16 +13,20 @@ let
 in
 
 {
-  hm = {
-    home.file = {
-      # Link several default directories to directories
-      # from the os-shared btrfs drive
-      "Downloads".source = mkOutOfStoreSymlink "/mnt/os-shared/Downloads";
-      "Documents".source = mkOutOfStoreSymlink "/mnt/os-shared/Documents";
-      "Videos".source = mkOutOfStoreSymlink "/mnt/os-shared/Videos";
-      "Pictures".source = mkOutOfStoreSymlink "/mnt/os-shared/Pictures";
+  home-manager.sharedModules = [
+    ../common/optional/homeModules/symlinks.nix
+  ];
 
-      "os-shared".source = mkOutOfStoreSymlink "/mnt/os-shared";
+  hm = {
+    home.symlinks = {
+      # Link several xdg user directories to
+      # directories on the os-shared btrfs drive
+      Downloads = "/mnt/os-shared/Downloads";
+      Documents = "/mnt/os-shared/Documents";
+      Videos = "/mnt/os-shared/Videos";
+      Pictures = "/mnt/os-shared/Pictures";
+
+      os-shared = "/mnt/os-shared";
     };
 
     xdg.userDirs = {
@@ -41,15 +42,15 @@ in
       templates = null;
       music = null;
     };
-  };
 
-  hm.xdg.desktopEntries.windows = {
-    name = "Windows";
-    comment = "Reboot to Windows";
-    exec = "sudo systemctl reboot --boot-loader-entry=auto-windows";
-    icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/windows95.svg";
-    categories = [ "System" ];
-    terminal = false;
+    xdg.desktopEntries.windows = {
+      name = "Windows";
+      comment = "Reboot to Windows";
+      exec = "sudo systemctl reboot --boot-loader-entry=auto-windows";
+      icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/windows95.svg";
+      categories = [ "System" ];
+      terminal = false;
+    };
   };
 
   systemd.tmpfiles.settings."10-os-shared-xdg-user-dirs" = {

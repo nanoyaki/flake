@@ -1,5 +1,6 @@
 {
   pkgs,
+  self,
   username,
   ...
 }:
@@ -14,7 +15,7 @@ in
 
 {
   home-manager.sharedModules = [
-    ../common/optional/homeModules/symlinks.nix
+    self.homeManagerModules.symlinks
   ];
 
   hm = {

@@ -77,6 +77,7 @@
         ./lib
         ./pkgs
         ./modules
+        ./homeModules
 
         ./configs/shirayuri
         ./configs/kuroyuri

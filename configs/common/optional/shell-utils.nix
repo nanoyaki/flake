@@ -12,6 +12,10 @@
     zellij = {
       enable = true;
 
+      enableBashIntegration = lib.mkDefault false;
+      enableZshIntegration = lib.mkDefault false;
+      enableFishIntegration = lib.mkDefault false;
+
       settings = {
         pane_frames = false;
         default_layout = "compact";

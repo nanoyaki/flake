@@ -18,7 +18,7 @@
         # Made in Abyss - Fishing Nanachi
         monitor = "HDMI-A-1";
         wallpaperId = "1160536647";
-        fps = 144;
+        fps = 60;
         audio.silent = true;
       }
     ];

@@ -1,6 +1,19 @@
 { pkgs, config, ... }:
 
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      alcom = prev.alcom.overrideAttrs (oldAttrs: {
+        nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ final.makeWrapper ];
+        postInstall =
+          oldAttrs.postInstall or ""
+          + ''
+            wrapProgram "$out/bin/alcom" --set GTK_USE_PORTAL 0 
+          '';
+      });
+    })
+  ];
+
   environment.systemPackages = with pkgs; [
     startvrc
     vrcx

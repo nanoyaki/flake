@@ -56,12 +56,14 @@ in
 
     xdg.portal = {
       enable = true;
+      xdgOpenUsePortal = true;
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
       config.common.default = [ "kde" ];
     };
 
     hm.xdg.portal = {
       enable = true;
+      xdgOpenUsePortal = true;
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
       config.common.default = [ "kde" ];
     };

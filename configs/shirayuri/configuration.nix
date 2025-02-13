@@ -41,6 +41,7 @@ in
       ffmpeg-full
 
       meow
+      gimp
     ])
     ++ [
       tcVid

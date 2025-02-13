@@ -35,7 +35,6 @@ in
       kate
       elisa
       kwrited
-      ark
       okular
       print-manager
     ];

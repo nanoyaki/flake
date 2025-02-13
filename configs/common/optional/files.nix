@@ -11,6 +11,4 @@
 
     ncdu
   ];
-
-  programs.file-roller.enable = true;
 }

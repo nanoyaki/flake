@@ -1,6 +1,5 @@
 {
   pkgs,
-  self,
   username,
   ...
 }:
@@ -14,10 +13,6 @@ let
 in
 
 {
-  home-manager.sharedModules = [
-    self.homeManagerModules.symlinks
-  ];
-
   hm = {
     home.symlinks = {
       # Link several xdg user directories to

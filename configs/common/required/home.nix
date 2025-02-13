@@ -2,6 +2,7 @@
   lib,
   lib',
   username,
+  self,
   inputs,
   config,
   ...
@@ -30,6 +31,9 @@ in
     useUserPackages = true;
 
     extraSpecialArgs = { inherit lib'; };
+    sharedModules = [
+      self.homeManagerModules.symlinks
+    ];
   };
 
   hm = {

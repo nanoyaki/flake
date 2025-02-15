@@ -8,15 +8,6 @@ in
 
 {
   options = {
-    name = mkOption {
-      type = types.nullOr types.str;
-      example = "youtube";
-      default = null;
-      description = ''
-        The name of the plugin to use for the plugin configuration.
-      '';
-    };
-
     dependency = mkOption {
       type = types.str;
       example = "dev.lavalink.youtube:youtube-plugin:1.8.0";
@@ -31,24 +22,25 @@ in
       default = "https://maven.lavalink.dev/releases";
       description = ''
         The plugin repository. Defaults to the lavalink releases repository.
-      '';
-    };
 
-    snapshot = mkOption {
-      type = types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Whether to use the snapshot repository instead of the release repository.
+        To use the snapshots repository, use <https://maven.lavalink.dev/snapshots> instead
       '';
     };
 
     hash = mkOption {
       type = types.str;
       example = lib.fakeHash;
-      default = lib.fakeHash;
       description = ''
         The hash of the plugin.
+      '';
+    };
+
+    configName = mkOption {
+      type = types.nullOr types.str;
+      example = "youtube";
+      default = null;
+      description = ''
+        The name of the plugin to use as the key for the plugin configuration.
       '';
     };
 
@@ -58,7 +50,7 @@ in
       description = ''
         The configuration for the plugin.
 
-        The option
+        The {option}`services.lavalink.plugins.*.configName` option must be set.
       '';
     };
   };

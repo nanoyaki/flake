@@ -18,7 +18,7 @@ in
     signing = {
       key = signingkey;
 
-      gpgPath = "${lib.getExe pkgs.gnupg}";
+      signer = "${lib.getExe pkgs.gnupg}";
       signByDefault = true;
     };
   };

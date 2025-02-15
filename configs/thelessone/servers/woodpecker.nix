@@ -4,29 +4,6 @@
   ...
 }:
 
-let
-  overrideVer =
-    pkg: version: hash:
-    pkg.overrideAttrs (
-      finalAttrs: _: {
-        inherit version;
-        src = pkgs.fetchzip {
-          inherit hash;
-          url = "https://github.com/woodpecker-ci/woodpecker/releases/download/v${version}/woodpecker-src.tar.gz";
-          stripRoot = false;
-        };
-      }
-    );
-
-  agentPkg =
-    overrideVer pkgs.woodpecker-agent "3.0.0-rc.0"
-      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
-
-  serverPkg =
-    overrideVer pkgs.woodpecker-server "3.0.0-rc.0"
-      "sha256-I+5RITnYovpNDl0QyFUnv1dPf/21Ykb3GrtbCxp55VA=";
-in
-
 {
   sec = {
     "woodpecker/forgejo/clientId" = { };
@@ -37,7 +14,7 @@ in
 
   services.woodpecker-server = {
     enable = true;
-    package = serverPkg;
+    package = pkgs.woodpecker-server;
 
     environment = {
       WOODPECKER_OPEN = "true";
@@ -60,7 +37,7 @@ in
   services.woodpecker-agents.agents = {
     "native" = {
       enable = true;
-      package = agentPkg;
+      package = pkgs.woodpecker-agent;
 
       environment = {
         WOODPECKER_SERVER = "localhost:9000";
@@ -86,7 +63,7 @@ in
 
     "docker" = {
       enable = true;
-      package = agentPkg;
+      package = pkgs.woodpecker-agent;
 
       extraGroups = [ "podman" ];
 

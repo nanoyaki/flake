@@ -67,10 +67,9 @@ in
       config.common.default = [ "kde" ];
     };
 
-    environment.sessionVariables = {
-      GTK_USE_PORTAL = "1";
-      NIXOS_OZONE_WL = lib.optionalString cfg.enableWaylandDefault "1";
-      GDK_BACKEND = lib.optionalString cfg.enableWaylandDefault "wayland";
+    environment.sessionVariables = mkIf cfg.enableWaylandDefault {
+      NIXOS_OZONE_WL = "1";
+      GDK_BACKEND = "wayland";
     };
   };
 }

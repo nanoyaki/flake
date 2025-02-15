@@ -71,7 +71,7 @@
     wlx-overlay-s
     wayvr-dashboard
 
-    lighthouse
+    lighthouse-steamvr
 
     openal
   ];

@@ -40,8 +40,8 @@
 
   systemd.user.services.monado = {
     serviceConfig = {
-      ExecStartPost = "${lib.getExe pkgs.lighthouse} -s ON";
-      ExecStopPost = "${lib.getExe pkgs.lighthouse} -s OFF";
+      ExecStartPost = "${lib.getExe pkgs.lighthouse-steamvr} -s ON";
+      ExecStopPost = "${lib.getExe pkgs.lighthouse-steamvr} -s OFF";
       ExecReload = lib.getExe (
         pkgs.writeShellScriptBin "monado-reload" ''
           kill $MAINPID

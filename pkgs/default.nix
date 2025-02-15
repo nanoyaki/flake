@@ -13,7 +13,6 @@
     {
       overlayAttrs = {
         inherit (config.packages)
-          lighthouse
           lavalink
           startvrc
           writeSystemdToggle
@@ -22,7 +21,6 @@
       };
 
       packages = {
-        lighthouse = callPackage ./lighthouse { };
         lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };
         startvrc = callPackage ./startvrc { };
         writeSystemdToggle = callPackage ./writeSystemdToggle { };

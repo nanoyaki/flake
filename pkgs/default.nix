@@ -18,7 +18,6 @@
           startvrc
           writeSystemdToggle
           meow
-          wayvr-dashboard
           ;
       };
 
@@ -27,7 +26,6 @@
         lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };
         startvrc = callPackage ./startvrc { };
         writeSystemdToggle = callPackage ./writeSystemdToggle { };
-        wayvr-dashboard = callPackage ./wayvr-dashboard { };
 
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];

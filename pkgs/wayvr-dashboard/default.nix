@@ -1,4 +1,5 @@
 {
+  lib,
   rustPlatform,
   fetchFromGitHub,
   fetchNpmDeps,
@@ -65,4 +66,12 @@ rustPlatform.buildRustPackage {
 
   inherit cargoRoot;
   buildAndTestSubdir = cargoRoot;
+
+  meta = {
+    description = "A work-in-progress overlay application for launching various applications and games directly into a VR desktop environment";
+    homepage = "https://github.com/olekolek1000/wayvr-dashboard";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    mainProgram = "wayvr_dashboard";
+  };
 }

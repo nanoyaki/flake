@@ -7,20 +7,24 @@
 
   hardware.nvidia = {
     open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
-    nvidiaSettings = true;
+    prime = {
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:10:0:0";
+    };
+
     modesetting.enable = true;
     powerManagement = {
       enable = false;
       finegrained = false;
     };
-
-    prime.nvidiaBusId = "PCI:1:0:0";
   };
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidiaLegacy470" ];
+    videoDrivers = [ "nvidia" ];
   };
 }

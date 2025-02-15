@@ -18,10 +18,9 @@
     port = 2333;
     plugins = [
       {
-        name = "youtube";
         dependency = "dev.lavalink.youtube:youtube-plugin:1.8.0";
-        snapshot = false;
         hash = "sha256-gQKwwto+PvB/Ucb1kmvfng6A/hfoFynB3bRwmT09ogc=";
+        configName = "youtube";
         extraConfig = {
           enabled = true;
           allowSearch = true;
@@ -41,15 +40,12 @@
       }
       {
         dependency = "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1";
-        snapshot = false;
         hash = "sha256-kVDukbe6AJalLuKfBB8lvF0l91d7p4/IB0oQxlfWjbQ=";
       }
       {
-        name = "lavasrc";
         dependency = "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0";
-        repository = "https://maven.lavalink.dev/releases";
-        snapshot = false;
         hash = "sha256-NoyRphbDPWLnu7LO90NMqECUnm3/h/kiQHnQNZiMofU=";
+        configName = "lavasrc";
         extraConfig = {
           providers = [ "ytsearch:%QUERY%" ];
         };

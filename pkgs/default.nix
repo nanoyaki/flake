@@ -7,6 +7,9 @@
 
   perSystem =
     { config, pkgs, ... }:
+    let
+      inherit (pkgs) callPackage;
+    in
     {
       overlayAttrs = {
         inherit (config.packages)
@@ -15,14 +18,17 @@
           startvrc
           writeSystemdToggle
           meow
+          wayvr-dashboard
           ;
       };
 
       packages = {
-        lighthouse = pkgs.callPackage ./lighthouse { };
-        lavalink = pkgs.callPackage ./lavalink { jdk = pkgs.zulu17; };
-        startvrc = pkgs.callPackage ./startvrc { };
-        writeSystemdToggle = pkgs.callPackage ./writeSystemdToggle { };
+        lighthouse = callPackage ./lighthouse { };
+        lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };
+        startvrc = callPackage ./startvrc { };
+        writeSystemdToggle = callPackage ./writeSystemdToggle { };
+        wayvr-dashboard = callPackage ./wayvr-dashboard { };
+
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];
         };

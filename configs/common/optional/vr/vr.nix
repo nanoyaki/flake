@@ -11,6 +11,8 @@
     inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
   ];
 
+  nixpkgs.xr.enable = true;
+
   hm.home.file.".alsoftrc".text = ''
     hrtf = true
   '';
@@ -67,6 +69,7 @@
   environment.systemPackages = with pkgs; [
     # index_camera_passthrough
     wlx-overlay-s
+    wayvr-dashboard
 
     lighthouse
 

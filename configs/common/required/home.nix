@@ -37,18 +37,19 @@ in
   };
 
   hm = {
+    programs.home-manager.enable = true;
+
     home = {
       inherit username;
-
       homeDirectory = "/home/${username}";
       stateVersion = lib.mkDefault (
         builtins.trace "Home manager state version not set. Defaulting to system.stateVersion" config.system.stateVersion
       );
 
+      shell.enableZshIntegration = true;
+
       preferXdgDirectories = true;
     };
-
-    programs.home-manager.enable = true;
 
     xdg = {
       enable = true;

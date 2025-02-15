@@ -70,6 +70,7 @@ in
     environment.sessionVariables = {
       GTK_USE_PORTAL = "1";
       NIXOS_OZONE_WL = lib.optionalString cfg.enableWaylandDefault "1";
+      GDK_BACKEND = lib.optionalString cfg.enableWaylandDefault "wayland";
     };
   };
 }

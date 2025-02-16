@@ -9,6 +9,7 @@
       allowedTCPPorts = [
         # SCP query
         # 7777
+        25565
       ];
 
       # TCP port ranges

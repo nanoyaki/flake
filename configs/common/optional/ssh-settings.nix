@@ -10,7 +10,7 @@ in
 
     matchBlocks.git = {
       user = "git";
-      host = "github.com codeberg.org gitlab.com";
+      host = "github.com codeberg.org gitlab.com git.theless.one";
       inherit identityFile;
     };
 

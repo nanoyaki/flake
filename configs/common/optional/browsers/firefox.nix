@@ -60,6 +60,7 @@ in
         "widget.use-xdg-desktop-portal.native-messaging" = 1;
         "widget.use-xdg-desktop-portal.open-uri" = 1;
         "widget.use-xdg-desktop-portal.settings" = 1;
+        "middlemouse.paste" = false;
       };
 
       policies = mkIf cfg.enablePolicies {

@@ -5,21 +5,40 @@
   ...
 }:
 
+let
+  lighthouseScript =
+    state:
+    pkgs.writeShellScript "preStart" ''
+      if ${lib.getExe' pkgs.bluez "bluetoothctl"} list | grep -q "Controller" 
+      then 
+        ${lib.getExe pkgs.lighthouse-steamvr} -s ${state}
+      else
+        exit 0
+      fi
+    '';
+in
+
 # https://wiki.nixos.org/wiki/VR#Monado
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      monado = super.monado.overrideAttrs (oldAttrs: {
-        cmakeFlags = [
-          (lib.cmakeBool "XRT_FEATURE_SERVICE" true)
-          (lib.cmakeBool "XRT_OPENXR_INSTALL_ABSOLUTE_RUNTIME_PATH" true)
-          (lib.cmakeBool "XRT_HAVE_STEAM" true)
-          (lib.cmakeBool "CMAKE_EXPORT_COMPILE_COMMANDS" true)
-          (lib.cmakeBool "XRT_HAVE_SYSTEM_CJSON" true)
-        ];
-      });
-    })
-  ];
+  hm.xdg.configFile."openvr/openvrpaths.vrpath".text = ''
+    {
+      "config" :
+      [
+        "${config.hm.xdg.dataHome}/Steam/config"
+      ],
+      "external_drivers" : null,
+      "jsonid" : "vrpathreg",
+      "log" :
+      [
+        "${config.hm.xdg.dataHome}/Steam/logs"
+      ],
+      "runtime" :
+      [
+        "${pkgs.opencomposite}/lib/opencomposite"
+      ],
+      "version" : 1
+    }
+  '';
 
   hm.xdg.configFile."openxr/1/active_runtime.json".source =
     "${pkgs.monado}/share/openxr/1/openxr_monado.json";
@@ -40,14 +59,8 @@
 
   systemd.user.services.monado = {
     serviceConfig = {
-      ExecStartPost = "${lib.getExe pkgs.lighthouse-steamvr} -s ON";
-      ExecStopPost = "${lib.getExe pkgs.lighthouse-steamvr} -s OFF";
-      ExecReload = lib.getExe (
-        pkgs.writeShellScriptBin "monado-reload" ''
-          kill $MAINPID
-          ${lib.getExe' config.services.monado.package "monado-service"}
-        ''
-      );
+      ExecStartPre = lighthouseScript "ON";
+      ExecStopPost = lighthouseScript "OFF";
     };
 
     environment = {
@@ -60,18 +73,6 @@
       SURVIVE_GLOBALSCENESOLVER = "0";
       SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
     };
-  };
-
-  systemd.user.services.wlx-overlay-s = {
-    environment.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
-
-    after = [ "monado.service" ];
-    bindsTo = [ "monado.service" ];
-    wantedBy = [ "monado.service" ];
-    requires = [
-      "monado.socket"
-      "graphical-session.target"
-    ];
   };
 
   hm.xdg.desktopEntries = {

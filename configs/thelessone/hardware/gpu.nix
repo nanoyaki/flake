@@ -1,7 +1,14 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+    ];
+  };
 
   nixpkgs.config.nvidia.acceptLicense = true;
 
@@ -27,4 +34,9 @@
     enable = true;
     videoDrivers = [ "nvidia" ];
   };
+
+  environment.variables.LIBVA_DRIVER_NAME = "nvidia";
+  environment.systemPackages = [
+    pkgs.cudaPackages_12_4.cudatoolkit
+  ];
 }

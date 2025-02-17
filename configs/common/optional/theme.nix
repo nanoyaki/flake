@@ -56,6 +56,7 @@ in
       inherit (catppuccin) enable flavor accent;
 
       sddm.background = "${config.stylix.image}";
+      plymouth.enable = false;
     };
 
     stylix = {
@@ -105,6 +106,8 @@ in
           popups = 9;
         };
       };
+
+      targets.plymouth.enable = true;
     };
 
     environment.systemPackages = lib.mkIf (!cfg.enableAutoStylix) [

@@ -4,6 +4,25 @@
   ...
 }:
 
+let
+  defaults = {
+    autoStart = true;
+    enableReload = true;
+    jvmOpts = "-Xms32G -Xmx32G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+
+    serverProperties = {
+      spawn-protection = 0;
+      view-distance = 32;
+      simulation-distance = 32;
+
+      gamemode = "survival";
+      difficulty = "normal";
+    };
+
+    operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
+  };
+in
+
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -16,21 +35,24 @@
 
     servers.smp = {
       enable = false;
-      autoStart = true;
       package = pkgs.fabricServers.fabric-1_21_1;
-
-      enableReload = true;
-      jvmOpts = "-Xms32G -Xmx32G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+      inherit (defaults)
+        autoStart
+        enableReload
+        jvmOpts
+        operators
+        ;
 
       serverProperties = {
+        inherit (defaults.serverProperties)
+          spawn-protection
+          view-distance
+          simulation-distance
+          gamemode
+          difficulty
+          ;
+
         server-port = 25565;
-
-        spawn-protection = 0;
-        view-distance = 32;
-        simulation-distance = 32;
-
-        gamemode = "survival";
-        difficulty = "hard";
       };
 
       symlinks = {
@@ -69,8 +91,6 @@
         "config/bluemap/webapp.conf" = ./smp/bluemap/webapp.conf;
         "config/bluemap/webserver.conf" = ./smp/bluemap/webserver.conf;
       };
-
-      operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
     };
   };
 }

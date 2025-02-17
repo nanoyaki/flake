@@ -27,7 +27,9 @@ in
       ];
       extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
     };
-    audio.latency = 32;
+    audio.latency = 256;
+
+    firefox.enablePolicies = true;
   };
 
   environment.systemPackages =

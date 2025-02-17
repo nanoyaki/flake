@@ -36,6 +36,8 @@ let
         }
       ];
   };
+
+  exec = lib.getExe vscodePkg;
 in
 
 {
@@ -43,12 +45,9 @@ in
     vscodePkg
   ];
 
-  environment.variables =
-    let
-      exec = lib.getExe vscodePkg;
-    in
-    {
-      EDITOR = exec;
-      GIT_EDITOR = "${exec} --wait";
-    };
+  environment.variables = {
+    EDITOR = exec;
+    GIT_EDITOR = "${exec} --wait";
+    SOPS_EDITOR = "${exec} --wait";
+  };
 }

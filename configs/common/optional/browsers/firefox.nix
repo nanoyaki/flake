@@ -17,7 +17,7 @@ let
   cfg = config.nanoflake.firefox;
 
   mkAddon = installMode: id: {
-    installation_mode = "${installMode}";
+    installation_mode = installMode;
     install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
   };
 
@@ -34,6 +34,8 @@ let
     "application/atom+xml"
     "application/rss+xml"
     "application/pdf"
+    "x-scheme-handler/http"
+    "x-scheme-handler/https"
   ];
 in
 

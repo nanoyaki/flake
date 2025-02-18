@@ -75,36 +75,21 @@ in
     };
   };
 
-  hm.xdg.desktopEntries = {
-    monado = {
-      name = "Monado";
-      comment = "Starts the Monado OpenXR service";
-      exec = lib.getExe (
-        pkgs.writeSystemdToggle.override {
-          service = "monado";
-          isUserService = true;
-        }
-      );
-      icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
-      categories = [
-        "Game"
-        "Graphics"
-        "3DGraphics"
-      ];
-      terminal = false;
-    };
-
-    monado-reload = {
-      name = "Reload Monado";
-      comment = "Restarts the Monado OpenXR service without turning Basestations on and off";
-      exec = "systemctl --user reload monado.service";
-      icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
-      categories = [
-        "Game"
-        "Graphics"
-        "3DGraphics"
-      ];
-      terminal = false;
-    };
+  hm.xdg.desktopEntries.monado = {
+    name = "Monado";
+    comment = "Starts the Monado OpenXR service";
+    exec = lib.getExe (
+      pkgs.writeSystemdToggle.override {
+        service = "monado";
+        isUserService = true;
+      }
+    );
+    icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
+    categories = [
+      "Game"
+      "Graphics"
+      "3DGraphics"
+    ];
+    terminal = false;
   };
 }

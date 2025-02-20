@@ -16,7 +16,7 @@ let
         ms-vscode-remote.remote-ssh
         editorconfig.editorconfig
         yzhang.markdown-all-in-one
-        rust-lang.rust-analyzer
+        # rust-lang.rust-analyzer
         tamasfe.even-better-toml
         github.vscode-github-actions
         redhat.vscode-yaml

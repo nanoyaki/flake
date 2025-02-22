@@ -21,35 +21,38 @@ in
 
 {
   systemd.user.services.wlx-overlay-s =
-    {
-      description = "wlx-overlay-s service";
+    lib.recursiveUpdate
+      {
+        description = "wlx-overlay-s service";
 
-      unitConfig.ConditionUser = "!root";
+        unitConfig.ConditionUser = "!root";
 
-      serviceConfig = {
-        ExecStart = "${lib.getExe pkgs.wlx-overlay-s} --openxr";
-        Restart = "on-failure";
-        Type = "simple";
-      };
+        serviceConfig = {
+          ExecStart = "${lib.getExe pkgs.wlx-overlay-s} --openxr";
+          Restart = "on-failure";
+          Type = "simple";
+        };
 
-      environment = {
-        OXR_VIEWPORT_SCALE_PERCENTAGE = "120";
-        XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
-      };
+        environment = {
+          OXR_VIEWPORT_SCALE_PERCENTAGE = "120";
+          XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
+        };
 
-      restartTriggers = [ pkgs.wlx-overlay-s ];
-    }
-    // lib.optionalAttrs config.services.monado.enable {
-      environment.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
+        restartTriggers = [ pkgs.wlx-overlay-s ];
+      }
+      (
+        lib.optionalAttrs config.services.monado.enable {
+          environment.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
 
-      after = [ "monado.service" ];
-      bindsTo = [ "monado.service" ];
-      wantedBy = [ "monado.service" ];
-      requires = [
-        "monado.socket"
-        "graphical-session.target"
-      ];
-    };
+          after = [ "monado.service" ];
+          bindsTo = [ "monado.service" ];
+          wantedBy = [ "monado.service" ];
+          requires = [
+            "monado.socket"
+            "graphical-session.target"
+          ];
+        }
+      );
 
   hm.xdg.configFile."wlxoverlay/wayvr.yaml".source = (pkgs.formats.yaml { }).generate "wayvr.yaml" {
     version = 1;

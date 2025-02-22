@@ -29,7 +29,7 @@
     };
 
     nixpkgs-xr = {
-      url = "github:nix-community/nixpkgs-xr";
+      url = "github:nanoyaki/nixpkgs-xr/build-failure";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     prismlauncher = {

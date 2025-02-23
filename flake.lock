@@ -798,16 +798,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1740254781,
+        "lastModified": 1740311777,
         "narHash": "sha256-OKhbD8RqLt2HKK1Q4U+L/YOSAQEkUfmbwPhyb9Cv5D4=",
-        "owner": "nanoyaki",
+        "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "10579719577ae1fc263c66f42645aabfc419e457",
+        "rev": "7b6bec3788ac410dabff2b4118bd2310541cbcaf",
         "type": "github"
       },
       "original": {
-        "owner": "nanoyaki",
-        "ref": "build-failure",
+        "owner": "nix-community",
         "repo": "nixpkgs-xr",
         "type": "github"
       }

@@ -33,10 +33,7 @@ in
           Type = "simple";
         };
 
-        environment = {
-          OXR_VIEWPORT_SCALE_PERCENTAGE = "120";
-          XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
-        };
+        environment.XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
 
         restartTriggers = [ pkgs.wlx-overlay-s ];
       }

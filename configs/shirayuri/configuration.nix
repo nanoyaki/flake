@@ -41,6 +41,8 @@ in
       wineWowPackages.stableFull
 
       ffmpeg-full
+      yt-dlp
+      obs-studio
 
       meow
       gimp

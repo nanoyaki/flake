@@ -6,17 +6,7 @@
 }:
 
 let
-  getIndexId = pkgs.writeShellScript "getIndexId" ''
-    ${lib.getExe' pkgs.pulseaudio "pactl"} list short sinks \
-    | ${lib.getExe pkgs.gnugrep} hdmi-stereo-extra1 \
-    | ${lib.getExe pkgs.gnused} -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'
-  '';
-
-  setIndexVolume =
-    volume:
-    pkgs.writeShellScript "setIndexVolume" ''
-      ${lib.getExe' pkgs.pulseaudio "pactl"} set-sink-volume $(${getIndexId}) ${volume}%
-    '';
+  yaml = pkgs.formats.yaml { };
 in
 
 {
@@ -51,7 +41,7 @@ in
         }
       );
 
-  hm.xdg.configFile."wlxoverlay/wayvr.yaml".source = (pkgs.formats.yaml { }).generate "wayvr.yaml" {
+  hm.xdg.configFile."wlxoverlay/wayvr.yaml".source = yaml.generate "wayvr.yaml" {
     version = 1;
     run_compositor_at_start = false;
 
@@ -105,7 +95,8 @@ in
       {
         name = "Btop";
         target_display = "Watch";
-        exec = lib.getExe pkgs.btop;
+        exec = lib.getExe pkgs.alacritty;
+        args = "-e ${lib.getExe pkgs.btop}";
       }
       {
         name = "Vesktop";
@@ -120,312 +111,543 @@ in
     ];
   };
 
-  hm.xdg.configFile."wlxoverlay/watch.yaml".source = (pkgs.formats.yaml { }).generate "watch.yaml" {
-    width = 0.115;
+  hm.xdg.configFile."wlxoverlay/conf.d/font.yaml".source = yaml.generate "font.yaml" {
+    primary_font = "Cascadia Cove:weight=150";
+  };
+
+  hm.xdg.configFile."wlxoverlay/icons.dds".source = ./icons.dds;
+
+  hm.xdg.configFile."wlxoverlay/watch.yaml".source = yaml.generate "watch.yaml" {
+    width = 0.1;
 
     size = [
-      400
-      200
+      300
+      264
     ];
 
     elements = [
+      # Settings
       {
-        type = "Panel";
+        bg_color = "#24273a";
+        corner_radius = 20;
         rect = [
           0
-          30
-          400
-          130
+          0
+          300
+          150
         ];
-        corner_radius = 20;
+        type = "Panel";
+      }
+      {
         bg_color = "#24273a";
-      }
-      {
-        type = "Button";
-        rect = [
-          2
-          162
-          26
-          36
-        ];
-        corner_radius = 4;
-        font_size = 15;
-        fg_color = "#24273a";
-        bg_color = "#c6a0f6";
-        text = "C";
         click_up = [
           {
-            type = "Window";
-            target = "settings";
             action = "ShowUi";
-          }
-          {
-            type = "Window";
             target = "settings";
+            type = "Window";
+          }
+          {
             action = "Destroy";
+            target = "settings";
+            type = "Window";
           }
         ];
-      }
-      {
-        type = "Button";
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 15;
         rect = [
+          232
+          42
           32
-          162
-          48
-          36
+          32
         ];
-        corner_radius = 4;
-        font_size = 15;
-        bg_color = "#2288FF";
-        fg_color = "#24273a";
-        text = "Dash";
-        click_up = [
-          {
-            type = "WayVR";
-            action = "ToggleDashboard";
-          }
-        ];
+        text = "";
+        type = "Button";
       }
       {
-        type = "Button";
         rect = [
-          84
-          162
-          48
-          36
+          231
+          42
+          32
+          32
         ];
-        corner_radius = 4;
-        font_size = 15;
-        bg_color = "#a6da95";
-        fg_color = "#24273a";
-        text = "Kbd";
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0
+          0.5
+        ];
+        type = "Sprite";
+      }
+      # Wayvr dashboard
+      {
+        bg_color = "#24273a";
         click_up = [
           {
-            type = "Overlay";
-            target = "kbd";
-            action = "ToggleVisible";
+            action = "ToggleDashboard";
+            type = "WayVR";
           }
         ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 15;
+        rect = [
+          267
+          230
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          267
+          230
+          32
+          32
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0
+          0
+        ];
+        type = "Sprite";
+      }
+      # Keyboard
+      {
+        bg_color = "#24273a";
+        click_up = [
+          {
+            action = "ToggleVisible";
+            target = "kbd";
+            type = "Overlay";
+          }
+        ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 15;
         long_click_up = [
           {
-            type = "Overlay";
-            target = "kbd";
             action = "Reset";
+            target = "kbd";
+            type = "Overlay";
           }
         ];
         middle_up = [
           {
-            type = "Overlay";
-            target = "kbd";
             action = "ToggleInteraction";
+            target = "kbd";
+            type = "Overlay";
           }
+        ];
+        rect = [
+          200
+          42
+          32
+          32
         ];
         right_up = [
           {
-            type = "Overlay";
-            target = "kbd";
             action = "ToggleImmovable";
+            target = "kbd";
+            type = "Overlay";
           }
         ];
         scroll_down = [
           {
-            type = "Overlay";
+            action.Opacity.delta = -0.025;
             target = "kbd";
-            action = {
-              Opacity = {
-                delta = -0.025;
-              };
-            };
+            type = "Overlay";
           }
         ];
         scroll_up = [
           {
-            type = "Overlay";
+            action.Opacity.delta = 0.025;
             target = "kbd";
-            action = {
-              Opacity = {
-                delta = 0.025;
-              };
-            };
+            type = "Overlay";
           }
         ];
+        text = "";
+        type = "Button";
       }
       {
-        type = "OverlayList";
         rect = [
-          134
-          160
-          266
-          40
+          200
+          42
+          32
+          32
         ];
-        corner_radius = 4;
-        font_size = 15;
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.25
+          0.5
+        ];
+        type = "Sprite";
+      }
+      # Exit button
+      {
+        bg_color = "#24273a";
+        click_down = [
+          {
+            command = [
+              "systemctl"
+              "--user"
+              "stop"
+              "monado.service"
+            ];
+            type = "Exec";
+          }
+        ];
+        corner_radius = 20;
+        fg_color = "#24273a";
+        font_size = 13;
+        rect = [
+          270
+          0
+          30
+          30
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          270
+          0
+          30
+          30
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.5
+          0.5
+        ];
+        type = "Sprite";
+      }
+      # Overlay list
+      {
         bg_color = "#1e2030";
-        fg_color = "#cad3f5";
-        layout = "Horizontal";
         click_up = "ToggleVisible";
+        corner_radius = 4;
+        fg_color = "#cad3f5";
+        font_size = 15;
+        layout = "Horizontal";
         long_click_up = "Reset";
-        right_up = "ToggleImmovable";
         middle_up = "ToggleInteraction";
-        scroll_up.Opacity.delta = 0.025;
+        rect = [
+          0
+          152
+          300
+          38
+        ];
+        right_up = "ToggleImmovable";
         scroll_down.Opacity.delta = -0.025;
+        scroll_up.Opacity.delta = 0.025;
+        type = "OverlayList";
       }
+      # Wayvr applications
       {
-        type = "Label";
-        rect = [
-          19
-          90
-          200
-          50
-        ];
+        bg_color = "#e590c4";
+        catalog_name = "default_catalog";
         corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 15;
+        rect = [
+          0
+          192
+          300
+          36
+        ];
+        type = "WayVRLauncher";
+      }
+      # Wayvr displays
+      {
+        bg_color = "#e590c4";
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 15;
+        rect = [
+          0
+          228
+          263
+          36
+        ];
+        type = "WayVRDisplayList";
+      }
+      # Date - hour:minute
+      {
+        corner_radius = 4;
+        fg_color = "#cad3f5";
         font_size = 46;
-        fg_color = "#cad3f5";
-        source = "Clock";
         format = "%H:%M";
-      }
-      {
-        type = "Label";
         rect = [
-          20
-          117
+          8
+          80
           200
-          20
+          50
         ];
-        corner_radius = 4;
-        font_size = 14;
-        fg_color = "#cad3f5";
         source = "Clock";
+        type = "Label";
+      }
+      # Date - locale date rep
+      {
+        corner_radius = 4;
+        fg_color = "#cad3f5";
+        font_size = 14;
         format = "%x";
-      }
-      {
-        type = "Label";
         rect = [
+          10
+          119
+          200
           20
-          137
-          200
-          50
         ];
+        source = "Clock";
+        type = "Label";
+      }
+      # Date - day name
+      {
         corner_radius = 4;
-        font_size = 14;
         fg_color = "#cad3f5";
-        source = "Clock";
+        font_size = 14;
         format = "%A";
-      }
-      {
-        type = "Label";
         rect = [
-          210
-          90
+          10
+          139
           200
           50
         ];
-        corner_radius = 4;
-        font_size = 24;
-        fg_color = "#8bd5ca";
         source = "Clock";
-        timezone = 0;
-        format = "%H:%M";
-      }
-      {
         type = "Label";
-        rect = [
-          210
-          60
-          200
-          50
-        ];
+      }
+      # Battery list
+      {
         corner_radius = 4;
-        font_size = 14;
         fg_color = "#8bd5ca";
-        source = "Timezone";
-        timezone = 0;
-      }
-      {
-        type = "Label";
-        rect = [
-          210
-          150
-          200
-          50
-        ];
-        corner_radius = 4;
-        fg_color = "#b7bdf8";
-        font_size = 24;
-        source = "Clock";
-        timezone = 1;
-        format = "%H:%M";
-      }
-      {
-        type = "Label";
-        rect = [
-          210
-          120
-          200
-          50
-        ];
-        corner_radius = 4;
-        font_size = 14;
-        fg_color = "#b7bdf8";
-        source = "Timezone";
-        timezone = 1;
-      }
-      {
-        type = "BatteryList";
+        fg_color_charging = "#6080A0";
+        fg_color_low = "#ff7785";
+        font_size = 16;
+        layout = "Horizontal";
+        low_threshold = 33;
+        num_devices = 9;
         rect = [
           0
           5
           400
           30
         ];
-        corner_radius = 4;
-        font_size = 16;
-        fg_color = "#8bd5ca";
-        fg_color_low = "#B06060";
-        fg_color_charging = "#6080A0";
-        num_devices = 9;
-        layout = "Horizontal";
-        low_threshold = 33;
+        type = "BatteryList";
       }
+      # Volume down
       {
-        type = "Button";
-        rect = [
-          315
-          52
-          70
-          32
-        ];
-        corner_radius = 4;
-        font_size = 13;
-        fg_color = "#cad3f5";
-        bg_color = "#5b6078";
-        text = "Vol +";
+        bg_color = "#5BCEFA";
         click_down = [
           {
+            command = [
+              (lib.getExe' pkgs.pulseaudio "pactl")
+              "set-sink-volume"
+              "@DEFAULT_SINK@"
+              "-5%"
+            ];
             type = "Exec";
-            command = [ "${setIndexVolume "+5"}" ];
           }
-        ];
-      }
-      {
-        type = "Button";
-        rect = [
-          315
-          116
-          70
-          32
         ];
         corner_radius = 4;
+        fg_color = "#24273a";
         font_size = 13;
-        fg_color = "#cad3f5";
-        bg_color = "#5b6078";
-        text = "Vol -";
+        rect = [
+          110
+          108
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          114
+          112
+          24
+          24
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.25
+          0
+        ];
+        type = "Sprite";
+      }
+      # Media previous
+      {
+        bg_color = "#F5A9B8";
         click_down = [
           {
+            command = [
+              (lib.getExe pkgs.playerctl)
+              "previous"
+            ];
             type = "Exec";
-            command = [ "${setIndexVolume "-5"}" ];
           }
         ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 13;
+        rect = [
+          146
+          108
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          150
+          112
+          24
+          24
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0
+          0.25
+        ];
+        type = "Sprite";
+      }
+      # Media play/pause
+      {
+        bg_color = "#FFFFFF";
+        click_down = [
+          {
+            command = [
+              (lib.getExe pkgs.playerctl)
+              "play-pause"
+            ];
+            type = "Exec";
+          }
+        ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 13;
+        rect = [
+          182
+          108
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          186
+          112
+          24
+          24
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.25
+          0.25
+        ];
+        type = "Sprite";
+      }
+      # Media next
+      {
+        bg_color = "#F5A9B8";
+        click_down = [
+          {
+            command = [
+              (lib.getExe pkgs.playerctl)
+              "next"
+            ];
+            type = "Exec";
+          }
+        ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 13;
+        rect = [
+          218
+          108
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          222
+          112
+          24
+          24
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.5
+          0.25
+        ];
+        type = "Sprite";
+      }
+      # Vol up
+      {
+        bg_color = "#5BCEFA";
+        click_down = [
+          {
+            command = [
+              (lib.getExe' pkgs.pulseaudio "pactl")
+              "set-sink-volume"
+              "@DEFAULT_SINK@"
+              "+5%"
+            ];
+            type = "Exec";
+          }
+        ];
+        corner_radius = 4;
+        fg_color = "#24273a";
+        font_size = 13;
+        rect = [
+          254
+          108
+          32
+          32
+        ];
+        text = "";
+        type = "Button";
+      }
+      {
+        rect = [
+          258
+          112
+          24
+          24
+        ];
+        sprite = "icons.dds";
+        sprite_st = [
+          0.25
+          0.25
+          0.5
+          0
+        ];
+        type = "Sprite";
       }
     ];
   };

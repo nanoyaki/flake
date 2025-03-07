@@ -1,6 +1,8 @@
 {
   description = "Hana's NixOS System flake";
 
+  # Use lfs once nightly nix is stable
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts = {

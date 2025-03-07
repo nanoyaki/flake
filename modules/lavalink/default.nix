@@ -153,7 +153,6 @@ in
 
   config =
     let
-
       pluginSymlinks = lib.concatStringsSep "\n" (
         map (
           pluginCfg:
@@ -202,7 +201,7 @@ in
         );
       };
 
-      configWithPassword = lib.recursiveUpdate config (
+      configWithPassword = lib.attrsets.recursiveUpdate config (
         lib.attrsets.optionalAttrs (cfg.password != null) { lavalink.server.password = cfg.password; }
       );
 

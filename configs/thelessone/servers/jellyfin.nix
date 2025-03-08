@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  lib,
+  config,
+  username,
+  ...
+}:
 
 let
   cfg = config.services.jellyfin;
@@ -12,8 +17,11 @@ in
 {
   services.jellyfin.enable = true;
 
+  users.users.${username}.extraGroups = lib.singleton cfg.group;
+
   systemd.tmpfiles.settings."10-jellyfin" = {
-    "/var/lib/jellyfin/libraries".d = dirCfg;
-    "/var/lib/jellyfin/libraries/moviesAndShows".d = dirCfg;
+    ${cfg.dataDir}.d.mode = lib.mkForce "710";
+    "${cfg.dataDir}/libraries".d = dirCfg;
+    "${cfg.dataDir}/libraries/moviesAndShows".d = dirCfg;
   };
 }

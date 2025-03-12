@@ -11,5 +11,6 @@
     ./syncthing.nix
     ./jellyfin.nix
     ./calendar.nix
+    ./steam.nix
   ];
 }

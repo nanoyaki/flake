@@ -36,6 +36,7 @@
       ./git.nix
       ./transmission.nix
       ./ssh.nix
+      ./cam.nix
     ];
   };
 }

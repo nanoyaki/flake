@@ -53,8 +53,6 @@ in
       inputs'.deploy-rs.packages.deploy-rs
     ];
 
-  programs.droidcam.enable = true;
-
   programs.kde-pim.merkuro = true;
 
   hm.news.display = "show";

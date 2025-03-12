@@ -8,7 +8,7 @@
       # Allowed TCP ports
       allowedTCPPorts = [
         # SCP query
-        # 7777
+        7777
         25565
       ];
 
@@ -20,7 +20,7 @@
       # Allowed UDP Ports
       allowedUDPPorts = [
         # SCP
-        # 7777
+        7777
       ];
 
       # UDP port ranges

@@ -62,35 +62,63 @@ in
       level INFO
     '';
 
-    virtualHosts = {
-      "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
-      "files.theless.one".extraConfig = ''
-        ${mkFileServer "/var/lib/caddy/files"}
+    virtualHosts =
+      (
+        let
+          self = "theless.one";
+        in
+        {
+          "na55l3zepb4kcg0zryqbdnay.${self}".extraConfig = mkFileServer "/var/www/${self}";
+          "files.${self}".extraConfig = ''
+            ${mkFileServer "/var/lib/caddy/files"}
 
-        ${mkBasicAuth "shared"}
-      '';
-      "files.nanoyaki.space".extraConfig = ''
-        ${mkFileServer "/var/lib/caddy/nanoyaki-files"}
+            ${mkBasicAuth "shared"}
+          '';
 
-        ${mkBasicAuth "hana"}
-      '';
+          "manga.${self}".extraConfig = mkProtectedHost 4555 "thelessone";
+          "nik-manga.${self}".extraConfig = mkProtectedHost 4556 "nik";
+          "hana-manga.${self}".extraConfig = mkProtectedHost 4557 "hana";
 
-      "manga.theless.one".extraConfig = mkProtectedHost 4555 "thelessone";
-      "nik-manga.theless.one".extraConfig = mkProtectedHost 4556 "nik";
-      "hana-manga.theless.one".extraConfig = mkProtectedHost 4557 "hana";
+          "git.${self}".extraConfig = mkReverseProxy 12500;
+          "woodpecker.${self}".extraConfig = mkReverseProxy 3007;
 
-      "git.theless.one".extraConfig = mkReverseProxy 12500;
-      "git.nanoyaki.space".extraConfig = mkReverseProxy 12500;
-      "woodpecker.theless.one".extraConfig = mkReverseProxy 3007;
+          # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
+          "metrics.${self}".extraConfig = mkProtectedHost 9090 "hana";
+          "jellyfin.${self}".extraConfig = mkReverseProxy 8096;
+        }
+      )
+      // (
+        let
+          self = "nanoyaki.space";
+          redirect = ''
+            redir https://bsky.app/profile/${self} permanent
+          '';
+        in
+        {
+          ${self}.extraConfig = redirect;
+          "www.${self}".extraConfig = redirect;
 
-      # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
-      "metrics.theless.one".extraConfig = mkProtectedHost 9090 "hana";
-      "jellyfin.theless.one".extraConfig = mkReverseProxy 8096;
+          "files.${self}".extraConfig = ''
+            ${mkFileServer "/var/lib/caddy/nanoyaki-files"}
 
-      "vappie.space".extraConfig = ''
-        redir https://bsky.app/profile/vappie.space permanent
-      '';
-    };
+            ${mkBasicAuth "hana"}
+          '';
+
+          "git.${self}".extraConfig = mkReverseProxy 12500;
+        }
+      )
+      // (
+        let
+          self = "vappie.space";
+          redirect = ''
+            redir https://bsky.app/profile/${self} permanent
+          '';
+        in
+        {
+          ${self}.extraConfig = redirect;
+          "www.${self}".extraConfig = redirect;
+        }
+      );
   };
 
   systemd.tmpfiles.settings = {

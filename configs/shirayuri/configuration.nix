@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  username,
+  config,
   ...
 }:
 
@@ -15,7 +15,7 @@ let
 in
 
 {
-  sec."deployment/private".owner = username;
+  hm.sec."deployment/private".path = "${config.hm.home.homeDirectory}/.ssh/deployment";
 
   nanoflake = {
     localization = {

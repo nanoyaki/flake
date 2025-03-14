@@ -27,5 +27,4 @@ steps:
       - echo "$DEPLOYMENT_KEY" > deployment
       - chmod 600 deployment
       - |
-        nix --extra-experimental-features "nix-command flakes" run github:serokell/deploy-rs -- \
-          --ssh-opts "-o StrictHostKeyChecking=no -i deployment" --skip-checks
+        nix --extra-experimental-features "nix-command flakes" run .#deploy -- switch deployment

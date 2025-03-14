@@ -56,7 +56,7 @@ in
   home-manager.users.nanoyaki-events.home = {
     username = "nanoyaki-events";
     homeDirectory = home;
-    stateVersion = config.system.stateVersion;
+    inherit (config.system) stateVersion;
 
     file = {
       "public".source = "${webPkg}/public";

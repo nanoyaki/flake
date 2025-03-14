@@ -39,7 +39,7 @@ in
   home-manager.users.${app}.home = {
     username = app;
     homeDirectory = home;
-    stateVersion = config.system.stateVersion;
+    inherit (config.system) stateVersion;
 
     file = {
       "public".source = "${webPkg}/public";

@@ -5,19 +5,16 @@
 }:
 
 let
-  ft-pkg = (
-    pkgs.writeShellScriptBin "facetracking" ''
+  ft-pkg = pkgs.writeShellScriptBin "facetracking" ''
       trap 'jobs -p | xargs kill' EXIT
 
       ${lib.getExe pkgs.vrcadvert} OscAvMgr 9402 9000 --tracking &
 
       # If using WiVRn
       ${lib.getExe pkgs.oscavmgr} openxr
-    ''
-  );
+    '';
 
-  startvr-pkg = (
-    pkgs.writeShellScriptBin "startvr" ''
+  startvr-pkg = pkgs.writeShellScriptBin "startvr" ''
       systemctl --user start wivrn.service
 
       echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
@@ -39,8 +36,7 @@ let
       Anweisungen für motoc:
 
       https://github.com/galister/motoc?tab=readme-ov-file#how-to-use'
-    ''
-  );
+    '';
 in
 
 {

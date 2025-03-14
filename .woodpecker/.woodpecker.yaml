@@ -25,6 +25,6 @@ steps:
         from_secret: DEPLOYMENT_KEY
     commands:
       - echo "$DEPLOYMENT_KEY" > deployment
-      - chmod 600 deployment
+      - chmod 400 deployment
       - |
         nix --extra-experimental-features "nix-command flakes" run .#deploy -- switch deployment

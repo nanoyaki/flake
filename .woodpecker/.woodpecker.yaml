@@ -26,5 +26,4 @@ steps:
     commands:
       - echo "$DEPLOYMENT_KEY" > deployment
       - chmod 400 deployment
-      - |
-        nix --extra-experimental-features "nix-command flakes" run .#deploy -- switch deployment
+      - nix --extra-experimental-features "nix-command flakes" run .#deploy -- switch deployment

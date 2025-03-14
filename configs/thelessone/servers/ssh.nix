@@ -9,6 +9,9 @@
       PasswordAuthentication = false;
       AcceptEnv = "GIT_PROTOCOL";
     };
+
+    knownHosts."theless.one".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkogFEPPOMfkRsBgyuHDQeWQMetWCZbkTpnfajTbu7t";
   };
 
   users.users.${username}.openssh.authorizedKeys.keys = [

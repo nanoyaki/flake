@@ -36,6 +36,10 @@ let
     file_server * browse
   '';
 
+  mkRedirect = url: ''
+    redir ${url} permanent
+  '';
+
   dirConfig = {
     inherit (cfg) group user;
     mode = "0700";
@@ -90,13 +94,11 @@ in
       // (
         let
           self = "nanoyaki.space";
-          redirect = ''
-            redir https://bsky.app/profile/${self} permanent
-          '';
         in
         {
-          ${self}.extraConfig = redirect;
-          "www.${self}".extraConfig = redirect;
+          ${self}.extraConfig = mkRedirect "https://bsky.app/profile/${self}";
+          "www.${self}".extraConfig = mkRedirect "https://bsky.app/profile/${self}";
+          "twitter.${self}".extraConfig = mkRedirect "https://x.com/nanoyaki";
 
           "files.${self}".extraConfig = ''
             ${mkFileServer "/var/lib/caddy/nanoyaki-files"}
@@ -110,13 +112,11 @@ in
       // (
         let
           self = "vappie.space";
-          redirect = ''
-            redir https://bsky.app/profile/${self} permanent
-          '';
         in
         {
-          ${self}.extraConfig = redirect;
-          "www.${self}".extraConfig = redirect;
+          ${self}.extraConfig = mkRedirect "https://bsky.app/profile/${self}";
+          "www.${self}".extraConfig = mkRedirect "https://bsky.app/profile/${self}";
+          "twitter.${self}".extraConfig = mkRedirect "https://x.com/vappie_";
         }
       );
   };

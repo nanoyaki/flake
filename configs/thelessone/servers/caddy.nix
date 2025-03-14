@@ -86,6 +86,10 @@ in
       # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
       "metrics.theless.one".extraConfig = mkProtectedHost 9090 "hana";
       "jellyfin.theless.one".extraConfig = mkReverseProxy 8096;
+
+      "vappie.space".extraConfig = ''
+        redir https://bsky.app/profile/vappie.space permanent
+      '';
     };
   };
 

@@ -1,6 +1,5 @@
 {
   lib,
-  inputs',
   pkgs,
   username,
   ...
@@ -50,7 +49,6 @@ in
     ++ [
       tcVid
       tcVidAac
-      inputs'.deploy-rs.packages.deploy-rs
     ];
 
   programs.kde-pim.merkuro = true;

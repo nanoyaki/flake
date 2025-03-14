@@ -17,8 +17,6 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Don't follow nixpkgs for easier deployment
-    deploy-rs.url = "github:serokell/deploy-rs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager = {

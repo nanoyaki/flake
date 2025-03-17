@@ -57,10 +57,10 @@ in
     };
 
     displays = {
-      Watch = {
-        width = 400;
-        height = 600;
-        scale = 0.4;
+      watch = {
+        width = 600;
+        height = 400;
+        scale = 0.5;
         attach_to = "HandRight";
         pos = [
           0.0
@@ -73,18 +73,18 @@ in
             0.0
             0.0
           ];
-          angle = -45.0;
+          angle = 45.0;
         };
       };
 
-      Disp1 = {
+      disp1 = {
         primary = true;
         width = 1920;
         height = 1080;
         scale = 1.0;
       };
 
-      Disp2 = {
+      disp2 = {
         width = 1920;
         height = 1080;
         scale = 1.0;
@@ -94,18 +94,18 @@ in
     catalogs.default_catalog.apps = [
       {
         name = "Btop";
-        target_display = "Watch";
+        target_display = "watch";
         exec = lib.getExe pkgs.alacritty;
         args = "-e ${lib.getExe pkgs.btop}";
       }
       {
         name = "Vesktop";
-        target_display = "Disp2";
+        target_display = "disp2";
         exec = lib.getExe pkgs.vesktop;
       }
       {
         name = "Firefox";
-        target_display = "Disp1";
+        target_display = "disp1";
         exec = lib.getExe pkgs.firefox;
       }
     ];

@@ -45,6 +45,7 @@ in
 
       meow
       gimp
+      smile
     ])
     ++ [
       tcVid

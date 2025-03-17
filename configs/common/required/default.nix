@@ -2,8 +2,8 @@
   imports = [
     ./nix.nix
     ./boot.nix
-    ./home.nix
     ./user.nix
+    ./home.nix
     ./networking.nix
     ./locale.nix
     ./sops.nix

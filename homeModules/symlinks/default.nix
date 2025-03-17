@@ -4,7 +4,7 @@ let
   inherit (lib) types;
   inherit (lib.options) mkOption;
   inherit (lib.modules) mkIf;
-  inherit (lib.attrsets) mapAttrs' nameValuePair;
+  inherit (lib.attrsets) mapAttrs;
   inherit (config.lib.file) mkOutOfStoreSymlink;
 
   cfg = config.home.symlinks;
@@ -20,14 +20,11 @@ in
       }
     '';
     description = ''
-      An attribute set of the target directory, relative to the home directory, mapped to an out-of-store directory.
+      An attribute set of the target directory mapped to an out-of-store directory.
     '';
   };
 
   config = mkIf (cfg != { }) {
-    home.file = mapAttrs' (
-      name: value:
-      nameValuePair "${config.home.homeDirectory}/${name}" { source = mkOutOfStoreSymlink value; }
-    ) cfg;
+    home.file = mapAttrs (_: value: { source = mkOutOfStoreSymlink value; }) cfg;
   };
 }

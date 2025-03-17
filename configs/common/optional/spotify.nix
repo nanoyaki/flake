@@ -56,7 +56,7 @@ in
     };
 
     # for spotify-qt to always find librespot
-    home.file.".local/bin/librespot".source = lib.getExe pkgs.librespot;
+    home.file.".local/share/librespot/binary".source = lib.getExe pkgs.librespot;
     home.packages = [ pkgs.spotify-qt ];
   };
 }

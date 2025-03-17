@@ -21,10 +21,7 @@ in
 
   config.hm.home.packages =
     (with pkgs; [
-      (vesktop.override {
-        withMiddleClickScroll = true;
-        electron = pkgs.electron_33;
-      })
+      (vesktop.override { withMiddleClickScroll = true; })
       bitwarden-desktop
     ])
     ++ cfg;

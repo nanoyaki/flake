@@ -20,6 +20,7 @@
   ];
 
   nixpkgs.config.nvidia.acceptLicense = true;
+  nixpkgs.config.cudaSupport = true;
 
   hardware.nvidia = {
     open = false;

@@ -61,7 +61,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     discord-events-to-ics = {
-      url = "github:nanoyaki/discord-events-to-ics/v1.0.1";
+      url = "github:nanoyaki/discord-events-to-ics/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

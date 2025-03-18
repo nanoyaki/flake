@@ -10,6 +10,15 @@
     ];
   };
 
+  # For NVidia cache
+  nix.settings.substituters = [
+    "https://nix-community.cachix.org"
+  ];
+
+  nix.settings.trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+
   nixpkgs.config.nvidia.acceptLicense = true;
 
   hardware.nvidia = {
@@ -36,7 +45,5 @@
   };
 
   environment.variables.LIBVA_DRIVER_NAME = "nvidia";
-  environment.systemPackages = [
-    pkgs.cudaPackages_12_4.cudatoolkit
-  ];
+  environment.systemPackages = [ pkgs.cudaPackages_12_4.cudatoolkit ];
 }

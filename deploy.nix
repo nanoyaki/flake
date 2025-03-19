@@ -22,7 +22,7 @@ let
       name = "deploy-${name}";
       runtimeInputs = with pkgs; [ nixos-rebuild ];
       text = ''
-        export NIX_SSHOPTS="-t -i ''${2:-~/.ssh/${deploy.privateKeyName}}"
+        export NIX_SSHOPTS="-i ''${2:-~/.ssh/${deploy.privateKeyName}}"
         goal="''${1:-switch}"
         flake="${self}"
         name="${name}"

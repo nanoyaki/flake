@@ -15,7 +15,10 @@ let
 in
 
 {
-  hm.sec."deployment/private".path = "${config.hm.home.homeDirectory}/.ssh/deployment";
+  hm.sec = {
+    "deploymentThelessone/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentThelessone";
+    "deploymentYuri/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentYuri";
+  };
 
   nanoflake = {
     localization = {

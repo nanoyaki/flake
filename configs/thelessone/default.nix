@@ -12,6 +12,7 @@
       ../common/optional/fonts.nix
       ../common/optional/shell-utils.nix
       ../common/optional/browsers/firefox.nix
+      ../common/optional/deployment.nix
 
       ./hardware
 

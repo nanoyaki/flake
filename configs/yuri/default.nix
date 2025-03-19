@@ -8,6 +8,7 @@
       ../common/required
       ../common/optional/shell-utils.nix
       ../common/optional/ssh-settings.nix
+      ../common/optional/deployment.nix
 
       ./hardware
       ./configuration.nix

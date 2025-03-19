@@ -38,6 +38,17 @@
     }
   ];
 
+  deployment = {
+    targetUser = username;
+    targetHost = "192.168.8.101";
+    privateKeyName = "deploymentYuri";
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
+    extraFlags = [
+      "--use-remote-sudo"
+      "--print-build-logs"
+    ];
+  };
+
   console.keyMap = "de";
   system.stateVersion = "25.05";
   hm.home.stateVersion = "25.05";

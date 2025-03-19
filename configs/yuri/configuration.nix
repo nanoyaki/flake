@@ -39,7 +39,7 @@
   ];
 
   deployment = {
-    targetUser = username;
+    targetUser = "root";
     targetHost = "192.168.8.101";
     privateKeyName = "deploymentYuri";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
@@ -47,10 +47,7 @@
       "192.168.8.105"
       "192.168.8.2"
     ];
-    extraFlags = [
-      "--use-remote-sudo"
-      "--print-build-logs"
-    ];
+    extraFlags = [ "--print-build-logs" ];
   };
 
   console.keyMap = "de";

@@ -78,6 +78,7 @@ in
     {
       "${home}/cache".d = dirCfg;
       "${home}/logs".d = dirCfg;
+      "/var/log/phpfpm".d = dirCfg;
     };
 
   users.groups.nanoyaki-events = { };
@@ -103,7 +104,7 @@ in
       "pm.max_spare_servers" = 20;
       "pm.max_requests" = 500;
       "php_flag[display_errors]" = "off";
-      "php_admin_value[error_log]" = "/var/log/phpfpm.events.nanoyaki.space.log";
+      "php_admin_value[error_log]" = "/var/log/phpfpm/phpfpm.events.nanoyaki.space.log";
       "php_admin_flag[log_errors]" = "on";
       "catch_workers_output" = true;
     };

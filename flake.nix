@@ -46,7 +46,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nanoyaki/stylix/disableSwaylock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf = {
@@ -73,6 +73,8 @@
     }:
 
     flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
+
       imports = [
         ./lib
         ./pkgs

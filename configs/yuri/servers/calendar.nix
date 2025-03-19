@@ -40,7 +40,7 @@ in
 
         import ${config.sec."caddy/nanoyaki-events/environment".path}
         env CACHE_DIR "${home}/cache"
-        env LOG_PATH "${home}/logs"
+        env LOG_PATH "${home}/logs/"
         env LOG_LEVEL "info"
 
         resolve_root_symlink

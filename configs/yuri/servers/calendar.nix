@@ -40,6 +40,8 @@ in
 
         import ${config.sec."caddy/nanoyaki-events/environment".path}
         env CACHE_DIR "${home}/cache"
+        env LOG_PATH "${home}/logs"
+        env LOG_LEVEL "info"
 
         resolve_root_symlink
       }
@@ -65,11 +67,18 @@ in
     };
   };
 
-  systemd.tmpfiles.settings."10-nanoyaki-events"."${home}/cache".d = {
-    user = "nanoyaki-events";
-    group = "nanoyaki-events";
-    mode = "0770";
-  };
+  systemd.tmpfiles.settings."10-nanoyaki-events" =
+    let
+      dirCfg = {
+        user = "nanoyaki-events";
+        group = "nanoyaki-events";
+        mode = "0770";
+      };
+    in
+    {
+      "${home}/cache".d = dirCfg;
+      "${home}/logs".d = dirCfg;
+    };
 
   users.groups.nanoyaki-events = { };
   users.users.nanoyaki-events = {

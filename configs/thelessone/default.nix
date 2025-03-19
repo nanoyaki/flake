@@ -4,8 +4,6 @@
 }:
 
 {
-  imports = [ ./deploy.nix ];
-
   flake.nixosConfigurations = deps.mkSystem {
     hostname = "thelessone";
     username = "thelessone";

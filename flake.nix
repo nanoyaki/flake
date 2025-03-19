@@ -78,6 +78,7 @@
       imports = [
         ./lib
         ./pkgs
+        ./deploy.nix
         ./modules
         ./homeModules
 

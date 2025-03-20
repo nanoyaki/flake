@@ -8,13 +8,11 @@
 
 let
   webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
-  home = "/var/www/nanoyaki-events";
+  home = "/var/lib/caddy/nanoyaki-events";
 in
 
 {
-  imports = [
-    self.nixosModules.dynamicdns
-  ];
+  imports = [ self.nixosModules.dynamicdns ];
 
   networking.firewall.allowedTCPPorts = [
     80
@@ -30,13 +28,13 @@ in
     '';
 
     virtualHosts."events.nanoyaki.space".extraConfig = ''
-      root * ${home}/public
+      root * ${webPkg}/public
 
       encode zstd gzip
       file_server
 
       php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
-        root ${home}/public
+        root ${webPkg}/public
 
         import ${config.sec."caddy/nanoyaki-events/environment".path}
         env CACHE_DIR "${home}/cache"
@@ -55,18 +53,6 @@ in
   };
   users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
 
-  home-manager.users.nanoyaki-events.home = {
-    username = "nanoyaki-events";
-    homeDirectory = home;
-    inherit (config.system) stateVersion;
-
-    file = {
-      "public".source = "${webPkg}/public";
-      "src".source = "${webPkg}/src";
-      "vendor".source = "${webPkg}/vendor";
-    };
-  };
-
   systemd.tmpfiles.settings."10-nanoyaki-events" =
     let
       dirCfg = {
@@ -76,6 +62,7 @@ in
       };
     in
     {
+      ${home}.d = dirCfg;
       "${home}/cache".d = dirCfg;
       "${home}/logs".d = dirCfg;
       "/var/log/phpfpm".d = dirCfg;

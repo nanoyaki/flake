@@ -22,6 +22,7 @@
       ./git.nix
       ./servers
       ./terminal.nix
+      ./deployment.nix
       # ./mullvad.nix
     ];
   };

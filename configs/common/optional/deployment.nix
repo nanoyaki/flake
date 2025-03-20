@@ -36,13 +36,6 @@ in
       '';
     };
 
-    knownHosts = mkOption {
-      type = types.listOf types.str;
-      example = lib.literalExpression ''
-        [ "192.168.1.2" ]
-      '';
-    };
-
     extraFlags = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -55,18 +48,9 @@ in
     };
   };
 
-  config =
-    let
-      publicKey =
-        if (builtins.typeOf cfg.publicKey) == "path" then
-          builtins.readFile cfg.publicKey
-        else
-          cfg.publicKey;
-    in
-    {
-      users.users.${cfg.targetUser}.openssh.authorizedKeys.keys = lib.singleton publicKey;
-      services.openssh.knownHosts = builtins.listToAttrs (
-        builtins.map (host: lib.nameValuePair host { inherit publicKey; }) cfg.knownHosts
-      );
-    };
+  config = {
+    users.users.${cfg.targetUser}.openssh.authorizedKeys.keys = lib.singleton (
+      if (builtins.typeOf cfg.publicKey) == "path" then builtins.readFile cfg.publicKey else cfg.publicKey
+    );
+  };
 }

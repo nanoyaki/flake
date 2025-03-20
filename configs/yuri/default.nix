@@ -14,6 +14,7 @@
       ./configuration.nix
       ./ssh.nix
       ./servers
+      ./deployment.nix
     ];
   };
 }

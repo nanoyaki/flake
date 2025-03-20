@@ -12,5 +12,5 @@ steps:
     image: bash
     commands:
       - |
-        (which statix && statix) || nix --extra-experimental-features "nix-command flakes" \
+        (which statix && statix check) || nix --extra-experimental-features "nix-command flakes" \
           run github:oppiliappan/statix -- check

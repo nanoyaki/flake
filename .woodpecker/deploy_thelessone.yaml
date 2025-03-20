@@ -1,21 +1,18 @@
-when:
-  - event: push
-    branch: main
-  - event: manual
-  - event: deployment
-  - path:
-      include:
-        - 'flake.lock'
-        - '*.nix'
-      exclude:
-        - 'configs/{yuri,lesstop,kuroyuri,shirayuri}/**'
-
 labels:
   backend: local
 
 steps:
   - name: build
     image: bash
+    when:
+      - event: push
+        branch: main
+      - path:
+          include:
+            - 'flake.lock'
+            - '*.nix'
+          exclude:
+            - 'configs/{yuri,lesstop,kuroyuri,shirayuri}/**'
     commands:
       - |
         nix --extra-experimental-features "nix-command flakes" \

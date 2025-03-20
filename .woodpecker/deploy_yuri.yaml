@@ -1,17 +1,18 @@
+when:
+  - event: push
+    branch: main
+  - path:
+      include:
+        - 'flake.lock'
+        - '*.nix'
+      exclude:
+        - 'configs/{thelessone,lesstop,kuroyuri,shirayuri}/**'
+
 labels:
   backend: local
 
 steps:
   - name: build
-    when:
-      - event: push
-        branch: main
-      - path:
-          include:
-            - 'flake.lock'
-            - '*.nix'
-          exclude:
-            - 'configs/{thelessone,lesstop,kuroyuri,shirayuri}/**'
     image: bash
     commands:
       - |

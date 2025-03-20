@@ -1,13 +1,14 @@
+when:
+  - event: push
+  - path:
+      include:
+        - '*.nix'
+
 labels:
   backend: local
 
 steps:
   - name: static-check
-    when:
-      - event: push
-      - path:
-          include:
-            - '*.nix'
     image: bash
     commands:
       - |

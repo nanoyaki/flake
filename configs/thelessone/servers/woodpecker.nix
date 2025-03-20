@@ -58,6 +58,7 @@
 
         nix
         openssh
+        statix
       ];
     };
 

@@ -10,16 +10,21 @@ steps:
   - name: static-check
     image: bash
     commands:
-      - nix --extra-experimental-features "nix-command flakes" run github:oppiliappan/statix -- check
-  - name: flake-check
-    image: bash
-    commands:
-      - nix --extra-experimental-features "nix-command flakes" flake check
-  - name: deployment
+      - |
+        (which statix && statix) || nix --extra-experimental-features "nix-command flakes" \
+          run github:oppiliappan/statix -- check
+  - name: build
     image: bash
     depends_on:
       - static-check
-      - flake-check
+    commands:
+      - |
+        nix --extra-experimental-features "nix-command flakes" \
+          build .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link
+  - name: deployment
+    image: bash
+    depends_on:
+      - build
     environment:
       DEPLOYMENT_KEY:
         from_secret: DEPLOYMENT_KEY

@@ -18,10 +18,4 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP3poqMv85Pqb5gwZRZYN2BLW+OAiMT5ZA0tQHUo977W hana@shirayuri" # shirayuri-primary
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMc3xjLJxASdTuLIrsvok5Wpm5N8TO1CI9vHt2z3oPPC hana@shirayuri" # deployment
   ];
-
-  services.fail2ban = {
-    enable = true;
-    maxretry = 2;
-    bantime = "1h";
-  };
 }

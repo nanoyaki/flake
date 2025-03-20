@@ -2,21 +2,20 @@ when:
   - event: push
     branch: main
   - event: manual
+  - event: deployment
+  - path:
+      include:
+        - 'flake.lock'
+        - '*.nix'
+      exclude:
+        - 'configs/{yuri,lesstop,kuroyuri,shirayuri}/**'
 
 labels:
   backend: local
 
 steps:
-  - name: static-check
-    image: bash
-    commands:
-      - |
-        (which statix && statix) || nix --extra-experimental-features "nix-command flakes" \
-          run github:oppiliappan/statix -- check
   - name: build
     image: bash
-    depends_on:
-      - static-check
     commands:
       - |
         nix --extra-experimental-features "nix-command flakes" \

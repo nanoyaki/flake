@@ -1,0 +1,16 @@
+when:
+  - event: push
+  - path:
+      include:
+        - '*.nix'
+
+labels:
+  backend: local
+
+steps:
+  - name: static-check
+    image: bash
+    commands:
+      - |
+        (which statix && statix) || nix --extra-experimental-features "nix-command flakes" \
+          run github:oppiliappan/statix -- check

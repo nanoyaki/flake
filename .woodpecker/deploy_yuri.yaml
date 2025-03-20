@@ -1,0 +1,33 @@
+when:
+  - event: push
+    branch: main
+  - event: manual
+  - event: deployment
+  - path:
+      include:
+        - 'flake.lock'
+        - '*.nix'
+      exclude:
+        - 'configs/{thelessone,lesstop,kuroyuri,shirayuri}/**'
+
+labels:
+  backend: local
+
+steps:
+  - name: build
+    image: bash
+    commands:
+      - |
+        nix --extra-experimental-features "nix-command flakes" \
+          build .#nixosConfigurations.yuri.config.system.build.toplevel --no-link
+  - name: deployment
+    image: bash
+    depends_on:
+      - build
+    environment:
+      DEPLOYMENT_KEY_YURI:
+        from_secret: DEPLOYMENT_KEY_YURI
+    commands:
+      - echo "$DEPLOYMENT_KEY_YURI" > deployment
+      - chmod 400 deployment
+      - nix --extra-experimental-features "nix-command flakes" run .#deploy-yuri -- switch deployment

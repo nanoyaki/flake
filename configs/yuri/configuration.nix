@@ -44,8 +44,8 @@
     privateKeyName = "deploymentYuri";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
     knownHosts = [
-      "192.168.8.105"
       "192.168.8.2"
+      "theless.one"
     ];
     extraFlags = [ "--print-build-logs" ];
   };

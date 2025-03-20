@@ -20,7 +20,7 @@
   ];
 
   services.fail2ban = {
-    enable = false;
+    enable = true;
     maxretry = 2;
     bantime = "1h";
   };

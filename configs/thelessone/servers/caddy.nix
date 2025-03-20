@@ -107,6 +107,7 @@ in
           '';
 
           "git.${self}".extraConfig = mkReverseProxy 12500;
+          "immich.${self}".extraConfig = mkReverseProxy 2283;
         }
       )
       // (

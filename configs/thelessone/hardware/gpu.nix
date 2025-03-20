@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 
 {
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -45,6 +47,9 @@
     videoDrivers = [ "nvidia" ];
   };
 
-  environment.variables.LIBVA_DRIVER_NAME = "nvidia";
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    VDPAU_DRIVER = "nvidia";
+  };
   environment.systemPackages = [ pkgs.cudaPackages_12_4.cudatoolkit ];
 }

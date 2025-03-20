@@ -12,5 +12,6 @@
     ./jellyfin.nix
     ./calendar.nix
     ./steam.nix
+    ./immich.nix
   ];
 }

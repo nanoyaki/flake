@@ -55,6 +55,7 @@
 
         bash
         coreutils
+        which
 
         nix
         openssh

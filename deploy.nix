@@ -39,10 +39,19 @@ in
   perSystem =
     { pkgs, ... }:
     {
-      apps = mapAttrs' (
-        name: nixosSystem:
-        nameValuePair "deploy-${name}" (mkDeploymentApp self name nixosSystem.config.deployment pkgs)
-      ) validConfigurations;
+      apps =
+        (mapAttrs' (
+          name: nixosSystem:
+          nameValuePair "deploy-${name}" (mkDeploymentApp self name nixosSystem.config.deployment pkgs)
+        ) validConfigurations)
+        // {
+          deploy-yuri-local = mkDeploymentApp self "yuri" (
+            validConfigurations.yuri.config.deployment
+            // {
+              targetHost = "192.168.8.101";
+            }
+          ) pkgs;
+        };
     };
 }
 

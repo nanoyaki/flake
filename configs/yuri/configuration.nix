@@ -40,7 +40,7 @@
 
   deployment = {
     targetUser = "root";
-    targetHost = "192.168.8.101";
+    targetHost = "events.nanoyaki.space";
     privateKeyName = "deploymentYuri";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
     knownHosts = [

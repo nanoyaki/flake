@@ -77,7 +77,6 @@ in
           "{c13e9f22-6988-4543-86b9-b71bc7e71560}" = mkNormal "link-to-text-fragment";
 
           # Social media specific
-          "firefox@betterttv.net" = mkNormal "betterttv";
           "sponsorBlocker@ajay.app" = mkNormal "sponsorblock";
           "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = mkNormal "return-youtube-dislikes";
           "sky-follower-bridge@ryo.kawamata" = mkNormal "sky-follower-bridge";

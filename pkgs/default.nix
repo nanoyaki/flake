@@ -16,6 +16,7 @@
           lavalink
           startvrc
           writeSystemdToggle
+          pyon
           meow
           ;
       };
@@ -24,6 +25,7 @@
         lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };
         startvrc = callPackage ./startvrc { };
         writeSystemdToggle = callPackage ./writeSystemdToggle { };
+        pyon = callPackage ./pyon { };
 
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];

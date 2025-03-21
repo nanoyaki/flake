@@ -47,6 +47,7 @@ in
       obs-studio
 
       meow
+      pyon
       gimp
       smile
     ])

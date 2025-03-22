@@ -3,6 +3,7 @@
   pkgs,
   config,
   username,
+  inputs,
   ...
 }:
 
@@ -13,6 +14,9 @@ let
     mkIf
     types
     ;
+
+  inherit (inputs) plasma-manager;
+
   cfg = config.nanoflake.desktop.plasma6;
 in
 
@@ -60,11 +64,37 @@ in
       config.common.default = [ "kde" ];
     };
 
-    hm.xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-      config.common.default = [ "kde" ];
+    home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+    hm = {
+      xdg.portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+        extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+        config.common.default = [ "kde" ];
+      };
+
+      programs.plasma = {
+        enable = true;
+
+        shortcuts.kwin = {
+          "Expose" = "Meta+Tab";
+          "Maximise Window" = "Meta+Up";
+          "Minimise Window" = "Meta+Down";
+        };
+
+        configFile = {
+          "spectaclerc"."General"."autoSaveImage" = true;
+          "spectaclerc"."General"."clipboardGroup" = "PostScreenshotCopyImage";
+          "spectaclerc"."General"."launchAction" = "UseLastUsedCapturemode";
+          "spectaclerc"."GuiConfig"."captureMode" = 0;
+
+          "kscreenlockerrc"."Daemon"."LockGrace" = 30;
+          "kscreenlockerrc"."Daemon"."Timeout" = 10;
+
+          "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
+        };
+      };
     };
 
     environment.sessionVariables = mkIf cfg.enableWaylandDefault {

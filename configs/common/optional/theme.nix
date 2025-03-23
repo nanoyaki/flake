@@ -129,133 +129,135 @@ in
       })
     ];
 
-    hm = {
-      catppuccin = {
-        inherit (catppuccin) enable flavor accent;
-
-        kvantum = {
+    hm =
+      {
+        catppuccin = {
           inherit (catppuccin) enable flavor accent;
-          apply = !cfg.enableAutoStylix;
-        };
 
-        gtk.icon = catppuccin;
-      };
-
-      programs.plasma = {
-        workspace = {
-          lookAndFeel = "Catppuccin-${lib'.toUppercase catppuccin.flavor}-${lib'.toUppercase catppuccin.accent}";
-          cursor = {
-            theme = "BreezeX-RosePine-Linux";
-            size = 32;
+          kvantum = {
+            inherit (catppuccin) enable flavor accent;
+            apply = !cfg.enableAutoStylix;
           };
-          iconTheme = "Papirus-Dark";
-          wallpaper = config.stylix.image;
+
+          gtk.icon = catppuccin;
         };
 
-        panels = [
-          {
-            location = "bottom";
-            widgets = [
-              # https://develop.kde.org/docs/plasma/scripting/keys/
-              {
-                panelSpacer.expanding = true;
-              }
-              {
-                kickoff = {
-                  icon = "nix-snowflake";
-                  label = null;
-                  sortAlphabetically = true;
-                  sidebarPosition = "left";
-                  favoritesDisplayMode = "grid";
-                  applicationsDisplayMode = "grid";
-                  showButtonsFor = "powerAndSession";
-                  showActionButtonCaptions = false;
-                  pin = false;
-                };
-              }
-              # {
-              #   name = "org.kde.plasma.kickerdash";
-              #   config.General = rec {
-              #     icon = "nix-snowflake";
-              #     limitDepth = true;
-              #     recentOrdering = 1;
-              #     showIconsRootLevel = true;
-              #     showRecentApps = false;
-              #     showRecentDocs = false;
-              #     favoriteSystemActions = "logout,reboot,shutdown";
-              #     systemFavorites = favoriteSystemActions;
-              #     useExtraRunners = false;
-              #     favoritesPortedToKAstats = true;
-              #     alphaSort = true;
-              #   };
-              # }
-              "org.kde.plasma.marginsseparator"
-              {
-                iconTasks.launchers = [
-                  "preferred://filemanager"
-                  "preferred://browser"
-                  "applications:Alacritty.desktop"
-                  "applications:vesktop.desktop"
-                  "applications:steam.desktop"
-                ];
-              }
-              {
-                panelSpacer.expanding = true;
-              }
-              {
-                systemTray.items = {
-                  shown = [
-                    "org.kde.plasma.volume"
-                    "plasmashell_microphone"
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.battery"
-                  ];
+        xdg.configFile."vesktop/themes".source = "${midnight-theme}/flavors";
+      }
+      // lib.attrsets.optionalAttrs (config.nanoflake.desktop ? plasma6) {
+        programs.plasma = {
+          workspace = {
+            lookAndFeel = "Catppuccin-${lib'.toUppercase catppuccin.flavor}-${lib'.toUppercase catppuccin.accent}";
+            cursor = {
+              theme = "BreezeX-RosePine-Linux";
+              size = 32;
+            };
+            iconTheme = "Papirus-Dark";
+            wallpaper = config.stylix.image;
+          };
 
-                  hidden = [
-                    "org.kde.plasma.clipboard"
-                    "org.kde.plasma.keyboardindicator"
-                    "org.kde.plasma.keyboardlayout"
-                    "org.kde.kscreen"
-                    "org.kde.plasma.brightness"
-                    "org.kde.plasma.mediacontroller"
-                    "Fcitx"
+          panels = [
+            {
+              location = "bottom";
+              widgets = [
+                # https://develop.kde.org/docs/plasma/scripting/keys/
+                {
+                  panelSpacer.expanding = true;
+                }
+                {
+                  kickoff = {
+                    icon = "nix-snowflake";
+                    label = null;
+                    sortAlphabetically = true;
+                    sidebarPosition = "left";
+                    favoritesDisplayMode = "grid";
+                    applicationsDisplayMode = "grid";
+                    showButtonsFor = "powerAndSession";
+                    showActionButtonCaptions = false;
+                    pin = false;
+                  };
+                }
+                # {
+                #   name = "org.kde.plasma.kickerdash";
+                #   config.General = rec {
+                #     icon = "nix-snowflake";
+                #     limitDepth = true;
+                #     recentOrdering = 1;
+                #     showIconsRootLevel = true;
+                #     showRecentApps = false;
+                #     showRecentDocs = false;
+                #     favoriteSystemActions = "logout,reboot,shutdown";
+                #     systemFavorites = favoriteSystemActions;
+                #     useExtraRunners = false;
+                #     favoritesPortedToKAstats = true;
+                #     alphaSort = true;
+                #   };
+                # }
+                "org.kde.plasma.marginsseparator"
+                {
+                  iconTasks.launchers = [
+                    "preferred://filemanager"
+                    "preferred://browser"
+                    "applications:Alacritty.desktop"
+                    "applications:vesktop.desktop"
+                    "applications:steam.desktop"
                   ];
-                };
-              }
-              {
-                digitalClock = {
-                  calendar = {
-                    firstDayOfWeek = "monday";
-                    showWeekNumbers = true;
-                  };
-                  date = {
-                    format.custom = "dd.MM.yy";
-                    position = "belowTime";
-                  };
-                  time = {
-                    showSeconds = "onlyInTooltip";
-                    format = "24h";
-                  };
-                  timeZone = {
-                    format = "code";
-                    selected = [ "Europe/Berlin" ];
-                  };
-                };
-              }
-              "org.kde.plasma.showdesktop"
-            ];
-          }
-        ];
+                }
+                {
+                  panelSpacer.expanding = true;
+                }
+                {
+                  systemTray.items = {
+                    shown = [
+                      "org.kde.plasma.volume"
+                      "plasmashell_microphone"
+                      "org.kde.plasma.networkmanagement"
+                      "org.kde.plasma.battery"
+                    ];
 
-        configFile = {
-          "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = config.stylix.image;
-          "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."PreviewImage" = config.stylix.image;
-          "plasmarc"."Wallpapers"."usersWallpapers" = config.stylix.image;
-          "kcminputrc"."Mouse"."cursorSize" = 32;
+                    hidden = [
+                      "org.kde.plasma.clipboard"
+                      "org.kde.plasma.keyboardindicator"
+                      "org.kde.plasma.keyboardlayout"
+                      "org.kde.kscreen"
+                      "org.kde.plasma.brightness"
+                      "org.kde.plasma.mediacontroller"
+                      "Fcitx"
+                    ];
+                  };
+                }
+                {
+                  digitalClock = {
+                    calendar = {
+                      firstDayOfWeek = "monday";
+                      showWeekNumbers = true;
+                    };
+                    date = {
+                      format.custom = "dd.MM.yy";
+                      position = "belowTime";
+                    };
+                    time = {
+                      showSeconds = "onlyInTooltip";
+                      format = "24h";
+                    };
+                    timeZone = {
+                      format = "code";
+                      selected = [ "Europe/Berlin" ];
+                    };
+                  };
+                }
+                "org.kde.plasma.showdesktop"
+              ];
+            }
+          ];
+
+          configFile = {
+            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = config.stylix.image;
+            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."PreviewImage" = config.stylix.image;
+            "plasmarc"."Wallpapers"."usersWallpapers" = config.stylix.image;
+            "kcminputrc"."Mouse"."cursorSize" = 32;
+          };
         };
       };
-
-      xdg.configFile."vesktop/themes".source = "${midnight-theme}/flavors";
-    };
   };
 }

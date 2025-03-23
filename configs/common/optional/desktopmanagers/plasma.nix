@@ -83,17 +83,25 @@ in
           "Minimise Window" = "Meta+Down";
         };
 
-        configFile = {
-          "spectaclerc"."General"."autoSaveImage" = true;
-          "spectaclerc"."General"."clipboardGroup" = "PostScreenshotCopyImage";
-          "spectaclerc"."General"."launchAction" = "UseLastUsedCapturemode";
-          "spectaclerc"."GuiConfig"."captureMode" = 0;
+        configFile =
+          {
+            "spectaclerc"."General"."autoSaveImage" = true;
+            "spectaclerc"."General"."clipboardGroup" = "PostScreenshotCopyImage";
+            "spectaclerc"."General"."launchAction" = "UseLastUsedCapturemode";
+            "spectaclerc"."GuiConfig"."captureMode" = 0;
 
-          "kscreenlockerrc"."Daemon"."LockGrace" = 30;
-          "kscreenlockerrc"."Daemon"."Timeout" = 10;
+            "kscreenlockerrc"."Daemon"."LockGrace" = 30;
+            "kscreenlockerrc"."Daemon"."Timeout" = 10;
 
-          "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
-        };
+            "kdeglobals"."KDE"."AnimationDurationFactor" = 0;
+          }
+          // lib.attrsets.optionalAttrs (config.i18n.inputMethod.type == "fcitx5") {
+            "kwinrc"."Wayland"."InputMethod\[$e\]" =
+              "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+          }
+          // lib.attrsets.optionalAttrs config.hm.programs.alacritty.enable {
+            "kdeglobals"."General"."TerminalApplication" = "alacritty";
+          };
       };
     };
 

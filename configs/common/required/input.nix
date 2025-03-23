@@ -58,8 +58,5 @@ in
       xserver.desktopManager.runXdgAutostartIfNone = true;
       xserver.xkb = { inherit (cfg) layout variant; };
     };
-
-    hm.programs.plasma.configFile."kwinrc"."Wayland"."InputMethod[$e]" =
-      mkIf hasDesktop "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
   };
 }

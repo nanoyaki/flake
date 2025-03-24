@@ -50,6 +50,7 @@ in
       pyon
       gimp
       smile
+      jq
     ])
     ++ [
       tcVid

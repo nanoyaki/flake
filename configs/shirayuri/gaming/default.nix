@@ -7,6 +7,7 @@
   imports = [
     ./anime-games.nix
     ./rpgmaker.nix
+    ./cs.nix
   ];
 
   environment.systemPackages = with pkgs; [

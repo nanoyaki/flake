@@ -57,11 +57,6 @@
       url = "github:nanoyaki/stylix/disableSwaylock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
 
     # own stuff
     vermeer-undervolt = {

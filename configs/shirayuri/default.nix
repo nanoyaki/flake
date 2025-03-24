@@ -19,7 +19,7 @@
       ../common/optional/theme.nix
       ../common/optional/files.nix
       ../common/optional/user-programs.nix
-      ../common/optional/editors/vscode.nix
+      ../common/optional/vscode.nix
       ../common/optional/mediaplayers/mpv.nix
       ../common/optional/vr
       ../common/optional/vr/monado.nix

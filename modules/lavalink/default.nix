@@ -190,13 +190,13 @@ in
 
         plugins = pluginExtraConfigs;
         lavalink.plugins = builtins.map (
-            pluginConfig:
-            builtins.removeAttrs pluginConfig [
-              "name"
-              "extraConfig"
-              "hash"
-            ]
-          ) cfg.plugins;
+          pluginConfig:
+          builtins.removeAttrs pluginConfig [
+            "name"
+            "extraConfig"
+            "hash"
+          ]
+        ) cfg.plugins;
       };
 
       configWithPassword = lib.attrsets.recursiveUpdate config (

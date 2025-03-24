@@ -6,37 +6,37 @@
 
 let
   ft-pkg = pkgs.writeShellScriptBin "facetracking" ''
-      trap 'jobs -p | xargs kill' EXIT
+    trap 'jobs -p | xargs kill' EXIT
 
-      ${lib.getExe pkgs.vrcadvert} OscAvMgr 9402 9000 --tracking &
+    ${lib.getExe pkgs.vrcadvert} OscAvMgr 9402 9000 --tracking &
 
-      # If using WiVRn
-      ${lib.getExe pkgs.oscavmgr} openxr
-    '';
+    # If using WiVRn
+    ${lib.getExe pkgs.oscavmgr} openxr
+  '';
 
   startvr-pkg = pkgs.writeShellScriptBin "startvr" ''
-      systemctl --user start wivrn.service
+    systemctl --user start wivrn.service
 
-      echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
+    echo 'Sobald connected, folgenden Befehl für das Overlay ausführen:
 
-      systemctl --user start wlx-overlay-s.service
+    systemctl --user start wlx-overlay-s.service
 
-      und danach mit folgenden start arguments ein Spiel auf Steam starten:
+    und danach mit folgenden start arguments ein Spiel auf Steam starten:
 
-      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc nvidia-offload %command%
+    PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc nvidia-offload %command%
 
-      Bei VRC diese start arguments auf Steam verwenden:
+    Bei VRC diese start arguments auf Steam verwenden:
 
-      PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%
+    PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc startvrc nvidia-offload %command%
 
-      für face tracking diesen Befehl ausführen:
+    für face tracking diesen Befehl ausführen:
 
-      facetracking
+    facetracking
 
-      Anweisungen für motoc:
+    Anweisungen für motoc:
 
-      https://github.com/galister/motoc?tab=readme-ov-file#how-to-use'
-    '';
+    https://github.com/galister/motoc?tab=readme-ov-file#how-to-use'
+  '';
 in
 
 {

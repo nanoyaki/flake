@@ -86,7 +86,7 @@ in
           "git.${self}".extraConfig = mkReverseProxy 12500;
           "woodpecker.${self}".extraConfig = mkReverseProxy 3007;
 
-          # "map.theless.one".extraConfig = mkReverseProxyConfig 8100;
+          "map.theless.one".extraConfig = mkReverseProxy 8100;
           "metrics.${self}".extraConfig = mkProtectedHost 9090 "hana";
           "jellyfin.${self}".extraConfig = mkReverseProxy 8096;
         }

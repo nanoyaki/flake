@@ -13,6 +13,7 @@
       ../common/optional/shell-utils.nix
       ../common/optional/browsers/firefox.nix
       ../common/optional/deployment.nix
+      ../common/optional/cuda.nix
 
       ./hardware
 

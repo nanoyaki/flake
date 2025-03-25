@@ -21,6 +21,7 @@
       ../common/optional/vr
       ../common/optional/vr/wivrn.nix
       ../common/optional/gaming
+      ../common/optional/cuda.nix
 
       ./hardware
 

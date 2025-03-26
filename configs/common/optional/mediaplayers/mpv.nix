@@ -95,7 +95,10 @@ in
     hm.programs.mpv = {
       enable = true;
 
-      config.osc = "no";
+      config = {
+        osc = "no";
+        volume = 20;
+      };
 
       scripts = with pkgs.mpvScripts; [
         sponsorblock

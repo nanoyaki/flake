@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -25,7 +26,7 @@
     '';
 
     shellAliases = {
-      rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR";
+      rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR --log-format internal-json -v |& ${lib.getExe pkgs.nix-output-monitor} --json";
       nix-conf = "$EDITOR $FLAKE_DIR";
     };
 

@@ -60,6 +60,7 @@
         nix
         openssh
         statix
+        nix-fast-build
       ];
     };
 

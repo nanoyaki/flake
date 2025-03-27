@@ -1,20 +1,21 @@
-{ config, username, ... }:
+{ config, ... }:
 
 {
-  hm.sec."private_keys/id_ume" = {
-    sopsFile = ./yuri.yaml;
-    format = "yaml";
-    path = "${config.hm.home.homeDirectory}/.ssh/id_ume";
-  };
+  hm = {
+    sec = {
+      "private_keys/id_nadesiko" = {
+        sopsFile = ./yuri.yaml;
+        format = "yaml";
+        path = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
+      };
 
-  hm.home.file.".ssh/id_ume.pub".source = ./keys/id_ume.pub;
+      "yubikeys/u2f_keys" = {
+        sopsFile = ./yuri.yaml;
+        format = "yaml";
+        path = "${config.hm.xdg.configHome}/Yubico/u2f_keys";
+      };
+    };
 
-  sec."yubikeys/u2f_keys" = {
-    sopsFile = ./yuri.yaml;
-    format = "yaml";
-
-    owner = username;
-    inherit (config.users.users.${username}) group;
-    path = "${config.hm.xdg.configHome}/Yubico/u2f_keys";
+    home.file.".ssh/id_nadesiko.pub".source = ./keys/id_nadesiko.pub;
   };
 }

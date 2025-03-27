@@ -15,7 +15,7 @@ steps:
   - name: build
     image: bash
     commands:
-      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link
+      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link --no-nom
   - name: deployment
     image: bash
     depends_on:

@@ -15,9 +15,7 @@ steps:
   - name: build
     image: bash
     commands:
-      - |
-        nix --extra-experimental-features "nix-command flakes" \
-          build .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link
+      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link
   - name: deployment
     image: bash
     depends_on:

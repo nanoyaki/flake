@@ -200,8 +200,7 @@ in
                     "preferred://browser"
                     "applications:Alacritty.desktop"
                     "applications:vesktop.desktop"
-                    "applications:steam.desktop"
-                  ];
+                  ] ++ lib.optionals config.programs.steam.enable [ "applications:steam.desktop" ];
                 }
                 {
                   panelSpacer.expanding = true;

@@ -42,7 +42,7 @@ in
 
   config = {
     nixpkgs.overlays = [
-      (final: prev: {
+      (_: prev: {
         sops = prev.sops.overrideAttrs (oldAttrs: rec {
           version = "c78b0aae0ed04fbc411de3f286097a98cc5532b3";
           src = prev.fetchFromGitHub {

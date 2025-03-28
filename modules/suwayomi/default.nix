@@ -52,10 +52,10 @@ in
     #   instance: cfg.instances.${instance}.settings.server.port
     # ) (builtins.attrNames cfg.instances);
 
-    users.groups = mapAttrs' (name: instCfg: nameValuePair "suwayomi-${name}" { }) cfg.instances;
+    users.groups = mapAttrs' (name: _: nameValuePair "suwayomi-${name}" { }) cfg.instances;
 
     users.users = mapAttrs' (
-      name: instCfg:
+      name: _:
       let
         dataDir = "${cfg.dataDir}/${name}";
         user = "suwayomi-${name}";
@@ -69,7 +69,7 @@ in
     ) cfg.instances;
 
     systemd.tmpfiles.settings = mapAttrs' (
-      name: instCfg:
+      name: _:
       let
         dataDir = "${cfg.dataDir}/${name}";
         user = "suwayomi-${name}";

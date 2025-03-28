@@ -1,6 +1,6 @@
 {
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       immich-machine-learning = prev.immich-machine-learning.overrideAttrs {
         disabledTests = [
           # Fails when onnxruntime has cudaSupport=true https://github.com/NixOS/nixpkgs/issues/352113

@@ -974,11 +974,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1742471965,
-        "narHash": "sha256-lbsNg8SibiJI2AV2uZhdczvS7QYd37WuT7X+ZL/1qug=",
+        "lastModified": 1743199042,
+        "narHash": "sha256-hs+d8Lac2TeqonBlAGr1aqZI+P7D684kiQs75AaDBWc=",
         "owner": "nanoyaki",
         "repo": "stylix",
-        "rev": "1ec6e6b6dd6a351a65cc24e55b9378b76c650b9a",
+        "rev": "ebc1e6eedf33d87e59a2a350d053b9ca5082cc23",
         "type": "github"
       },
       "original": {

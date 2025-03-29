@@ -21,8 +21,8 @@ let
   midnight-theme = pkgs.fetchFromGitHub {
     owner = "refact0r";
     repo = "midnight-discord";
-    rev = "ddb8a946c526a64523563fde0dc208ce60734790";
-    hash = "sha256-dufz6GPTLux9df2AQMI4TxGCHvsWSKDMvK3VBXVOOWU=";
+    rev = "c32b4cca12962ea95b518b8f9b76cfdfbe31f6ad";
+    hash = "sha256-gVAHS7uBsB+IDh1sNcvIRmKSLI94txeC9vCBXwZCjq0=";
   };
 
   iconPkg = pkgs.catppuccin-papirus-folders.override {
@@ -142,7 +142,7 @@ in
           gtk.icon = catppuccin;
         };
 
-        xdg.configFile."vesktop/themes".source = "${midnight-theme}/flavors";
+        xdg.configFile."vesktop/themes".source = "${midnight-theme}/themes/flavors";
       }
       // lib.attrsets.optionalAttrs (config.nanoflake.desktop ? plasma6) {
         programs.plasma = {

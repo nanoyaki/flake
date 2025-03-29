@@ -1,15 +1,7 @@
-{ lib, config, ... }:
+{ config, ... }:
 
 let
-  inherit (lib) nameValuePair;
   cfg = config.services.caddy;
-
-  # [ String ] -> attrset
-  mapSecretsOwner =
-    users:
-    builtins.listToAttrs (
-      builtins.map (authUser: nameValuePair "caddy/users/${authUser}" { owner = cfg.user; }) users
-    );
 
   # Int -> String -> String
   mkProtectedHost = port: user: ''
@@ -26,7 +18,7 @@ let
   # String -> String
   mkBasicAuth = user: ''
     basic_auth * {
-      import ${config.sec."caddy/users/${user}".path}
+      {''$${user}}
     }
   '';
 
@@ -47,12 +39,7 @@ let
 in
 
 {
-  sec = mapSecretsOwner [
-    "shared"
-    "thelessone"
-    "nik"
-    "hana"
-  ];
+  sec."caddy/users".owner = cfg.user;
 
   networking.firewall.allowedTCPPorts = [
     80
@@ -65,6 +52,8 @@ in
       format console
       level INFO
     '';
+
+    environmentFile = "/run/secrets/caddy/users";
 
     virtualHosts =
       (

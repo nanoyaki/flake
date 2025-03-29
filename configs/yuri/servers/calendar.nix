@@ -27,6 +27,8 @@ in
       level INFO
     '';
 
+    environmentFile = "/run/secrets/caddy/nanoyaki-events/environment";
+
     virtualHosts."events.nanoyaki.space".extraConfig = ''
       root * ${webPkg}/public
 
@@ -36,7 +38,8 @@ in
       php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
         root ${webPkg}/public
 
-        import ${config.sec."caddy/nanoyaki-events/environment".path}
+        env GUILD_ID {env.GUILD_ID}
+        env BOT_TOKEN {env.BOT_TOKEN}
         env CACHE_DIR "${home}/cache"
         env LOG_PATH "${home}/logs"
         env LOG_LEVEL "info"

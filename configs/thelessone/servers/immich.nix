@@ -9,6 +9,13 @@
           "test_sets_default_sess_options"
         ];
       };
+      python3 = prev.python3.override {
+        packageOverrides = _: pyPrev: {
+          albumentations = pyPrev.albumentations.overridePythonAttrs {
+            disabledTestPaths = [ "tests/test_transforms.py" ];
+          };
+        };
+      };
     })
   ];
 

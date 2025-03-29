@@ -59,6 +59,11 @@ in
 
   programs.kde-pim.merkuro = true;
 
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
   hm.news.display = "show";
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";

@@ -55,8 +55,7 @@ in
       terminal = false;
     };
 
-    # for spotify-qt to always find librespot
-    home.file.".local/share/librespot/binary".source = lib.getExe pkgs.librespot;
+    # i can just use /run/current-system/sw/bin/librespot bruh
     home.packages = [ pkgs.spotify-qt ];
   };
 }

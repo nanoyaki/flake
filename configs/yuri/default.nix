@@ -15,6 +15,7 @@
       ./ssh.nix
       ./servers
       ./deployment.nix
+      ./tailscale.nix
     ];
   };
 }

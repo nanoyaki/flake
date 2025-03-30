@@ -25,6 +25,7 @@
       ./terminal.nix
       ./deployment.nix
       # ./mullvad.nix
+      ./tailscale.nix
     ];
   };
 }

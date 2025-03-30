@@ -26,6 +26,7 @@
       ./configuration.nix
       ./gaming.nix
       ./git.nix
+      ./tailscale.nix
     ];
   };
 }

@@ -38,11 +38,6 @@
     }
   ];
 
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "server";
-  };
-
   console.keyMap = "de";
   system.stateVersion = "25.05";
   hm.home.stateVersion = "25.05";

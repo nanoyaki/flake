@@ -53,7 +53,7 @@ in
       level INFO
     '';
 
-    environmentFile = "/run/secrets/caddy/users";
+    environmentFile = config.sec."caddy/users".path;
 
     virtualHosts =
       (

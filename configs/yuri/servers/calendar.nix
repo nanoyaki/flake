@@ -27,7 +27,7 @@ in
       level INFO
     '';
 
-    environmentFile = "/run/secrets/caddy/nanoyaki-events/environment";
+    environmentFile = config.sec."caddy/nanoyaki-events/environment".path;
 
     virtualHosts."events.nanoyaki.space".extraConfig = ''
       root * ${webPkg}/public

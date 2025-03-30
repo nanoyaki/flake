@@ -24,11 +24,6 @@
     }
   ];
 
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "both";
-  };
-
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";
 }

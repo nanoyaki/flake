@@ -37,6 +37,7 @@
       ./transmission.nix
       ./ssh.nix
       ./cam.nix
+      ./tailscale.nix
     ];
   };
 }

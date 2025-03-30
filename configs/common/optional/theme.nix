@@ -18,12 +18,9 @@ let
     accent = "pink";
   };
 
-  midnight-theme = pkgs.fetchFromGitHub {
-    owner = "refact0r";
-    repo = "midnight-discord";
-    rev = "c32b4cca12962ea95b518b8f9b76cfdfbe31f6ad";
-    hash = "sha256-gVAHS7uBsB+IDh1sNcvIRmKSLI94txeC9vCBXwZCjq0=";
-  };
+  midnight-theme = pkgs.midnight-theme.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [ ./vencord-icon.patch ];
+  });
 
   iconPkg = pkgs.catppuccin-papirus-folders.override {
     inherit (catppuccin) accent flavor;
@@ -142,7 +139,7 @@ in
           gtk.icon = catppuccin;
         };
 
-        xdg.configFile."vesktop/themes".source = "${midnight-theme}/themes/flavors";
+        xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
       }
       // lib.attrsets.optionalAttrs (config.nanoflake.desktop ? plasma6) {
         programs.plasma = {

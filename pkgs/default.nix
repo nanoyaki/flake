@@ -18,6 +18,7 @@
           writeSystemdToggle
           pyon
           meow
+          midnight-theme
           ;
       };
 
@@ -26,6 +27,7 @@
         startvrc = callPackage ./startvrc { };
         writeSystemdToggle = callPackage ./writeSystemdToggle { };
         pyon = callPackage ./pyon { };
+        midnight-theme = callPackage ./midnight-theme { };
 
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];

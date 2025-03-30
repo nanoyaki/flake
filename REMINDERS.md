@@ -7,5 +7,5 @@ or use my brain on.
 
 ## Caddy plugins
 
-[Plugin Wiki](https://wiki.nixos.org/wiki/Caddy#Adding_plug-ins)
-[layer 4](https://github.com/mholt/caddy-l4) plugin
+- [Plugin PR](https://github.com/NixOS/nixpkgs/pull/358586)
+- [layer 4 plugin](https://github.com/mholt/caddy-l4)

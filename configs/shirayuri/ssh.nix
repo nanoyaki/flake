@@ -6,9 +6,8 @@ in
 
 {
   hm.programs.ssh.matchBlocks = {
-    nas = {
+    yuri = {
       user = "nas";
-      host = "nas";
       hostname = "192.168.8.101";
       inherit identityFile;
     };

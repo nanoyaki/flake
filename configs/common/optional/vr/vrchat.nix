@@ -25,6 +25,9 @@ in
     alcom
   ];
 
+  xdg.mime.defaultApplications."x-scheme-handler/vcc" =
+    "${pkgs.alcom}/share/applications/ALCOM.desktop";
+
   hm.home.symlinks."${config.hm.xdg.dataHome}/Steam/steamapps/compatdata/438100/pfx/drive_c/users/steamuser/Pictures/VRChat" =
     "${config.hm.xdg.userDirs.pictures}/VRChat";
 

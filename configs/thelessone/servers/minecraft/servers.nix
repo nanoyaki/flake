@@ -18,9 +18,22 @@ let
 
       gamemode = "survival";
       difficulty = "normal";
+
+      white-list = true;
     };
 
     operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
+
+    whitelist = {
+      Rascal1934 = "fe111f4f-6936-422c-b282-53a9a660f2b5";
+      nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
+      Angreiferr = "885ca84d-669f-4cd7-a7a8-273d94fb7cd4";
+      NoWAY5 = "9760028f-eaeb-4699-8a46-a204f5b1feac";
+      einfach_calle = "3210afd0-4620-4120-9f49-d5379bf8e0b2";
+      sleepyLeyla = "8f9f8556-53fb-4ed0-b1d8-aa9d5078d170";
+      SleeperLuLu = "bcd341a1-8bfc-498b-a1e7-9fdd06e28860";
+      StinkySoks = "d333b68f-f970-42cd-a054-90c000c00404";
+    };
   };
 
   inherit (pkgs) fetchurl;

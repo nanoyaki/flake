@@ -8,7 +8,6 @@
 let
   defaults = {
     autoStart = true;
-    enableReload = true;
     jvmOpts = "-Xms32G -Xmx32G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
 
     serverProperties = {
@@ -93,6 +92,10 @@ in
             BluemapSignMarkers = fetchurl {
               url = "https://cdn.modrinth.com/data/i5ZtmNIW/versions/cC2uWgOu/bluemapsignmarkers-1.21.4-0.7.1.40.jar";
               sha512 = "6fe867732bd4d12dbfe1f74c696973a8ae780df8b671548e42f53c04ed82ffb8e9164c5ba884e36af79bce9a9e849964b6d8c1f1753063d8f92bd7e8e7456c6c";
+            };
+            BluemapOfflinePlayerMarkers = fetchurl {
+              url = "https://cdn.modrinth.com/data/4h9u0qdE/versions/FFnOIAXa/bluemap-offline-player-markers-3.0.3-fabric.jar";
+              sha512 = "ba7170b3c304f0b581ffa604228da739a9e51b33dab74057d7ad12aad4d97cb5f0a96adcc69d7228d210ef5ad33b8bd33d3ac98a9011663202f3b793038ca3f5";
             };
           }
         );

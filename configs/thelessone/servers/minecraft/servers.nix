@@ -86,6 +86,10 @@ in
               url = "https://cdn.modrinth.com/data/uCdwusMi/versions/DTFSZmMF/DistantHorizons-neoforge-fabric-2.3.0-b-1.21.4.jar";
               sha512 = "7337d486cde3dd43f5bed5f81277170d0dab4257f5d355e1dc88d5cfb5577a8592a35a3df80d35e1ec81b799ebc7b398c348cec6e73a0d37e7952883e49d06dd";
             };
+            PlayerRoles = fetchurl {
+              url = "https://cdn.modrinth.com/data/Rt1mrUHm/versions/Y5EAJzwR/player-roles-1.6.13.jar";
+              sha512 = "14cf8bb7da02fdb61765dd12b8f9fb0c92b5dfdce7d2b4068eb64735ddd97707e237d7845c4868acdabe2eb6b844f3d5cb525399571aa1eb007b4d521e5ffd15";
+            };
           }
         );
         "config/voicechat/voicechat-server.properties" = ./smp/voicechat-server.properties;
@@ -94,6 +98,10 @@ in
         "config/bluemap/plugin.conf" = ./smp/bluemap/plugin.conf;
         "config/bluemap/webapp.conf" = ./smp/bluemap/webapp.conf;
         "config/bluemap/webserver.conf" = ./smp/bluemap/webserver.conf;
+
+        "config/roles.json" = (pkgs.formats.json { }).generate "roles.json" {
+          whitelister.overrides.commands."whitelist (add|remove)" = "allow";
+        };
       };
     };
   };

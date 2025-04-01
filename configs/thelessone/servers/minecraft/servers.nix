@@ -32,6 +32,8 @@ let
       sleepyLeyla = "8f9f8556-53fb-4ed0-b1d8-aa9d5078d170";
       SleeperLuLu = "bcd341a1-8bfc-498b-a1e7-9fdd06e28860";
       StinkySoks = "d333b68f-f970-42cd-a054-90c000c00404";
+      AQuuRious = "a1631188-b4b7-43a0-8828-04e63c602418";
+      LiamKia = "a177db00-c53e-428b-b468-edda01775bab";
     };
   };
 

@@ -29,6 +29,10 @@ in
     ];
 
     stateVersion = "25.05";
+
+    shell.enableShellIntegration = true;
+    shellAliases.rb = "home-manager switch --flake $FLAKE_DIR";
+    sessionVariables.FLAKE_DIR = "$HOME/flake";
   };
 
   programs.ssh = {

@@ -1,11 +1,19 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  self,
+  ...
+}:
 
 let
   inherit (inputs) nixpkgs-xr nixgl;
 in
 
 {
-  nixpkgs.overlays = [ nixpkgs-xr.overlays.default ];
+  nixpkgs.overlays = [
+    self.overlays.default
+    nixpkgs-xr.overlays.default
+  ];
   nixpkgs.config.allowUnfree = true;
 
   nix.package = pkgs.nixVersions.nix_2_27;

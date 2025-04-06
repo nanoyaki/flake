@@ -7,6 +7,10 @@
 
 let
   identityFile = config.sec."private_keys/id_nadesiko".path;
+
+  midnight-theme = pkgs.midnight-theme.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [ ../common/optional/vencord-icon.patch ];
+  });
 in
 
 {
@@ -53,4 +57,5 @@ in
   };
 
   xdg.enable = true;
+  xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
 }

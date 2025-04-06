@@ -51,4 +51,6 @@ in
     enable = true;
     package = pkgs.vscodium;
   };
+
+  xdg.enable = true;
 }

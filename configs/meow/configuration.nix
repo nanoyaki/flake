@@ -56,6 +56,12 @@ in
     package = pkgs.vscodium;
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    silent = true;
+  };
+
   xdg.enable = true;
   xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
 }

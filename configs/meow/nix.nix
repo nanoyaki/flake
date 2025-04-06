@@ -32,6 +32,7 @@ in
       "flakes"
     ];
   };
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ];
 
   nixGL = {
     packages = nixgl.packages;

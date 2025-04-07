@@ -30,6 +30,7 @@ in
       ./nix.nix
       ./sops.nix
       ./configuration.nix
+      ./steam.nix
     ];
   };
 }

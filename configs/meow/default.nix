@@ -33,6 +33,7 @@ in
       ./steam.nix
       ./vr.nix
       ./vrchat.nix
+      ./input.nix
     ];
   };
 }

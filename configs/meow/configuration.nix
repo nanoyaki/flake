@@ -28,7 +28,7 @@ in
       nixfmt-rfc-style
 
       vesktop
-      wlx-overlay-s
+      bitwarden
 
       meow
       pyon

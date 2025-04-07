@@ -31,6 +31,8 @@ in
       ./sops.nix
       ./configuration.nix
       ./steam.nix
+      ./vr.nix
+      ./vrchat.nix
     ];
   };
 }

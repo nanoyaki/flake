@@ -12,6 +12,8 @@ let
   midnight-theme = pkgs.midnight-theme.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [ ../common/optional/vencord-icon.patch ];
   });
+
+  homeDir = config.home.homeDirectory;
 in
 
 {
@@ -124,4 +126,9 @@ in
 
   xdg.enable = true;
   xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
+
+  xdg.userDirs = {
+    enable = true;
+    pictures = "${homeDir}/Pictures";
+  };
 }

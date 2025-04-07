@@ -41,22 +41,6 @@ in
   ];
 
   config = {
-    nixpkgs.overlays = [
-      (_: prev: {
-        sops = prev.sops.overrideAttrs (oldAttrs: rec {
-          version = "c78b0aae0ed04fbc411de3f286097a98cc5532b3";
-          src = prev.fetchFromGitHub {
-            owner = "getsops";
-            repo = oldAttrs.pname;
-            rev = version;
-            hash = "sha256-TXnsdGh6838489RPtKg5xEHQ/uJhkRjHE1Jx+3Y3ib0=";
-          };
-          vendorHash = "sha256-gxOWCMkqwu3FMlo4KZFcCTfxLi7HILu5xPDJgnTEk6s=";
-          doInstallCheck = false;
-        });
-      })
-    ];
-
     sops = sopsCfg;
 
     home-manager.sharedModules = [

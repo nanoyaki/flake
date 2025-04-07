@@ -67,6 +67,31 @@ in
     package = pkgs.vscodium;
   };
 
+  programs.mpv = {
+    enable = true;
+    package = config.lib.nixGL.wrap (
+      pkgs.mpv-unwrapped.wrapper {
+        scripts = with pkgs.mpvScripts; [
+          sponsorblock
+          thumbfast
+          modernx
+          mpvacious
+          mpv-discord
+          mpv-subtitle-lines
+          mpv-playlistmanager
+          mpv-cheatsheet
+        ];
+
+        mpv = pkgs.mpv-unwrapped;
+      }
+    );
+
+    config = {
+      osc = "no";
+      volume = 20;
+    };
+  };
+
   # Shell
   programs = {
     zsh = {

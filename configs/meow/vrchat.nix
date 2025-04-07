@@ -7,13 +7,6 @@
 
 let
   inherit (config.lib) nixGL;
-
-  vrcSwitch = pkgs.writeShellScriptBin "vrcSwitch" ''
-    if systemctl --user is-active monado.service --quiet;
-    then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/wivrn/comp_ipc" ${lib.getExe pkgs.startvrc} "$@";
-    else ${lib.getExe pkgs.startvrc} "$@";
-    fi
-  '';
 in
 
 {
@@ -24,7 +17,6 @@ in
   home = {
     packages = with pkgs; [
       startvrc
-      vrcSwitch
       vrcx
       vrc-get
       unityhub

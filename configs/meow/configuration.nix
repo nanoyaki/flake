@@ -50,6 +50,7 @@ in
 
     extraConfig = ''
       IdentityFile ${identityFile}
+      AddKeysToAgent yes
     '';
   };
 

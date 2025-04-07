@@ -35,7 +35,7 @@ in
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ];
 
   nixGL = {
-    packages = nixgl.packages;
+    inherit (nixgl) packages;
     defaultWrapper = "mesa";
     installScripts = [ "mesa" ];
     vulkan.enable = true;

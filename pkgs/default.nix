@@ -11,16 +11,7 @@
       inherit (pkgs) callPackage;
     in
     {
-      overlayAttrs = {
-        inherit (config.packages)
-          lavalink
-          startvrc
-          writeSystemdToggle
-          pyon
-          meow
-          midnight-theme
-          ;
-      };
+      overlayAttrs = config.packages;
 
       packages = {
         lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };

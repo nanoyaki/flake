@@ -49,7 +49,8 @@ in
         persistent = true;
       };
 
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+      nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
     };
 
     environment.variables.FLAKE_DIR = cfg.flakeDir;

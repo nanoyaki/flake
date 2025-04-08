@@ -1,14 +1,12 @@
 {
   lib,
+  lib'',
   pkgs,
-  config,
   ...
 }:
 
 let
   yaml = pkgs.formats.yaml { };
-
-  inherit (config.lib) nixGL;
 in
 
 {
@@ -24,10 +22,11 @@ in
         };
       };
     })
-    (
-      _: prev:
-      lib.mapAttrs (_: pkg: nixGL.wrap pkg) { inherit (prev) wlx-overlay-s wayvr-dashboard wivrn; }
-    )
+    (lib''.nixGlOverlay [
+      "wlx-overlay-s"
+      "wayvr-dashboard"
+      "wivrn"
+    ])
   ];
 
   home.packages = with pkgs; [

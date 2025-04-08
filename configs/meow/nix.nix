@@ -1,15 +1,26 @@
 {
+  lib,
   pkgs,
   inputs,
   self,
+  config,
   ...
 }:
 
 let
   inherit (inputs) nixpkgs-xr nixgl;
+  inherit (config.lib) nixGL;
 in
 
 {
+  _module.args.lib'' = {
+    nixGlOverlay =
+      packages: _: prev:
+      lib.mapAttrs (_: pkg: nixGL.wrap pkg) (
+        lib.attrsets.filterAttrs (name: _: lib.lists.elem name packages) prev
+      );
+  };
+
   nixpkgs.overlays = [
     self.overlays.default
     nixpkgs-xr.overlays.default

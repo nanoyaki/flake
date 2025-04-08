@@ -1,5 +1,6 @@
 {
   lib,
+  lib'',
   pkgs,
   username,
   config,
@@ -14,9 +15,15 @@ let
   });
 
   homeDir = config.home.homeDirectory;
+
+  inherit (config.lib) nixGL;
 in
 
 {
+  nixpkgs.overlays = [
+    (lib''.nixGlOverlay [ "vesktop" ])
+  ];
+
   programs.home-manager.enable = true;
   home = {
     inherit username;
@@ -29,6 +36,7 @@ in
 
       vesktop
       bitwarden
+      (nixGL.wrap kdePackages.spectacle)
 
       meow
       pyon

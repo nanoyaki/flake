@@ -1,17 +1,18 @@
 {
-  lib,
+  lib'',
   pkgs,
   config,
   ...
 }:
 
-let
-  inherit (config.lib) nixGL;
-in
-
 {
   nixpkgs.overlays = [
-    (_: prev: lib.mapAttrs (_: pkg: nixGL.wrap pkg) { inherit (prev) alcom blender unityhub; })
+    (lib''.nixGlOverlay [
+      "vrcx"
+      "alcom"
+      "blender"
+      "unityhub"
+    ])
   ];
 
   home = {

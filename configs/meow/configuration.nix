@@ -24,6 +24,8 @@ in
     (lib''.nixGlOverlay [ "vesktop" ])
   ];
 
+  targets.genericLinux.enable = true;
+
   programs.home-manager.enable = true;
   home = {
     inherit username;
@@ -157,11 +159,17 @@ in
     };
   };
 
-  xdg.enable = true;
-  xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
-
-  xdg.userDirs = {
+  xdg = {
     enable = true;
-    pictures = "${homeDir}/Pictures";
+    mime.enable = true;
+    mimeApps.enable = true;
+    autostart.enable = true;
+
+    userDirs = {
+      enable = true;
+      pictures = "${homeDir}/Pictures";
+    };
+
+    configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
   };
 }

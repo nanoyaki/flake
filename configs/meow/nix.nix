@@ -8,7 +8,7 @@
 }:
 
 let
-  inherit (inputs) nixpkgs-xr nixgl;
+  inherit (inputs) nixpkgs-xr nixgl vermeer-undervolt;
   inherit (config.lib) nixGL;
 in
 
@@ -24,6 +24,7 @@ in
   nixpkgs.overlays = [
     self.overlays.default
     nixpkgs-xr.overlays.default
+    vermeer-undervolt.overlays.default
   ];
   nixpkgs.config.allowUnfree = true;
 

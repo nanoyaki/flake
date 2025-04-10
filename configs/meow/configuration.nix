@@ -62,7 +62,6 @@ in
       pyon
 
       openrgb
-      vermeer-undervolt
     ];
 
     stateVersion = "25.05";

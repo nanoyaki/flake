@@ -4,6 +4,7 @@
   pkgs,
   username,
   config,
+  inputs,
   ...
 }:
 
@@ -21,7 +22,21 @@ in
 
 {
   nixpkgs.overlays = [
-    (lib''.nixGlOverlay [ "vesktop" ])
+    inputs.prismlauncher.overlays.default
+    (_: prev: {
+      prismlauncher = prev.prismlauncher.override {
+        jdks = with prev; [
+          graalvm-ce
+          zulu8
+          zulu17
+          zulu
+        ];
+      };
+    })
+    (lib''.nixGlOverlay [
+      "vesktop"
+      "prismlauncher"
+    ])
   ];
 
   targets.genericLinux.enable = true;
@@ -39,6 +54,9 @@ in
       vesktop
       bitwarden
       (nixGL.wrap kdePackages.spectacle)
+
+      gamemode
+      prismlauncher
 
       meow
       pyon

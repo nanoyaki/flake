@@ -1,8 +1,6 @@
 {
-  lib,
   lib'',
   pkgs,
-  username,
   config,
   inputs,
   ...
@@ -36,40 +34,27 @@ in
     (lib''.nixGlOverlay [
       "vesktop"
       "prismlauncher"
+      "spotify"
     ])
   ];
 
-  targets.genericLinux.enable = true;
+  home.packages = with pkgs; [
+    nixd
+    nixfmt-rfc-style
 
-  programs.home-manager.enable = true;
-  home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
+    vesktop
+    bitwarden
+    (nixGL.wrap kdePackages.spectacle)
+    spotify
 
-    packages = with pkgs; [
-      nix
-      nixd
-      nixfmt-rfc-style
+    gamemode
+    prismlauncher
 
-      vesktop
-      bitwarden
-      (nixGL.wrap kdePackages.spectacle)
+    meow
+    pyon
 
-      gamemode
-      prismlauncher
-
-      meow
-      pyon
-
-      openrgb
-    ];
-
-    stateVersion = "25.05";
-
-    shell.enableShellIntegration = true;
-    shellAliases.rb = "home-manager switch --flake $FLAKE_DIR";
-    sessionVariables.FLAKE_DIR = "$HOME/flake";
-  };
+    openrgb
+  ];
 
   programs.ssh = {
     enable = true;
@@ -122,69 +107,7 @@ in
     };
   };
 
-  # Shell
-  programs = {
-    zsh = {
-      enable = true;
-      initExtra = ''
-        bindkey "^[[H"    beginning-of-line
-        bindkey "^[[F"    end-of-line
-        bindkey "^[[3~"   delete-char
-        bindkey "^[[1;5C" forward-word
-        bindkey "^[[1;5D" backward-word
-        bindkey "^[[3;5~" kill-word
-        bindkey "^H"      backward-kill-word
-
-        ${lib.getExe pkgs.meow}
-      '';
-
-      enableCompletion = true;
-      syntaxHighlighting.enable = true;
-      autosuggestion.enable = true;
-    };
-
-    zellij = {
-      enable = true;
-
-      enableBashIntegration = lib.mkDefault false;
-      enableZshIntegration = lib.mkDefault false;
-      enableFishIntegration = lib.mkDefault false;
-
-      settings = {
-        pane_frames = false;
-        default_layout = "compact";
-        session_serialization = false;
-      };
-    };
-
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
-    lsd = {
-      enable = true;
-      enableAliases = true;
-    };
-
-    btop.enable = true;
-    bat.enable = true;
-    fastfetch.enable = true;
-    ripgrep.enable = true;
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      silent = true;
-    };
-  };
-
   xdg = {
-    enable = true;
-    mime.enable = true;
-    mimeApps.enable = true;
-    autostart.enable = true;
-
     userDirs = {
       enable = true;
       pictures = "${homeDir}/Pictures";

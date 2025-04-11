@@ -13,27 +13,51 @@ let
 in
 
 {
-  flake.homeConfigurations."hana@meow" = home-manager.lib.homeManagerConfiguration {
-    pkgs = nixpkgs.legacyPackages.${arch};
-    extraSpecialArgs = {
-      inherit
-        inputs
-        username
-        lib'
-        self
-        ;
+  flake = {
+    homeConfigurations."hana@meow" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.${arch};
+      extraSpecialArgs = {
+        inherit
+          inputs
+          username
+          lib'
+          self
+          ;
 
-      packages = self.packages.${arch};
+        packages = self.packages.${arch};
+      };
+      modules = [
+        self.homeManagerModules.symlinks
+        ./nix.nix
+        ./sops.nix
+        ./home.nix
+        ./configuration.nix
+        ./steam.nix
+        ./vr.nix
+        ./vrchat.nix
+        ./cpu.nix
+      ];
     };
-    modules = [
-      self.homeManagerModules.symlinks
-      ./nix.nix
-      ./sops.nix
-      ./configuration.nix
-      ./steam.nix
-      ./vr.nix
-      ./vrchat.nix
-      ./cpu.nix
-    ];
+
+    homeConfigurations."root@meow" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.${arch};
+      extraSpecialArgs = {
+        inherit
+          inputs
+          lib'
+          self
+          ;
+
+        username = "root";
+        packages = self.packages.${arch};
+      };
+      modules = [
+        ./nix.nix
+        ./home.nix
+        ./shell.nix
+        ./root.nix
+        ./root/systemd.nix
+      ];
+    };
   };
 }

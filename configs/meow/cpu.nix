@@ -1,5 +1,6 @@
 {
   lib,
+  lib'',
   pkgs,
   ...
 }:
@@ -36,6 +37,10 @@ let
 in
 
 {
+  nixpkgs.overlays = [
+    (lib''.nixGlOverlay [ "corectrl" ])
+  ];
+
   home.packages = with pkgs; [
     corectrl
     vermeer-undervolt

@@ -1,6 +1,15 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
+  inherit (lib) mkOption types mkIf;
+
+  cfg = config.systemd.services;
+
   toSystemdIni = lib.generators.toINI {
     listsAsDuplicateKeys = true;
     mkKeyValue =
@@ -44,17 +53,27 @@ let
 in
 
 {
-  home.file = lib.listToAttrs (
-    buildService "undervolt" {
-      Unit.Description = "CPU undervolt";
-
-      Service = {
-        Type = "simple";
-        User = "root";
-        ExecStart = "${lib.getExe pkgs.vermeer-undervolt} 8 -30";
+  options.systemd.services = mkOption {
+    type =
+      with types;
+      let
+        primitive = oneOf [
+          bool
+          int
+          str
+          path
+        ];
+      in
+      attrsOf (attrsOf (attrsOf (either primitive (listOf primitive))))
+      // {
+        description = "systemd service unit configuration";
       };
+    default = { };
+  };
 
-      Install.WantedBy = [ "multi-user.target" ];
-    }
-  );
+  config = mkIf (cfg != { }) {
+    home.file = lib.listToAttrs (
+      lib.lists.flatten (lib.map (service: buildService service cfg.${service}) (lib.attrNames cfg))
+    );
+  };
 }

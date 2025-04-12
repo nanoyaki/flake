@@ -31,6 +31,7 @@ in
         ./nix.nix
         ./sops.nix
         ./home.nix
+        ./shell.nix
         ./configuration.nix
         ./steam.nix
         ./vr.nix
@@ -55,8 +56,10 @@ in
         ./nix.nix
         ./home.nix
         ./shell.nix
-        ./root.nix
+        ./root/environment.nix
+        ./root/dbus.nix
         ./root/systemd.nix
+        ./root.nix
       ];
     };
   };

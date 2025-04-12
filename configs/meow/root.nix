@@ -4,6 +4,18 @@
   home.homeDirectory = lib.mkForce "/";
 
   # vermeer-undervolt
+  systemd.services.undervolt = {
+    Unit.Description = "CPU undervolt";
+
+    Service = {
+      Type = "simple";
+      User = "root";
+      ExecStart = "${lib.getExe pkgs.vermeer-undervolt} 8 -30";
+    };
+
+    Install.WantedBy = [ "multi-user.target" ];
+  };
+
   home.file."/etc/modules-load.d/vermeer-undervolt.conf".text = "ryzen_smu";
 
   # openrgb
@@ -13,14 +25,11 @@
   '';
 
   # corectrl
-  home.file."/usr/share/polkit-1/actions/org.corectrl.helper.policy".source =
-    "${pkgs.corectrl}/share/polkit-1/actions/org.corectrl.helper.policy";
-  home.file."/usr/share/polkit-1/actions/org.corectrl.helperkiller.policy".source =
-    "${pkgs.corectrl}/share/polkit-1/actions/org.corectrl.helperkiller.policy";
-  home.file."/usr/share/dbus-1/system-services/org.corectrl.helper.service".source =
-    "${pkgs.corectrl}/share/dbus-1/system-services/org.corectrl.helper.service";
-  home.file."/usr/share/dbus-1/system-services/org.corectrl.helperkiller.service".source =
-    "${pkgs.corectrl}/share/dbus-1/system-services/org.corectrl.helperkiller.service";
+  home.packages = with pkgs; [ corectrl ];
+  services.dbus.packages = [ pkgs.corectrl ];
+  home.mappedPaths = {
+    "share/polkit-1" = "/usr/share/polkit-1";
+  };
   home.file."/etc/polkit-1/rules.d/90-corectrl.rules".text = ''
     polkit.addRule(function(action, subject) {
       if ((action.id == "org.corectrl.helper.init" ||

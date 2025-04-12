@@ -1,15 +1,10 @@
 {
   pkgs,
   config,
-  self,
   ...
 }:
 
 {
-  imports = [
-    self.nixosModules.lavalink
-  ];
-
   services.lavalink = {
     enable = true;
     enableHttp2 = true;

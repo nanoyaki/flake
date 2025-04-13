@@ -33,6 +33,7 @@ in
     wlx-overlay-s
     wayvr-dashboard
     wivrn
+    motoc
   ];
 
   xdg.configFile."openvr/openvrpaths.vrpath".text = ''

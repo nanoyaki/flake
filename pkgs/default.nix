@@ -14,7 +14,6 @@
       overlayAttrs = config.packages;
 
       packages = {
-        lavalink = callPackage ./lavalink { jdk = pkgs.zulu17; };
         startvrc = callPackage ./startvrc { };
         writeSystemdToggle = callPackage ./writeSystemdToggle { };
         pyon = callPackage ./pyon { };

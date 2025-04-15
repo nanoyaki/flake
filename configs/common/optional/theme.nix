@@ -37,7 +37,7 @@ in
 
   config = {
     home-manager.sharedModules = [
-      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.catppuccin.homeModules.catppuccin
     ];
 
     boot = {

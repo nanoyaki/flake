@@ -58,6 +58,7 @@ in
     environment.systemPackages = with pkgs; [
       nixfmt-rfc-style
       nixd
+      nix-fast-build
     ];
 
     programs.direnv.enable = true;

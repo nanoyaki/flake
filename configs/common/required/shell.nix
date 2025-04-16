@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -26,7 +25,7 @@
     '';
 
     shellAliases = {
-      rb = "sudo nixos-rebuild switch --flake $FLAKE_DIR --log-format internal-json -v |& ${lib.getExe pkgs.nix-output-monitor} --json";
+      rb = "sudo nix-fast-build -f $FLAKE_DIR#nixosConfigurations.shirayuri.config.system.build.toplevel --eval-workers 4 --result-file result && sudo result-/bin/switch-to-configuration switch && rm -f {result,result-}";
       nix-conf = "$EDITOR $FLAKE_DIR";
     };
 

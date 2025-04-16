@@ -1,23 +1,24 @@
 {
-  lib,
   pkgs,
   config,
   ...
 }:
 
-let
-  vrcSwitch = pkgs.writeShellScriptBin "vrcSwitch" ''
-    if systemctl --user is-active monado.service --quiet;
-    then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/monado_comp_ipc" ${lib.getExe pkgs.startvrc} "$@";
-    else ${lib.getExe pkgs.startvrc} "$@";
-    fi
-  '';
-in
-
 {
+  nixpkgs.overlays = [
+    (_: _: {
+      vrSwitch = pkgs.writeShellScriptBin "vrSwitch" ''
+        if systemctl --user is-active monado.service --quiet;
+        then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/monado_comp_ipc" exec "$@";
+        else exec "$@";
+        fi
+      '';
+    })
+  ];
+
   environment.systemPackages = with pkgs; [
     startvrc
-    vrcSwitch
+    vrSwitch
     vrcx
     vrc-get
     unityhub

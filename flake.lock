@@ -1125,11 +1125,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744291199,
-        "narHash": "sha256-ghjypZrbBF/jA+b6NSVKfrGzU0M+4xD6wkHpugwWEKc=",
+        "lastModified": 1744834978,
+        "narHash": "sha256-afCjuaHuW8wmy/4cOXFk9qFGiS1ONfC4CRtl7g/6sEk=",
         "owner": "nanoyaki",
         "repo": "5800x3d-undervolt",
-        "rev": "21c887069142eafacfb89a14f05b2b1ea801863a",
+        "rev": "48ced7ed868d00f41274ade993da668decbff3db",
         "type": "github"
       },
       "original": {

@@ -1,19 +1,11 @@
 {
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
+  _sources,
 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "midnight-theme";
-  version = "c32b4cca12962ea95b518b8f9b76cfdfbe31f6ad";
-
-  src = fetchFromGitHub {
-    owner = "refact0r";
-    repo = "midnight-discord";
-    rev = "c32b4cca12962ea95b518b8f9b76cfdfbe31f6ad";
-    hash = "sha256-gVAHS7uBsB+IDh1sNcvIRmKSLI94txeC9vCBXwZCjq0=";
-  };
+  inherit (_sources.midnight-theme) pname version src;
 
   installPhase = ''
     runHook preInstall

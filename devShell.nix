@@ -12,10 +12,18 @@
       checks.pre-commit-check = inputs'.pre-commit-hooks.lib.run {
         src = ./.;
         hooks = {
-          nixfmt-rfc-style.enable = true;
           statix.enable = true;
-          deadnix.enable = true;
           flake-checker.enable = true;
+
+          nixfmt-rfc-style = {
+            enable = true;
+            excludes = [ "^pkgs/_sources.*" ];
+          };
+
+          deadnix = {
+            enable = true;
+            excludes = [ "^pkgs/_sources.*" ];
+          };
         };
       };
 

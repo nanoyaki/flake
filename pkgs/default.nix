@@ -1,14 +1,22 @@
 { inputs, ... }:
 
 {
-  imports = [
-    inputs.flake-parts.flakeModules.easyOverlay
-  ];
+  imports = [ inputs.flake-parts.flakeModules.easyOverlay ];
 
   perSystem =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
-      inherit (pkgs) callPackage;
+      callPackage = lib.callPackageWith (
+        pkgs
+        // {
+          _sources = pkgs.callPackage ./_sources/generated.nix { };
+        }
+      );
     in
     {
       overlayAttrs = config.packages;

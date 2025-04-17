@@ -1,0 +1,42 @@
+{
+    "midnight-theme": {
+        "cargoLocks": null,
+        "date": "2025-04-16",
+        "extract": null,
+        "name": "midnight-theme",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "06bac6c80992fef13ffa26bdf13df67ab001d622",
+            "sha256": "sha256-6hDeOKUpUzyIUz3V/VBTCB/VM9v6+EvSDb7s1sMuBxg=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/refact0r/midnight-discord.git"
+        },
+        "version": "06bac6c80992fef13ffa26bdf13df67ab001d622"
+    },
+    "openrgb": {
+        "cargoLocks": null,
+        "date": "2025-04-13",
+        "extract": null,
+        "name": "openrgb",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "45af044cd84032b9a9b5865cb5e12aa2cd98c47e",
+            "sha256": "sha256-3zOlL2HdZ+6o9pkB03R7BTWcM9lQh9DgKoIbFEUmbxU=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
+        },
+        "version": "45af044cd84032b9a9b5865cb5e12aa2cd98c47e"
+    }
+}

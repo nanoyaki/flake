@@ -1,0 +1,7 @@
+[midnight-theme]
+fetch.git = "https://github.com/refact0r/midnight-discord.git"
+src.git = "https://github.com/refact0r/midnight-discord.git"
+
+[openrgb]
+fetch.git = "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
+src.git = "https://gitlab.com/CalcProgrammer1/OpenRGB.git"

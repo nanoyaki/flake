@@ -1,18 +1,12 @@
 {
   lib,
   openrgb,
-  fetchFromGitHub,
+  _sources,
   coreutils,
 }:
 
-openrgb.overrideAttrs rec {
-  version = "45af044cd84032b9a9b5865cb5e12aa2cd98c47e";
-  src = fetchFromGitHub {
-    owner = "CalcProgrammer1";
-    repo = "OpenRGB";
-    rev = version;
-    hash = "sha256-3zOlL2HdZ+6o9pkB03R7BTWcM9lQh9DgKoIbFEUmbxU=";
-  };
+openrgb.overrideAttrs {
+  inherit (_sources.openrgb) version src;
 
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh

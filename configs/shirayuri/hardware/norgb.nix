@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  openrgb = pkgs.openrgb-with-all-plugins;
+  openrgb = pkgs.openrgb-latest;
 in
 
 {

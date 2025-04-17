@@ -18,6 +18,8 @@
         writeSystemdToggle = callPackage ./writeSystemdToggle { };
         pyon = callPackage ./pyon { };
         midnight-theme = callPackage ./midnight-theme { };
+        amdgpu-i2c = callPackage ./amdgpu-i2c { };
+        openrgb-latest = callPackage ./openrgb { };
 
         meow = pkgs.meow.overrideAttrs {
           patches = [ ./patches/ominous-cats.patch ];

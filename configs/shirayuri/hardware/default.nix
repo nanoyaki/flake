@@ -9,7 +9,6 @@
     ./swap.nix
     ./cooling.nix
     ./scarlett-solo.nix
-    ./norgb.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate

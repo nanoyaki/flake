@@ -14,6 +14,7 @@
       ../common/optional/browsers/firefox.nix
       ../common/optional/deployment.nix
       ../common/optional/cuda.nix
+      ../common/optional/norgb.nix
 
       ./hardware
 

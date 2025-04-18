@@ -21,6 +21,7 @@ in
       Documents = "/mnt/os-shared/Documents";
       Videos = "/mnt/os-shared/Videos";
       Pictures = "/mnt/os-shared/Pictures";
+      Music = "/mnt/os-shared/Music";
 
       os-shared = "/mnt/os-shared";
     };
@@ -33,10 +34,10 @@ in
       documents = "/mnt/os-shared/Documents";
       videos = "/mnt/os-shared/Videos";
       pictures = "/mnt/os-shared/Pictures";
+      music = "/mnt/os-shared/Music";
 
       publicShare = null;
       templates = null;
-      music = null;
     };
 
     xdg.desktopEntries.windows = {
@@ -50,9 +51,10 @@ in
   };
 
   systemd.tmpfiles.settings."10-os-shared-xdg-user-dirs" = {
-    "Downloads".d = dirConfig;
-    "Documents".d = dirConfig;
-    "Videos".d = dirConfig;
-    "Pictures".d = dirConfig;
+    "/mnt/os-shared/Downloads".d = dirConfig;
+    "/mnt/os-shared/Documents".d = dirConfig;
+    "/mnt/os-shared/Videos".d = dirConfig;
+    "/mnt/os-shared/Pictures".d = dirConfig;
+    "/mnt/os-shared/Music".d = dirConfig;
   };
 }

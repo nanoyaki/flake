@@ -56,6 +56,6 @@ in
     };
 
     # i can just use /run/current-system/sw/bin/librespot bruh
-    home.packages = [ pkgs.spotify-qt ];
+    # home.packages = [ pkgs.spotify-qt ];
   };
 }

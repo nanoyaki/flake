@@ -1,8 +1,9 @@
 {
   lib,
   openrgb,
-  _sources,
   coreutils,
+
+  _sources,
 }:
 
 openrgb.overrideAttrs {

@@ -11,7 +11,17 @@
       ...
     }:
     let
-      callPackage = lib.callPackageWith (
+      inherit (lib)
+        callPackageWith
+        mapAttrs
+        ;
+
+      inherit (builtins)
+        removeAttrs
+        readDir
+        ;
+
+      callPackage = callPackageWith (
         pkgs
         // {
           _sources = pkgs.callPackage ./_sources/generated.nix { };
@@ -21,14 +31,11 @@
     {
       overlayAttrs = config.packages;
 
-      packages = {
-        startvrc = callPackage ./startvrc { };
-        writeSystemdToggle = callPackage ./writeSystemdToggle { };
-        pyon = callPackage ./pyon { };
-        midnight-theme = callPackage ./midnight-theme { };
-        amdgpu-i2c = callPackage ./amdgpu-i2c { };
-        openrgb-latest = callPackage ./openrgb { };
-        meow = callPackage ./meow { };
-      };
+      packages = mapAttrs (name: _: callPackage (./. + "/${name}") { }) (
+        removeAttrs (readDir ./.) [
+          "_sources"
+          "default.nix"
+        ]
+      );
     };
 }

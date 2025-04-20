@@ -102,6 +102,18 @@ in
               url = "https://cdn.modrinth.com/data/qQyHxfxd/versions/9xt05630/NoChatReports-FABRIC-1.21.4-v2.11.0.jar";
               sha512 = "d343b05c8e50f1de15791ff622ad44eeca6cdcb21e960a267a17d71506c61ca79b1c824167779e44d778ca18dcbdebe594ff234fbe355b68d25cdb5b6afd6e4f";
             };
+            Noisium = fetchurl {
+              url = "https://cdn.modrinth.com/data/KuNKN7d2/versions/9NHdQfkN/noisium-fabric-2.5.0%2Bmc1.21.4.jar";
+              sha512 = "3119f9325a9ce13d851d4f6eddabade382222c80296266506a155f8e12f32a195a00a75c40a8d062e4439f5a7ef66f3af9a46f9f3b3cb799f3b66b73ca2edee8";
+            };
+            Krypton = fetchurl {
+              url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/Acz3ttTp/krypton-0.2.8.jar";
+              sha512 = "5f8cf96c79bfd4d893f1d70da582e62026bed36af49a7fa7b1e00fb6efb28d9ad6a1eec147020496b4fe38693d33fe6bfcd1eebbd93475612ee44290c2483784";
+            };
+            C2MEngine = fetchurl {
+              url = "https://cdn.modrinth.com/data/VSNURh3q/versions/EzvMx6b2/c2me-fabric-mc1.21.4-0.3.1.3.0.jar";
+              sha512 = "f944bf4319cfa6fb645d0cbe807b82c74784f44ef7ac75273efa161be4625aa80390ec8cf32a232c0ebce0d0cb23b090979019d93e7550771de56d09d920dd13";
+            };
           }
         );
         "config/voicechat/voicechat-server.properties" = ./smp/voicechat-server.properties;
@@ -127,6 +139,10 @@ in
       "${config.services.minecraft-servers.dataDir}/smp/world"
     ];
     passwordFile = config.sec."restic/smp".path;
+
+    environmentFile = ''${pkgs.writeText "restic-smp-env" ''
+      GOMAXPROCS=6
+    ''}'';
 
     timerConfig = {
       OnCalendar = "*:0/30";

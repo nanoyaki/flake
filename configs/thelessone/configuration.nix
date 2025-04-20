@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     vesktop
     vscodium
+    tmux
   ];
 
   security.sudo.extraRules = [

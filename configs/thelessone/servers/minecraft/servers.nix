@@ -2,6 +2,7 @@
   lib,
   inputs,
   pkgs,
+  config,
   ...
 }:
 
@@ -34,6 +35,8 @@ let
       StinkySoks = "d333b68f-f970-42cd-a054-90c000c00404";
       AQuuRious = "a1631188-b4b7-43a0-8828-04e63c602418";
       LiamKia = "a177db00-c53e-428b-b468-edda01775bab";
+      wayne_gretzky = "435568af-9165-4b43-939d-a3f731742d43";
+      PhillipTheLord1 = "9a030337-eb2b-4acc-9fef-ec941dd6454c";
     };
   };
 
@@ -113,5 +116,40 @@ in
         };
       };
     };
+  };
+
+  sec."restic/smp" = { };
+
+  services.restic.backups.smp = {
+    initialize = true;
+    repository = "/var/lib/restic/backups/smp";
+    paths = [
+      "${config.services.minecraft-servers.dataDir}/smp/world"
+    ];
+    passwordFile = config.sec."restic/smp".path;
+
+    timerConfig = {
+      OnCalendar = "*:0/30";
+      Persistent = true;
+      RandomizedDelaySec = "30s";
+    };
+
+    backupPrepareCommand = "systemctl is-active minecraft-server-smp.service --quiet && ${lib.getExe pkgs.tmux} -S ${config.services.minecraft-servers.runDir}/smp.sock send-keys \"say Backup wird gestartet.\" Enter";
+    backupCleanupCommand = "systemctl is-active minecraft-server-smp.service --quiet && ${lib.getExe pkgs.tmux} -S ${config.services.minecraft-servers.runDir}/smp.sock send-keys \"say Backup vollendet.\" Enter";
+
+    pruneOpts = [
+      "--keep-last 3"
+      "--keep-hourly 24"
+      "--keep-daily 7"
+      "--keep-weekly 5"
+      "--keep-monthly 6"
+      "--keep-yearly 2"
+    ];
+  };
+
+  systemd.tmpfiles.settings."10-restic-backups"."/var/lib/restic/backups".d = {
+    mode = "0700";
+    user = "root";
+    group = "wheel";
   };
 }

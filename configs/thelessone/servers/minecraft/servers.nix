@@ -135,10 +135,14 @@ in
   services.restic.backups.smp = {
     initialize = true;
     repository = "/var/lib/restic/backups/smp";
+    passwordFile = config.sec."restic/smp".path;
+
     paths = [
       "${config.services.minecraft-servers.dataDir}/smp/world"
     ];
-    passwordFile = config.sec."restic/smp".path;
+    exclude = [
+      "${config.services.minecraft-servers.dataDir}/smp/world/**/data/DistantHorizons*"
+    ];
 
     environmentFile = ''${pkgs.writeText "restic-smp-env" ''
       GOMAXPROCS=6

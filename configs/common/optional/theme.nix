@@ -137,7 +137,11 @@ in
           };
 
           gtk.icon = catppuccin;
+
+          rofi.enable = false;
         };
+
+        programs.rofi.theme = "${pkgs.rofi-themes}/share/themes/launchers/type-2/style-1.rasi";
 
         xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
       }
@@ -156,12 +160,14 @@ in
           panels = [
             {
               location = "bottom";
-              widgets = [
-                # https://develop.kde.org/docs/plasma/scripting/keys/
-                {
-                  panelSpacer.expanding = true;
-                }
-                {
+              widgets =
+                [
+                  # https://develop.kde.org/docs/plasma/scripting/keys/
+                  {
+                    panelSpacer.expanding = true;
+                  }
+                ]
+                ++ lib.optional (!config.hm.programs.rofi.enable) {
                   kickoff = {
                     icon = "nix-snowflake";
                     label = null;
@@ -174,76 +180,61 @@ in
                     pin = false;
                   };
                 }
-                # {
-                #   name = "org.kde.plasma.kickerdash";
-                #   config.General = rec {
-                #     icon = "nix-snowflake";
-                #     limitDepth = true;
-                #     recentOrdering = 1;
-                #     showIconsRootLevel = true;
-                #     showRecentApps = false;
-                #     showRecentDocs = false;
-                #     favoriteSystemActions = "logout,reboot,shutdown";
-                #     systemFavorites = favoriteSystemActions;
-                #     useExtraRunners = false;
-                #     favoritesPortedToKAstats = true;
-                #     alphaSort = true;
-                #   };
-                # }
-                "org.kde.plasma.marginsseparator"
-                {
-                  iconTasks.launchers = [
-                    "preferred://filemanager"
-                    "preferred://browser"
-                    "applications:Alacritty.desktop"
-                    "applications:vesktop.desktop"
-                  ] ++ lib.optionals config.programs.steam.enable [ "applications:steam.desktop" ];
-                }
-                {
-                  panelSpacer.expanding = true;
-                }
-                {
-                  systemTray.items = {
-                    shown = [
-                      "org.kde.plasma.volume"
-                      "plasmashell_microphone"
-                      "org.kde.plasma.networkmanagement"
-                      "org.kde.plasma.battery"
-                    ];
+                ++ [
+                  "org.kde.plasma.marginsseparator"
+                  {
+                    iconTasks.launchers = [
+                      "preferred://filemanager"
+                      "preferred://browser"
+                      "applications:Alacritty.desktop"
+                      "applications:vesktop.desktop"
+                    ] ++ lib.optional config.programs.steam.enable "applications:steam.desktop";
+                  }
+                  {
+                    panelSpacer.expanding = true;
+                  }
+                  {
+                    systemTray.items = {
+                      shown = [
+                        "org.kde.plasma.volume"
+                        "plasmashell_microphone"
+                        "org.kde.plasma.networkmanagement"
+                        "org.kde.plasma.battery"
+                      ];
 
-                    hidden = [
-                      "org.kde.plasma.clipboard"
-                      "org.kde.plasma.keyboardindicator"
-                      "org.kde.plasma.keyboardlayout"
-                      "org.kde.kscreen"
-                      "org.kde.plasma.brightness"
-                      "org.kde.plasma.mediacontroller"
-                      "Fcitx"
-                    ];
-                  };
-                }
-                {
-                  digitalClock = {
-                    calendar = {
-                      firstDayOfWeek = "monday";
-                      showWeekNumbers = true;
+                      hidden = [
+                        "org.kde.plasma.clipboard"
+                        "org.kde.plasma.keyboardindicator"
+                        "org.kde.plasma.keyboardlayout"
+                        "org.kde.kscreen"
+                        "org.kde.plasma.brightness"
+                        "org.kde.plasma.mediacontroller"
+                        "Fcitx"
+                      ];
                     };
-                    date = {
-                      format.custom = "dd.MM.yy";
-                      position = "belowTime";
+                  }
+                  {
+                    digitalClock = {
+                      calendar = {
+                        firstDayOfWeek = "monday";
+                        showWeekNumbers = true;
+                      };
+                      date = {
+                        format.custom = "dd.MM.yy";
+                        position = "belowTime";
+                      };
+                      time = {
+                        showSeconds = "onlyInTooltip";
+                        format = "24h";
+                      };
+                      timeZone = {
+                        format = "code";
+                        selected = [ "Europe/Berlin" ];
+                      };
                     };
-                    time = {
-                      showSeconds = "onlyInTooltip";
-                      format = "24h";
-                    };
-                    timeZone = {
-                      format = "code";
-                      selected = [ "Europe/Berlin" ];
-                    };
-                  };
-                }
-                "org.kde.plasma.showdesktop"
-              ];
+                  }
+                  "org.kde.plasma.showdesktop"
+                ];
             }
           ];
 

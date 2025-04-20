@@ -3,30 +3,44 @@
 {
   midnight-theme = {
     pname = "midnight-theme";
-    version = "06bac6c80992fef13ffa26bdf13df67ab001d622";
+    version = "4fcd33c244a49c4a0780090838bf436574144371";
     src = fetchgit {
       url = "https://github.com/refact0r/midnight-discord.git";
-      rev = "06bac6c80992fef13ffa26bdf13df67ab001d622";
+      rev = "4fcd33c244a49c4a0780090838bf436574144371";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-6hDeOKUpUzyIUz3V/VBTCB/VM9v6+EvSDb7s1sMuBxg=";
+      sha256 = "sha256-TyNkCnViObbb5ElXrWYtVgKoBFHdhCM8JjrUuT/+ffg=";
     };
-    date = "2025-04-16";
+    date = "2025-04-19";
   };
   openrgb = {
     pname = "openrgb";
-    version = "45af044cd84032b9a9b5865cb5e12aa2cd98c47e";
+    version = "10797f049c73412d482b27e12057fc173189d4c2";
     src = fetchgit {
       url = "https://gitlab.com/CalcProgrammer1/OpenRGB.git";
-      rev = "45af044cd84032b9a9b5865cb5e12aa2cd98c47e";
+      rev = "10797f049c73412d482b27e12057fc173189d4c2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-3zOlL2HdZ+6o9pkB03R7BTWcM9lQh9DgKoIbFEUmbxU=";
+      sha256 = "sha256-ddGNclDAZrwGR+n18ZuhkX9Tc9v6vqkramIz+snHS8I=";
     };
-    date = "2025-04-13";
+    date = "2025-04-19";
+  };
+  rofi-themes = {
+    pname = "rofi-themes";
+    version = "b76c16b2b7c465d7b082e11e5210fcd10c6683a7";
+    src = fetchgit {
+      url = "https://github.com/adi1090x/rofi.git";
+      rev = "b76c16b2b7c465d7b082e11e5210fcd10c6683a7";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-9IHENxHQors2z3aYj/xToZD79Gmi1aqlE3QnKnvOT9A=";
+    };
+    date = "2025-04-18";
   };
 }

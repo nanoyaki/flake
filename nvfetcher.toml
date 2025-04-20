@@ -5,3 +5,7 @@ src.git = "https://github.com/refact0r/midnight-discord.git"
 [openrgb]
 fetch.git = "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
 src.git = "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
+
+[rofi-themes]
+fetch.git = "https://github.com/adi1090x/rofi.git"
+src.git = "https://github.com/adi1090x/rofi.git"

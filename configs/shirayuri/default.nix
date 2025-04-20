@@ -25,6 +25,7 @@
       ../common/optional/vr/monado.nix
       ../common/optional/gaming
       ../common/optional/norgb.nix
+      ../common/optional/rofi.nix
       # ../common/optional/wallpaperengine.nix
 
       ./hardware

@@ -8,7 +8,7 @@
           name = "nvfetcher";
           runtimeInputs = with pkgs; [ nvfetcher ];
           text = ''
-            nvfetcher -o pkgs/_sources --commit-changes
+            nvfetcher -o pkgs/_sources "$@"
           '';
         };
       };

@@ -180,7 +180,7 @@ in
         text = ''
           systemctl is-active minecraft-server-smp.service --quiet && \
           tmux -S /run/minecraft/smp.sock send-keys \
-            'tellraw @a ["",{"text":"['"$(date +"%d.%m.%Y %H:%M")"'] ","color":"white"},{"text":"Backup vollendet","bold":true,"color":"green","hoverEvent":{"action":"show_text","contents":[{"text":"'"$(date -d "@$(( "$(date +%s)" - "$(cat /tmp/minecraftServerSmpBackupStartTime)" ))" +"%M:%S")"'m gebraucht","color":"green"}]}}]' \
+            'tellraw @a ["",{"text":"['"$(date +"%d.%m.%Y %H:%M")"'] ","color":"white"},{"text":"Backup vollendet","bold":true,"color":"green","hoverEvent":{"action":"show_text","contents":[{"text":"'"$(date -d "@$(( "$(date +%s)" - "$(cat /tmp/minecraftServerSmpBackupStartTime)" ))" +"%M:%S")"'m gebraucht. Das Backup verbraucht nun '"$(du -bsh /var/lib/restic/backups/smp | cut -f1)"'","color":"green"}]}}]' \
             Enter
         '';
       }

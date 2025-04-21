@@ -129,6 +129,7 @@ in
 
         "config/roles.json" = (pkgs.formats.json { }).generate "roles.json" {
           whitelister.overrides.commands."whitelist (add|remove)" = "allow";
+          everyone.overrides.commands."image2map create" = "allow";
         };
       };
     };

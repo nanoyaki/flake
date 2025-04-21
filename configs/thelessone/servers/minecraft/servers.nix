@@ -114,6 +114,10 @@ in
               url = "https://cdn.modrinth.com/data/VSNURh3q/versions/EzvMx6b2/c2me-fabric-mc1.21.4-0.3.1.3.0.jar";
               sha512 = "f944bf4319cfa6fb645d0cbe807b82c74784f44ef7ac75273efa161be4625aa80390ec8cf32a232c0ebce0d0cb23b090979019d93e7550771de56d09d920dd13";
             };
+            CustomPaintings = fetchurl {
+              url = "https://cdn.modrinth.com/data/25H65ZiW/versions/LXLf2ToN/custom-paintings-1.1.1.jar";
+              sha512 = "2a21105d6e149453a9102c9f1bc72cec816bc120d566d1fbc5937fbf4d79f293b37197e92a0ed519b42228b0fd48bdb6bd29def9d093e52ab1f00be31b7365ba";
+            };
           }
         );
         "config/voicechat/voicechat-server.properties" = ./smp/voicechat-server.properties;

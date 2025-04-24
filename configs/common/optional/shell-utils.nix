@@ -4,7 +4,7 @@
   hm.programs = {
     zsh = {
       enable = true;
-      initExtra = ''
+      initContent = ''
         ${lib.getExe pkgs.meow}
       '';
     };

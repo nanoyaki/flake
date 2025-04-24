@@ -1,25 +1,30 @@
-when:
-  - event: push
-    branch: main
-  - path:
-      include:
-        - 'flake.lock'
-        - '*.nix'
-      exclude:
-        - 'configs/{yuri,lesstop,kuroyuri,shirayuri}/**'
-
 labels:
   backend: local
 
 steps:
   - name: build
+    when:
+      - event: push
+        evaluate: >
+          CI_COMMIT_MESSAGE matches `^(feat|fix|chore)\(thelessone.*\):.*$`
+          or CI_COMMIT_MESSAGE matches `chore: Update \d{2}\.\d{2}\.\d{2}`
     image: bash
     commands:
       - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-link --no-nom
+
   - name: deployment
-    image: bash
+    when:
+      - event: push
+        branch: main
+        evaluate: >
+          (
+            CI_COMMIT_MESSAGE matches `^(feat|fix|chore)\(thelessone.*\):.*$`
+            or CI_COMMIT_MESSAGE matches `chore: Update \d{2}\.\d{2}\.\d{2}`
+          )
+          and not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
     depends_on:
       - build
+    image: bash
     environment:
       DEPLOYMENT_KEY:
         from_secret: DEPLOYMENT_KEY

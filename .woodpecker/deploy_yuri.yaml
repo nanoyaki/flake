@@ -1,25 +1,30 @@
-when:
-  - event: push
-    branch: main
-  - path:
-      include:
-        - 'flake.lock'
-        - '*.nix'
-      exclude:
-        - 'configs/{thelessone,lesstop,kuroyuri,shirayuri}/**'
-
 labels:
   backend: local
 
 steps:
   - name: build
+    when:
+      - event: push
+        evaluate: >
+          CI_COMMIT_MESSAGE matches `^(feat|fix|chore)\(yuri.*\):.*$`
+          or CI_COMMIT_MESSAGE matches `chore: Update \d{2}\.\d{2}\.\d{2}`
     image: bash
     commands:
       - nix-fast-build -f .#nixosConfigurations.yuri.config.system.build.toplevel --no-link --no-nom
+
   - name: deployment
-    image: bash
+    when:
+      - event: push
+        branch: main
+        evaluate: >
+          (
+            CI_COMMIT_MESSAGE matches `^(feat|fix|chore)\(yuri.*\):.*$`
+            or CI_COMMIT_MESSAGE matches `chore: Update \d{2}\.\d{2}\.\d{2}`
+          )
+          and not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
     depends_on:
       - build
+    image: bash
     environment:
       DEPLOYMENT_KEY_YURI:
         from_secret: DEPLOYMENT_KEY_YURI
@@ -27,3 +32,5 @@ steps:
       - echo "$DEPLOYMENT_KEY_YURI" > deployment
       - chmod 400 deployment
       - nix --extra-experimental-features "nix-command flakes" run .#deploy-yuri -- switch deployment
+    # temporarily due to hardware maintenance
+    failure: ignore

@@ -1,0 +1,16 @@
+when:
+  - event: push
+    branch: main
+    path:
+      include:
+        - 'flake.lock'
+        - 'pkgs/**/*'
+
+labels:
+  backend: local
+
+steps:
+  - name: buildAll
+    image: bash
+    commands:
+      - nix run .#buildAllx86Pkgs -- --no-nom --no-link

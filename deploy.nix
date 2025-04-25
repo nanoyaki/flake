@@ -48,7 +48,7 @@ in
           deploy-yuri-local = mkDeploymentApp self "yuri" (
             validConfigurations.yuri.config.deployment
             // {
-              targetHost = "192.168.8.101";
+              targetHost = "10.0.0.3";
             }
           ) pkgs;
         };

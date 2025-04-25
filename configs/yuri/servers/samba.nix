@@ -41,7 +41,7 @@
         "netbios name" = "nas";
         "server string" = "NAS";
 
-        "hosts allow" = "192.168.8. 127.0.0.1 localhost";
+        "hosts allow" = "10.0.0. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
 
         "guest account" = "nobody";

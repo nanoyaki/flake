@@ -32,5 +32,3 @@ steps:
       - echo "$DEPLOYMENT_KEY_YURI" > deployment
       - chmod 400 deployment
       - nix --extra-experimental-features "nix-command flakes" run .#deploy-yuri -- switch deployment
-    # temporarily due to hardware maintenance
-    failure: ignore

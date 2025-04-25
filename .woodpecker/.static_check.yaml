@@ -4,7 +4,7 @@ labels:
 steps:
   - name: static-check
     when:
-    - event: push
+      - event: push
     image: bash
     commands:
       - |

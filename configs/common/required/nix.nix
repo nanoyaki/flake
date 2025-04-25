@@ -35,17 +35,35 @@ in
     nixpkgs.config.allowUnfree = true;
 
     nix = {
-      settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
 
-      settings.auto-optimise-store = true;
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
+        trusted-substituters = [
+          "https://cache.nixos.org/"
+          "https://hydra.nixos.org/"
+          "https://cache.theless.one/"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
+          "cache.theless.one-1:qv138q648suu8rK+bPkGxkz+ZNrCGrwig8Kof/hWVMU="
+        ];
+
+        auto-optimise-store = true;
+      };
+
       optimise.automatic = true;
       gc = {
         automatic = true;
         dates = "daily";
-        options = "--delete-older-than 30d";
+        options = "--delete-older-than 14d";
         persistent = true;
       };
 

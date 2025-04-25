@@ -12,5 +12,6 @@
     ./jellyfin.nix
     ./steam.nix
     ./immich.nix
+    ./nix-serve.nix
   ];
 }

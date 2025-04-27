@@ -29,10 +29,12 @@ in
       ];
       extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
     };
-    audio.latency = 256;
+    audio.latency = lib.mkDefault 256;
 
     firefox.enablePolicies = true;
   };
+
+  specialisation.osu.configuration.nanoflake.audio.latency = 32;
 
   environment.systemPackages =
     (with pkgs; [

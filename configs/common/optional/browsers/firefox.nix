@@ -3,6 +3,7 @@
   lib',
   pkgs,
   config,
+  inputs,
   ...
 }:
 
@@ -16,6 +17,16 @@ let
 
   cfg = config.nanoflake.firefox;
 
+  icon =
+    if
+      (
+        config.nanoflake ? theme && config.nanoflake.theme.iconPackage.pname == "catppuccin-papirus-folders"
+      )
+    then
+      "${config.nanoflake.theme.iconPackage}/share/icons/Papirus-Dark/128x128/apps/nix-snowflake.svg"
+    else
+      "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
   mkAddon = installMode: id: {
     installation_mode = installMode;
     install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
@@ -25,7 +36,7 @@ let
 
   mkForce = id: mkAddon "force_installed" id;
 
-  defaultBrowserApp = lib'.mapDefaultForMimeTypes pkgs.firefox [
+  defaultBrowserApp = lib'.mapDefaultForMimeTypes config.programs.firefox.package [
     "text/html"
     "text/css"
     "text/xml"
@@ -54,6 +65,8 @@ in
   config = {
     programs.firefox = {
       enable = true;
+      package = inputs.firefox.packages.${pkgs.system}.firefox-nightly-bin;
+      wrapperConfig.pipewireSupport = true;
 
       preferences = {
         "widget.use-xdg-desktop-portal.file-picker" = 1;
@@ -99,6 +112,79 @@ in
     xdg.mime.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
     hm.xdg.mimeApps.defaultApplications = mkIf cfg.defaultBrowser defaultBrowserApp;
 
-    environment.variables = mkIf cfg.defaultBrowser { BROWSER = lib.getExe pkgs.firefox; };
+    environment.variables = mkIf cfg.defaultBrowser {
+      BROWSER = lib.getExe config.programs.firefox.package;
+    };
+
+    hm.programs.firefox = {
+      enable = true;
+      inherit (config.programs.firefox) package;
+
+      profiles.default.search = {
+        force = true;
+        default = "google";
+        privateDefault = "ddg";
+        engines = {
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+
+            inherit icon;
+            definedAliases = [ "@np" ];
+          };
+
+          "Nix Options" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+
+            inherit icon;
+            definedAliases = [ "@no" ];
+          };
+
+          "NixOS Wiki" = {
+            urls = [
+              {
+                template = "https://wiki.nixos.org/w/index.php";
+                params = [
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+
+            inherit icon;
+            definedAliases = [ "@nw" ];
+          };
+        };
+      };
+    };
   };
 }

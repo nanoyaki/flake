@@ -58,8 +58,6 @@ in
     };
 
     xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
       config.common.default = [ "kde" ];
     };
@@ -68,8 +66,6 @@ in
 
     hm = {
       xdg.portal = {
-        enable = true;
-        xdgOpenUsePortal = true;
         extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
         config.common.default = [ "kde" ];
       };

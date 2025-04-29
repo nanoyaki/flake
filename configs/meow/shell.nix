@@ -41,11 +41,7 @@
       enableZshIntegration = true;
     };
 
-    lsd = {
-      enable = true;
-      enableAliases = true;
-    };
-
+    lsd.enable = true;
     btop.enable = true;
     bat.enable = true;
     fastfetch.enable = true;

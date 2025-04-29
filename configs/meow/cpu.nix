@@ -11,7 +11,7 @@ let
     desktopName = "CoreCtrl";
     genericName = "Core control";
     comment = "Control your computer with ease using application profiles";
-    exec = "${lib.getExe pkgs.corectrl} --minimize-systray";
+    exec = "${lib.getExe' pkgs.corectrl "corectrl"} --minimize-systray";
     icon = "corectrl";
     startupNotify = true;
     startupWMClass = "corectrl";

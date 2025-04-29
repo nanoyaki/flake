@@ -1,4 +1,9 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  inputs',
+  username,
+  ...
+}:
 
 {
   nanoflake.localization = {
@@ -7,11 +12,20 @@
     locale = "de_AT.UTF-8";
   };
 
-  environment.systemPackages = with pkgs; [
-    vesktop
-    vscodium
-    tmux
+  nix.settings.trusted-substituters = [ "https://prismlauncher.cachix.org" ];
+  nix.settings.trusted-public-keys = [
+    "prismlauncher.cachix.org-1:9/n/FGyABA2jLUVfY+DEp4hKds/rwO+SCOtbOkDzd+c="
   ];
+
+  environment.systemPackages =
+    (with pkgs; [
+      vesktop
+      vscodium
+      tmux
+    ])
+    ++ [
+      inputs'.prismlauncher.packages.prismlauncher
+    ];
 
   security.sudo.extraRules = [
     {

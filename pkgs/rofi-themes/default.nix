@@ -21,8 +21,8 @@ stdenvNoCC.mkDerivation {
 
     for rasiFile in $(${lib.getExe findutils} . -name "*.rasi"); do
       substituteInPlace $rasiFile \
-        --replace-quiet "@background" "#${background}" \
         --replace-quiet "@background-alt" "#${background-alt}" \
+        --replace-quiet "@background" "#${background}" \
         --replace-quiet "@foreground" "#${foreground}" \
         --replace-quiet "@selected" "#${selected}" \
         --replace-quiet "@active" "#${active}" \

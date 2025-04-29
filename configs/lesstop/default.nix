@@ -12,6 +12,7 @@
       ../common/optional/audio.nix
       ../common/optional/fonts.nix
       ../common/optional/shell-utils.nix
+      ../common/optional/desktopmanagers
       ../common/optional/desktopmanagers/plasma.nix
       ../common/optional/browsers/firefox.nix
       ../common/optional/terminal.nix

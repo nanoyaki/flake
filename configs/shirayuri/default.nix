@@ -10,7 +10,9 @@
       ../common/optional/passkeys
       ../common/optional/fonts.nix
       ../common/optional/shell-utils.nix
+      ../common/optional/desktopmanagers
       ../common/optional/desktopmanagers/plasma.nix
+      # ../common/optional/desktopmanagers/sway.nix
       ../common/optional/browsers/firefox.nix
       ../common/optional/spotify.nix
       ../common/optional/ssh-settings.nix

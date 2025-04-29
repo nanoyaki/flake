@@ -8,7 +8,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption;
+  inherit (lib) mkEnableOption mkPackageOption;
 
   cfg = config.nanoflake.theme;
 
@@ -21,14 +21,16 @@ let
   midnight-theme = pkgs.midnight-theme.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [ ./vencord-icon.patch ];
   });
-
-  iconPkg = pkgs.catppuccin-papirus-folders.override {
-    inherit (catppuccin) accent flavor;
-  };
 in
 
 {
-  options.nanoflake.theme.enableAutoStylix = mkEnableOption "stylix auto application";
+  options.nanoflake.theme = {
+    enableAutoStylix = mkEnableOption "stylix auto application";
+
+    iconPackage = (mkPackageOption pkgs "catppuccin-papirus-folders" { }) // {
+      default = pkgs.catppuccin-papirus-folders.override { inherit (catppuccin) accent flavor; };
+    };
+  };
 
   imports = [
     inputs.stylix.nixosModules.stylix
@@ -113,7 +115,7 @@ in
     };
 
     environment.systemPackages = lib.mkIf (!cfg.enableAutoStylix) [
-      iconPkg
+      cfg.iconPackage
 
       (pkgs.catppuccin.override {
         inherit (catppuccin) accent;
@@ -137,11 +139,35 @@ in
           };
 
           gtk.icon = catppuccin;
+          swaync.enable = true;
+          waybar.enable = true;
+          sway.enable = true;
 
           rofi.enable = false;
         };
 
+        gtk = {
+          enable = true;
+
+          font = {
+            package = pkgs.noto-fonts-cjk-sans;
+            name = "Noto Sans";
+          };
+
+          gtk2.configLocation = "${config.hm.xdg.configHome}/gtk-2.0/gtkrc";
+          gtk2.extraConfig = ''
+            gtk-application-prefer-dark-theme="true"
+          '';
+
+          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+        };
+
         programs.rofi.theme = "${pkgs.rofi-themes}/share/themes/launchers/type-2/style-1.rasi";
+        wayland.windowManager.sway.config.output = {
+          "HDMI-A-1".bg = "${config.stylix.image} fill";
+          "DP-1".bg = "${config.stylix.image} fill";
+        };
 
         xdg.configFile."vesktop/themes".source = "${midnight-theme}/share/themes/flavors";
       }

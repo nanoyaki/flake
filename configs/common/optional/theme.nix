@@ -146,7 +146,7 @@ in
           rofi.enable = false;
         };
 
-        gtk = {
+        gtk = rec {
           enable = true;
 
           font = {
@@ -159,8 +159,16 @@ in
             gtk-application-prefer-dark-theme="true"
           '';
 
-          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk3.extraConfig = {
+            gtk-application-prefer-dark-theme = true;
+            gtk-menu-images = true;
+            gtk-primary-button-warps-slider = true;
+            gtk-toolbar-style = 3;
+            gtk-decoration-layout = ":minimize,maximize,close";
+            # gtk-enable-animations = false;
+          };
+
+          gtk4 = { inherit (gtk3) extraConfig; };
         };
 
         programs.rofi.theme = "${pkgs.rofi-themes}/share/themes/launchers/type-2/style-1.rasi";

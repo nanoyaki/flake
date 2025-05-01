@@ -10,6 +10,9 @@ when:
 labels:
   backend: local
 
+depends_on:
+  - flake_check
+
 steps:
   - name: build
     image: bash

@@ -16,8 +16,7 @@
 
       layout.Glances = {
         header = false;
-        style = "row";
-        columns = 4;
+        style = "column";
       };
     };
 

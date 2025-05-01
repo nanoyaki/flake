@@ -1,10 +1,7 @@
-{ config, ... }:
-
 {
-  networking.firewall.allowedTCPPorts = [ config.services.home-assistant.config.http.server_port ];
-
   services.home-assistant = {
     enable = true;
+    openFirewall = true;
     extraComponents = [
       # Components required to complete the onboarding
       "analytics"

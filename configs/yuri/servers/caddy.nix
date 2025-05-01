@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   services.caddy = {
     enable = true;
@@ -20,4 +22,6 @@
       '';
     };
   };
+
+  systemd.services.caddy.path = [ pkgs.nssTools ];
 }

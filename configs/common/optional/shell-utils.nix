@@ -37,6 +37,8 @@
 
   programs.zsh.shellAliases.copy = "rsync -a --info=progress2 --info=name0";
 
+  environment.systemPackages = [ pkgs.prefetch ];
+
   environment.sessionVariables = {
     MANPAGER = "sh -c 'col -bx | ${lib.getExe pkgs.bat} -l man -p'";
     MANROFFOPT = "-c";

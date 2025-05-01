@@ -25,7 +25,7 @@
     '';
 
     shellAliases = {
-      rb = "sudo nix-fast-build -f $FLAKE_DIR#nixosConfigurations.shirayuri.config.system.build.toplevel --eval-workers 4 --no-link && sudo nixos-rebuild switch --flake $FLAKE_DIR";
+      rb = "sudo nix-fast-build -f $FLAKE_DIR#nixosConfigurations.$(hostname).config.system.build.toplevel --eval-workers 4 --no-link && sudo nixos-rebuild switch --flake $FLAKE_DIR";
       nix-conf = "$EDITOR $FLAKE_DIR";
     };
 

@@ -16,12 +16,14 @@
 
     services = [
       {
-        "Smart Home" = {
-          "Homeassistant" = {
-            description = "Smart home Geräte-Platform";
-            href = "https://homeassistant.home.lan";
-          };
-        };
+        "Smart Home" = [
+          {
+            "Homeassistant" = {
+              description = "Smart home Geräte-Platform";
+              href = "https://homeassistant.home.lan";
+            };
+          }
+        ];
       }
     ];
   };

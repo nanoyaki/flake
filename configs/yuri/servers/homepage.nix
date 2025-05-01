@@ -13,6 +13,12 @@
       logpath = "/var/log/homepage/homepage.log";
       disableUpdateCheck = true;
       target = "_blank";
+
+      layout.Glances = {
+        header = false;
+        style = "row";
+        columns = 4;
+      };
     };
 
     services = [
@@ -71,16 +77,6 @@
     ];
 
     widgets = [
-      {
-        resources = {
-          cpu = true;
-          memory = true;
-          disk = "/";
-        };
-      }
-      {
-        search.provider = "google";
-      }
       {
         openmeteo = {
           label = "Haiger";

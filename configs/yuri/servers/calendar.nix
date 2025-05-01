@@ -21,12 +21,6 @@ in
 
   sec."caddy/nanoyaki-events/environment".owner = config.services.caddy.user;
   services.caddy = {
-    enable = true;
-    logFormat = ''
-      format console
-      level INFO
-    '';
-
     environmentFile = config.sec."caddy/nanoyaki-events/environment".path;
 
     virtualHosts."events.nanoyaki.space".extraConfig = ''

@@ -43,4 +43,9 @@ in
       "8.8.4.4"
     ];
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 53 ];
+    allowedUDPPorts = [ 53 ];
+  };
 }

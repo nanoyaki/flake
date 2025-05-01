@@ -17,12 +17,12 @@ in
     '';
 
     virtualHosts = {
-      "http://home.lan".extraConfig = mkReverseProxy config.services.homepage-dashboard.listenPort;
+      "http://home.local".extraConfig = mkReverseProxy config.services.homepage-dashboard.listenPort;
 
-      "http://homeassistant.home.lan".extraConfig =
+      "http://homeassistant.home.local".extraConfig =
         mkReverseProxy config.services.home-assistant.config.http.server_port;
 
-      "http://paperless.home.lan".extraConfig = mkReverseProxy config.services.paperless.port;
+      "http://paperless.home.local".extraConfig = mkReverseProxy config.services.paperless.port;
     };
   };
 

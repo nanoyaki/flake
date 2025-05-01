@@ -6,7 +6,7 @@
   services.paperless = {
     enable = true;
     passwordFile = config.sec."paperless/admin".path;
-    address = "paperless.home.lan";
+    address = "paperless.home.local";
     settings = {
       PAPERLESS_CONSUMER_IGNORE_PATTERN = [
         ".DS_STORE/*"
@@ -18,7 +18,5 @@
         pdfa_image_compression = "lossless";
       };
     };
-
-    database.createLocally = true;
   };
 }

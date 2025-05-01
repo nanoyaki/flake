@@ -1,12 +1,13 @@
+{ config, ... }:
+
 {
   services.homepage-dashboard = {
     enable = true;
-    openFirewall = true;
-    allowedHosts = "home.lan";
+    allowedHosts = "home.local";
 
     settings = {
       title = "Homepage";
-      startUrl = "http://home.lan";
+      startUrl = "http://home.local";
       theme = "dark";
       language = "de";
       logpath = "/var/log/homepage/homepage.log";
@@ -16,11 +17,53 @@
 
     services = [
       {
+        Glances =
+          let
+            url = "http://localhost:${toString config.services.glances.port}";
+          in
+          [
+            {
+              Info.widget = {
+                inherit url;
+                type = "glances";
+                metric = "info";
+                chart = false;
+                version = 4;
+              };
+            }
+            {
+              Speicherplatz.widget = {
+                inherit url;
+                type = "glances";
+                metric = "fs:/";
+                chart = false;
+                version = 4;
+              };
+            }
+            {
+              "CPU Temp".widget = {
+                inherit url;
+                type = "glances";
+                metric = "sensor:Package id 0";
+                version = 4;
+              };
+            }
+            {
+              Netzwerk.widget = {
+                inherit url;
+                type = "glances";
+                metric = "network:enp3s0";
+                version = 4;
+              };
+            }
+          ];
+      }
+      {
         "Smart Home" = [
           {
-            "Homeassistant" = {
+            Homeassistant = {
               description = "Smart home Geräte-Platform";
-              href = "https://homeassistant.home.lan";
+              href = "https://homeassistant.home.local";
             };
           }
         ];
@@ -51,6 +94,8 @@
       }
     ];
   };
+
+  services.glances.enable = true;
 
   systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
     user = "root";

@@ -14,12 +14,12 @@ in
     enable = true;
 
     cacheNetworks = networks;
-    zones."home.lan" = {
+    zones."home.local" = {
       master = true;
       allowQuery = networks;
-      file = pkgs.writeText "zone-home.lan" ''
+      file = pkgs.writeText "zone-home.local" ''
         $TTL 3600
-        @  IN  SOA  ns1.home.lan. admin.home.lan. (
+        @  IN  SOA  ns1.home.local. admin.home.local. (
                 2025050101 ; Serial number
                 3600       ; Refresh
                 1800       ; Retry
@@ -28,7 +28,7 @@ in
         )
 
         ; Name Server for the zone
-        @  IN  NS   ns1.home.lan.
+        @  IN  NS   ns1.home.local.
 
         ; Records
         @  IN  A    10.0.0.3

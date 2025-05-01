@@ -18,6 +18,8 @@
         pdfa_image_compression = "lossless";
       };
     };
+
+    database.createLocally = true;
   };
 
   services.homepage-easify.categories.Dienste.services.Paperless = rec {

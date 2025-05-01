@@ -18,6 +18,10 @@
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
       default_config = { };
+      http.server_host = [
+        "127.0.0.1"
+        "::1"
+      ];
     };
   };
 

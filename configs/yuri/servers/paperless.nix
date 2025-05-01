@@ -7,7 +7,6 @@
     enable = true;
     passwordFile = config.sec."paperless/admin".path;
     consumptionDirIsPublic = true;
-    address = "paperless.home.local";
     settings = {
       PAPERLESS_CONSUMER_IGNORE_PATTERN = [
         ".DS_STORE/*"

@@ -7,7 +7,6 @@
     settings = {
       title = "Homepage";
       startUrl = "http://home.lan";
-      base = "http://home.lan";
       theme = "dark";
       language = "de";
       logpath = "/var/log/homepage/homepage.log";

@@ -1,5 +1,11 @@
 { pkgs, config, ... }:
 
+let
+  mkReverseProxy = port: ''
+    reverse_proxy localhost:${toString port}
+  '';
+in
+
 {
   services.caddy = {
     enable = true;
@@ -11,17 +17,12 @@
     '';
 
     virtualHosts = {
-      "http://home.lan".extraConfig = ''
-        reverse_proxy localhost:${config.services.homepage-dashboard.listenPort}
-      '';
+      "http://home.lan".extraConfig = mkReverseProxy config.services.homepage-dashboard.listenPort;
 
-      "http://homeassistant.home.lan".extraConfig = ''
-        reverse_proxy localhost:${config.services.home-assistant.config.http.server_port}
-      '';
+      "http://homeassistant.home.lan".extraConfig =
+        mkReverseProxy config.services.home-assistant.config.http.server_port;
 
-      "http://paperless.home.lan".extraConfig = ''
-        reverse_proxy localhost:${config.services.paperless.port}
-      '';
+      "http://paperless.home.lan".extraConfig = mkReverseProxy config.services.paperless.port;
     };
   };
 

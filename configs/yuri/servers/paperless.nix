@@ -19,4 +19,11 @@
       };
     };
   };
+
+  services.homepage-easify.categories.Dienste.services.Paperless = rec {
+    description = "Dokumente verwaltung";
+    icon = "paperless.svg";
+    href = "https://paperless.home.local";
+    siteMonitor = href;
+  };
 }

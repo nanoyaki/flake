@@ -20,4 +20,11 @@
       default_config = { };
     };
   };
+
+  services.homepage-easify.categories."Smart Home".services.Homeassistant = rec {
+    description = "Smart home Geräte-Platform";
+    icon = "home-assistant.svg";
+    href = "https://homeassistant.home.local";
+    siteMonitor = href;
+  };
 }

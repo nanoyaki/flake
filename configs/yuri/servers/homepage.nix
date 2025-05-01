@@ -5,9 +5,13 @@
 
     settings = {
       title = "Homepage";
-      startUrl = "https://home.lan";
+      startUrl = "http://home.lan";
+      base = "http://home.lan";
       theme = "dark";
       language = "de";
+      logpath = "/var/log/homepage/homepage.log";
+      disableUpdateCheck = true;
+      target = "_blank";
     };
 
     services = [
@@ -20,5 +24,11 @@
         };
       }
     ];
+  };
+
+  systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
+    user = "root";
+    group = "wheel";
+    mode = "0755";
   };
 }

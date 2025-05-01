@@ -26,6 +26,30 @@
         ];
       }
     ];
+
+    widgets = [
+      {
+        resources = {
+          cpu = true;
+          memory = true;
+          disk = "/";
+        };
+      }
+      {
+        search.provider = "google";
+      }
+      {
+        openmeteo = {
+          label = "Haiger";
+          latitude = "50.7722007";
+          longitude = "8.1304181";
+          timezone = "Europe/Berlin";
+          units = "metric";
+          cache = 5;
+          format.maximumFractionDigits = 1;
+        };
+      }
+    ];
   };
 
   systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {

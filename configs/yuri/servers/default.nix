@@ -7,5 +7,6 @@
     ./bind.nix
     ./caddy.nix
     ./homepage.nix
+    ./paperless.nix
   ];
 }

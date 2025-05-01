@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   services.caddy = {
@@ -11,14 +11,16 @@
     '';
 
     virtualHosts = {
-      "home.lan".extraConfig = ''
-        tls internal
-        reverse_proxy localhost:8082
+      "http://home.lan".extraConfig = ''
+        reverse_proxy localhost:${config.services.homepage-dashboard.listenPort}
       '';
 
-      "homeassistant.home.lan".extraConfig = ''
-        tls internal
-        reverse_proxy localhost:8123
+      "http://homeassistant.home.lan".extraConfig = ''
+        reverse_proxy localhost:${config.services.home-assistant.config.http.server_port}
+      '';
+
+      "http://paperless.home.lan".extraConfig = ''
+        reverse_proxy localhost:${config.services.paperless.port}
       '';
     };
   };

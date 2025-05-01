@@ -16,6 +16,10 @@ in
       level INFO
     '';
 
+    globalConfig = ''
+      auto_https disable_redirects
+    '';
+
     virtualHosts = {
       "http://home.local".extraConfig = mkReverseProxy config.services.homepage-dashboard.listenPort;
 

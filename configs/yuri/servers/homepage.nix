@@ -98,13 +98,19 @@ in
           opacity = 50;
         };
 
-        layout = (lib.mapAttrs (_: category: category.layout) cfg.categories) // {
-          Glances = {
-            header = false;
-            style = "row";
-            columns = 4;
-          };
-        };
+        layout =
+          [
+            {
+              Glances = {
+                header = false;
+                style = "row";
+                columns = 4;
+              };
+            }
+          ]
+          ++ (lib.mapAttrsToList (categoryName: category: {
+            ${categoryName} = category.layout;
+          }) cfg.categories);
 
         headerStyle = "clean";
         statusStyle = "dot";
@@ -117,7 +123,7 @@ in
             Glances = [
               (mkGlancesWidget "Info" "info")
               (mkGlancesWidget "Speicherplatz" "fs:/")
-              (mkGlancesWidget "CPU Temp" "sensor:Package id 0")
+              (mkGlancesWidget "CPU Temperatur" "sensor:Package id 0")
               (mkGlancesWidget "Netzwerk" "network:enp3s0")
             ];
           }

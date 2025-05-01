@@ -1,5 +1,17 @@
 { config, ... }:
 
+let
+  mkGlancesWidget = name: metric: {
+    ${name}.widget = {
+      url = "http://localhost:${toString config.services.glances.port}";
+      type = "glances";
+      chart = false;
+      version = 4;
+      inherit metric;
+    };
+  };
+in
+
 {
   services.homepage-dashboard = {
     enable = true;
@@ -16,52 +28,22 @@
 
       layout.Glances = {
         header = false;
-        style = "column";
+        style = "row";
       };
+
+      headerStyle = "clean";
+      statusStyle = "dot";
+      hideVersion = "true";
     };
 
     services = [
       {
-        Glances =
-          let
-            url = "http://localhost:${toString config.services.glances.port}";
-          in
-          [
-            {
-              Info.widget = {
-                inherit url;
-                type = "glances";
-                metric = "info";
-                chart = false;
-                version = 4;
-              };
-            }
-            {
-              Speicherplatz.widget = {
-                inherit url;
-                type = "glances";
-                metric = "fs:/";
-                chart = false;
-                version = 4;
-              };
-            }
-            {
-              "CPU Temp".widget = {
-                inherit url;
-                type = "glances";
-                metric = "sensor:Package id 0";
-                version = 4;
-              };
-            }
-            {
-              Netzwerk.widget = {
-                inherit url;
-                type = "glances";
-                metric = "network:enp3s0";
-                version = 4;
-              };
-            }
-          ];
+        Glances = [
+          (mkGlancesWidget "Info" "info")
+          (mkGlancesWidget "Speicherplatz" "fs:/")
+          (mkGlancesWidget "CPU Temp" "sensor:Package id 0")
+          (mkGlancesWidget "Netzwerk" "network:enp3s0")
+        ];
       }
       {
         "Smart Home" = [
@@ -72,20 +54,6 @@
             };
           }
         ];
-      }
-    ];
-
-    widgets = [
-      {
-        openmeteo = {
-          label = "Haiger";
-          latitude = "50.7722007";
-          longitude = "8.1304181";
-          timezone = "Europe/Berlin";
-          units = "metric";
-          cache = 5;
-          format.maximumFractionDigits = 1;
-        };
       }
     ];
   };

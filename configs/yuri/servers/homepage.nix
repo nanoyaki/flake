@@ -2,6 +2,7 @@
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
+    allowedHosts = "home.lan";
 
     settings = {
       title = "Homepage";

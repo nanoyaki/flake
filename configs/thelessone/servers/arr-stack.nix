@@ -11,7 +11,7 @@ let
 
   cfg = config.services.arr-stack.enabled;
 
-  services = rec {
+  servicePortMap = rec {
     bazarr = [ "listenPort" ];
     jellyseerr = [ "port" ];
     lidarr = [
@@ -35,8 +35,8 @@ in
 
 {
   options.services.arr-stack.enabled = mkOption {
-    type = types.listOf (types.enum (lib.attrNames services));
-    default = lib.attrNames services;
+    type = types.listOf (types.enum (lib.attrNames servicePortMap));
+    default = lib.attrNames servicePortMap;
   };
 
   config =
@@ -49,7 +49,7 @@ in
           };
 
           services.caddy-easify.reverseProxies."${service}.theless.one".port =
-            lib.getAttrFromPath services.${service}
+            lib.getAttrFromPath servicePortMap.${service}
               config.services.${service};
 
           services.homepage-easify.categories."Arr Stack".services.${lib'.toUppercase service} = rec {
@@ -57,7 +57,7 @@ in
             href = "https://${service}.theless.one";
             siteMonitor = href;
           };
-        }) cfg
+        }) (lib.attrNames servicePortMap)
       ))
       {
         services.homepage-easify.categories."Arr Stack".services = {
@@ -83,7 +83,7 @@ in
             lib.map (
               service:
               lib.nameValuePair config.services.${service}.user { extraGroups = lib.singleton "arr-stack"; }
-            ) (lib.filter (service: config.services.${service} ? user && config.services.${service}.enable) cfg)
+            ) (lib.filter (service: config.services.${service} ? user) cfg)
           ))
           // {
             ${username}.extraGroups = lib.singleton "arr-stack";

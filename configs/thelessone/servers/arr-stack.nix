@@ -44,7 +44,7 @@ in
 
           services.homepage-easify.categories."Arr Stack".services.${lib'.toUppercase service} = rec {
             icon = "${service}.svg";
-            href = "${service}.theless.one";
+            href = "https://${service}.theless.one";
             siteMonitor = href;
           };
         }) services

@@ -10,5 +10,6 @@
     ./home-assistant.nix
     ./paperless.nix
     ./immich.nix
+    ./vaultwarden.nix
   ];
 }

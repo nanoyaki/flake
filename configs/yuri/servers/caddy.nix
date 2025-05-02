@@ -17,7 +17,17 @@ in
 
 {
   options.services.caddy-easify.reverseProxies = mkOption {
-    type = types.attrsOf (types.submodule { options.port = mkOption { type = types.port; }; });
+    type = types.attrsOf (
+      types.submodule {
+        options = {
+          port = mkOption { type = types.port; };
+          extraConfig = mkOption {
+            type = types.str;
+            default = "";
+          };
+        };
+      }
+    );
     default = { };
   };
 
@@ -36,7 +46,7 @@ in
       '';
 
       virtualHosts = lib.mapAttrs (_: reverseProxy: {
-        extraConfig = mkReverseProxy reverseProxy.port;
+        extraConfig = mkReverseProxy reverseProxy.port + "\n${reverseProxy.extraConfig}";
       }) cfg.reverseProxies;
     };
 

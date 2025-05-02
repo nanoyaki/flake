@@ -11,5 +11,7 @@
     ./paperless.nix
     ./immich.nix
     ./vaultwarden.nix
+    ./jellyfin.nix
+    ./arr-stack.nix
   ];
 }

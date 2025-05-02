@@ -18,13 +18,13 @@ in
       master = true;
       allowQuery = networks;
       file = pkgs.writeText "zone-home.local" ''
-        $TTL 3600
+        $TTL 604800
         @  IN  SOA  ns1.home.local. admin.home.local. (
                 2025050101 ; Serial number
                 3600       ; Refresh
                 1800       ; Retry
-                604800     ; Expire
-                3600       ; Minimum TTL
+                604801     ; Expire
+                604800     ; Minimum TTL
         )
 
         ; Name Server for the zone

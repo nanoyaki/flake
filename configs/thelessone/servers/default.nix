@@ -27,4 +27,9 @@
     "radarr"
     "sonarr"
   ];
+
+  services.homepage-easify.categories = {
+    Media.before = "Services";
+    Services.before = "Code";
+  };
 }

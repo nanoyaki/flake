@@ -74,6 +74,7 @@ in
           "/home/arr-stack/libraries".d = dirCfg;
           "/home/arr-stack/libraries/movies".d = dirCfg;
           "/home/arr-stack/libraries/shows".d = dirCfg;
+          "/home/arr-stack/libraries/anime".d = dirCfg;
         };
 
         users.groups.arr-stack = { };

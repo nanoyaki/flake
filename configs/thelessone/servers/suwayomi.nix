@@ -1,21 +1,21 @@
 {
-  lib,
   self,
+  config,
   ...
 }:
 
 let
   extensionRepos = [ "https://github.com/keiyoushi/extensions" ];
 
-  mkInstance =
-    name: port:
-    lib.nameValuePair name {
-      enable = true;
+  mkInstance = port: {
+    enable = true;
 
-      settings.server = {
-        inherit port extensionRepos;
-      };
+    settings.server = {
+      inherit port extensionRepos;
     };
+  };
+
+  cfg = config.services.suwayomi.instances;
 in
 
 {
@@ -26,10 +26,59 @@ in
   services.suwayomi = {
     enable = true;
 
-    instances = builtins.listToAttrs [
-      (mkInstance "thomas" 4555)
-      (mkInstance "niklas" 4556)
-      (mkInstance "hana" 4557)
-    ];
+    instances = {
+      thomas = mkInstance 4555;
+      niklas = mkInstance 4556;
+      hana = mkInstance 4557;
+    };
+  };
+
+  services.caddy-easify.reverseProxies = {
+    "manga.theless.one" = {
+      inherit (cfg.thomas.settings.server) port;
+      userEnvVar = "thelessone";
+    };
+    "nik-manga.theless.one" = {
+      inherit (cfg.niklas.settings.server) port;
+      userEnvVar = "nik";
+    };
+    "hana-manga.theless.one" = {
+      inherit (cfg.hana.settings.server) port;
+      userEnvVar = "hana";
+    };
+  };
+
+  services.homepage-easify.categories.Suwayomi = {
+    layout = {
+      style = "row";
+      columns = 3;
+    };
+
+    services =
+      let
+        icon = "suwayomi-light.svg";
+      in
+      {
+        "Thomas Suwayomi" = rec {
+          description = "Thomas' suwayomi manga reading instance";
+          inherit icon;
+          href = "https://manga.theless.one";
+          siteMonitor = href;
+        };
+
+        "Nik Suwayomi" = rec {
+          description = "Nik's suwayomi manga reading instance";
+          inherit icon;
+          href = "https://nik-manga.theless.one";
+          siteMonitor = href;
+        };
+
+        "Hana Suwayomi" = rec {
+          description = "Hana's suwayomi manga reading instance";
+          inherit icon;
+          href = "https://hana-manga.theless.one";
+          siteMonitor = href;
+        };
+      };
   };
 }

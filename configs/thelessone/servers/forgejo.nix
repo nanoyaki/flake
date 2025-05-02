@@ -93,6 +93,18 @@ in
     };
   };
 
+  services.caddy-easify.reverseProxies."git.theless.one" = {
+    port = config.services.forgejo.settings.server.HTTP_PORT;
+    serverAliases = [ "git.nanoyaki.space" ];
+  };
+
+  services.homepage-easify.categories.Code.services.Forgejo = rec {
+    description = "Code forge";
+    icon = "forgejo.svg";
+    href = "https://git.theless.one";
+    siteMonitor = href;
+  };
+
   systemd.services.forgejo.preStart =
     let
       adminCmd = "${lib.getExe cfg.package} admin user";

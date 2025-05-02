@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -80,6 +81,17 @@
 
       environmentFile = [ config.sec."woodpecker/agents/docker/secret".path ];
     };
+  };
+
+  services.caddy-easify.reverseProxies."woodpecker.theless.one".port = lib.strings.toInt (
+    lib.strings.removePrefix ":" config.services.woodpecker-server.environment.WOODPECKER_SERVER_ADDR
+  );
+
+  services.homepage-easify.categories.Code.services.Woodpecker = rec {
+    description = "CI/CD engine";
+    icon = "woodpecker.svg";
+    href = "https://woodpecker.theless.one";
+    siteMonitor = href;
   };
 
   virtualisation.podman = {

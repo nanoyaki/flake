@@ -58,5 +58,7 @@ in
           Sonarr.description = "Digitaler Videorekorder";
           Jellyseerr.description = "Film-Anfragen";
         };
+
+        services.radarr.openFirewall = true;
       };
 }

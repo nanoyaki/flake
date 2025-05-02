@@ -3,7 +3,7 @@
 {
   services.vaultwarden = {
     enable = true;
-    dbBackend = "postgresql";
+    dbBackend = "sqlite";
     config = {
       DOMAIN = "https://vaultwarden.home.local";
 

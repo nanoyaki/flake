@@ -9,10 +9,6 @@ let
   inherit (lib) types mkOption;
 
   cfg = config.services.caddy-easify;
-
-  mkReverseProxy = port: ''
-    reverse_proxy localhost:${toString port}
-  '';
 in
 
 {
@@ -21,9 +17,20 @@ in
       types.submodule {
         options = {
           port = mkOption { type = types.port; };
+
+          userEnvVar = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+          };
+
           extraConfig = mkOption {
             type = types.str;
             default = "";
+          };
+
+          serverAliases = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
           };
         };
       }
@@ -46,7 +53,17 @@ in
       '';
 
       virtualHosts = lib.mapAttrs (_: reverseProxy: {
-        extraConfig = mkReverseProxy reverseProxy.port + "\n${reverseProxy.extraConfig}";
+        extraConfig = ''
+          ${lib.optionalString (reverseProxy.userEnvVar != null) ''
+            basic_auth * {
+              {''$${reverseProxy.userEnvVar}}
+            }
+          ''}
+
+          reverse_proxy localhost:${toString reverseProxy.port}
+          ${reverseProxy.extraConfig}
+        '';
+        inherit (reverseProxy) serverAliases;
       }) cfg.reverseProxies;
     };
 

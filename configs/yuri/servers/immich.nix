@@ -3,7 +3,7 @@
 {
   services.immich.enable = true;
 
-  services.homepage-easify.categories.Dienste.services.Immich = rec {
+  services.homepage-easify.categories.Medien.services.Immich = rec {
     description = "Bild Album und Backup Software";
     icon = "immich.svg";
     href = "http://immich.home.local";

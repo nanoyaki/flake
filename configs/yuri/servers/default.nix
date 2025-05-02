@@ -14,4 +14,6 @@
     ./jellyfin.nix
     ./arr-stack.nix
   ];
+
+  services.homepage-easify.categories."Smart Home".before = "Medien";
 }

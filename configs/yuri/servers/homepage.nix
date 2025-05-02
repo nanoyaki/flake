@@ -18,6 +18,14 @@ let
       inherit metric;
     };
   };
+
+  sortCategories =
+    categories:
+    let
+      sortedNames = lib.toposort (a: b: categories.${a}.before == b) (lib.attrNames categories);
+      categoryNames = sortedNames.result or (lib.attrNames categories);
+    in
+    lib.map (name: { ${name} = categories.${name}.layout; }) categoryNames;
 in
 
 {
@@ -39,6 +47,7 @@ in
                 }
               );
             };
+
             layout = {
               header = mkOption {
                 type = types.bool;
@@ -55,6 +64,11 @@ in
                 type = types.nullOr types.int;
                 default = null;
               };
+            };
+
+            before = mkOption {
+              type = types.nullOr types.str;
+              default = null;
             };
           };
         }
@@ -94,19 +108,15 @@ in
           opacity = 50;
         };
 
-        layout =
-          [
-            {
-              Glances = {
-                header = false;
-                style = "row";
-                columns = 4;
-              };
-            }
-          ]
-          ++ (lib.mapAttrsToList (categoryName: category: {
-            ${categoryName} = category.layout;
-          }) cfg.categories);
+        layout = [
+          {
+            Glances = {
+              header = false;
+              style = "row";
+              columns = 4;
+            };
+          }
+        ] ++ (sortCategories cfg.categories);
 
         headerStyle = "clean";
         statusStyle = "dot";

@@ -42,14 +42,14 @@ in
   config =
     lib.recursiveUpdate
       (deepMerge (
-        lib.mapAttrsToList (service: portPath: {
+        lib.map (service: {
           services.${service} = {
             enable = lib.elem service cfg;
             openFirewall = true;
           };
 
           services.caddy-easify.reverseProxies."${service}.theless.one".port =
-            lib.getAttrFromPath portPath
+            lib.getAttrFromPath services.${service}
               config.services.${service};
 
           services.homepage-easify.categories."Arr Stack".services.${lib'.toUppercase service} = rec {
@@ -57,7 +57,7 @@ in
             href = "https://${service}.theless.one";
             siteMonitor = href;
           };
-        }) services
+        }) cfg
       ))
       {
         services.homepage-easify.categories."Arr Stack".services = {
@@ -76,17 +76,12 @@ in
         };
 
         users.users =
-          (lib.mapAttrs'
-            (
-              service: _:
+          (lib.listToAttrs (
+            lib.map (
+              service:
               lib.nameValuePair config.services.${service}.user { extraGroups = lib.singleton "arr-stack"; }
-            )
-            (
-              lib.filterAttrs (
-                service: _: config.services.${service} ? user && config.services.${service}.enable
-              ) services
-            )
-          )
+            ) (lib.filter (service: config.services.${service} ? user && config.services.${service}.enable) cfg)
+          ))
           // {
             ${username}.extraGroups = lib.singleton "arr-stack";
           };

@@ -89,7 +89,7 @@
 
   services.homepage-easify.categories.Code.services.Woodpecker = rec {
     description = "CI/CD engine";
-    icon = "woodpecker.svg";
+    icon = "woodpecker-ci.svg";
     href = "https://woodpecker.theless.one";
     siteMonitor = href;
   };

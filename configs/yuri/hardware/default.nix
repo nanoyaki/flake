@@ -6,5 +6,6 @@
     ./disks.nix
     ./boot.nix
     ./cpu.nix
+    ./swap.nix
   ];
 }

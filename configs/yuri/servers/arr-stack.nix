@@ -26,7 +26,7 @@ in
 lib.recursiveUpdate
   (deepMerge (
     lib.mapAttrsToList (service: portPath: {
-      services.${service}.enable = true;
+      services.${service}.enable = false;
 
       services.caddy-easify.reverseProxies."http://${service}.home.local".port =
         lib.getAttrFromPath portPath

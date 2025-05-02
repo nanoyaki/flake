@@ -1,5 +1,5 @@
 {
-  services.jellyfin.enable = true;
+  services.jellyfin.enable = false;
 
   services.homepage-easify.categories.Medien.services.Jellyfin = rec {
     description = "Bild Album und Backup Software";

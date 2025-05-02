@@ -31,9 +31,9 @@ let
 
         nixos-rebuild "$goal" --flake "$flake#$name" --target-host "$targetHost" "''${extraFlags[@]}"
       '';
-
-      meta.description = "Deploy system ${name}";
     };
+
+    meta.description = "Deploy system ${name}";
   };
 in
 

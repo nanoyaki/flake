@@ -11,6 +11,10 @@
             nvfetcher -o pkgs/_sources "$@"
           '';
         };
+
+        meta.description = ''
+          Update pkgs/_sources
+        '';
       };
     };
 }

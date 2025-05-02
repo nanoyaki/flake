@@ -23,9 +23,12 @@
   };
 
   services.homepage-easify.categories.Dienste.services.Paperless = rec {
-    description = "Dokumente verwaltung";
+    description = "Dokumente Verwaltung";
     icon = "paperless.svg";
     href = "http://paperless.home.local";
     siteMonitor = href;
   };
+
+  services.caddy-easify.reverseProxies."http://paperless.home.local".port =
+    config.services.paperless.port;
 }

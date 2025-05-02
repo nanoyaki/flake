@@ -1,34 +1,45 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
+  inherit (lib) types mkOption;
+
+  cfg = config.services.caddy-easify;
+
   mkReverseProxy = port: ''
     reverse_proxy localhost:${toString port}
   '';
 in
 
 {
-  services.caddy = {
-    enable = true;
-    email = "hanakretzer@gmail.com";
-
-    logFormat = ''
-      format console
-      level INFO
-    '';
-
-    globalConfig = ''
-      auto_https disable_redirects
-    '';
-
-    virtualHosts = {
-      "http://home.local".extraConfig = mkReverseProxy config.services.homepage-dashboard.listenPort;
-
-      "http://homeassistant.home.local".extraConfig =
-        mkReverseProxy config.services.home-assistant.config.http.server_port;
-
-      "http://paperless.home.local".extraConfig = mkReverseProxy config.services.paperless.port;
-    };
+  options.services.caddy-easify.reverseProxies = mkOption {
+    type = types.attrsOf (types.submodule { options.port = mkOption { type = types.port; }; });
+    default = { };
   };
 
-  systemd.services.caddy.path = [ pkgs.nssTools ];
+  config = {
+    services.caddy = {
+      enable = true;
+      email = "hanakretzer@gmail.com";
+
+      logFormat = ''
+        format console
+        level INFO
+      '';
+
+      globalConfig = ''
+        auto_https disable_redirects
+      '';
+
+      virtualHosts = lib.mapAttrs (_: reverseProxy: {
+        extraConfig = mkReverseProxy reverseProxy.port;
+      }) cfg.reverseProxies;
+    };
+
+    systemd.services.caddy.path = [ pkgs.nssTools ];
+  };
 }

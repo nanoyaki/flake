@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   services.home-assistant = {
     enable = true;
@@ -33,9 +35,12 @@
   };
 
   services.homepage-easify.categories."Smart Home".services.Homeassistant = rec {
-    description = "Smart home Geräte-Platform";
+    description = "Smart Home Geräte-Platform";
     icon = "home-assistant.svg";
     href = "http://homeassistant.home.local";
     siteMonitor = href;
   };
+
+  services.caddy-easify.reverseProxies."http://homeassistant.home.local".port =
+    config.services.home-assistant.config.http.server_port;
 }

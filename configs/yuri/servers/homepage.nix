@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -88,11 +87,8 @@ in
         target = "_blank";
 
         background = {
-          image = "${pkgs.fetchurl {
-            url = "https://images.pexels.com/photos/2335126/pexels-photo-2335126.jpeg";
-            hash = "sha256-WNiQ0ys8ERoKj7Pmm8ix3vy7uKF3+kqQgHt6ikSOrh8=";
-          }}";
-          blur = "sm";
+          image = "http://homepage-images.home.local/active.webp";
+          blur = "xs";
           saturate = 50;
           brightness = 50;
           opacity = 50;
@@ -136,6 +132,9 @@ in
     };
 
     services.glances.enable = true;
+
+    services.caddy-easify.reverseProxies."http://home.local".port =
+      config.services.homepage-dashboard.listenPort;
 
     systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
       user = "root";

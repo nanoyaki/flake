@@ -18,6 +18,7 @@ let
     prowlarr = servarr;
     radarr = servarr;
     sonarr = servarr;
+    jellyseerr = [ "port" ];
   };
 
   deepMerge = lib.foldl lib.recursiveUpdate { };
@@ -46,5 +47,6 @@ lib.recursiveUpdate
       Prowlarr.description = "Indexer manager";
       Radarr.description = "Filme manager";
       Sonarr.description = "Digitaler Videorekorder";
+      Jellyseerr.description = "Film-Anfragen";
     };
   }

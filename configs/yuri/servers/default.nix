@@ -9,5 +9,6 @@
     ./homepage.nix
     ./home-assistant.nix
     ./paperless.nix
+    ./immich.nix
   ];
 }

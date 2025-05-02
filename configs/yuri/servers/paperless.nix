@@ -29,6 +29,7 @@
     siteMonitor = href;
   };
 
-  services.caddy-easify.reverseProxies."http://paperless.home.local".port =
-    config.services.paperless.port;
+  services.caddy-easify.reverseProxies."http://paperless.home.local" = {
+    inherit (config.services.paperless) port;
+  };
 }

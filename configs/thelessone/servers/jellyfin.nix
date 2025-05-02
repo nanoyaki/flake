@@ -1,17 +1,11 @@
 {
   lib,
   config,
-  username,
   ...
 }:
 
 let
   cfg = config.services.jellyfin;
-
-  dirCfg = {
-    inherit (cfg) user group;
-    mode = "2770";
-  };
 in
 
 {
@@ -26,10 +20,5 @@ in
 
   services.caddy-easify.reverseProxies."jellyfin.theless.one".port = 8096;
 
-  users.users.${username}.extraGroups = lib.singleton cfg.group;
-
-  systemd.tmpfiles.settings."10-jellyfin" = {
-    "${cfg.dataDir}/libraries".d = dirCfg;
-    "${cfg.dataDir}/libraries/moviesAndShows".d = dirCfg;
-  };
+  users.users.${cfg.user}.extraGroups = lib.singleton "arr-stack";
 }

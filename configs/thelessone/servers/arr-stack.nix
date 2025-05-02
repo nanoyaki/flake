@@ -2,6 +2,7 @@
   lib,
   lib',
   config,
+  username,
   ...
 }:
 
@@ -21,6 +22,12 @@ let
     prowlarr = lidarr;
     radarr = lidarr;
     sonarr = lidarr;
+  };
+
+  dirCfg = {
+    inherit (config.services.jellyfin) user;
+    group = "arr-stack";
+    mode = "2770";
   };
 
   deepMerge = lib.foldl lib.recursiveUpdate { };
@@ -59,6 +66,26 @@ in
           Jellyseerr.description = "Film-Anfragen";
         };
 
-        services.radarr.openFirewall = true;
+        systemd.tmpfiles.settings."10-libraries" = {
+          "/home/arr-stack".d = dirCfg;
+          "/home/arr-stack/libraries/movies".d = dirCfg;
+          "/home/arr-stack/libraries/shows".d = dirCfg;
+        };
+
+        users.users =
+          (lib.mapAttrs'
+            (
+              service: _:
+              lib.nameValuePair config.services.${service}.user { extraGroups = lib.singleton "arr-stack"; }
+            )
+            (
+              lib.filterAttrs (
+                service: _: config.services.${service} ? user && config.services.${service}.enable
+              ) services
+            )
+          )
+          // {
+            ${username}.extraGroups = lib.singleton "arr-stack";
+          };
       };
 }

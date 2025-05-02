@@ -15,5 +15,6 @@
     ./arr-stack.nix
   ];
 
+  services.arr-stack.enabled = [ ];
   services.homepage-easify.categories."Smart Home".before = "Medien";
 }

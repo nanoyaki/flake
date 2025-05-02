@@ -43,7 +43,10 @@ in
     lib.recursiveUpdate
       (deepMerge (
         lib.mapAttrsToList (service: portPath: {
-          services.${service}.enable = lib.elem service cfg;
+          services.${service} = {
+            enable = lib.elem service cfg;
+            openFirewall = true;
+          };
 
           services.caddy-easify.reverseProxies."${service}.theless.one".port =
             lib.getAttrFromPath portPath

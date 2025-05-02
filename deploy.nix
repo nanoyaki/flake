@@ -20,7 +20,10 @@ let
     type = "app";
     program = pkgs.writeShellApplication {
       name = "deploy-${name}";
-      runtimeInputs = with pkgs; [ nixos-rebuild ];
+      runtimeInputs = with pkgs; [
+        nix
+        nixos-rebuild
+      ];
       text = ''
         export NIX_SSHOPTS="-i ''${2:-~/.ssh/${deploy.privateKeyName}}"
         goal="''${1:-switch}"
@@ -28,6 +31,9 @@ let
         name="${name}"
         targetHost="${deploy.targetUser}@${deploy.targetHost}"
         extraFlags=(${escapeShellArgs (deploy.extraFlags or [ ])})
+
+        nix --extra-experimental-features "nix-command flakes" \
+          copy --to "ssh://$targetHost" ".#nixosConfigurations.$name.config.system.build.toplevel"
 
         nixos-rebuild "$goal" --flake "$flake#$name" --target-host "$targetHost" "''${extraFlags[@]}"
       '';

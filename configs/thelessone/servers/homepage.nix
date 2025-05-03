@@ -116,13 +116,6 @@ in
               columns = 3;
             };
           }
-          {
-            Processes = {
-              header = false;
-              style = "row";
-              columns = 1;
-            };
-          }
         ] ++ (sortCategories cfg.categories);
 
         headerStyle = "clean";
@@ -142,7 +135,6 @@ in
               (mkGlancesWidget "Network Usage" "network:enp6s0")
             ];
           }
-          { Processes = [ (mkGlancesWidget "Processes" "process") ]; }
         ]
         ++ (lib.mapAttrsToList (categoryName: category: {
           ${categoryName} = lib.mapAttrsToList (serviceName: service: {

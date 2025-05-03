@@ -1,6 +1,10 @@
 {
-  flake.nixosModules = {
-    suwayomi = import ./suwayomi;
-    dynamicdns = import ./dynamicdns;
-  };
+  lib,
+  ...
+}:
+
+{
+  flake.nixosModules = lib.mapAttrs (name: _: import (./. + "/${name}")) (
+    lib.filterAttrs (_: value: value == "directory") (builtins.readDir ./.)
+  );
 }

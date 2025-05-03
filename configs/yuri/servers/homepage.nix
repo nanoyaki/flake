@@ -130,7 +130,7 @@ in
               (mkGlancesWidget "Info" "info")
               (mkGlancesWidget "Speicherplatz" "fs:/")
               (mkGlancesWidget "CPU Temperatur" "sensor:Package id 0")
-              (mkGlancesWidget "Netzwerk" "network:enp3s0")
+              (mkGlancesWidget "Netzwerk" "network:enp2s0")
             ];
           }
         ]

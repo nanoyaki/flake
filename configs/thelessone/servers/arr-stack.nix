@@ -71,10 +71,10 @@ in
 
         systemd.tmpfiles.settings."10-libraries" = {
           "/home/arr-stack".d = dirCfg;
-          "/home/arr-stack/libraries".d = dirCfg;
           "/home/arr-stack/libraries/movies".d = dirCfg;
           "/home/arr-stack/libraries/shows".d = dirCfg;
-          "/home/arr-stack/libraries/anime".d = dirCfg;
+          "/home/arr-stack/libraries/anime/movies".d = dirCfg;
+          "/home/arr-stack/libraries/anime/shows".d = dirCfg;
         };
 
         users.groups.arr-stack = { };

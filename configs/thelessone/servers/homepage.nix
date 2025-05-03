@@ -13,7 +13,7 @@ let
     ${name}.widget = {
       url = "http://localhost:${toString config.services.glances.port}";
       type = "glances";
-      chart = false;
+      chart = true;
       version = 4;
       inherit metric;
     };
@@ -113,7 +113,14 @@ in
             Glances = {
               header = false;
               style = "row";
-              columns = 4;
+              columns = 3;
+            };
+          }
+          {
+            Processes = {
+              header = false;
+              style = "row";
+              columns = 1;
             };
           }
         ] ++ (sortCategories cfg.categories);
@@ -127,12 +134,15 @@ in
         [
           {
             Glances = [
-              (mkGlancesWidget "Info" "info")
-              (mkGlancesWidget "Speicherplatz" "fs:/")
-              (mkGlancesWidget "CPU Temperatur" "sensor:Package id 0")
-              (mkGlancesWidget "Netzwerk" "network:enp3s0")
+              (mkGlancesWidget "CPU Usage" "cpu")
+              (mkGlancesWidget "CPU Temp" "sensor:Package id 0")
+              (mkGlancesWidget "Memory Usage" "memory")
+              (mkGlancesWidget "Storage Usage" "fs:/")
+              (mkGlancesWidget "Disk I/O" "disk:nvme0n1")
+              (mkGlancesWidget "Network Usage" "network:enp6s0")
             ];
           }
+          { Processes = [ (mkGlancesWidget "Processes" "process") ]; }
         ]
         ++ (lib.mapAttrsToList (categoryName: category: {
           ${categoryName} = lib.mapAttrsToList (serviceName: service: {

@@ -8,5 +8,5 @@
     siteMonitor = href;
   };
 
-  services.caddy-easify.reverseProxies."sabnzbd.theless.one".port = 50001;
+  services.caddy-easify.reverseProxies."sabnzbd.theless.one".port = 8080;
 }

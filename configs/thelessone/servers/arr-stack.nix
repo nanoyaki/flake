@@ -62,11 +62,11 @@ in
       {
         services.homepage-easify.categories."Arr Stack".services = {
           Bazarr.description = "Subtitle manager";
-          Lidarr.description = "Musik Sammlung manager";
-          Prowlarr.description = "Indexer manager";
-          Radarr.description = "Filme manager";
-          Sonarr.description = "Digitaler Videorekorder";
-          Jellyseerr.description = "Film-Anfragen";
+          Lidarr.description = "Music manager";
+          Prowlarr.description = "Usenet indexer manager";
+          Radarr.description = "Movie manager";
+          Sonarr.description = "Show manager";
+          Jellyseerr.description = "Movie requests";
         };
 
         systemd.tmpfiles.settings."10-libraries" = {

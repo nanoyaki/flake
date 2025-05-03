@@ -44,6 +44,8 @@ in
     ];
   };
 
+  systemd.services.bind.serviceConfig.Nice = "-20";
+
   networking.firewall = {
     allowedTCPPorts = [ 53 ];
     allowedUDPPorts = [ 53 ];

@@ -1,9 +1,8 @@
-{ lib, config, ... }:
-
 {
-  services.sabnzbd.enable = true;
-
-  users.users.${config.services.sabnzbd.user}.extraGroups = lib.singleton "arr-stack";
+  services.sabnzbd = {
+    enable = true;
+    group = "arr-stack";
+  };
 
   services.homepage-easify.categories.Services.services.Sabnzbd = rec {
     description = "Usenet client";

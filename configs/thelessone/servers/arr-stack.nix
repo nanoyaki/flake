@@ -72,17 +72,12 @@ in
         systemd.tmpfiles.settings."10-libraries" = {
           "/home/arr-stack".d = dirCfg;
 
-          "/home/arr-stack/libraries".d = dirCfg;
           "/home/arr-stack/libraries/movies".d = dirCfg;
           "/home/arr-stack/libraries/shows".d = dirCfg;
 
-          "/home/arr-stack/libraries/anime".d = dirCfg;
           "/home/arr-stack/libraries/anime/movies".d = dirCfg;
           "/home/arr-stack/libraries/anime/shows".d = dirCfg;
 
-          "/home/arr-stack/downloads".d = dirCfg // {
-            inherit (config.services.sabnzbd) user;
-          };
           "/home/arr-stack/downloads/complete".d = dirCfg // {
             inherit (config.services.sabnzbd) user;
           };
@@ -91,17 +86,10 @@ in
           };
         };
 
-        users.groups.arr-stack = { };
+        services.radarr.group = "arr-stack";
+        services.sonarr.group = "arr-stack";
 
-        users.users =
-          (lib.listToAttrs (
-            lib.map (
-              service:
-              lib.nameValuePair config.services.${service}.user { extraGroups = lib.singleton "arr-stack"; }
-            ) (lib.filter (service: config.services.${service} ? user) cfg)
-          ))
-          // {
-            ${username}.extraGroups = lib.singleton "arr-stack";
-          };
+        users.groups.arr-stack = { };
+        users.users.${username}.extraGroups = lib.singleton "arr-stack";
       };
 }

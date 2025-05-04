@@ -40,7 +40,9 @@ in
 
     forwarders = [
       "1.1.1.1"
+      "1.0.0.1"
       "8.8.8.8"
+      "8.8.4.4"
     ];
   };
 
@@ -48,7 +50,9 @@ in
 
   networking.nameservers = [
     "1.1.1.1"
+    "1.0.0.1"
     "8.8.8.8"
+    "8.8.4.4"
   ];
 
   systemd.services.bind.serviceConfig.Nice = "-20";

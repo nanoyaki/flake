@@ -75,6 +75,12 @@ in
           "/home/arr-stack/libraries/shows".d = dirCfg;
           "/home/arr-stack/libraries/anime/movies".d = dirCfg;
           "/home/arr-stack/libraries/anime/shows".d = dirCfg;
+          "/home/arr-stack/downloads/complete".d = dirCfg // {
+            inherit (config.services.sabnzbd) user;
+          };
+          "/home/arr-stack/downloads/incomplete".d = dirCfg // {
+            inherit (config.services.sabnzbd) user;
+          };
         };
 
         users.groups.arr-stack = { };

@@ -61,6 +61,14 @@ in
 
   programs.kde-pim.merkuro = true;
 
+  networking.nameservers = [
+    "10.0.0.3"
+    "1.1.1.1"
+    "1.0.0.1"
+    "8.8.8.8"
+    "8.8.4.4"
+  ];
+
   hm.news.display = "show";
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";

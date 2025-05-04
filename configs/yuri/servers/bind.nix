@@ -5,11 +5,12 @@ let
     "127.0.0.0/24"
     "::1/128"
     "10.0.0.0/24"
-    "100.64.0.0/10"
   ];
 in
 
 {
+  networking.resolvconf.useLocalResolver = true;
+
   services.bind = {
     enable = true;
 
@@ -18,13 +19,13 @@ in
       master = true;
       allowQuery = networks;
       file = pkgs.writeText "zone-home.local" ''
-        $TTL 604800
+        $TTL 1h
         @  IN  SOA  ns1.home.local. admin.home.local. (
-                2025050101 ; Serial number
-                3600       ; Refresh
-                1800       ; Retry
-                604801     ; Expire
-                604800     ; Minimum TTL
+                2025050402 ; Serial number
+                3h         ; Refresh
+                1h         ; Retry
+                1w         ; Expire
+                1h         ; Minimum TTL
         )
 
         ; Name Server for the zone
@@ -38,11 +39,16 @@ in
 
     forwarders = [
       "1.1.1.1"
-      "1.0.0.1"
       "8.8.8.8"
-      "8.8.4.4"
     ];
   };
+
+  services.resolved.enable = false;
+
+  networking.nameservers = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
 
   systemd.services.bind.serviceConfig.Nice = "-20";
 

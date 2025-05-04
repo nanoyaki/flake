@@ -1,7 +1,7 @@
 {
     "midnight-theme": {
         "cargoLocks": null,
-        "date": "2025-04-30",
+        "date": "2025-05-02",
         "extract": null,
         "name": "midnight-theme",
         "passthru": null,
@@ -11,17 +11,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "192472d3aa91274baa093a6a9e2303f7c7857fac",
-            "sha256": "sha256-w/CU5KN6WN0MQBSL2JLzO+qvzW83138lAql1rlK5m88=",
+            "rev": "fadc488609661af9d1c99b7b2d39c99ddd306f1d",
+            "sha256": "sha256-6s/JCNMAs3Jjgd7x7oxTXzjrN8YWHETuaGWKFVesgbY=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/refact0r/midnight-discord.git"
         },
-        "version": "192472d3aa91274baa093a6a9e2303f7c7857fac"
+        "version": "fadc488609661af9d1c99b7b2d39c99ddd306f1d"
     },
     "openrgb": {
         "cargoLocks": null,
-        "date": "2025-05-02",
+        "date": "2025-05-03",
         "extract": null,
         "name": "openrgb",
         "passthru": null,
@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6a80f24962db1147e3200815aacec786c1893971",
-            "sha256": "sha256-lYr2KNSfQZpjfmKBtgtG1hnwXPQW0NGybzX9pusQsqA=",
+            "rev": "c1d055386630fe3df748e05c67af2a3e1b8a5639",
+            "sha256": "sha256-pHMhLNc2ZZuIrrO+9QdA4utuTXUc+RokfbLmuQzubgc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
         },
-        "version": "6a80f24962db1147e3200815aacec786c1893971"
+        "version": "c1d055386630fe3df748e05c67af2a3e1b8a5639"
     },
     "rofi-themes": {
         "cargoLocks": null,

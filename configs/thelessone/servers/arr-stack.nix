@@ -75,6 +75,8 @@ in
           "/home/arr-stack/libraries/movies".d = dirCfg;
           "/home/arr-stack/libraries/shows".d = dirCfg;
 
+          "/home/arr-stack/anisync".d = dirCfg;
+
           "/home/arr-stack/libraries/anime/movies".d = dirCfg;
           "/home/arr-stack/libraries/anime/shows".d = dirCfg;
 

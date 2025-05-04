@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   boot = {
     loader.grub = {
@@ -14,6 +16,18 @@
       "sd_mod"
     ];
 
-    kernelModules = [ "kvm-intel" ];
+    kernelParams = [
+      "acpi_enforce_resources=lax"
+    ];
+
+    kernelModules = [
+      "kvm-intel"
+      "it87"
+    ];
+
+    extraModulePackages = [ config.boot.kernelPackages.it87 ];
+    extraModprobeConfig = ''
+      options it87 force_id=0x8628
+    '';
   };
 }

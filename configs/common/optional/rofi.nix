@@ -24,6 +24,10 @@
       exec = "${lib.getExe config.hm.programs.rofi.finalPackage} -show drun";
       icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/nix-snowflake.svg";
       terminal = false;
+      categories = [
+        "Utility"
+        "System"
+      ];
     };
   };
 }

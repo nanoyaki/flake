@@ -1,0 +1,40 @@
+[__config__]
+oldver = "pkgs/_versions/old_ver.json"
+newver = "pkgs/_versions/new_ver.json"
+
+[suwayomi-webui-revision]
+source = "cmd"
+cmd = '''
+    TEMP_DIR="/tmp/$RANDOM"
+    git clone https://github.com/Suwayomi/Suwayomi-WebUI.git "$TEMP_DIR"
+    cd "$TEMP_DIR"
+    
+    git rev-list --count HEAD
+    
+    cd ..
+    rm -rf "$TEMP_DIR"
+'''
+
+[suwayomi-webui-yarn-deps]
+source = "cmd"
+cmd = '''
+    TEMP_DIR="/tmp/$RANDOM"
+    git clone https://github.com/Suwayomi/Suwayomi-WebUI.git "$TEMP_DIR"
+    cd "$TEMP_DIR"
+
+    nix hash convert --hash-algo sha256 --to sri $(prefetch-yarn-deps ./yarn.lock)
+
+    cd ..
+    rm -rf "$TEMP_DIR"
+'''
+
+[suwayomi-server-gradle-deps]
+source = "cmd"
+cmd = '''
+    nix build .#suwayomi-server.mitmCache.updateScript
+    ./result &> /dev/null
+    
+    nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
+
+    rm result
+'''

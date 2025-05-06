@@ -9,3 +9,11 @@ src.git = "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
 [rofi-themes]
 fetch.git = "https://github.com/adi1090x/rofi.git"
 src.git = "https://github.com/adi1090x/rofi.git"
+
+[suwayomi-server]
+fetch.git = "https://github.com/Suwayomi/Suwayomi-Server.git"
+src.git = "https://github.com/Suwayomi/Suwayomi-Server.git"
+
+[suwayomi-webui]
+fetch.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"
+src.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"

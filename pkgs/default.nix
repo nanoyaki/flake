@@ -25,8 +25,10 @@
 
       callPackage = callPackageWith (
         pkgs
+        // config.packages
         // {
           _sources = pkgs.callPackage ./_sources/generated.nix { };
+          _versions = (lib.importJSON ./_versions/new_ver.json).data;
         }
       );
     in
@@ -36,6 +38,7 @@
       packages = mapAttrs (name: _: callPackage (./. + "/${name}") { }) (
         removeAttrs (readDir ./.) [
           "_sources"
+          "_versions"
           "default.nix"
         ]
       );

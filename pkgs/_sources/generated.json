@@ -1,7 +1,7 @@
 {
     "midnight-theme": {
         "cargoLocks": null,
-        "date": "2025-05-02",
+        "date": "2025-05-05",
         "extract": null,
         "name": "midnight-theme",
         "passthru": null,
@@ -11,13 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fadc488609661af9d1c99b7b2d39c99ddd306f1d",
-            "sha256": "sha256-6s/JCNMAs3Jjgd7x7oxTXzjrN8YWHETuaGWKFVesgbY=",
+            "rev": "6f727783935069c02b8a84985f3bd55a38982533",
+            "sha256": "sha256-XoYfZdz07P6b7p7DZLiArFG4LNlDghrUK32uQtzvkjo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/refact0r/midnight-discord.git"
         },
-        "version": "fadc488609661af9d1c99b7b2d39c99ddd306f1d"
+        "version": "6f727783935069c02b8a84985f3bd55a38982533"
     },
     "openrgb": {
         "cargoLocks": null,
@@ -58,5 +58,45 @@
             "url": "https://github.com/adi1090x/rofi.git"
         },
         "version": "b76c16b2b7c465d7b082e11e5210fcd10c6683a7"
+    },
+    "suwayomi-server": {
+        "cargoLocks": null,
+        "date": "2025-04-27",
+        "extract": null,
+        "name": "suwayomi-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "82d4a401fd388f75dd9ffa3c54ec7adce00b314b",
+            "sha256": "sha256-2WnuDaEmKD+g/SVdQIfBzhxVoFbGsbxhg3A0/lxQk6o=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
+        },
+        "version": "82d4a401fd388f75dd9ffa3c54ec7adce00b314b"
+    },
+    "suwayomi-webui": {
+        "cargoLocks": null,
+        "date": "2025-05-05",
+        "extract": null,
+        "name": "suwayomi-webui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f0f740f4af4247106edb76bbb743de27a545d923",
+            "sha256": "sha256-jmgnMfilHNyUJ6IUl+aRsfK5jW93KzC0iHpoIiyySEM=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/Suwayomi/Suwayomi-WebUI.git"
+        },
+        "version": "f0f740f4af4247106edb76bbb743de27a545d923"
     }
 }

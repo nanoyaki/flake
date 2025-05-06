@@ -25,9 +25,8 @@
 
       callPackage = callPackageWith (
         pkgs
-        // config.packages
         // {
-          _sources = pkgs.callPackage ./_sources/generated.nix { };
+          _sources = callPackage ./_sources/generated.nix { };
           _versions = (lib.importJSON ./_versions/new_ver.json).data;
         }
       );
@@ -35,13 +34,18 @@
     {
       overlayAttrs = config.packages;
 
-      packages = mapAttrs (name: _: callPackage (./. + "/${name}") { }) (
-        removeAttrs (readDir ./.) [
-          "_sources"
-          "_versions"
-          "default.nix"
-        ]
-      );
+      packages =
+        (mapAttrs (name: _: callPackage (./. + "/${name}") { }) (
+          removeAttrs (readDir ./.) [
+            "_sources"
+            "_versions"
+            "default.nix"
+          ]
+        ))
+        // rec {
+          suwayomi-server = callPackage ./suwayomi-server { inherit suwayomi-webui; };
+          suwayomi-webui = callPackage ./suwayomi-webui { };
+        };
 
       apps.buildAllx86Pkgs = {
         type = "app";

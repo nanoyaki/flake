@@ -75,8 +75,8 @@ in
 
         shortcuts.kwin = {
           "Expose" = "Meta+Tab";
-          "Window Maximise" = "Meta+Up";
-          "Window Minimise" = "Meta+Down";
+          "Maximize Window" = "Meta+Up";
+          "Minimize Window" = "Meta+Down";
         };
 
         configFile =

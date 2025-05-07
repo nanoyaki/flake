@@ -11,10 +11,8 @@
     ./paperless.nix
     ./immich.nix
     ./vaultwarden.nix
-    ./jellyfin.nix
-    ./arr-stack.nix
+    ./media
   ];
 
-  services.arr-stack.enabled = [ ];
   services.homepage-easify.categories."Smart Home".before = "Medien";
 }

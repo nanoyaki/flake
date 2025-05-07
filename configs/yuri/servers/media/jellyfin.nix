@@ -1,5 +1,5 @@
 {
-  services.jellyfin.enable = false;
+  services.jellyfin.enable = true;
 
   services.homepage-easify.categories.Medien.services.Jellyfin = rec {
     description = "Filme und Serien Archiv";

@@ -53,9 +53,12 @@ in
       nameValuePair "namecheap-dynamic-dns-${domain}" {
         description = "Namecheap Dynamic DNS Service for ${domain}";
 
-        wantedBy = [ "multi-user.target" ];
-        requires = [ "network-online.target" ];
         after = [ "network-online.target" ];
+
+        bindsTo = [ "network-online.target" ];
+        partOf = [ "network-online.target" ];
+
+        wantedBy = [ "multi-user.target" ];
 
         script = ''
           set -f
@@ -73,7 +76,8 @@ in
         startAt = "*:0/20";
 
         serviceConfig = {
-          Type = "simple";
+          Type = "oneshot";
+          RemainAfterExit = false;
           Restart = "no";
         };
       }

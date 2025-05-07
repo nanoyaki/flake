@@ -189,10 +189,12 @@ in
             };
             iconTheme = "Papirus-Dark";
             wallpaper = config.stylix.image;
+            enableMiddleClickPaste = false;
           };
 
           panels = [
             {
+              screen = 0;
               location = "bottom";
               widgets =
                 [

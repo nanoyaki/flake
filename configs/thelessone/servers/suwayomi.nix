@@ -5,13 +5,12 @@
 }:
 
 let
-  extensionRepos = [ "https://github.com/keiyoushi/extensions" ];
-
   mkInstance = port: {
     enable = true;
 
     settings.server = {
-      inherit port extensionRepos;
+      inherit port;
+      extensionRepos = [ "https://github.com/keiyoushi/extensions" ];
     };
   };
 

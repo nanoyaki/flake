@@ -12,25 +12,20 @@ let
     filterAttrsRecursive
     mapAttrs'
     mkEnableOption
+    mkPackageOption
     mkOption
     nameValuePair
     types
     ;
 
   format = pkgs.formats.hocon { };
-
-  version = "1.1.1";
-  revision = 1535;
-
-  jarFile = pkgs.fetchurl {
-    url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v${version}/Suwayomi-Server-v${version}-r${toString revision}.jar";
-    hash = "sha256-mPzREuH89RGhZLK+5aIPuq1gmNGc9MGG0wh4ZV5dLTg=";
-  };
 in
 
 {
   options.services.suwayomi = {
     enable = mkEnableOption "multiple suwayomi instances";
+
+    package = mkPackageOption pkgs "suwayomi-server" { };
 
     dataDir = mkOption {
       type = types.path;
@@ -122,9 +117,8 @@ in
         script = ''
           ${lib.getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/.local/share/Tachidesk/server.conf
 
-          ${lib.getExe pkgs.jdk17_headless} \
-            -Djava.io.tmpdir=${dataDir}/tmp \
-            -jar ${jarFile}
+          JAVA_OPTS="${dataDir}/tmp"
+          ${lib.getExe cfg.package}
         '';
 
         serviceConfig = {

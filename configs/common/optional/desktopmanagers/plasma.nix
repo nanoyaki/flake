@@ -77,6 +77,8 @@ in
           "Expose" = "Meta+Tab";
           "Maximize Window" = "Meta+Up";
           "Minimize Window" = "Meta+Down";
+          "Maximise Window" = "Meta+Up";
+          "Minimise Window" = "Meta+Down";
         };
 
         configFile =

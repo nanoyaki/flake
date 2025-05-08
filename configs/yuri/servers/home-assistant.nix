@@ -34,7 +34,7 @@
     };
   };
 
-  services.homepage-easify.categories."Smart Home".services.Homeassistant = rec {
+  services.homepage-easify.categories.Dienste.services.Homeassistant = rec {
     description = "Smart Home Geräte-Platform";
     icon = "home-assistant.svg";
     href = "http://homeassistant.home.local";

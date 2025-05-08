@@ -13,6 +13,4 @@
     ./vaultwarden.nix
     ./media
   ];
-
-  services.homepage-easify.categories."Smart Home".before = "Medien";
 }

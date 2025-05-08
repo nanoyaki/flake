@@ -121,6 +121,10 @@ in
               url = "https://cdn.modrinth.com/data/13RpG7dA/versions/kkdbWskW/image2map-0.8.0%2B1.21.3.jar";
               sha512 = "fab2fcca41a8d5e39ef48bfd557c4bfb4d27383d7bc9415c76b2100f52e34ae3bb6a5f9919a6617c2a081a886b9f869ff2c626a376e7b54a9f5491d14a66b54c";
             };
+            NetherPortalFix = fetchurl {
+              url = "https://cdn.modrinth.com/data/nPZr02ET/versions/DuRtZjks/netherportalfix-fabric-1.21.4-21.4.3.jar";
+              sha512 = "7a0028dae68f43d3c95563b2aca496149c457aa5714a8e90ff582c8d0cd3d0c16497d5595ce29dc9a3faa46770f442aaf44973c98d1011f4780e2ba46155024b";
+            };
           }
         );
         "config/voicechat/voicechat-server.properties" = ./smp/voicechat-server.properties;

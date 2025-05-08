@@ -12,16 +12,34 @@ let
   cfg = config.services.arr-stack.enabled;
 
   servicePortMap = rec {
-    bazarr = [ "listenPort" ];
-    jellyseerr = [ "port" ];
-    lidarr = [
-      "settings"
-      "server"
-      "port"
-    ];
-    prowlarr = lidarr;
-    radarr = lidarr;
-    sonarr = lidarr;
+    bazarr = {
+      portPath = [ "listenPort" ];
+      description = "Untertitel manager";
+    };
+    jellyseerr = {
+      portPath = [ "port" ];
+      description = "Film-Anfragen";
+    };
+    lidarr = {
+      portPath = [
+        "settings"
+        "server"
+        "port"
+      ];
+      description = "Musik Sammlung manager";
+    };
+    prowlarr = {
+      inherit (lidarr) portPath;
+      description = "Indexer manager";
+    };
+    radarr = {
+      inherit (lidarr) portPath;
+      description = "Filme manager";
+    };
+    sonarr = {
+      inherit (lidarr) portPath;
+      description = "Serien manager";
+    };
   };
 
   dirCfg = {
@@ -44,31 +62,23 @@ in
       (deepMerge (
         lib.map (service: {
           services.${service} = {
-            enable = lib.elem service cfg;
+            enable = true;
             openFirewall = true;
           };
 
           services.caddy-easify.reverseProxies."http://${service}.home.local".port =
-            lib.getAttrFromPath servicePortMap.${service}
+            lib.getAttrFromPath servicePortMap.${service}.portPath
               config.services.${service};
 
           services.homepage-easify.categories."Medien Dienste".services.${lib'.toUppercase service} = rec {
             icon = "${service}.svg";
             href = "http://${service}.home.local";
             siteMonitor = href;
+            inherit (servicePortMap.${service}) description;
           };
-        }) (lib.attrNames servicePortMap)
+        }) cfg
       ))
       {
-        services.homepage-easify.categories."Medien Dienste".services = {
-          Bazarr.description = "Untertitel manager";
-          Lidarr.description = "Musik Sammlung manager";
-          Prowlarr.description = "Indexer manager";
-          Radarr.description = "Filme manager";
-          Sonarr.description = "Digitaler Videorekorder";
-          Jellyseerr.description = "Film-Anfragen";
-        };
-
         systemd.tmpfiles.settings."10-libraries" = {
           "/home/arr-stack".d = dirCfg;
 

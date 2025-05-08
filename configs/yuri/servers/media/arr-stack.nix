@@ -18,7 +18,6 @@ let
     "jellyseerr"
     "prowlarr"
     "sonarr"
-    "lidarr"
   ];
 in
 

@@ -125,6 +125,10 @@ in
               url = "https://cdn.modrinth.com/data/nPZr02ET/versions/DuRtZjks/netherportalfix-fabric-1.21.4-21.4.3.jar";
               sha512 = "7a0028dae68f43d3c95563b2aca496149c457aa5714a8e90ff582c8d0cd3d0c16497d5595ce29dc9a3faa46770f442aaf44973c98d1011f4780e2ba46155024b";
             };
+            Balm = fetchurl {
+              url = "https://cdn.modrinth.com/data/MBAkmtvl/versions/Ps54lG7P/balm-fabric-1.21.4-21.4.31.jar";
+              sha512 = "0af80a68ae7d8981ffc6734d26b0c1939268e85bd3f87f05a87f0223efdea8930ee9e7b375abc69dc873f86ae05173c694017c7b0cdafef545baa17283dd74f0";
+            };
           }
         );
         "config/voicechat/voicechat-server.properties" = ./smp/voicechat-server.properties;

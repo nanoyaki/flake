@@ -45,7 +45,10 @@ in
     };
   };
 
-  services.caddy-easify.reverseProxies."http://transmission.home.local".port = cfg.settings.rpc-port;
+  services.caddy-easify.reverseProxies."http://transmission.home.local" = {
+    port = cfg.settings.rpc-port;
+    host = "10.200.1.1";
+  };
 
   services.homepage-easify.categories.Dienste.services.Transmission = rec {
     icon = "transmission.svg";

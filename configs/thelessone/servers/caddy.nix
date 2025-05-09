@@ -40,6 +40,11 @@ in
         options = {
           port = mkOption { type = types.port; };
 
+          host = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+          };
+
           userEnvVar = mkOption {
             type = types.nullOr types.str;
             default = null;
@@ -75,19 +80,25 @@ in
       environmentFile = config.sec."caddy/users".path;
 
       virtualHosts =
-        (lib.mapAttrs (_: reverseProxy: {
-          extraConfig = ''
-            ${lib.optionalString (reverseProxy.userEnvVar != null) ''
-              basic_auth * {
-                {''$${reverseProxy.userEnvVar}}
-              }
-            ''}
+        (lib.mapAttrs (
+          _: reverseProxy:
+          let
+            host = if reverseProxy.host != null then reverseProxy.host else "localhost";
+          in
+          {
+            extraConfig = ''
+              ${lib.optionalString (reverseProxy.userEnvVar != null) ''
+                basic_auth * {
+                  {''$${reverseProxy.userEnvVar}}
+                }
+              ''}
 
-            ${reverseProxy.extraConfig}
-            reverse_proxy localhost:${toString reverseProxy.port}
-          '';
-          inherit (reverseProxy) serverAliases;
-        }) cfg.reverseProxies)
+              reverse_proxy ${host}:${toString reverseProxy.port}
+              ${reverseProxy.extraConfig}
+            '';
+            inherit (reverseProxy) serverAliases;
+          }
+        ) cfg.reverseProxies)
         // {
           "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
           "files.theless.one".extraConfig = ''

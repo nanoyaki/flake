@@ -37,6 +37,7 @@ in
   systemd.services.transmission.serviceConfig.ExecStart =
     lib.mkForce "${pkgs.writeShellScript "safe-transmission.sh" ''
       ${lib.getExe pkgs.vopono} -v exec -k -f ${toString cfg.settings.rpc-port} \
+        --user ${cfg.user} \
         --custom ${config.sec."vopono/wireguard.conf".path} \
         --protocol wireguard \
         "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${escapeShellArgs cfg.extraFlags}"

@@ -45,14 +45,14 @@ in
     };
   };
 
-  services.caddy-easify.reverseProxies."http://transmission.theless.one" = {
+  services.caddy-easify.reverseProxies."transmission.theless.one" = {
     port = cfg.settings.rpc-port;
     userEnvVar = "shared";
   };
 
   services.homepage-easify.categories.Services.services.Transmission = rec {
     icon = "transmission.svg";
-    href = "http://transmission.theless.one";
+    href = "https://transmission.theless.one";
     siteMonitor = href;
     description = "Torrent client";
   };

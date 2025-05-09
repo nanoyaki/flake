@@ -77,9 +77,18 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      systemd.tmpfiles.settings."10-vopono-config"."/root/.config/vopono".d = {
-        user = "root";
-        group = "wheel";
+      users.users.vopono = {
+        isSystemUser = true;
+        group = "vopono";
+        home = "/var/lib/vopono";
+        extraGroups = [ "wheel" ];
+      };
+
+      users.groups.vopono = { };
+
+      systemd.tmpfiles.settings."10-vopono-config"."/var/lib/vopono/.config/vopono".d = {
+        user = "vopono";
+        group = "vopono";
         mode = "770";
       };
 
@@ -98,7 +107,7 @@ in
           sudo
         ];
 
-        unitConfig.ConditionPathExists = "/root/.config/vopono";
+        unitConfig.ConditionPathExists = "/var/lib/vopono/.config/vopono";
 
         serviceConfig = {
           Type = "notify";
@@ -118,6 +127,9 @@ in
               "systemd-notify --ready"
           '';
           ExecStop = "${pkgs.iproute2}/bin/ip link delete ${cfg.namespace}_d";
+
+          User = "vopono";
+          Group = "wheel";
         };
       };
     })

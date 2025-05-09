@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) escapeShellArgs;
+  inherit (lib) escapeShellArgs mkForce;
 
   cfg = config.services.transmission;
   settingsDir = ".config/transmission-daemon";
@@ -34,14 +34,29 @@ in
     };
   };
 
-  systemd.services.transmission.serviceConfig.ExecStart =
-    lib.mkForce "${pkgs.writeShellScript "safe-transmission.sh" ''
-      ${lib.getExe pkgs.vopono} -v exec -k -f ${toString cfg.settings.rpc-port} \
-        --user ${cfg.user} \
-        --custom ${config.sec."vopono/wireguard.conf".path} \
-        --protocol wireguard \
-        "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${escapeShellArgs cfg.extraFlags}"
-    ''}";
+  systemd.services.transmission = {
+    path = with pkgs; [
+      sudo
+      wireguard-tools
+      iproute2
+      iptables
+      procps
+    ];
+    serviceConfig = {
+      ExecStart = mkForce "${pkgs.writeShellScript "safe-transmission.sh" ''
+        ${lib.getExe pkgs.vopono} -v exec -k \
+          -f ${toString cfg.settings.rpc-port} \
+          --user ${cfg.user} \
+          --custom ${config.sec."vopono/wireguard.conf".path} \
+          --protocol wireguard \
+          "${cfg.package}/bin/transmission-daemon -a *.*.*.* -f -g ${cfg.home}/${settingsDir} ${escapeShellArgs cfg.extraFlags}"
+      ''}";
+
+      User = mkForce "root";
+      Group = mkForce "wheel";
+      NoNewPrivileges = mkForce "no";
+    };
+  };
 
   services.caddy-easify.reverseProxies."http://transmission.home.local".port = cfg.settings.rpc-port;
 

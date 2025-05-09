@@ -47,7 +47,7 @@ in
 
   services.caddy-easify.reverseProxies."transmission.theless.one" = {
     port = cfg.settings.rpc-port;
-    host = "10.200.1.1";
+    host = "10.200.1.2";
     userEnvVar = "shared";
   };
 

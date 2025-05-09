@@ -47,7 +47,7 @@ in
 
   services.caddy-easify.reverseProxies."http://transmission.home.local" = {
     port = cfg.settings.rpc-port;
-    host = "10.200.1.1";
+    host = "10.200.1.2";
   };
 
   services.homepage-easify.categories.Dienste.services.Transmission = rec {

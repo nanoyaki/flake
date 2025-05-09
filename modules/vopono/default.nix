@@ -117,7 +117,6 @@ in
             ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} -u root \
             --keep-alive \
             ${concatMapStrings (x: " -f ${toString x}") (unique (flatten (attrValues cfg.services)))} \
-            --allow-host-access \
             --custom ${cfg.configFile} \
             --protocol ${cfg.protocol} \
             --custom-netns-name ${cfg.namespace} \

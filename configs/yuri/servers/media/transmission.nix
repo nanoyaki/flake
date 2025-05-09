@@ -1,19 +1,27 @@
 {
-  lib,
+  self,
   pkgs,
   config,
   ...
 }:
 
 let
-  inherit (lib) escapeShellArgs mkForce;
-
   cfg = config.services.transmission;
-  settingsDir = ".config/transmission-daemon";
 in
 
 {
+  imports = [ self.nixosModules.vopono ];
+
   sec."vopono/wireguard.conf".owner = cfg.user;
+
+  services.vopono = {
+    enable = true;
+
+    configFile = config.sec."vopono/wireguard.conf".path;
+    protocol = "Wireguard";
+
+    services.transmission = cfg.settings.rpc-port;
+  };
 
   services.transmission = {
     enable = true;
@@ -30,30 +38,6 @@ in
       rpc-host-whitelist-enabled = true;
       ratio-limit = 0;
       ratio-limit-enabled = true;
-    };
-  };
-
-  systemd.services.transmission = {
-    path = with pkgs; [
-      sudo
-      wireguard-tools
-      iproute2
-      iptables
-      procps
-    ];
-    serviceConfig = {
-      ExecStart = mkForce "${pkgs.writeShellScript "safe-transmission.sh" ''
-        ${lib.getExe pkgs.vopono} -v exec -k \
-          -f ${toString cfg.settings.rpc-port} \
-          --user ${cfg.user} \
-          --custom ${config.sec."vopono/wireguard.conf".path} \
-          --protocol wireguard \
-          "${cfg.package}/bin/transmission-daemon -a *.*.*.* -f -g ${cfg.home}/${settingsDir} ${escapeShellArgs cfg.extraFlags}"
-      ''}";
-
-      User = mkForce "root";
-      Group = mkForce "wheel";
-      NoNewPrivileges = mkForce "no";
     };
   };
 

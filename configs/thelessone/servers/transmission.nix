@@ -1,19 +1,27 @@
 {
-  lib,
+  self,
   pkgs,
   config,
   ...
 }:
 
 let
-  inherit (lib) escapeShellArgs mkForce;
-
   cfg = config.services.transmission;
-  settingsDir = ".config/transmission-daemon";
 in
 
 {
+  imports = [ self.nixosModules.vopono ];
+
   sec."vopono/wireguard.conf".owner = cfg.user;
+
+  services.vopono = {
+    enable = true;
+
+    configFile = config.sec."vopono/wireguard.conf".path;
+    protocol = "Wireguard";
+
+    services.transmission = cfg.settings.rpc-port;
+  };
 
   services.transmission = {
     enable = true;
@@ -26,7 +34,6 @@ in
       download-dir = "/home/arr-stack/downloads/transmission/complete";
       incomplete-dir = "/home/arr-stack/downloads/transmission/incomplete";
       incomplete-dir-enabled = true;
-      rpc-whitelist = "127.0.0.1,10.0.0.*";
       rpc-host-whitelist = "*";
       rpc-host-whitelist-enabled = true;
       ratio-limit = 0;
@@ -34,35 +41,14 @@ in
     };
   };
 
-  systemd.services.transmission = {
-    path = with pkgs; [
-      sudo
-      wireguard-tools
-      iproute2
-      iptables
-      procps
-    ];
-    serviceConfig = {
-      ExecStart = mkForce "${pkgs.writeShellScript "safe-transmission.sh" ''
-        ${lib.getExe pkgs.vopono} -v exec -k \
-          -f ${toString cfg.settings.rpc-port} \
-          --user ${cfg.user} \
-          --custom ${config.sec."vopono/wireguard.conf".path} \
-          --protocol wireguard \
-          "${cfg.package}/bin/transmission-daemon -a *.*.*.* -f -g ${cfg.home}/${settingsDir} ${escapeShellArgs cfg.extraFlags}"
-      ''}";
-
-      User = mkForce "root";
-      Group = mkForce "wheel";
-      NoNewPrivileges = mkForce "no";
-    };
+  services.caddy-easify.reverseProxies."http://transmission.theless.one" = {
+    port = cfg.settings.rpc-port;
+    userEnvVar = "shared";
   };
-
-  services.caddy-easify.reverseProxies."http://transmission.home.local".port = cfg.settings.rpc-port;
 
   services.homepage-easify.categories.Dienste.services.Transmission = rec {
     icon = "transmission.svg";
-    href = "http://transmission.home.local";
+    href = "http://transmission.theless.one";
     siteMonitor = href;
     description = "Torrent client";
   };

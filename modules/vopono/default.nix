@@ -99,7 +99,7 @@ in
 
         path =
           [
-            config.security.wrapperDir
+            "/run/wrappers"
             cfg.package
           ]
           ++ (with pkgs; [
@@ -112,23 +112,24 @@ in
 
         unitConfig.ConditionPathExists = "/var/lib/vopono/.config/vopono";
 
+        script = ''
+          vopono exec \
+            ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} -u root \
+            --keep-alive \
+            ${concatMapStrings (x: " -f ${toString x}") (unique (flatten (attrValues cfg.services)))} \
+            --allow-host-access \
+            --custom ${cfg.configFile} \
+            --protocol ${cfg.protocol} \
+            --custom-netns-name ${cfg.namespace} \
+            "systemd-notify --ready"
+        '';
+
         serviceConfig = {
           Type = "notify";
           NotifyAccess = "all";
-          Restart = "always";
+          Restart = "on-failure";
           RestartSec = "5s";
 
-          ExecStart = pkgs.writeShellScript "vopono-start.sh" ''
-            ${lib.getExe cfg.package} exec \
-              ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} -u root \
-              --keep-alive \
-              ${concatMapStrings (x: " -f ${toString x}") (unique (flatten (attrValues cfg.services)))} \
-              --allow-host-access \
-              --custom ${cfg.configFile} \
-              --protocol ${cfg.protocol} \
-              --custom-netns-name ${cfg.namespace} \
-              "systemd-notify --ready"
-          '';
           ExecStop = "${pkgs.iproute2}/bin/ip link delete ${cfg.namespace}_d";
 
           User = "vopono";

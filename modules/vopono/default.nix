@@ -15,6 +15,7 @@ let
     mkMerge
     concatMapStrings
     mkPackageOption
+    singleton
     ;
 
   inherit (lib.lists) unique flatten;
@@ -81,7 +82,6 @@ in
         isSystemUser = true;
         group = "vopono";
         home = "/var/lib/vopono";
-        extraGroups = [ "wheel" ];
       };
 
       users.groups.vopono = { };
@@ -133,7 +133,15 @@ in
           ExecStop = "${pkgs.iproute2}/bin/ip link delete ${cfg.namespace}_d";
 
           User = "vopono";
-          Group = "wheel";
+          Group = "vopono";
+        };
+      };
+
+      security.sudo.extraRules = singleton {
+        users = singleton "vopono";
+        commands = singleton {
+          command = "ALL";
+          options = singleton "NOPASSWD";
         };
       };
     })

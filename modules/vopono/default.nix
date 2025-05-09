@@ -97,15 +97,18 @@ in
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
 
-        path = with pkgs; [
-          cfg.package
-          wireguard-tools
-          iproute2
-          iptables
-          procps
-          systemd
-          sudo
-        ];
+        path =
+          [
+            config.security.wrapperDir
+            cfg.package
+          ]
+          ++ (with pkgs; [
+            wireguard-tools
+            iproute2
+            iptables
+            procps
+            systemd
+          ]);
 
         unitConfig.ConditionPathExists = "/var/lib/vopono/.config/vopono";
 

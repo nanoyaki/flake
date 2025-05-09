@@ -28,6 +28,8 @@ in
     package = pkgs.transmission_4;
     webHome = pkgs.flood-for-transmission;
 
+    extraFlags = [ "-a *.*.*.*" ];
+
     group = "arr-stack";
     downloadDirPermissions = "770";
     settings = {

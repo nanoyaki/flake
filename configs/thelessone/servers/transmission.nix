@@ -28,6 +28,8 @@ in
     package = pkgs.transmission_4;
     webHome = pkgs.flood-for-transmission;
 
+    extraFlags = [ "-a *.*.*.*" ];
+
     group = "arr-stack";
     downloadDirPermissions = "770";
     settings = {
@@ -46,7 +48,7 @@ in
     userEnvVar = "shared";
   };
 
-  services.homepage-easify.categories.Dienste.services.Transmission = rec {
+  services.homepage-easify.categories.Services.services.Transmission = rec {
     icon = "transmission.svg";
     href = "http://transmission.theless.one";
     siteMonitor = href;

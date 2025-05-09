@@ -25,6 +25,7 @@ in
 
   services.transmission = {
     enable = true;
+    openFirewall = true;
     package = pkgs.transmission_4;
     webHome = pkgs.flood-for-transmission;
 
@@ -36,6 +37,7 @@ in
       download-dir = "/home/arr-stack/downloads/transmission/complete";
       incomplete-dir = "/home/arr-stack/downloads/transmission/incomplete";
       incomplete-dir-enabled = true;
+      rpc-whitelist = "*.*.*.*";
       rpc-host-whitelist = "*";
       rpc-host-whitelist-enabled = true;
       ratio-limit = 0;

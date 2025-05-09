@@ -18,6 +18,7 @@
     ./arr-stack.nix
     ./uptime-kuma.nix
     ./sabnzbd.nix
+    ./transmission.nix
   ];
 
   services.arr-stack.enabled = [

@@ -24,7 +24,11 @@ let
     sonarr = lidarr;
   };
 
-  rule = path: "d ${path} 2770 ${config.services.jellyfin.user} arr-stack";
+  dirCfg = {
+    inherit (config.services.jellyfin) user;
+    group = "arr-stack";
+    mode = "2770";
+  };
 
   deepMerge = lib.foldl lib.recursiveUpdate { };
 in
@@ -65,22 +69,37 @@ in
           Jellyseerr.description = "Movie requests";
         };
 
-        systemd.tmpfiles.rules = [
-          (rule "/home/arr-stack")
+        systemd.tmpfiles.settings."10-libraries" = {
+          "/home/arr-stack".d = dirCfg;
 
-          (rule "/home/arr-stack/libraries")
-          (rule "/home/arr-stack/libraries/movies")
-          (rule "/home/arr-stack/libraries/shows")
+          "/home/arr-stack/libraries".d = dirCfg;
+          "/home/arr-stack/libraries/movies".d = dirCfg;
+          "/home/arr-stack/libraries/shows".d = dirCfg;
 
-          (rule "/home/arr-stack/anisync")
+          "/home/arr-stack/anisync".d = dirCfg;
 
-          (rule "/home/arr-stack/libraries/anime")
-          (rule "/home/arr-stack/libraries/anime/movies")
-          (rule "/home/arr-stack/libraries/anime/shows")
+          "/home/arr-stack/libraries/anime".d = dirCfg;
+          "/home/arr-stack/libraries/anime/movies".d = dirCfg;
+          "/home/arr-stack/libraries/anime/shows".d = dirCfg;
 
-          "d /home/arr-stack/downloads/complete 2770 ${config.services.sabnzbd.user} arr-stack"
-          "d /home/arr-stack/downloads/incomplete 2770 ${config.services.sabnzbd.user} arr-stack"
-        ];
+          "/home/arr-stack/downloads".d = dirCfg;
+          "/home/arr-stack/downloads/transmission".d = dirCfg // {
+            inherit (config.services.transmission) user;
+          };
+          "/home/arr-stack/downloads/transmission/complete".d = dirCfg // {
+            inherit (config.services.transmission) user;
+          };
+          "/home/arr-stack/downloads/transmission/incomplete".d = dirCfg // {
+            inherit (config.services.transmission) user;
+          };
+
+          "/home/arr-stack/downloads/complete".d = dirCfg // {
+            inherit (config.services.sabnzbd) user;
+          };
+          "/home/arr-stack/downloads/incomplete".d = dirCfg // {
+            inherit (config.services.sabnzbd) user;
+          };
+        };
 
         services.radarr.group = "arr-stack";
         services.sonarr.group = "arr-stack";

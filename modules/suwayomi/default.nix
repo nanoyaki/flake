@@ -117,8 +117,7 @@ in
         script = ''
           ${lib.getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/.local/share/Tachidesk/server.conf
 
-          JAVA_OPTS="${dataDir}/tmp"
-          ${lib.getExe cfg.package}
+          JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=${dataDir}/tmp" ${lib.getExe cfg.package}
         '';
 
         serviceConfig = {

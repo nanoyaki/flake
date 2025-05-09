@@ -1,5 +1,6 @@
 {
   self,
+  packages,
   config,
   ...
 }:
@@ -24,6 +25,8 @@ in
 
   services.suwayomi = {
     enable = true;
+
+    package = packages.suwayomi-server;
 
     instances = {
       thomas = mkInstance 4555;

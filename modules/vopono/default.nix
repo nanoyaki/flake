@@ -114,7 +114,7 @@ in
 
         script = ''
           vopono exec \
-            ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} -u root \
+            ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} -u vopono \
             --keep-alive \
             ${concatMapStrings (x: " -f ${toString x}") (unique (flatten (attrValues cfg.services)))} \
             --custom ${cfg.configFile} \

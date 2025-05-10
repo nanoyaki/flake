@@ -114,7 +114,7 @@ in
         after = [ "network-online.target" ];
 
         script = ''
-          ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/.local/share/Tachidesk/server.conf
+          ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/server.conf
 
           export JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=${dataDir}/tmp -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}"
           ${getExe cfg.package}

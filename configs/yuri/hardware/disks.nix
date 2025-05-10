@@ -38,4 +38,14 @@
       };
     };
   };
+
+  fileSystems."/mnt/nvme-raid-1" = {
+    device = "UUID=cf31a05b-3ba3-4089-9b10-fcd1fd04c57c";
+    fsType = "btrfs";
+    options = [
+      "defaults"
+      "compress=zstd"
+      "space_cache=v2"
+    ];
+  };
 }

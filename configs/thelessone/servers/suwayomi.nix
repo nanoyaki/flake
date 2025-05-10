@@ -11,7 +11,12 @@ let
 
     settings.server = {
       inherit port;
-      extensionRepos = [ "https://github.com/keiyoushi/extensions" ];
+      extensionRepos = [
+        "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
+        "https://raw.githubusercontent.com/yuzono/manga-repo/repo/index.min.json"
+        "https://raw.githubusercontent.com/Kareadita/tach-extension/repo/index.min.json"
+        "https://raw.githubusercontent.com/Suwayomi/tachiyomi-extension/repo/index.min.json"
+      ];
     };
   };
 

@@ -1,4 +1,7 @@
-{ lib, format }:
+{
+  lib,
+  format,
+}:
 
 let
   inherit (lib) types mkOption mkEnableOption;
@@ -58,6 +61,36 @@ in
             '';
             description = ''
               URL of repositories from which the extensions can be installed.
+            '';
+          };
+
+          downloadsPath = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            defaultText = ''''${cfg.instances.<name>.settings.rootDir}/downloads'';
+            example = "/var/lib/suwayomi/instance/.cache/downloads";
+            description = ''
+              Downloads directory for suwayomi server.
+            '';
+          };
+
+          rootDir = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            defaultText = "/var/lib/suwayomi/<name>";
+            example = "/var/lib/suwayomi/main-instance";
+            description = ''
+              Data directory for suwayomi server.
+            '';
+          };
+
+          localSourcePath = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            defaultText = ''''${cfg.instances.<name>.settings.rootDir}/local'';
+            example = "/var/lib/suwayomi/instance/localManga";
+            description = ''
+              Local manga directory for suwayomi server.
             '';
           };
         };

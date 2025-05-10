@@ -6,17 +6,28 @@
 }:
 
 let
-  cfg = config.services.suwayomi;
   inherit (lib)
-    recursiveUpdate
-    filterAttrsRecursive
-    mapAttrs'
+    mkOption
     mkEnableOption
     mkPackageOption
-    mkOption
-    nameValuePair
     types
+    mkIf
+    getExe
     ;
+
+  inherit (lib.attrsets)
+    filterAttrs
+    nameValuePair
+    mapAttrs'
+    recursiveUpdate
+    filterAttrsRecursive
+    ;
+
+  inherit (lib.lists) map;
+  inherit (builtins) attrNames;
+
+  cfg = config.services.suwayomi;
+  nullOr = value: alternative: if value != null then value else alternative;
 
   format = pkgs.formats.hocon { };
 in
@@ -27,107 +38,92 @@ in
 
     package = mkPackageOption pkgs "suwayomi-server" { };
 
-    dataDir = mkOption {
-      type = types.path;
-      default = "/var/lib/suwayomi";
-      example = "/var/data/mangas";
-      description = ''
-        The path to the data directory in which Suwayomi-Server will download scans.
-      '';
-    };
-
     instances = mkOption {
       type = types.attrsOf (types.submodule (import ./instance.nix { inherit lib format; }));
       default = { };
     };
   };
 
-  config = lib.mkIf (cfg.enable && cfg.instances != { }) {
-    # networking.firewall.allowedTCPPorts = builtins.map (
-    #   instance: cfg.instances.${instance}.settings.server.port
-    # ) (builtins.attrNames cfg.instances);
+  config = mkIf (cfg.enable && cfg.instances != { }) {
+    networking.firewall.allowedTCPPorts = map (iName: cfg.instances.${iName}.settings.server.port) (
+      attrNames (filterAttrs (_: iCfg: iCfg.openFirewall) cfg.instances)
+    );
 
-    users.groups = mapAttrs' (name: _: nameValuePair "suwayomi-${name}" { }) cfg.instances;
+    users.groups = mapAttrs' (iName: _: nameValuePair "suwayomi-${iName}" { }) cfg.instances;
 
     users.users = mapAttrs' (
-      name: _:
-      let
-        dataDir = "${cfg.dataDir}/${name}";
-        user = "suwayomi-${name}";
-      in
-      nameValuePair user {
-        group = user;
-        home = dataDir;
+      iName: iCfg:
+      nameValuePair "suwayomi-${iName}" {
+        group = "suwayomi-${iName}";
+        home = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
         description = "Suwayomi Daemon user";
         isSystemUser = true;
       }
     ) cfg.instances;
 
     systemd.tmpfiles.settings = mapAttrs' (
-      name: _:
+      iName: iCfg:
       let
-        dataDir = "${cfg.dataDir}/${name}";
-        user = "suwayomi-${name}";
+        dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
+        downloadsDir = nullOr iCfg.settings.server.downloadsPath "${dataDir}/downloads";
+        localDir = nullOr iCfg.settings.server.localSourcePath "${dataDir}/local";
 
-        dirConf = {
-          mode = "0700";
-          inherit user;
-          group = user;
+        dirCfg = {
+          user = "suwayomi-${iName}";
+          group = "suwayomi-${iName}";
+          mode = "750";
         };
       in
-      nameValuePair "10-${user}" {
-        "${dataDir}/.local/share/Tachidesk".d = dirConf;
-        "${dataDir}/tmp".d = dirConf;
+      nameValuePair "10-suwayomi-${iName}" {
+        "${dataDir}/.local/share/Tachidesk".d = dirCfg;
+        "${dataDir}/tmp".d = dirCfg;
+        ${downloadsDir}.d = dirCfg;
+        ${localDir}.d = dirCfg;
       }
     ) cfg.instances;
 
     systemd.services = mapAttrs' (
-      name: instCfg:
+      iName: iCfg:
       let
-        dataDir = "${cfg.dataDir}/${name}";
-        localsDir = "${dataDir}/locals";
-        downloadsDir = "${dataDir}/downloads";
+        dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
 
-        serverName = "suwayomi-${name}";
+        user = "suwayomi-${iName}";
+        group = "suwayomi-${iName}";
 
-        instanceSettings = recursiveUpdate instCfg.settings {
-          server = {
-            rootDir = dataDir;
-            localSourcePath = localsDir;
-            downloadsPath = downloadsDir;
-
-            systemTrayEnabled = false;
-            initialOpenInBrowserEnabled = false;
-          };
-        };
-
-        filteredSettings = filterAttrsRecursive (_: x: x != null) instanceSettings;
-
-        configFile = format.generate "server.conf" filteredSettings;
+        configFile =
+          lib.pipe
+            {
+              server = {
+                systemTrayEnabled = false;
+                initialOpenInBrowserEnabled = false;
+              };
+            }
+            [
+              (recursiveUpdate iCfg.settings)
+              (filterAttrsRecursive (_: x: x != null))
+              (format.generate "server.conf")
+            ];
       in
-      nameValuePair serverName {
-        inherit (instCfg) enable;
-
-        description = ''Instance "${name}" of Suwayomi Server.'';
+      nameValuePair "suwayomi-${iName}" {
+        description = "Suwayomi Server instance ${iName}";
 
         wantedBy = [ "multi-user.target" ];
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
 
         script = ''
-          ${lib.getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/.local/share/Tachidesk/server.conf
+          ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/.local/share/Tachidesk/server.conf
 
-          JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=${dataDir}/tmp" ${lib.getExe cfg.package}
+          export JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=${dataDir}/tmp -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}"
+          ${getExe cfg.package}
         '';
 
         serviceConfig = {
-          User = serverName;
-          Group = serverName;
+          User = user;
+          Group = group;
 
           Type = "simple";
           Restart = "on-failure";
-
-          StateDirectory = serverName;
         };
       }
     ) cfg.instances;

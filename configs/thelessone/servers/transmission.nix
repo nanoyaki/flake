@@ -37,7 +37,9 @@ in
       download-dir = "/home/arr-stack/downloads/transmission/complete";
       incomplete-dir = "/home/arr-stack/downloads/transmission/incomplete";
       incomplete-dir-enabled = true;
+      rpc-bind-address = "10.200.1.2";
       rpc-whitelist = "*.*.*.*";
+      rpc-url = "/";
       rpc-host-whitelist = "*";
       rpc-host-whitelist-enabled = true;
       ratio-limit = 0;

@@ -17,15 +17,15 @@
   };
   openrgb = {
     pname = "openrgb";
-    version = "425a92521fa1c9727715a3f7fb53d2f02bbfaf74";
+    version = "478cf4e9daca45107d8e9c84f5b37e7ab4d852f1";
     src = fetchgit {
       url = "https://gitlab.com/CalcProgrammer1/OpenRGB.git";
-      rev = "425a92521fa1c9727715a3f7fb53d2f02bbfaf74";
+      rev = "478cf4e9daca45107d8e9c84f5b37e7ab4d852f1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-6VG5cUC11Q2Wwf2G/0kbqUOF4nPsHProujmh5t20wL8=";
+      sha256 = "sha256-hpFHsMzhYVBUbjD3+bqt4WBNIqmbPgH3n6odftQ5xo0=";
     };
     date = "2025-05-09";
   };
@@ -59,16 +59,16 @@
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
-    version = "f0f740f4af4247106edb76bbb743de27a545d923";
+    version = "18e0e9069d33434a2dfc203727f57e50d105ffb0";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-WebUI.git";
-      rev = "f0f740f4af4247106edb76bbb743de27a545d923";
+      rev = "18e0e9069d33434a2dfc203727f57e50d105ffb0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-jmgnMfilHNyUJ6IUl+aRsfK5jW93KzC0iHpoIiyySEM=";
+      sha256 = "sha256-P6DR/Y4CeaOT7obF18IcZx2x4/4OOUjQNjcOazzL8Yo=";
     };
-    date = "2025-05-05";
+    date = "2025-05-10";
   };
 }

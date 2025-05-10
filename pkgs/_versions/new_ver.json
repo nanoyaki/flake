@@ -5,10 +5,10 @@
       "version": "sha256-Q8pdxsnujmweHwrOFFmj4oCla9XPzPw+J8N9M0yQtF0="
     },
     "suwayomi-webui-revision": {
-      "version": "2548"
+      "version": "2559"
     },
     "suwayomi-webui-yarn-deps": {
-      "version": "sha256-xjhy37+zAM6/Ed3aVXI4qynf2vvfXSLVIhvjxAExyyY="
+      "version": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
     }
   }
 }

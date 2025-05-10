@@ -50,7 +50,7 @@ in
     );
 
     users.groups = mapAttrs' (iName: _: nameValuePair "suwayomi-${iName}" { }) (
-      filterAttrs (iName: iCfg: iCfg.group == "suwayomi-${iName}") cfg.instances
+      filterAttrs (_: iCfg: iCfg.group == null) cfg.instances
     );
 
     users.users = mapAttrs' (
@@ -61,7 +61,7 @@ in
         description = "Suwayomi Daemon user";
         isSystemUser = true;
       }
-    ) (filterAttrs (iName: iCfg: iCfg.user == "suwayomi-${iName}") cfg.instances);
+    ) (filterAttrs (_: iCfg: iCfg.user == null) cfg.instances);
 
     systemd.tmpfiles.settings = mapAttrs' (
       iName: iCfg:
@@ -89,8 +89,8 @@ in
       let
         dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
 
-        user = "suwayomi-${iName}";
-        group = "suwayomi-${iName}";
+        user = nullOr iCfg.user "suwayomi-${iName}";
+        group = nullOr iCfg.group "suwayomi-${iName}";
 
         configFile =
           lib.pipe

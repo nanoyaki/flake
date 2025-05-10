@@ -12,11 +12,26 @@ in
     # Basepath /var/lib/suwayomi/<instanceName>/
     enable = mkEnableOption "this instance of suwayomi";
 
+    user = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      defaultText = "suwayomi-<name>";
+      description = "The user to use for the service.";
+    };
+
+    group = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      defaultText = "suwayomi-<name>";
+      description = "The group to use for the service.";
+    };
+
     openFirewall = mkOption {
       type = types.bool;
       default = false;
       description = ''
-        Whether to open the firewall for the port in {option}`services.suwayomi.instances.<name>.settings.server.port`.
+        Whether to open the firewall for the port in
+        {option}`services.suwayomi.instances.<name>.settings.server.port`.
       '';
     };
 

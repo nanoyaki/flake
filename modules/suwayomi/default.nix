@@ -49,17 +49,19 @@ in
       attrNames (filterAttrs (_: iCfg: iCfg.openFirewall) cfg.instances)
     );
 
-    users.groups = mapAttrs' (iName: _: nameValuePair "suwayomi-${iName}" { }) cfg.instances;
+    users.groups = mapAttrs' (iName: _: nameValuePair "suwayomi-${iName}" { }) (
+      filterAttrs (iName: iCfg: iCfg.group == "suwayomi-${iName}") cfg.instances
+    );
 
     users.users = mapAttrs' (
       iName: iCfg:
       nameValuePair "suwayomi-${iName}" {
-        group = "suwayomi-${iName}";
+        group = nullOr iCfg.group "suwayomi-${iName}";
         home = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
         description = "Suwayomi Daemon user";
         isSystemUser = true;
       }
-    ) cfg.instances;
+    ) (filterAttrs (iName: iCfg: iCfg.user == "suwayomi-${iName}") cfg.instances);
 
     systemd.tmpfiles.settings = mapAttrs' (
       iName: iCfg:

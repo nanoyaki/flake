@@ -97,7 +97,7 @@
         ./modules
         ./homeModules
         ./devShell.nix
-        ./nvfetcher.nix
+        ./update.nix
 
         ./configs/shirayuri
         ./configs/kuroyuri

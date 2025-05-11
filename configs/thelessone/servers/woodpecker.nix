@@ -62,6 +62,7 @@
         openssh
         statix
         nix-fast-build
+        nvd
       ];
     };
 

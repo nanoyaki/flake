@@ -17,10 +17,12 @@ steps:
   - name: build
     image: bash
     commands:
-      - nix-fast-build -f .#nixosConfigurations.yuri.config.system.build.toplevel --no-link --no-nom
+      - nix-fast-build -f .#nixosConfigurations.yuri.config.system.build.toplevel --no-nom
+      - nix run nixpkgs#nvd -- diff /run/current-system $(readlink -f ./result-)
 
   - name: deployment
     when:
+      - event: deployment
       - branch: main
         evaluate: not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
     depends_on:

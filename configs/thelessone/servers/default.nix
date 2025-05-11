@@ -31,6 +31,7 @@
       Services.before = "Code";
     };
 
+    glances.layout.columns = 3;
     glances.widgets = [
       {
         Info = {

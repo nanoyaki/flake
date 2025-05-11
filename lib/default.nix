@@ -59,5 +59,14 @@
         in
         ''${parsedEnvVars} ${lib.getExe' pkg mainProgram}''
       );
+
+    mkEnabledOption = name: (lib.mkEnableOption name) // { default = true; };
+
+    types.singleAttrOf =
+      elemType:
+      (lib.types.attrsOf elemType)
+      // {
+        check = actual: (lib.isAttrs actual) && ((lib.lists.length (lib.attrValues actual)) == 1);
+      };
   };
 }

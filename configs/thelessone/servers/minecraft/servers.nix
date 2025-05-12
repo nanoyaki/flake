@@ -40,6 +40,7 @@ let
       aronachannel = "7f914413-e8df-475f-88d6-cfd3d63da375";
       Desert__Igel = "1c19db01-9d0b-43ea-ad7b-7fc254445298";
       MaruMaruKyun = "252d0e91-5592-428d-baf0-b432190fc0ee";
+      PooPooManPan = "93a9b9ea-d121-430b-945b-92e1a9dd5811";
     };
   };
 

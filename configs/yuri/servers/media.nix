@@ -91,4 +91,11 @@ in
     "tplink"
     "tplink_tapo"
   ];
+
+  services.transmission.settings = {
+    speed-limit-down-enabled = true;
+    speed-limit-down = 2000;
+    speed-limit-up-enabled = true;
+    speed-limit-up = 1000;
+  };
 }

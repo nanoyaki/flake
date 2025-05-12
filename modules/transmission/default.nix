@@ -91,8 +91,16 @@ in
         rpc-url = "/";
         rpc-host-whitelist = "*";
         rpc-host-whitelist-enabled = true;
-        ratio-limit = 0;
+        ratio-limit = 1;
         ratio-limit-enabled = true;
+
+        blocklist-enabled = true;
+        blocklist-url = "https://github.com/Naunter/BT_BlockLists/raw/refs/heads/master/bt_blocklists.gz";
+
+        speed-limit-down-enabled = lib.mkDefault true;
+        speed-limit-down = lib.mkDefault 10000;
+        speed-limit-up-enabled = lib.mkDefault true;
+        speed-limit-up = lib.mkDefault 2500;
       };
     };
 

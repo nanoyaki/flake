@@ -56,15 +56,10 @@ in
       publicKey:
       let
         device = (lib.lists.findFirstIndex (self: publicKey == self) 0 clientPubKeys) + 2;
-        assignedIp = "10.100.0.${toString device}/32";
       in
       {
         inherit publicKey;
-        allowedIPs = [
-          assignedIp
-          "10.100.0.1/32"
-          "192.168.178.84/32"
-        ];
+        allowedIPs = [ "10.100.0.${toString device}/32" ];
         persistentKeepalive = 30;
       }
     ) clientPubKeys;

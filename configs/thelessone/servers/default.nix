@@ -1,4 +1,39 @@
-{ self, ... }:
+{
+  self,
+  lib,
+  config,
+  ...
+}:
+
+let
+  inherit (lib)
+    optionalString
+    nameValuePair
+    mapAttrs'
+    filterAttrs
+    elem
+    ;
+
+  domain =
+    service:
+    let
+      cfg = config.services.media-easify.services.${service};
+
+      subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
+      slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
+      inherit (config.services.caddy-easify) baseDomain;
+      scheme = if config.services.caddy-easify.useHttps then "https://" else "http://";
+    in
+    "${scheme}${subdomain}${baseDomain}${slug}";
+
+  excludes = [
+    "uptimekuma"
+    "immich"
+    "vaultwarden"
+  ];
+
+  outsideLocal = "@outside-local not client_ip private_ranges 100.64.0.0/10 10.100.0.0/24 fd7a:115c:a1e0::/48";
+in
 
 {
   imports = [
@@ -19,6 +54,25 @@
   ];
 
   services.caddy-easify.baseDomain = "theless.one";
+
+  services.caddy-easify.reverseProxies =
+    mapAttrs'
+      (
+        service: _:
+        nameValuePair (domain service) {
+          extraConfig = ''
+            ${outsideLocal}
+            basic_auth @outside-local {
+              {$shared}
+            }
+          '';
+        }
+      )
+      (
+        filterAttrs (
+          service: cfg: cfg.enable && !(elem service excludes)
+        ) config.services.media-easify.services
+      );
 
   services.media-easify.services = {
     # lidarr.enable = false;
@@ -72,6 +126,4 @@
       }
     ];
   };
-
-  services.caddy-easify.reverseProxies."https://transmission.theless.one".userEnvVar = "shared";
 }

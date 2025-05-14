@@ -16,6 +16,8 @@ in
       user = "thelessone";
       hostname = "theless.one";
       inherit identityFile;
+      serverAliveInterval = 60;
+      serverAliveCountMax = 180;
     };
   };
 }

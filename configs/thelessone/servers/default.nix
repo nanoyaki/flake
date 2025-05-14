@@ -20,7 +20,7 @@
   services.caddy-easify.baseDomain = "theless.one";
 
   services.media-easify.services = {
-    lidarr.enable = false;
+    # lidarr.enable = false;
     paperless.enable = false;
     home-assistant.enable = false;
   };

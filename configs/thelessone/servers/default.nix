@@ -15,6 +15,7 @@
     ./immich.nix
     ./nix-serve.nix
     ./uptime-kuma.nix
+    ./wireguard.nix
   ];
 
   services.caddy-easify.baseDomain = "theless.one";

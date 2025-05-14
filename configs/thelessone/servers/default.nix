@@ -35,12 +35,6 @@
     glances.layout.columns = 3;
     glances.widgets = [
       {
-        Info = {
-          metric = "info";
-          chart = true;
-        };
-      }
-      {
         "CPU usage" = {
           metric = "cpu";
           chart = true;
@@ -67,6 +61,12 @@
       {
         "Network usage" = {
           metric = "network:enp6s0";
+          chart = true;
+        };
+      }
+      {
+        "VPN Network usage" = {
+          metric = "network:wg0";
           chart = true;
         };
       }

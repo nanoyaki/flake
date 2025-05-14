@@ -30,7 +30,7 @@ in
 
 {
   options.services.media-easify.services.${service} = {
-    enable = mkEnableOption service;
+    enable = mkEnabledOption service;
 
     useSubdomain = mkEnabledOption "a subdomain for ${service}";
 

@@ -35,6 +35,8 @@ in
       type = types.attrsOf (
         types.submodule {
           options = {
+            enable = mkEnabledOption "this reverse proxy";
+
             port = mkOption { type = types.port; };
 
             host = mkOption {
@@ -66,7 +68,7 @@ in
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
       80
-      (mkIf cfg.useHttps 443)
+      443
     ];
 
     services.caddy = {
@@ -78,20 +80,27 @@ in
         level INFO
       '';
 
-      virtualHosts = lib.mapAttrs (_: reverseProxy: {
-        extraConfig = ''
-          ${lib.optionalString (reverseProxy.userEnvVar != null) ''
-            basic_auth * {
-              {''$${reverseProxy.userEnvVar}}
-            }
-          ''}
+      globalConfig = lib.optionalString (!cfg.useHttps) ''
+        auto_https off
+      '';
 
-          ${reverseProxy.extraConfig}
+      virtualHosts = lib.mapAttrs' (
+        domain: reverseProxy:
+        lib.nameValuePair "${lib.optionalString (!cfg.useHttps) "http://"}${domain}" {
+          extraConfig = ''
+            ${lib.optionalString (reverseProxy.userEnvVar != null) ''
+              basic_auth * {
+                {''$${reverseProxy.userEnvVar}}
+              }
+            ''}
 
-          reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
-        '';
-        inherit (reverseProxy) serverAliases;
-      }) cfg.reverseProxies;
+            ${reverseProxy.extraConfig}
+
+            reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
+          '';
+          inherit (reverseProxy) serverAliases;
+        }
+      ) (lib.filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
     };
 
     systemd.services.caddy.path = [ pkgs.nssTools ];

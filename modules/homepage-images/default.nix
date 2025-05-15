@@ -24,9 +24,8 @@ let
   subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
   slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
   inherit (config.services.caddy-easify) baseDomain;
-  scheme = if config.services.caddy-easify.useHttps then "https://" else "http://";
 
-  domain = "${scheme}${subdomain}${baseDomain}${slug}";
+  domain = "${subdomain}${baseDomain}${slug}";
 in
 
 {

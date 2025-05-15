@@ -22,9 +22,8 @@ let
       subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
       slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
       inherit (config.services.caddy-easify) baseDomain;
-      scheme = if config.services.caddy-easify.useHttps then "https://" else "http://";
     in
-    "${scheme}${subdomain}${baseDomain}${slug}";
+    "${subdomain}${baseDomain}${slug}";
 
   excludes = [
     "uptimekuma"
@@ -34,7 +33,9 @@ let
     "jellyseerr"
   ];
 
-  outsideLocal = "@outside-local not client_ip private_ranges 100.64.0.0/10 10.100.0.0/24 fd7a:115c:a1e0::/48";
+  privateServices = filterAttrs (
+    service: cfg: cfg.enable && !(elem service excludes)
+  ) config.services.media-easify.services;
 in
 
 {
@@ -58,24 +59,13 @@ in
   services.caddy-easify.baseDomain = "theless.one";
 
   services.caddy-easify.reverseProxies =
-    mapAttrs'
-      (
-        service: _:
-        nameValuePair (domain service) {
-          extraConfig = ''
-            ${outsideLocal}
-            respond @outside-local "Access Denied" 403 {
-              close
-            }
-          '';
-          serverAliases = [ "http://${service}.vpn.nanoyaki.space" ];
-        }
-      )
-      (
-        filterAttrs (
-          service: cfg: cfg.enable && !(elem service excludes)
-        ) config.services.media-easify.services
-      );
+    (mapAttrs' (service: _: nameValuePair (domain service) { enable = false; }) privateServices)
+    // (mapAttrs' (
+      service: _:
+      nameValuePair "http://${service}.vpn.nanoyaki.space" {
+        inherit (config.services.caddy-easify.reverseProxies.${domain service}) port;
+      }
+    ) privateServices);
 
   services.media-easify.services = {
     # lidarr.enable = false;

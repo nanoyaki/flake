@@ -64,10 +64,11 @@ in
         nameValuePair (domain service) {
           extraConfig = ''
             ${outsideLocal}
-            basic_auth @outside-local {
-              {$shared}
+            respond @outside-local "Access Denied" 403 {
+              close
             }
           '';
+          serverAliases = [ "http://${service}.vpn.nanoyaki.space" ];
         }
       )
       (

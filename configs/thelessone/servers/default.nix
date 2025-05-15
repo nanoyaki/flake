@@ -30,6 +30,8 @@ let
     "uptimekuma"
     "immich"
     "vaultwarden"
+    "jellyfin"
+    "jellyseerr"
   ];
 
   outsideLocal = "@outside-local not client_ip private_ranges 100.64.0.0/10 10.100.0.0/24 fd7a:115c:a1e0::/48";

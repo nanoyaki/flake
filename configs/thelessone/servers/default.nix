@@ -29,8 +29,6 @@ let
     "uptimekuma"
     "immich"
     "vaultwarden"
-    "jellyfin"
-    "jellyseerr"
   ];
 
   privateServices = filterAttrs (

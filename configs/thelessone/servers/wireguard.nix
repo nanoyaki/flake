@@ -24,6 +24,7 @@ let
     "192.168.178.0/24"
     "fe80::/10"
     "10.100.0.0/24"
+    "fdc9:281f:04d7:9ee9::1/124"
   ];
 
   nameservers = [
@@ -46,9 +47,15 @@ in
     trustedInterfaces = [ "wg0" ];
   };
 
-  networking.wireguard.enable = true;
-  networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.100.0.1/24" ];
+  networking.wg-quick.interfaces.wg0 = {
+    address = [
+      "10.100.0.1/28"
+      "fdc9:281f:04d7:9ee9::1/124"
+    ];
+    dns = [
+      "10.100.0.1"
+      "fdc9:281f:04d7:9ee9::1"
+    ];
     listenPort = 51820;
     privateKeyFile = config.sec.wireguard.path;
 
@@ -59,13 +66,16 @@ in
       in
       {
         inherit publicKey;
-        allowedIPs = [ "10.100.0.${toString device}/32" ];
-        persistentKeepalive = 30;
+        allowedIPs = [
+          "10.100.0.${toString device}/32"
+          "fdc9:281f:04d7:9ee9::${lib.toHexString device}/128"
+        ];
+        persistentKeepalive = 25;
       }
     ) clientPubKeys;
   };
 
-  networking.resolvconf.useLocalResolver = false;
+  networking.resolvconf.useLocalResolver = true;
   services.bind = {
     enable = true;
 
@@ -94,5 +104,4 @@ in
 
     forwarders = nameservers;
   };
-  networking = { inherit nameservers; };
 }

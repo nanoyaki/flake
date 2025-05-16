@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 {
   sec.wireguard = { };
@@ -15,6 +20,9 @@
       "fdc9:281f:04d7:9ee9::1"
     ];
     listenPort = 51820;
+
+    postUp = "${lib.getExe' pkgs.iproute2 "ip"} route add 10.100.0.0/24 dev wg0";
+    preDown = "${lib.getExe' pkgs.iproute2 "ip"} route del 10.100.0.0/24 dev wg0";
 
     privateKeyFile = config.sec.wireguard.path;
     peers = [

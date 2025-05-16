@@ -23,8 +23,9 @@ let
   subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
   slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
   inherit (config.services.caddy-easify) baseDomain;
+  scheme = "http${optionalString config.services.caddy-easify.useHttps "s"}://";
 
-  domain = "${subdomain}${baseDomain}${slug}";
+  domain = "${scheme}${subdomain}${baseDomain}${slug}";
 
   dirCfg = {
     inherit (config.services.jellyfin) user;

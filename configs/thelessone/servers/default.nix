@@ -1,4 +1,41 @@
-{ self, ... }:
+{
+  self,
+  lib,
+  config,
+  ...
+}:
+
+let
+  inherit (lib)
+    optionalString
+    nameValuePair
+    mapAttrs'
+    filterAttrs
+    elem
+    ;
+
+  domain =
+    service:
+    let
+      cfg = config.services.media-easify.services.${service};
+
+      subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
+      slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
+      inherit (config.services.caddy-easify) baseDomain;
+      scheme = "http${optionalString config.services.caddy-easify.useHttps "s"}://";
+    in
+    "${scheme}${subdomain}${baseDomain}${slug}";
+
+  excludes = [
+    "uptimekuma"
+    "immich"
+    "vaultwarden"
+  ];
+
+  privateServices = filterAttrs (
+    service: cfg: cfg.enable && !(elem service excludes)
+  ) config.services.media-easify.services;
+in
 
 {
   imports = [
@@ -19,6 +56,18 @@
   ];
 
   services.caddy-easify.baseDomain = "theless.one";
+
+  services.caddy-easify.reverseProxies = mapAttrs' (
+    service: _:
+    nameValuePair (domain service) {
+      extraConfig = ''
+        @outside-local not client_ip private_ranges 100.64.0.0/10 10.100.0.0/24 fd7a:115c:a1e0::/48
+        respond @outside-local "Access Denied" 403 {
+          close
+        }
+      '';
+    }
+  ) privateServices;
 
   services.media-easify.services = {
     # lidarr.enable = false;

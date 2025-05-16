@@ -1,40 +1,4 @@
-{
-  self,
-  lib,
-  config,
-  ...
-}:
-
-let
-  inherit (lib)
-    optionalString
-    nameValuePair
-    mapAttrs'
-    filterAttrs
-    elem
-    ;
-
-  domain =
-    service:
-    let
-      cfg = config.services.media-easify.services.${service};
-
-      subdomain = optionalString cfg.useSubdomain "${cfg.subdomain}.";
-      slug = optionalString cfg.useDomainSlug "/${cfg.domainSlug}";
-      inherit (config.services.caddy-easify) baseDomain;
-    in
-    "${subdomain}${baseDomain}${slug}";
-
-  excludes = [
-    "uptimekuma"
-    "immich"
-    "vaultwarden"
-  ];
-
-  privateServices = filterAttrs (
-    service: cfg: cfg.enable && !(elem service excludes)
-  ) config.services.media-easify.services;
-in
+{ self, ... }:
 
 {
   imports = [
@@ -55,15 +19,6 @@ in
   ];
 
   services.caddy-easify.baseDomain = "theless.one";
-
-  services.caddy-easify.reverseProxies =
-    (mapAttrs' (service: _: nameValuePair (domain service) { enable = false; }) privateServices)
-    // (mapAttrs' (
-      service: _:
-      nameValuePair "http://${service}.vpn.nanoyaki.space" {
-        inherit (config.services.caddy-easify.reverseProxies.${domain service}) port;
-      }
-    ) privateServices);
 
   services.media-easify.services = {
     # lidarr.enable = false;

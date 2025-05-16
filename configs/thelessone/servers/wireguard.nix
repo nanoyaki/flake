@@ -24,7 +24,7 @@ let
     "192.168.178.0/24"
     "fe80::/10"
     "10.100.0.0/24"
-    "fdc9:281f:04d7:9ee9::1/124"
+    "fdc9:281f:04d7:9ee9::/124"
   ];
 
   nameservers = [
@@ -75,6 +75,7 @@ in
     ) clientPubKeys;
   };
 
+  services.resolved.enable = false;
   networking.resolvconf.useLocalResolver = true;
   services.bind = {
     enable = true;

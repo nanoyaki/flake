@@ -42,8 +42,6 @@
       ./ssh.nix
       ./cam.nix
       ./tailscale.nix
-      ./wireguard.nix
-      # ./gluetun.nix
     ];
   };
 }

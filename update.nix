@@ -14,11 +14,11 @@
             prefetch-yarn-deps
           ];
           text = ''
+            git stash
+
             nix --extra-experimental-features "nix-command flakes" flake update
             nvfetcher -o pkgs/_sources "$@"
             nvchecker -c nvchecker.toml
-
-            git stash
 
             git add pkgs/{_sources,_versions} flake.lock
             git commit -m "chore: Update $(date +"%d.%m.%y")"

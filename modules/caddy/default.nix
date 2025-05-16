@@ -80,8 +80,8 @@ in
         level INFO
       '';
 
-      globalConfig = lib.optionalString (!cfg.useHttps) ''
-        auto_https off
+      globalConfig = ''
+        auto_https ${if cfg.useHttps then "disable_redirects" else "off"}
       '';
 
       virtualHosts = lib.mapAttrs' (

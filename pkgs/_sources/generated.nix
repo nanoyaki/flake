@@ -17,17 +17,17 @@
   };
   openrgb = {
     pname = "openrgb";
-    version = "b83cc7fecd698296f5841d4fb2f075374605bd67";
+    version = "d6a4f315fb34e7d3791b7a74ec4e46c507074461";
     src = fetchgit {
       url = "https://gitlab.com/CalcProgrammer1/OpenRGB.git";
-      rev = "b83cc7fecd698296f5841d4fb2f075374605bd67";
+      rev = "d6a4f315fb34e7d3791b7a74ec4e46c507074461";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-GrA5pTqBHsYZbJ1qw0meqGVCH0Y0uL8a6XSOmCBVflk=";
+      sha256 = "sha256-8tTEk1Gn5pvlYIiXXxfXZ9EFDbrPeo5BMB8BID6NXdQ=";
     };
-    date = "2025-05-12";
+    date = "2025-05-16";
   };
   rofi-themes = {
     pname = "rofi-themes";
@@ -45,30 +45,30 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "983980d8dae26ac65d00bc15ca74c583a396ffcd";
+    version = "538bd3f126a5f89aa10a0775f8c894c443dae59f";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "983980d8dae26ac65d00bc15ca74c583a396ffcd";
+      rev = "538bd3f126a5f89aa10a0775f8c894c443dae59f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-XDZIh240zP2fpK4eXFxlCqBGHES35vq4VvUyX+a0K0c=";
+      sha256 = "sha256-LEZabI+LyMpi5dp0wc5HrDI9r2RRrTLjjcd4kIi5smE=";
     };
-    date = "2025-05-06";
+    date = "2025-05-16";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
-    version = "18e0e9069d33434a2dfc203727f57e50d105ffb0";
+    version = "05dc05a04379d0d93e8266cf0c8b43f58c0a613b";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-WebUI.git";
-      rev = "18e0e9069d33434a2dfc203727f57e50d105ffb0";
+      rev = "05dc05a04379d0d93e8266cf0c8b43f58c0a613b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-P6DR/Y4CeaOT7obF18IcZx2x4/4OOUjQNjcOazzL8Yo=";
+      sha256 = "sha256-O0t64CBf3VYt1nmk/Nz2vXY7Fixo7FGVgak0zc7nAzc=";
     };
-    date = "2025-05-10";
+    date = "2025-05-17";
   };
 }

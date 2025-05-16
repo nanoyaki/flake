@@ -21,7 +21,7 @@
     },
     "openrgb": {
         "cargoLocks": null,
-        "date": "2025-05-12",
+        "date": "2025-05-16",
         "extract": null,
         "name": "openrgb",
         "passthru": null,
@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b83cc7fecd698296f5841d4fb2f075374605bd67",
-            "sha256": "sha256-GrA5pTqBHsYZbJ1qw0meqGVCH0Y0uL8a6XSOmCBVflk=",
+            "rev": "d6a4f315fb34e7d3791b7a74ec4e46c507074461",
+            "sha256": "sha256-8tTEk1Gn5pvlYIiXXxfXZ9EFDbrPeo5BMB8BID6NXdQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
         },
-        "version": "b83cc7fecd698296f5841d4fb2f075374605bd67"
+        "version": "d6a4f315fb34e7d3791b7a74ec4e46c507074461"
     },
     "rofi-themes": {
         "cargoLocks": null,
@@ -61,7 +61,7 @@
     },
     "suwayomi-server": {
         "cargoLocks": null,
-        "date": "2025-05-06",
+        "date": "2025-05-16",
         "extract": null,
         "name": "suwayomi-server",
         "passthru": null,
@@ -71,17 +71,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "983980d8dae26ac65d00bc15ca74c583a396ffcd",
-            "sha256": "sha256-XDZIh240zP2fpK4eXFxlCqBGHES35vq4VvUyX+a0K0c=",
+            "rev": "538bd3f126a5f89aa10a0775f8c894c443dae59f",
+            "sha256": "sha256-LEZabI+LyMpi5dp0wc5HrDI9r2RRrTLjjcd4kIi5smE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
         },
-        "version": "983980d8dae26ac65d00bc15ca74c583a396ffcd"
+        "version": "538bd3f126a5f89aa10a0775f8c894c443dae59f"
     },
     "suwayomi-webui": {
         "cargoLocks": null,
-        "date": "2025-05-10",
+        "date": "2025-05-17",
         "extract": null,
         "name": "suwayomi-webui",
         "passthru": null,
@@ -91,12 +91,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "18e0e9069d33434a2dfc203727f57e50d105ffb0",
-            "sha256": "sha256-P6DR/Y4CeaOT7obF18IcZx2x4/4OOUjQNjcOazzL8Yo=",
+            "rev": "05dc05a04379d0d93e8266cf0c8b43f58c0a613b",
+            "sha256": "sha256-O0t64CBf3VYt1nmk/Nz2vXY7Fixo7FGVgak0zc7nAzc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-WebUI.git"
         },
-        "version": "18e0e9069d33434a2dfc203727f57e50d105ffb0"
+        "version": "05dc05a04379d0d93e8266cf0c8b43f58c0a613b"
     }
 }

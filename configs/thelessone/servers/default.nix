@@ -12,6 +12,9 @@ let
     mapAttrs'
     filterAttrs
     elem
+    attrNames
+    listToAttrs
+    removeAttrs
     ;
 
   domain =
@@ -32,9 +35,9 @@ let
     "vaultwarden"
   ];
 
-  privateServices = filterAttrs (
-    service: cfg: cfg.enable && !(elem service excludes)
-  ) config.services.media-easify.services;
+  privateServices = filterAttrs (service: cfg: cfg.enable && !(elem service excludes)) (
+    removeAttrs config.services.media-easify.services excludes
+  );
 in
 
 {
@@ -58,26 +61,28 @@ in
 
   services.caddy-easify.baseDomain = "theless.one";
 
-  services.caddy-easify.reverseProxies =
-    (mapAttrs' (service: _: nameValuePair (domain service) { enable = false; }) privateServices)
-    // (mapAttrs' (
-      service: _:
-      nameValuePair "https://${service}.vpn.theless.one" {
-        inherit (config.services.caddy-easify.reverseProxies.${domain service}) port;
-        extraConfig = ''
-          @outside-local not client_ip private_ranges 100.64.64.0/18 fd7a:115c:a1e0::/112
-          respond @outside-local "Access Denied" 403 {
-            close
-          }
-        '';
-      }
-    ) privateServices);
+  services.caddy-easify.reverseProxies = mapAttrs' (
+    service: _:
+    nameValuePair (domain service) {
+      extraConfig = ''
+        @outside-local not client_ip private_ranges 100.64.64.0/18 fd7a:115c:a1e0::/112
+        respond @outside-local "Access Denied" 403 {
+          close
+        }
+      '';
+    }
+  ) privateServices;
 
-  services.media-easify.services = {
-    # lidarr.enable = false;
-    paperless.enable = false;
-    home-assistant.enable = false;
-  };
+  services.media-easify.services =
+    {
+      paperless.enable = false;
+      home-assistant.enable = false;
+    }
+    // listToAttrs (
+      map (service: nameValuePair service { subdomain = "${service}.vpn"; }) (
+        attrNames (removeAttrs config.services.media-easify.services excludes)
+      )
+    );
 
   services.homepage-easify = {
     categories = {
@@ -119,7 +124,7 @@ in
       }
       {
         "VPN Network usage" = {
-          metric = "network:wg0";
+          metric = "network:tailscale0";
           chart = true;
         };
       }

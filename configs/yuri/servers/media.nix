@@ -9,6 +9,7 @@ in
 {
   imports = [ self.nixosModules.media-easify ];
 
+  services.caddy-easify.baseDomain = "home.local";
   services.caddy-easify.useHttps = false;
 
   services.media-easify.services = {

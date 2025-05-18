@@ -86,7 +86,7 @@ in
 
       virtualHosts = lib.mapAttrs' (
         domain: reverseProxy:
-        lib.nameValuePair "${lib.optionalString (!cfg.useHttps) "http://"}${domain}" {
+        lib.nameValuePair domain {
           extraConfig = ''
             ${lib.optionalString (reverseProxy.userEnvVar != null) ''
               basic_auth * {

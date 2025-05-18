@@ -20,6 +20,19 @@ in
 
 # https://wiki.nixos.org/wiki/VR#Monado
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      monado = prev.monado.overrideAttrs (oldAttrs: {
+        patches = (oldAttrs.patches or [ ]) ++ [
+          (final.fetchpatch2 {
+            url = "https://gitlab.freedesktop.org/monado/monado/-/commit/2a6932d46dad9aa957205e8a47ec2baa33041076.patch";
+            hash = "sha256-CZMbGgx7mEDcjcoRJHDZ5P6BecFW8CB4fpzxQ9bpAvE=";
+          })
+        ];
+      });
+    })
+  ];
+
   hm.xdg.configFile."openvr/openvrpaths.vrpath".text = ''
     {
       "config" :

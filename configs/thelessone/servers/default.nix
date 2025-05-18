@@ -11,7 +11,6 @@ let
     nameValuePair
     mapAttrs'
     filterAttrs
-    elem
     attrNames
     listToAttrs
     removeAttrs
@@ -35,7 +34,7 @@ let
     "vaultwarden"
   ];
 
-  privateServices = filterAttrs (service: cfg: cfg.enable && !(elem service excludes)) (
+  privateServices = filterAttrs (_: cfg: cfg.enable) (
     removeAttrs config.services.media-easify.services excludes
   );
 in

@@ -56,6 +56,7 @@ in
     ./uptime-kuma.nix
     ./dns.nix
     ./headscale.nix
+    ./metrics.nix
   ];
 
   services.caddy-easify.baseDomain = "theless.one";

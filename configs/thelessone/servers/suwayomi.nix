@@ -21,6 +21,13 @@ let
   };
 
   cfg = config.services.suwayomi.instances;
+
+  extraConfig = ''
+    @outside-local not client_ip private_ranges 100.64.64.0/18 fd7a:115c:a1e0::/112
+    respond @outside-local "Access Denied" 403 {
+      close
+    }
+  '';
 in
 
 {
@@ -37,28 +44,33 @@ in
       thomas = mkInstance 4555;
       niklas = mkInstance 4556;
       hana = mkInstance 4557;
+      mei = mkInstance 4558;
     };
   };
 
   services.caddy-easify.reverseProxies = {
-    "manga.theless.one" = {
+    "https://manga.vpn.theless.one" = {
       inherit (cfg.thomas.settings.server) port;
-      userEnvVar = "thelessone";
+      inherit extraConfig;
     };
-    "nik-manga.theless.one" = {
+    "https://nik-manga.vpn.theless.one" = {
       inherit (cfg.niklas.settings.server) port;
-      userEnvVar = "nik";
+      inherit extraConfig;
     };
-    "hana-manga.theless.one" = {
+    "https://hana-manga.vpn.theless.one" = {
       inherit (cfg.hana.settings.server) port;
-      userEnvVar = "hana";
+      inherit extraConfig;
+    };
+    "https://mei-manga.vpn.theless.one" = {
+      inherit (cfg.mei.settings.server) port;
+      inherit extraConfig;
     };
   };
 
   services.homepage-easify.categories.Suwayomi = {
     layout = {
       style = "row";
-      columns = 3;
+      columns = 4;
     };
 
     services =
@@ -67,23 +79,30 @@ in
       in
       {
         "Thomas Suwayomi" = rec {
-          description = "Thomas' suwayomi manga reading instance";
+          description = "Thomas' suwayomi instance";
           inherit icon;
-          href = "https://manga.theless.one";
+          href = "https://manga.vpn.theless.one";
           siteMonitor = href;
         };
 
         "Nik Suwayomi" = rec {
-          description = "Nik's suwayomi manga reading instance";
+          description = "Nik's suwayomi instance";
           inherit icon;
-          href = "https://nik-manga.theless.one";
+          href = "https://nik-manga.vpn.theless.one";
           siteMonitor = href;
         };
 
         "Hana Suwayomi" = rec {
-          description = "Hana's suwayomi manga reading instance";
+          description = "Hana's suwayomi instance";
           inherit icon;
-          href = "https://hana-manga.theless.one";
+          href = "https://hana-manga.vpn.theless.one";
+          siteMonitor = href;
+        };
+
+        "Mei Suwayomi" = rec {
+          description = "Meilyne's suwayomi instance";
+          inherit icon;
+          href = "https://mei-manga.vpn.theless.one";
           siteMonitor = href;
         };
       };

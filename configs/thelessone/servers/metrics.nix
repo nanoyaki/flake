@@ -18,6 +18,7 @@
 
   services.prometheus = {
     enable = true;
+    port = 9092;
   };
 
   services.caddy-easify.reverseProxies."https://grafana.vpn.theless.one" = {

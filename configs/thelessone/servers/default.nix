@@ -73,15 +73,15 @@ in
   ) privateServices;
 
   services.media-easify.services =
-    {
-      paperless.enable = false;
-      home-assistant.enable = false;
-    }
-    // listToAttrs (
+    listToAttrs (
       map (service: nameValuePair service { subdomain = "${service}.vpn"; }) (
         attrNames (removeAttrs config.services.media-easify.services excludes)
       )
-    );
+    )
+    // {
+      paperless.enable = false;
+      home-assistant.enable = false;
+    };
 
   services.homepage-easify = {
     categories = {

@@ -67,6 +67,20 @@ in
     };
   };
 
+  services.headscale.settings.dns.extra_records =
+    map
+      (name: {
+        name = "${name}.vpn.theless.one";
+        type = "A";
+        value = "100.64.64.1";
+      })
+      [
+        "manga"
+        "nik-manga"
+        "hana-manga"
+        "mei-manga"
+      ];
+
   services.homepage-easify.categories.Suwayomi = {
     layout = {
       style = "row";

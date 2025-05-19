@@ -182,7 +182,7 @@ in
 
     services.homepage-dashboard = {
       enable = true;
-      allowedHosts = baseDomain;
+      allowedHosts = domain;
 
       settings = {
         title = "Homepage";

@@ -92,19 +92,16 @@ in
         user = nullOr iCfg.user "suwayomi-${iName}";
         group = nullOr iCfg.group "suwayomi-${iName}";
 
-        configFile =
-          lib.pipe
-            {
+        configFile = format.generate "server.conf" (
+          filterAttrsRecursive (_: x: x != null) (
+            recursiveUpdate iCfg.settings {
               server = {
                 systemTrayEnabled = false;
                 initialOpenInBrowserEnabled = false;
               };
             }
-            [
-              (recursiveUpdate iCfg.settings)
-              (filterAttrsRecursive (_: x: x != null))
-              (format.generate "server.conf")
-            ];
+          )
+        );
       in
       nameValuePair "suwayomi-${iName}" {
         description = "Suwayomi Server instance ${iName}";
@@ -113,10 +110,11 @@ in
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
 
+        environment.JAVA_TOOL_OPTIONS = "-Djava.io.tmpdir=${dataDir}/tmp -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}";
+
         script = ''
           ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/server.conf
 
-          export JAVA_TOOL_OPTIONS="-Djava.io.tmpdir=${dataDir}/tmp -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}"
           ${getExe cfg.package}
         '';
 

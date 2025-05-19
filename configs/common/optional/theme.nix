@@ -78,8 +78,8 @@ in
 
       # revert until https://github.com/NixOS/nix/pull/10153 is merged
       image = pkgs.fetchurl {
-        url = "https://na55l3zepb4kcg0zryqbdnay.theless.one/valle_goodbye_declaration.png";
-        hash = "sha256-NqA/Yq67T6ZBWUk73VUmPK4GJ4FUetLcZ0lfLerV+Cc=";
+        url = "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:majihettvb7ieflgmkvujecu/bafkreifj2it2zsr4x5iiv7ti5hcf7l3bwoym6fn2xn7mygohsm4sptcgbu";
+        hash = "sha256-uuoCCTDvuzowPdQAjFno2XZMLWtJIPXX/i/Ko0AONaY=";
       };
 
       fonts = {

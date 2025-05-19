@@ -84,7 +84,16 @@ in
       home-assistant.enable = false;
     };
 
+  services.headscale.settings.dns.extra_records = lib.singleton {
+    name = "vpn.theless.one";
+    type = "A";
+    value = "100.64.64.1";
+  };
+
   services.homepage-easify = {
+    useSubdomain = true;
+    subdomain = "vpn";
+
     categories = {
       Media.before = "Services";
       Services.before = "Code";

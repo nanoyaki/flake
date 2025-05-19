@@ -1,7 +1,11 @@
+{ lib, ... }:
+
 {
   services.immich.accelerationDevices = [ "/dev/dri/renderD128" ];
 
-  services.caddy-easify.reverseProxies."https://immich.theless.one".serverAliases = [
-    "immich.nanoyaki.space"
-  ];
+  services.headscale.settings.dns.extra_records = lib.singleton {
+    name = "immich.vpn.theless.one";
+    type = "A";
+    value = "100.64.64.1";
+  };
 }

@@ -17,6 +17,10 @@ let
         "https://raw.githubusercontent.com/Kareadita/tach-extension/repo/index.min.json"
         "https://raw.githubusercontent.com/Suwayomi/tachiyomi-extension/repo/index.min.json"
       ];
+
+      flareSolverrEnabled = true;
+      flareSolverrUrl = "http://localhost:8191";
+      flareSolverrSessionName = "suwayomi-${toString port}";
     };
   };
 

@@ -182,7 +182,7 @@ in
 
     services.homepage-dashboard = {
       enable = true;
-      allowedHosts = domain;
+      allowedHosts = "${optionalString cfg.useSubdomain "${cfg.subdomain}."}${baseDomain}";
 
       settings = {
         title = "Homepage";

@@ -62,15 +62,7 @@ in
   services.caddy-easify.baseDomain = "theless.one";
 
   services.caddy-easify.reverseProxies = mapAttrs' (
-    service: _:
-    nameValuePair (domain service) {
-      extraConfig = ''
-        @outside-local not client_ip private_ranges 100.64.64.0/18 fd7a:115c:a1e0::/112
-        respond @outside-local "Access Denied" 403 {
-          close
-        }
-      '';
-    }
+    service: _: nameValuePair (domain service) { vpnOnly = true; }
   ) privateServices;
 
   services.media-easify.services =

@@ -25,13 +25,6 @@ let
   };
 
   cfg = config.services.suwayomi.instances;
-
-  extraConfig = ''
-    @outside-local not client_ip private_ranges 100.64.64.0/18 fd7a:115c:a1e0::/112
-    respond @outside-local "Access Denied" 403 {
-      close
-    }
-  '';
 in
 
 {
@@ -55,35 +48,21 @@ in
   services.caddy-easify.reverseProxies = {
     "https://manga.vpn.theless.one" = {
       inherit (cfg.thomas.settings.server) port;
-      inherit extraConfig;
+      vpnOnly = true;
     };
     "https://nik-manga.vpn.theless.one" = {
       inherit (cfg.niklas.settings.server) port;
-      inherit extraConfig;
+      vpnOnly = true;
     };
     "https://hana-manga.vpn.theless.one" = {
       inherit (cfg.hana.settings.server) port;
-      inherit extraConfig;
+      vpnOnly = true;
     };
     "https://mei-manga.vpn.theless.one" = {
       inherit (cfg.mei.settings.server) port;
-      inherit extraConfig;
+      vpnOnly = true;
     };
   };
-
-  services.headscale.settings.dns.extra_records =
-    map
-      (name: {
-        name = "${name}.vpn.theless.one";
-        type = "A";
-        value = "100.64.64.1";
-      })
-      [
-        "manga"
-        "nik-manga"
-        "hana-manga"
-        "mei-manga"
-      ];
 
   services.homepage-easify.categories.Suwayomi = {
     layout = {

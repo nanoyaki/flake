@@ -7,10 +7,29 @@
 }:
 
 let
-  inherit (lib) types mkOption mkIf;
+  inherit (lib)
+    types
+    mkOption
+    mkIf
+    replaceStrings
+    ;
   inherit (lib') mkEnabledOption;
 
+  inherit (lib.lists) all;
+  inherit (lib.strings) hasInfix optionalString;
+  inherit (lib.attrsets)
+    attrNames
+    filterAttrs
+    mapAttrsToList
+    nameValuePair
+    mapAttrs'
+    ;
+
   cfg = config.services.caddy-easify;
+
+  vpnDomain = config.services.headscale.settings.dns.base_domain;
+  vpnV4Subnet = config.services.headscale.settings.prefixes.v4;
+  vpnV6Subnet = config.services.headscale.settings.prefixes.v4;
 in
 
 {
@@ -58,14 +77,33 @@ in
               type = types.listOf types.str;
               default = [ ];
             };
+
+            vpnOnly = mkOption {
+              type = types.bool;
+              default = false;
+            };
           };
         }
       );
       default = { };
     };
+
+    vpnHost = mkOption {
+      type = types.str;
+      default = "100.64.64.1";
+    };
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = all (domain: hasInfix vpnDomain domain) (
+          attrNames (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies)
+        );
+        message = "VPN only reverse proxies must use the headscale dns base domain in them";
+      }
+    ];
+
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
       80
       443
@@ -84,13 +122,20 @@ in
         auto_https ${if cfg.useHttps then "disable_redirects" else "off"}
       '';
 
-      virtualHosts = lib.mapAttrs' (
+      virtualHosts = mapAttrs' (
         domain: reverseProxy:
-        lib.nameValuePair domain {
+        nameValuePair domain {
           extraConfig = ''
-            ${lib.optionalString (reverseProxy.userEnvVar != null) ''
+            ${optionalString (reverseProxy.userEnvVar != null) ''
               basic_auth * {
                 {''$${reverseProxy.userEnvVar}}
+              }
+            ''}
+
+            ${optionalString reverseProxy.vpnOnly ''
+              @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
+              respond @outside-local "Access Denied" 403 {
+                close
               }
             ''}
 
@@ -100,8 +145,14 @@ in
           '';
           inherit (reverseProxy) serverAliases;
         }
-      ) (lib.filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
+      ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
     };
+
+    services.headscale.settings.dns.extra_records = mapAttrsToList (domain: _: {
+      name = replaceStrings [ "http://" "https://" ] [ "" "" ] domain;
+      type = "A";
+      value = cfg.vpnHost;
+    }) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies);
 
     systemd.services.caddy.path = [ pkgs.nssTools ];
   };

@@ -23,14 +23,11 @@ in
   networking.networkmanager.enable = true;
 
   nanoflake = {
-    localization = {
-      language = [
-        "en_GB"
-        "de_DE"
-        "ja_JP"
-      ];
-      extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
-    };
+    localization.language = [
+      "en_GB"
+      "de_DE"
+      "ja_JP"
+    ];
     audio.latency = lib.mkDefault 256;
 
     firefox.enablePolicies = true;

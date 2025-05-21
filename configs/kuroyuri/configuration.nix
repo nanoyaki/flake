@@ -5,14 +5,11 @@
   hm.home.stateVersion = "24.11";
 
   nanoflake = {
-    localization = {
-      language = [
-        "en_GB"
-        "de_DE"
-        "ja_JP"
-      ];
-      extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
-    };
+    localization.language = [
+      "en_GB"
+      "de_DE"
+      "ja_JP"
+    ];
 
     firefox.enablePolicies = true;
   };

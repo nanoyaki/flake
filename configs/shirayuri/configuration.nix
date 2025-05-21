@@ -20,6 +20,8 @@ in
     "deploymentYuri/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentYuri";
   };
 
+  networking.networkmanager.enable = true;
+
   nanoflake = {
     localization = {
       language = [

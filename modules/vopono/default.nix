@@ -125,6 +125,7 @@ in
             --keep-alive \
             ${concatMapStrings (port: "-f ${toString port} ") (unique (flatten (attrValues cfg.services)))} \
             ${concatMapStrings (port: "-o ${toString port} ") (unique cfg.allowedPorts)} \
+            --allow-host-access \
             --custom ${cfg.configFile} \
             --protocol ${cfg.protocol} \
             --custom-netns-name ${cfg.namespace} \

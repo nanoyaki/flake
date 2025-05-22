@@ -61,9 +61,11 @@ in
 
   services.caddy-easify.baseDomain = "theless.one";
 
-  services.caddy-easify.reverseProxies = mapAttrs' (
-    service: _: nameValuePair (domain service) { vpnOnly = true; }
-  ) privateServices;
+  services.caddy-easify.reverseProxies =
+    (mapAttrs' (service: _: nameValuePair (domain service) { vpnOnly = true; }) privateServices)
+    // {
+      "https://vpn.theless.one".vpnOnly = true;
+    };
 
   services.media-easify.arrHome = "/mnt/raid/arr-stack";
 
@@ -77,12 +79,6 @@ in
       paperless.enable = false;
       home-assistant.enable = false;
     };
-
-  services.headscale.settings.dns.extra_records = lib.singleton {
-    name = "vpn.theless.one";
-    type = "A";
-    value = "100.64.64.1";
-  };
 
   services.homepage-easify = {
     useSubdomain = true;

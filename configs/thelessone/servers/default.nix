@@ -93,7 +93,7 @@ in
       Services.before = "Code";
     };
 
-    glances.layout.columns = 3;
+    glances.layout.columns = 4;
     glances.widgets = [
       {
         "CPU usage" = {
@@ -108,18 +108,6 @@ in
         };
       }
       {
-        "Storage usage" = {
-          metric = "fs:/";
-          chart = true;
-        };
-      }
-      {
-        "Disk I/O" = {
-          metric = "disk:nvme0n1";
-          chart = true;
-        };
-      }
-      {
         "Network usage" = {
           metric = "network:enp6s0";
           chart = true;
@@ -128,6 +116,30 @@ in
       {
         "VPN Network usage" = {
           metric = "network:tailscale0";
+          chart = true;
+        };
+      }
+      {
+        "Storage usage RAID" = {
+          metric = "fs:/mnt/raid";
+          chart = true;
+        };
+      }
+      {
+        "Disk I/O RAID" = {
+          metric = "disk:sda";
+          chart = true;
+        };
+      }
+      {
+        "Storage usage NVMe" = {
+          metric = "fs:/";
+          chart = true;
+        };
+      }
+      {
+        "Disk I/O NVMe" = {
+          metric = "disk:nvme0n1";
           chart = true;
         };
       }

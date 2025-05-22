@@ -34,6 +34,6 @@
   xdg = {
     mimeApps.defaultApplications."x-scheme-handler/vcc" =
       "${pkgs.alcom}/share/applications/ALCOM.desktop";
-    # autostart.entries = [ "${pkgs.vrcx}/share/applications/VRCX.desktop" ];
+    autostart.entries = [ "${pkgs.vrcx}/share/applications/vrcx.desktop" ];
   };
 }

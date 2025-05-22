@@ -33,6 +33,8 @@ let
     inherit (config.services.media-easify) group;
     mode = "2770";
   };
+
+  inherit (config.services.media-easify) arrHome;
 in
 
 {
@@ -83,8 +85,8 @@ in
 
       downloadDirPermissions = "770";
       settings = {
-        download-dir = "/home/arr-stack/downloads/transmission/complete";
-        incomplete-dir = "/home/arr-stack/downloads/transmission/incomplete";
+        download-dir = "${arrHome}/downloads/transmission/complete";
+        incomplete-dir = "${arrHome}/downloads/transmission/incomplete";
         incomplete-dir-enabled = true;
         rpc-bind-address = "10.200.1.2";
         rpc-whitelist = "*.*.*.*";
@@ -117,9 +119,9 @@ in
     };
 
     systemd.tmpfiles.settings."10-${service}" = {
-      "/home/arr-stack/downloads/transmission".d = dirCfg;
-      "/home/arr-stack/downloads/transmission/complete".d = dirCfg;
-      "/home/arr-stack/downloads/transmission/incomplete".d = dirCfg;
+      "${arrHome}/downloads/transmission".d = dirCfg;
+      "${arrHome}/downloads/transmission/complete".d = dirCfg;
+      "${arrHome}/downloads/transmission/incomplete".d = dirCfg;
     };
   };
 }

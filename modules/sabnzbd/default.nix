@@ -32,6 +32,8 @@ let
     inherit (config.services.media-easify) group;
     mode = "2770";
   };
+
+  inherit (config.services.media-easify) arrHome;
 in
 
 {
@@ -85,8 +87,8 @@ in
     };
 
     systemd.tmpfiles.settings."10-${service}" = {
-      "/home/arr-stack/downloads/complete".d = dirCfg;
-      "/home/arr-stack/downloads/incomplete".d = dirCfg;
+      "${arrHome}/downloads/complete".d = dirCfg;
+      "${arrHome}/downloads/incomplete".d = dirCfg;
     };
   };
 }

@@ -27,6 +27,11 @@ in
       type = types.str;
       default = "arr-stack";
     };
+
+    arrHome = mkOption {
+      type = types.str;
+      default = "/home/arr-stack";
+    };
   };
 
   imports = with self.nixosModules; [

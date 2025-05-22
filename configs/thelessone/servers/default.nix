@@ -65,6 +65,8 @@ in
     service: _: nameValuePair (domain service) { vpnOnly = true; }
   ) privateServices;
 
+  services.media-easify.arrHome = "/mnt/raid/arr-stack";
+
   services.media-easify.services =
     listToAttrs (
       map (service: nameValuePair service { subdomain = "${service}.vpn"; }) (

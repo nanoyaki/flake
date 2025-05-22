@@ -32,6 +32,8 @@ let
     inherit (config.services.media-easify) group;
     mode = "2770";
   };
+
+  inherit (config.services.media-easify) arrHome;
 in
 
 {
@@ -85,17 +87,17 @@ in
     };
 
     systemd.tmpfiles.settings."10-${service}" = {
-      "/home/arr-stack".d = dirCfg;
+      ${arrHome}.d = dirCfg;
 
-      "/home/arr-stack/libraries".d = dirCfg;
-      "/home/arr-stack/libraries/movies".d = dirCfg;
-      "/home/arr-stack/libraries/shows".d = dirCfg;
+      "${arrHome}/libraries".d = dirCfg;
+      "${arrHome}/libraries/movies".d = dirCfg;
+      "${arrHome}/libraries/shows".d = dirCfg;
 
-      "/home/arr-stack/libraries/anime".d = dirCfg;
-      "/home/arr-stack/libraries/anime/movies".d = dirCfg;
-      "/home/arr-stack/libraries/anime/shows".d = dirCfg;
+      "${arrHome}/libraries/anime".d = dirCfg;
+      "${arrHome}/libraries/anime/movies".d = dirCfg;
+      "${arrHome}/libraries/anime/shows".d = dirCfg;
 
-      "/home/arr-stack/downloads".d = dirCfg;
+      "${arrHome}/downloads".d = dirCfg;
     };
   };
 }

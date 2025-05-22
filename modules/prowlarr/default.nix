@@ -62,7 +62,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.vopono.services.${service} = config.services.${service}.settings.server.port;
+    services.vopono = {
+      services.${service} = [ config.services.${service}.settings.server.port ];
+      allowedPorts = [
+        config.services.radarr.settings.server.port
+        config.services.sonarr.settings.server.port
+      ];
+    };
 
     services.${service} = {
       enable = true;

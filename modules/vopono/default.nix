@@ -73,6 +73,12 @@ in
           { privoxy = [ 8118 ]; }
         '';
       };
+
+      allowedPorts = mkOption {
+        default = [ ];
+        type = types.listOf types.int;
+        description = "List of ports to open on the network namespace.";
+      };
     };
   };
 
@@ -117,7 +123,8 @@ in
             ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} \
             -u vopono \
             --keep-alive \
-            ${concatMapStrings (x: " -f ${toString x}") (unique (flatten (attrValues cfg.services)))} \
+            ${concatMapStrings (port: "-f ${toString port} ") (unique (flatten (attrValues cfg.services)))} \
+            ${concatMapStrings (port: "-o ${toString port} ") (unique cfg.allowedPorts)} \
             --custom ${cfg.configFile} \
             --protocol ${cfg.protocol} \
             --custom-netns-name ${cfg.namespace} \

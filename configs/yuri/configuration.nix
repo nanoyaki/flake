@@ -9,7 +9,7 @@
     language = "en_US";
     locale = "en_US.UTF-8";
     extraLocales = [
-      "de_DE.UTF-8"
+      "de_DE.UTF-8/UTF-8"
       "ja_JP.UTF-8"
     ];
   };

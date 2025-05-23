@@ -13,6 +13,8 @@ let
     types
     optionalString
     ;
+  inherit (lib.attrsets) listToAttrs nameValuePair;
+  inherit (lib.lists) map;
 
   inherit (lib') mkEnabledOption toUppercase;
 
@@ -26,12 +28,6 @@ let
   scheme = "http${optionalString config.services.caddy-easify.useHttps "s"}://";
 
   domain = "${scheme}${subdomain}${baseDomain}${slug}";
-
-  dirCfg = {
-    inherit (config.services.jellyfin) user;
-    inherit (config.services.media-easify) group;
-    mode = "2770";
-  };
 
   inherit (config.services.media-easify) arrHome;
 in
@@ -86,18 +82,29 @@ in
       inherit (cfg.homepage) description;
     };
 
-    systemd.tmpfiles.settings."10-${service}" = {
-      ${arrHome}.d = dirCfg;
-
-      "${arrHome}/libraries".d = dirCfg;
-      "${arrHome}/libraries/movies".d = dirCfg;
-      "${arrHome}/libraries/shows".d = dirCfg;
-
-      "${arrHome}/libraries/anime".d = dirCfg;
-      "${arrHome}/libraries/anime/movies".d = dirCfg;
-      "${arrHome}/libraries/anime/shows".d = dirCfg;
-
-      "${arrHome}/downloads".d = dirCfg;
-    };
+    systemd.tmpfiles.settings."10-${service}" = listToAttrs (
+      map
+        (
+          path:
+          nameValuePair path {
+            d = {
+              inherit (config.services.jellyfin) user;
+              inherit (config.services.media-easify) group;
+              mode = "2770";
+            };
+          }
+        )
+        [
+          arrHome
+          "${arrHome}/libraries"
+          "${arrHome}/libraries/movies"
+          "${arrHome}/libraries/shows"
+          "${arrHome}/libraries/music"
+          "${arrHome}/libraries/anime"
+          "${arrHome}/libraries/anime/movies"
+          "${arrHome}/libraries/anime/shows"
+          "${arrHome}/downloads"
+        ]
+    );
   };
 }

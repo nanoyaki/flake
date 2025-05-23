@@ -1,14 +1,8 @@
 {
   "version": 2,
   "data": {
-    "suwayomi-server-gradle-deps": {
-      "version": "sha256-Q8pdxsnujmweHwrOFFmj4oCla9XPzPw+J8N9M0yQtF0="
-    },
     "suwayomi-webui-revision": {
-      "version": "2577"
-    },
-    "suwayomi-webui-yarn-deps": {
-      "version": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
+      "version": "2580"
     }
   }
 }

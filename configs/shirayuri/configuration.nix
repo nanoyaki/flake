@@ -52,6 +52,7 @@ in
       gimp
       smile
       jq
+      feishin
     ])
     ++ [
       tcVid

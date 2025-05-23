@@ -1,10 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   boot.kernelModules = [ "amdgpu" ];
-  boot.extraModulePackages = [
-    (pkgs.amdgpu-i2c.override { inherit (config.boot.kernelPackages) kernel; })
-  ];
 
   hardware = {
     amdgpu = {

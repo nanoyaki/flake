@@ -64,6 +64,7 @@ in
   config = mkIf cfg.enable {
     services.${service} = {
       enable = true;
+      inherit (config.services.media-easify) group;
       inherit (cfg) openFirewall;
     };
 

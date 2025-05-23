@@ -40,8 +40,8 @@ in
     extraLocales = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = lib.literalExpression ''[ "en_GB.UTF-8" ]'';
-      description = "Extra locales to add to {option}`i18n.supportedLocales`";
+      example = lib.literalExpression ''[ "en_GB.UTF-8/UTF-8" ]'';
+      description = "Extra locales to add to {option}`i18n.extraLocales`";
     };
   };
 

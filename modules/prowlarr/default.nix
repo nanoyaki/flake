@@ -67,8 +67,11 @@ in
       allowedPorts = [
         config.services.radarr.settings.server.port
         config.services.sonarr.settings.server.port
+        config.services.flaresolverr.port
       ];
     };
+
+    services.flaresolverr.enable = lib.mkDefault true;
 
     services.${service} = {
       enable = true;

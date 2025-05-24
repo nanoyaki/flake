@@ -62,6 +62,26 @@ in
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (
+        final: prev:
+        let
+          version = "2.11.2.4629";
+        in
+        {
+          lidarr = prev.lidarr.overrideAttrs (
+            lib.optionalAttrs (lib.versionOlder prev.lidarr.version version) {
+              inherit version;
+              src = final.fetchurl {
+                url = "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.linux-core-x64.tar.gz";
+                sha256 = "sha256-QHCHB7ep23nd8YAF3klzvAd9ZNkCTI9P2pELQwmsrDw=";
+              };
+            }
+          );
+        }
+      )
+    ];
+
     services.${service} = {
       enable = true;
       inherit (config.services.media-easify) group;

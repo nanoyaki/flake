@@ -2,11 +2,6 @@
 
 let
   cfg = config.services.syncthing;
-  dirCfg = {
-    user = username;
-    group = "users";
-    mode = "0777";
-  };
 in
 
 {
@@ -26,7 +21,7 @@ in
       devices."thelessone".id = "4MLMRMK-3Y4OSRK-BVJHBRW-NRGIYRC-HOHOOOB-KJKUUTO-X7LGP4M-3LNTOQE";
 
       folders."Shared" = {
-        path = "/home/shared";
+        path = "/mnt/syncthing";
         devices = builtins.attrNames cfg.settings.devices;
         label = "Shared Directory";
       };
@@ -34,5 +29,10 @@ in
   };
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
-  systemd.tmpfiles.settings."10-syncthing-shared"."/home/shared".d = dirCfg;
+  systemd.tmpfiles.settings."10-syncthing"."/mnt/syncthing".d = {
+    inherit (cfg) user group;
+    mode = "2770";
+  };
+
+  users.users.${username}.extraGroups = [ cfg.group ];
 }

@@ -59,16 +59,16 @@
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
-    version = "640dcc4393e1bd7d7024458f7e1396d4053209cd";
+    version = "c3b22f92a9aa3ebdf6f8425fd218f030eac0e068";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-WebUI.git";
-      rev = "640dcc4393e1bd7d7024458f7e1396d4053209cd";
+      rev = "c3b22f92a9aa3ebdf6f8425fd218f030eac0e068";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-a/Dao2HHQupCra0A6Apjzvr68UBMt6TIGRVt70IwhWE=";
+      sha256 = "sha256-8rPka1Ivk9pmAUarOLrEiDwzfNNrVm2hkBJAfUYWWJA=";
     };
-    date = "2025-05-24";
+    date = "2025-05-25";
   };
 }

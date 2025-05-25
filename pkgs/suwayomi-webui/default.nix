@@ -15,7 +15,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (_sources.suwayomi-webui) pname version src;
-  revision = _versions.suwayomi-webui-revision.version;
+  inherit (_versions.suwayomi-webui) revision;
 
   patches = [
     (replaceVars ./version.patch {
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${finalAttrs.src}/yarn.lock";
-    hash = _versions.suwayomi-webui-yarn-deps.version;
+    hash = _versions.suwayomi-webui.yarnHash;
   };
 
   nativeBuildInputs = [

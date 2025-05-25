@@ -27,7 +27,7 @@
         pkgs
         // {
           _sources = callPackage ./_sources/generated.nix { };
-          _versions = (lib.importJSON ./versions.json).data;
+          _versions = lib.importJSON ./versions.json;
         }
       );
     in

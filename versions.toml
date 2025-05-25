@@ -1,0 +1,40 @@
+[config]
+file = "pkgs/versions.json"
+
+[suwayomi-webui.revision]
+script = '''
+    curl -L -I \
+        -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
+        https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/commits\?sha=master\&per_page=1\&page=1 \
+        | grep "link" \
+        | awk '{print $4}' \
+        | grep -oP '\&page=\d+' \
+        | grep -oP '\d+'
+'''
+
+[suwayomi-webui.yarnHash]
+script = '''
+    yarnLock="/tmp/$RANDOM_yarn.lock"
+
+    curl -L \
+        -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
+        https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/contents/yarn.lock \
+        | jq -r .content \
+        | base64 -d > $yarnLock
+
+    nix hash convert --hash-algo sha256 --to sri $(prefetch-yarn-deps $yarnLock)
+
+    rm $yarnLock
+'''
+
+[suwayomi-server.gradleDepsHash]
+script = '''
+    updateScript="/tmp/$RANDOM_update_script.sh"
+
+    nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript
+    $updateScript 1> /dev/null
+    
+    nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
+
+    rm $updateScript
+'''

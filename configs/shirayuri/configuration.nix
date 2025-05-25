@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  username,
   ...
 }:
 
@@ -19,6 +20,8 @@ in
     "deploymentThelessone/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentThelessone";
     "deploymentYuri/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentYuri";
   };
+
+  sec.githubToken.owner = username;
 
   networking.networkmanager.enable = true;
 

@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}:
+{ inputs, config, ... }:
 
 {
   imports = [
@@ -72,8 +67,7 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.cifs-utils ];
-  fileSystems."/mnt/yuri" = {
+  fileSystems."/mnt/yuri/hana" = {
     device = "//10.0.0.3/hana";
     fsType = "cifs";
     options = [
@@ -83,6 +77,20 @@
       "x-systemd.device-timeout=5s"
       "x-systemd.mount-timeout=5s"
       "credentials=${config.sec.cifsCredentials.path}"
+      "uid=1000"
+      "gid=100"
+    ];
+  };
+
+  fileSystems."/mnt/yuri/public" = {
+    device = "//10.0.0.3/public";
+    fsType = "cifs";
+    options = [
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
       "uid=1000"
       "gid=100"
     ];

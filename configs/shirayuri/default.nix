@@ -1,7 +1,7 @@
-{ deps, ... }:
+{ lib', ... }:
 
 {
-  flake.nixosConfigurations = deps.mkSystem {
+  flake.nixosConfigurations = lib'.mkSystem {
     hostname = "shirayuri";
     username = "hana";
     modules = [

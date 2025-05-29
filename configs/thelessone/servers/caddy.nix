@@ -1,9 +1,12 @@
 {
+  lib,
   config,
   ...
 }:
 
 let
+  inherit (lib) genAttrs;
+
   # String -> String
   mkBasicAuth = user: ''
     basic_auth * {
@@ -20,11 +23,6 @@ let
   mkRedirect = url: ''
     redir ${url} permanent
   '';
-
-  dirConfig = {
-    inherit (config.services.caddy) group user;
-    mode = "0700";
-  };
 in
 
 {
@@ -56,9 +54,17 @@ in
     };
   };
 
-  systemd.tmpfiles.settings = {
-    "10-na55l3zepb4kcg0zryqbdnay.theless.one"."/var/www/theless.one".d = dirConfig;
-    "10-files.theless.one"."/var/lib/caddy/files".d = dirConfig;
-    "10-files.nanoyaki.space"."/var/lib/caddy/nanoyaki-files".d = dirConfig;
-  };
+  systemd.tmpfiles.settings."10-caddy-directories" =
+    genAttrs
+      [
+        "/var/www/theless.one"
+        "/var/lib/caddy/files"
+        "/var/lib/caddy/nanoyaki-files"
+      ]
+      (_: {
+        d = {
+          inherit (config.services.caddy) group user;
+          mode = "2770";
+        };
+      });
 }

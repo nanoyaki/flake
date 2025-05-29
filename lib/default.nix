@@ -1,72 +1,72 @@
 {
+  self,
   lib,
-  pkgs,
+  inputs,
+  withSystem,
   ...
 }:
 {
-  imports = [
-    ./deps.nix
-  ];
+  _module.args = rec {
+    lib' =
+      {
+        # [ String ] -> deriv -> attrs
+        mapDefaultForMimeTypes = pkg: mimeTypes: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
 
-  _module.args.lib' = {
-    # pkg -> attrs -> deriv
-    overrideAppimageTools =
-      pkg: finalAttrs:
-      (pkg.override {
-        appimageTools = pkgs.appimageTools // {
-          wrapType2 = args: pkgs.appimageTools.wrapType2 (args // finalAttrs);
-        };
-      });
+        # String -> String
+        toUppercase =
+          str:
+          (lib.strings.toUpper (builtins.substring 0 1 str))
+          + builtins.substring 1 (builtins.stringLength str) str;
 
-    # [ String ] -> deriv -> attrs
-    mapDefaultForMimeTypes = pkg: mimeTypes: lib.genAttrs mimeTypes (_: "${lib.getName pkg}.desktop");
+        mkEnabledOption = name: (lib.mkEnableOption name) // { default = true; };
 
-    # String -> String -> deriv
-    mkProtonGeBin =
-      version: hash:
-      (pkgs.proton-ge-bin.overrideAttrs {
-        inherit version;
-        src = pkgs.fetchzip {
-          url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
-          inherit hash;
-        };
-      });
+        mkSystem =
+          {
+            hostname,
+            modules,
+            username,
+            platform ? "x86_64-linux",
+          }:
 
-    # String -> String
-    toUppercase =
-      str:
-      (lib.strings.toUpper (builtins.substring 0 1 str))
-      + builtins.substring 1 (builtins.stringLength str) str;
+          {
+            ${hostname} = withSystem platform (
+              {
+                config,
+                inputs',
+                self',
+                ...
+              }:
 
-    wrapEnvVars =
-      pkg: variables:
-      pkgs.writeShellScriptBin (pkg.pname or pkg.name) (
-        let
-          parsedEnvVars = builtins.concatStringsSep " " (
-            lib.mapAttrsToList (name: value: "${name}=${value}") variables
-          );
-        in
-        ''${parsedEnvVars} ${lib.getExe pkg}''
-      );
+              inputs.nixpkgs.lib.nixosSystem {
+                specialArgs = {
+                  inherit (config) packages;
+                  inherit
+                    inputs
+                    inputs'
+                    username
+                    self
+                    self'
+                    lib'
+                    ;
+                };
 
-    wrapEnvVars' =
-      pkg: mainProgram: variables:
-      pkgs.writeShellScriptBin (pkg.pname or pkg.name) (
-        let
-          parsedEnvVars = builtins.concatStringsSep " " (
-            lib.mapAttrsToList (name: value: "${name}=\"${value}\"") variables
-          );
-        in
-        ''${parsedEnvVars} ${lib.getExe' pkg mainProgram}''
-      );
+                modules = [
+                  {
+                    options.config'.explicitDependencies = lib'.options.mkTrueOption;
 
-    mkEnabledOption = name: (lib.mkEnableOption name) // { default = true; };
-
-    types.singleAttrOf =
-      elemType:
-      (lib.types.attrsOf elemType)
-      // {
-        check = actual: (lib.isAttrs actual) && ((lib.lists.length (lib.attrValues actual)) == 1);
-      };
+                    config = { };
+                  }
+                  {
+                    networking.hostName = hostname;
+                    nixpkgs.hostPlatform.system = platform;
+                  }
+                ] ++ modules;
+              }
+            );
+          };
+      }
+      // import ./types.nix { inherit lib lib'; }
+      // import ./modules.nix { inherit lib lib'; }
+      // import ./options.nix { inherit lib lib'; };
   };
 }

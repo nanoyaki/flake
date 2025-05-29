@@ -18,13 +18,13 @@
   };
 
   systemd.tmpfiles.settings."10-samba" = {
-    "/mnt/shares/Public".d = {
+    "/mnt/nvme-raid-1/shares/Public".d = {
       user = "nas";
       group = "nas";
       mode = "0755";
     };
 
-    "/mnt/shares/Hana".d = {
+    "/mnt/nvme-raid-1/shares/Hana".d = {
       user = "hana";
       group = "hana";
       mode = "0755";
@@ -49,7 +49,7 @@
       };
 
       public = {
-        path = "/mnt/shares/Public";
+        path = "/mnt/nvme-raid-1/shares/Public";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";
@@ -60,7 +60,7 @@
       };
 
       hana = {
-        path = "/mnt/shares/Hana";
+        path = "/mnt/nvme-raid-1/shares/Hana";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";

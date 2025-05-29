@@ -21,7 +21,7 @@
     port = 9092;
   };
 
-  services.caddy-easify.reverseProxies."https://grafana.vpn.theless.one" = {
+  services'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
     port = config.services.grafana.settings.server.http_port;
     vpnOnly = true;
   };

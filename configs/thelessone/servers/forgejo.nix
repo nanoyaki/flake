@@ -93,12 +93,12 @@ in
     };
   };
 
-  services.caddy-easify.reverseProxies."git.theless.one" = {
+  services'.caddy.reverseProxies."git.theless.one" = {
     port = config.services.forgejo.settings.server.HTTP_PORT;
     serverAliases = [ "git.nanoyaki.space" ];
   };
 
-  services.homepage-easify.categories.Code.services.Forgejo = rec {
+  services'.homepage.categories.Code.services.Forgejo = rec {
     description = "Code forge";
     icon = "forgejo.svg";
     href = "https://git.theless.one";

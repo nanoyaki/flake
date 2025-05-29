@@ -1,5 +1,3 @@
-{ self, ... }:
-
 let
   mediaServices = "Medien Dienste";
   services = "Dienste";
@@ -7,12 +5,10 @@ let
 in
 
 {
-  imports = [ self.nixosModules.media-easify ];
+  services'.caddy.baseDomain = "home.local";
+  services'.caddy.useHttps = false;
 
-  services.caddy-easify.baseDomain = "home.local";
-  services.caddy-easify.useHttps = false;
-
-  services.media-easify.services = {
+  services' = {
     jellyfin.homepage = {
       category = media;
       description = "Medien archiv";
@@ -72,20 +68,20 @@ in
       category = services;
       description = "Lokaler Passwortmanager";
     };
-  };
 
-  services.homepage-easify = {
-    categories = {
-      ${services}.before = media;
-      ${media}.before = mediaServices;
+    homepage = {
+      categories = {
+        ${services}.before = media;
+        ${media}.before = mediaServices;
+      };
+
+      glances.widgets = [
+        { Info.metric = "info"; }
+        { Speicherplatz.metric = "fs:/"; }
+        { "CPU Auslastung".metric = "cpu"; }
+        { Netzwerk.metric = "network:enp4s0"; }
+      ];
     };
-
-    glances.widgets = [
-      { Info.metric = "info"; }
-      { Speicherplatz.metric = "fs:/"; }
-      { "CPU Auslastung".metric = "cpu"; }
-      { Netzwerk.metric = "network:enp4s0"; }
-    ];
   };
 
   services.home-assistant.extraComponents = [

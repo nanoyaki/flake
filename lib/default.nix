@@ -52,6 +52,11 @@
 
                 modules = [
                   {
+                    options.config'.explicitDependencies = lib'.options.mkTrueOption;
+
+                    config = { };
+                  }
+                  {
                     networking.hostName = hostname;
                     nixpkgs.hostPlatform.system = platform;
                   }
@@ -61,6 +66,7 @@
           };
       }
       // import ./types.nix { inherit lib lib'; }
-      // import ./modules.nix;
+      // import ./modules.nix { inherit lib lib'; }
+      // import ./options.nix { inherit lib lib'; };
   };
 }

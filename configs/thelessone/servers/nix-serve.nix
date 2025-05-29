@@ -8,7 +8,7 @@
     secretKeyFile = config.sec."nix-serve".path;
   };
 
-  services.caddy-easify.reverseProxies."cache.vpn.theless.one" = {
+  services'.caddy.reverseProxies."cache.vpn.theless.one" = {
     inherit (config.services.nix-serve) port;
     vpnOnly = true;
   };

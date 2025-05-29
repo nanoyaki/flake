@@ -4,9 +4,7 @@ let
   inherit (lib.attrsets) filterAttrs;
   inherit (builtins) attrNames map;
 
-  services = attrNames (filterAttrs (_: cfg: cfg.enable) config.services.media-easify.services);
-
-  domain = config.services.caddy-easify.baseDomain;
+  domain = config.services'.caddy.baseDomain;
 in
 
 {
@@ -26,18 +24,18 @@ in
       logtail.enabled = false;
       metrics_listen_addr = "127.0.0.1:9090";
 
-      dns.base_domain = "vpn.theless.one";
+      dns.base_domain = "vpn.${domain}";
       dns.extra_records = map (name: {
-        name = "${name}.vpn.theless.one";
+        name = "${name}.vpn.${domain}";
         type = "A";
         value = "100.64.64.1";
-      }) services;
+      }) (attrNames (filterAttrs (_: cfg: cfg.enable) config.services'));
     };
   };
 
   environment.systemPackages = [ config.services.headscale.package ];
 
-  services.caddy-easify.reverseProxies."https://headscale.theless.one" = {
+  services'.caddy.reverseProxies."https://headscale.${domain}" = {
     inherit (config.services.headscale) port;
   };
 }

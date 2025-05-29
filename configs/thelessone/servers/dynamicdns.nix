@@ -11,36 +11,32 @@
     "dynamicdns/vappie.space" = { };
   };
 
-  services.namecheapDynDns = {
-    enable = true;
+  services'.dynamicdns.domains = {
+    "nanoyaki.space" = {
+      subdomains = [
+        "*"
+        "@"
+      ];
 
-    domains = {
-      "nanoyaki.space" = {
-        subdomains = [
-          "*"
-          "@"
-        ];
+      passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
+    };
 
-        passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
-      };
+    "theless.one" = {
+      subdomains = [
+        "*"
+        "@"
+      ];
 
-      "theless.one" = {
-        subdomains = [
-          "*"
-          "@"
-        ];
+      passwordFile = config.sec."dynamicdns/theless.one".path;
+    };
 
-        passwordFile = config.sec."dynamicdns/theless.one".path;
-      };
+    "vappie.space" = {
+      subdomains = [
+        "*"
+        "@"
+      ];
 
-      "vappie.space" = {
-        subdomains = [
-          "*"
-          "@"
-        ];
-
-        passwordFile = config.sec."dynamicdns/vappie.space".path;
-      };
+      passwordFile = config.sec."dynamicdns/vappie.space".path;
     };
   };
 }

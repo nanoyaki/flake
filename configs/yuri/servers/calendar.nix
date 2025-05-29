@@ -95,12 +95,8 @@ in
   };
 
   sec."dynamicdns/nanoyaki.space" = { };
-  services.namecheapDynDns = {
-    enable = true;
-
-    domains."nanoyaki.space" = {
-      subdomains = [ "events" ];
-      passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
-    };
+  services'.dynamicdns.domains."nanoyaki.space" = {
+    subdomains = [ "events" ];
+    passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
   };
 }

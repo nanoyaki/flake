@@ -132,5 +132,5 @@ in
     };
   };
 
-  services.caddy-easify.reverseProxies."map.theless.one".port = 8100;
+  services'.caddy.reverseProxies."map.theless.one".port = 8100;
 }

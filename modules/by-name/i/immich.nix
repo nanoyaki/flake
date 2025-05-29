@@ -16,7 +16,7 @@ lib'.modules.mkModule {
     enableHardwareAcceleration = mkTrueOption;
 
     homepage = {
-      category = mkDefault "Media services" mkStrOption;
+      category = mkDefault "Media" mkStrOption;
       description = mkDefault "Photo backups" mkStrOption;
     };
   };

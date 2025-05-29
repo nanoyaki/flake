@@ -58,10 +58,6 @@ lib'.modules.mkModule {
 
             use_x_forwarded_for = true;
           };
-
-          "automation ui" = "!include automations.yaml";
-          "scene ui" = "!include scenes.yaml";
-          "script ui" = "!include scripts.yaml";
         };
       };
 

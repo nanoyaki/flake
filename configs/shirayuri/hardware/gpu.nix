@@ -7,6 +7,10 @@
     amdgpu = {
       initrd.enable = true;
       amdvlk.enable = false;
+      overdrive = {
+        enable = true;
+        ppfeaturemask = "0xffffffff";
+      };
     };
 
     graphics = {

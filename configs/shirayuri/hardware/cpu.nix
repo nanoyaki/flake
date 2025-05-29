@@ -58,8 +58,6 @@ in
   programs.corectrl = {
     enable = true;
     package = pkgs.corectrl;
-    gpuOverclock.enable = true;
-    gpuOverclock.ppfeaturemask = "0xffffffff";
   };
   users.users.${username}.extraGroups = [ "corectrl" ];
 

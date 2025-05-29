@@ -42,6 +42,8 @@ lib'.modules.mkModule {
     { config, ... }:
 
     {
+      useSubdomain = mkFalseOption;
+
       glances = {
         widgets =
           mkDefault

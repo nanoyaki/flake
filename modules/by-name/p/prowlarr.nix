@@ -43,6 +43,7 @@ lib'.modules.mkModule {
 
       services.flaresolverr.enable = lib.mkDefault true;
 
+      systemd.services.prowlarr.wantedBy = lib.mkForce [ "vopono.service" ];
       services.prowlarr = {
         enable = true;
         openFirewall = true;

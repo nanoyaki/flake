@@ -2,5 +2,8 @@
   "suwayomi-webui": {
     "revision": "2588",
     "yarnHash": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
+  },
+  "suwayomi-server": {
+    "gradleDepsHash": "sha256-nVGl+NoAf9wMvkBdl+Tqf4EbamCy/ciedfPdQEMxcO4="
   }
 }

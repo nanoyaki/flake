@@ -17,17 +17,17 @@
   };
   openrgb = {
     pname = "openrgb";
-    version = "0a3a1e627cc7ba94beafae19b78cdfd5406e2c78";
+    version = "7177a534b954dfa1686ec1413c1a8c19ca53cc87";
     src = fetchgit {
       url = "https://gitlab.com/CalcProgrammer1/OpenRGB.git";
-      rev = "0a3a1e627cc7ba94beafae19b78cdfd5406e2c78";
+      rev = "7177a534b954dfa1686ec1413c1a8c19ca53cc87";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ZH3CQU98tYV+9S0kxQBpPYHEurdFY8/qiQckDqUw9ZI=";
+      sha256 = "sha256-kpycgLU8u5DHkxqkPzYi7zf9bXEA3VieQaIVUXDkkl8=";
     };
-    date = "2025-05-23";
+    date = "2025-05-28";
   };
   rofi-themes = {
     pname = "rofi-themes";
@@ -45,17 +45,17 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "ec870759cfd252b08abee21d82a563457e748146";
+    version = "dee61e191c0175c6dae6346f58293e0225df8b1a";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "ec870759cfd252b08abee21d82a563457e748146";
+      rev = "dee61e191c0175c6dae6346f58293e0225df8b1a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-cKucWyyV4MVIu4Ynib0cLmXKJakOuZ8Elsi6lM5nqoI=";
+      sha256 = "sha256-FevRd2XTcWgAxI3YgSZBUrJeIDeolbAQ82M8sKTKM2A=";
     };
-    date = "2025-05-22";
+    date = "2025-05-27";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";

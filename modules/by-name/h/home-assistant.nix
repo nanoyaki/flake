@@ -58,8 +58,18 @@ lib'.modules.mkModule {
 
             use_x_forwarded_for = true;
           };
+
+          "automation ui" = "!include automations.yaml";
+          "scene ui" = "!include scenes.yaml";
+          "script ui" = "!include scripts.yaml";
         };
       };
+
+      systemd.tmpfiles.rules = [
+        "f ${config.services.home-assistant.configDir}/automations.yaml 0755 hass hass"
+        "f ${config.services.home-assistant.configDir}/scenes.yaml 0755 hass hass"
+        "f ${config.services.home-assistant.configDir}/scripts.yaml 0755 hass hass"
+      ];
 
       services'.caddy.reverseProxies.${domain}.port =
         config.services.home-assistant.config.http.server_port;

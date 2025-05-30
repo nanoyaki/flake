@@ -27,6 +27,7 @@
       ./deployment.nix
       # ./mullvad.nix
       ./tailscale.nix
+      ./vaultwarden.nix
     ];
   };
 }

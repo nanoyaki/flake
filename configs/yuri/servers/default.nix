@@ -7,5 +7,6 @@
     ./samba.nix
     ./calendar.nix
     ./bind.nix
+    ./restic.nix
   ];
 }

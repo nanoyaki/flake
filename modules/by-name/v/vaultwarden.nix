@@ -38,6 +38,7 @@ lib'.modules.mkModule {
       services.vaultwarden = {
         enable = true;
         dbBackend = "sqlite";
+        backupDir = "/var/backup/vaultwarden";
 
         config = {
           DOMAIN = domain;

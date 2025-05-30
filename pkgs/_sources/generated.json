@@ -21,7 +21,7 @@
     },
     "openrgb": {
         "cargoLocks": null,
-        "date": "2025-05-28",
+        "date": "2025-05-30",
         "extract": null,
         "name": "openrgb",
         "passthru": null,
@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7177a534b954dfa1686ec1413c1a8c19ca53cc87",
-            "sha256": "sha256-kpycgLU8u5DHkxqkPzYi7zf9bXEA3VieQaIVUXDkkl8=",
+            "rev": "d98db1587b4242707fa028d5e0d2137ced93e662",
+            "sha256": "sha256-UeeJpn98QOjJ+oCy2sHfVws9+1IbgqfftnpkChGwJLI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/CalcProgrammer1/OpenRGB.git"
         },
-        "version": "7177a534b954dfa1686ec1413c1a8c19ca53cc87"
+        "version": "d98db1587b4242707fa028d5e0d2137ced93e662"
     },
     "rofi-themes": {
         "cargoLocks": null,

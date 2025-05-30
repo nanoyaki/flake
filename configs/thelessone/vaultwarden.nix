@@ -21,7 +21,7 @@
       environmentFile = "${pkgs.writeText "restic-env" "GOMAXPROCS=6"}";
 
       timerConfig = {
-        OnCalendar = "*/3:00:00";
+        OnCalendar = "*-*-* 00/3:00:00";
         Persistent = true;
         RandomizedDelaySec = "30s";
       };

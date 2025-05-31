@@ -30,8 +30,6 @@ let
     nameValuePair
     mapAttrs'
     ;
-
-  acmeDir = "/var/lib/acme/.challenges";
 in
 
 lib'.modules.mkModule {
@@ -52,8 +50,6 @@ lib'.modules.mkModule {
       serverAliases = mkListOf mkStrOption;
       vpnOnly = mkFalseOption;
     });
-
-    acme.enable = mkFalseOption;
   };
 
   config =
@@ -98,46 +94,30 @@ lib'.modules.mkModule {
           auto_https off
         '';
 
-        virtualHosts =
-          (mapAttrs' (
-            domain: reverseProxy:
-            nameValuePair domain {
-              extraConfig = ''
-                ${optionalString (reverseProxy.userEnvVar != null) ''
-                  basic_auth * {
-                    {''$${reverseProxy.userEnvVar}}
-                  }
-                ''}
-
-                ${optionalString reverseProxy.vpnOnly ''
-                  @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
-                  respond @outside-local "Access Denied" 403 {
-                    close
-                  }
-                ''}
-
-                ${reverseProxy.extraConfig}
-
-                reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
-              '';
-              inherit (reverseProxy) serverAliases;
-            }
-          ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies))
-          // lib.optionalAttrs cfg.acme.enable {
-            ${cfg.baseDomain} = {
-              extraConfig = ''
-                handle /.well-known/acme-challenge/* {
-                  root * ${acmeDir}/.well-known/acme-challenge
-                  file_server
+        virtualHosts = mapAttrs' (
+          domain: reverseProxy:
+          nameValuePair domain {
+            extraConfig = ''
+              ${optionalString (reverseProxy.userEnvVar != null) ''
+                basic_auth * {
+                  {''$${reverseProxy.userEnvVar}}
                 }
+              ''}
 
-                tls ${acmeDir}/${cfg.baseDomain}/cert.pem ${acmeDir}/${cfg.baseDomain}/key.pem {
-                  protocols tls1.3
+              ${optionalString reverseProxy.vpnOnly ''
+                @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
+                respond @outside-local "Access Denied" 403 {
+                  close
                 }
-              '';
-              serverAliases = [ "*.${cfg.baseDomain}" ];
-            };
-          };
+              ''}
+
+              ${reverseProxy.extraConfig}
+
+              reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
+            '';
+            inherit (reverseProxy) serverAliases;
+          }
+        ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
       };
 
       services.headscale.settings.dns.extra_records = mapAttrsToList (domain: _: {
@@ -147,19 +127,6 @@ lib'.modules.mkModule {
       }) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies);
 
       systemd.services.caddy.path = [ pkgs.nssTools ];
-
-      security.acme = mkIf cfg.acme.enable {
-        acceptTerms = true;
-        defaults.email = lib.mkDefault "hanakretzer@gmail.com";
-
-        certs.${cfg.baseDomain} = {
-          webroot = acmeDir;
-          inherit (config.services.caddy) group;
-
-          domain = cfg.baseDomain;
-          extraDomainNames = [ "*.${cfg.baseDomain}" ];
-        };
-      };
     };
 
   sharedOptions =

@@ -74,8 +74,6 @@ in
         // {
           "https://vpn.theless.one".vpnOnly = true;
         };
-
-      acme.enable = true;
     };
 
     homepage = {

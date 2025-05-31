@@ -41,6 +41,9 @@ in
 
       SIGNUPS_ALLOWED = false;
       SIGNUPS_VERIFY = true;
+      REQUIRE_DEVICE_EMAIL = true;
+
+      ORG_CREATION_USERS = "hanakretzer@gmail.com";
     };
 
     environmentFile = config.sec."vaultwarden".path;

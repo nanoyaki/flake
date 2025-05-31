@@ -84,18 +84,18 @@ in
 
       fonts = {
         serif = {
-          name = "Noto Sans";
+          name = "Noto Sans CJK JP";
           package = pkgs.noto-fonts-cjk-sans;
         };
 
         sansSerif = {
-          name = "Noto Sans";
+          name = "Noto Sans CJK JP";
           package = pkgs.noto-fonts-cjk-sans;
         };
 
         monospace = {
-          name = "Cascadia Mono";
-          package = pkgs.cascadia-code;
+          name = "CaskaydiaCove Nerd Font Mono";
+          package = pkgs.nerd-fonts.caskaydia-cove;
         };
 
         emoji = {

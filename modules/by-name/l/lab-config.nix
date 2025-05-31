@@ -72,6 +72,7 @@ lib'.modules.mkModule {
     lidarr
     bazarr
     sonarr
+    whisparr
     sabnzbd
     transmission
     jellyfin

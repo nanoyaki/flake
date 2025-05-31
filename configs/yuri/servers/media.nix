@@ -42,6 +42,8 @@ in
       homepage.description = "Musik manager";
     };
 
+    whisparr.enable = false;
+
     radarr.homepage = {
       category = mediaServices;
       description = "Filme manager";

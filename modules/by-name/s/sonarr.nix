@@ -32,6 +32,8 @@ lib'.modules.mkModule {
     in
 
     {
+      services'.vopono.allowedTCPPorts = [ config.services.sonarr.settings.server.port ];
+
       services.sonarr = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;

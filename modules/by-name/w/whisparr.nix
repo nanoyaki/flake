@@ -29,6 +29,8 @@ lib'.modules.mkModule {
     in
 
     {
+      services'.vopono.allowedTCPPorts = [ config.services.whisparr.settings.server.port ];
+
       services.whisparr = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;

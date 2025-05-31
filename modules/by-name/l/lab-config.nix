@@ -67,6 +67,7 @@ lib'.modules.mkModule {
     homepage-images
     homepage
     radarr
+    flaresolverr
     prowlarr
     jellyseerr
     lidarr

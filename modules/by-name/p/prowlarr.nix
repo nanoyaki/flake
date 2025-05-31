@@ -32,16 +32,7 @@ lib'.modules.mkModule {
     in
 
     {
-      services'.vopono = {
-        services.prowlarr = [ config.services.prowlarr.settings.server.port ];
-        allowedTCPPorts = [
-          config.services.radarr.settings.server.port
-          config.services.sonarr.settings.server.port
-          config.services.flaresolverr.port
-        ];
-      };
-
-      services.flaresolverr.enable = lib.mkDefault true;
+      services'.vopono.services.prowlarr = [ config.services.prowlarr.settings.server.port ];
 
       systemd.services.prowlarr.wantedBy = lib.mkForce [ "vopono.service" ];
       services.prowlarr = {

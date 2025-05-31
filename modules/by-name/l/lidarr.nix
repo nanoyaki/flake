@@ -54,6 +54,8 @@ lib'.modules.mkModule {
         )
       ];
 
+      services'.vopono.allowedTCPPorts = [ config.services.lidarr.settings.server.port ];
+
       services.lidarr = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;

@@ -4,12 +4,19 @@ lib'.modules.mkModule {
   name = "flaresolverr";
 
   config =
-    { cfg, helpers', ... }:
+    {
+      cfg,
+      config,
+      helpers',
+      ...
+    }:
 
     {
+      services'.vopono.allowedTCPPorts = [ config.services.flaresolverr.port ];
+
       services.flaresolverr = {
         enable = true;
-        port = helpers'.defaultPort cfg 8191;
+        port = helpers'.firewall.defaultPort cfg 8191;
         inherit (cfg) openFirewall;
       };
     };

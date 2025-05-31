@@ -32,6 +32,8 @@ lib'.modules.mkModule {
     in
 
     {
+      services'.vopono.allowedTCPPorts = [ config.services.radarr.settings.server.port ];
+
       services.radarr = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;

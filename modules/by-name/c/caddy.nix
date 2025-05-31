@@ -153,13 +153,11 @@ lib'.modules.mkModule {
         defaults.email = lib.mkDefault "hanakretzer@gmail.com";
 
         certs.${cfg.baseDomain} = {
+          webroot = acmeDir;
           inherit (config.services.caddy) group;
 
           domain = cfg.baseDomain;
           extraDomainNames = [ "*.${cfg.baseDomain}" ];
-          dnsResolver = "1.1.1.1:53";
-          dnsPropagationCheck = true;
-          webroot = acmeDir;
         };
       };
     };

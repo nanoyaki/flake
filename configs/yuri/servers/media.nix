@@ -84,10 +84,19 @@ in
     };
   };
 
-  services.home-assistant.extraComponents = [
-    "tplink"
-    "tplink_tapo"
-  ];
+  sec."home-assistant/zones" = {
+    owner = "hass";
+    path = "/etc/home-assistant/zones.yaml";
+  };
+
+  services.home-assistant = {
+    extraComponents = [
+      "tplink"
+      "tplink_tapo"
+    ];
+
+    config.zone = "!include zones.yaml";
+  };
 
   services.transmission.settings = {
     speed-limit-down-enabled = true;

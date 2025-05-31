@@ -34,7 +34,7 @@ lib'.modules.mkModule {
     {
       services'.vopono = {
         services.prowlarr = [ config.services.prowlarr.settings.server.port ];
-        allowedPorts = [
+        allowedTCPPorts = [
           config.services.radarr.settings.server.port
           config.services.sonarr.settings.server.port
           config.services.flaresolverr.port

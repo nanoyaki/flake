@@ -36,9 +36,10 @@ lib'.modules.mkModule {
         "OpenVPN"
       ];
       interface = mkStrOption;
-      namespace = mkDefault "sys_vo" mkStrOption;
+      namespace = mkDefault "vopono0" mkStrOption;
       services = mkAttrsOf (mkEither mkPortOption (mkListOf mkPortOption));
-      allowedPorts = mkListOf mkPortOption;
+      allowedTCPPorts = mkListOf mkPortOption;
+      allowedUDPPorts = mkListOf mkPortOption;
     };
 
   config =
@@ -61,6 +62,13 @@ lib'.modules.mkModule {
         user = "vopono";
         group = "vopono";
         mode = "770";
+      };
+
+      networking.firewall.interfaces."${cfg.namespace}_d" = {
+        inherit (cfg)
+          allowedTCPPorts
+          allowedUDPPorts
+          ;
       };
 
       systemd.services =
@@ -91,7 +99,11 @@ lib'.modules.mkModule {
                 -u vopono \
                 --keep-alive \
                 ${concatMapStrings (port: "-f ${toString port} ") (unique (flatten (attrValues cfg.services)))} \
-                ${concatMapStrings (port: "-o ${toString port} ") (unique cfg.allowedPorts)} \
+                ${
+                  concatMapStrings (port: "-o ${toString port} ") (
+                    unique (cfg.allowedTCPPorts ++ cfg.allowedUDPPorts)
+                  )
+                } \
                 --allow-host-access \
                 --custom ${cfg.configFile} \
                 --protocol ${cfg.protocol} \

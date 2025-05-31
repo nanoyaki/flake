@@ -63,6 +63,7 @@ in
     transmission.subdomain = "transmission.vpn";
     immich.subdomain = "immich.vpn";
     whisparr.subdomain = "whisparr.vpn";
+    whisparr.homepage.enable = true;
 
     paperless.enable = false;
     home-assistant.enable = false;

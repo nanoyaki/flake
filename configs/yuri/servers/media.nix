@@ -42,7 +42,7 @@ in
       homepage.description = "Musik manager";
     };
 
-    whisparr.enable = false;
+    whisparr.enable = true;
 
     radarr.homepage = {
       category = mediaServices;

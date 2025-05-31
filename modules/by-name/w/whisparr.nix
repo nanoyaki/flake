@@ -1,9 +1,11 @@
-{ lib', ... }:
+{ lib, lib', ... }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
 in
 
@@ -11,6 +13,7 @@ lib'.modules.mkModule {
   name = "whisparr";
 
   options.homepage = {
+    enable = mkFalseOption;
     category = mkDefault "Media services" mkStrOption;
     description = mkDefault "Adult video manager" mkStrOption;
   };
@@ -41,11 +44,13 @@ lib'.modules.mkModule {
 
       services'.caddy.reverseProxies.${domain}.port = config.services.whisparr.settings.server.port;
 
-      services'.homepage.categories.${cfg.homepage.category}.services.Whisparr = {
-        icon = "whisparr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
+      services'.homepage = mkIf cfg.homepage.enable {
+        categories.${cfg.homepage.category}.services.Whisparr = {
+          icon = "whisparr.svg";
+          href = domain;
+          siteMonitor = domain;
+          inherit (cfg.homepage) description;
+        };
       };
     };
 

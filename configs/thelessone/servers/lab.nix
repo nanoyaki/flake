@@ -28,6 +28,24 @@ in
     self.nixosModules.lab-config
   ];
 
+  sec."vaultwarden".owner = "vaultwarden";
+
+  services.vaultwarden = {
+    config = {
+      SMTP_HOST = "smtp.gmail.com";
+      SMTP_PORT = 587;
+      SMTP_SECURITY = "starttls";
+
+      SMTP_FROM = "hanakretzer+vaultwarden@gmail.com";
+      SMTP_FROM_NAME = "${config.services'.caddy.baseDomain} Vaultwarden Server";
+
+      SIGNUPS_ALLOWED = false;
+      SIGNUPS_VERIFY = true;
+    };
+
+    environmentFile = config.sec."vaultwarden".path;
+  };
+
   services' = {
     lab-config.arr.home = "/mnt/raid/arr-stack";
 

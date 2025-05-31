@@ -45,14 +45,19 @@ in
     paperless.enable = false;
     home-assistant.enable = false;
 
-    caddy.baseDomain = "theless.one";
-    caddy.reverseProxies =
-      (mapAttrs' (
-        service: _: nameValuePair (domain config.services'.${service}) { vpnOnly = true; }
-      ) privateServices)
-      // {
-        "https://vpn.theless.one".vpnOnly = true;
-      };
+    caddy = {
+      baseDomain = "theless.one";
+
+      reverseProxies =
+        (mapAttrs' (
+          service: _: nameValuePair (domain config.services'.${service}) { vpnOnly = true; }
+        ) privateServices)
+        // {
+          "https://vpn.theless.one".vpnOnly = true;
+        };
+
+      acme.enable = true;
+    };
 
     homepage = {
       useSubdomain = true;

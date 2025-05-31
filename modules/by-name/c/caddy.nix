@@ -17,7 +17,21 @@ let
     mkStrOption
     ;
 
-  inherit (lib.strings) optionalString;
+  inherit (lib)
+    mkIf
+    replaceStrings
+    ;
+  inherit (lib.strings) optionalString hasInfix;
+  inherit (lib.lists) all;
+  inherit (lib.attrsets)
+    attrNames
+    filterAttrs
+    mapAttrsToList
+    nameValuePair
+    mapAttrs'
+    ;
+
+  acmeDir = "/var/lib/acme/.challenges";
 in
 
 lib'.modules.mkModule {
@@ -38,6 +52,8 @@ lib'.modules.mkModule {
       serverAliases = mkListOf mkStrOption;
       vpnOnly = mkFalseOption;
     });
+
+    acme.enable = mkFalseOption;
   };
 
   config =
@@ -49,21 +65,6 @@ lib'.modules.mkModule {
     }:
 
     let
-      inherit (lib)
-        mkIf
-        replaceStrings
-        ;
-
-      inherit (lib.lists) all;
-      inherit (lib.strings) hasInfix optionalString;
-      inherit (lib.attrsets)
-        attrNames
-        filterAttrs
-        mapAttrsToList
-        nameValuePair
-        mapAttrs'
-        ;
-
       vpnDomain = config.services.headscale.settings.dns.base_domain;
       vpnV4Subnet = config.services.headscale.settings.prefixes.v4;
       vpnV6Subnet = config.services.headscale.settings.prefixes.v4;
@@ -93,34 +94,50 @@ lib'.modules.mkModule {
           level INFO
         '';
 
-        globalConfig = ''
-          auto_https ${if cfg.useHttps then "disable_redirects" else "off"}
+        globalConfig = mkIf (!cfg.useHttps) ''
+          auto_https off
         '';
 
-        virtualHosts = mapAttrs' (
-          domain: reverseProxy:
-          nameValuePair domain {
-            extraConfig = ''
-              ${optionalString (reverseProxy.userEnvVar != null) ''
-                basic_auth * {
-                  {''$${reverseProxy.userEnvVar}}
+        virtualHosts =
+          (mapAttrs' (
+            domain: reverseProxy:
+            nameValuePair domain {
+              extraConfig = ''
+                ${optionalString (reverseProxy.userEnvVar != null) ''
+                  basic_auth * {
+                    {''$${reverseProxy.userEnvVar}}
+                  }
+                ''}
+
+                ${optionalString reverseProxy.vpnOnly ''
+                  @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
+                  respond @outside-local "Access Denied" 403 {
+                    close
+                  }
+                ''}
+
+                ${reverseProxy.extraConfig}
+
+                reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
+              '';
+              inherit (reverseProxy) serverAliases;
+            }
+          ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies))
+          // lib.optionalAttrs cfg.acme.enable {
+            ${cfg.baseDomain} = {
+              extraConfig = ''
+                handle /.well-known/acme-challenge/* {
+                  root * ${acmeDir}/.well-known/acme-challenge
+                  file_server
                 }
-              ''}
 
-              ${optionalString reverseProxy.vpnOnly ''
-                @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
-                respond @outside-local "Access Denied" 403 {
-                  close
+                tls ${acmeDir}/${cfg.baseDomain}/cert.pem ${acmeDir}/${cfg.baseDomain}/key.pem {
+                  protocols tls1.3
                 }
-              ''}
-
-              ${reverseProxy.extraConfig}
-
-              reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
-            '';
-            inherit (reverseProxy) serverAliases;
-          }
-        ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
+              '';
+              serverAliases = [ "*.${cfg.baseDomain}" ];
+            };
+          };
       };
 
       services.headscale.settings.dns.extra_records = mapAttrsToList (domain: _: {
@@ -130,6 +147,21 @@ lib'.modules.mkModule {
       }) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies);
 
       systemd.services.caddy.path = [ pkgs.nssTools ];
+
+      security.acme = mkIf cfg.acme.enable {
+        acceptTerms = true;
+        defaults.email = lib.mkDefault "hanakretzer@gmail.com";
+
+        certs.${cfg.baseDomain} = {
+          inherit (config.services.caddy) group;
+
+          domain = cfg.baseDomain;
+          extraDomainNames = [ "*.${cfg.baseDomain}" ];
+          dnsResolver = "1.1.1.1:53";
+          dnsPropagationCheck = true;
+          webroot = acmeDir;
+        };
+      };
     };
 
   sharedOptions =

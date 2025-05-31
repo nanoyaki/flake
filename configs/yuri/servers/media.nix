@@ -1,3 +1,5 @@
+{ config, ... }:
+
 let
   mediaServices = "Medien Dienste";
   services = "Dienste";
@@ -84,9 +86,12 @@ in
     };
   };
 
-  sec."home-assistant/zones" = {
+  sec."home-assistant/secrets" = {
     owner = "hass";
-    path = "/etc/home-assistant/zones.yaml";
+    group = "hass";
+    mode = "0440";
+    path = "${config.services.home-assistant.configDir}/secrets.yaml";
+    restartUnits = [ "home-assistant.service" ];
   };
 
   services.home-assistant = {
@@ -95,7 +100,27 @@ in
       "tplink_tapo"
     ];
 
-    config.zone = "!include zones.yaml";
+    config = {
+      zone = [
+        {
+          name = "Home";
+          latitude = "!secret latitude_home";
+          longitude = "!secret longitude_home";
+          radius = 25;
+          icon = "mdi:home";
+        }
+      ];
+
+      homeassistant = {
+        name = "Zuhause";
+
+        latitude = "!secret latitude_home";
+        longitude = "!secret longitude_home";
+
+        unit_system = "metric";
+        time_zone = "Europe/Berlin";
+      };
+    };
   };
 
   services.transmission.settings = {

@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   pkgs,
   config,
@@ -65,6 +66,9 @@ in
   programs.kde-pim.merkuro = true;
 
   virtualisation.waydroid.enable = true;
+
+  # for deployment
+  environment.etc."systems/yuri".source = self.nixosConfigurations.yuri.config.system.build.toplevel;
 
   hm.news.display = "show";
   system.stateVersion = "24.11";

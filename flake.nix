@@ -62,8 +62,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:nanoyaki/stylix/disableSwaylock";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     headplane = {
       url = "github:tale/headplane";

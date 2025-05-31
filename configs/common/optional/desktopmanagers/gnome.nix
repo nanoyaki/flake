@@ -4,9 +4,9 @@
   options.nanoflake.desktop.gnome = true;
 
   config = {
-    services.xserver = {
-      displayManager = {
-        gdm.enable = true;
+    services = {
+      displayManager.gdm.enable = true;
+      xserver.displayManager = {
         autoLogin.enable = true;
         autoLogin.user = username;
       };

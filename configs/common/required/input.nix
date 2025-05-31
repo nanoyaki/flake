@@ -48,8 +48,7 @@ in
           fcitx5-gtk
         ];
         waylandFrontend =
-          config.services.xserver.displayManager.gdm.wayland
-          || config.nanoflake.desktop.plasma6.enableWaylandDefault;
+          config.services.displayManager.gdm.wayland || config.nanoflake.desktop.plasma6.enableWaylandDefault;
       };
     };
 

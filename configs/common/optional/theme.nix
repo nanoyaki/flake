@@ -275,9 +275,9 @@ in
           ];
 
           configFile = {
-            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."Image" = config.stylix.image;
-            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General"."PreviewImage" = config.stylix.image;
-            "plasmarc"."Wallpapers"."usersWallpapers" = config.stylix.image;
+            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".Image = "${config.stylix.image}";
+            "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".PreviewImage = "${config.stylix.image}";
+            "plasmarc"."Wallpapers"."usersWallpapers" = "${config.stylix.image}";
             "kcminputrc"."Mouse"."cursorSize" = 32;
           };
         };

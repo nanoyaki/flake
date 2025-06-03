@@ -50,6 +50,11 @@ in
         port = 9633;
       };
 
+      nvidia-gpu = {
+        enable = true;
+        port = 9835;
+      };
+
       sabnzbd = {
         enable = true;
         servers = [
@@ -105,6 +110,7 @@ in
             targets = [
               "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.nvidia-gpu.port}"
             ];
           }
         ];

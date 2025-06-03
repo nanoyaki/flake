@@ -17,17 +17,17 @@
   };
   openrgb = {
     pname = "openrgb";
-    version = "2c1e23fdbdfd96c60e84c4a1073d4d23a06fd7fc";
+    version = "3c14af4a28307ef20434d4c6dc4d60c471bd8735";
     src = fetchgit {
       url = "https://gitlab.com/CalcProgrammer1/OpenRGB.git";
-      rev = "2c1e23fdbdfd96c60e84c4a1073d4d23a06fd7fc";
+      rev = "3c14af4a28307ef20434d4c6dc4d60c471bd8735";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-utX3uPPpN59hbOCDMFl8EneiCVyhKscXWV33aHSFKk8=";
+      sha256 = "sha256-DOo87BHEqDjXyL4VDlu8+1l4nNg7H1Qp/tC3ejRXFj4=";
     };
-    date = "2025-05-30";
+    date = "2025-06-02";
   };
   rofi-themes = {
     pname = "rofi-themes";

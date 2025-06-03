@@ -59,7 +59,7 @@ in
         enable = true;
         servers = [
           {
-            baseUrl = "http://127.0.0.1:8080/sabnzbd";
+            baseUrl = "http://127.0.0.1:8080/";
             apiKeyFile = config.sec."apiKeys/sabnzbd".path;
           }
         ];

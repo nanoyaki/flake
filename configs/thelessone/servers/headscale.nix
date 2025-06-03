@@ -24,12 +24,15 @@ in
       logtail.enabled = false;
       metrics_listen_addr = "127.0.0.1:9090";
 
-      dns.base_domain = "vpn.${domain}";
-      dns.extra_records = map (name: {
-        name = "${name}.vpn.${domain}";
-        type = "A";
-        value = "100.64.64.1";
-      }) (attrNames (filterAttrs (_: cfg: cfg.enable) config.services'));
+      dns = {
+        override_local_dns = false;
+        base_domain = "vpn.${domain}";
+        extra_records = map (name: {
+          name = "${name}.vpn.${domain}";
+          type = "A";
+          value = "100.64.64.1";
+        }) (attrNames (filterAttrs (_: cfg: cfg.enable) config.services'));
+      };
     };
   };
 

@@ -33,6 +33,8 @@ in
           value = "100.64.64.1";
         }) (attrNames (filterAttrs (_: cfg: cfg.enable) config.services'));
       };
+
+      randomize_client_port = true;
     };
   };
 

@@ -48,6 +48,8 @@ lib'.modules.mkModule {
     in
 
     {
+      services'.vopono.allowedTCPPorts = [ 8080 ];
+
       services.sabnzbd = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;

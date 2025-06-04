@@ -12,6 +12,7 @@ in
     "apiKeys/prowlarr" = { };
     "apiKeys/lidarr" = { };
     "apiKeys/bazarr" = { };
+    "apiKeys/woodpecker" = { };
   };
 
   services.grafana = {
@@ -132,6 +133,12 @@ in
                 ];
           }
         ];
+      }
+
+      {
+        job_name = "woodpecker";
+        bearer_token_file = config.sec."woodpecker/metrics/apiToken".path;
+        static_configs = [ { targets = [ "woodpecker.theless.one" ]; } ];
       }
     ];
   };

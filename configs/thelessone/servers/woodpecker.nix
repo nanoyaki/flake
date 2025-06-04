@@ -9,6 +9,7 @@
   sec = {
     "woodpecker/forgejo/clientId" = { };
     "woodpecker/forgejo/clientSecret" = { };
+    "woodpecker/metrics/apiToken" = { };
     "woodpecker/agents/native/secret" = { };
     "woodpecker/agents/docker/secret" = { };
   };
@@ -32,6 +33,7 @@
     environmentFile = [
       config.sec."woodpecker/forgejo/clientId".path
       config.sec."woodpecker/forgejo/clientSecret".path
+      config.sec."woodpecker/metrics/apiToken".path
     ];
   };
 

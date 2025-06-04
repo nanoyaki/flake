@@ -59,11 +59,18 @@ in
         auto-optimise-store = true;
       };
 
-      optimise.automatic = true;
+      optimise = {
+        automatic = true;
+        dates = "daily";
+        randomizedDelaySec = "15min";
+        persistent = true;
+      };
+
       gc = {
         automatic = true;
         dates = "daily";
         options = "--delete-older-than 14d";
+        randomizedDelaySec = "15min";
         persistent = true;
       };
 

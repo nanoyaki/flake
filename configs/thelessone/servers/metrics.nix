@@ -12,7 +12,7 @@ in
     "apiKeys/prowlarr" = { };
     "apiKeys/lidarr" = { };
     "apiKeys/bazarr" = { };
-    "apiKeys/woodpecker" = { };
+    "apiKeys/woodpecker".owner = "prometheus";
   };
 
   services.grafana = {

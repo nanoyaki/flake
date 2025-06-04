@@ -160,7 +160,7 @@ in
 
       {
         job_name = "woodpecker";
-        bearer_token_file = config.sec."woodpecker/metrics/apiToken".path;
+        bearer_token_file = config.sec."apiKeys/woodpecker".path;
         static_configs = [ { targets = [ "woodpecker.theless.one" ]; } ];
       }
     ];

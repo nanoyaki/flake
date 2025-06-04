@@ -31,20 +31,24 @@ in
 
     provision = {
       enable = true;
-      datasources = [
-        {
-          name = "Prometheus";
-          type = "prometheus";
-          access = "proxy";
-          url = "http://127.0.0.1:${toString config.services.prometheus.port}";
-        }
-        {
-          name = "Loki";
-          type = "loki";
-          access = "proxy";
-          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
-        }
-      ];
+      datasources.settings = {
+        apiVersion = 1;
+
+        datasources = [
+          {
+            name = "prometheus";
+            type = "prometheus";
+            access = "proxy";
+            url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+          }
+          {
+            name = "Loki";
+            type = "loki";
+            access = "proxy";
+            url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+          }
+        ];
+      };
     };
   };
 

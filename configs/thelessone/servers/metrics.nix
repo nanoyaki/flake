@@ -60,6 +60,7 @@ in
   services.prometheus = {
     enable = true;
     port = 9092;
+    checkConfig = "syntax-only";
 
     exporters = {
       node = {

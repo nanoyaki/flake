@@ -28,6 +28,29 @@ in
 
       analytics.reporting_enabled = false;
     };
+
+    provision = {
+      enable = true;
+      datasources = [
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+        }
+        {
+          name = "Loki";
+          type = "loki";
+          access = "proxy";
+          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+        }
+      ];
+    };
+  };
+
+  services'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
+    port = config.services.grafana.settings.server.http_port;
+    vpnOnly = true;
   };
 
   services.prometheus = {
@@ -143,8 +166,104 @@ in
     ];
   };
 
-  services'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
-    port = config.services.grafana.settings.server.http_port;
-    vpnOnly = true;
+  services.loki = rec {
+    enable = true;
+    dataDir = "/var/lib/loki";
+    configuration = {
+      server.http_listen_port = 3030;
+      auth_enabled = false;
+
+      ingester = {
+        lifecycler = {
+          address = "127.0.0.1";
+          ring = {
+            kvstore.store = "inmemory";
+            replication_factor = 1;
+          };
+        };
+        chunk_idle_period = "1h";
+        max_chunk_age = "1h";
+        chunk_target_size = 999999;
+        chunk_retain_period = "30s";
+        max_transfer_retries = 0;
+      };
+
+      schema_config.configs = [
+        {
+          from = "2025-06-03";
+          store = "tsdb";
+          object_store = "filesystem";
+          schema = "v13";
+          index = {
+            prefix = "index_";
+            period = "24h";
+          };
+        }
+      ];
+
+      storage_config = {
+        tsdb_shipper = {
+          active_index_directory = "${dataDir}/tsdb-index";
+          cache_location = "${dataDir}/tsdb-cache";
+          cache_ttl = "24h";
+          shared_store = "filesystem";
+        };
+
+        filesystem.directory = "${dataDir}/chunks";
+      };
+
+      query_scheduler.max_outstanding_requests_per_tenant = 32768;
+      querier.max_concurrent = 16;
+
+      limits_config = {
+        reject_old_samples = true;
+        reject_old_samples_max_age = "168h";
+      };
+
+      chunk_store_config.max_look_back_period = "0s";
+
+      table_manager = {
+        retention_deletes_enabled = false;
+        retention_period = "0s";
+      };
+
+      compactor = {
+        working_directory = dataDir;
+        shared_store = "filesystem";
+        compactor_ring.kvstore.store = "inmemory";
+      };
+    };
+  };
+
+  services.promtail = {
+    enable = true;
+    configuration = {
+      server = {
+        http_listen_port = 28183;
+        grpc_listen_port = 0;
+      };
+
+      positions.filename = "/tmp/positions.yaml";
+
+      clients = [ { url = "http:, 127.0.0.1:3100/loki/api/v1/push"; } ];
+      scrape_configs = [
+        {
+          job_name = "journal";
+          journal = {
+            max_age = "24h";
+            labels = {
+              job = "systemd-journal";
+              host = "thelessone";
+            };
+          };
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+          ];
+        }
+      ];
+    };
   };
 }

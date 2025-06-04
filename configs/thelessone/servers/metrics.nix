@@ -210,7 +210,6 @@ in
           active_index_directory = "${dataDir}/tsdb-index";
           cache_location = "${dataDir}/tsdb-cache";
           cache_ttl = "24h";
-          shared_store = "filesystem";
         };
 
         filesystem.directory = "${dataDir}/chunks";

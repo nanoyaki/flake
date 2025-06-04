@@ -12,7 +12,7 @@
     };
 
     displayManager.gdm.enable = true;
-    xserver.desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = true;
 
     desktopManager.plasma6.enable = false;
   };

@@ -186,8 +186,8 @@ in
             replication_factor = 1;
           };
         };
-        chunk_idle_period = "1h";
-        max_chunk_age = "1h";
+        chunk_idle_period = "24h";
+        max_chunk_age = "24h";
         chunk_target_size = 999999;
         chunk_retain_period = "30s";
       };

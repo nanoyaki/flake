@@ -91,7 +91,7 @@ lib'.modules.mkModule {
         '';
 
         globalConfig = mkIf (!cfg.useHttps) ''
-          auto_https off
+          auto_https disable_redirects
         '';
 
         virtualHosts = mapAttrs' (

@@ -42,8 +42,6 @@ lib'.modules.mkModule {
           "isal"
         ];
 
-        configDir = "/var/lib/hass";
-
         config = {
           default_config = { };
 

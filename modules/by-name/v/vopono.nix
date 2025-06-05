@@ -30,6 +30,7 @@ lib'.modules.mkModule {
 
     {
       package = mkPackageOption pkgs "vopono" { };
+      dataDir = mkDefault "/var/lib/vopono" mkPathOption;
       configFile = mkPathOption;
       protocol = mkEnumOption [
         "Wireguard"
@@ -53,12 +54,12 @@ lib'.modules.mkModule {
       users.users.vopono = {
         isSystemUser = true;
         group = "vopono";
-        home = "/var/lib/vopono";
+        home = cfg.dataDir;
       };
 
       users.groups.vopono = { };
 
-      systemd.tmpfiles.settings."10-vopono-config"."/var/lib/vopono/.config/vopono".d = {
+      systemd.tmpfiles.settings."10-vopono-config"."${cfg.dataDir}/.config/vopono".d = {
         user = "vopono";
         group = "vopono";
         mode = "770";
@@ -91,7 +92,7 @@ lib'.modules.mkModule {
                 systemd
               ]);
 
-            unitConfig.ConditionPathExists = "/var/lib/vopono/.config/vopono";
+            unitConfig.ConditionPathExists = "${cfg.dataDir}/.config/vopono";
 
             script = ''
               vopono exec \

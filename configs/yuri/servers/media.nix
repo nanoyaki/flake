@@ -4,11 +4,28 @@ let
   mediaServices = "Medien Dienste";
   services = "Dienste";
   media = "Medien";
+
+  varLib = "/mnt/nvme-raid-1/var/lib";
 in
 
 {
   services'.caddy.baseDomain = "home.local";
   services'.caddy.useHttps = false;
+
+  services = {
+    jellyfin.dataDir = "${varLib}/jellyfin";
+    immich.mediaLocation = "${varLib}/immich";
+    jellyseerr.configDir = "${varLib}/jellyseerr/config";
+    prowlarr.dataDir = "${varLib}/prowlarr";
+    bazarr.dataDir = "${varLib}/bazarr";
+    sabnzbd.configFile = "${varLib}/sabnzbd/sabnzbd.ini";
+    transmission.home = "${varLib}/transmission";
+    home-assistant.configDir = "${varLib}/hass";
+    paperless.dataDir = "${varLib}/paperless";
+    sonarr.dataDir = "${varLib}/sonarr/.config/NzbDrone";
+    radarr.dataDir = "${varLib}/radarr/.config/Radarr";
+    whisparr.dataDir = "${varLib}/whisparr/.config/Whisparr";
+  };
 
   services' = {
     jellyfin.homepage = {
@@ -86,6 +103,8 @@ in
         { Netzwerk.metric = "network:enp4s0"; }
       ];
     };
+
+    vopono.dataDir = "${varLib}/vopono";
   };
 
   sec."home-assistant/secrets" = {

@@ -8,5 +8,6 @@
     ./calendar.nix
     ./bind.nix
     ./restic.nix
+    ./uptime-kuma.nix
   ];
 }

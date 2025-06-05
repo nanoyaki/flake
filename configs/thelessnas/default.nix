@@ -17,6 +17,7 @@
       ./configuration.nix
       ./openssh.nix
       ./samba.nix
+      ./deployment.nix
     ];
   };
 }

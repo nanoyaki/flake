@@ -8,6 +8,7 @@
     settings = {
       HOST = "127.0.0.1";
       PORT = "4000";
+      DATA_DIR = lib.mkForce "/mnt/nvme-raid-1/var/lib/uptime-kuma/";
     };
   };
 

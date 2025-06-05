@@ -11,7 +11,7 @@
     };
   };
 
-  services'.caddy.reverseProxies."status.theless.one".port =
+  services'.caddy.reverseProxies."https://status.theless.one".port =
     lib.strings.toInt config.services.uptime-kuma.settings.PORT;
 
   services'.dynamicdns.domains."theless.one" = {

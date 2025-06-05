@@ -106,6 +106,7 @@
         ./configs/yuri
         ./configs/lesstop
         ./configs/meow
+        ./configs/thelessnas
       ];
 
       systems = [

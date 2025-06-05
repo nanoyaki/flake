@@ -4,7 +4,6 @@
 }:
 
 {
-  environment.pathsToLink = [ "/share/zsh" ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh = {
     enable = true;
@@ -24,10 +23,11 @@
       bindkey "^H"      backward-kill-word
     '';
 
-    shellAliases = {
-      rb = "sudo nix-fast-build -f $FLAKE_DIR#nixosConfigurations.$(hostname).config.system.build.toplevel --eval-workers 4 --no-link && sudo nixos-rebuild switch --flake $FLAKE_DIR";
-      nix-conf = "$EDITOR $FLAKE_DIR";
-    };
+    shellAliases.rb =
+      "sudo nix-fast-build --eval-workers 4 --out-link result "
+      + "-f $FLAKE_DIR#nixosConfigurations.$(hostname).config.system.build.toplevel "
+      + "&& sudo ./result-/bin/switch-to-configuration switch "
+      + "&& rm result-";
 
     histSize = 10000;
   };

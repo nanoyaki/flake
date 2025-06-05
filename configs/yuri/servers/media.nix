@@ -9,9 +9,16 @@ let
 in
 
 {
-  services'.caddy.baseDomain = "home.local";
-  services'.caddy.useHttps = false;
-  services'.caddy.openFirewall = true;
+  services'.caddy = {
+    baseDomain = "home.local";
+    useHttps = false;
+    openFirewall = true;
+  };
+
+  services.caddy = {
+    dataDir = "${varLib}/caddy";
+    logDir = "/mnt/nvme-raid-1/var/log/caddy";
+  };
 
   services = {
     jellyfin.dataDir = "${varLib}/jellyfin";

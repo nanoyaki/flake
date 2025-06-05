@@ -11,6 +11,7 @@ in
 {
   services'.caddy.baseDomain = "home.local";
   services'.caddy.useHttps = false;
+  services'.caddy.openFirewall = true;
 
   services = {
     jellyfin.dataDir = "${varLib}/jellyfin";
@@ -28,9 +29,12 @@ in
   };
 
   services' = {
-    jellyfin.homepage = {
-      category = media;
-      description = "Medien archiv";
+    jellyfin = {
+      enable = false;
+      homepage = {
+        category = media;
+        description = "Medien archiv";
+      };
     };
 
     immich.homepage = {
@@ -38,19 +42,28 @@ in
       description = "Foto backup software";
     };
 
-    jellyseerr.homepage = {
-      category = mediaServices;
-      description = "Film- und Serien-Anfragen";
+    jellyseerr = {
+      enable = false;
+      homepage = {
+        category = mediaServices;
+        description = "Film- und Serien-Anfragen";
+      };
     };
 
-    prowlarr.homepage = {
-      category = mediaServices;
-      description = "Indexing manager";
+    prowlarr = {
+      enable = false;
+      homepage = {
+        category = mediaServices;
+        description = "Indexing manager";
+      };
     };
 
-    bazarr.homepage = {
-      category = mediaServices;
-      description = "Untertitel manager";
+    bazarr = {
+      enable = false;
+      homepage = {
+        category = mediaServices;
+        description = "Untertitel manager";
+      };
     };
 
     lidarr = {
@@ -61,19 +74,31 @@ in
 
     whisparr.enable = true;
 
-    radarr.homepage = {
-      category = mediaServices;
-      description = "Filme manager";
+    radarr = {
+      enable = false;
+      homepage = {
+        category = mediaServices;
+        description = "Filme manager";
+      };
     };
 
-    sonarr.homepage = {
-      category = mediaServices;
-      description = "Serien manager";
+    sonarr = {
+      enable = false;
+      homepage = {
+        category = mediaServices;
+        description = "Serien manager";
+      };
     };
 
-    sabnzbd.homepage.category = services;
+    sabnzbd = {
+      enable = false;
+      homepage.category = services;
+    };
 
-    transmission.homepage.category = services;
+    transmission = {
+      enable = false;
+      homepage.category = services;
+    };
 
     paperless.homepage = {
       category = services;
@@ -85,9 +110,13 @@ in
       description = "Smart Home";
     };
 
-    vaultwarden.homepage = {
-      category = services;
-      description = "Lokaler Passwortmanager";
+    vaultwarden = {
+      enable = false;
+
+      homepage = {
+        category = services;
+        description = "Lokaler Passwortmanager";
+      };
     };
 
     homepage = {

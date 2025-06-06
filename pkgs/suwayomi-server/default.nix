@@ -10,6 +10,8 @@
   webui ? suwayomi-webui,
   nix-update-script,
   nixosTests,
+  asApplication ? false,
+  electron,
 
   _sources,
 }:
@@ -47,7 +49,17 @@ let
       cp server/build/Suwayomi-Server-v${finalAttrs.version}.jar $out/share/suwayomi-server
 
       makeWrapper ${lib.getExe jdk} $out/bin/tachidesk-server \
-        --add-flags "-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false" \
+        ${
+          if asApplication then
+            ''
+              --add-flags "-Dsuwayomi.tachidesk.config.server.webUIInterface=electron" \
+              --add-flags '-Dsuwayomi.tachidesk.config.server.electronPath="${lib.getExe electron}"' \
+            ''
+          else
+            ''
+              --add-flags "-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false" \
+            ''
+        } \
         --add-flags "-jar $out/share/suwayomi-server/Suwayomi-Server-v${finalAttrs.version}.jar"
 
       runHook postInstall

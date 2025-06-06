@@ -30,6 +30,12 @@ let
   nullOr = value: alternative: if value != null then value else alternative;
 
   format = pkgs.formats.hocon { };
+
+  dirCfg.d = {
+    user = "suwayomi";
+    group = "suwayomi";
+    mode = "770";
+  };
 in
 
 {
@@ -37,6 +43,12 @@ in
     enable = mkEnableOption "multiple suwayomi instances";
 
     package = mkPackageOption pkgs "suwayomi-server" { };
+
+    dataDir = mkOption {
+      type = types.path;
+      default = "/var/lib/suwayomi";
+      example = "/srv/suwayomi";
+    };
 
     instances = mkOption {
       type = types.attrsOf (types.submodule (import ./instance.nix { inherit lib format; }));
@@ -49,48 +61,34 @@ in
       attrNames (filterAttrs (_: iCfg: iCfg.openFirewall) cfg.instances)
     );
 
-    users.groups = mapAttrs' (iName: _: nameValuePair "suwayomi-${iName}" { }) (
-      filterAttrs (_: iCfg: iCfg.group == null) cfg.instances
-    );
+    users.groups.suwayomi = { };
 
-    users.users = mapAttrs' (
-      iName: iCfg:
-      nameValuePair "suwayomi-${iName}" {
-        group = nullOr iCfg.group "suwayomi-${iName}";
-        home = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
-        description = "Suwayomi Daemon user";
-        isSystemUser = true;
-      }
-    ) (filterAttrs (_: iCfg: iCfg.user == null) cfg.instances);
+    users.users.suwayomi = {
+      group = "suwayomi";
+      home = cfg.dataDir;
+      description = "Suwayomi Daemon user";
+      isSystemUser = true;
+    };
 
-    systemd.tmpfiles.settings = mapAttrs' (
-      iName: iCfg:
-      let
-        dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
-        downloadsDir = nullOr iCfg.settings.server.downloadsPath "${dataDir}/downloads";
-        localDir = nullOr iCfg.settings.server.localSourcePath "${dataDir}/local";
-
-        dirCfg = {
-          user = "suwayomi-${iName}";
-          group = "suwayomi-${iName}";
-          mode = "750";
+    systemd.tmpfiles.settings =
+      {
+        "10-suwayomi" = {
+          "${cfg.dataDir}/.downloads" = { inherit (dirCfg) d; };
+          "${cfg.dataDir}/.localSources" = { inherit (dirCfg) d; };
+          "${cfg.dataDir}/.cache/suwayomi" = { inherit (dirCfg) d; };
         };
-      in
-      nameValuePair "10-suwayomi-${iName}" {
-        "${dataDir}/.local/share/Tachidesk".d = dirCfg;
-        "${dataDir}/tmp".d = dirCfg;
-        ${downloadsDir}.d = dirCfg;
-        ${localDir}.d = dirCfg;
       }
-    ) cfg.instances;
+      // (mapAttrs' (
+        iName: iCfg:
+        nameValuePair "10-suwayomi-${iName}" {
+          ${nullOr iCfg.settings.server.rootDir "${cfg.dataDir}/${iName}"} = { inherit (dirCfg) d; };
+        }
+      ) cfg.instances);
 
     systemd.services = mapAttrs' (
       iName: iCfg:
       let
-        dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
-
-        user = nullOr iCfg.user "suwayomi-${iName}";
-        group = nullOr iCfg.group "suwayomi-${iName}";
+        dataDir = nullOr iCfg.settings.server.rootDir "${cfg.dataDir}/${iName}";
 
         configFile = format.generate "server.conf" (
           filterAttrsRecursive (_: x: x != null) (
@@ -98,6 +96,8 @@ in
               server = {
                 systemTrayEnabled = false;
                 initialOpenInBrowserEnabled = false;
+                localSourcePath = "${cfg.dataDir}/.localSources";
+                downloadsPath = "${cfg.dataDir}/.downloads";
               };
             }
           )
@@ -110,7 +110,7 @@ in
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
 
-        environment.JAVA_TOOL_OPTIONS = "-Djava.io.tmpdir=${dataDir}/tmp -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}";
+        environment.JAVA_TOOL_OPTIONS = "-Djava.io.tmpdir=${cfg.dataDir}/.cache/suwayomi -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}";
 
         script = ''
           ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/server.conf
@@ -119,8 +119,8 @@ in
         '';
 
         serviceConfig = {
-          User = user;
-          Group = group;
+          User = "suwayomi";
+          Group = "suwayomi";
 
           Type = "simple";
           Restart = "on-failure";

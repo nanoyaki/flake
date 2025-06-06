@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   inputs',
   username,
@@ -38,6 +39,10 @@
       ];
     }
   ];
+
+  # for deployment
+  environment.etc."systems/thelessnas".source =
+    self.nixosConfigurations.thelessnas.config.system.build.toplevel;
 
   system.stateVersion = "24.11";
   hm.home.stateVersion = "24.11";

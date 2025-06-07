@@ -85,7 +85,10 @@ lib'.modules.mkModule {
         };
       };
 
-      services'.caddy.reverseProxies.${domain}.port = config.services.transmission.settings.rpc-port;
+      services'.caddy.reverseProxies.${domain} = {
+        host = "10.200.1.2";
+        port = config.services.transmission.settings.rpc-port;
+      };
 
       services'.homepage.categories.${cfg.homepage.category}.services.Transmission = {
         icon = "transmission.svg";

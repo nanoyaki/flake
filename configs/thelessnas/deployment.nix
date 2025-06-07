@@ -7,6 +7,12 @@
     extraFlags = [ "--print-build-logs" ];
   };
 
-  services.openssh.knownHosts."192.168.178.84".publicKey =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkogFEPPOMfkRsBgyuHDQeWQMetWCZbkTpnfajTbu7t";
+  services.openssh.knownHosts = {
+    # Thelessone
+    "192.168.178.84".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkogFEPPOMfkRsBgyuHDQeWQMetWCZbkTpnfajTbu7t";
+    # Self
+    "192.168.178.91".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqlQS9C6tms9vFdb0tuaudzCFMH57xcBYnkT3FQVdba";
+  };
 }

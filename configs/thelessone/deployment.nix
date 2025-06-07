@@ -17,5 +17,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILp5Szm657DfoXyTuO0h25RQpPxqtYicFpboLpcL5RMb";
     "events.nanoyaki.space".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILp5Szm657DfoXyTuO0h25RQpPxqtYicFpboLpcL5RMb";
+
+    # Thelessnas
+    "192.168.178.91".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqlQS9C6tms9vFdb0tuaudzCFMH57xcBYnkT3FQVdba";
   };
 }

@@ -1,11 +1,17 @@
 { inputs, ... }:
 
+let
+  inherit (inputs) disko nixos-hardware;
+in
+
 {
   imports = [
-    inputs.disko.nixosModules.disko
+    disko.nixosModules.disko
     ./disks.nix
     ./boot.nix
     ./cpu.nix
     ./swap.nix
+
+    nixos-hardware.nixosModules.common-pc-ssd
   ];
 }

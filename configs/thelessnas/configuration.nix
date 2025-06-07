@@ -12,6 +12,8 @@
     ];
   };
 
+  programs.coolercontrol.enable = true;
+
   hm.home.stateVersion = "25.11";
   system.stateVersion = "25.11";
 }

@@ -54,6 +54,12 @@ in
     };
   };
 
+  services'.caddy.reverseProxies."https://coolercontrol.nas.vpn.theless.one" = {
+    port = 11987;
+    host = "192.168.178.91";
+    vpnOnly = true;
+  };
+
   systemd.tmpfiles.settings."10-caddy-directories" =
     genAttrs
       [

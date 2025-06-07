@@ -5,7 +5,7 @@ when:
         - 'flake.lock'
         - '{pkgs,configs,lib,homeModules,modules}/**/*.nix'
       exclude:
-        - 'configs/{yuri,lesstop,kuroyuri,shirayuri,meow}/**'
+        - 'configs/{yuri,lesstop,kuroyuri,shirayuri,meow,thelessone}/**'
 
 labels:
   backend: local
@@ -17,8 +17,8 @@ steps:
   - name: build
     image: bash
     commands:
-      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-nom
-      - nix run nixpkgs#nvd -- diff /run/current-system $(readlink -f ./result-)
+      - nix-fast-build -f .#nixosConfigurations.thelessnas.config.system.build.toplevel --no-nom
+      - nix run nixpkgs#nvd -- diff /etc/systems/thelessnas $(readlink -f ./result-)
 
   - name: deployment
     when:
@@ -29,9 +29,9 @@ steps:
       - build
     image: bash
     environment:
-      DEPLOYMENT_KEY:
-        from_secret: DEPLOYMENT_KEY
+      DEPLOYMENT_KEY_THELESSNAS:
+        from_secret: DEPLOYMENT_KEY_THELESSNAS
     commands:
-      - echo "$DEPLOYMENT_KEY" > deployment
+      - echo "$DEPLOYMENT_KEY_THELESSNAS" > deployment
       - chmod 400 deployment
-      - nix --extra-experimental-features "nix-command flakes" run .#deploy-thelessone -- switch deployment
+      - nix --extra-experimental-features "nix-command flakes" run .#deploy-thelessnas -- switch deployment

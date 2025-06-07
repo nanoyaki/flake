@@ -1,0 +1,37 @@
+when:
+  - event: push
+    path:
+      include:
+        - 'flake.lock'
+        - '{pkgs,configs,lib,homeModules,modules}/**/*.nix'
+      exclude:
+        - 'configs/{yuri,lesstop,kuroyuri,shirayuri,meow,thelessnas}/**'
+
+labels:
+  backend: local
+
+depends_on:
+  - flake_check
+
+steps:
+  - name: build
+    image: bash
+    commands:
+      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-nom
+      - nix run nixpkgs#nvd -- diff /run/current-system $(readlink -f ./result-)
+
+  - name: deployment
+    when:
+      - event: deployment
+      - branch: main
+        evaluate: not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
+    depends_on:
+      - build
+    image: bash
+    environment:
+      DEPLOYMENT_KEY:
+        from_secret: DEPLOYMENT_KEY
+    commands:
+      - echo "$DEPLOYMENT_KEY" > deployment
+      - chmod 400 deployment
+      - nix --extra-experimental-features "nix-command flakes" run .#deploy-thelessone -- switch deployment

@@ -18,6 +18,7 @@
       ./openssh.nix
       ./samba.nix
       ./deployment.nix
+      ./coolercontrol.nix
     ];
   };
 }

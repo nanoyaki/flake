@@ -12,10 +12,6 @@
     ];
   };
 
-  programs.coolercontrol.enable = true;
-  # For control within the network
-  networking.firewall.allowedTCPPorts = [ 11987 ];
-
   hm.home.stateVersion = "25.11";
   system.stateVersion = "25.11";
 }

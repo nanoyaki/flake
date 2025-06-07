@@ -17,5 +17,6 @@
     ./dns.nix
     ./headscale.nix
     ./metrics.nix
+    ./stash.nix
   ];
 }

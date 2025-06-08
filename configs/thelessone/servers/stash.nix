@@ -12,11 +12,12 @@ in
   services.stash = {
     enable = true;
 
+    group = "arr-stack";
     passwordFile = config.sec."stash/password".path;
     jwtSecretKeyFile = config.sec."stash/jwtSecret".path;
     sessionStoreKeyFile = config.sec."stash/sessionStoreSecret".path;
 
-    username = "admin";
+    username = "administrator";
     mutableSettings = true;
     settings = {
       host = "127.0.0.1";

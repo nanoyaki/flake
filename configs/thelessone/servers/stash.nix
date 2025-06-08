@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
   cfg = config.services.stash;
@@ -34,6 +39,8 @@ in
       ];
     };
   };
+
+  environment.systemPackages = [ pkgs.chromium ];
 
   services'.caddy.reverseProxies."https://stash.vpn.theless.one" = {
     inherit (cfg.settings) port;

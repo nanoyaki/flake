@@ -17,6 +17,9 @@ in
     jwtSecretKeyFile = config.sec."stash/jwtSecret".path;
     sessionStoreKeyFile = config.sec."stash/sessionStoreSecret".path;
 
+    mutablePlugins = true;
+    mutableScrapers = true;
+
     username = "administrator";
     mutableSettings = true;
     settings = {

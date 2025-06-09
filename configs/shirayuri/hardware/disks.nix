@@ -7,64 +7,47 @@
 
   sec.cifsCredentials = { };
 
-  disko.devices.disk = {
-    nixos = {
-      device = "/dev/nvme0n1";
-      type = "disk";
+  disko.devices.disk.nixos = {
+    device = "/dev/disk/by-id/nvme-CT1000P1SSD8_2030E2BAC10A";
+    type = "disk";
 
-      content = {
-        type = "gpt";
+    content = {
+      type = "gpt";
 
-        partitions = {
-          esp = {
-            name = "ESP";
-            priority = 1;
-            type = "EF00";
-            end = "500M";
+      partitions = {
+        esp = {
+          name = "ESP";
+          priority = 1;
+          type = "EF00";
+          end = "500M";
 
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
-            };
-          };
-
-          root = {
-            name = "root";
-            size = "100%";
-
-            content = {
-              type = "btrfs";
-              mountpoint = "/";
-              mountOptions = [ "compress=zstd" ];
-              extraArgs = [ "-f" ];
-            };
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
+            mountOptions = [ "umask=0077" ];
           };
         };
-      };
-    };
 
-    os-shared = {
-      device = "/dev/nvme1n1";
-      type = "disk";
-
-      content = {
-        type = "gpt";
-
-        partitions.main = {
-          name = "main";
+        root = {
+          name = "root";
           size = "100%";
 
           content = {
             type = "btrfs";
-            mountpoint = "/mnt/os-shared";
+            mountpoint = "/";
             mountOptions = [ "compress=zstd" ];
             extraArgs = [ "-f" ];
           };
         };
       };
     };
+  };
+
+  fileSystems."/mnt/os-shared" = {
+    device = "/dev/disk/by-uuid/71f7fad7-7dcb-4aef-ab9a-5e9499215156";
+    fsType = "btrfs";
+    options = [ "compress=zstd" ];
   };
 
   fileSystems."/mnt/yuri/hana" = {

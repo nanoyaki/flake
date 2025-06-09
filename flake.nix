@@ -70,6 +70,10 @@
       url = "github:tale/headplane";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # own stuff
     vermeer-undervolt = {

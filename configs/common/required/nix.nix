@@ -9,6 +9,7 @@
 
 let
   inherit (lib) mkOption types;
+  inherit (inputs) nur;
 
   cfg = config.nanoflake.nix;
 in
@@ -31,7 +32,10 @@ in
       }
     ];
 
-    nixpkgs.overlays = [ self.overlays.default ];
+    nixpkgs.overlays = [
+      self.overlays.default
+      nur.overlays.default
+    ];
     nixpkgs.config.allowUnfree = true;
 
     nix = {

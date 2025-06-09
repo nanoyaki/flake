@@ -31,17 +31,17 @@
   };
   rofi-themes = {
     pname = "rofi-themes";
-    version = "b76c16b2b7c465d7b082e11e5210fcd10c6683a7";
+    version = "fb7011ec48bd065f398f2ff26d76e301aff1dc22";
     src = fetchgit {
       url = "https://github.com/adi1090x/rofi.git";
-      rev = "b76c16b2b7c465d7b082e11e5210fcd10c6683a7";
+      rev = "fb7011ec48bd065f398f2ff26d76e301aff1dc22";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-9IHENxHQors2z3aYj/xToZD79Gmi1aqlE3QnKnvOT9A=";
+      sha256 = "sha256-wwLcb7z5jCKgKPY5mNhYIoPvKbVO3PwULrJ+Lm3Ra7g=";
     };
-    date = "2025-04-18";
+    date = "2025-06-09";
   };
   suwayomi-server = {
     pname = "suwayomi-server";

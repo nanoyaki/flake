@@ -18,3 +18,18 @@ src.git = "https://github.com/Suwayomi/Suwayomi-Server.git"
 [suwayomi-webui]
 fetch.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"
 src.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"
+
+[lidarr]
+fetch.url = "https://github.com/lidarr/Lidarr/releases/download/v$ver/Lidarr.master.$ver.linux-core-x64.tar.gz"
+src.github_tag = "Lidarr/Lidarr"
+src.prefix = "v"
+
+[prowlarr]
+fetch.url = "https://github.com/Prowlarr/Prowlarr/releases/download/v$ver/Prowlarr.master.$ver.linux-core-x64.tar.gz"
+src.github_tag = "Prowlarr/Prowlarr"
+src.prefix = "v"
+
+[radarr]
+fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.develop.$ver.linux-core-x64.tar.gz"
+src.github_tag = "Radarr/Radarr"
+src.prefix = "v"

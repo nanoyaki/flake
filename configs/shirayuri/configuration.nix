@@ -22,7 +22,10 @@ in
     "deploymentYuri/private".path = "${config.hm.home.homeDirectory}/.ssh/deploymentYuri";
   };
 
-  sec.githubToken.owner = username;
+  sec = {
+    githubToken.owner = username;
+    "keys.toml".owner = username;
+  };
 
   networking.networkmanager.enable = true;
 

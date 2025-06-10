@@ -27,7 +27,7 @@
       "sudo nix-fast-build --eval-workers 4 --out-link result "
       + "-f $FLAKE_DIR#nixosConfigurations.$(hostname).config.system.build.toplevel "
       + "&& sudo ./result-/bin/switch-to-configuration switch "
-      + "&& rm result-";
+      + "&& rm ./result-/ -rf";
 
     histSize = 10000;
   };

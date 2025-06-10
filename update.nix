@@ -17,7 +17,7 @@
             git stash
 
             nix flake update
-            nvfetcher -o pkgs/_sources -l /tmp/nvfetcher_changelog
+            nvfetcher -o pkgs/_sources -l /tmp/nvfetcher_changelog -k /run/secrets/keys.toml
 
             grep -q "suwayomi-webui" /tmp/nvfetcher_changelog \
               && nix run .#updateVersions -- "suwayomi-webui" "revision" \

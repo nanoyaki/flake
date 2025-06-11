@@ -33,3 +33,8 @@ src.prefix = "v"
 fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.develop.$ver.linux-core-x64.tar.gz"
 src.github_tag = "Radarr/Radarr"
 src.prefix = "v"
+
+[whisparr]
+fetch.url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"
+url.name = "whisparr-src-$ver.tar.gz"
+src.cmd = "curl -L 'https://whisparr.servarr.com/v1/update/eros/changes' --fail | jq -r '.[0].version'"

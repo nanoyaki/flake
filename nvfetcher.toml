@@ -38,3 +38,8 @@ src.prefix = "v"
 fetch.url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"
 url.name = "whisparr-src-$ver.tar.gz"
 src.cmd = "curl -L 'https://whisparr.servarr.com/v1/update/eros/changes' --fail | jq -r '.[0].version'"
+
+[osu-lazer-bin]
+fetch.url = "https://github.com/ppy/osu/releases/download/$ver/osu.AppImage"
+src.github_tag = "ppy/osu"
+src.include_regex = "202\\d\\.\\d{1,4}\\.\\d"

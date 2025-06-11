@@ -54,6 +54,21 @@
         },
         "version": "6793d4a3a0b8b6b785d4b85b8af0acd7fdea76e9"
     },
+    "osu-lazer-bin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "osu-lazer-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-xLniL2fogWFAaEADvX2YL7lRGHGew7kc3Ni1fhPzs1c=",
+            "type": "url",
+            "url": "https://github.com/ppy/osu/releases/download/2025.607.1/osu.AppImage"
+        },
+        "version": "2025.607.1"
+    },
     "prowlarr": {
         "cargoLocks": null,
         "date": null,

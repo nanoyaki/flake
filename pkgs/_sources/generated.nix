@@ -37,6 +37,14 @@
     };
     date = "2025-06-04";
   };
+  osu-lazer-bin = {
+    pname = "osu-lazer-bin";
+    version = "2025.607.1";
+    src = fetchurl {
+      url = "https://github.com/ppy/osu/releases/download/2025.607.1/osu.AppImage";
+      sha256 = "sha256-xLniL2fogWFAaEADvX2YL7lRGHGew7kc3Ni1fhPzs1c=";
+    };
+  };
   prowlarr = {
     pname = "prowlarr";
     version = "1.37.0.5076";

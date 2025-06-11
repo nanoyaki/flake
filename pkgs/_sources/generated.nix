@@ -11,17 +11,17 @@
   };
   midnight-theme = {
     pname = "midnight-theme";
-    version = "91c52e4d056f1b2502ebb3709abb59924f0543a4";
+    version = "dd66b6554edb71457d28e896c521b16844e909c7";
     src = fetchgit {
       url = "https://github.com/refact0r/midnight-discord.git";
-      rev = "91c52e4d056f1b2502ebb3709abb59924f0543a4";
+      rev = "dd66b6554edb71457d28e896c521b16844e909c7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-UEAuqlFqobRlu5of/q5eIqoo2y1T13SSa46DlmGCAo4=";
+      sha256 = "sha256-r1WFJHxyBQfqlHZML8zxzHS/tmn2sY6Jzg4TD1YRWrI=";
     };
-    date = "2025-06-08";
+    date = "2025-06-10";
   };
   openrgb = {
     pname = "openrgb";
@@ -83,16 +83,25 @@
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
-    version = "3b0d91e4a6224b1fdfb11eaa9f04dcc264bfa138";
+    version = "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-WebUI.git";
-      rev = "3b0d91e4a6224b1fdfb11eaa9f04dcc264bfa138";
+      rev = "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-EvzAXtkMDvJAYjTOqhMzArOCCS8A1ahQnifJzm46PtA=";
+      sha256 = "sha256-y/9R+gcmxvCoxRldA2LXFKWtPKBfiClmq3V9323bkMY=";
     };
     date = "2025-06-10";
+  };
+  whisparr = {
+    pname = "whisparr";
+    version = "3.0.0.1107";
+    src = fetchurl {
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1107&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1107.tar.gz";
+      sha256 = "sha256-xrrwXX53FF2Q+OHmEXyON3eoSyi3gbG6JEoa08QQJXA=";
+    };
   };
 }

@@ -12,4 +12,4 @@ steps:
   - name: check
     image: bash
     commands:
-      - nix flake check
+      - NIXPKGS_ALLOW_UNFREE=1 nix flake check --impure

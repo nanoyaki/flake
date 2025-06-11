@@ -4,6 +4,7 @@
   inputs,
   pkgs,
   config,
+  username,
   ...
 }:
 
@@ -18,7 +19,7 @@ in
   options.nanoflake.nix = {
     flakeDir = mkOption {
       type = types.str;
-      default = "$HOME/flake";
+      default = "/home/${username}/flake";
       example = "/etc/nixos/configuration";
       description = "The location of this flake";
     };
@@ -82,7 +83,7 @@ in
       nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
     };
 
-    environment.variables.FLAKE_DIR = cfg.flakeDir;
+    environment.sessionVariables.FLAKE_DIR = cfg.flakeDir;
 
     environment.systemPackages = with pkgs; [
       nixfmt-rfc-style

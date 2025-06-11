@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -23,12 +24,41 @@
       bindkey "^H"      backward-kill-word
     '';
 
-    shellAliases.rb =
-      "sudo nix-fast-build --eval-workers 4 --out-link result "
-      + "-f $FLAKE_DIR#nixosConfigurations.$(hostname).config.system.build.toplevel "
-      + "&& sudo ./result-/bin/switch-to-configuration switch "
-      + "&& rm ./result-/ -rf";
-
     histSize = 10000;
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "rb";
+      runtimeInputs = with pkgs; [
+        nix-fast-build
+      ];
+      text = ''
+        if [[ $EUID -ne 0 ]]; then
+          echo "Script requires root priviledges."
+          exit 1
+        fi
+
+        nix-fast-build --eval-workers 4 --out-link result \
+          -f ${config.nanoflake.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
+
+        echo "Running switch-to-configuration switch..."
+        ./result-/bin/switch-to-configuration switch
+
+        echo "Adding system profile..."
+        NEWEST_GEN="$(nix-env --profile /nix/var/nix/profiles/system --list-generations | awk '{ print $1 }' | tail -n -1)";
+        BUILT_GEN="$((NEWEST_GEN + 1))"
+
+        sudo ln -s "$(readlink -f ./result-)" /nix/var/nix/profiles/system-$BUILT_GEN-link
+
+        echo "Switching system profile..."
+        nix-env --profile /nix/var/nix/profiles/system --switch-generation $BUILT_GEN
+
+        echo "Deleting result link..."
+        rm -rf "./result-"
+
+        echo "Done."
+      '';
+    })
+  ];
 }

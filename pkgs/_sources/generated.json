@@ -121,7 +121,7 @@
     },
     "suwayomi-server": {
         "cargoLocks": null,
-        "date": "2025-05-27",
+        "date": "2025-06-12",
         "extract": null,
         "name": "suwayomi-server",
         "passthru": null,
@@ -131,13 +131,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "dee61e191c0175c6dae6346f58293e0225df8b1a",
-            "sha256": "sha256-FevRd2XTcWgAxI3YgSZBUrJeIDeolbAQ82M8sKTKM2A=",
+            "rev": "327526330ff440116a5aefb6a931724681beaf0c",
+            "sha256": "sha256-eARHObXpMO5fM/FBw5CslkkZ+SW2tj2wk9jm7neE0KQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
         },
-        "version": "dee61e191c0175c6dae6346f58293e0225df8b1a"
+        "version": "327526330ff440116a5aefb6a931724681beaf0c"
     },
     "suwayomi-webui": {
         "cargoLocks": null,

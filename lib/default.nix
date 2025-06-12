@@ -46,11 +46,18 @@
                     username
                     self
                     self'
-                    lib'
                     ;
                 };
 
                 modules = [
+                  (
+                    { pkgs, ... }:
+                    {
+                      _module.args.lib' = lib' // {
+                        mapLazyApps = lazyApp: map pkgs.lazy-app.override lazyApp;
+                      };
+                    }
+                  )
                   {
                     options.config'.explicitDependencies = lib'.options.mkTrueOption;
 

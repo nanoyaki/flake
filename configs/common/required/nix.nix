@@ -10,7 +10,7 @@
 
 let
   inherit (lib) mkOption types;
-  inherit (inputs) nur;
+  inherit (inputs) nur lazy-apps;
 
   cfg = config.nanoflake.nix;
 in
@@ -36,6 +36,7 @@ in
     nixpkgs.overlays = [
       self.overlays.default
       nur.overlays.default
+      lazy-apps.overlays.default
     ];
     nixpkgs.config.allowUnfree = true;
 

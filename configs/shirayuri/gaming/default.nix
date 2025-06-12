@@ -1,4 +1,5 @@
 {
+  lib',
   pkgs,
   ...
 }:
@@ -10,13 +11,15 @@
     ./cs.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    lutris
-
-    mangohud
-
-    osu-lazer-bin
-  ];
+  environment.systemPackages = lib'.mapLazyApps (
+    with pkgs;
+    [
+      { pkg = dolphin-emu; }
+      { pkg = lutris; }
+      { pkg = mangohud; }
+      { pkg = osu-lazer-bin; }
+    ]
+  );
 
   programs.gamemode.enable = true;
 }

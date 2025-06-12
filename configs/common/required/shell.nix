@@ -34,6 +34,8 @@
         nix-fast-build
       ];
       text = ''
+        set -e
+
         if [[ $EUID -ne 0 ]]; then
           echo "Script requires root priviledges."
           exit 1

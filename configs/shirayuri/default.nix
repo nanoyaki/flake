@@ -34,12 +34,9 @@
       ./configuration.nix
       ./xdg.nix
       ./gaming
-      ./emulation.nix
-      ./shell.nix
       ./git.nix
       ./transmission.nix
       ./ssh.nix
-      ./cam.nix
       ./tailscale.nix
     ];
   };

@@ -1,20 +1,12 @@
 {
   self,
   lib,
+  lib',
   pkgs,
   config,
   username,
   ...
 }:
-
-let
-  tcVid = pkgs.writeShellScriptBin "tcVid" ''
-    ${lib.getExe pkgs.ffmpeg-full} -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 -i "$1" -c:v av1_vaapi -b:v 3000k -maxrate 4000k "$1_AV1".mp4
-  '';
-  tcVidAac = pkgs.writeShellScriptBin "tcVidAac" ''
-    ${lib.getExe pkgs.ffmpeg-full} -hwaccel vaapi -hwaccel_output_format vaapi -hwaccel_device /dev/dri/renderD128 -i "$1" -c:v av1_vaapi -b:v 3000k -maxrate 4000k -c:a aac -profile:a aac_main -b:a 320k -ac 2 -dn "$1_AV1".mp4
-  '';
-in
 
 {
   hm.sec = {
@@ -42,29 +34,24 @@ in
 
   specialisation.osu.configuration.nanoflake.audio.latency = 32;
 
-  environment.systemPackages =
-    (with pkgs; [
-      # protonvpn-gui
-      imagemagick
+  environment.systemPackages = lib'.mapLazyApps (
+    with pkgs;
+    [
+      { pkg = imagemagick; }
+      { pkg = ffmpeg-full; }
+      { pkg = yt-dlp; }
+      { pkg = jq; }
 
-      winetricks
-      wineWowPackages.stableFull
+      { pkg = meow; }
+      { pkg = pyon; }
+      { pkg = nvtopPackages.amd; }
+      { pkg = wl-clipboard; }
 
-      ffmpeg-full
-      yt-dlp
-      obs-studio
-
-      meow
-      pyon
-      gimp
-      smile
-      jq
-      feishin
-    ])
-    ++ [
-      tcVid
-      tcVidAac
-    ];
+      { pkg = gimp; }
+      { pkg = feishin; }
+      { pkg = obs-studio; }
+    ]
+  );
 
   programs.kde-pim.merkuro = true;
 

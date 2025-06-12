@@ -43,6 +43,8 @@
         // rec {
           suwayomi-server = callPackage ./suwayomi-server { inherit suwayomi-webui; };
           suwayomi-webui = callPackage ./suwayomi-webui { };
+          shoko = callPackage ./shoko { };
+          shoko-webui = callPackage ./shoko-webui { inherit shoko; };
         };
     };
 }

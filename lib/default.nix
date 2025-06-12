@@ -47,17 +47,13 @@
                     self
                     self'
                     ;
+
+                  lib' = lib' // {
+                    mapLazyApps = lazyApp: map inputs'.lazy-apps.packages.lazy-app.override lazyApp;
+                  };
                 };
 
                 modules = [
-                  (
-                    { pkgs, ... }:
-                    {
-                      _module.args.lib' = lib' // {
-                        mapLazyApps = lazyApp: map pkgs.lazy-app.override lazyApp;
-                      };
-                    }
-                  )
                   {
                     options.config'.explicitDependencies = lib'.options.mkTrueOption;
 

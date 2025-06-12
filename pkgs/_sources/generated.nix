@@ -55,10 +55,10 @@
   };
   radarr = {
     pname = "radarr";
-    version = "5.26.1.10080";
+    version = "5.26.2.10099";
     src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.26.1.10080/Radarr.develop.5.26.1.10080.linux-core-x64.tar.gz";
-      sha256 = "sha256-0asHtVdwg+LWFGeU8FDvJL7lN2+duCxh/ktqd1l6KKI=";
+      url = "https://github.com/Radarr/Radarr/releases/download/v5.26.2.10099/Radarr.master.5.26.2.10099.linux-core-x64.tar.gz";
+      sha256 = "sha256-V22ejPTuD2fXmGzh6KKsz7yZnalr4+mucdrKIBK9Vbo=";
     };
   };
   rofi-themes = {

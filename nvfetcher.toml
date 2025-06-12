@@ -30,7 +30,7 @@ src.github_tag = "Prowlarr/Prowlarr"
 src.prefix = "v"
 
 [radarr]
-fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.develop.$ver.linux-core-x64.tar.gz"
+fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.master.$ver.linux-core-x64.tar.gz"
 src.github_tag = "Radarr/Radarr"
 src.prefix = "v"
 

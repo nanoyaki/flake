@@ -14,6 +14,11 @@ depends_on:
   - flake_check
 
 steps:
+  - name: try connection
+    image: bash
+    commands:
+      - ping -c1 192.168.178.91
+
   - name: build
     image: bash
     commands:

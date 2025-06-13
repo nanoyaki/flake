@@ -1,0 +1,33 @@
+when:
+  - event: cron
+    cron: 'update'
+
+labels:
+  backend: local
+
+steps:
+  - name: update
+    image: bash
+    environment:
+      KEYS_TOML:
+        from_secret: keys_toml
+      GITHUB_TOKEN:
+        from_secret: github_token
+    commands:
+      - mkdir -p ~/.config/nix
+      - echo "access-tokens = github.com=$GITHUB_TOKEN" > ~/.config/nix/nix.conf
+      - echo "$KEYS_TOML" > keys.toml
+      - chmod 400 keys.toml
+      - nix --extra-experimental-features "nix-command flakes" run .#update -- ./keys.toml
+      - git diff --quiet HEAD $CI_COMMIT_SHA || exit 0
+
+  - name: push commit
+    image: appleboy/drone-git-push
+    depends_on:
+      - update
+    settings:
+      ssh_key:
+        from_secret: codeberg_ssh_key
+      branch: main
+      remote: ssh://git@codeberg.org/nanoyaki/flake.git
+      rebase: true

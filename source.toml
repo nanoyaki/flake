@@ -1,19 +1,18 @@
-[config]
-file = "pkgs/versions.json"
+[__config__]
+oldver = "pkgs/_versions/old_versions.json"
+newver = "pkgs/_versions/new_versions.json"
+keyfile = "/run/secrets/keys.toml"
+max_concurrency = 3
 
-[suwayomi-webui.revision]
-script = '''
-    curl -L -I \
-        -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
-        https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/commits\?sha=master\&per_page=1\&page=1 \
-        | grep "link" \
-        | awk '{print $4}' \
-        | grep -oP '\&page=\d+' \
-        | grep -oP '\d+'
-'''
+["suwayomi-webui.revision"]
+source = "httpheader"
+url = "https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/commits?sha=master&per_page=1&page=1"
+header = "link"
+regex = '(?<=page=)\d{2,5}'
 
-[suwayomi-webui.yarnHash]
-script = '''
+["suwayomi-webui.yarnHash"]
+source = "cmd"
+cmd = '''
     yarnLock="/tmp/$RANDOM_yarn.lock"
 
     curl -L \
@@ -27,8 +26,9 @@ script = '''
     rm $yarnLock
 '''
 
-[suwayomi-server.gradleDepsHash]
-script = '''
+["suwayomi-server.gradleDepsHash"]
+source = "cmd"
+cmd = '''
     updateScript="/tmp/$RANDOM_update_script.sh"
 
     nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript
@@ -38,3 +38,4 @@ script = '''
 
     rm $updateScript
 '''
+timeout = 600

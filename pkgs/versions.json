@@ -1,9 +1,0 @@
-{
-  "suwayomi-webui": {
-    "revision": "2613",
-    "yarnHash": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
-  },
-  "suwayomi-server": {
-    "gradleDepsHash": "sha256-p6T2z4WYkYQOZy2BC5neRF1szs3KZM9/nLbiYZIWb7o="
-  }
-}

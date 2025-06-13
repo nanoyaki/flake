@@ -14,19 +14,42 @@
       inherit (lib)
         callPackageWith
         mapAttrs
+        splitString
+        drop
+        importJSON
+        foldr
+        setAttrByPath
+        recursiveUpdate
         ;
 
       inherit (builtins)
         removeAttrs
         readDir
+        elemAt
+        attrNames
         ;
 
       callPackage = callPackageWith (
         pkgs
-        // {
-          _sources = callPackage ./_sources/generated.nix { };
-          _versions = lib.importJSON ./versions.json;
-        }
+        // (
+          let
+            versions = (importJSON ./_versions/new_versions.json).data;
+          in
+          {
+            _sources = callPackage ./_sources/generated.nix { };
+            _versions = foldr (
+              name: attrs:
+              let
+                sets = splitString "." name;
+                set = elemAt sets 0;
+                subsetPath = drop 1 sets;
+              in
+              recursiveUpdate attrs {
+                ${set} = setAttrByPath subsetPath versions.${name}.version;
+              }
+            ) { } (attrNames versions);
+          }
+        )
       );
     in
     {
@@ -36,7 +59,7 @@
         (mapAttrs (name: _: callPackage (./. + "/${name}") { }) (
           removeAttrs (readDir ./.) [
             "_sources"
-            "versions.json"
+            "_versions"
             "default.nix"
           ]
         ))

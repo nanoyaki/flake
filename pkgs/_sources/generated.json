@@ -167,11 +167,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "whisparr-src-3.0.0.1107.tar.gz",
-            "sha256": "sha256-xrrwXX53FF2Q+OHmEXyON3eoSyi3gbG6JEoa08QQJXA=",
+            "name": "whisparr-src-3.0.0.1113.tar.gz",
+            "sha256": "sha256-ZoQIpWNbbBS16t8tLNiyoETUghwqiG8gg/15wNjYDYA=",
             "type": "url",
-            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1107&os=linux&runtime=netcore&arch=x64"
+            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1113&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "3.0.0.1107"
+        "version": "3.0.0.1113"
     }
 }

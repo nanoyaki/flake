@@ -20,6 +20,16 @@ steps:
       - nix-fast-build -f .#nixosConfigurations.thelessnas.config.system.build.toplevel --no-nom
       - nix run nixpkgs#nvd -- diff /etc/systems/thelessnas $(readlink -f ./result-)
 
+  - name: try connection
+    image: bash
+    failure: ignore
+    when:
+      - event: deployment
+      - branch: main
+        evaluate: not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
+    commands:
+      - ping -c1 192.168.178.91
+
   - name: deployment
     when:
       - event: deployment
@@ -27,6 +37,7 @@ steps:
         evaluate: not (CI_COMMIT_MESSAGE endsWith `!nodeploy`)
     depends_on:
       - build
+      - try connection
     image: bash
     environment:
       DEPLOYMENT_KEY_THELESSNAS:

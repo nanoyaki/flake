@@ -88,6 +88,9 @@
     };
   };
 
+  services.openssh.knownHosts."codeberg.org".publicKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+
   services'.caddy.reverseProxies."woodpecker.theless.one".port = lib.strings.toInt (
     lib.strings.removePrefix ":" config.services.woodpecker-server.environment.WOODPECKER_SERVER_ADDR
   );

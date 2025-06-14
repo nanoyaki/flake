@@ -55,7 +55,6 @@
         git
         git-lfs
         woodpecker-plugin-git
-        drone-git-push
 
         bash
         coreutils

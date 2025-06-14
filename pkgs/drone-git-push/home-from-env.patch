@@ -1,8 +1,50 @@
+diff --git a/plugin.go b/plugin.go
+index 453d274..b0d8c91 100644
+--- a/plugin.go
++++ b/plugin.go
+@@ -107,6 +107,10 @@ func (p Plugin) WriteConfig() error {
+ 		return err
+ 	}
+ 
++	if err := execute(repo.SSHCommand()); err != nil {
++		return err
++	}
++
+ 	if p.Config.SkipVerify {
+ 		if err := execute(repo.SkipVerify()); err != nil {
+ 			return err
+diff --git a/repo/config.go b/repo/config.go
+index 4ae5306..c386327 100644
+--- a/repo/config.go
++++ b/repo/config.go
+@@ -27,3 +27,14 @@ func GlobalName(author string) *exec.Cmd {
+ 
+ 	return cmd
+ }
++
++func SSHCommand() *exec.Cmd {
++	cmd := exec.Command(
++		"git",
++		"config",
++		// "--global",
++		"core.sshCommand",
++		"\"ssh -i $($HOME)/.ssh/id_rsa\"")
++
++	return cmd
++}
 diff --git a/repo/key.go b/repo/key.go
-index eae409d..1ceadea 100644
+index eae409d..98be6b5 100644
 --- a/repo/key.go
 +++ b/repo/key.go
-@@ -20,11 +20,7 @@ func WriteKey(privateKey string) error {
+@@ -4,7 +4,6 @@ import (
+ 	"fmt"
+ 	"net/url"
+ 	"os"
+-	"os/user"
+ 	"path/filepath"
+ )
+ 
+@@ -20,11 +19,7 @@ func WriteKey(privateKey string) error {
  		return nil
  	}
  
@@ -14,4 +56,17 @@ index eae409d..1ceadea 100644
 +	home := os.Getenv("HOME")
  
  	sshpath := filepath.Join(
+ 		home,
+@@ -66,11 +61,7 @@ func WriteNetrc(machine, login, password string) error {
+ 		password,
+ 	)
+ 
+-	home := "/root"
+-
+-	if currentUser, err := user.Current(); err == nil {
+-		home = currentUser.HomeDir
+-	}
++	home := os.Getenv("HOME")
+ 
+ 	netpath := filepath.Join(
  		home,

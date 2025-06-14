@@ -13,6 +13,8 @@ steps:
         from_secret: keys_toml
       GITHUB_TOKEN:
         from_secret: github_token
+      CODEBERG_KEY:
+        from_secret: codeberg_ssh_key
     commands:
       - mkdir -p ~/.config/nix
       - echo "access-tokens = github.com=$GITHUB_TOKEN" > ~/.config/nix/nix.conf
@@ -20,14 +22,8 @@ steps:
       - chmod 400 keys.toml
       - nix --extra-experimental-features "nix-command flakes" run .#update -- ./keys.toml
       - git diff --quiet HEAD $CI_COMMIT_SHA || exit 0
-
-  - name: push commit
-    image: drone-git-push
-    depends_on:
-      - update
-    settings:
-      ssh_key:
-        from_secret: codeberg_ssh_key
-      branch: main
-      remote: ssh://git@codeberg.org/nanoyaki/flake.git
-      rebase: true
+      - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
+      - chmod 400 ~/.ssh/id_ed25519
+      - git remote set-url origin ssh://git@codeberg.org:nanoyaki/flake.git
+      - git pull --rebase main
+      - git push

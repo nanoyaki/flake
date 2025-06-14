@@ -21,9 +21,11 @@ steps:
       - echo "$KEYS_TOML" > keys.toml
       - chmod 400 keys.toml
       - nix --extra-experimental-features "nix-command flakes" run .#update -- ./keys.toml
-      - git diff --quiet HEAD $CI_COMMIT_SHA || exit 0
+      - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
+      - mkdir -p ~/.ssh
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - chmod 400 ~/.ssh/id_ed25519
-      - git remote set-url origin ssh://git@codeberg.org:nanoyaki/flake.git
-      - git pull --rebase main
-      - git push
+      - git config core.sshCommand "ssh -i ~/.ssh/id_ed25519"
+      - git remote set-url origin git@codeberg.org:nanoyaki/flake.git
+      - git pull --rebase origin main
+      - git push --set-upstream origin main

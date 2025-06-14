@@ -60,6 +60,7 @@
         bash
         coreutils
         which
+        iputils
 
         nix
         openssh

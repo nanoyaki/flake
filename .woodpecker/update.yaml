@@ -22,7 +22,7 @@ steps:
       - git diff --quiet HEAD $CI_COMMIT_SHA || exit 0
 
   - name: push commit
-    image: appleboy/drone-git-push
+    image: drone-git-push
     depends_on:
       - update
     settings:

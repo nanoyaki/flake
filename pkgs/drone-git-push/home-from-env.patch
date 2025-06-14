@@ -1,0 +1,17 @@
+diff --git a/repo/key.go b/repo/key.go
+index eae409d..1ceadea 100644
+--- a/repo/key.go
++++ b/repo/key.go
+@@ -20,11 +20,7 @@ func WriteKey(privateKey string) error {
+ 		return nil
+ 	}
+ 
+-	home := "/root"
+-
+-	if currentUser, err := user.Current(); err == nil {
+-		home = currentUser.HomeDir
+-	}
++	home := os.Getenv("HOME")
+ 
+ 	sshpath := filepath.Join(
+ 		home,

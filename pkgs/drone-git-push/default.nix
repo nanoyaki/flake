@@ -21,6 +21,10 @@ buildGoModule (finalAttrs: {
     hash = "sha256-fa47C4L0MpbLUGKo8sUMl3rCgrIgEG76Xp7hlYAju3E=";
   };
 
+  patches = [
+    ./home-from-env.patch
+  ];
+
   nativeBuildInputs = [
     makeWrapper
   ];

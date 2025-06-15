@@ -48,6 +48,7 @@ in
     )
     // {
       suwayomi = import ./suwayomi;
+      shoko = import ./shoko;
     };
 }
 # meow

@@ -18,5 +18,6 @@
     ./headscale.nix
     ./metrics.nix
     ./stash.nix
+    ./shoko.nix
   ];
 }

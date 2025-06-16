@@ -75,6 +75,11 @@ lib'.modules.mkModule {
           ratio-limit = 1;
           ratio-limit-enabled = true;
 
+          script-torrent-done-enabled = true;
+          script-torrent-done-filename = "${pkgs.writeShellScript "mode" ''
+            chmod 2770 "''${TR_TORRENT_DIR}"/"''${TR_TORRENT_NAME}" -R
+          ''}";
+
           blocklist-enabled = true;
           blocklist-url = "https://github.com/Naunter/BT_BlockLists/raw/refs/heads/master/bt_blocklists.gz";
 

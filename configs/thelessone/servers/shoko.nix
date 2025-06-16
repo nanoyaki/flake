@@ -1,6 +1,7 @@
 {
   self,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -8,7 +9,10 @@
 {
   imports = [ self.nixosModules.shoko ];
 
-  services.shoko.enable = true;
+  services.shoko = {
+    enable = true;
+    plugins = [ pkgs.shokofin ];
+  };
 
   systemd.services.shoko.serviceConfig = {
     DynamicUser = lib.mkForce false;

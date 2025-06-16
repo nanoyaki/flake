@@ -17,7 +17,7 @@ steps:
   - name: build
     image: bash
     commands:
-      - nix-fast-build -f .#nixosConfigurations.thelessnas.config.system.build.toplevel --no-nom --workers 4
+      - nix-fast-build -f .#nixosConfigurations.thelessnas.config.system.build.toplevel --no-nom -j 4
       - nix run nixpkgs#nvd -- diff /etc/systems/thelessnas $(readlink -f ./result-)
 
   - name: deployment

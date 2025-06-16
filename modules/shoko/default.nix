@@ -67,7 +67,14 @@ in
         ''
         + optionalString (cfg.plugins != [ ]) ''
           rm -rf "$STATE_DIRECTORY/plugins"
-          ln -s '${pkgs.linkFarmFromDrvs cfg.plugins}' "$STATE_DIRECTORY/plugins"
+          ln -s '${
+            pkgs.linkFarm "plugins" (
+              map (drv: {
+                inherit (drv) name;
+                path = "${drv}/lib/${lib.getName drv}";
+              }) cfg.plugins
+            )
+          }' "$STATE_DIRECTORY/plugins"
         '';
 
       serviceConfig = {

@@ -40,7 +40,8 @@
                 && git add pkgs/suwayomi-server/deps.json
 
               grep -q "shoko:" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shoko.nugetDepsHash"
+                && ${nvchecker} -e "shoko.nugetDepsHash" \
+                && git add pkgs/shoko/deps.json
 
               grep -q "shoko-webui" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "shoko-webui.pnpmHash"

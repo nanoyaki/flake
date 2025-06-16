@@ -30,15 +30,16 @@ cmd = '''
 source = "cmd"
 cmd = '''
     updateScript="/tmp/$RANDOM_update_script.sh"
+    log="/tmp/gradle_deps.log"
 
     nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript
-    $updateScript 1> /dev/null
+    $updateScript &> $log
     
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
 
-    rm $updateScript
+    rm $updateScript $log
 '''
-timeout = 1800
+timeout = 300
 
 ["shoko-webui.pnpmHash"]
 source = "cmd"

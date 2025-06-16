@@ -20,7 +20,7 @@
             ]);
           text =
             let
-              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}"'';
+              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}" -l debug'';
             in
             ''
               set -e

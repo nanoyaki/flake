@@ -21,6 +21,7 @@ steps:
       - nix run nixpkgs#nvd -- diff /run/current-system $(readlink -f ./result-)
 
   - name: deployment
+    failure: ignore
     when:
       - event: deployment
       - branch: main

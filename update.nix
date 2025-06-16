@@ -14,6 +14,7 @@
               prefetch-yarn-deps
               curl
               jq
+              gnused
             ])
             ++ (with self'.packages; [
               nvchecker
@@ -37,6 +38,9 @@
               grep -q "suwayomi-server" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "suwayomi-server.gradleDepsHash" \
                 && git add pkgs/suwayomi-server/deps.json
+
+              grep -q "shoko:" /tmp/nvfetcher_changelog \
+                && ${nvchecker} -e "shoko.nugetDepsHash"
 
               grep -q "shoko-webui" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "shoko-webui.pnpmHash"

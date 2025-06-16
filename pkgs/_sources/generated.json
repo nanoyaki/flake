@@ -7,12 +7,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "lidarr-src-2.12.4.4658.tar.gz",
-            "sha256": "sha256-ttbQj6GYuKedDEdF8vUZcmc0AluZS6pPC5GCQTUu7OM=",
+            "name": "lidarr-src-2.13.0.4664.tar.gz",
+            "sha256": "sha256-ODIPtlpzZcZWZxTBXt5r5xpJ4ZWbpGnJ2Na7QVEvrlw=",
             "type": "url",
-            "url": "https://lidarr.servarr.com/v1/update/develop/updatefile?version=2.12.4.4658&os=linux&runtime=netcore&arch=x64"
+            "url": "https://lidarr.servarr.com/v1/update/develop/updatefile?version=2.13.0.4664&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "2.12.4.4658"
+        "version": "2.13.0.4664"
     },
     "midnight-theme": {
         "cargoLocks": null,
@@ -77,12 +77,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "prowlarr-src-1.37.0.5076.tar.gz",
-            "sha256": "sha256-+ejQ9wP8OijUQBZ8oJd1VUJicO+kb49QxaWmo2QbDZg=",
+            "name": "prowlarr-src-2.0.0.5094.tar.gz",
+            "sha256": "sha256-JiKCR4OEzJCcOeTg05DtC4EddkDu+nDHvhz+lMFrumk=",
             "type": "url",
-            "url": "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=1.37.0.5076&os=linux&runtime=netcore&arch=x64"
+            "url": "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=2.0.0.5094&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "1.37.0.5076"
+        "version": "2.0.0.5094"
     },
     "radarr": {
         "cargoLocks": null,
@@ -92,12 +92,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "radarr-src-5.26.2.10099.tar.gz",
-            "sha256": "sha256-V22ejPTuD2fXmGzh6KKsz7yZnalr4+mucdrKIBK9Vbo=",
+            "name": "radarr-src-5.27.0.10101.tar.gz",
+            "sha256": "sha256-EzY5IENQtwHqRb/blpIc72F6+KF7tQhaTqlzxrXsevw=",
             "type": "url",
-            "url": "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.26.2.10099&os=linux&runtime=netcore&arch=x64"
+            "url": "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.27.0.10101&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "5.26.2.10099"
+        "version": "5.27.0.10101"
     },
     "rofi-themes": {
         "cargoLocks": null,
@@ -119,6 +119,20 @@
         },
         "version": "fb7011ec48bd065f398f2ff26d76e301aff1dc22"
     },
+    "shoko": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "shoko",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-M9BEvOPBVjIAyKO8qaf3Hrk54mK2tIlTFvzGwNfn0uw=",
+            "type": "tarball",
+            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0.tar.gz"
+        },
+        "version": "5.1.0"
+    },
     "shoko-webui": {
         "cargoLocks": null,
         "date": null,
@@ -127,21 +141,15 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "v2.3.0-dev.2",
             "sha256": "sha256-x34o8sFNHkUhoD1SzCkTGJvFmA5IclFMk3H7vrlBtn0=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/ShokoAnime/Shoko-WebUI.git"
+            "type": "tarball",
+            "url": "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.2.tar.gz"
         },
-        "version": "v2.3.0-dev.2"
+        "version": "2.3.0-dev.2"
     },
     "suwayomi-server": {
         "cargoLocks": null,
-        "date": "2025-06-12",
+        "date": "2025-06-15",
         "extract": null,
         "name": "suwayomi-server",
         "passthru": null,
@@ -151,13 +159,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "327526330ff440116a5aefb6a931724681beaf0c",
-            "sha256": "sha256-eARHObXpMO5fM/FBw5CslkkZ+SW2tj2wk9jm7neE0KQ=",
+            "rev": "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c",
+            "sha256": "sha256-nj6QChzNPjcjy85KM5zi6BEgsRxmFTDDrnGZQ+yZY3E=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
         },
-        "version": "327526330ff440116a5aefb6a931724681beaf0c"
+        "version": "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c"
     },
     "suwayomi-webui": {
         "cargoLocks": null,
@@ -187,11 +195,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "whisparr-src-3.0.0.1122.tar.gz",
-            "sha256": "sha256-mxptzQA+PgN5qUa75YbLKwMHKfRrnYz/HvJ8zHDdEG8=",
+            "name": "whisparr-src-3.0.0.1124.tar.gz",
+            "sha256": "sha256-fTBhL+GRjR0EJSo0tqtp+rtRb5qaEty895lTDWW3Dyo=",
             "type": "url",
-            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1122&os=linux&runtime=netcore&arch=x64"
+            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1124&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "3.0.0.1122"
+        "version": "3.0.0.1124"
     }
 }

@@ -1,17 +1,20 @@
 {
   "version": 2,
   "data": {
+    "shoko-webui.pnpmHash": {
+      "version": "sha256-bZGOxC/xQrUs43SegWA97+tfi6FTL2U1z+huwfSWbWE="
+    },
+    "shoko.nugetDepsHash": {
+      "version": "sha256-z0kbd+V7aavlOXC0vQEFd6nL6z9p3Pcz3EkQR/PyhMM="
+    },
     "suwayomi-server.gradleDepsHash": {
-      "version": "sha256-q8VxM62zyPFKtFhfjrJX2vZELCXSFl8UEDOIai8F08U="
+      "version": "sha256-/OuiIiH5D4FEvUXvFfcLSinYWo3iARCnX0Ez8xeSyCI="
     },
     "suwayomi-webui.revision": {
       "version": "2613"
     },
     "suwayomi-webui.yarnHash": {
       "version": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
-    },
-    "shoko-webui.pnpmHash": {
-      "version": "sha256-bZGOxC/xQrUs43SegWA97+tfi6FTL2U1z+huwfSWbWE="
     }
   }
 }

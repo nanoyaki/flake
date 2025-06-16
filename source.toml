@@ -13,7 +13,7 @@ regex = '(?<=page=)\d{2,5}'
 ["suwayomi-webui.yarnHash"]
 source = "cmd"
 cmd = '''
-    yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
+    yarnLock="$(mktemp /tmp/XXXXXX_yarn.lock -u)"
 
     curl -L \
         -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
@@ -29,23 +29,47 @@ cmd = '''
 ["suwayomi-server.gradleDepsHash"]
 source = "cmd"
 cmd = '''
-    set -e
-    set -x
+    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
+    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
+    log="$(mktemp /tmp/XXXXXX_build.log)"
 
-    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="$(mktemp ./XXXXXX_build.log)"
+    echo "{}" > pkgs/suwayomi-server/deps.json
 
-    nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript > $log
-    $updateScript > $log
-    
+    nix build .#suwayomi-server.mitmCache.updateScript --out-link $outLink &>> $log
+    sed 's|/nix/store/[^/]*-source/pkgs/suwayomi-server/deps\.json|pkgs/suwayomi-server/deps.json|g' \
+        "$(readlink -f $outLink)" \
+        > $updateScript
+    chmod +x $updateScript
+    $updateScript &>> $log
+
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
 
-    rm $updateScript
+    rm $outLink $updateScript $log
 '''
-timeout = 300
+
+["shoko.nugetDepsHash"]
+source = "cmd"
+cmd = '''
+    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
+    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
+    log="$(mktemp /tmp/XXXXXX_build.log)"
+
+    echo "{}" > pkgs/shoko/deps.json
+
+    nix build .#shoko.fetch-deps --out-link $outLink &>> $log
+    sed 's|/nix/store/[^/]*-source/pkgs/shoko/deps\.json|pkgs/shoko/deps.json|g' \
+        "$(readlink -f $outLink)" \
+        > $updateScript
+    chmod +x $updateScript
+    $updateScript &>> $log
+
+    nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shoko/deps.json | awk '{print $1}')
+
+    rm $outLink $updateScript $log
+'''
 
 ["shoko-webui.pnpmHash"]
 source = "cmd"
 cmd = '''
-    nix build .#shoko-webui --no-link | grep -oP "got\:.*\Ksha256.*"
+    nix build .#shoko-webui --no-link |& grep -oP "got\:.*\Ksha256.*"
 '''

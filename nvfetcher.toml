@@ -44,6 +44,12 @@ fetch.url = "https://github.com/ppy/osu/releases/download/$ver/osu.AppImage"
 src.github_tag = "ppy/osu"
 src.include_regex = "202\\d\\.\\d{1,4}\\.\\d"
 
+[shoko]
+fetch.tarball = "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v$ver.tar.gz"
+src.github_tag = "ShokoAnime/ShokoServer"
+src.prefix = "v"
+
 [shoko-webui]
-fetch.git = "https://github.com/ShokoAnime/Shoko-WebUI.git"
+fetch.tarball = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v$ver.tar.gz"
 src.github_tag = "ShokoAnime/Shoko-WebUI"
+src.prefix = "v"

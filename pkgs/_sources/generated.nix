@@ -3,11 +3,11 @@
 {
   lidarr = {
     pname = "lidarr";
-    version = "2.12.4.4658";
+    version = "2.13.0.4664";
     src = fetchurl {
-      url = "https://lidarr.servarr.com/v1/update/develop/updatefile?version=2.12.4.4658&os=linux&runtime=netcore&arch=x64";
-      name = "lidarr-src-2.12.4.4658.tar.gz";
-      sha256 = "sha256-ttbQj6GYuKedDEdF8vUZcmc0AluZS6pPC5GCQTUu7OM=";
+      url = "https://lidarr.servarr.com/v1/update/develop/updatefile?version=2.13.0.4664&os=linux&runtime=netcore&arch=x64";
+      name = "lidarr-src-2.13.0.4664.tar.gz";
+      sha256 = "sha256-ODIPtlpzZcZWZxTBXt5r5xpJ4ZWbpGnJ2Na7QVEvrlw=";
     };
   };
   midnight-theme = {
@@ -48,20 +48,20 @@
   };
   prowlarr = {
     pname = "prowlarr";
-    version = "1.37.0.5076";
+    version = "2.0.0.5094";
     src = fetchurl {
-      url = "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=1.37.0.5076&os=linux&runtime=netcore&arch=x64";
-      name = "prowlarr-src-1.37.0.5076.tar.gz";
-      sha256 = "sha256-+ejQ9wP8OijUQBZ8oJd1VUJicO+kb49QxaWmo2QbDZg=";
+      url = "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=2.0.0.5094&os=linux&runtime=netcore&arch=x64";
+      name = "prowlarr-src-2.0.0.5094.tar.gz";
+      sha256 = "sha256-JiKCR4OEzJCcOeTg05DtC4EddkDu+nDHvhz+lMFrumk=";
     };
   };
   radarr = {
     pname = "radarr";
-    version = "5.26.2.10099";
+    version = "5.27.0.10101";
     src = fetchurl {
-      url = "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.26.2.10099&os=linux&runtime=netcore&arch=x64";
-      name = "radarr-src-5.26.2.10099.tar.gz";
-      sha256 = "sha256-V22ejPTuD2fXmGzh6KKsz7yZnalr4+mucdrKIBK9Vbo=";
+      url = "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.27.0.10101&os=linux&runtime=netcore&arch=x64";
+      name = "radarr-src-5.27.0.10101.tar.gz";
+      sha256 = "sha256-EzY5IENQtwHqRb/blpIc72F6+KF7tQhaTqlzxrXsevw=";
     };
   };
   rofi-themes = {
@@ -78,32 +78,35 @@
     };
     date = "2025-06-09";
   };
+  shoko = {
+    pname = "shoko";
+    version = "5.1.0";
+    src = fetchTarball {
+      url = "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0.tar.gz";
+      sha256 = "sha256-M9BEvOPBVjIAyKO8qaf3Hrk54mK2tIlTFvzGwNfn0uw=";
+    };
+  };
   shoko-webui = {
     pname = "shoko-webui";
-    version = "v2.3.0-dev.2";
-    src = fetchgit {
-      url = "https://github.com/ShokoAnime/Shoko-WebUI.git";
-      rev = "v2.3.0-dev.2";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
+    version = "2.3.0-dev.2";
+    src = fetchTarball {
+      url = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.2.tar.gz";
       sha256 = "sha256-x34o8sFNHkUhoD1SzCkTGJvFmA5IclFMk3H7vrlBtn0=";
     };
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "327526330ff440116a5aefb6a931724681beaf0c";
+    version = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "327526330ff440116a5aefb6a931724681beaf0c";
+      rev = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-eARHObXpMO5fM/FBw5CslkkZ+SW2tj2wk9jm7neE0KQ=";
+      sha256 = "sha256-nj6QChzNPjcjy85KM5zi6BEgsRxmFTDDrnGZQ+yZY3E=";
     };
-    date = "2025-06-12";
+    date = "2025-06-15";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
@@ -121,11 +124,11 @@
   };
   whisparr = {
     pname = "whisparr";
-    version = "3.0.0.1122";
+    version = "3.0.0.1124";
     src = fetchurl {
-      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1122&os=linux&runtime=netcore&arch=x64";
-      name = "whisparr-src-3.0.0.1122.tar.gz";
-      sha256 = "sha256-mxptzQA+PgN5qUa75YbLKwMHKfRrnYz/HvJ8zHDdEG8=";
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1124&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1124.tar.gz";
+      sha256 = "sha256-fTBhL+GRjR0EJSo0tqtp+rtRb5qaEty895lTDWW3Dyo=";
     };
   };
 }

@@ -13,7 +13,7 @@ regex = '(?<=page=)\d{2,5}'
 ["suwayomi-webui.yarnHash"]
 source = "cmd"
 cmd = '''
-    yarnLock="$(mktemp /tmp/XXXXXX_yarn.lock)"
+    yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
 
     curl -L \
         -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
@@ -29,10 +29,14 @@ cmd = '''
 ["suwayomi-server.gradleDepsHash"]
 source = "cmd"
 cmd = '''
-    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh)"
+    set -e
+    set -x
 
-    nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript &> /dev/null
-    $updateScript &> /dev/null
+    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+    log="$(mktemp ./XXXXXX_build.log)"
+
+    nix build .#suwayomi-server.mitmCache.updateScript --out-link $updateScript > $log
+    $updateScript > $log
     
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
 

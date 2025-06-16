@@ -44,7 +44,7 @@
 
       environment = {
         WOODPECKER_SERVER = "localhost:9000";
-        WOODPECKER_MAX_WORKFLOWS = "1";
+        WOODPECKER_MAX_WORKFLOWS = "24";
         WOODPECKER_BACKEND = "local";
         WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=local,repo=*";
       };
@@ -58,6 +58,7 @@
 
         bash
         coreutils
+        gawk
         which
         iputils
 

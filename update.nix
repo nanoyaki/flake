@@ -38,6 +38,9 @@
                 && ${nvchecker} -e "suwayomi-server.gradleDepsHash" \
                 && git add pkgs/suwayomi-server/deps.json
 
+              grep -q "shoko-webui" /tmp/nvfetcher_changelog \
+                && ${nvchecker} -e "shoko-webui.pnpmHash"
+
               git add pkgs/{_sources,_versions} flake.lock
               git commit -m "chore: Update $(date +"%d.%m.%y")"
 

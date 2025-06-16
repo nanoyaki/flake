@@ -39,3 +39,9 @@ cmd = '''
     rm $updateScript
 '''
 timeout = 600
+
+["shoko-webui.pnpmHash"]
+source = "cmd"
+cmd = '''
+    nix build .#shoko-webui --no-link | grep -oP "got\:.*\Ksha256.*"
+'''

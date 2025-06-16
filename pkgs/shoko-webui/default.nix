@@ -1,22 +1,17 @@
 {
   stdenvNoCC,
-  fetchFromGitHub,
   nodejs,
   pnpm,
   # lib,
   shoko,
   nix-update-script,
+
+  _sources,
+  _versions,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "shoko-webui";
-  version = "2.2.0";
-
-  src = fetchFromGitHub {
-    owner = "ShokoAnime";
-    repo = "Shoko-WebUI";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-plXTAN3V0tcAe+uMs4XwYHO1UC9DCAxcMPVNKdFobcY=";
-  };
+  inherit (_sources.shoko-webui) version src;
 
   # Avoid requiring git as a build time dependency. It's used for version
   # checking in the updater, which shouldn't be used if the webui is managed
@@ -30,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-9/6y8LhH0I6RAry+3shvsymLZb7ndugq3EGG3S/yrIA=";
+    hash = _versions.shoko-webui.pnpmHash;
   };
 
   buildPhase = ''

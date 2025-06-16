@@ -43,3 +43,7 @@ src.cmd = "curl -L 'https://whisparr.servarr.com/v1/update/eros/changes' --fail 
 fetch.url = "https://github.com/ppy/osu/releases/download/$ver/osu.AppImage"
 src.github_tag = "ppy/osu"
 src.include_regex = "202\\d\\.\\d{1,4}\\.\\d"
+
+[shoko-webui]
+fetch.git = "https://github.com/ShokoAnime/Shoko-WebUI.git"
+src.github_tag = "ShokoAnime/Shoko-WebUI"

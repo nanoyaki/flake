@@ -20,19 +20,19 @@ fetch.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"
 src.git = "https://github.com/Suwayomi/Suwayomi-WebUI.git"
 
 [lidarr]
-fetch.url = "https://github.com/lidarr/Lidarr/releases/download/v$ver/Lidarr.master.$ver.linux-core-x64.tar.gz"
-src.github_tag = "Lidarr/Lidarr"
-src.prefix = "v"
+fetch.url = "https://lidarr.servarr.com/v1/update/develop/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"
+url.name = "lidarr-src-$ver.tar.gz"
+src.cmd = "curl -L 'https://lidarr.servarr.com/v1/update/develop/changes' --fail | jq -r '.[0].version'"
 
 [prowlarr]
-fetch.url = "https://github.com/Prowlarr/Prowlarr/releases/download/v$ver/Prowlarr.master.$ver.linux-core-x64.tar.gz"
-src.github_tag = "Prowlarr/Prowlarr"
-src.prefix = "v"
+fetch.url = "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"
+url.name = "prowlarr-src-$ver.tar.gz"
+src.cmd = "curl -L 'https://prowlarr.servarr.com/v1/update/develop/changes' --fail | jq -r '.[0].version'"
 
 [radarr]
-fetch.url = "https://github.com/Radarr/Radarr/releases/download/v$ver/Radarr.master.$ver.linux-core-x64.tar.gz"
-src.github_tag = "Radarr/Radarr"
-src.prefix = "v"
+fetch.url = "https://radarr.servarr.com/v1/update/develop/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"
+url.name = "radarr-src-$ver.tar.gz"
+src.cmd = "curl -L 'https://radarr.servarr.com/v1/update/develop/changes' --fail | jq -r '.[0].version'"
 
 [whisparr]
 fetch.url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=$ver&os=linux&runtime=netcore&arch=x64"

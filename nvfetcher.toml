@@ -47,9 +47,11 @@ src.include_regex = "202\\d\\.\\d{1,4}\\.\\d"
 [shoko]
 fetch.tarball = "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v$ver.tar.gz"
 src.github_tag = "ShokoAnime/ShokoServer"
+src.include_regex = '.*-dev\..*'
 src.prefix = "v"
 
 [shoko-webui]
 fetch.tarball = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v$ver.tar.gz"
 src.github_tag = "ShokoAnime/Shoko-WebUI"
+src.include_regex = '.*-dev\..*'
 src.prefix = "v"

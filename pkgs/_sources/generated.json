@@ -127,11 +127,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-M9BEvOPBVjIAyKO8qaf3Hrk54mK2tIlTFvzGwNfn0uw=",
+            "sha256": "sha256-NF4x4ChmQv48G0oX/vIJ1FOmoWdkbXehjRYFquXm5XU=",
             "type": "tarball",
-            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0.tar.gz"
+            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.90.tar.gz"
         },
-        "version": "5.1.0"
+        "version": "5.1.0-dev.90"
     },
     "shoko-webui": {
         "cargoLocks": null,

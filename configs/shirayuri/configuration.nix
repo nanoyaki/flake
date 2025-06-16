@@ -1,7 +1,6 @@
 {
   self,
   lib,
-  lib',
   pkgs,
   config,
   username,
@@ -34,24 +33,19 @@
 
   specialisation.osu.configuration.nanoflake.audio.latency = 32;
 
-  environment.systemPackages = lib'.mapLazyApps (
-    with pkgs;
-    [
-      { pkg = imagemagick; }
-      { pkg = ffmpeg-full; }
-      { pkg = yt-dlp; }
-      { pkg = jq; }
-
-      { pkg = meow; }
-      { pkg = pyon; }
-      { pkg = nvtopPackages.amd; }
-      { pkg = wl-clipboard; }
-
-      { pkg = gimp; }
-      { pkg = feishin; }
-      { pkg = obs-studio; }
-    ]
-  );
+  environment.systemPackages = with pkgs; [
+    imagemagick
+    ffmpeg-full
+    yt-dlp
+    jq
+    meow
+    pyon
+    nvtopPackages.amd
+    wl-clipboard
+    gimp
+    feishin
+    obs-studio
+  ];
 
   programs.kde-pim.merkuro = true;
 

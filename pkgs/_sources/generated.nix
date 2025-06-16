@@ -5,7 +5,8 @@
     pname = "lidarr";
     version = "2.12.4.4658";
     src = fetchurl {
-      url = "https://github.com/lidarr/Lidarr/releases/download/v2.12.4.4658/Lidarr.master.2.12.4.4658.linux-core-x64.tar.gz";
+      url = "https://lidarr.servarr.com/v1/update/develop/updatefile?version=2.12.4.4658&os=linux&runtime=netcore&arch=x64";
+      name = "lidarr-src-2.12.4.4658.tar.gz";
       sha256 = "sha256-ttbQj6GYuKedDEdF8vUZcmc0AluZS6pPC5GCQTUu7OM=";
     };
   };
@@ -49,7 +50,8 @@
     pname = "prowlarr";
     version = "1.37.0.5076";
     src = fetchurl {
-      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v1.37.0.5076/Prowlarr.master.1.37.0.5076.linux-core-x64.tar.gz";
+      url = "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=1.37.0.5076&os=linux&runtime=netcore&arch=x64";
+      name = "prowlarr-src-1.37.0.5076.tar.gz";
       sha256 = "sha256-+ejQ9wP8OijUQBZ8oJd1VUJicO+kb49QxaWmo2QbDZg=";
     };
   };
@@ -57,7 +59,8 @@
     pname = "radarr";
     version = "5.26.2.10099";
     src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/releases/download/v5.26.2.10099/Radarr.master.5.26.2.10099.linux-core-x64.tar.gz";
+      url = "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.26.2.10099&os=linux&runtime=netcore&arch=x64";
+      name = "radarr-src-5.26.2.10099.tar.gz";
       sha256 = "sha256-V22ejPTuD2fXmGzh6KKsz7yZnalr4+mucdrKIBK9Vbo=";
     };
   };
@@ -74,6 +77,19 @@
       sha256 = "sha256-wwLcb7z5jCKgKPY5mNhYIoPvKbVO3PwULrJ+Lm3Ra7g=";
     };
     date = "2025-06-09";
+  };
+  shoko-webui = {
+    pname = "shoko-webui";
+    version = "v2.3.0-dev.2";
+    src = fetchgit {
+      url = "https://github.com/ShokoAnime/Shoko-WebUI.git";
+      rev = "v2.3.0-dev.2";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-x34o8sFNHkUhoD1SzCkTGJvFmA5IclFMk3H7vrlBtn0=";
+    };
   };
   suwayomi-server = {
     pname = "suwayomi-server";

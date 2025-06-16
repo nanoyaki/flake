@@ -9,6 +9,9 @@
     },
     "suwayomi-webui.yarnHash": {
       "version": "sha256-/Av59+EYvPZL3BehihmIYagrpCxWMw/Gm0LJMZdKA24="
+    },
+    "shoko-webui.pnpmHash": {
+      "version": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     }
   }
 }

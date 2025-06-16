@@ -147,6 +147,20 @@
         },
         "version": "2.3.0-dev.2"
     },
+    "shokofin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "shokofin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-IKwHKxjtrCHlzEvWxSiPTuZTeBNSPm9ggZYXFAAYlT4=",
+            "type": "tarball",
+            "url": "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v5.0.3-dev.6.tar.gz"
+        },
+        "version": "5.0.3-dev.6"
+    },
     "suwayomi-server": {
         "cargoLocks": null,
         "date": "2025-06-15",

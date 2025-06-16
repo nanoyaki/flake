@@ -7,6 +7,9 @@
     "shoko.nugetDepsHash": {
       "version": "sha256-HUeor704ztpzQsiACdO2VaWRDVKOXvm0DfTe/xmXfW8="
     },
+    "shokofin.nugetDepsHash": {
+      "version": "sha256-oNRzxfAr1QM4G0udfsryNQZMxrnMvAUSFlsi4MKEPXI="
+    },
     "suwayomi-server.gradleDepsHash": {
       "version": "sha256-/OuiIiH5D4FEvUXvFfcLSinYWo3iARCnX0Ez8xeSyCI="
     },

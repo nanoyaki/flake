@@ -68,6 +68,27 @@ cmd = '''
     rm $outLink $updateScript $log
 '''
 
+["shokofin.nugetDepsHash"]
+source = "cmd"
+cmd = '''
+    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
+    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
+    log="$(mktemp /tmp/XXXXXX_build.log)"
+
+    echo "{}" > pkgs/shokofin/deps.json
+
+    nix build .#shokofin.fetch-deps --out-link $outLink &>> $log
+    sed 's|/nix/store/[^/]*-source/pkgs/shokofin/deps\.json|pkgs/shokofin/deps.json|g' \
+        "$(readlink -f $outLink)" \
+        > $updateScript
+    chmod +x $updateScript
+    $updateScript &>> $log
+
+    nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shokofin/deps.json | awk '{print $1}')
+
+    rm $outLink $updateScript $log
+'''
+
 ["shoko-webui.pnpmHash"]
 source = "cmd"
 cmd = '''

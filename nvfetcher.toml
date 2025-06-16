@@ -55,3 +55,9 @@ fetch.tarball = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v$v
 src.github_tag = "ShokoAnime/Shoko-WebUI"
 src.include_regex = '.*-dev\..*'
 src.prefix = "v"
+
+[shokofin]
+fetch.tarball = "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v$ver.tar.gz"
+src.github_tag = "ShokoAnime/Shokofin"
+src.include_regex = '.*-dev\..*'
+src.prefix = "v"

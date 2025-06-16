@@ -1,21 +1,14 @@
 {
   buildDotnetModule,
-  fetchFromGitHub,
   dotnet-sdk_8,
   dotnet-aspnetcore_8,
   lib,
   nix-update-script,
+
+  _sources,
 }:
 buildDotnetModule (finalAttrs: {
-  pname = "shokofin";
-  version = "5.0.3";
-
-  src = fetchFromGitHub {
-    owner = "ShokoAnime";
-    repo = "Shokofin";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-Zt4h3IvJ32dqac8Jr2ZZBJ2nopdk6+dlmMi+wvCCihE=";
-  };
+  inherit (_sources.shokofin) pname version src;
 
   dotnet-sdk = dotnet-sdk_8;
   dotnet-runtime = dotnet-aspnetcore_8;

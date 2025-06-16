@@ -38,7 +38,7 @@ cmd = '''
 
     rm $updateScript
 '''
-timeout = 600
+timeout = 1800
 
 ["shoko-webui.pnpmHash"]
 source = "cmd"

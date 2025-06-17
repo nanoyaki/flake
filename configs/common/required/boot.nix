@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -13,7 +18,7 @@
   time.hardwareClockInLocalTime = true;
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
     loader.efi.canTouchEfiVariables = true;
   };
 }

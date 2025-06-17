@@ -16,9 +16,9 @@
 
       ./configuration.nix
       ./openssh.nix
-      ./samba.nix
       ./deployment.nix
       ./coolercontrol.nix
+      ./zfs.nix
     ];
   };
 }

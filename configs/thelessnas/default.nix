@@ -19,6 +19,7 @@
       ./deployment.nix
       ./coolercontrol.nix
       ./zfs.nix
+      ./nfs.nix
     ];
   };
 }

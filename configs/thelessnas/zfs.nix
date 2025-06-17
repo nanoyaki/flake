@@ -24,9 +24,12 @@ in
     kernelPackages = latestKernelPackage;
     supportedFilesystems.zfs = true;
     zfs.forceImportRoot = false;
+    zfs.extraPools = [ "moon" ];
   };
 
   networking.hostId = "23d2908a";
 
   services.zfs.autoScrub.enable = true;
+
+  systemd.services.zfs-mount.enable = false;
 }

@@ -19,5 +19,6 @@
     ./metrics.nix
     ./stash.nix
     ./shoko.nix
+    ./homepage.nix
   ];
 }

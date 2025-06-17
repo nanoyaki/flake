@@ -14,7 +14,7 @@ lib'.modules.mkModule {
   name = "sonarr";
 
   options.homepage = {
-    category = mkDefault "Services" mkStrOption;
+    category = mkDefault "Media services" mkStrOption;
     description = mkDefault "Show manager" mkStrOption;
   };
 

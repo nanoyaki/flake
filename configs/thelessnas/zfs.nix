@@ -30,6 +30,8 @@ in
   networking.hostId = "23d2908a";
 
   services.zfs.autoScrub.enable = true;
-
   systemd.services.zfs-mount.enable = false;
+
+  services.nfs.server.enable = true;
+  networking.firewall.allowedTCPPorts = [ 2049 ];
 }

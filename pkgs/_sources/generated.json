@@ -1,4 +1,19 @@
 {
+    "avdump3": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "avdump3",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-biEWlWkvshxVlCYCHvLn2p51gH4/Plma4UMrOZ0OuF8=",
+            "type": "url",
+            "url": "https://github.com/DvdKhl/AVDump3/releases/download/B9001/AVD3.B9001.zip"
+        },
+        "version": "B9001"
+    },
     "lidarr": {
         "cargoLocks": null,
         "date": null,

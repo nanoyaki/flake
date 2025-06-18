@@ -61,3 +61,8 @@ fetch.tarball = "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v$ver.
 src.github_tag = "ShokoAnime/Shokofin"
 src.include_regex = '.*-dev\..*'
 src.prefix = "v"
+
+[avdump3]
+fetch.url = "https://github.com/DvdKhl/AVDump3/releases/download/$ver/AVD3.$ver.zip"
+src.github_tag = "DvdKhl/AVDump3"
+src.include_regex = 'B\d{4,5}.*'

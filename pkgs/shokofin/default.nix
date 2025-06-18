@@ -7,6 +7,7 @@
 
   _sources,
 }:
+
 buildDotnetModule (finalAttrs: {
   inherit (_sources.shokofin) pname version src;
 
@@ -22,11 +23,10 @@ buildDotnetModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    homepage = "https://github.com/ShokoAnime/ShokoServer";
-    changelog = "https://github.com/ShokoAnime/ShokoServer/releases/tag/v${finalAttrs.version}";
-    description = "Backend for the Shoko anime management system";
+    homepage = "https://github.com/ShokoAnime/Shokofin";
+    changelog = "https://github.com/ShokoAnime/Shokofin/releases/tag/v${finalAttrs.version}";
+    description = "Shoko anime Jellyfin integration plugin";
     license = lib.licenses.mit;
-    mainProgram = "Shoko.CLI";
     maintainers = [ lib.maintainers.nanoyaki ];
     inherit (dotnet-sdk_8.meta) platforms;
   };

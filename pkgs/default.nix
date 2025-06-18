@@ -66,9 +66,8 @@
         // rec {
           suwayomi-server = callPackage ./suwayomi-server { inherit suwayomi-webui; };
           suwayomi-webui = callPackage ./suwayomi-webui { };
-          shoko = callPackage ./shoko { inherit avdump3; };
+          shoko = callPackage ./shoko { };
           shoko-webui = callPackage ./shoko-webui { inherit shoko; };
-          avdump3 = callPackage ./avdump3 { };
         };
     };
 }

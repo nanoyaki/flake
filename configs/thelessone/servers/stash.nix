@@ -31,7 +31,7 @@ in
       host = "127.0.0.1";
       stash = [
         {
-          path = "/mnt/raid/arr-stack/libraries/anime/adult";
+          path = "/mnt/raid/arr-stack/libraries/anime/hentai";
         }
         {
           path = "/mnt/raid/arr-stack/libraries/adult";

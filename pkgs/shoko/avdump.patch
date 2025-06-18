@@ -1,0 +1,49 @@
+diff --git a/Shoko.Server/Utilities/AVDumpHelper.cs b/Shoko.Server/Utilities/AVDumpHelper.cs
+index 3447c44a4..32f018390 100644
+--- a/Shoko.Server/Utilities/AVDumpHelper.cs
++++ b/Shoko.Server/Utilities/AVDumpHelper.cs
+@@ -30,7 +30,7 @@ public static partial class AVDumpHelper
+ 
+     private const string AVDumpURL = @"AVD3_URL_GOES_HERE";
+ 
+-    private static readonly string AVDumpExecutable = Path.Combine(WorkingDirectory, Utils.IsRunningOnLinuxOrMac() ? "AVDump3CL.dll" : "AVDump3CL.exe");
++    private static readonly string AVDumpExecutable = "@avdump3@";
+ 
+     private static readonly ConcurrentDictionary<int, AVDumpSession> ActiveSessions = new();
+ 
+@@ -353,13 +353,9 @@ public static partial class AVDumpHelper
+             // Automatically update the installed avdump version if we expect
+             // a newer version.
+             var expectedVersion = AVDumpVersion;
+-            var installedVersion = InstalledAVDumpVersion;
+-            if (!force && !string.IsNullOrEmpty(expectedVersion) && !string.Equals(expectedVersion, installedVersion))
+-                force = true;
+ 
+             if (!force && File.Exists(AVDumpExecutable))
+             {
+-                if (File.Exists(RuntimeConfigPath) && File.ReadAllText(RuntimeConfigPath).Contains("6.0")) ReplaceNet6();
+                 return true;
+             }
+ 
+@@ -435,8 +431,6 @@ public static partial class AVDumpHelper
+                 // eh we tried
+             }
+ 
+-            ReplaceNet6();
+-
+             ShokoEventHandler.Instance.OnAVDumpMessage(AVDumpEventType.InstalledAVDump);
+             return true;
+         }
+@@ -478,12 +472,6 @@ public static partial class AVDumpHelper
+             CreateNoWindow = true
+         };
+ 
+-        if (Utils.IsRunningOnLinuxOrMac())
+-        {
+-            startInfo.FileName = "dotnet";
+-            startInfo.ArgumentList.Add(AVDumpExecutable);
+-        }
+-
+         foreach (var arg in argumentList)
+             startInfo.ArgumentList.Add(arg);
+ 

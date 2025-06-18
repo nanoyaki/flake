@@ -6,12 +6,16 @@
   lib,
   mediainfo,
   rhash,
+  avdump3,
+  replaceVars,
   nix-update-script,
 
   _sources,
 }:
 buildDotnetModule (finalAttrs: {
   inherit (_sources.shoko) pname version src;
+
+  patches = [ (replaceVars ./avdump.patch { avdump3 = lib.getExe avdump3; }) ];
 
   dotnet-sdk = dotnet-sdk_8;
   dotnet-runtime = dotnet-aspnetcore_8;
@@ -27,7 +31,10 @@ buildDotnetModule (finalAttrs: {
     ":"
     "${mediainfo}/bin"
   ];
-  runtimeDeps = [ rhash ];
+  runtimeDeps = [
+    rhash
+    avdump3
+  ];
 
   passthru = {
     updateScript = nix-update-script { };

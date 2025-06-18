@@ -10,8 +10,6 @@ let
     mkStrOption
     mkPathOption
     ;
-
-  inherit (lib) genAttrs;
 in
 
 lib'.modules.mkModule {
@@ -75,11 +73,6 @@ lib'.modules.mkModule {
           ratio-limit = 1;
           ratio-limit-enabled = true;
 
-          script-torrent-done-enabled = true;
-          script-torrent-done-filename = "${pkgs.writeShellScript "mode" ''
-            chmod 2770 "''${TR_TORRENT_DIR}"/"''${TR_TORRENT_NAME}" -R
-          ''}";
-
           blocklist-enabled = true;
           blocklist-url = "https://github.com/Naunter/BT_BlockLists/raw/refs/heads/master/bt_blocklists.gz";
 
@@ -101,16 +94,6 @@ lib'.modules.mkModule {
         siteMonitor = domain;
         inherit (cfg.homepage) description;
       };
-
-      systemd.tmpfiles.settings."10-transmission" =
-        genAttrs [ cfg.completeDirectory cfg.incompleteDirectory ]
-          (_: {
-            d = {
-              inherit (config.services.transmission) user;
-              inherit (cfg'.lab-config.arr) group;
-              mode = "2770";
-            };
-          });
     };
 
   dependencies = [

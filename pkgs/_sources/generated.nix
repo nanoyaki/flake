@@ -96,10 +96,10 @@
   };
   shokofin = {
     pname = "shokofin";
-    version = "5.0.3-dev.6";
+    version = "5.0.3-dev.7";
     src = fetchTarball {
-      url = "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v5.0.3-dev.6.tar.gz";
-      sha256 = "sha256-IKwHKxjtrCHlzEvWxSiPTuZTeBNSPm9ggZYXFAAYlT4=";
+      url = "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v5.0.3-dev.7.tar.gz";
+      sha256 = "sha256-fpZC90salTNNROve0t8YNqs33CLcddIb8caVbkpdWGQ=";
     };
   };
   suwayomi-server = {
@@ -132,11 +132,11 @@
   };
   whisparr = {
     pname = "whisparr";
-    version = "3.0.0.1124";
+    version = "3.0.0.1127";
     src = fetchurl {
-      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1124&os=linux&runtime=netcore&arch=x64";
-      name = "whisparr-src-3.0.0.1124.tar.gz";
-      sha256 = "sha256-fTBhL+GRjR0EJSo0tqtp+rtRb5qaEty895lTDWW3Dyo=";
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1127&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1127.tar.gz";
+      sha256 = "sha256-XeOMEWSG98Bu4xRaon7MeN2PBrLiAAAyPzFQAsVvWw0=";
     };
   };
 }

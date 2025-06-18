@@ -44,6 +44,7 @@
     wl-clipboard
     gimp
     feishin
+    grayjay
     obs-studio
   ];
 

@@ -44,6 +44,9 @@
         nix-fast-build --eval-workers 4 --out-link result \
           -f ${config.nanoflake.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
 
+        echo "Deleting home-manager backups..."
+        find ~ -name "*.home-bac" -exec rm -r {} +
+
         echo "Running switch-to-configuration switch..."
         ./result-/bin/switch-to-configuration switch
 

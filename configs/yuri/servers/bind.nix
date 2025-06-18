@@ -10,7 +10,7 @@ let
 in
 
 {
-  networking.resolvconf.useLocalResolver = true;
+  networking.resolvconf.useLocalResolver = false;
 
   services.bind = {
     enable = true;
@@ -45,8 +45,6 @@ in
       "8.8.4.4"
     ];
   };
-
-  services.resolved.enable = false;
 
   networking.nameservers = [
     "1.1.1.1"

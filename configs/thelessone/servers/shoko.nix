@@ -9,10 +9,6 @@
 {
   imports = [ self.nixosModules.shoko ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-runtime-6.0.36"
-  ];
-
   services.shoko = {
     enable = true;
     plugins = [ pkgs.shokofin ];

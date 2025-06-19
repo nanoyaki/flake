@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  username,
   ...
 }:
 
@@ -45,7 +46,7 @@
           -f ${config.nanoflake.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
 
         echo "Deleting home-manager backups..."
-        find ~ -name "*.home-bac" -exec rm -r {} +
+        find ${config.users.users.${username}.home} -name "*.home-bac" -exec rm -r {} +
 
         echo "Running switch-to-configuration switch..."
         ./result-/bin/switch-to-configuration switch

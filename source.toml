@@ -13,7 +13,7 @@ regex = '(?<=page=)\d{2,5}'
 ["suwayomi-webui.yarnHash"]
 source = "cmd"
 cmd = '''
-    yarnLock="$(mktemp /tmp/XXXXXX_yarn.lock -u)"
+    yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
 
     curl -L \
         -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
@@ -29,9 +29,9 @@ cmd = '''
 ["suwayomi-server.gradleDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
-    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
-    log="$(mktemp /tmp/XXXXXX_build.log)"
+    outLink="$(mktemp ./XXXXXX_out_link -u)"
+    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+    log="$(mktemp ./XXXXXX_build.log)"
 
     echo "{}" > pkgs/suwayomi-server/deps.json
 
@@ -50,9 +50,9 @@ cmd = '''
 ["shoko.nugetDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
-    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
-    log="$(mktemp /tmp/XXXXXX_build.log)"
+    outLink="$(mktemp ./XXXXXX_out_link -u)"
+    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+    log="$(mktemp ./XXXXXX_build.log)"
 
     echo "{}" > pkgs/shoko/deps.json
 
@@ -71,9 +71,9 @@ cmd = '''
 ["shokofin.nugetDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp /tmp/XXXXXX_out_link -u)"
-    updateScript="$(mktemp /tmp/XXXXXX_update_script.sh -u)"
-    log="$(mktemp /tmp/XXXXXX_build.log)"
+    outLink="$(mktemp ./XXXXXX_out_link -u)"
+    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+    log="$(mktemp ./XXXXXX_build.log)"
 
     echo "{}" > pkgs/shokofin/deps.json
 

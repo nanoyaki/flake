@@ -1,19 +1,4 @@
 {
-    "avdump3": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "avdump3",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-biEWlWkvshxVlCYCHvLn2p51gH4/Plma4UMrOZ0OuF8=",
-            "type": "url",
-            "url": "https://github.com/DvdKhl/AVDump3/releases/download/B9001/AVD3.B9001.zip"
-        },
-        "version": "B9001"
-    },
     "lidarr": {
         "cargoLocks": null,
         "date": null,
@@ -142,11 +127,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-NF4x4ChmQv48G0oX/vIJ1FOmoWdkbXehjRYFquXm5XU=",
+            "sha256": "sha256-6i8Xyz/tv0DCtjbyiAa73WNgPO9j9v4kNKEs68mKxYQ=",
             "type": "tarball",
-            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.90.tar.gz"
+            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.92.tar.gz"
         },
-        "version": "5.1.0-dev.90"
+        "version": "5.1.0-dev.92"
     },
     "shoko-webui": {
         "cargoLocks": null,
@@ -170,11 +155,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-fpZC90salTNNROve0t8YNqs33CLcddIb8caVbkpdWGQ=",
+            "sha256": "sha256-eujJvjPf3qFrqJ6BBmX6RwT2hqevttKDq9JPfF4i/Ec=",
             "type": "tarball",
-            "url": "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v5.0.3-dev.7.tar.gz"
+            "url": "https://github.com/ShokoAnime/Shokofin/archive/refs/tags/v5.0.3-dev.10.tar.gz"
         },
-        "version": "5.0.3-dev.7"
+        "version": "5.0.3-dev.10"
     },
     "suwayomi-server": {
         "cargoLocks": null,

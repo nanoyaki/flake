@@ -104,17 +104,17 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
+    version = "0b021e6c42024d15a9311fd70861b79f18339cf2";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
+      rev = "0b021e6c42024d15a9311fd70861b79f18339cf2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-nj6QChzNPjcjy85KM5zi6BEgsRxmFTDDrnGZQ+yZY3E=";
+      sha256 = "sha256-ZkSE16Epb9innZUGeip56MMS8FrRCgnKif/H95cCCus=";
     };
-    date = "2025-06-15";
+    date = "2025-06-20";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
@@ -132,11 +132,11 @@
   };
   whisparr = {
     pname = "whisparr";
-    version = "3.0.0.1130";
+    version = "3.0.0.1134";
     src = fetchurl {
-      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1130&os=linux&runtime=netcore&arch=x64";
-      name = "whisparr-src-3.0.0.1130.tar.gz";
-      sha256 = "sha256-ENCoQz+R9DAFMioM6z/A3lbw9NeuOKSLvp/V8J2NV8E=";
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1134&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1134.tar.gz";
+      sha256 = "sha256-bkAmxTIMaGr8G+kHhmgLpOKKzmlDay5+OzKbwCj5ZX4=";
     };
   };
 }

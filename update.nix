@@ -46,6 +46,11 @@
               grep -q "shoko-webui" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "shoko-webui.pnpmHash"
 
+              grep -q "shokofin" /tmp/nvfetcher_changelog \
+                && ${nvchecker} -e "shokofin.nugetDepsHash" \
+                && git add pkgs/shokofin/deps.json
+
+
               git add pkgs/{_sources,_versions} flake.lock
               git commit -m "chore: Update $(date +"%d.%m.%y")"
 

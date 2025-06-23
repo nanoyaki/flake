@@ -16,7 +16,6 @@ cmd = '''
     yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
 
     curl -L \
-        -H "Authorization: Bearer $(cat /run/secrets/githubToken)" \
         https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/contents/yarn.lock \
         | jq -r .content \
         | base64 -d > $yarnLock

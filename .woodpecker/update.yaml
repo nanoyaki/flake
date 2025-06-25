@@ -3,11 +3,11 @@ when:
     cron: 'update'
 
 labels:
-  backend: local
+  backend: docker
 
 steps:
   - name: update
-    image: bash
+    image: nixos/nix
     environment:
       KEYS_TOML:
         from_secret: keys_toml
@@ -15,14 +15,20 @@ steps:
         from_secret: github_token
       CODEBERG_KEY:
         from_secret: codeberg_ssh_key
+      NIX_DEBUG: 1
+    privileged: true
     commands:
+      - mkdir ~/secrets
+      - echo "$GITHUB_TOKEN" > ~/secrets/githubToken
       - mkdir -p ~/.config/nix
       - echo "access-tokens = github.com=$GITHUB_TOKEN" > ~/.config/nix/nix.conf
+      - echo "sandbox = true" >> /etc/nix/nix.conf
+      - echo "extra-experimental-features = nix-command flakes" >> /etc/nix/nix.conf
       - echo "$KEYS_TOML" > keys.toml
       - chmod 400 keys.toml
-      - nix --extra-experimental-features "nix-command flakes" run .#update -- ./keys.toml
+      - nix run .#update -- ./keys.toml
       - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
-      - mkdir -p ~/.ssh
+      - mkdir ~/.ssh
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - chmod 400 ~/.ssh/id_ed25519
       - git config core.sshCommand "ssh -i ~/.ssh/id_ed25519"

@@ -1,6 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
+  sec = {
+    githubToken = {
+      owner = username;
+      path = "/home/${username}/secrets/githubToken";
+    };
+    "keys.toml".owner = username;
+  };
+
   system.stateVersion = "24.05";
   hm.home.stateVersion = "24.11";
 

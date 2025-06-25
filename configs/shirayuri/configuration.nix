@@ -14,7 +14,10 @@
   };
 
   sec = {
-    githubToken.owner = username;
+    githubToken = {
+      owner = username;
+      path = "/home/${username}/secrets/githubToken";
+    };
     "keys.toml".owner = username;
   };
 

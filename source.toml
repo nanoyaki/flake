@@ -16,6 +16,7 @@ cmd = '''
     yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
 
     curl -L \
+        -H "Authorization: Bearer $(cat $HOME/secrets/githubToken)" \
         https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/contents/yarn.lock \
         | jq -r .content \
         | base64 -d > $yarnLock
@@ -30,7 +31,7 @@ source = "cmd"
 cmd = '''
     outLink="$(mktemp ./XXXXXX_out_link -u)"
     updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="$(mktemp ./XXXXXX_build.log)"
+    log="./update.log"
 
     echo "{}" > pkgs/suwayomi-server/deps.json
 
@@ -38,12 +39,12 @@ cmd = '''
     sed 's|/nix/store/[^/]*-source/pkgs/suwayomi-server/deps\.json|pkgs/suwayomi-server/deps.json|g' \
         "$(readlink -f $outLink)" \
         > $updateScript
-    chmod +x $updateScript
+    chmod +x $updateScript &>> $log
     $updateScript &>> $log
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript $log
+    rm $outLink $updateScript
 '''
 
 ["shoko.nugetDepsHash"]
@@ -51,7 +52,7 @@ source = "cmd"
 cmd = '''
     outLink="$(mktemp ./XXXXXX_out_link -u)"
     updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="$(mktemp ./XXXXXX_build.log)"
+    log="./update.log"
 
     echo "{}" > pkgs/shoko/deps.json
 
@@ -59,12 +60,12 @@ cmd = '''
     sed 's|/nix/store/[^/]*-source/pkgs/shoko/deps\.json|pkgs/shoko/deps.json|g' \
         "$(readlink -f $outLink)" \
         > $updateScript
-    chmod +x $updateScript
+    chmod +x $updateScript &>> $log
     $updateScript &>> $log
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shoko/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript $log
+    rm $outLink $updateScript
 '''
 
 ["shokofin.nugetDepsHash"]
@@ -72,7 +73,7 @@ source = "cmd"
 cmd = '''
     outLink="$(mktemp ./XXXXXX_out_link -u)"
     updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="$(mktemp ./XXXXXX_build.log)"
+    log="./update.log"
 
     echo "{}" > pkgs/shokofin/deps.json
 
@@ -80,16 +81,17 @@ cmd = '''
     sed 's|/nix/store/[^/]*-source/pkgs/shokofin/deps\.json|pkgs/shokofin/deps.json|g' \
         "$(readlink -f $outLink)" \
         > $updateScript
-    chmod +x $updateScript
+    chmod +x $updateScript &>> $log
     $updateScript &>> $log
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shokofin/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript $log
+    rm $outLink $updateScript
 '''
 
 ["shoko-webui.pnpmHash"]
 source = "cmd"
 cmd = '''
-    nix build .#shoko-webui --no-link |& grep -oP "got\:.*\Ksha256.*"
+    (nix build .#shoko-webui --no-link |& grep -oP "got\:.*\Ksha256.*") \
+        || jq -r '.data."shoko-webui.pnpmHash".version' pkgs/_versions/new_versions.json
 '''

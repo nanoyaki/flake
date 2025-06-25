@@ -36,22 +36,19 @@
                 && ${nvchecker} -e "suwayomi-webui.yarnHash"
 
               grep -q "suwayomi-server" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "suwayomi-server.gradleDepsHash" \
-                && git add pkgs/suwayomi-server/deps.json
+                && ${nvchecker} -e "suwayomi-server.gradleDepsHash"
 
               grep -q "shoko:" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shoko.nugetDepsHash" \
-                && git add pkgs/shoko/deps.json
+                && ${nvchecker} -e "shoko.nugetDepsHash"
 
               grep -q "shoko-webui" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "shoko-webui.pnpmHash"
 
               grep -q "shokofin" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shokofin.nugetDepsHash" \
-                && git add pkgs/shokofin/deps.json
+                && ${nvchecker} -e "shokofin.nugetDepsHash"
 
 
-              git add pkgs/{_sources,_versions} flake.lock
+              git add pkgs/{_sources,_versions,*/deps.json} flake.lock update.log
               git commit -m "chore: Update $(date +"%d.%m.%y")"
 
               git stash pop || echo "No stash to pop."

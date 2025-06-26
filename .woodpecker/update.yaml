@@ -16,14 +16,19 @@ steps:
       CODEBERG_KEY:
         from_secret: codeberg_ssh_key
       NIX_DEBUG: 1
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
     privileged: true
     commands:
       - mkdir ~/secrets
       - echo "$GITHUB_TOKEN" > ~/secrets/githubToken
       - mkdir -p ~/.config/nix
-      - echo "access-tokens = github.com=$GITHUB_TOKEN" > ~/.config/nix/nix.conf
-      - echo "sandbox = true" >> /etc/nix/nix.conf
-      - echo "extra-experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      - cat /etc/nix/nix.conf
+      - |
+        echo "access-tokens = github.com=$GITHUB_TOKEN
+        extra-experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      - nix run nixpkgs#gnused -- -i 's|sandbox = false|sandbox = true|g' /etc/nix/nix.conf
+      - cat /etc/nix/nix.conf
       - echo "$KEYS_TOML" > keys.toml
       - chmod 400 keys.toml
       - nix run .#update -- ./keys.toml

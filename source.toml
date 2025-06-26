@@ -29,64 +29,78 @@ cmd = '''
 ["suwayomi-server.gradleDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp ./XXXXXX_out_link -u)"
-    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="./update.log"
+    log="./update_suwayomi-server.gradleDepsHash.log"
 
-    echo "{}" > pkgs/suwayomi-server/deps.json
+    bash -c '
+        set -xe
 
-    nix build .#suwayomi-server.mitmCache.updateScript --out-link $outLink &>> $log
-    sed 's|/nix/store/[^/]*-source/pkgs/suwayomi-server/deps\.json|pkgs/suwayomi-server/deps.json|g' \
-        "$(readlink -f $outLink)" \
-        > $updateScript
-    chmod +x $updateScript &>> $log
-    USE_BWRAP= $updateScript &>> $log
+        outLink="$(mktemp ./XXXXXX_out_link -u)"
+        updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+
+        echo "{}" > pkgs/suwayomi-server/deps.json
+
+        nix build .#suwayomi-server.mitmCache.updateScript --out-link $outLink
+        sed '\''s|/nix/store/[^/]*-source/pkgs/suwayomi-server/deps\.json|pkgs/suwayomi-server/deps.json|g'\'' \
+            "$(readlink -f $outLink)" \
+            > $updateScript
+        chmod +x $updateScript
+        USE_BWRAP= $updateScript
+
+        rm $outLink $updateScript
+    ' &> $log
+    if [ -z $DEBUG_NVCHECKER ]; then rm $log; fi
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
-
-    rm $outLink $updateScript $log
 '''
 
 ["shoko.nugetDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp ./XXXXXX_out_link -u)"
-    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="./update.log"
+    log="./update_shoko.nugetDepsHash.log"
 
-    echo "{}" > pkgs/shoko/deps.json
+    bash -c '
+        set -xe
 
-    nix build .#shoko.fetch-deps --out-link $outLink &>> $log
-    sed 's|/nix/store/[^/]*-source/pkgs/shoko/deps\.json|pkgs/shoko/deps.json|g' \
-        "$(readlink -f $outLink)" \
-        > $updateScript
-    chmod +x $updateScript &>> $log
-    $updateScript &>> $log
+        outLink="$(mktemp ./XXXXXX_out_link -u)"
+        updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+
+        nix build .#shoko.fetch-deps --out-link $outLink
+        sed '\''s|/nix/store/[^/]*-source/pkgs/shoko/deps\.json|pkgs/shoko/deps.json|g'\'' \
+            "$(readlink -f $outLink)" \
+            > $updateScript
+        chmod +x $updateScript
+        $updateScript
+
+        rm $outLink $updateScript
+    ' &> $log
+    if [ -z $DEBUG_NVCHECKER ]; then rm $log; fi
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shoko/deps.json | awk '{print $1}')
-
-    rm $outLink $updateScript $log
 '''
 
 ["shokofin.nugetDepsHash"]
 source = "cmd"
 cmd = '''
-    outLink="$(mktemp ./XXXXXX_out_link -u)"
-    updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
-    log="./update.log"
+    log="./update_shokofin.nugetDepsHash.log"
 
-    echo "{}" > pkgs/shokofin/deps.json
+    bash -c '
+        set -xe
 
-    nix build .#shokofin.fetch-deps --out-link $outLink &>> $log
-    sed 's|/nix/store/[^/]*-source/pkgs/shokofin/deps\.json|pkgs/shokofin/deps.json|g' \
-        "$(readlink -f $outLink)" \
-        > $updateScript
-    chmod +x $updateScript &>> $log
-    $updateScript &>> $log
+        outLink="$(mktemp ./XXXXXX_out_link -u)"
+        updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
+
+        nix build .#shokofin.fetch-deps --out-link $outLink &>> $log
+        sed 's|/nix/store/[^/]*-source/pkgs/shokofin/deps\.json|pkgs/shokofin/deps.json|g' \
+            "$(readlink -f $outLink)" \
+            > $updateScript
+        chmod +x $updateScript &>> $log
+        $updateScript
+
+        rm $outLink $updateScript
+    ' &> $log
+    if [ -z $DEBUG_NVCHECKER ]; then rm $log; fi
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shokofin/deps.json | awk '{print $1}')
-
-    rm $outLink $updateScript $log
 '''
 
 ["shoko-webui.pnpmHash"]

@@ -22,7 +22,7 @@
             ]);
           text =
             let
-              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}" -l debug'';
+              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}" -l debug --failures'';
             in
             ''
               set -e
@@ -49,7 +49,7 @@
                 && ${nvchecker} -e "shokofin.nugetDepsHash"
 
 
-              git add pkgs/{_sources,_versions,*/deps.json} flake.lock
+              git add pkgs/{_sources,_versions,*/deps.json} flake.lock update_*.log
               git commit -m "chore: Update $(date +"%d.%m.%y")"
 
               git stash pop || echo "No stash to pop."

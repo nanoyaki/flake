@@ -16,6 +16,7 @@ steps:
       CODEBERG_KEY:
         from_secret: codeberg_ssh_key
       NIX_DEBUG: 1
+      DEBUG_NVCHECKER: 1
       LC_ALL: C.UTF-8
       LANG: C.UTF-8
     privileged: true

@@ -36,6 +36,9 @@ steps:
       - nix run .#update -- ./keys.toml
       - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
       - mkdir ~/.ssh
+      - >
+        echo "codeberg.org ssh-ed25519 
+        AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB" > ~/.ssh/known_hosts
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - chmod 400 ~/.ssh/id_ed25519
       - git config core.sshCommand "ssh -i ~/.ssh/id_ed25519"

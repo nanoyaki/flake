@@ -15,6 +15,7 @@
               curl
               jq
               gnused
+              gawk
             ])
             ++ (with self'.packages; [
               nvchecker

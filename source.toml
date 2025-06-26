@@ -44,7 +44,7 @@ cmd = '''
             "$(readlink -f $outLink)" \
             > $updateScript
         chmod +x $updateScript
-        USE_BWRAP= $updateScript
+        $updateScript
 
         rm $outLink $updateScript
     ' &> $log

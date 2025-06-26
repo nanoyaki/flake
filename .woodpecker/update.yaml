@@ -7,7 +7,7 @@ labels:
 
 steps:
   - name: update
-    image: nixos/nix
+    image: nixos/nix:2.26.4-amd64
     environment:
       KEYS_TOML:
         from_secret: keys_toml
@@ -15,30 +15,27 @@ steps:
         from_secret: github_token
       CODEBERG_KEY:
         from_secret: codeberg_ssh_key
-      NIX_DEBUG: 1
-      DEBUG_NVCHECKER: 1
       LC_ALL: C.UTF-8
       LANG: C.UTF-8
+      NIX_CONFIG: |
+        extra-experimental-features = nix-command flakes
+        sandbox = true
+      USE_BWRAP: 0
+      NIX_DEBUG: 1
+      DEBUG_NVCHECKER: 1
     privileged: true
     commands:
       - mkdir ~/secrets
       - echo "$GITHUB_TOKEN" > ~/secrets/githubToken
-      - mkdir -p ~/.config/nix
-      - cat /etc/nix/nix.conf
-      - |
-        echo "access-tokens = github.com=$GITHUB_TOKEN
-        extra-experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-      - nix run nixpkgs#gnused -- -i 's|sandbox = false|sandbox = true|g' /etc/nix/nix.conf
-      - cat /etc/nix/nix.conf
-      - echo "$KEYS_TOML" > keys.toml
-      - chmod 400 keys.toml
+      - echo "$KEYS_TOML" > ~/secrets/keys.toml
+      - echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
       - git config user.email "hanakretzer+autoupdate@gmail.com"
       - git config user.name "nanoyaki (autoupdate)"
-      - nix run .#update -- ./keys.toml
+      - nix run .#update -- ~/secrets/keys.toml
       - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
       - mkdir ~/.ssh
       - >
-        echo "codeberg.org ssh-ed25519 
+        echo "codeberg.org ssh-ed25519
         AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB" > ~/.ssh/known_hosts
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - chmod 400 ~/.ssh/id_ed25519

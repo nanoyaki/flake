@@ -49,7 +49,7 @@
                 && ${nvchecker} -e "shokofin.nugetDepsHash"
 
 
-              git add pkgs/{_sources,_versions,*/deps.json} flake.lock update.log
+              git add pkgs/{_sources,_versions,*/deps.json} flake.lock
               git commit -m "chore: Update $(date +"%d.%m.%y")"
 
               git stash pop || echo "No stash to pop."

@@ -40,11 +40,11 @@ cmd = '''
         "$(readlink -f $outLink)" \
         > $updateScript
     chmod +x $updateScript &>> $log
-    $updateScript &>> $log
+    USE_BWRAP= $updateScript &>> $log
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/suwayomi-server/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript
+    rm $outLink $updateScript $log
 '''
 
 ["shoko.nugetDepsHash"]
@@ -65,7 +65,7 @@ cmd = '''
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shoko/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript
+    rm $outLink $updateScript $log
 '''
 
 ["shokofin.nugetDepsHash"]
@@ -86,7 +86,7 @@ cmd = '''
 
     nix hash convert --hash-algo sha256 --to sri $(sha256sum pkgs/shokofin/deps.json | awk '{print $1}')
 
-    rm $outLink $updateScript
+    rm $outLink $updateScript $log
 '''
 
 ["shoko-webui.pnpmHash"]

@@ -11,11 +11,11 @@
               nix
               nvfetcher
               git
-              prefetch-yarn-deps
               curl
               jq
               gnused
               gawk
+              findutils
             ])
             ++ (with self'.packages; [
               nvchecker
@@ -48,11 +48,15 @@
               grep -q "shokofin" /tmp/nvfetcher_changelog \
                 && ${nvchecker} -e "shokofin.nugetDepsHash"
 
+              nvcmp -c source.toml > /tmp/nvchecker_changelog
 
               git add pkgs/{_sources,_versions,*/deps.json} flake.lock update_*.log
-              git commit -m "chore: Update $(date +"%d.%m.%y")"
+              git commit -m "chore: Update $(date +"%d.%m.%y")
 
-              git stash pop || echo "No stash to pop."
+              $(cat /tmp/nvfetcher_changelog)
+              $(cat /tmp/nvchecker_changelog)"
+
+              git stash pop || echo "No stashed changes."
 
               exit 0
             '';

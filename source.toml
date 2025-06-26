@@ -13,17 +13,8 @@ regex = '(?<=page=)\d{2,5}'
 ["suwayomi-webui.yarnHash"]
 source = "cmd"
 cmd = '''
-    yarnLock="$(mktemp ./XXXXXX_yarn.lock -u)"
-
-    curl -L \
-        -H "Authorization: Bearer $(cat $HOME/secrets/githubToken)" \
-        https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/contents/yarn.lock \
-        | jq -r .content \
-        | base64 -d > $yarnLock
-
-    nix hash convert --hash-algo sha256 --to sri $(prefetch-yarn-deps $yarnLock)
-
-    rm $yarnLock
+    (nix build .#suwayomi-webui --no-link |& grep -oP "got\:.*\Ksha256.*") \
+        || jq -r '.data."suwayomi-webui.yarnHash".version' pkgs/_versions/new_versions.json
 '''
 
 ["suwayomi-server.gradleDepsHash"]
@@ -43,6 +34,9 @@ cmd = '''
         sed '\''s|/nix/store/[^/]*-source/pkgs/suwayomi-server/deps\.json|pkgs/suwayomi-server/deps.json|g'\'' \
             "$(readlink -f $outLink)" \
             > $updateScript
+        sed '\''s|useBwrap="${USE_BWRAP:-1}"|useBwrap=""|g'\'' $updateScript \
+            > $updateScript.tmp \
+            && mv $updateScript.tmp $updateScript
         chmod +x $updateScript
         $updateScript
 

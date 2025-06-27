@@ -16,6 +16,12 @@ let
   inherit (config.services'.lab-config.arr) group;
   user = "beets";
   configDir = "/var/lib/beets";
+  package = pkgs.beets.override {
+    pluginOverrides.drop2beets = {
+      propagatedBuildInputs = [ pkgs.python3Packages.watchdog ];
+      wrapperBins = with pkgs; [ coreutils ];
+    };
+  };
 
   mediaDir = "${config.services'.lab-config.arr.home}/libraries/music";
   nzbPath = "${config.services'.lab-config.arr.home}/downloads/beets";
@@ -115,10 +121,11 @@ let
     {
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${getExe pkgs.beets} -c ${configFile} install_dropbox";
+        ExecStart = "${getExe package} -c ${configFile} install_dropbox";
         Restart = "on-failure";
         User = user;
         Group = group;
+
       };
     };
 in

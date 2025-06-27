@@ -22,7 +22,7 @@
             ]);
           text =
             let
-              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}" -l debug --failures'';
+              nvchecker = ''nvchecker -c source.toml -k "''${1:-/run/secrets/keys.toml}" -l debug --failures -e'';
             in
             ''
               set -e
@@ -33,22 +33,23 @@
               nvfetcher -o pkgs/_sources -l /tmp/nvfetcher_changelog -k "''${1:-/run/secrets/keys.toml}"
 
               grep -q "suwayomi-webui" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "suwayomi-webui.revision" \
-                && ${nvchecker} -e "suwayomi-webui.yarnHash"
+                && ${nvchecker} "suwayomi-webui.revision" \
+                && ${nvchecker} "suwayomi-webui.yarnHash"
 
               grep -q "suwayomi-server" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "suwayomi-server.gradleDepsHash"
+                && ${nvchecker} "suwayomi-server.gradleDepsHash" \
+                && ${nvchecker} "suwayomi-server.version"
 
               grep -q "shoko:" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shoko.nugetDepsHash"
+                && ${nvchecker} "shoko.nugetDepsHash"
 
               grep -q "shoko-webui" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shoko-webui.pnpmHash"
+                && ${nvchecker} "shoko-webui.pnpmHash"
 
               grep -q "shokofin" /tmp/nvfetcher_changelog \
-                && ${nvchecker} -e "shokofin.nugetDepsHash"
+                && ${nvchecker} "shokofin.nugetDepsHash"
 
-              nvcmp -c source.toml > /tmp/nvchecker_changelog
+              nvcmp -c source.toml | sed 's|->|→|g' > /tmp/nvchecker_changelog
 
               git add pkgs/{_sources,_versions,*/deps.json} flake.lock update_*.log
               git commit -m "chore: Update $(date +"%d.%m.%y")

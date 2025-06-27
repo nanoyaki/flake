@@ -14,15 +14,17 @@
   electron,
 
   _sources,
+  _versions,
 }:
 
 let
   self = stdenvNoCC.mkDerivation (finalAttrs: {
-    inherit (_sources.suwayomi-server) pname version src;
+    inherit (_sources.suwayomi-server) pname src;
+    inherit (_versions.suwayomi-server) version;
 
     patches = [
       (replaceVars ./version.patch {
-        inherit (_sources.suwayomi-server) version;
+        inherit (_versions.suwayomi-server) version;
         inherit (webui) revision;
       })
     ];

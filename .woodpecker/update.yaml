@@ -25,17 +25,18 @@ steps:
       DEBUG_NVCHECKER: 1
     privileged: true
     commands:
-      - mkdir ~/.ssh
+      - mkdir ~/.ssh ~/.secrets
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - >
         echo "codeberg.org ssh-ed25519
         AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB" > ~/.ssh/known_hosts
-      - echo "$KEYS_TOML" > keys.toml
+      - echo "$GITHUB_TOKEN" > ~/.secrets/githubToken
+      - echo "$KEYS_TOML" > ~/.secrets/keys.toml
       - echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
       - chmod 400 ~/.ssh/id_ed25519
       - git config user.email "hanakretzer+autoupdate@gmail.com"
       - git config user.name "nanoyaki (autoupdate)"
-      - nix run .#update -- ./keys.toml
+      - nix run .#update -- ~/.secrets/keys.toml
       - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
       - git config core.sshCommand "ssh -i ~/.ssh/id_ed25519"
       - git remote set-url origin git@codeberg.org:nanoyaki/flake.git

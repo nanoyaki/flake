@@ -17,6 +17,28 @@ cmd = '''
         || jq -r '.data."suwayomi-webui.yarnHash".version' pkgs/_versions/new_versions.json
 '''
 
+["suwayomi-server.version"]
+source = "cmd"
+cmd = '''
+    prefix="$(curl \
+        --fail \
+        -L \
+        -H "Authorization: Bearer $(cat $HOME/.secrets/githubToken)" \
+        "https://api.github.com/repos/Suwayomi/Suwayomi-Server/tags" \
+        | jq -r '.[0].name' \
+        | grep -oP 'v\K\d.\d.')"
+
+    revision="$(curl \
+        --fail \
+        -I \
+        -L \
+        -H "Authorization: Bearer $(cat $HOME/.secrets/githubToken)" \
+        'https://api.github.com/repos/Suwayomi/Suwayomi-Server/commits?sha=master&per_page=1&page=1' \
+        | grep -oP 'page=\K\d{2,5}')"
+
+    echo "$prefix$revision"
+'''
+
 ["suwayomi-server.gradleDepsHash"]
 source = "cmd"
 cmd = '''

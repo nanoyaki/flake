@@ -18,8 +18,9 @@ let
   configDir = "/var/lib/beets";
   package = pkgs.beets.override {
     pluginOverrides.drop2beets = {
-      propagatedBuildInputs = [ pkgs.python3Packages.watchdog ];
-      wrapperBins = with pkgs; [ coreutils ];
+      enable = true;
+      propagatedBuildInputs = [ pkgs.drop2beets ];
+      wrapperBins = [ pkgs.coreutils ];
     };
   };
 

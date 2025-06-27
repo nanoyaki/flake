@@ -105,11 +105,11 @@ cmd = '''
         outLink="$(mktemp ./XXXXXX_out_link -u)"
         updateScript="$(mktemp ./XXXXXX_update_script.sh -u)"
 
-        nix build .#shokofin.fetch-deps --out-link $outLink &>> $log
+        nix build .#shokofin.fetch-deps --out-link $outLink
         sed 's|/nix/store/[^/]*-source/pkgs/shokofin/deps\.json|pkgs/shokofin/deps.json|g' \
             "$(readlink -f $outLink)" \
             > $updateScript
-        chmod +x $updateScript &>> $log
+        chmod +x $updateScript
         $updateScript
 
         rm $outLink $updateScript

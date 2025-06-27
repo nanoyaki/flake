@@ -28,6 +28,7 @@
       # ./mullvad.nix
       ./tailscale.nix
       ./vaultwarden.nix
+      ./beets.nix
     ];
   };
 }

@@ -119,13 +119,19 @@ let
     in
 
     {
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "nfs-client.target"
+        (mkIf config.services'.sabnzbd.enable "sabnzbd.service")
+        (mkIf config.services'.transmission.enable "transmission.service")
+      ];
+
       serviceConfig = {
         Type = "simple";
         ExecStart = "${getExe package} -c ${configFile} install_dropbox";
         Restart = "on-failure";
         User = user;
         Group = group;
-
       };
     };
 in

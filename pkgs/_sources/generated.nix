@@ -59,9 +59,8 @@
     pname = "radarr";
     version = "5.27.0.10101";
     src = fetchurl {
-      url = "https://radarr.servarr.com/v1/update/develop/updatefile?version=5.27.0.10101&os=linux&runtime=netcore&arch=x64";
-      name = "radarr-src-5.27.0.10101.tar.gz";
-      sha256 = "sha256-EzY5IENQtwHqRb/blpIc72F6+KF7tQhaTqlzxrXsevw=";
+      url = "https://github.com/Radarr/Radarr/archive/refs/tags/v5.27.0.10101.tar.gz";
+      sha256 = "sha256-FsCEvL6WAYnPp+DDpZNC/3Y4P+PPQYwdXHYse0hxveQ=";
     };
   };
   rofi-themes = {

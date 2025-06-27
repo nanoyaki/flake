@@ -21,7 +21,7 @@
     vrSwitch
     vrcx
     vrc-get
-    unityhub
+    # unityhub
     blender
     alcom
   ];

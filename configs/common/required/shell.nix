@@ -63,7 +63,7 @@
         echo "Deleting result link..."
         rm -rf "./result-"
 
-        echo "Done."
+        echo -e 'Done. \033[38;5;219m\U2665\033[0m'
       '';
     })
   ];

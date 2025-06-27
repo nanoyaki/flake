@@ -67,5 +67,22 @@
           Update pkgs/{_sources,_versions} and flake.lock
         '';
       };
+
+      apps.update-pkg = {
+        type = "app";
+        program = pkgs.writeShellApplication {
+          name = "update-pkg";
+          runtimeInputs = [ pkgs.nix ];
+          text = ''
+            nix-shell "$(nix eval nixpkgs\#pkgs.path)/maintainers/scripts/update.nix" \
+              --arg include-overlays "[ (builtins.getFlake \"$FLAKE_DIR\").overlays.default ]" \
+              --argstr path "$1"
+          '';
+        };
+
+        meta.description = ''
+          Run nixpkgs update scripts for overlayed packages
+        '';
+      };
     };
 }

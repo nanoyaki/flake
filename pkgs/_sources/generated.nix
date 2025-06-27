@@ -66,32 +66,32 @@
   };
   rofi-themes = {
     pname = "rofi-themes";
-    version = "fb7011ec48bd065f398f2ff26d76e301aff1dc22";
+    version = "adfcc0770fa10daec5d87e3fb4ca6acd1d309491";
     src = fetchgit {
       url = "https://github.com/adi1090x/rofi.git";
-      rev = "fb7011ec48bd065f398f2ff26d76e301aff1dc22";
+      rev = "adfcc0770fa10daec5d87e3fb4ca6acd1d309491";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-wwLcb7z5jCKgKPY5mNhYIoPvKbVO3PwULrJ+Lm3Ra7g=";
+      sha256 = "sha256-yMKpwxdwvp7ryz2XXunbjC/5ud9HHEDzyYRhM540958=";
     };
-    date = "2025-06-09";
+    date = "2025-06-26";
   };
   shoko = {
     pname = "shoko";
-    version = "5.1.0-dev.92";
+    version = "5.1.0-dev.93";
     src = fetchTarball {
-      url = "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.92.tar.gz";
-      sha256 = "sha256-6i8Xyz/tv0DCtjbyiAa73WNgPO9j9v4kNKEs68mKxYQ=";
+      url = "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.93.tar.gz";
+      sha256 = "sha256-aKCMtNCx4FOPp27FjYMqoIp/I5iMa8A3efQK+wsQqU0=";
     };
   };
   shoko-webui = {
     pname = "shoko-webui";
-    version = "2.3.0-dev.2";
+    version = "2.3.0-dev.3";
     src = fetchTarball {
-      url = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.2.tar.gz";
-      sha256 = "sha256-x34o8sFNHkUhoD1SzCkTGJvFmA5IclFMk3H7vrlBtn0=";
+      url = "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.3.tar.gz";
+      sha256 = "sha256-JW2qxwtPjbif1PFQKJMW97CfT2ACrKEnURd25kfKXwo=";
     };
   };
   shokofin = {
@@ -104,39 +104,39 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
+    version = "c3e2b0e002a1a86b2bec37d6749692c204465d11";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c";
+      rev = "c3e2b0e002a1a86b2bec37d6749692c204465d11";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-nj6QChzNPjcjy85KM5zi6BEgsRxmFTDDrnGZQ+yZY3E=";
+      sha256 = "sha256-Tym1XcFsXxtb6qpubrGYZaTxnHFM+ElVUcrzygeHA2E=";
     };
-    date = "2025-06-15";
+    date = "2025-06-22";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
-    version = "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f";
+    version = "6bc21c597234828a561926ed648ed39f7137db4f";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-WebUI.git";
-      rev = "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f";
+      rev = "6bc21c597234828a561926ed648ed39f7137db4f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-y/9R+gcmxvCoxRldA2LXFKWtPKBfiClmq3V9323bkMY=";
+      sha256 = "sha256-V0ajmSsgKAUZRBlfnM2L3X3tGwnGShlhNejFefzTHqU=";
     };
-    date = "2025-06-10";
+    date = "2025-06-25";
   };
   whisparr = {
     pname = "whisparr";
-    version = "3.0.0.1127";
+    version = "3.0.0.1143";
     src = fetchurl {
-      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1127&os=linux&runtime=netcore&arch=x64";
-      name = "whisparr-src-3.0.0.1127.tar.gz";
-      sha256 = "sha256-XeOMEWSG98Bu4xRaon7MeN2PBrLiAAAyPzFQAsVvWw0=";
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1143&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1143.tar.gz";
+      sha256 = "sha256-4xX/FwksxPDQlhYzZkSG1UQKQexy17atC62p4LeCNcs=";
     };
   };
 }

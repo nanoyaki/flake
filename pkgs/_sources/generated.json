@@ -101,7 +101,7 @@
     },
     "rofi-themes": {
         "cargoLocks": null,
-        "date": "2025-06-09",
+        "date": "2025-06-26",
         "extract": null,
         "name": "rofi-themes",
         "passthru": null,
@@ -111,13 +111,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fb7011ec48bd065f398f2ff26d76e301aff1dc22",
-            "sha256": "sha256-wwLcb7z5jCKgKPY5mNhYIoPvKbVO3PwULrJ+Lm3Ra7g=",
+            "rev": "adfcc0770fa10daec5d87e3fb4ca6acd1d309491",
+            "sha256": "sha256-yMKpwxdwvp7ryz2XXunbjC/5ud9HHEDzyYRhM540958=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/adi1090x/rofi.git"
         },
-        "version": "fb7011ec48bd065f398f2ff26d76e301aff1dc22"
+        "version": "adfcc0770fa10daec5d87e3fb4ca6acd1d309491"
     },
     "shoko": {
         "cargoLocks": null,
@@ -127,11 +127,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-6i8Xyz/tv0DCtjbyiAa73WNgPO9j9v4kNKEs68mKxYQ=",
+            "sha256": "sha256-aKCMtNCx4FOPp27FjYMqoIp/I5iMa8A3efQK+wsQqU0=",
             "type": "tarball",
-            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.92.tar.gz"
+            "url": "https://github.com/ShokoAnime/ShokoServer/archive/refs/tags/v5.1.0-dev.93.tar.gz"
         },
-        "version": "5.1.0-dev.92"
+        "version": "5.1.0-dev.93"
     },
     "shoko-webui": {
         "cargoLocks": null,
@@ -141,11 +141,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-x34o8sFNHkUhoD1SzCkTGJvFmA5IclFMk3H7vrlBtn0=",
+            "sha256": "sha256-JW2qxwtPjbif1PFQKJMW97CfT2ACrKEnURd25kfKXwo=",
             "type": "tarball",
-            "url": "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.2.tar.gz"
+            "url": "https://github.com/ShokoAnime/Shoko-WebUI/archive/refs/tags/v2.3.0-dev.3.tar.gz"
         },
-        "version": "2.3.0-dev.2"
+        "version": "2.3.0-dev.3"
     },
     "shokofin": {
         "cargoLocks": null,
@@ -163,7 +163,7 @@
     },
     "suwayomi-server": {
         "cargoLocks": null,
-        "date": "2025-06-15",
+        "date": "2025-06-22",
         "extract": null,
         "name": "suwayomi-server",
         "passthru": null,
@@ -173,17 +173,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c",
-            "sha256": "sha256-nj6QChzNPjcjy85KM5zi6BEgsRxmFTDDrnGZQ+yZY3E=",
+            "rev": "c3e2b0e002a1a86b2bec37d6749692c204465d11",
+            "sha256": "sha256-Tym1XcFsXxtb6qpubrGYZaTxnHFM+ElVUcrzygeHA2E=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
         },
-        "version": "1dab9e1a7d7c6c6a934e2daabd7dfa926c64813c"
+        "version": "c3e2b0e002a1a86b2bec37d6749692c204465d11"
     },
     "suwayomi-webui": {
         "cargoLocks": null,
-        "date": "2025-06-10",
+        "date": "2025-06-25",
         "extract": null,
         "name": "suwayomi-webui",
         "passthru": null,
@@ -193,13 +193,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f",
-            "sha256": "sha256-y/9R+gcmxvCoxRldA2LXFKWtPKBfiClmq3V9323bkMY=",
+            "rev": "6bc21c597234828a561926ed648ed39f7137db4f",
+            "sha256": "sha256-V0ajmSsgKAUZRBlfnM2L3X3tGwnGShlhNejFefzTHqU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-WebUI.git"
         },
-        "version": "781d89a75aad8e1aa4d4b4568d52c8e05b3e4e2f"
+        "version": "6bc21c597234828a561926ed648ed39f7137db4f"
     },
     "whisparr": {
         "cargoLocks": null,
@@ -209,11 +209,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "whisparr-src-3.0.0.1127.tar.gz",
-            "sha256": "sha256-XeOMEWSG98Bu4xRaon7MeN2PBrLiAAAyPzFQAsVvWw0=",
+            "name": "whisparr-src-3.0.0.1143.tar.gz",
+            "sha256": "sha256-4xX/FwksxPDQlhYzZkSG1UQKQexy17atC62p4LeCNcs=",
             "type": "url",
-            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1127&os=linux&runtime=netcore&arch=x64"
+            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1143&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "3.0.0.1127"
+        "version": "3.0.0.1143"
     }
 }

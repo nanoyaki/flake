@@ -22,11 +22,15 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-YvtdAjRbEh9tb60gp6Lh70QSISPn6uZNWi09EF0Dkwg=";
   };
 
-  nativeBuildInputs = [ beets-minimal ];
-  dependencies = with python3Packages; [
-    watchdog
-    poetry-core
+  patches = [
+    ./watchdog-version.patch
   ];
+
+  nativeBuildInputs = [
+    beets-minimal
+    python3Packages.poetry-core
+  ];
+  dependencies = [ python3Packages.watchdog ];
 
   passthru = {
     updateScript = nix-update-script { };

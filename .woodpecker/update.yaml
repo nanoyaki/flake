@@ -3,11 +3,11 @@ when:
     cron: 'update'
 
 labels:
-  backend: local
+  backend: docker
 
 steps:
   - name: update
-    image: bash
+    image: nixos/nix:2.26.4-amd64
     environment:
       KEYS_TOML:
         from_secret: keys_toml
@@ -15,24 +15,27 @@ steps:
         from_secret: github_token
       CODEBERG_KEY:
         from_secret: codeberg_ssh_key
-      NIX_REMOTE: daemon
-      NIX_CONFIG: extra-experimental-features = nix-command flakes
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+      NIX_CONFIG: |
+        sandbox = true
+        extra-experimental-features = nix-command flakes
       USE_BWRAP: 0
       NIX_DEBUG: 1
       DEBUG_NVCHECKER: 1
+    privileged: true
     commands:
-      - mkdir ~/secrets ~/.ssh ~/.config/nix -p
-      - echo "$GITHUB_TOKEN" > ~/secrets/githubToken
-      - echo "$KEYS_TOML" > ~/secrets/keys.toml
-      - echo "access-tokens = github.com=$GITHUB_TOKEN" >> ~/.config/nix/nix.conf
+      - mkdir ~/.ssh
       - echo "$CODEBERG_KEY" > ~/.ssh/id_ed25519
       - >
         echo "codeberg.org ssh-ed25519
         AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB" > ~/.ssh/known_hosts
+      - echo "$KEYS_TOML" > keys.toml
+      - echo "access-tokens = github.com=$GITHUB_TOKEN" >> /etc/nix/nix.conf
       - chmod 400 ~/.ssh/id_ed25519
       - git config user.email "hanakretzer+autoupdate@gmail.com"
       - git config user.name "nanoyaki (autoupdate)"
-      - nix run .#update -- ~/secrets/keys.toml
+      - nix run .#update -- ./keys.toml
       - (git diff --quiet HEAD $CI_COMMIT_SHA && exit 1) || echo "Updates found, pushing commit."
       - git config core.sshCommand "ssh -i ~/.ssh/id_ed25519"
       - git remote set-url origin git@codeberg.org:nanoyaki/flake.git

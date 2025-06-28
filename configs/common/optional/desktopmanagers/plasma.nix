@@ -73,26 +73,42 @@ in
           };
         }
         // lib.optionalAttrs cfg.withOcrShortcut {
-          desktopEntries.ocr-ja = {
-            name = "OCR image: jpn";
-            exec = "${pkgs.writeShellScript "ocr" ''
-              IMAGE_FILE="/tmp/ocr-$RANDOM-tmp.png"
-              TEXT_FILE="/tmp/ocr-$RANDOM-tmp"
+          desktopEntries = {
+            ocr-ja = {
+              name = "OCR image: jpn";
+              exec = "${pkgs.writeShellScript "ocr" ''
+                IMAGE_FILE="$(mktemp /tmp/ocr_jpn_XXXXXX.png -u)"
+                TEXT_FILE="$(mktemp /tmp/ocr_jpn_XXXXXX -u)"
 
-              ${getExe pkgs.kdePackages.spectacle} -r -e -S -n -b -o $IMAGE_FILE || exit 1
-              ${getExe pkgs.tesseract} -l "jpn" $IMAGE_FILE $TEXT_FILE
-              ${getExe pkgs.translate-shell} -b -s japanese -t english "$(cat "$TEXT_FILE.txt")" > "$TEXT_FILE.txt"
-              ${getExe' pkgs.wl-clipboard "wl-copy"} < "$TEXT_FILE.txt"
+                ${getExe pkgs.kdePackages.spectacle} -r -e -S -n -b -o $IMAGE_FILE || exit 1
+                ${getExe pkgs.tesseract} -l "jpn" $IMAGE_FILE $TEXT_FILE
+                ${getExe pkgs.translate-shell} -b -s japanese -t english "$(cat "$TEXT_FILE.txt")" > "$TEXT_FILE.txt"
+                ${getExe' pkgs.wl-clipboard "wl-copy"} < "$TEXT_FILE.txt"
 
-              rm $IMAGE_FILE "$TEXT_FILE.txt"
-            ''}";
+                rm $IMAGE_FILE "$TEXT_FILE.txt" $TEXT_FILE
+              ''}";
+            };
+
+            ocr-eng = {
+              name = "OCR image: eng";
+              exec = "${pkgs.writeShellScript "ocr" ''
+                IMAGE_FILE="$(mktemp /tmp/ocr_eng_XXXXXX.png -u)"
+                TEXT_FILE="$(mktemp /tmp/ocr_eng_XXXXXX -u)"
+
+                ${getExe pkgs.kdePackages.spectacle} -r -e -S -n -b -o $IMAGE_FILE || exit 1
+                ${getExe pkgs.tesseract} -l "eng" $IMAGE_FILE $TEXT_FILE
+                ${getExe' pkgs.wl-clipboard "wl-copy"} < $TEXT_FILE
+
+                rm $IMAGE_FILE $TEXT_FILE
+              ''}";
+            };
           };
         };
 
       programs.plasma = {
         enable = true;
 
-        shortcuts."ocr-ja.desktop"._launch = "Ctrl+Print";
+        shortcuts."ocr-eng.desktop"._launch = "Ctrl+Print";
         shortcuts.kwin = {
           "Expose" = "Meta+Tab";
           "Maximize Window" = "Meta+Up";

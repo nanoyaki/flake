@@ -34,8 +34,8 @@ let
 
     import = {
       write = true;
-      copy = "no";
-      move = "yes";
+      copy = false;
+      move = true;
       resume = false;
       # quiet =
       # "no"; # Set by systemd, so that we can see logs if executed by hand
@@ -162,8 +162,8 @@ in
         path = torrentPath;
         override = {
           import = {
-            copy = "yes";
-            move = "no";
+            copy = true;
+            move = false;
           };
         };
       };

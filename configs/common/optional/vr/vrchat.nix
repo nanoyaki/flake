@@ -6,13 +6,27 @@
 
 {
   nixpkgs.overlays = [
-    (_: _: {
+    (final: prev: {
       vrSwitch = pkgs.writeShellScriptBin "vrSwitch" ''
         if systemctl --user is-active monado.service --quiet;
         then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/monado_comp_ipc" exec "$@";
         else exec "$@";
         fi
       '';
+      gnome2 = prev.gnome2.overrideScope (
+        _: gnomePrev: {
+          GConf = gnomePrev.GConf.overrideAttrs (oldAttrs: {
+            nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+              final.modernize
+              prev.writableTmpDirAsHomeHook
+            ];
+
+            postPatch = ''
+              python-modernize --write --nobackup gsettings/gsettings-schema-convert
+            '';
+          });
+        }
+      );
     })
   ];
 
@@ -21,7 +35,7 @@
     vrSwitch
     vrcx
     vrc-get
-    # unityhub
+    unityhub
     blender
     alcom
   ];

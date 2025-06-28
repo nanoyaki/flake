@@ -20,10 +20,7 @@ let
     pluginOverrides.drop2beets = {
       enable = true;
       propagatedBuildInputs = [ pkgs.drop2beets ];
-      wrapperBins = with pkgs; [
-        coreutils
-        which
-      ];
+      wrapperBins = with pkgs; [ inotify-tools ];
     };
   };
 
@@ -46,11 +43,7 @@ let
       log = "/var/log/beets.log";
     };
 
-    paths = {
-      default = "%asciify{$albumartist $album}[$year]/$track-$title}";
-      singleton = "%asciify{Non-Album/$artist-$title[$year]}";
-      comp = "%asciify{Compilations/$album/$track-$title}";
-    };
+    paths.default = "$albumartist/$album%aunique{}/$disc-$track $title";
 
     plugins = [
       "fetchart"
@@ -132,11 +125,12 @@ let
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${getExe package} -c ${configFile} dropbox ${path}";
         Restart = "on-failure";
+
+        ExecStart = "${getExe package} -c ${configFile} dropbox ${path}";
+
         User = user;
         Group = group;
-        WorkingDirectory = configDir;
       };
     };
 in

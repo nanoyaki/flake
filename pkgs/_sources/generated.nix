@@ -12,17 +12,17 @@
   };
   midnight-theme = {
     pname = "midnight-theme";
-    version = "dd66b6554edb71457d28e896c521b16844e909c7";
+    version = "f8875a75acd04bf4976e033dc22aed8378df9269";
     src = fetchgit {
       url = "https://github.com/refact0r/midnight-discord.git";
-      rev = "dd66b6554edb71457d28e896c521b16844e909c7";
+      rev = "f8875a75acd04bf4976e033dc22aed8378df9269";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-r1WFJHxyBQfqlHZML8zxzHS/tmn2sY6Jzg4TD1YRWrI=";
+      sha256 = "sha256-qKpIAgvpIB124VLZOjqwfKaV9kAqOG2lj9z2efD//Ng=";
     };
-    date = "2025-06-10";
+    date = "2025-06-26";
   };
   openrgb = {
     pname = "openrgb";
@@ -53,14 +53,6 @@
       url = "https://prowlarr.servarr.com/v1/update/develop/updatefile?version=2.0.0.5094&os=linux&runtime=netcore&arch=x64";
       name = "prowlarr-src-2.0.0.5094.tar.gz";
       sha256 = "sha256-JiKCR4OEzJCcOeTg05DtC4EddkDu+nDHvhz+lMFrumk=";
-    };
-  };
-  radarr = {
-    pname = "radarr";
-    version = "5.27.0.10101";
-    src = fetchurl {
-      url = "https://github.com/Radarr/Radarr/archive/refs/tags/v5.27.0.10101.tar.gz";
-      sha256 = "sha256-FsCEvL6WAYnPp+DDpZNC/3Y4P+PPQYwdXHYse0hxveQ=";
     };
   };
   rofi-themes = {
@@ -103,17 +95,17 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "c3e2b0e002a1a86b2bec37d6749692c204465d11";
+    version = "52201e248886a7b1e3fe02c90d0cfc20de5ebeb0";
     src = fetchgit {
       url = "https://github.com/Suwayomi/Suwayomi-Server.git";
-      rev = "c3e2b0e002a1a86b2bec37d6749692c204465d11";
+      rev = "52201e248886a7b1e3fe02c90d0cfc20de5ebeb0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Tym1XcFsXxtb6qpubrGYZaTxnHFM+ElVUcrzygeHA2E=";
+      sha256 = "sha256-8ONl6nclQHGWIWjnply0J+CXnvZkbEY7AlREGUJCB7s=";
     };
-    date = "2025-06-22";
+    date = "2025-06-26";
   };
   suwayomi-webui = {
     pname = "suwayomi-webui";
@@ -131,11 +123,11 @@
   };
   whisparr = {
     pname = "whisparr";
-    version = "3.0.0.1143";
+    version = "3.0.0.1146";
     src = fetchurl {
-      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1143&os=linux&runtime=netcore&arch=x64";
-      name = "whisparr-src-3.0.0.1143.tar.gz";
-      sha256 = "sha256-4xX/FwksxPDQlhYzZkSG1UQKQexy17atC62p4LeCNcs=";
+      url = "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1146&os=linux&runtime=netcore&arch=x64";
+      name = "whisparr-src-3.0.0.1146.tar.gz";
+      sha256 = "sha256-LN9SpkBLUbPXKMsbV6Dy8xnZaXdQRRdBRypJSsUfZjc=";
     };
   };
 }

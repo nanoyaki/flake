@@ -132,7 +132,7 @@ let
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${getExe package} -c ${configFile} install_dropbox";
+        ExecStart = "${getExe package} -c ${configFile} dropbox ${path}";
         Restart = "on-failure";
         User = user;
         Group = group;

@@ -20,7 +20,10 @@ let
     pluginOverrides.drop2beets = {
       enable = true;
       propagatedBuildInputs = [ pkgs.drop2beets ];
-      wrapperBins = [ pkgs.coreutils ];
+      wrapperBins = with pkgs; [
+        coreutils
+        which
+      ];
     };
   };
 

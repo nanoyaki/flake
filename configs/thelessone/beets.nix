@@ -133,6 +133,7 @@ let
         Restart = "on-failure";
         User = user;
         Group = group;
+        WorkingDirectory = configDir;
       };
     };
 in
@@ -141,13 +142,14 @@ in
     beets
   ];
 
-  users.users.${user} = {
+  users.users.beets = {
     isSystemUser = true;
+    home = configDir;
     inherit group;
   };
 
   systemd.tmpfiles.rules = [
-    "d '${configDir}'  0770 ${user} ${group} - -"
+    "d '${configDir}'  0700 ${user} ${group} - -"
     "f '${configDir}/library.db'  0660 ${user} ${group} - -"
     "f '/var/log/beets.log'  0660 ${user} ${group} - -"
     "f '/var/log/drop2beets.log'  0660 ${user} ${group} - -"

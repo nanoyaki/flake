@@ -39,11 +39,11 @@ let
       resume = false;
       # quiet =
       # "no"; # Set by systemd, so that we can see logs if executed by hand
-      quiet_fallback = "skip";
+      quiet_fallback = "asis";
       log = "/var/log/beets.log";
     };
 
-    paths.default = "$albumartist/$album%aunique{}/$disc-$track $title";
+    paths.default = "$artist/$album%aunique{}/$albumartist_$album_$disc-$track_$title";
 
     plugins = [
       "fetchart"

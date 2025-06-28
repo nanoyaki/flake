@@ -135,9 +135,7 @@ let
     };
 in
 {
-  environment.systemPackages = with pkgs; [
-    beets
-  ];
+  environment.systemPackages = [ package ];
 
   users.users.beets = {
     isSystemUser = true;

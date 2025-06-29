@@ -17,7 +17,7 @@ steps:
   - name: build
     image: bash
     commands:
-      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-nom -j 4
+      - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-nom -j 12 --eval-workers 1
       - echo "$(readlink -f ./result-)" > generationPath
 
   - name: diff

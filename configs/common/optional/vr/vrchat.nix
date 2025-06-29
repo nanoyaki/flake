@@ -35,9 +35,9 @@
     vrSwitch
     vrcx
     vrc-get
-    unityhub
     blender
     alcom
+    stable.unityhub
   ];
 
   xdg.mime.defaultApplications."x-scheme-handler/vcc" =

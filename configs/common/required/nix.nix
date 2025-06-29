@@ -10,7 +10,7 @@
 
 let
   inherit (lib) mkOption types;
-  inherit (inputs) nur lazy-apps;
+  inherit (inputs) nur lazy-apps nixpkgs-stable;
 
   cfg = config.nanoflake.nix;
 in
@@ -34,6 +34,12 @@ in
     ];
 
     nixpkgs.overlays = [
+      (final: _: {
+        stable = import nixpkgs-stable {
+          inherit (final.stdenv.hostPlatform) system;
+          inherit (config.nixpkgs) config;
+        };
+      })
       self.overlays.default
       nur.overlays.default
       lazy-apps.overlays.default

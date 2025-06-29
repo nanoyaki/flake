@@ -111,6 +111,18 @@ in
               targetHost = "10.0.0.3";
             }
           ) pkgs;
+          deploy-thelessone-local = mkDeploymentApp "thelessone-local" (
+            validConfigurations.thelessone.config.deployment
+            // {
+              targetHost = "192.168.178.84";
+            }
+          ) pkgs;
+          remote-switch-thelessone-local = mkSwitchApp "thelessone-local" (
+            validConfigurations.thelessone.config.deployment
+            // {
+              targetHost = "192.168.178.84";
+            }
+          ) pkgs;
         };
     };
 }

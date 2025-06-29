@@ -42,10 +42,9 @@ steps:
       - echo "$DEPLOYMENT_KEY_THELESSNAS" > priv
       - chmod 400 priv
       - |
-        nix run nixpkgs#openssh -- \
-          -i ./priv -T root@192.168.178.91 \
-          nix run nixpkgs#tmux -- new -d -s "remote-switch-thelessone" \
-          'nix run self#remote-switch-thelessone -- "'$(cat generationPath)'" $HOME/.ssh/deploymentThelessone'
+        ssh -i ./priv -T root@192.168.178.91 \
+          nix run nixpkgs#tmux -- new -d -s "remote-switch-thelessone-local" \
+          'nix run self#remote-switch-thelessone-local -- "'$(cat generationPath)'" $HOME/.ssh/deploymentThelessone'
 
   - name: wait for deeployment
     depends_on:

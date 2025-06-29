@@ -52,4 +52,4 @@ steps:
       - kickstart deployment
     image: bash
     commands:
-      - watch -g ls -lt /nix/var/nix/profiles
+      - nix shell nixpkgs#inotify-tools -c inotifywait -r -e modify,create,delete /nix/var/nix/profiles

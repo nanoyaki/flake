@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   sec."deploymentThelessone/private".path = "/root/.ssh/deploymentThelessone";
 
@@ -13,6 +15,9 @@
       "ja_JP.UTF-8/UTF-8"
     ];
   };
+
+  # for remote switching
+  environment.systemPackages = [ pkgs.tmux ];
 
   hm.home.stateVersion = "25.11";
   system.stateVersion = "25.11";

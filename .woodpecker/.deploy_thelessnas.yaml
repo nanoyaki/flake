@@ -25,7 +25,7 @@ steps:
     depends_on:
       - build
     commands:
-      - nix run nixpkgs#nvd -- diff /etc/systems/thelessnas "$(cat generationPath)"
+      - nvd diff /etc/systems/thelessnas "$(cat generationPath)"
 
   - name: deployment
     when:

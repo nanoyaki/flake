@@ -24,7 +24,7 @@ in
     kernelPackages = latestKernelPackage;
     supportedFilesystems.zfs = true;
     zfs.forceImportRoot = false;
-    zfs.extraPools = [ "moon" ];
+    # zfs.extraPools = [ "phobos" ];
   };
 
   networking.hostId = "23d2908a";

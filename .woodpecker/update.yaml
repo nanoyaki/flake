@@ -22,7 +22,6 @@ steps:
         extra-experimental-features = nix-command flakes
       USE_BWRAP: 0
       NIX_DEBUG: 1
-      DEBUG_NVCHECKER: 1
     privileged: true
     commands:
       - mkdir ~/.ssh ~/.secrets

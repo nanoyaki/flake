@@ -18,10 +18,16 @@ steps:
     image: bash
     commands:
       - nix-fast-build -f .#nixosConfigurations.thelessone.config.system.build.toplevel --no-nom -j 4
-      - nix run nixpkgs#nvd -- diff /run/current-system $(readlink -f ./result-)
+      - echo "$(readlink -f ./result-)" > generationPath
 
-  - name: deployment
-    failure: ignore
+  - name: diff
+    depends_on:
+      - build
+    image: bash
+    commands:
+      - nix run nixpkgs#nvd -- diff /run/current-system "$(cat generationPath)"
+
+  - name: kickstart deployment
     when:
       - event: deployment
       - branch: main
@@ -30,9 +36,20 @@ steps:
       - build
     image: bash
     environment:
-      DEPLOYMENT_KEY:
-        from_secret: DEPLOYMENT_KEY
+      DEPLOYMENT_KEY_YURI:
+        from_secret: DEPLOYMENT_KEY_YURI
     commands:
-      - echo "$DEPLOYMENT_KEY" > deployment
-      - chmod 400 deployment
-      - nix --extra-experimental-features "nix-command flakes" run .#deploy-thelessone -- switch deployment
+      - echo "$DEPLOYMENT_KEY_YURI" > priv
+      - chmod 400 priv
+      - |
+        nix run nixpkgs#openssh -- \
+          -i ./priv -T root@100.64.64.3 \
+          tmux new -d -s "remote-switch-thelessone" \
+          'nix run self#remote-switch-thelessone -- "'$(cat generationPath)'" ./priv'
+
+  - name: wait for deeployment
+    depends_on:
+      - kickstart deployment
+    image: bash
+    commands:
+      - watch -g ls -lt /nix/var/nix/profiles

@@ -16,7 +16,7 @@
     },
     "midnight-theme": {
         "cargoLocks": null,
-        "date": "2025-06-26",
+        "date": "2025-06-27",
         "extract": null,
         "name": "midnight-theme",
         "passthru": null,
@@ -26,13 +26,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f8875a75acd04bf4976e033dc22aed8378df9269",
-            "sha256": "sha256-qKpIAgvpIB124VLZOjqwfKaV9kAqOG2lj9z2efD//Ng=",
+            "rev": "a27e9094821d81adb6d14665655f1ba5b19d17c9",
+            "sha256": "sha256-JmLzqWPZiqfF9owmY+zbwtCE5ioNxTObFWeVMcjKGNw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/refact0r/midnight-discord.git"
         },
-        "version": "f8875a75acd04bf4976e033dc22aed8378df9269"
+        "version": "a27e9094821d81adb6d14665655f1ba5b19d17c9"
     },
     "openrgb": {
         "cargoLocks": null,
@@ -148,7 +148,7 @@
     },
     "suwayomi-server": {
         "cargoLocks": null,
-        "date": "2025-06-26",
+        "date": "2025-06-28",
         "extract": null,
         "name": "suwayomi-server",
         "passthru": null,
@@ -158,17 +158,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "52201e248886a7b1e3fe02c90d0cfc20de5ebeb0",
-            "sha256": "sha256-8ONl6nclQHGWIWjnply0J+CXnvZkbEY7AlREGUJCB7s=",
+            "rev": "ae904753f784f61e25dc06c013497ee1c7b43701",
+            "sha256": "sha256-Sjd0ynOmoa8hHBs/aLLpy0ATVQEtCG5zzPGEHEr/xbg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-Server.git"
         },
-        "version": "52201e248886a7b1e3fe02c90d0cfc20de5ebeb0"
+        "version": "ae904753f784f61e25dc06c013497ee1c7b43701"
     },
     "suwayomi-webui": {
         "cargoLocks": null,
-        "date": "2025-06-25",
+        "date": "2025-06-28",
         "extract": null,
         "name": "suwayomi-webui",
         "passthru": null,
@@ -178,13 +178,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6bc21c597234828a561926ed648ed39f7137db4f",
-            "sha256": "sha256-V0ajmSsgKAUZRBlfnM2L3X3tGwnGShlhNejFefzTHqU=",
+            "rev": "fd89d8021703fb2712d1916fe49c771c085d8942",
+            "sha256": "sha256-FSerJP0STzAswdZ/hlj1ZZm4Npg5Tv1daw06apgvx/w=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-WebUI.git"
         },
-        "version": "6bc21c597234828a561926ed648ed39f7137db4f"
+        "version": "fd89d8021703fb2712d1916fe49c771c085d8942"
     },
     "whisparr": {
         "cargoLocks": null,
@@ -194,11 +194,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "whisparr-src-3.0.0.1146.tar.gz",
-            "sha256": "sha256-LN9SpkBLUbPXKMsbV6Dy8xnZaXdQRRdBRypJSsUfZjc=",
+            "name": "whisparr-src-3.0.0.1149.tar.gz",
+            "sha256": "sha256-8pc5oXNJrZjWS3Ve5fLvK6HhYTYVYUtoOwiQP0kaPmk=",
             "type": "url",
-            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1146&os=linux&runtime=netcore&arch=x64"
+            "url": "https://whisparr.servarr.com/v1/update/eros/updatefile?version=3.0.0.1149&os=linux&runtime=netcore&arch=x64"
         },
-        "version": "3.0.0.1146"
+        "version": "3.0.0.1149"
     }
 }

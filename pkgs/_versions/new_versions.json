@@ -11,13 +11,13 @@
       "version": "sha256-oNRzxfAr1QM4G0udfsryNQZMxrnMvAUSFlsi4MKEPXI="
     },
     "suwayomi-server.gradleDepsHash": {
-      "version": "sha256-MPqkh2sromlGC2SaoIfOiykglGGvdjkwHBGlq+5Qrm4="
+      "version": "sha256-DGbC7YYi5bW114jxBxTNflLA2wpxJdaNKSA8onkyFHY="
     },
     "suwayomi-server.version": {
-      "version": "2.0.1810"
+      "version": "2.0.1820"
     },
     "suwayomi-webui.revision": {
-      "version": "2631"
+      "version": "2637"
     },
     "suwayomi-webui.yarnHash": {
       "version": "sha256-YlMR8X8Dng3zZpFd1HUKnu3iLV1Q1qa1kcrwB8E+Hmc="

@@ -29,6 +29,7 @@
       ./tailscale.nix
       ./vaultwarden.nix
       ./beets.nix
+      ./zfs.nix
     ];
   };
 }

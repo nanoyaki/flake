@@ -1,4 +1,6 @@
 {
+  sec."deploymentThelessone/private".path = "/root/.ssh/deploymentThelessone";
+
   nanoflake.localization = {
     timezone = "Europe/Vienna";
     language = [

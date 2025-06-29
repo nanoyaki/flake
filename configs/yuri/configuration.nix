@@ -5,8 +5,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  sec."deploymentThelessone/private".path = "/root/.ssh/deploymentThelessone";
-
   nanoflake.localization = {
     language = "en_US";
     locale = "en_US.UTF-8";

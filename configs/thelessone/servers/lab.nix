@@ -28,6 +28,8 @@ in
     self.nixosModules.lab-config
   ];
 
+  systemd.services."systemd-tmpfiles-resetup".after = [ "mnt-raid.mount" ];
+
   sec."vaultwarden".owner = "vaultwarden";
 
   services.vaultwarden = {

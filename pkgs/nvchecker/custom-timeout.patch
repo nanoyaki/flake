@@ -1,39 +1,11 @@
 diff --git a/nvchecker_source/cmd.py b/nvchecker_source/cmd.py
-index 3aa6cde..b33f367 100644
+index bcd0151..dbfc7cd 100644
 --- a/nvchecker_source/cmd.py
 +++ b/nvchecker_source/cmd.py
-@@ -2,6 +2,7 @@
- # Copyright (c) 2013-2020,2025 lilydjwg <lilydjwg@gmail.com>, et al.
- 
- import asyncio
-+from functools import partial
- 
- import structlog
- 
-@@ -9,7 +10,7 @@ from nvchecker.api import GetVersionError
- 
- logger = structlog.get_logger(logger_name=__name__)
- 
--async def run_cmd(cmd: str, timeout: int = 60) -> str:
-+async def run_cmd(cmd: str, timeout: int) -> str:
-   logger.debug('running cmd', cmd=cmd, timeout=timeout)
-   p = await asyncio.create_subprocess_shell(
-     cmd,
-@@ -25,9 +26,9 @@ async def run_cmd(cmd: str, timeout: int = 60) -> str:
-         output_s = output.strip().decode('latin1')
-         error_s = error.strip().decode(errors='replace')
-     except TimeoutError:
--      logger.warning('cmd timed out', cmd=cmd, timeout=timeout)
-       p.terminate()
-       await p.wait()
-+      raise GetVersionError('cmd timed out', cmd=cmd)
-   else:
-     output, error = await p.communicate()
-     output_s = output.strip().decode('latin1')
-@@ -50,4 +51,5 @@ async def get_version(
+@@ -56,4 +56,5 @@ async def get_version(
    name, conf, *, cache, keymanager=None
  ):
    cmd = conf['cmd']
--  return await cache.get(cmd, run_cmd)
+-  return await cache.get(cmd, partial(run_cmd, name))
 +  timeout = conf.get('timeout', 300)
-+  return await cache.get(cmd, partial(run_cmd, timeout=timeout))
++  return await cache.get(cmd, partial(run_cmd, name, timeout=timeout))

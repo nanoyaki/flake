@@ -51,7 +51,7 @@
 
               nvcmp -c source.toml | sed 's|->|→|g' > /tmp/nvchecker_changelog
 
-              git add pkgs/{_sources,_versions,*/deps.json} flake.lock update_*.log
+              git add pkgs/{_sources,_versions,*/deps.json} flake.lock update*
               git commit -m "chore: Update $(date +"%d.%m.%y")
 
               $(cat /tmp/nvfetcher_changelog)

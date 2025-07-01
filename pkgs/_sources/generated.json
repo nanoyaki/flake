@@ -16,7 +16,7 @@
     },
     "midnight-theme": {
         "cargoLocks": null,
-        "date": "2025-06-27",
+        "date": "2025-06-30",
         "extract": null,
         "name": "midnight-theme",
         "passthru": null,
@@ -26,13 +26,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a27e9094821d81adb6d14665655f1ba5b19d17c9",
-            "sha256": "sha256-JmLzqWPZiqfF9owmY+zbwtCE5ioNxTObFWeVMcjKGNw=",
+            "rev": "0a080c1b62898a8776c1cb117989b02660e32ac7",
+            "sha256": "sha256-ZxC8XfIIPhszo+BouVLSA6Tq0PB4M0nTkmmScTyVA7M=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/refact0r/midnight-discord.git"
         },
-        "version": "a27e9094821d81adb6d14665655f1ba5b19d17c9"
+        "version": "0a080c1b62898a8776c1cb117989b02660e32ac7"
     },
     "openrgb": {
         "cargoLocks": null,
@@ -168,7 +168,7 @@
     },
     "suwayomi-webui": {
         "cargoLocks": null,
-        "date": "2025-06-28",
+        "date": "2025-07-01",
         "extract": null,
         "name": "suwayomi-webui",
         "passthru": null,
@@ -178,13 +178,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fd89d8021703fb2712d1916fe49c771c085d8942",
-            "sha256": "sha256-FSerJP0STzAswdZ/hlj1ZZm4Npg5Tv1daw06apgvx/w=",
+            "rev": "51975ea3cde3ab8e8d437cd6d78026056a340c85",
+            "sha256": "sha256-pjSHKglThNSOXqM4+6oMd4WEdZsi9KopFTtKsDyrsSs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Suwayomi/Suwayomi-WebUI.git"
         },
-        "version": "fd89d8021703fb2712d1916fe49c771c085d8942"
+        "version": "51975ea3cde3ab8e8d437cd6d78026056a340c85"
     },
     "whisparr": {
         "cargoLocks": null,

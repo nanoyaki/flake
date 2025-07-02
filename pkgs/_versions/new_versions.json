@@ -11,10 +11,10 @@
       "version": "sha256-oNRzxfAr1QM4G0udfsryNQZMxrnMvAUSFlsi4MKEPXI="
     },
     "suwayomi-server.gradleDepsHash": {
-      "version": "sha256-DGbC7YYi5bW114jxBxTNflLA2wpxJdaNKSA8onkyFHY="
+      "version": "sha256-cBIAlVjfgR23uQcW27UJop3vhA6LAKJWaMMsZCuXEdg="
     },
     "suwayomi-server.version": {
-      "version": "2.0.1820"
+      "version": "2.0.1824"
     },
     "suwayomi-webui.revision": {
       "version": "2640"

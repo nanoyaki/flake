@@ -107,10 +107,22 @@
   virtualisation.podman = {
     enable = true;
     defaultNetwork.settings.dns_enabled = true;
+    dockerCompat = true;
   };
 
   networking.firewall.interfaces."podman0" = {
     allowedUDPPorts = [ 53 ];
     allowedTCPPorts = [ 53 ];
+  };
+
+  systemd.services.woodpecker-agent-native.after = [ "woodpecker-server.service" ];
+  systemd.services.woodpecker-agent-docker = {
+    after = [
+      "podman.socket"
+      "woodpecker-server.service"
+    ];
+
+    # might break deployment
+    serviceConfig.BindPaths = [ "/run/podman/podman.sock" ];
   };
 }

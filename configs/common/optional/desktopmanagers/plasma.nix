@@ -41,6 +41,7 @@ in
       kwrited
       okular
       print-manager
+      krdp
     ];
 
     services.displayManager = {

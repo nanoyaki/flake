@@ -58,7 +58,7 @@ in
     };
 
     prowlarr = {
-      enable = false;
+      enable = true;
       homepage = {
         category = mediaServices;
         description = "Indexing manager";
@@ -98,12 +98,12 @@ in
     };
 
     sabnzbd = {
-      enable = false;
+      enable = true;
       homepage.category = services;
     };
 
     transmission = {
-      enable = false;
+      enable = true;
       homepage.category = services;
     };
 

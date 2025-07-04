@@ -18,13 +18,11 @@ lib'.modules.mkModule {
     description = mkDefault "Adult video manager" mkStrOption;
   };
 
-  specialArgs = [ "packages" ];
   config =
     {
       cfg,
       cfg',
       config,
-      packages,
       helpers',
       ...
     }:
@@ -39,7 +37,6 @@ lib'.modules.mkModule {
       services.whisparr = {
         enable = true;
         inherit (cfg'.lab-config.arr) group;
-        package = packages.whisparr;
       };
 
       services'.caddy.reverseProxies.${domain}.port = config.services.whisparr.settings.server.port;

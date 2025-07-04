@@ -31,7 +31,6 @@
           {
             ${hostname} = withSystem platform (
               {
-                config,
                 inputs',
                 self',
                 ...
@@ -39,7 +38,7 @@
 
               inputs.nixpkgs.lib.nixosSystem {
                 specialArgs = {
-                  inherit (config) packages;
+                  inherit (inputs'.nanopkgs) packages;
                   inherit
                     inputs
                     inputs'

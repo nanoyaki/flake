@@ -2,13 +2,17 @@
   lib,
   pkgs,
   inputs,
-  self,
   config,
   ...
 }:
 
 let
-  inherit (inputs) nixpkgs-xr nixgl vermeer-undervolt;
+  inherit (inputs)
+    nixpkgs-xr
+    nixgl
+    vermeer-undervolt
+    nanopkgs
+    ;
   inherit (config.lib) nixGL;
 in
 
@@ -22,7 +26,7 @@ in
   };
 
   nixpkgs.overlays = [
-    self.overlays.default
+    nanopkgs.overlays.default
     nixpkgs-xr.overlays.default
     vermeer-undervolt.overlays.default
   ];

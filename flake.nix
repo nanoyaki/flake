@@ -89,6 +89,11 @@
       url = "github:nanoyaki/discord-events-to-ics/v1.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nanopkgs = {
+      url = "github:nanoyaki/nanopkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs =
@@ -102,12 +107,10 @@
 
       imports = [
         ./lib
-        ./pkgs
         ./deploy.nix
         ./modules
         ./homeModules
         ./devShell.nix
-        ./update.nix
 
         ./configs/shirayuri
         ./configs/kuroyuri

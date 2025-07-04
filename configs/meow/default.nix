@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (inputs) home-manager nixpkgs;
+  inherit (inputs) home-manager nixpkgs nanopkgs;
 
   username = "hana";
   arch = "x86_64-linux";
@@ -24,7 +24,7 @@ in
           self
           ;
 
-        packages = self.packages.${arch};
+        packages = nanopkgs.packages.${arch};
       };
       modules = [
         self.homeManagerModules.symlinks
@@ -50,7 +50,7 @@ in
           ;
 
         username = "root";
-        packages = self.packages.${arch};
+        packages = nanopkgs.packages.${arch};
       };
       modules = [
         ./nix.nix

@@ -33,22 +33,6 @@ in
       audio.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
-      jack.enable = true;
-
-      extraConfig = {
-        pipewire."92-low-latency" = {
-          "context.properties" = {
-            "default.allowed-rates" = [ cfg.samplingRate ];
-            "default.clock.rate" = cfg.samplingRate;
-            "default.clock.quantum" = cfg.latency;
-            "default.clock.min-quantum" = cfg.latency;
-            "default.clock.max-quantum" = cfg.latency;
-          };
-        };
-
-        pipewire-pulse."92-low-latency"."stream.properties"."node.latency" =
-          "${toString cfg.latency}/${toString cfg.samplingRate}";
-      };
 
       wireplumber.enable = true;
       wireplumber.extraConfig."92-low-latency" = {
@@ -61,17 +45,15 @@ in
               }
             ];
             "actions.update-props" = {
-              "audio.rate" = cfg.samplingRate * 2;
+              "audio.rate" = cfg.samplingRate;
               "api.alsa.period-size" = cfg.latency;
+              "api.alsa.rate" = cfg.samplingRate;
             };
           }
         ];
       };
     };
 
-    users.users.${username}.extraGroups = [
-      "jackaudio"
-      "audio"
-    ];
+    users.users.${username}.extraGroups = [ "audio" ];
   };
 }

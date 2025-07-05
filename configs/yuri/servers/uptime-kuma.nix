@@ -1,8 +1,6 @@
 { lib, config, ... }:
 
 {
-  sec."dynamicdns/theless.one" = { };
-
   services.uptime-kuma = {
     enable = true;
     settings = {
@@ -12,11 +10,6 @@
     };
   };
 
-  services'.caddy.reverseProxies."https://status.theless.one".port =
+  services'.caddy.reverseProxies."https://status.nanoyaki.space".port =
     lib.strings.toInt config.services.uptime-kuma.settings.PORT;
-
-  services'.dynamicdns.domains."theless.one" = {
-    subdomains = [ "status" ];
-    passwordFile = config.sec."dynamicdns/theless.one".path;
-  };
 }

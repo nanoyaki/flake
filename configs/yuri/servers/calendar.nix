@@ -93,10 +93,4 @@ in
       "catch_workers_output" = true;
     };
   };
-
-  sec."dynamicdns/nanoyaki.space" = { };
-  services'.dynamicdns.domains."nanoyaki.space" = {
-    subdomains = [ "events" ];
-    passwordFile = config.sec."dynamicdns/nanoyaki.space".path;
-  };
 }

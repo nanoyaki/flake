@@ -148,27 +148,30 @@ in
             };
           };
         };
-        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-          ublock-origin
-          keepa
-          refined-github
-          languagetool
-          control-panel-for-twitter
-          tampermonkey
-          redirector
-          reddit-enhancement-suite
-          mullvad
+        extensions = {
+          force = true;
+          packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            ublock-origin
+            keepa
+            refined-github
+            languagetool
+            control-panel-for-twitter
+            tampermonkey
+            redirector
+            reddit-enhancement-suite
+            mullvad
 
-          steam-database
-          augmented-steam
+            steam-database
+            augmented-steam
 
-          return-youtube-dislikes
-          youtube-screenshot-button
+            return-youtube-dislikes
+            youtube-screenshot-button
 
-          seventv
-          betterttv
-          twitch-auto-points
-        ];
+            seventv
+            betterttv
+            twitch-auto-points
+          ];
+        };
       };
 
       profiles.vpn = {
@@ -180,10 +183,13 @@ in
           default = "google";
           privateDefault = "ddg";
         };
-        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-          ublock-origin
-          mullvad
-        ];
+        extensions = {
+          force = true;
+          packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            ublock-origin
+            mullvad
+          ];
+        };
       };
     };
   };

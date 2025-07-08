@@ -91,56 +91,14 @@ in
         Services.before = "Code";
       };
 
-      glances.layout.columns = 4;
+      glances.layout.columns = 3;
       glances.widgets = [
-        {
-          "CPU usage" = {
-            metric = "cpu";
-            chart = true;
-          };
-        }
-        {
-          "Memory usage" = {
-            metric = "memory";
-            chart = true;
-          };
-        }
-        {
-          "Network usage" = {
-            metric = "network:enp6s0";
-            chart = true;
-          };
-        }
-        {
-          "VPN Network usage" = {
-            metric = "network:tailscale0";
-            chart = true;
-          };
-        }
-        {
-          "Storage usage RAID" = {
-            metric = "fs:/mnt/raid";
-            chart = true;
-          };
-        }
-        {
-          "Disk I/O RAID" = {
-            metric = "disk:sda";
-            chart = true;
-          };
-        }
-        {
-          "Storage usage NVMe" = {
-            metric = "fs:/";
-            chart = true;
-          };
-        }
-        {
-          "Disk I/O NVMe" = {
-            metric = "disk:nvme0n1";
-            chart = true;
-          };
-        }
+        { "CPU usage".metric = "cpu"; }
+        { "Memory usage".metric = "memory"; }
+        { "Network usage".metric = "network:enp6s0"; }
+        { "VPN Network usage".metric = "network:tailscale0"; }
+        { "Storage usage NVMe".metric = "fs:/"; }
+        { "Disk I/O NVMe".metric = "disk:nvme0n1"; }
       ];
     };
   };

@@ -1,13 +1,13 @@
 {
   pkgs,
   config,
-  inputs',
+  # inputs',
   self,
   ...
 }:
 
 let
-  webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
+  # webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
   home = "/var/lib/caddy/nanoyaki-events";
 in
 
@@ -20,34 +20,34 @@ in
   ];
 
   sec."caddy/nanoyaki-events/environment".owner = config.services.caddy.user;
-  services.caddy = {
-    environmentFile = config.sec."caddy/nanoyaki-events/environment".path;
+  # services.caddy = {
+  #   environmentFile = config.sec."caddy/nanoyaki-events/environment".path;
 
-    virtualHosts."events.nanoyaki.space".extraConfig = ''
-      root * ${webPkg}/public
+  #   virtualHosts."events.nanoyaki.space".extraConfig = ''
+  #     root * ${webPkg}/public
 
-      encode zstd gzip
-      file_server
+  #     encode zstd gzip
+  #     file_server
 
-      php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
-        root ${webPkg}/public
+  #     php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
+  #       root ${webPkg}/public
 
-        env GUILD_ID {env.GUILD_ID}
-        env BOT_TOKEN {env.BOT_TOKEN}
-        env CACHE_DIR "${home}/cache"
-        env LOG_PATH "${home}/logs"
-        env LOG_LEVEL "info"
+  #       env GUILD_ID {env.GUILD_ID}
+  #       env BOT_TOKEN {env.BOT_TOKEN}
+  #       env CACHE_DIR "${home}/cache"
+  #       env LOG_PATH "${home}/logs"
+  #       env LOG_LEVEL "info"
 
-        resolve_root_symlink
-      }
+  #       resolve_root_symlink
+  #     }
 
-      @dotfiles {
-        not path /.well-known/*
-        path /.*
-      }
-      redir @dotfiles /
-    '';
-  };
+  #     @dotfiles {
+  #       not path /.well-known/*
+  #       path /.*
+  #     }
+  #     redir @dotfiles /
+  #   '';
+  # };
   users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
 
   systemd.tmpfiles.settings."10-nanoyaki-events" =

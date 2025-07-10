@@ -72,7 +72,10 @@
     certs."theless.one" = {
       inherit (config.services.caddy) group;
 
-      extraDomainNames = [ "*.theless.one" ];
+      extraDomainNames = [
+        "*.vpn.theless.one"
+        "*.theless.one"
+      ];
       dnsProvider = "porkbun";
       dnsResolver = "173.245.58.37:53";
       dnsPropagationCheck = true;

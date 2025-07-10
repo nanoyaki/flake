@@ -56,15 +56,8 @@
     auto_https off
   '';
 
-  services.caddy.virtualHosts."theless.one".extraConfig = ''
-    handle /.well-known/acme-challenge/* {
-      root * /var/lib/acme/.well-known/acme-challenge
-      file_server
-    }
-
-    tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem {
-      protocols tls1.3
-    }
+  services.caddy.virtualHosts.":443".extraConfig = ''
+    tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem
   '';
 
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {

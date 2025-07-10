@@ -2,17 +2,28 @@
   lib,
   pkgs,
   config,
+  self,
   ...
 }:
 
-let
-  acmeDir = "/var/lib/acme";
-in
-
 {
+  imports = [
+    self.nixosModules.dynamicdns
+  ];
+
   sec = {
+    "dynamicdns/vappie.space" = { };
     "porkbun/api-key" = { };
     "porkbun/secret-api-key" = { };
+  };
+
+  services'.dynamicdns.domains."vappie.space" = {
+    subdomains = [
+      "*"
+      "@"
+    ];
+
+    passwordFile = config.sec."dynamicdns/vappie.space".path;
   };
 
   sops.templates."oink.json".file = (pkgs.formats.json { }).generate "oink.json" {
@@ -25,7 +36,7 @@ in
     domains =
       map
         (subdomain: {
-          domain = "nanoyaki.space";
+          domain = "theless.one";
           inherit subdomain;
         })
         [
@@ -45,13 +56,13 @@ in
     auto_https off
   '';
 
-  services.caddy.virtualHosts."nanoyaki.space".extraConfig = ''
+  services.caddy.virtualHosts."theless.one".extraConfig = ''
     handle /.well-known/acme-challenge/* {
-      root * ${acmeDir}/.well-known/acme-challenge
+      root * /var/lib/acme/.well-known/acme-challenge
       file_server
     }
 
-    tls ${acmeDir}/nanoyaki.space/cert.pem ${acmeDir}/nanoyaki.space/key.pem {
+    tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem {
       protocols tls1.3
     }
   '';
@@ -65,16 +76,16 @@ in
     acceptTerms = true;
     defaults.email = "hanakretzer@gmail.com";
 
-    certs."nanoyaki.space" = {
+    certs."theless.one" = {
       inherit (config.services.caddy) group;
 
-      domain = "nanoyaki.space";
-      extraDomainNames = [ "*.nanoyaki.space" ];
+      extraDomainNames = [ "*.theless.one" ];
       dnsProvider = "porkbun";
+      dnsResolver = "173.245.58.37:53";
       dnsPropagationCheck = true;
       environmentFile = config.sops.templates."acme.env".path;
     };
   };
 
-  systemd.services.caddy.after = [ "acme-nanoyaki.space.service" ];
+  systemd.services.caddy.after = [ "acme-theless.one.service" ];
 }

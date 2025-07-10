@@ -9,7 +9,7 @@
     ./forgejo.nix
     ./minecraft
     ./woodpecker.nix
-    ./dynamicdns.nix
+    ./domains.nix
     ./syncthing.nix
     ./steam.nix
     ./nix-serve.nix

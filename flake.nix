@@ -94,6 +94,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    md2img = {
+      url = "github:nanoyaki/md2img";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

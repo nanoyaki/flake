@@ -710,6 +710,26 @@
         "type": "github"
       }
     },
+    "md2img": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752261125,
+        "narHash": "sha256-BsyTB3uxhYwJdoZ2S9FgrMOqeyD6E6CZLrO1XfuD4wQ=",
+        "owner": "nanoyaki",
+        "repo": "md2img",
+        "rev": "ba860e244b097562580cbf4e9da03f6dd9418ae1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nanoyaki",
+        "repo": "md2img",
+        "type": "github"
+      }
+    },
     "nanopkgs": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -1053,6 +1073,7 @@
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "lazy-apps": "lazy-apps",
+        "md2img": "md2img",
         "nanopkgs": "nanopkgs",
         "nix-minecraft": "nix-minecraft",
         "nixgl": "nixgl",

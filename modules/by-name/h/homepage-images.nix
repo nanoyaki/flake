@@ -5,7 +5,14 @@
 }:
 
 let
-  inherit (lib'.options) mkDefault mkStrOption mkPathOption;
+  inherit (lib'.options)
+    mkDefault
+    mkStrOption
+    mkPathOption
+    mkIntOption
+    ;
+
+  inherit (builtins) toString;
 in
 
 lib'.modules.mkModule {
@@ -17,6 +24,7 @@ lib'.modules.mkModule {
     {
       group = mkDefault "homepage-images" mkStrOption;
       dataDir = mkDefault "${config.services.caddy.dataDir}/homepage-images" mkPathOption;
+      refreshDuration = mkDefault 30 mkIntOption;
     };
 
   config =
@@ -31,6 +39,8 @@ lib'.modules.mkModule {
       services.caddy.virtualHosts.${helpers'.caddy.domain cfg}.extraConfig = ''
         root * ${cfg.dataDir}
         file_server * browse
+
+        header Cache-Control "max-age=${toString (cfg.refreshDuration * 60)}, must-revalidate, public"
       '';
 
       systemd.services.homepage-images = {
@@ -55,7 +65,7 @@ lib'.modules.mkModule {
           ln -sf "${cfg.dataDir}/$NEXT_NUM.webp" "${cfg.dataDir}/active.webp"
         '';
 
-        startAt = "*:0/30";
+        startAt = "*:0/${toString cfg.refreshDuration}";
 
         serviceConfig = {
           Type = "oneshot";

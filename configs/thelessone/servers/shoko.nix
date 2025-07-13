@@ -11,7 +11,10 @@
 
   services.shoko = {
     enable = true;
-    plugins = [ pkgs.shokofin ];
+    plugins = with pkgs; [
+      shokofin
+      luarenamer
+    ];
   };
 
   systemd.services.shoko.serviceConfig = {

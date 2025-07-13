@@ -49,7 +49,12 @@
     description = "Dynamic DNS client for Porkbun";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    script = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path}";
+
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path}";
+      Restart = "always";
+      Type = "simple";
+    };
   };
 
   services.caddy.globalConfig = lib.mkForce ''

@@ -28,7 +28,10 @@ in
     self.nixosModules.lab-config
   ];
 
-  systemd.services."systemd-tmpfiles-resetup".after = [ "mnt-raid.mount" ];
+  systemd.services."systemd-tmpfiles-resetup" = {
+    requires = [ "network-online.target" ];
+    after = [ "mnt-raid.mount" ];
+  };
 
   sec."vaultwarden".owner = "vaultwarden";
 

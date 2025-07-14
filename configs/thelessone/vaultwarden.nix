@@ -42,4 +42,9 @@
       passwordFile = config.sec."restic/vaultwarden-remote/password".path;
     };
   };
+
+  systemd.services.restic-backups-vaultwarden-local = {
+    requires = [ "mnt-raid.mount" ];
+    after = [ "mnt-raid.mount" ];
+  };
 }

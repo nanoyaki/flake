@@ -40,6 +40,11 @@ in
     };
   };
 
+  systemd.services.stash = {
+    requires = [ "mnt-raid.mount" ];
+    after = [ "mnt-raid.mount" ];
+  };
+
   environment.systemPackages = [ pkgs.chromium ];
 
   services'.caddy.reverseProxies."https://stash.vpn.theless.one" = {

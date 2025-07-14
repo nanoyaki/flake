@@ -36,11 +36,12 @@ in
 
   systemd.services.oink = {
     description = "Dynamic DNS client for Porkbun";
-    after = [ "network.target" ];
+    requires = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path}";
+      ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path} -v";
       Restart = "always";
       Type = "simple";
     };

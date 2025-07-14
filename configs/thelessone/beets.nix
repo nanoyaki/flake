@@ -37,15 +37,16 @@ let
       copy = false;
       move = true;
       resume = false;
+      group_albums = true;
       # quiet =
       # "no"; # Set by systemd, so that we can see logs if executed by hand
       quiet_fallback = "asis";
       log = "/var/log/beets.log";
     };
 
-    paths = rec {
+    paths = {
       default = "$artist/$album%aunique{}/$albumartist_$album_$disc-$track_$title";
-      singleton = default;
+      singleton = "$artist/No-Album/$disc-$track_$title";
     };
 
     plugins = [

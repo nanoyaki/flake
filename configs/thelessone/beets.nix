@@ -43,7 +43,10 @@ let
       log = "/var/log/beets.log";
     };
 
-    paths.default = "$artist/$album%aunique{}/$albumartist_$album_$disc-$track_$title";
+    paths = rec {
+      default = "$artist/$album%aunique{}/$albumartist_$album_$disc-$track_$title";
+      singleton = default;
+    };
 
     plugins = [
       "fetchart"
@@ -123,6 +126,8 @@ let
         (mkIf config.services'.transmission.enable "transmission.service")
       ];
 
+      environment.BEETSDIR = configDir;
+
       serviceConfig = {
         Type = "simple";
         Restart = "on-failure";
@@ -131,6 +136,7 @@ let
 
         User = user;
         Group = group;
+        StateDirectory = configDir;
       };
     };
 in

@@ -40,7 +40,7 @@ let
       group_albums = true;
       # quiet =
       # "no"; # Set by systemd, so that we can see logs if executed by hand
-      quiet_fallback = "asis";
+      quiet_fallback = "skip";
       log = "/var/log/beets.log";
     };
 

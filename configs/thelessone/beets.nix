@@ -45,8 +45,9 @@ let
     };
 
     paths = {
-      default = "$artist/$album%aunique{}/$albumartist_$album_$disc-$track_$title";
+      default = "$albumartist/$album%aunique{}/$artist_$album_$disc-$track_$title";
       singleton = "$artist/No-Album/$disc-$track_$title";
+      comp = "Compilations/$album%aunique{}/$track $title";
     };
 
     plugins = [

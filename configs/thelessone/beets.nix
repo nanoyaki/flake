@@ -44,10 +44,15 @@ let
       log = "/var/log/beets.log";
     };
 
+    item_fields.firstartist = ''
+      import re
+      return re.split(r', | &| and| feat', albumartist)[0]
+    '';
+
     paths = {
-      default = "$albumartist/$album%aunique{}/$artist_$album_$disc-$track_$title";
-      singleton = "$artist/No-Album/$disc-$track_$title";
-      comp = "Compilations/$album%aunique{}/$track $title";
+      default = "$firstartist/$album%aunique{}/$artist_$album_$disc-$track_$title";
+      singleton = "$firstartist/No-Album/$artist_$disc-$track_$title";
+      comp = "Compilations/$album%aunique{}/$artist_$album_$disc-$track_$title";
     };
 
     plugins = [
@@ -61,6 +66,7 @@ let
       "lyrics"
       "lastgenre"
       "drop2beets"
+      "inline"
     ];
     art_filename = "folder";
 

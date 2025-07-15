@@ -50,9 +50,9 @@ let
     '';
 
     paths = {
-      default = "$firstartist/$album%aunique{}/$artist_$album_$disc-$track_$title";
-      singleton = "$firstartist/No-Album/$artist_$disc-$track_$title";
-      comp = "Compilations/$album%aunique{}/$artist_$album_$disc-$track_$title";
+      default = "$firstartist/$album/$title";
+      singleton = "$firstartist/No-Album/$title";
+      comp = "Compilations/$album/$title";
     };
 
     plugins = [

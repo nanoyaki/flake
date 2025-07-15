@@ -149,7 +149,11 @@ let
     };
 in
 {
-  environment.systemPackages = [ package ];
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "beet" ''${getExe package} -c ${
+      (pkgs.formats.yaml { }).generate "config.yaml" (beetsConfig nzbPath)
+    } "$@"'')
+  ];
 
   users.users.beets = {
     isSystemUser = true;

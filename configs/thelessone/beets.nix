@@ -44,15 +44,22 @@ let
       log = "/var/log/beets.log";
     };
 
-    item_fields.firstartist = ''
-      import re
-      return re.split(r', | &| and| feat', albumartist)[0]
-    '';
+    item_fields = {
+      firstartist = ''
+        import re
+        return re.split(r', | &| and| feat', albumartist)[0]
+      '';
+      lidarrtitle = ''
+        filename = [artist, album, track, title]
+        invalid_entries = {"", "artist", "album", "track", "title"}
+        return "_".join([str(ent) for ent in filename if str(ent) not in invalid_entries])
+      '';
+    };
 
     paths = {
-      default = "$firstartist/$album/$title";
-      singleton = "$firstartist/No-Album/$title";
-      comp = "Compilations/$album/$title";
+      default = "$firstartist/$album%aunique{}/$lidarrtitle";
+      singleton = "$firstartist/No-Album/$lidarrtitle";
+      comp = "Compilations/$album%aunique{}/$lidarrtitle";
     };
 
     plugins = [

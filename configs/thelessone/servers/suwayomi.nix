@@ -36,6 +36,18 @@ lib'.modules.mkModule {
     in
 
     {
+      nixpkgs.overlays = [
+        (_: prev: {
+          suwayomi-server = prev.suwayomi-server.overrideAttrs (prevAttrs: {
+            gradleFlags = (prevAttrs.gradleFlags or [ ]) ++ [
+              "-Dkotlin.daemon.jvmargs=-Xmx4096m"
+              "-Dorg.gradle.jvmargs=-Xmx5120m"
+              "-Dkotlin.compiler.execution.strategy=in-process"
+            ];
+          });
+        })
+      ];
+
       services.suwayomi = {
         enable = true;
 

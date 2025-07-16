@@ -46,6 +46,7 @@ in
         };
         # https://github.com/NixOS/nixpkgs/issues/425323
         jdk8 = if (lib.version == "25.11.20250714.62e0f05") then final.openjdk8-bootstrap else prev.jdk8;
+        jdk8_headless = final.jdk8;
       })
       nanopkgs.overlays.default
       nur.overlays.default

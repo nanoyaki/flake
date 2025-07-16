@@ -58,13 +58,15 @@
     };
   };
 
-  services.caddy.globalConfig = lib.mkForce ''
-    auto_https off
-  '';
-
-  services.caddy.virtualHosts.":443".extraConfig = ''
-    tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem
-  '';
+  services.caddy.virtualHosts."theless.one:443" = {
+    serverAliases = [
+      "*.theless.one:443"
+      "*.vpn.theless.one:443"
+    ];
+    extraConfig = ''
+      tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem
+    '';
+  };
 
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {
     PORKBUN_API_KEY = config.sops.placeholder."porkbun/api-key";

@@ -30,7 +30,7 @@
     pyon
     nvtopPackages.amd
     wl-clipboard
-    gimp
+    gimp3-with-plugins
     feishin
     grayjay
   ];

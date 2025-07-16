@@ -51,8 +51,8 @@ let
       '';
       lidarrtitle = ''
         filename = [artist, album, track, title]
-        invalid_entries = {"", "artist", "album", "track", "title"}
-        return "_".join([str(ent) for ent in filename if str(ent) not in invalid_entries])
+        invalid_entries = {"artist", "album", "track", "title"}
+        return "_".join([str(ent) for ent in filename if ent and str(ent) not in invalid_entries])
       '';
     };
 

@@ -86,6 +86,8 @@ in
             "tick query" = "allow";
           };
         };
+
+        "icon.png" = ./icon.png;
       };
     };
   };

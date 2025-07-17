@@ -83,6 +83,8 @@ lib'.modules.mkModule {
         };
       };
 
+      systemd.services.transmission.serviceConfig.Type = lib.mkForce "simple";
+
       services'.caddy.reverseProxies.${domain} = {
         host = "10.200.1.2";
         port = config.services.transmission.settings.rpc-port;

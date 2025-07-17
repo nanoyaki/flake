@@ -51,6 +51,7 @@ in
         broadcastPlayerCommandExecution = false;
         broadcastSlashCommandExecution = false;
         whitelistRequiresAdmin = false;
+        announceHighMspt = false;
       };
     };
     path = "${config.services.minecraft-servers.dataDir}/smp/config/discord-mc-chat.json";

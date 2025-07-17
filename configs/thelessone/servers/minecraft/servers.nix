@@ -2,6 +2,7 @@
   lib,
   inputs,
   pkgs,
+  config,
   ...
 }:
 
@@ -25,11 +26,36 @@ let
 
     whitelist = import ./whitelist.nix;
   };
+
+  writeJSON = (pkgs.formats.json { }).generate;
 in
 
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
+
+  sec."minecraft/botToken" = { };
+
+  sops.templates."discord-mc-chat.json" = {
+    file = writeJSON "discord-mc-chat.json" {
+      generic = {
+        language = "en_us";
+        botToken = config.sops.placeholder."minecraft/botToken";
+        channelId = "1395405287984201738";
+        adminsIds = [
+          "1063583541641871440"
+          "222458973876387841"
+        ];
+
+        avatarApi = "https://visage.surgeplay.com/bust/{player_uuid}.png";
+        broadcastPlayerCommandExecution = false;
+        broadcastSlashCommandExecution = false;
+        whitelistRequiresAdmin = false;
+      };
+    };
+    path = "${config.services.minecraft-servers.dataDir}/smp/config/discord-mc-chat.json";
+    owner = config.services.minecraft-servers.user;
+  };
 
   services.minecraft-servers = {
     enable = true;
@@ -53,7 +79,7 @@ in
         "config/bluemap/webapp.conf" = ./smp/bluemap/webapp.conf;
         "config/bluemap/webserver.conf" = ./smp/bluemap/webserver.conf;
 
-        "config/roles.json" = (pkgs.formats.json { }).generate "roles.json" {
+        "config/roles.json" = writeJSON "roles.json" {
           whitelister.overrides.commands."whitelist (add|remove)" = "allow";
           everyone.overrides.commands = {
             "image2map create" = "allow";

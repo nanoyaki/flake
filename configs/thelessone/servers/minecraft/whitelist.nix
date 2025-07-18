@@ -19,4 +19,6 @@
   Markussd1 = "b13a157a-2960-4e15-a68a-3de1bb64d4f0";
   TheLessOne = "3d981df9-b1e8-4831-9b2a-c6683f8345f4";
   ArtesianWaters = "a9400f1e-e994-4602-ab9b-d8c4cfaa2212";
+  TheLessOhne = "dd74fe63-0b2f-43a9-8e3e-1828f888577d";
+  LunaWrld = "038835ef-f57b-4901-9f07-f243959dbd69";
 }

@@ -52,6 +52,7 @@ in
         broadcastSlashCommandExecution = false;
         whitelistRequiresAdmin = false;
         announceHighMspt = false;
+        excludedCommands = [ ".*" ];
       };
     };
     path = "${config.services.minecraft-servers.dataDir}/smp/config/discord-mc-chat.json";

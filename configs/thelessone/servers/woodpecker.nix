@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs',
   ...
 }:
 
@@ -67,7 +68,7 @@
         statix
         nix-fast-build
         nvd
-        bubblewrap
+        inputs'.rebuild-maintenance.packages.rebuild-maintenance
       ];
     };
 

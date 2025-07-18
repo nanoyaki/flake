@@ -98,6 +98,10 @@
       url = "github:nanoyaki/md2img";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rebuild-maintenance = {
+      url = "git+https://codeberg.org/nanoyaki/rebuild-maintenance.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

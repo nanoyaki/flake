@@ -1062,6 +1062,26 @@
         "type": "github"
       }
     },
+    "rebuild-maintenance": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752864931,
+        "narHash": "sha256-UZ0tF/D9JwfGvlPw1ivS5ZwmKXDLWdEdUR/Clyg5BJA=",
+        "ref": "refs/heads/main",
+        "rev": "7141e6913c4b4bd2c99960f90277584d100795f0",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
+      }
+    },
     "root": {
       "inputs": {
         "aagl": "aagl",
@@ -1085,6 +1105,7 @@
         "plasma-manager": "plasma-manager",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "prismlauncher": "prismlauncher",
+        "rebuild-maintenance": "rebuild-maintenance",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "vermeer-undervolt": "vermeer-undervolt"

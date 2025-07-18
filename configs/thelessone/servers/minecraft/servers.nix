@@ -56,6 +56,7 @@ in
     };
     path = "${config.services.minecraft-servers.dataDir}/smp/config/discord-mc-chat.json";
     owner = config.services.minecraft-servers.user;
+    restartUnits = [ "minecraft-server-smp.service" ];
   };
 
   services.minecraft-servers = {

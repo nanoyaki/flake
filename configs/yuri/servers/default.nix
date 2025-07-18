@@ -10,5 +10,6 @@
     ./bind.nix
     ./restic.nix
     ./uptime-kuma.nix
+    ./caddy.nix
   ];
 }

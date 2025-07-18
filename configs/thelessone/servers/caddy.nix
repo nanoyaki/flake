@@ -8,11 +8,11 @@ let
   inherit (lib) genAttrs;
 
   # String -> String
-  mkBasicAuth = user: ''
-    basic_auth * {
-      {''$${user}}
-    }
-  '';
+  # mkBasicAuth = user: ''
+  #   basic_auth * {
+  #     {''$${user}}
+  #   }
+  # '';
 
   # String -> String
   mkFileServer = directory: ''
@@ -33,20 +33,7 @@ in
 
     virtualHosts = {
       "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
-      "files.theless.one".extraConfig = ''
-        ${mkFileServer "/var/lib/caddy/files"}
-
-        ${mkBasicAuth "shared"}
-      '';
-
-      "nanoyaki.space".extraConfig = mkRedirect "https://bsky.app/profile/nanoyaki.space";
-      "www.nanoyaki.space".extraConfig = mkRedirect "https://bsky.app/profile/nanoyaki.space";
-      "twitter.nanoyaki.space".extraConfig = mkRedirect "https://x.com/nanoyaki";
-      "files.nanoyaki.space".extraConfig = ''
-        ${mkFileServer "/var/lib/caddy/nanoyaki-files"}
-
-        ${mkBasicAuth "hana"}
-      '';
+      "files.theless.one".extraConfig = mkFileServer "/var/lib/caddy/files";
 
       "vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";
       "www.vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";

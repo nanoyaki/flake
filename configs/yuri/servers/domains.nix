@@ -51,16 +51,12 @@ in
     auto_https off
   '';
 
-  services.caddy.virtualHosts."nanoyaki.space".extraConfig = ''
-    handle /.well-known/acme-challenge/* {
-      root * ${acmeDir}/.well-known/acme-challenge
-      file_server
-    }
-
-    tls ${acmeDir}/nanoyaki.space/cert.pem ${acmeDir}/nanoyaki.space/key.pem {
-      protocols tls1.3
-    }
-  '';
+  services.caddy.virtualHosts."nanoyaki.space" = {
+    serverAliases = [ "*.nanoyaki.space" ];
+    extraConfig = ''
+      tls ${acmeDir}/nanoyaki.space/cert.pem ${acmeDir}/nanoyaki.space/key.pem
+    '';
+  };
 
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {
     PORKBUN_API_KEY = config.sops.placeholder."porkbun/api-key";

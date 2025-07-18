@@ -31,6 +31,11 @@
     }
   ];
 
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # for deployment
   environment.etc."systems/thelessnas".source =
     self.nixosConfigurations.thelessnas.config.system.build.toplevel;

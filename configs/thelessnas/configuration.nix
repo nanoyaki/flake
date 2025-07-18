@@ -19,6 +19,11 @@
   # for remote switching
   environment.systemPackages = [ pkgs.tmux ];
 
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
+
   hm.home.stateVersion = "25.11";
   system.stateVersion = "25.11";
 }

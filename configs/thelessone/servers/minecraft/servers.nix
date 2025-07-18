@@ -17,7 +17,7 @@ let
       simulation-distance = 32;
 
       gamemode = "survival";
-      difficulty = "normal";
+      difficulty = "hard";
 
       white-list = true;
     };

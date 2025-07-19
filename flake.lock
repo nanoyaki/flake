@@ -717,11 +717,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752261125,
-        "narHash": "sha256-BsyTB3uxhYwJdoZ2S9FgrMOqeyD6E6CZLrO1XfuD4wQ=",
+        "lastModified": 1752884915,
+        "narHash": "sha256-Iq1yIMGcsvIzL9t1j3+zN8dwfjj1HRZI/fDSuFTa8A4=",
         "owner": "nanoyaki",
         "repo": "md2img",
-        "rev": "ba860e244b097562580cbf4e9da03f6dd9418ae1",
+        "rev": "0dc1e71efc5300424df523fe673fd2e9ba8c2662",
         "type": "github"
       },
       "original": {
@@ -743,11 +743,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1752879679,
-        "narHash": "sha256-q4hrtZfOjE61LfeWX6jpxjvJLBGdiY2UcXpsNSLTMho=",
+        "lastModified": 1752885864,
+        "narHash": "sha256-UVlaX01x6bui5tmCNuKCkG1l86hXw2ypKywgmWccBFo=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "ff15f50266a156f8e71a2ccf1582220a9ca12a14",
+        "rev": "efb462098e11970af40b115615947b0992d3ed31",
         "type": "github"
       },
       "original": {

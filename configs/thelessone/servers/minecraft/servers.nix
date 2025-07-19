@@ -13,8 +13,8 @@ let
 
     serverProperties = {
       spawn-protection = 0;
-      view-distance = 32;
-      simulation-distance = 32;
+      view-distance = 12;
+      simulation-distance = 12;
 
       gamemode = "survival";
       difficulty = "hard";

@@ -591,11 +591,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752494058,
-        "narHash": "sha256-BGaopJ0IZ1ZVKBc7+gruE7xEmQA8pKzqSDzEoArWbmk=",
+        "lastModified": 1752943090,
+        "narHash": "sha256-+LwFTwjG74j9bi1OUzvbE8hnCa8X+8bFjmhm5Y3b63Q=",
         "owner": "tale",
         "repo": "headplane",
-        "rev": "27b2831f0071cea130fdcff576fc7f86db2a92b4",
+        "rev": "44577aff81b5256d03940052e73783536d04151c",
         "type": "github"
       },
       "original": {
@@ -743,11 +743,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1752885864,
-        "narHash": "sha256-UVlaX01x6bui5tmCNuKCkG1l86hXw2ypKywgmWccBFo=",
+        "lastModified": 1752966076,
+        "narHash": "sha256-USc89NRGbNDJ1ifKnzNl/IVIc9O+AriuYP9poekwNgs=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "efb462098e11970af40b115615947b0992d3ed31",
+        "rev": "82e4de32983950b7fc9b7a1e7ce8a6ee48231e20",
         "type": "github"
       },
       "original": {
@@ -765,11 +765,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752863841,
-        "narHash": "sha256-xxxQHoQPILvjXYwJgKlp6BaM/DktSSqgt8T4VHc9tME=",
+        "lastModified": 1752902428,
+        "narHash": "sha256-lX1D0TPT4xPXLCoNIssdEmPtAwDrpDyZVU/+J/L86Xo=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "9843e705c64ecd77945965dc59179dc2fc0efe57",
+        "rev": "0004c25356ce4f89b311b9f26ac22fa13c64ebf2",
         "type": "github"
       },
       "original": {
@@ -872,11 +872,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1752803195,
-        "narHash": "sha256-+Fpg6NzBfKe89r7VfNkYJ556hCG9D0hGlh9jk1yqUdU=",
+        "lastModified": 1752889431,
+        "narHash": "sha256-cBU5NcmEsz/RmYQLN6cyh+CBasFDSX03LQnsR1iLJqg=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "271508a3008fe14fb3bca5fcdef7d49138a203ad",
+        "rev": "92579a523b11cc629ab3d42f2148026e805fd0c4",
         "type": "github"
       },
       "original": {
@@ -893,11 +893,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752880039,
-        "narHash": "sha256-+ITgg0MpCdbMf96S5vQeSo9Sb0cojKCjjgpwSetKFj8=",
+        "lastModified": 1752968962,
+        "narHash": "sha256-s7XPeM1JP5z212Zt/b+WbIy/4bChRPEYGZ12h8mwqf8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0adc5f69f2f38e79ae6e377ddcf770ef9404776a",
+        "rev": "b8d983ac8ab7ce6bf4343ed09de64fe58b8b3fcd",
         "type": "github"
       },
       "original": {
@@ -1069,11 +1069,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752864931,
-        "narHash": "sha256-UZ0tF/D9JwfGvlPw1ivS5ZwmKXDLWdEdUR/Clyg5BJA=",
+        "lastModified": 1752884485,
+        "narHash": "sha256-ITAe7abMuhDU3zWZZyUnvrk28njpjV8evVzQgCS+n/U=",
         "ref": "refs/heads/main",
-        "rev": "7141e6913c4b4bd2c99960f90277584d100795f0",
-        "revCount": 2,
+        "rev": "1f742c46d0f264980d809b4220877c5ff1c56400",
+        "revCount": 3,
         "type": "git",
         "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
       },
@@ -1175,11 +1175,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1752750082,
-        "narHash": "sha256-NoVAqy+Wj4tgkvrYB8zWncl8Z6Hb80aX3t/TYGdsfaM=",
+        "lastModified": 1752965417,
+        "narHash": "sha256-FDec+RoFgSrk3YPedcjNiBK+acaHO4Vt0YDTMdKdw1w=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "03699ed214f6e8195bc7199d6ae3aeccf9732b08",
+        "rev": "f826d3214b8a9be3f158d5cc7514c4130674324b",
         "type": "github"
       },
       "original": {
@@ -1352,11 +1352,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752055615,
-        "narHash": "sha256-19m7P4O/Aw/6+CzncWMAJu89JaKeMh3aMle1CNQSIwM=",
+        "lastModified": 1752909129,
+        "narHash": "sha256-Eh8FkMvGRaY71BU/oyZTTzt9RsBIq2E6j0r3eLZ/2kY=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "c9d477b5d5bd7f26adddd3f96cfd6a904768d4f9",
+        "rev": "0043b95d80b5bf6d61e84d237e2007727f4dd38d",
         "type": "github"
       },
       "original": {

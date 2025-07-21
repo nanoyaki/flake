@@ -71,6 +71,15 @@ linkFarmFromDrvs "mods" (
             sha512 = "ec8fabc3bf991fbcbe064c1e97ded3e70f145a87e436056241cbb1e14c57ea9f59ef312f24c205160ccbda43f693e05d652b7f19aa71f730caec3bb5f7f7820a";
             url = "https://cdn.modrinth.com/data/Ps1zyz6x/versions/PQLHDg2Q/ScalableLux-0.1.5%2Bfabric.e4acdcb-all.jar";
           };
+          DoABarrelRoll = {
+            sha512 = "0987105dcea3d36f477c277be7f2090454479137c50c4c2159da6862e438aeff07ae0e111844b66f60d9b9f796c79662a033a139a30e16b5030093ee9d852577";
+            url = "https://cdn.modrinth.com/data/6FtRfnLg/versions/7nUPwWUG/do_a_barrel_roll-fabric-3.8.2%2B1.21.6.jar";
+          };
+          # Dependency of DoABarrelRoll
+          Cicada = {
+            sha512 = "00be5317c4ddae59be859a4d794cce58c425f9418651370a9dc425570bb316f15422e9ae78c2bf0ce8e39aad4a972a39b78f8c4cd8bcd7ac15f95bb51f709a5e";
+            url = "https://cdn.modrinth.com/data/IwCkru1D/versions/2LuLtZUC/cicada-lib-0.13.1%2B1.21.5-and-above.jar";
+          };
         }
         // additionalMods
       )

@@ -11,6 +11,10 @@ linkFarmFromDrvs "mods" (
     lib.mapAttrs (_: fetchurl) (
       lib.filterAttrs (mod: _: !(lib.elem mod without)) (
         {
+          FabricProxy-Lite = {
+            sha512 = "3044f36df7e83021210a7c318def18a95b5dbf5e3230bb72a3ddb42ebdda33f248c6d12efcee1240ff0c54600d68d147afa105d04ee37a90acb9409619c89848";
+            url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/AQhF7kvw/FabricProxy-Lite-2.9.0.jar";
+          };
           FabricApi = {
             sha512 = "43bf6af145a6b450503a6d7e7ec9a34912bd1494969b5d8861067f0f846cf710805415fb0fbc93c9ae9f5164d45c7649342f84b4f34552b2abdd892fd3b9838e";
             url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/JntuF9Ul/fabric-api-0.129.0%2B1.21.7.jar";

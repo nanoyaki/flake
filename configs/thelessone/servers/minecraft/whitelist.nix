@@ -23,4 +23,5 @@
   LunaWrld = "038835ef-f57b-4901-9f07-f243959dbd69";
   Dianox_Mlg = "b65b4064-d660-48b1-92d1-84b1eed90e04";
   Empro = "4328f3b2-1dbd-4a13-b591-17e13612d521";
+  ICharALotte = "384b264e-32eb-4679-a577-7e3e89614d1e";
 }

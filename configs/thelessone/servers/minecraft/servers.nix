@@ -221,9 +221,15 @@ in
         };
 
         symlinks.mods = pkgs.fabricMods.default.override {
-          additionalMods.DoABarrelRoll = {
-            sha512 = "0987105dcea3d36f477c277be7f2090454479137c50c4c2159da6862e438aeff07ae0e111844b66f60d9b9f796c79662a033a139a30e16b5030093ee9d852577";
-            url = "https://cdn.modrinth.com/data/6FtRfnLg/versions/7nUPwWUG/do_a_barrel_roll-fabric-3.8.2%2B1.21.6.jar";
+          additionalMods = {
+            Axiom = {
+              sha512 = "4aafc025ad5e652060f7cff74dade9fcc6ec770a5f310fe970eedd6f6c7154c6cc10a33e0fbe9c648bed736b552ea645c530ce92f371acbcd6c93a6f313ca4b5";
+              url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/CRjwbqnJ/Axiom-4.9.1-for-MC1.21.6.jar";
+            };
+            DoABarrelRoll = {
+              sha512 = "0987105dcea3d36f477c277be7f2090454479137c50c4c2159da6862e438aeff07ae0e111844b66f60d9b9f796c79662a033a139a30e16b5030093ee9d852577";
+              url = "https://cdn.modrinth.com/data/6FtRfnLg/versions/7nUPwWUG/do_a_barrel_roll-fabric-3.8.2%2B1.21.6.jar";
+            };
           };
           without = [
             "DistantHorizons"

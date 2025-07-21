@@ -123,6 +123,10 @@ in
                 sha512 = "5f8d4e564f65dcbe5e039af8605da4df8a8edcc2218a46aad827aaa8d1e8848adb302672735f579715be1c480956dd6dd7548a2bff9bacc4f0ef0592eeceb238";
                 url = "https://cdn.modrinth.com/data/uCdwusMi/versions/2mY04ehi/DistantHorizons-2.3.3-b-1.21.7-fabric-neoforge.jar";
               };
+              DoABarrelRoll = {
+                sha512 = "0987105dcea3d36f477c277be7f2090454479137c50c4c2159da6862e438aeff07ae0e111844b66f60d9b9f796c79662a033a139a30e16b5030093ee9d852577";
+                url = "https://cdn.modrinth.com/data/6FtRfnLg/versions/7nUPwWUG/do_a_barrel_roll-fabric-3.8.2%2B1.21.6.jar";
+              };
             };
           };
 
@@ -217,6 +221,10 @@ in
         };
 
         symlinks.mods = pkgs.fabricMods.default.override {
+          additionalMods.DoABarrelRoll = {
+            sha512 = "0987105dcea3d36f477c277be7f2090454479137c50c4c2159da6862e438aeff07ae0e111844b66f60d9b9f796c79662a033a139a30e16b5030093ee9d852577";
+            url = "https://cdn.modrinth.com/data/6FtRfnLg/versions/7nUPwWUG/do_a_barrel_roll-fabric-3.8.2%2B1.21.6.jar";
+          };
           without = [
             "DistantHorizons"
             "SimpleVoiceChat"

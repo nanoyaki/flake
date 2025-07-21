@@ -213,6 +213,8 @@ in
 
       smp-creative = lib.recursiveUpdate defaults {
         enable = true;
+        package = pkgs.fabricServers.fabric-1_21_7;
+
         serverProperties = {
           gamemode = "creative";
 

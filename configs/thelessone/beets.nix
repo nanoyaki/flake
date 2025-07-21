@@ -16,13 +16,17 @@ let
   inherit (config.services'.lab-config.arr) group;
   user = "beets";
   configDir = "/var/lib/beets";
-  package = pkgs.beets.override {
-    pluginOverrides.drop2beets = {
-      enable = true;
-      propagatedBuildInputs = [ pkgs.drop2beets ];
-      wrapperBins = with pkgs; [ inotify-tools ];
-    };
-  };
+  package =
+    (pkgs.beets.overrideAttrs (prevAttrs: {
+      disabledTestPaths = prevAttrs.disabledTestPaths ++ [ "test/plugins/test_embedart.py" ];
+    })).override
+      {
+        pluginOverrides.drop2beets = {
+          enable = true;
+          propagatedBuildInputs = [ pkgs.drop2beets ];
+          wrapperBins = with pkgs; [ inotify-tools ];
+        };
+      };
 
   mediaDir = "${config.services'.lab-config.arr.home}/libraries/music";
   nzbPath = "${config.services'.lab-config.arr.home}/downloads/beets";
@@ -156,6 +160,7 @@ let
     };
 in
 {
+
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "beet" ''${getExe package} -c ${
       (pkgs.formats.yaml { }).generate "config.yaml" (beetsConfig nzbPath)

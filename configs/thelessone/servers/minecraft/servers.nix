@@ -218,6 +218,8 @@ in
           level-seed = "-7952476580899652458";
         };
 
+        operators = import ./whitelist.nix;
+
         symlinks.mods = pkgs.fabricMods.default.override {
           additionalMods.Axiom = {
             sha512 = "4aafc025ad5e652060f7cff74dade9fcc6ec770a5f310fe970eedd6f6c7154c6cc10a33e0fbe9c648bed736b552ea645c530ce92f371acbcd6c93a6f313ca4b5";

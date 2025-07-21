@@ -2,7 +2,7 @@
   boot.supportedFilesystems.nfs = true;
 
   fileSystems."/mnt/raid" = {
-    device = "192.168.178.91:/moon";
+    device = "10.0.0.6:/moon";
     fsType = "nfs";
     options = [ "nfsvers=4.2" ];
   };

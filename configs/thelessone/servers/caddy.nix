@@ -43,7 +43,7 @@ in
 
   services'.caddy.reverseProxies."https://coolercontrol.nas.vpn.theless.one" = {
     port = 11987;
-    host = "192.168.178.91";
+    host = "10.0.0.6";
     vpnOnly = true;
   };
 

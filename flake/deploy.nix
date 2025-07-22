@@ -37,7 +37,7 @@ let
           nixos-rebuild switch --flake "$flake#$name" --target-host "$targetHost"
         else
           nix copy --to "ssh://$targetHost" "$generationPath"
-          nix run "$flake#remote-switch-$name" -- "$generationPath" "$privateKey"
+          nix run "$flake#switch-${replaceString "." "-" host}" -- "$generationPath" "$privateKey"
         fi
       '';
     };

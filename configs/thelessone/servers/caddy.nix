@@ -42,6 +42,7 @@ in
   };
 
   config'.caddy.enable = true;
+  config'.caddy.openFirewall = true;
   services.caddy = {
     enable = true;
     environmentFile = config.sops.templates."caddy-users.env".path;

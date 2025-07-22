@@ -25,7 +25,10 @@ steps:
     depends_on:
       - build
     commands:
+      - echo "Full diff"
       - nvd diff /etc/systems/thelessnas "$(cat generationPath)"
+      - echo "^ Full diff ^ --- v Direct dependency diff v"
+      - nvd diff /etc/systems/thelessnas "$(cat generationPath)" -s
 
   - name: deployment
     when:

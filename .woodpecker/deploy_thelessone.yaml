@@ -25,7 +25,10 @@ steps:
       - build
     image: bash
     commands:
+      - echo "Full diff"
       - nvd diff /run/current-system "$(cat generationPath)"
+      - echo "^ Full diff ^ --- v Direct dependency diff v"
+      - nvd diff /run/current-system "$(cat generationPath)" -s
 
   - name: kickstart deployment
     when:

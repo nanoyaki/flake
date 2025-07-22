@@ -133,20 +133,10 @@ in
 
     security.sudo.extraRules = singleton {
       users = singleton "vopono";
-      commands =
-        map
-          (command: {
-            inherit command;
-            options = singleton "NOPASSWD";
-          })
-          [
-            (lib.getExe' pkgs.iproute2 "ip")
-            (lib.getExe' pkgs.iptables "iptables")
-            (lib.getExe' pkgs.iptables "ip6tables")
-            (lib.getExe' pkgs.procps "sysctl")
-            (lib.getExe' pkgs.networkmanager "nmcli")
-            (lib.getExe' pkgs.networkmanager "nft")
-          ];
+      commands = singleton {
+        command = "ALL";
+        options = singleton "NOPASSWD";
+      };
     };
   };
 }

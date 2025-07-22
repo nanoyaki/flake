@@ -1,59 +1,50 @@
 {
+  lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
+
+  cfg = config.config'.sonarr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "sonarr";
+{
+  options.config'.sonarr = {
+    enable = mkFalseOption;
 
-  options.homepage = {
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Show manager" mkStrOption;
+    subdomain = mkDefault "sonarr" mkStrOption;
+    homepage = {
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Show manager" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    config'.vopono.allowedTCPPorts = [ config.services.sonarr.settings.server.port ];
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services'.vopono.allowedTCPPorts = [ config.services.sonarr.settings.server.port ];
-
-      services.sonarr = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain} = {
-        inherit (config.services.sonarr.settings.server) port;
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Sonarr = {
-        icon = "sonarr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+    services.sonarr = {
+      enable = true;
+      inherit (config.config'.lab-config.arr) group;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    config'.caddy.reverseProxies.${domain} = {
+      inherit (config.services.sonarr.settings.server) port;
+    };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Sonarr = {
+      icon = "sonarr.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

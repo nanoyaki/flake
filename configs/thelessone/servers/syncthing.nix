@@ -1,11 +1,11 @@
-{ config, username, ... }:
+{ config, ... }:
 
 let
   cfg = config.services.syncthing;
 in
 
 {
-  sec = {
+  sops.secrets = {
     "syncthing/cert".owner = cfg.user;
     "syncthing/key".owner = cfg.user;
   };
@@ -14,8 +14,8 @@ in
     enable = true;
     openDefaultPorts = true;
 
-    cert = config.sec."syncthing/cert".path;
-    key = config.sec."syncthing/key".path;
+    cert = config.sops.secrets."syncthing/cert".path;
+    key = config.sops.secrets."syncthing/key".path;
 
     settings = {
       devices = {
@@ -37,5 +37,5 @@ in
     mode = "2770";
   };
 
-  users.users.${username}.extraGroups = [ cfg.group ];
+  users.users.${config.config'.mainUserName}.extraGroups = [ cfg.group ];
 }

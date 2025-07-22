@@ -1,5 +1,3 @@
 {
-  flake.homeManagerModules = {
-    symlinks = import ./symlinks;
-  };
+  flake.homeManagerModules.symlinks = import ./symlinks;
 }

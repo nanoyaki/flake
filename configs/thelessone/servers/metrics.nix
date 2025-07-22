@@ -5,7 +5,7 @@ let
 in
 
 {
-  sec = {
+  sops.secrets = {
     "apiKeys/sabnzbd" = { };
     "apiKeys/sonarr" = { };
     "apiKeys/radarr" = { };
@@ -52,7 +52,7 @@ in
     };
   };
 
-  services'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
+  config'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
     port = config.services.grafana.settings.server.http_port;
     vpnOnly = true;
   };
@@ -89,7 +89,7 @@ in
         servers = [
           {
             baseUrl = "http://127.0.0.1:8080/";
-            apiKeyFile = config.sec."apiKeys/sabnzbd".path;
+            apiKeyFile = config.sops.secrets."apiKeys/sabnzbd".path;
           }
         ];
         port = 9387;
@@ -97,35 +97,35 @@ in
 
       exportarr-sonarr = {
         enable = true;
-        apiKeyFile = config.sec."apiKeys/sonarr".path;
+        apiKeyFile = config.sops.secrets."apiKeys/sonarr".path;
         url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
         port = 9708;
       };
 
       exportarr-radarr = {
         enable = true;
-        apiKeyFile = config.sec."apiKeys/radarr".path;
+        apiKeyFile = config.sops.secrets."apiKeys/radarr".path;
         url = "http://127.0.0.1:${toString config.services.radarr.settings.server.port}";
         port = 9709;
       };
 
       exportarr-prowlarr = {
         enable = true;
-        apiKeyFile = config.sec."apiKeys/prowlarr".path;
+        apiKeyFile = config.sops.secrets."apiKeys/prowlarr".path;
         url = "http://10.200.1.2:${toString config.services.prowlarr.settings.server.port}";
         port = 9710;
       };
 
       exportarr-lidarr = {
         enable = true;
-        apiKeyFile = config.sec."apiKeys/lidarr".path;
+        apiKeyFile = config.sops.secrets."apiKeys/lidarr".path;
         url = "http://127.0.0.1:${toString config.services.lidarr.settings.server.port}";
         port = 9711;
       };
 
       exportarr-bazarr = {
         enable = true;
-        apiKeyFile = config.sec."apiKeys/bazarr".path;
+        apiKeyFile = config.sops.secrets."apiKeys/bazarr".path;
         url = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
         port = 9712;
       };
@@ -165,7 +165,7 @@ in
 
       {
         job_name = "woodpecker";
-        bearer_token_file = config.sec."apiKeys/woodpecker".path;
+        bearer_token_file = config.sops.secrets."apiKeys/woodpecker".path;
         static_configs = [ { targets = [ "woodpecker.theless.one" ]; } ];
       }
     ];

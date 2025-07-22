@@ -1,6 +1,7 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
@@ -23,7 +24,7 @@ let
   inherit (lib) mkIf;
   inherit (lib.attrsets) attrNames filterAttrs mapAttrsToList;
   inherit (lib.lists) toposort elemAt;
-  inherit (lib.strings) toInt optionalString;
+  inherit (lib.strings) toInt;
   inherit (lib.versions) major;
 
   sortCategories =
@@ -33,178 +34,154 @@ let
       categoryNames = sortedNames.result or (attrNames categories);
     in
     map (name: { ${name} = categories.${name}.layout; }) categoryNames;
+
+  cfg = config.config'.homepage;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "homepage";
+{
+  options.config'.homepage = {
+    enable = mkFalseOption;
 
-  options =
-    { config, ... }:
+    subdomain = mkDefault "homepage" mkStrOption;
 
-    {
-      useSubdomain = mkFalseOption;
+    glances = {
+      widgets =
+        mkDefault
+          [
+            { Info.metric = "info"; }
+            { "Cpu usage".metric = "cpu"; }
+            { "Disk usage".metric = "fs:/"; }
+            { "Memory usage".metric = "memory"; }
+          ]
+          (
+            mkListOf (
+              mkSingleAttrOf (mkSubmoduleOption {
+                metric = mkStrOption;
+                chart = mkFalseOption;
+              })
+            )
+          );
 
-      glances = {
-        widgets =
-          mkDefault
-            [
-              { Info.metric = "info"; }
-              { "Cpu usage".metric = "cpu"; }
-              { "Disk usage".metric = "fs:/"; }
-              { "Memory usage".metric = "memory"; }
-            ]
-            (
-              mkListOf (
-                mkSingleAttrOf (mkSubmoduleOption {
-                  metric = mkStrOption;
-                  chart = mkFalseOption;
-                })
-              )
-            );
+      layout = {
+        header = mkFalseOption;
 
-        layout = {
-          header = mkFalseOption;
-
-          style = mkEnumOption [
-            "row"
-            "column"
-          ];
-
-          columns = mkDefault 4 mkIntOption;
-        };
-
-        version = mkDefault (toInt (major config.services.glances.package.version)) mkIntOption;
-
-        scheme = mkEnumOption [
-          "http"
-          "https"
+        style = mkEnumOption [
+          "row"
+          "column"
         ];
 
-        host = mkDefault "localhost" mkStrOption;
-
-        port = mkDefault config.services.glances.port mkPortOption;
+        columns = mkDefault 4 mkIntOption;
       };
 
-      categories = mkAttrsOf (mkSubmoduleOption {
-        layout = {
-          header = mkTrueOption;
+      version = mkDefault (toInt (major config.services.glances.package.version)) mkIntOption;
 
-          style = mkEnumOption [
-            "column"
-            "row"
-          ];
-
-          columns = mkNullOr mkIntOption;
-        };
-
-        services = mkAttrsOf (mkSubmoduleOption {
-          description = mkStrOption;
-          href = mkStrOption;
-          siteMonitor = mkStrOption;
-          icon = mkStrOption;
-        });
-
-        before = mkNullOr mkStrOption;
-      });
-    };
-
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
-
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      assertions = [
-        {
-          assertion =
-            (filterAttrs (
-              _: category: category.layout.style == "row" && category.layout.columns == null
-            ) cfg.categories) == { };
-          message = "Columns must not be null when using the row layout style";
-        }
+      scheme = mkEnumOption [
+        "http"
+        "https"
       ];
 
-      services.homepage-dashboard = {
-        enable = true;
-        allowedHosts = "${optionalString cfg.useSubdomain "${cfg.subdomain}."}${cfg'.caddy.baseDomain}";
+      host = mkDefault "localhost" mkStrOption;
 
-        settings = {
-          title = "Homepage";
-          startUrl = domain;
-          theme = "dark";
-          language = "de";
-          logpath = "/var/log/homepage/homepage.log";
-          disableUpdateCheck = true;
-          target = "_blank";
-
-          background = {
-            image = "${helpers'.caddy.domain cfg'.homepage-images}/active.webp";
-            blur = "xs";
-            saturate = 50;
-            brightness = 50;
-            opacity = 50;
-          };
-
-          layout = [ { Glances = cfg.glances.layout; } ] ++ (sortCategories cfg.categories);
-
-          headerStyle = "clean";
-          statusStyle = "dot";
-          hideVersion = "true";
-        };
-
-        services =
-          [
-            (mkIf (cfg.glances.widgets != [ ]) {
-              Glances = map (
-                widget:
-                let
-                  widgetName = elemAt (attrNames widget) 0;
-                  widgetCfg = widget.${widgetName};
-                in
-                {
-                  ${widgetName}.widget = {
-                    inherit (widgetCfg) metric chart;
-                    inherit (cfg.glances) version;
-                    url = "${cfg.glances.scheme}://${cfg.glances.host}:${toString config.services.glances.port}";
-                    type = "glances";
-                  };
-                }
-              ) cfg.glances.widgets;
-            })
-          ]
-          ++ (mapAttrsToList (categoryName: category: {
-            ${categoryName} = mapAttrsToList (serviceName: service: {
-              ${serviceName} = service;
-            }) category.services;
-          }) cfg.categories);
-      };
-
-      services.glances.enable = true;
-
-      services'.caddy.reverseProxies.${domain}.port = config.services.homepage-dashboard.listenPort;
-
-      systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
-        user = "root";
-        group = "wheel";
-        mode = "0755";
-      };
+      port = mkDefault config.services.glances.port mkPortOption;
     };
 
-  sharedOptions.homepage = {
-    category = mkStrOption;
-    description = mkStrOption;
+    categories = mkAttrsOf (mkSubmoduleOption {
+      layout = {
+        header = mkTrueOption;
+
+        style = mkEnumOption [
+          "column"
+          "row"
+        ];
+
+        columns = mkNullOr mkIntOption;
+      };
+
+      services = mkAttrsOf (mkSubmoduleOption {
+        description = mkStrOption;
+        href = mkStrOption;
+        siteMonitor = mkStrOption;
+        icon = mkStrOption;
+      });
+
+      before = mkNullOr mkStrOption;
+    });
   };
 
-  dependencies = [
-    "homepage-images"
-    "caddy"
-  ];
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion =
+          (filterAttrs (
+            _: category: category.layout.style == "row" && category.layout.columns == null
+          ) cfg.categories) == { };
+        message = "Columns must not be null when using the row layout style";
+      }
+    ];
+
+    services.homepage-dashboard = {
+      enable = true;
+      allowedHosts = "${cfg.subdomain}.${config.config'.caddy.baseDomain}";
+
+      settings = {
+        title = "Homepage";
+        startUrl = domain;
+        theme = "dark";
+        language = "de";
+        logpath = "/var/log/homepage/homepage.log";
+        disableUpdateCheck = true;
+        target = "_blank";
+
+        background = {
+          image = "${config.config'.caddy.genDomain "homepage-images"}/active.webp";
+          blur = "xs";
+          saturate = 50;
+          brightness = 50;
+          opacity = 50;
+        };
+
+        layout = [ { Glances = cfg.glances.layout; } ] ++ (sortCategories cfg.categories);
+
+        headerStyle = "clean";
+        statusStyle = "dot";
+        hideVersion = "true";
+      };
+
+      services = [
+        (mkIf (cfg.glances.widgets != [ ]) {
+          Glances = map (
+            widget:
+            let
+              widgetName = elemAt (attrNames widget) 0;
+              widgetCfg = widget.${widgetName};
+            in
+            {
+              ${widgetName}.widget = {
+                inherit (widgetCfg) metric chart;
+                inherit (cfg.glances) version;
+                url = "${cfg.glances.scheme}://${cfg.glances.host}:${toString config.services.glances.port}";
+                type = "glances";
+              };
+            }
+          ) cfg.glances.widgets;
+        })
+      ]
+      ++ (mapAttrsToList (categoryName: category: {
+        ${categoryName} = mapAttrsToList (serviceName: service: {
+          ${serviceName} = service;
+        }) category.services;
+      }) cfg.categories);
+    };
+
+    services.glances.enable = true;
+
+    config'.caddy.reverseProxies.${domain}.port = config.services.homepage-dashboard.listenPort;
+
+    systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
+      user = "root";
+      group = "wheel";
+      mode = "0755";
+    };
+  };
 }

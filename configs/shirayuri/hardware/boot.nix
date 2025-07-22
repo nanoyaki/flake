@@ -16,7 +16,7 @@
 
       systemd-boot = {
         enable = lib.mkForce false;
-        configurationLimit = 30;
+        configurationLimit = 100;
       };
 
       timeout = 0;

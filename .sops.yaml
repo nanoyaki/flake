@@ -7,41 +7,44 @@ keys:
   - &meow age1l3s5ckneu4reytw4ecyt2qcc49hf8kpx0s89senr5yhf6fqu3y0sxkv398
   - &thelessnas age1a82mdpvl5w2j0ahyccngc2wvwgrhezrnwn5te99yxy254f9nm54qex3r0y
 creation_rules:
-  - path_regex: configs/thelessone/.*secrets.yaml$
+  - path_regex: .*secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *shirayuri
+  - path_regex: configs/thelessone/secrets/.*\.yaml$
     key_groups:
       - age:
           - *thelessone
-          - *shirayuri
-  - path_regex: configs/yuri/secrets.yaml$
+  - path_regex: configs/yuri/secrets/.*\.yaml$
     key_groups:
       - age:
           - *yuri
-          - *shirayuri
-  - path_regex: configs/shirayuri/secrets.yaml$
-    key_groups:
-      - age:
-          - *shirayuri
-  - path_regex: configs/kuroyuri/secrets.yaml$
+  - path_regex: configs/kuroyuri/secrets/.*\.yaml$
     key_groups:
       - age:
           - *kuroyuri
-          - *shirayuri
-  - path_regex: configs/lesstop/secrets.yaml$
+  - path_regex: configs/lesstop/secrets/.*\.yaml$
     key_groups:
       - age:
           - *lesstop
-          - *shirayuri
-  - path_regex: configs/meow/secrets.yaml$
+  - path_regex: configs/meow/secrets/.*\.yaml$
     key_groups:
       - age:
           - *meow
-          - *shirayuri
-  - path_regex: configs/thelessnas/secrets.yaml$
+  - path_regex: configs/thelessnas/secrets/.*\.yaml$
     key_groups:
       - age:
           - *thelessnas
-          - *shirayuri
-  - path_regex: configs/common/optional/passkeys/yuri.yaml$
+  - path_regex: modules/systens/all/secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *kuroyuri
+          - *yuri
+          - *meow
+          - *lesstop
+          - *thelessone
+          - *thelessnas
+  - path_regex: modules/by-name/p/passkeys/yuri.yaml$
     key_groups:
       - age:
           - *shirayuri

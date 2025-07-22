@@ -2,28 +2,24 @@
   lib,
   pkgs,
   config,
-  self,
   ...
 }:
 
 {
-  imports = [
-    self.nixosModules.dynamicdns
-  ];
-
-  sec = {
+  sops.secrets = {
     "dynamicdns/vappie.space" = { };
     "porkbun/api-key" = { };
     "porkbun/secret-api-key" = { };
   };
 
-  services'.dynamicdns.domains."vappie.space" = {
+  config'.dynamicdns.enable = true;
+  config'.dynamicdns.domains."vappie.space" = {
     subdomains = [
       "*"
       "@"
     ];
 
-    passwordFile = config.sec."dynamicdns/vappie.space".path;
+    passwordFile = config.sops.secrets."dynamicdns/vappie.space".path;
   };
 
   sops.templates."oink.json".file = (pkgs.formats.json { }).generate "oink.json" {

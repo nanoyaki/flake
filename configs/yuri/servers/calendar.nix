@@ -2,7 +2,6 @@
   pkgs,
   config,
   # inputs',
-  self,
   ...
 }:
 
@@ -12,16 +11,21 @@ let
 in
 
 {
-  imports = [ self.nixosModules.dynamicdns ];
-
   networking.firewall.allowedTCPPorts = [
     80
     443
   ];
 
-  sec."caddy/nanoyaki-events/environment".owner = config.services.caddy.user;
+  sops.secrets = {
+    "caddy-env/guildId" = { };
+    "caddy-env/botToken" = { };
+  };
+  sops.templates."caddy.env".file = (pkgs.formats.keyValue { }).generate "caddy.env" {
+    GUILD_ID = config.sops.placeholder."caddy-env/guildId";
+    BOT_TOKEN = config.sops.placeholder."caddy-env/botToken";
+  };
   # services.caddy = {
-  #   environmentFile = config.sec."caddy/nanoyaki-events/environment".path;
+  #   environmentFile = config.sops.secrets."caddy/nanoyaki-events/environment".path;
 
   #   virtualHosts."events.nanoyaki.space".extraConfig = ''
   #     root * ${webPkg}/public

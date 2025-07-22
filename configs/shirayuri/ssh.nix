@@ -1,23 +1,26 @@
-{ config, ... }:
+{ lib, config, ... }:
 
 let
-  identityFile = config.hm.sec."private_keys/id_nadesiko".path;
+  inherit (lib) singleton;
+  identityFile = config.hm.sops.secrets."private_keys/id_nadesiko".path;
 in
 
 {
-  hm.programs.ssh.matchBlocks = {
-    yuri = {
-      user = "nas";
-      hostname = "10.0.0.3";
-      inherit identityFile;
-    };
+  hms = singleton {
+    programs.ssh.matchBlocks = {
+      yuri = {
+        user = "nas";
+        hostname = "10.0.0.3";
+        inherit identityFile;
+      };
 
-    at = {
-      user = "thelessone";
-      hostname = "theless.one";
-      inherit identityFile;
-      serverAliveInterval = 60;
-      serverAliveCountMax = 180;
+      at = {
+        user = "thelessone";
+        hostname = "theless.one";
+        inherit identityFile;
+        serverAliveInterval = 60;
+        serverAliveCountMax = 180;
+      };
     };
   };
 }

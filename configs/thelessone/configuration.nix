@@ -1,20 +1,25 @@
 {
   self,
   pkgs,
-  username,
   inputs',
   config,
   ...
 }:
 
 {
-  nanoflake.localization = {
-    timezone = "Europe/Vienna";
-    language = "de_AT";
-    locale = "de_AT.UTF-8";
+  config' = {
+    localization = {
+      timezone = "Europe/Vienna";
+      language = "de_AT";
+      locale = "de_AT.UTF-8";
+    };
+
+    firefox.enable = true;
+    theming.enable = true;
+    steam.enable = true;
   };
 
-  sec = {
+  sops.secrets = {
     "uptime-kuma/user" = { };
     "uptime-kuma/password" = { };
   };
@@ -46,7 +51,7 @@
         fi
 
         nix-fast-build --eval-workers 4 --out-link result \
-          -f ${config.nanoflake.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
+          -f ${config.config'.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
 
         set -o allexport
         # shellcheck source=/dev/null
@@ -57,7 +62,7 @@
         MAINTENANCE_ID="$(rebuild_maintenance -i)"
 
         echo "Deleting home-manager backups..."
-        find ${config.users.users.${username}.home} -name "*.home-bac" -delete
+        find ${config.users.users.${config.config'.mainUserName}.home} -name "*.home-bac" -delete
 
         echo "Running switch-to-configuration switch..."
         ./result-/bin/switch-to-configuration switch
@@ -81,9 +86,15 @@
     })
   ];
 
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+    useRoutingFeatures = "both";
+  };
+
   security.sudo.extraRules = [
     {
-      users = [ username ];
+      users = [ config.config'.mainUserName ];
       commands = [
         {
           command = "ALL";
@@ -101,7 +112,4 @@
   # for deployment
   environment.etc."systems/thelessnas".source =
     self.nixosConfigurations.thelessnas.config.system.build.toplevel;
-
-  system.stateVersion = "24.11";
-  hm.home.stateVersion = "24.11";
 }

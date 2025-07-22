@@ -31,6 +31,15 @@ in
 
   services.zfs.autoScrub.enable = true;
   systemd.services.zfs-mount.enable = false;
+  systemd.services.zfs-share-moon = {
+    wantedBy = [ "zfs-import-moon.service" ];
+    after = [ "zfs-import-moon.service" ];
+
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.zfs} share moon";
+      Type = "oneshot";
+    };
+  };
 
   services.nfs.server.enable = true;
   networking.firewall.allowedTCPPorts = [ 2049 ];

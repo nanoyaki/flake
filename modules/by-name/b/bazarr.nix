@@ -1,49 +1,42 @@
-{ lib', ... }:
+{
+  lib,
+  lib',
+  config,
+  ...
+}:
 
 let
-  inherit (lib'.options) mkDefault mkStrOption;
+  inherit (lib'.options) mkDefault mkStrOption mkFalseOption;
+  inherit (config.config'.lab-config) arr;
+
+  cfg = config.config'.bazarr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "bazarr";
+{
+  options.config'.bazarr = {
+    enable = mkFalseOption;
 
-  options.homepage = {
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Subtitle manager" mkStrOption;
+    subdomain = mkDefault "bazarr" mkStrOption;
+    homepage = {
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Subtitle manager" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
-
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services.bazarr = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain}.port = config.services.bazarr.listenPort;
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Bazarr = {
-        icon = "bazarr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+  config = lib.mkIf cfg.enable {
+    services.bazarr = {
+      enable = true;
+      inherit (arr) group;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    config'.caddy.reverseProxies.${domain}.port = config.services.bazarr.listenPort;
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Bazarr = {
+      icon = "bazarr.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

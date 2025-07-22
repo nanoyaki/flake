@@ -22,25 +22,25 @@ in
   ];
 
   sops = {
-    defaultSopsFile = ./secrets.yaml;
+    defaultSopsFile = ./secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
 
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
   };
 
-  sec = {
+  sops.secrets = {
     "private_keys/id_nadesiko" = {
-      sopsFile = ../common/optional/passkeys/yuri.yaml;
+      sopsFile = ../../modules/by-name/p/passkeys/yuri.yaml;
       format = "yaml";
       path = "${config.home.homeDirectory}/.ssh/id_nadesiko";
     };
 
     "yubikeys/u2f_keys" = {
-      sopsFile = ../common/optional/passkeys/yuri.yaml;
+      sopsFile = ../../modules/by-name/p/passkeys/yuri.yaml;
       format = "yaml";
       path = "${config.xdg.configHome}/Yubico/u2f_keys";
     };
   };
 
-  home.file.".ssh/id_nadesiko.pub".source = ../common/optional/passkeys/keys/id_nadesiko.pub;
+  home.file.".ssh/id_nadesiko.pub".source = ../../modules/by-name/p/passkeys/keys/id_nadesiko.pub;
 }

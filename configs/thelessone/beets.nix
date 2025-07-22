@@ -13,7 +13,7 @@ let
     recursiveUpdate
     ;
 
-  inherit (config.services'.lab-config.arr) group;
+  inherit (config.config'.lab-config.arr) group;
   user = "beets";
   configDir = "/var/lib/beets";
   package =
@@ -28,9 +28,9 @@ let
         };
       };
 
-  mediaDir = "${config.services'.lab-config.arr.home}/libraries/music";
-  nzbPath = "${config.services'.lab-config.arr.home}/downloads/beets";
-  torrentPath = "${config.services'.lab-config.arr.home}/downloads/transmission/complete/beets";
+  mediaDir = "${config.config'.lab-config.arr.home}/libraries/music";
+  nzbPath = "${config.config'.lab-config.arr.home}/downloads/beets";
+  torrentPath = "${config.config'.lab-config.arr.home}/downloads/transmission/complete/beets";
 
   beetsConfig = importPath: {
     directory = mediaDir;
@@ -141,8 +141,8 @@ let
       wantedBy = [ "multi-user.target" ];
       after = [
         "nfs-client.target"
-        (mkIf config.services'.sabnzbd.enable "sabnzbd.service")
-        (mkIf config.services'.transmission.enable "transmission.service")
+        (mkIf config.config'.sabnzbd.enable "sabnzbd.service")
+        (mkIf config.config'.transmission.enable "transmission.service")
       ];
 
       environment.BEETSDIR = configDir;
@@ -179,15 +179,15 @@ in
     "f '/var/log/beets.log'  0660 ${user} ${group} - -"
     "f '/var/log/drop2beets.log'  0660 ${user} ${group} - -"
 
-    (mkIf config.services'.sabnzbd.enable "d '${nzbPath}' 2770 ${config.services.sabnzbd.user} ${group} - -")
-    (mkIf config.services'.transmission.enable "d '${torrentPath}' 2770 ${config.services.transmission.user} ${group} - -")
+    (mkIf config.config'.sabnzbd.enable "d '${nzbPath}' 2770 ${config.services.sabnzbd.user} ${group} - -")
+    (mkIf config.config'.transmission.enable "d '${torrentPath}' 2770 ${config.services.transmission.user} ${group} - -")
   ];
 
   systemd.services = mkMerge [
-    (mkIf config.services'.sabnzbd.enable {
+    (mkIf config.config'.sabnzbd.enable {
       beets-import-nzb = serviceConfig { path = nzbPath; };
     })
-    (mkIf config.services'.transmission.enable {
+    (mkIf config.config'.transmission.enable {
       beets-import-torrent = serviceConfig {
         path = torrentPath;
         override = {

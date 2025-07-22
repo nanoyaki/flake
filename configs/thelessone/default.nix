@@ -4,32 +4,29 @@
 }:
 
 {
-  flake.nixosConfigurations = lib'.mkSystem {
+  flake.nixosConfigurations.thelessone = lib'.mkDesktop {
     hostname = "thelessone";
-    username = "thelessone";
-    modules = [
-      ../common/required
-      ../common/optional/fonts.nix
-      ../common/optional/shell-utils.nix
-      ../common/optional/browsers/firefox.nix
-      ../common/optional/deployment.nix
-      ../common/optional/cuda.nix
-      ../common/optional/norgb.nix
+    users.thelessone = {
+      mainUser = true;
+      isSuperuser = true;
+      home.stateVersion = "24.11";
+    };
+    config = {
+      imports = [
+        ./hardware
 
-      ./hardware
+        ./firewall.nix
+        ./configuration.nix
+        ./git.nix
+        ./servers
+        ./terminal.nix
+        ./deployment.nix
+        ./vaultwarden.nix
+        ./beets.nix
+      ];
 
-      ./firewall.nix
-      ./gnome.nix
-      ./configuration.nix
-      ./git.nix
-      ./servers
-      ./terminal.nix
-      ./deployment.nix
-      # ./mullvad.nix
-      ./tailscale.nix
-      ./vaultwarden.nix
-      ./beets.nix
-      ./zfs.nix
-    ];
+      networking.hostId = "f617b7b6";
+      system.stateVersion = "24.11";
+    };
   };
 }

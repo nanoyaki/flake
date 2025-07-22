@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  sec = {
+  sops.secrets = {
     "restic/vaultwarden-local" = { };
     "restic/vaultwarden-remote/repo" = { };
     "restic/vaultwarden-remote/password" = { };
@@ -11,7 +11,7 @@
     vaultwarden-local = {
       initialize = true;
       repository = "/mnt/raid/backups/vaultwarden";
-      passwordFile = config.sec."restic/vaultwarden-local".path;
+      passwordFile = config.sops.secrets."restic/vaultwarden-local".path;
 
       paths = [
         "/var/lib/vaultwarden"
@@ -38,8 +38,8 @@
 
     vaultwarden-remote = vaultwarden-local // {
       repository = null;
-      repositoryFile = config.sec."restic/vaultwarden-remote/repo".path;
-      passwordFile = config.sec."restic/vaultwarden-remote/password".path;
+      repositoryFile = config.sops.secrets."restic/vaultwarden-remote/repo".path;
+      passwordFile = config.sops.secrets."restic/vaultwarden-remote/password".path;
     };
   };
 

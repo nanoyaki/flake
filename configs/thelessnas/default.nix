@@ -4,21 +4,24 @@
 }:
 
 {
-  flake.nixosConfigurations = lib'.mkSystem {
+  flake.nixosConfigurations.thelessnas = lib'.mkServer {
     hostname = "thelessnas";
-    username = "admin";
-    modules = [
-      ../common/required
-      ../common/optional/shell-utils.nix
-      ../common/optional/deployment.nix
+    users.admin = {
+      mainUser = true;
+      isSuperuser = true;
+      home.stateVersion = "25.11";
+    };
+    config = {
+      imports = [
+        ./hardware
 
-      ./hardware
+        ./configuration.nix
+        ./openssh.nix
+        ./deployment.nix
+        ./zfs.nix
+      ];
 
-      ./configuration.nix
-      ./openssh.nix
-      ./deployment.nix
-      ./coolercontrol.nix
-      ./zfs.nix
-    ];
+      system.stateVersion = "24.11";
+    };
   };
 }

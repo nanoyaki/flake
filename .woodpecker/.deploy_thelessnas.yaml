@@ -42,4 +42,4 @@ steps:
     commands:
       - echo "$DEPLOYMENT_KEY_THELESSNAS" > deployment
       - chmod 400 deployment
-      - nix run .#deploy-thelessnas -- deployment "$(cat generationPath)"
+      - nix run .#deploy-10-0-0-6 -- deployment "$(cat generationPath)"

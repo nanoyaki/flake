@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 let
   mediaServices = "Medien Dienste";
@@ -9,7 +9,9 @@ let
 in
 
 {
-  services'.caddy = {
+  config'.caddy = {
+    enable = true;
+
     baseDomain = "home.local";
     useHttps = false;
     openFirewall = true;
@@ -35,7 +37,7 @@ in
     whisparr.dataDir = "${varLib}/whisparr/.config/Whisparr";
   };
 
-  services' = {
+  config' = {
     jellyfin = {
       enable = false;
       homepage = {
@@ -44,6 +46,7 @@ in
       };
     };
 
+    immich.enable = true;
     immich.homepage = {
       category = media;
       description = "Foto backup software";
@@ -107,11 +110,13 @@ in
       homepage.category = services;
     };
 
+    paperless.enable = true;
     paperless.homepage = {
       category = services;
       description = "Dokumente management";
     };
 
+    home-assistant.enable = true;
     home-assistant.homepage = {
       category = services;
       description = "Smart Home";
@@ -126,6 +131,7 @@ in
       };
     };
 
+    homepage.enable = true;
     homepage = {
       categories = {
         ${services}.before = media;
@@ -140,10 +146,22 @@ in
       ];
     };
 
+    lab-config.enable = true;
+
+    vopono.enable = true;
     vopono.dataDir = "${varLib}/vopono";
   };
 
-  sec."home-assistant/secrets" = {
+  sops.secrets = {
+    "home-assistant/latitudeHome" = { };
+    "home-assistant/longitudeHome" = { };
+  };
+  sops.templates."secrets.yaml" = {
+    file = (pkgs.formats.yaml { }).generate "secrets.yaml" {
+      latitude_home = config.sops.placeholder."home-assistant/latitudeHome";
+      longitude_home = config.sops.placeholder."home-assistant/longitudeHome";
+    };
+
     owner = "hass";
     group = "hass";
     mode = "0440";

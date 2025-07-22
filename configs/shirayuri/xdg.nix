@@ -1,53 +1,41 @@
 {
-  pkgs,
-  username,
+  config,
   ...
 }:
 
 let
   dirConfig = {
-    user = username;
+    user = config.config'.mainUserName;
     group = "users";
     mode = "0774";
   };
 in
 
 {
-  hm = {
-    home.symlinks = {
-      # Link several xdg user directories to
-      # directories on the os-shared btrfs drive
-      Downloads = "/mnt/os-shared/Downloads";
-      Documents = "/mnt/os-shared/Documents";
-      Videos = "/mnt/os-shared/Videos";
-      Pictures = "/mnt/os-shared/Pictures";
-      Music = "/mnt/os-shared/Music";
+  hm.home.symlinks = {
+    # Link several xdg user directories to
+    # directories on the os-shared btrfs drive
+    Downloads = "/mnt/os-shared/Downloads";
+    Documents = "/mnt/os-shared/Documents";
+    Videos = "/mnt/os-shared/Videos";
+    Pictures = "/mnt/os-shared/Pictures";
+    Music = "/mnt/os-shared/Music";
 
-      os-shared = "/mnt/os-shared";
-    };
+    os-shared = "/mnt/os-shared";
+  };
 
-    xdg.userDirs = {
-      enable = true;
+  hm.xdg.userDirs = {
+    enable = true;
 
-      desktop = "/home/hana/Desktop";
-      download = "/mnt/os-shared/Downloads";
-      documents = "/mnt/os-shared/Documents";
-      videos = "/mnt/os-shared/Videos";
-      pictures = "/mnt/os-shared/Pictures";
-      music = "/mnt/os-shared/Music";
+    desktop = "/home/hana/Desktop";
+    download = "/mnt/os-shared/Downloads";
+    documents = "/mnt/os-shared/Documents";
+    videos = "/mnt/os-shared/Videos";
+    pictures = "/mnt/os-shared/Pictures";
+    music = "/mnt/os-shared/Music";
 
-      publicShare = null;
-      templates = null;
-    };
-
-    xdg.desktopEntries.windows = {
-      name = "Windows";
-      comment = "Reboot to Windows";
-      exec = "sudo systemctl reboot --boot-loader-entry=auto-windows";
-      icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/windows95.svg";
-      categories = [ "System" ];
-      terminal = false;
-    };
+    publicShare = null;
+    templates = null;
   };
 
   systemd.tmpfiles.settings."10-os-shared-xdg-user-dirs" = {

@@ -4,15 +4,18 @@
   ...
 }:
 
-let
-  nwjs = pkgs.nwjs.override { alsa-lib = pkgs.alsa-lib-with-plugins; };
-
-  nwjs-run = pkgs.writeShellScriptBin "nwjs-run" ''
-    ${lib.getExe' pkgs.coreutils "cat"} <<< $(${lib.getExe pkgs.jq} 'def n: if . == "" then "{}" else . end; .name = (.name|n)' package.json) > package.json
-    LD_PRELOAD=${pkgs.nwjs-ffmpeg-prebuilt}/lib/libffmpeg.so ${lib.getExe' nwjs "nw"} "$@"
-  '';
-in
-
 {
-  environment.systemPackages = [ nwjs-run ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      nwjs = prev.nwjs.override { alsa-lib = final.alsa-lib-with-plugins; };
+      nwjs-run = final.writeShellScriptBin "nwjs-run" ''
+        QUERY='def n: if . == "" then "{}" else . end; .name = (.name|n)'
+
+        ${lib.getExe' final.coreutils "cat"} <<< $(${lib.getExe final.jq} "$QUERY" package.json) > package.json
+        LD_PRELOAD=${final.nwjs-ffmpeg-prebuilt}/lib/libffmpeg.so ${lib.getExe' final.nwjs "nw"} "$@"
+      '';
+    })
+  ];
+
+  environment.systemPackages = [ (pkgs.lazy-app.override { pkg = pkgs.nwjs-run; }) ];
 }

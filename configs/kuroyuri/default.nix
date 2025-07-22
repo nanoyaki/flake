@@ -1,33 +1,22 @@
 { lib', ... }:
 
 {
-  flake.nixosConfigurations = lib'.mkSystem {
+  flake.nixosConfigurations.kuroyuri = lib'.mkPortable {
     hostname = "kuroyuri";
-    username = "hana";
-    modules = [
-      ../common/required
-      ../common/optional/audio.nix
-      ../common/optional/passkeys
-      ../common/optional/fonts.nix
-      ../common/optional/shell-utils.nix
-      ../common/optional/desktopmanagers
-      ../common/optional/desktopmanagers/plasma.nix
-      ../common/optional/browsers/firefox.nix
-      ../common/optional/spotify.nix
-      ../common/optional/ssh-settings.nix
-      ../common/optional/terminal.nix
-      ../common/optional/theme.nix
-      ../common/optional/files.nix
-      ../common/optional/user-programs.nix
-      ../common/optional/vscode.nix
-      ../common/optional/mediaplayers/mpv.nix
+    users.hana = {
+      mainUser = true;
+      isSuperuser = true;
+      home.stateVersion = "24.11";
+    };
+    config = {
+      imports = [
+        ./hardware
 
-      ./hardware
+        ./configuration.nix
+        ./git.nix
+      ];
 
-      ./configuration.nix
-      ./gaming.nix
-      ./git.nix
-      ./tailscale.nix
-    ];
+      system.stateVersion = "24.05";
+    };
   };
 }

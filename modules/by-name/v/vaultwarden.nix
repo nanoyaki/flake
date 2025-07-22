@@ -1,6 +1,7 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
@@ -8,63 +9,52 @@ let
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
 
-  inherit (lib) optionalString;
+  inherit (lib) optionalString mkIf;
+
+  cfg = config.config'.vaultwarden;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "vaultwarden";
+{
+  options.config'.vaultwarden = {
+    enable = mkFalseOption;
 
-  options.homepage = {
-    category = mkDefault "Services" mkStrOption;
-    description = mkDefault "Local bitwarden server" mkStrOption;
+    subdomain = mkDefault "vaultwarden" mkStrOption;
+    homepage = {
+      category = mkDefault "Services" mkStrOption;
+      description = mkDefault "Local bitwarden server" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    services.vaultwarden = {
+      enable = true;
+      dbBackend = "sqlite";
+      backupDir = "/var/backup/vaultwarden";
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
+      config = {
+        DOMAIN = domain;
 
-    {
-      services.vaultwarden = {
-        enable = true;
-        dbBackend = "sqlite";
-        backupDir = "/var/backup/vaultwarden";
-
-        config = {
-          DOMAIN = domain;
-
-          ROCKET_ADDRESS = "127.0.0.1";
-          ROCKET_PORT = 8222;
-        };
-      };
-
-      services'.caddy.reverseProxies.${domain} = {
-        port = config.services.vaultwarden.config.ROCKET_PORT;
-        extraConfig = optionalString (!cfg'.caddy.useHttps) ''
-          tls internal
-        '';
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Vaultwarden = {
-        icon = "bitwarden.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8222;
       };
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-  ];
+    config'.caddy.reverseProxies.${domain} = {
+      port = config.services.vaultwarden.config.ROCKET_PORT;
+      extraConfig = optionalString (!config.config'.caddy.useHttps) ''
+        tls internal
+      '';
+    };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Vaultwarden = {
+      icon = "bitwarden.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

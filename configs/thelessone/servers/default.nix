@@ -1,18 +1,14 @@
-{ self, lib', ... }:
-
 {
   imports = [
     ./lab.nix
     ./caddy.nix
     ./ssh.nix
-    (import ./suwayomi.nix { inherit self lib'; })
     ./forgejo.nix
     ./minecraft
     ./woodpecker.nix
     ./domains.nix
     ./syncthing.nix
     ./steam.nix
-    ./nix-serve.nix
     ./uptime-kuma.nix
     ./dns.nix
     ./headscale.nix

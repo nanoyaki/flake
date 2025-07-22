@@ -1,25 +1,19 @@
-{ lib', ... }:
+{
+  lib,
+  lib',
+  config,
+  ...
+}:
 
-lib'.modules.mkModule {
-  name = "flaresolverr";
+{
+  options.config'.flaresolverr.enable = lib'.options.mkFalseOption;
 
-  config =
-    {
-      cfg,
-      config,
-      helpers',
-      ...
-    }:
+  config = lib.mkIf config.config'.flaresolverr.enable {
+    config'.vopono.allowedTCPPorts = [ config.services.flaresolverr.port ];
 
-    {
-      services'.vopono.allowedTCPPorts = [ config.services.flaresolverr.port ];
-
-      services.flaresolverr = {
-        enable = true;
-        port = helpers'.firewall.defaultPort cfg 8191;
-        inherit (cfg) openFirewall;
-      };
+    services.flaresolverr = {
+      enable = true;
+      port = 8191;
     };
-
-  dependencies = [ "firewall" ];
+  };
 }

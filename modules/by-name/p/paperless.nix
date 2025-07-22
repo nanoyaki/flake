@@ -1,75 +1,68 @@
 {
+  lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
+
+  cfg = config.config'.paperless;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
+{
+  options.config'.paperless = {
+    enable = mkFalseOption;
 
-lib'.modules.mkModule {
-  name = "paperless";
+    subdomain = mkDefault "paperless" mkStrOption;
 
-  options.homepage = {
-    category = mkDefault "Services" mkStrOption;
-    description = mkDefault "Document management" mkStrOption;
+    homepage = {
+      category = mkDefault "Services" mkStrOption;
+      description = mkDefault "Document management" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    sops.secrets.paperless-admin = { };
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
+    services.paperless = {
+      enable = true;
+      passwordFile = config.sops.secrets.paperless-admin.path;
 
-    {
-      sec."paperless/admin" = { };
+      consumptionDirIsPublic = true;
 
-      services.paperless = {
-        enable = true;
-        passwordFile = config.sec."paperless/admin".path;
+      settings = {
+        PAPERLESS_CONSUMER_IGNORE_PATTERN = [
+          ".DS_STORE/*"
+          "desktop.ini"
+        ];
 
-        consumptionDirIsPublic = true;
+        PAPERLESS_OCR_LANGUAGE = "deu+eng";
 
-        settings = {
-          PAPERLESS_CONSUMER_IGNORE_PATTERN = [
-            ".DS_STORE/*"
-            "desktop.ini"
-          ];
-
-          PAPERLESS_OCR_LANGUAGE = "deu+eng";
-
-          PAPERLESS_OCR_USER_ARGS = {
-            optimize = 1;
-            pdfa_image_compression = "lossless";
-          };
+        PAPERLESS_OCR_USER_ARGS = {
+          optimize = 1;
+          pdfa_image_compression = "lossless";
         };
-
-        database.createLocally = true;
       };
 
-      services'.caddy.reverseProxies.${domain} = {
-        inherit (config.services.paperless) port;
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Paperless = {
-        icon = "paperless.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+      database.createLocally = true;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-  ];
+    config'.caddy.reverseProxies.${domain} = {
+      inherit (config.services.paperless) port;
+    };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Paperless = {
+      icon = "paperless.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

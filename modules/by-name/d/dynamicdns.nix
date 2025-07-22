@@ -1,75 +1,79 @@
 {
   lib,
   lib',
+  config,
+  pkgs,
   ...
 }:
 
 let
+  inherit (lib) nameValuePair mapAttrs' mkIf;
   inherit (lib'.options)
     mkAttrsOf
     mkListOf
     mkStrOption
     mkSubmoduleOption
     mkPathOption
+    mkFalseOption
     ;
 
-  inherit (lib) nameValuePair mapAttrs';
+  cfg = config.config'.dynamicdns;
 in
 
-lib'.modules.mkModule {
-  name = "dynamicdns";
+{
+  options.config'.dynamicdns = {
+    enable = mkFalseOption;
 
-  options.domains = mkAttrsOf (mkSubmoduleOption {
-    subdomains = mkListOf mkStrOption;
-    passwordFile = mkPathOption;
-  });
+    domains = mkAttrsOf (mkSubmoduleOption {
+      subdomains = mkListOf mkStrOption;
+      passwordFile = mkPathOption;
+    });
+  };
 
-  config =
-    {
-      cfg,
-      pkgs,
-      ...
-    }:
+  config = mkIf cfg.enable {
+    systemd.services = mapAttrs' (
+      domain: domainCfg:
+      let
+        inherit (domainCfg) passwordFile;
 
-    {
-      systemd.services = mapAttrs' (
-        domain: domainCfg:
-        let
-          inherit (domainCfg) passwordFile;
+        subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
+      in
+      nameValuePair "dynamicdns-${domain}" {
+        description = "Dynamic DNS Service for ${domain}";
 
-          subdomains = builtins.concatStringsSep " " domainCfg.subdomains;
-        in
-        nameValuePair "dynamicdns-${domain}" {
-          description = "Dynamic DNS Service for ${domain}";
+        after = [ "network-online.target" ];
 
-          after = [ "network-online.target" ];
+        bindsTo = [ "network-online.target" ];
+        partOf = [ "network-online.target" ];
 
-          bindsTo = [ "network-online.target" ];
-          partOf = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-          wantedBy = [ "multi-user.target" ];
+        path = with pkgs; [
+          coreutils-full
+          curl
+        ];
 
-          script = ''
-            set -f
+        script = ''
+          set -f
 
-            domain="${domain}"
-            subdomains="${subdomains}"
-            password=$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})
-            ip=$(${lib.getExe pkgs.curl} "https://am.i.mullvad.net/ip" --fail)
+          domain="${domain}"
+          subdomains="${subdomains}"
+          password=$(cat ${passwordFile})
+          ip=$(curl "https://am.i.mullvad.net/ip" --fail)
 
-            for subdomain in ''${subdomains}; do
-              ${lib.getExe pkgs.curl} "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$domain&password=$password&ip=$ip" --fail
-            done
-          '';
+          for subdomain in ''${subdomains}; do
+            curl "https://dynamicdns.park-your-domain.com/update?host=$subdomain&domain=$domain&password=$password&ip=$ip" --fail
+          done
+        '';
 
-          startAt = "*:0/20";
+        startAt = "*:0/20";
 
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = false;
-            Restart = "no";
-          };
-        }
-      ) cfg.domains;
-    };
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = false;
+          Restart = "no";
+        };
+      }
+    ) cfg.domains;
+  };
 }

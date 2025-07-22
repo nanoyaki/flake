@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  sec."deploymentThelessone/private".path = "/root/.ssh/deploymentThelessone";
+  sops.secrets.deploymentThelessone.path = "/root/.ssh/deploymentThelessone";
 
-  nanoflake.localization = {
+  config'.localization = {
     timezone = "Europe/Vienna";
     language = [
       "de_AT"
@@ -23,7 +23,4 @@
     enable = true;
     openFirewall = true;
   };
-
-  hm.home.stateVersion = "25.11";
-  system.stateVersion = "25.11";
 }

@@ -1,21 +1,24 @@
 { lib', ... }:
 
 {
-  flake.nixosConfigurations = lib'.mkSystem {
+  flake.nixosConfigurations.yuri = lib'.mkServer {
     hostname = "yuri";
-    username = "nas";
-    modules = [
-      ../common/required
-      ../common/optional/shell-utils.nix
-      ../common/optional/ssh-settings.nix
-      ../common/optional/deployment.nix
+    users.nas = {
+      mainUser = true;
+      isSuperuser = true;
+      home.stateVersion = "25.05";
+    };
+    config = {
+      imports = [
+        ./hardware
 
-      ./hardware
-      ./configuration.nix
-      ./ssh.nix
-      ./servers
-      ./deployment.nix
-      ./tailscale.nix
-    ];
+        ./configuration.nix
+        ./ssh.nix
+        ./servers
+        ./deployment.nix
+      ];
+
+      system.stateVersion = "25.05";
+    };
   };
 }

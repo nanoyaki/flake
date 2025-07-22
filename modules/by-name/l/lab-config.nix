@@ -1,85 +1,65 @@
 {
-  self,
   lib,
   lib',
+  config,
+  pkgs,
+  ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
     mkPathOption
+    mkFalseOption
     ;
 
-  inherit (lib) mkIf;
+  cfg = config.config'.lab-config;
 in
 
-lib'.modules.mkModule {
-  name = "lab-config";
+{
+  options.config'.lab-config = {
+    enable = mkFalseOption;
 
-  options.arr = {
-    group = mkDefault "arr-stack" mkStrOption;
-    home = mkDefault "/home/arr-stack" mkPathOption;
+    arr = {
+      group = mkDefault "arr-stack" mkStrOption;
+      home = mkDefault "/home/arr-stack" mkPathOption;
+    };
   };
 
-  specialArgs = [ "username" ];
-  config =
-    {
-      cfg,
-      config,
-      username,
-      ...
-    }:
-
-    {
-      assertions = [
-        {
-          assertion = config.sops.secrets ? "vopono/wireguard.conf";
-          message = ''
-            The default sops file must have a wireguard configuration under "vopono/wireguard.conf"
-
-            ```yaml
-              vopono:
-                wireguard.conf: |
-                  ...
-            ```
-          '';
-        }
-      ];
-
-      sec."vopono/wireguard.conf".owner = "vopono";
-
-      services'.vopono = {
-        configFile = config.sec."vopono/wireguard.conf".path;
-        protocol = "Wireguard";
-      };
-
-      users.groups = mkIf (cfg.arr.group == "arr-stack") {
-        arr-stack = { };
-      };
-      users.users.${username}.extraGroups = lib.singleton cfg.arr.group;
+  config = mkIf cfg.enable {
+    sops.secrets = {
+      wireguard-private = { };
+      wireguard-address = { };
+      wireguard-public = { };
+      wireguard-endpoint = { };
     };
 
-  imports = with self.nixosModules; [
-    firewall
-    vopono
-    caddy
-    homepage-images
-    homepage
-    radarr
-    flaresolverr
-    prowlarr
-    jellyseerr
-    lidarr
-    bazarr
-    sonarr
-    whisparr
-    sabnzbd
-    transmission
-    jellyfin
-    immich
-    home-assistant
-    paperless
-    vaultwarden
-  ];
+    sops.templates."wireguard.conf" = {
+      file = (pkgs.formats.ini { }).generate "wireguard.conf" {
+        Interface = {
+          # Honest Puffer
+          PrivateKey = config.sops.placeholder.wireguard-private;
+          Address = config.sops.placeholder.wireguard-address;
+          DNS = "10.64.0.1";
+        };
+
+        Peer = {
+          PublicKey = config.sops.placeholder.wireguard-public;
+          AllowedIPs = "0.0.0.0/0,::0/0";
+          Endpoint = config.sops.placeholder.wireguard-endpoint;
+        };
+      };
+      owner = "vopono";
+    };
+
+    config'.vopono = {
+      configFile = config.sops.templates."wireguard.conf".path;
+      protocol = "Wireguard";
+    };
+
+    users.groups = mkIf (cfg.arr.group == "arr-stack") { arr-stack = { }; };
+    users.users.${config.config'.mainUserName}.extraGroups = lib.singleton cfg.arr.group;
+  };
 }

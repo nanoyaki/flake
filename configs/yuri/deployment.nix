@@ -1,10 +1,15 @@
-{
-  deployment = {
+let
+  cfg = {
     targetUser = "root";
-    targetHost = "100.64.64.3";
     privateKeyName = "deploymentYuri";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
-    extraFlags = [ "--print-build-logs" ];
+  };
+in
+
+{
+  config'.deployment = {
+    "100.64.64.3" = cfg;
+    "10.0.0.3" = cfg;
   };
 
   services.openssh.knownHosts = {

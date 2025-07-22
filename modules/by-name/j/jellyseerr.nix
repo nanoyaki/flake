@@ -1,52 +1,46 @@
 {
+  lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
+
+  cfg = config.config'.jellyseerr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "jellyseerr";
+{
+  options.config'.jellyseerr = {
+    enable = mkFalseOption;
 
-  options.homepage = {
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Movie and show requests" mkStrOption;
+    subdomain = mkDefault "jellyseerr" mkStrOption;
+
+    homepage = {
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Movie and show requests" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    services.jellyseerr.enable = true;
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services.jellyseerr.enable = true;
-
-      services'.caddy.reverseProxies.${domain} = {
-        inherit (config.services.jellyseerr) port;
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Jellyseerr = {
-        icon = "jellyseerr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+    config'.caddy.reverseProxies.${domain} = {
+      inherit (config.services.jellyseerr) port;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-  ];
+    config'.homepage.categories.${cfg.homepage.category}.services.Jellyseerr = {
+      icon = "jellyseerr.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

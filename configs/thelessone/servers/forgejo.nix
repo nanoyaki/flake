@@ -13,7 +13,7 @@ let
 in
 
 {
-  sec = {
+  sops.secrets = {
     "forgejo/users/nanoyaki".owner = cfg.user;
     "forgejo/runners/default".mode = "0444";
   };
@@ -35,7 +35,7 @@ in
       enable = false;
       name = "monolith";
       url = "https://git.theless.one";
-      tokenFile = config.sec."forgejo/runners/default".path;
+      tokenFile = config.sops.secrets."forgejo/runners/default".path;
 
       labels = [ "native:host" ];
       hostPackages = with pkgs; [
@@ -93,12 +93,12 @@ in
     };
   };
 
-  services'.caddy.reverseProxies."git.theless.one" = {
+  config'.caddy.reverseProxies."git.theless.one" = {
     port = config.services.forgejo.settings.server.HTTP_PORT;
     serverAliases = [ "git.nanoyaki.space" ];
   };
 
-  services'.homepage.categories.Code.services.Forgejo = rec {
+  config'.homepage.categories.Code.services.Forgejo = rec {
     description = "Code forge";
     icon = "forgejo.svg";
     href = "https://git.theless.one";
@@ -108,7 +108,7 @@ in
   systemd.services.forgejo.preStart =
     let
       adminCmd = "${lib.getExe cfg.package} admin user";
-      passwordFile = config.sec."forgejo/users/nanoyaki".path;
+      passwordFile = config.sops.secrets."forgejo/users/nanoyaki".path;
     in
     ''
       ${adminCmd} create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})" || true

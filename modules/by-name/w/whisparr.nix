@@ -1,4 +1,9 @@
-{ lib, lib', ... }:
+{
+  lib,
+  lib',
+  config,
+  ...
+}:
 
 let
   inherit (lib) mkIf;
@@ -7,53 +12,41 @@ let
     mkStrOption
     mkFalseOption
     ;
+
+  cfg = config.config'.whisparr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "whisparr";
-
-  options.homepage = {
+{
+  options.config'.whisparr = {
     enable = mkFalseOption;
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Adult video manager" mkStrOption;
+
+    subdomain = mkDefault "whisparr" mkStrOption;
+    homepage = {
+      enable = mkFalseOption;
+
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Adult video manager" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    config'.vopono.allowedTCPPorts = [ config.services.whisparr.settings.server.port ];
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services'.vopono.allowedTCPPorts = [ config.services.whisparr.settings.server.port ];
-
-      services.whisparr = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain}.port = config.services.whisparr.settings.server.port;
-
-      services'.homepage = mkIf cfg.homepage.enable {
-        categories.${cfg.homepage.category}.services.Whisparr = {
-          icon = "whisparr.svg";
-          href = domain;
-          siteMonitor = domain;
-          inherit (cfg.homepage) description;
-        };
-      };
+    services.whisparr = {
+      enable = true;
+      inherit (config.config'.lab-config.arr) group;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    config'.caddy.reverseProxies.${domain}.port = config.services.whisparr.settings.server.port;
+
+    config'.homepage = mkIf cfg.homepage.enable {
+      categories.${cfg.homepage.category}.services.Whisparr = {
+        icon = "whisparr.svg";
+        href = domain;
+        siteMonitor = domain;
+        inherit (cfg.homepage) description;
+      };
+    };
+  };
 }

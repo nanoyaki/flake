@@ -1,11 +1,14 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     inputs.disko.nixosModules.disko
   ];
-
-  sec.cifsCredentials = { };
 
   disko.devices.disk.nixos = {
     device = "/dev/disk/by-id/nvme-CT1000P1SSD8_2030E2BAC10A";
@@ -50,6 +53,12 @@
     options = [ "compress=zstd" ];
   };
 
+  sops.secrets.cifsPassword = { };
+  sops.templates.cifs-credentials.file = (pkgs.formats.keyValue { }).generate "cifs-credentials" {
+    username = "hana";
+    password = config.sops.placeholder."cifsPassword";
+  };
+
   fileSystems."/mnt/yuri/hana" = {
     device = "//10.0.0.3/hana";
     fsType = "cifs";
@@ -59,7 +68,7 @@
       "x-systemd.idle-timeout=60"
       "x-systemd.device-timeout=5s"
       "x-systemd.mount-timeout=5s"
-      "credentials=${config.sec.cifsCredentials.path}"
+      "credentials=${config.sops.templates.cifs-credentials.path}"
       "uid=1000"
       "gid=100"
     ];

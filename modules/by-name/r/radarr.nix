@@ -1,59 +1,51 @@
 {
+  lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
+
+  cfg = config.config'.radarr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "radarr";
+{
+  options.config'.radarr = {
+    enable = mkFalseOption;
 
-  options.homepage = {
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Movie manager" mkStrOption;
+    subdomain = mkDefault "radarr" mkStrOption;
+
+    homepage = {
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Movie manager" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    config'.vopono.allowedTCPPorts = [ config.services.radarr.settings.server.port ];
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services'.vopono.allowedTCPPorts = [ config.services.radarr.settings.server.port ];
-
-      services.radarr = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain} = {
-        inherit (config.services.radarr.settings.server) port;
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Radarr = {
-        icon = "radarr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+    services.radarr = {
+      enable = true;
+      inherit (config.config'.lab-config.arr) group;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    config'.caddy.reverseProxies.${domain} = {
+      inherit (config.services.radarr.settings.server) port;
+    };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Radarr = {
+      icon = "radarr.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

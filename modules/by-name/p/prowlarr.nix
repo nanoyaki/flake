@@ -1,60 +1,52 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
+    mkFalseOption
     ;
+
+  cfg = config.config'.prowlarr;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
+{
+  options.config'.prowlarr = {
+    enable = mkFalseOption;
 
-lib'.modules.mkModule {
-  name = "prowlarr";
+    subdomain = mkDefault "prowlarr" mkStrOption;
 
-  options.homepage = {
-    category = mkDefault "Media services" mkStrOption;
-    description = mkDefault "Indexing manager" mkStrOption;
+    homepage = {
+      category = mkDefault "Media services" mkStrOption;
+      description = mkDefault "Indexing manager" mkStrOption;
+    };
   };
 
-  config =
-    {
-      cfg,
-      config,
-      helpers',
-      ...
-    }:
+  config = mkIf cfg.enable {
+    config'.vopono.services.prowlarr = [ config.services.prowlarr.settings.server.port ];
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services'.vopono.services.prowlarr = [ config.services.prowlarr.settings.server.port ];
-
-      systemd.services.prowlarr.wantedBy = lib.mkForce [ "vopono.service" ];
-      services.prowlarr = {
-        enable = true;
-        openFirewall = true;
-      };
-
-      services'.caddy.reverseProxies.${domain} = {
-        inherit (config.services.prowlarr.settings.server) port;
-        host = "10.200.1.2";
-      };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Prowlarr = {
-        icon = "prowlarr.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
+    systemd.services.prowlarr.wantedBy = lib.mkForce [ "vopono.service" ];
+    services.prowlarr = {
+      enable = true;
+      openFirewall = true;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-  ];
+    config'.caddy.reverseProxies.${domain} = {
+      inherit (config.services.prowlarr.settings.server) port;
+      inherit (config.config'.vopono) host;
+    };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Prowlarr = {
+      icon = "prowlarr.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+  };
 }

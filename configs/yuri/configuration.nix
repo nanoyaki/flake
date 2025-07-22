@@ -1,11 +1,11 @@
-{ username, ... }:
+{ config, ... }:
 
 {
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  nanoflake.localization = {
+  config'.localization = {
     language = "en_US";
     locale = "en_US.UTF-8";
     extraLocales = [
@@ -21,6 +21,12 @@
     hybrid-sleep.enable = false;
   };
 
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+    useRoutingFeatures = "both";
+  };
+
   networking.firewall = {
     enable = true;
     allowPing = true;
@@ -28,7 +34,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ username ];
+      users = [ config.config'.mainUserName ];
       commands = [
         {
           command = "ALL";
@@ -39,6 +45,4 @@
   ];
 
   console.keyMap = "de";
-  system.stateVersion = "25.05";
-  hm.home.stateVersion = "25.05";
 }

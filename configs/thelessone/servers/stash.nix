@@ -10,7 +10,7 @@ let
 in
 
 {
-  sec = lib.genAttrs [ "stash/password" "stash/jwtSecret" "stash/sessionStoreSecret" ] (_: {
+  sops.secrets = lib.genAttrs [ "stash/password" "stash/jwtSecret" "stash/sessionStoreSecret" ] (_: {
     owner = cfg.user;
   });
 
@@ -18,9 +18,9 @@ in
     enable = true;
 
     group = "arr-stack";
-    passwordFile = config.sec."stash/password".path;
-    jwtSecretKeyFile = config.sec."stash/jwtSecret".path;
-    sessionStoreKeyFile = config.sec."stash/sessionStoreSecret".path;
+    passwordFile = config.sops.secrets."stash/password".path;
+    jwtSecretKeyFile = config.sops.secrets."stash/jwtSecret".path;
+    sessionStoreKeyFile = config.sops.secrets."stash/sessionStoreSecret".path;
 
     mutablePlugins = true;
     mutableScrapers = true;
@@ -47,12 +47,12 @@ in
 
   environment.systemPackages = [ pkgs.chromium ];
 
-  services'.caddy.reverseProxies."https://stash.vpn.theless.one" = {
+  config'.caddy.reverseProxies."https://stash.vpn.theless.one" = {
     inherit (cfg.settings) port;
     vpnOnly = true;
   };
 
-  services'.homepage.categories.Media.services.Stash = rec {
+  config'.homepage.categories.Media.services.Stash = rec {
     description = "Adult video server";
     icon = "stash.svg";
     href = "https://stash.vpn.theless.one";

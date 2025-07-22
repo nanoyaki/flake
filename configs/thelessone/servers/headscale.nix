@@ -4,7 +4,7 @@ let
   inherit (lib.attrsets) filterAttrs;
   inherit (builtins) attrNames map;
 
-  domain = config.services'.caddy.baseDomain;
+  domain = config.config'.caddy.baseDomain;
 in
 
 {
@@ -31,7 +31,7 @@ in
           name = "${name}.vpn.${domain}";
           type = "A";
           value = "100.64.64.1";
-        }) (attrNames (filterAttrs (_: cfg: cfg.enable) config.services'));
+        }) (attrNames (filterAttrs (_: cfg: cfg ? enable && cfg.enable && cfg ? subdomain) config.config'));
       };
 
       randomize_client_port = true;
@@ -40,7 +40,7 @@ in
 
   environment.systemPackages = [ config.services.headscale.package ];
 
-  services'.caddy.reverseProxies."https://headscale.${domain}" = {
+  config'.caddy.reverseProxies."https://headscale.${domain}" = {
     inherit (config.services.headscale) port;
   };
 }

@@ -2,7 +2,7 @@
   lib,
   pkgs,
   inputs,
-  username,
+  config,
   ...
 }:
 
@@ -55,11 +55,8 @@ in
   hm.xdg.autostart.entries = [
     "${corectrlDesktop}/share/applications/${pkgs.corectrl.pname}.desktop"
   ];
-  programs.corectrl = {
-    enable = true;
-    package = pkgs.corectrl;
-  };
-  users.users.${username}.extraGroups = [ "corectrl" ];
+  programs.corectrl.enable = true;
+  users.users.${config.config'.mainUserName}.extraGroups = [ "corectrl" ];
 
   services.vermeer-undervolt = {
     enable = true;

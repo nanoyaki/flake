@@ -6,12 +6,12 @@
 
 {
 
-  sec."restic/smp" = { };
+  sops.secrets."restic/smp" = { };
 
   services.restic.backups.smp = {
     initialize = true;
     repository = "/var/lib/restic/backups/smp";
-    passwordFile = config.sec."restic/smp".path;
+    passwordFile = config.sops.secrets."restic/smp".path;
 
     paths = [ "${config.services.minecraft-servers.dataDir}/smp/world" ];
     exclude = [ "${config.services.minecraft-servers.dataDir}/smp/world/**/data/DistantHorizons*" ];

@@ -1,19 +1,29 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
 let
   inherit (lib) mkIf;
-  inherit (lib'.options) mkDefault mkTrueOption mkStrOption;
+  inherit (lib'.options)
+    mkDefault
+    mkTrueOption
+    mkStrOption
+    mkFalseOption
+    ;
+
+  cfg = config.config'.immich;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "immich";
-
-  options = {
+{
+  options.config'.immich = {
+    enable = mkFalseOption;
     enableHardwareAcceleration = mkTrueOption;
+
+    subdomain = mkDefault "immich" mkStrOption;
 
     homepage = {
       category = mkDefault "Media" mkStrOption;
@@ -21,41 +31,24 @@ lib'.modules.mkModule {
     };
   };
 
-  config =
-    {
-      cfg,
-      config,
-      helpers',
-      ...
-    }:
-
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services.immich = {
-        enable = true;
-        accelerationDevices = mkIf cfg.enableHardwareAcceleration [ "/dev/dri/renderD128" ];
-      };
-
-      services'.caddy.reverseProxies.${domain} = { inherit (config.services.immich) port; };
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Immich = {
-        icon = "immich.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
-
-      users.users.${config.services.immich.user}.extraGroups = [
-        "video"
-        "render"
-      ];
+  config = mkIf cfg.enable {
+    services.immich = {
+      enable = true;
+      accelerationDevices = mkIf cfg.enableHardwareAcceleration [ "/dev/dri/renderD128" ];
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-  ];
+    config'.caddy.reverseProxies.${domain} = { inherit (config.services.immich) port; };
+
+    config'.homepage.categories.${cfg.homepage.category}.services.Immich = {
+      icon = "immich.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
+    };
+
+    users.users.${config.services.immich.user}.extraGroups = [
+      "video"
+      "render"
+    ];
+  };
 }

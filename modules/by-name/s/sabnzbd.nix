@@ -1,83 +1,65 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
 let
+  inherit (lib) genAttrs mkIf;
   inherit (lib'.options)
     mkDefault
     mkStrOption
     mkPathOption
+    mkFalseOption
     ;
 
-  inherit (lib) genAttrs;
+  inherit (config.config'.lab-config) arr;
+
+  cfg = config.config'.sabnzbd;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "sabnzbd";
+{
+  options.config'.sabnzbd = {
+    enable = mkFalseOption;
 
-  options =
-    { cfg', ... }:
+    subdomain = mkDefault "sabnzbd" mkStrOption;
 
-    let
-      inherit (cfg'.lab-config.arr) home;
-    in
+    completeDirectory = mkDefault "${arr.home}/downloads/complete" mkPathOption;
+    incompleteDirectory = mkDefault "${arr.home}/downloads/incomplete" mkPathOption;
 
-    {
-      completeDirectory = mkDefault "${home}/downloads/complete" mkPathOption;
-      incompleteDirectory = mkDefault "${home}/downloads/incomplete" mkPathOption;
+    homepage = {
+      category = mkDefault "Services" mkStrOption;
+      description = mkDefault "Usenet client" mkStrOption;
+    };
+  };
 
-      homepage = {
-        category = mkDefault "Services" mkStrOption;
-        description = mkDefault "Usenet client" mkStrOption;
-      };
+  config = mkIf cfg.enable {
+    config'.vopono.allowedTCPPorts = [ 8080 ];
+
+    services.sabnzbd = {
+      enable = true;
+      inherit (arr) group;
     };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+    config'.caddy.reverseProxies.${domain}.port = 8080;
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services'.vopono.allowedTCPPorts = [ 8080 ];
-
-      services.sabnzbd = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain}.port = 8080;
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Sabnzbd = {
-        icon = "sabnzbd.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
-
-      systemd.tmpfiles.settings."10-sabnzbd" =
-        genAttrs [ cfg.completeDirectory cfg.incompleteDirectory ]
-          (_: {
-            d = {
-              inherit (config.services.sabnzbd) user;
-              inherit (cfg'.lab-config.arr) group;
-              mode = "2770";
-            };
-          });
+    config'.homepage.categories.${cfg.homepage.category}.services.Sabnzbd = {
+      icon = "sabnzbd.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    systemd.tmpfiles.settings."10-sabnzbd" =
+      genAttrs [ cfg.completeDirectory cfg.incompleteDirectory ]
+        (_: {
+          d = {
+            inherit (config.services.sabnzbd) user;
+            inherit (arr) group;
+            mode = "2770";
+          };
+        });
+  };
 }

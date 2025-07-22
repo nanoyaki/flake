@@ -7,7 +7,7 @@
 }:
 
 let
-  identityFile = config.sec."private_keys/id_nadesiko".path;
+  identityFile = config.sops.secrets."private_keys/id_nadesiko".path;
 
   midnight-theme = pkgs.midnight-theme.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [ ../common/optional/vencord-icon.patch ];

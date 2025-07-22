@@ -1,4 +1,7 @@
 {
+    "[nix]": {
+        "editor.defaultFormatter": "jnoortheen.nix-ide"
+    },
     "nix.serverPath": "nixd",
     "nix.enableLanguageServer": true,
     "nix.serverSettings": {
@@ -7,7 +10,7 @@
                 "expr": "import (builtins.getFlake \"/home/hana/flake\").inputs.nixpkgs { }"
             },
             "formatting": {
-                "command": [ "nixfmt" ]
+                "command": [ "nix fmt" ]
             },
             "options": {
                 "enable": true,
@@ -26,16 +29,13 @@
             }
         }
     },
-    "editor.formatOnSave": true,
-    "[nix]": {
-        "editor.defaultFormatter": "jnoortheen.nix-ide"
-    },
+    "yaml.format.singleQuote": true,
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.insertSpaces": true
     },
-    "yaml.format.singleQuote": true,
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    },
+    "editor.formatOnSave": true
 }

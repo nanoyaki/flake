@@ -1,8 +1,5 @@
-{ self, ... }:
-
 {
   imports = [
-    self.nixosModules.lab-config
     ./media.nix
     ./domains.nix
     ./samba.nix

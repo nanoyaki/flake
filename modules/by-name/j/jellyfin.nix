@@ -1,85 +1,69 @@
 {
   lib,
   lib',
+  config,
   ...
 }:
 
 let
-  inherit (lib) genAttrs;
+  inherit (lib) genAttrs mkIf;
   inherit (lib'.options)
     mkDefault
     mkListOf
     mkStrOption
     mkPathOption
+    mkFalseOption
     ;
+
+  inherit (config.config'.lab-config) arr;
+  inherit (arr) home;
+
+  cfg = config.config'.jellyfin;
+  domain = config.config'.caddy.genDomain cfg.subdomain;
 in
 
-lib'.modules.mkModule {
-  name = "jellyfin";
+{
+  options.config'.jellyfin = {
+    enable = mkFalseOption;
 
-  options =
-    { cfg', ... }:
+    subdomain = mkDefault "jellyfin" mkStrOption;
 
-    let
-      inherit (cfg'.lab-config.arr) home;
-    in
+    libraryDirectories = mkDefault [
+      "${home}/libraries/movies"
+      "${home}/libraries/shows"
+      "${home}/libraries/music"
+      "${home}/libraries/anime/movies"
+      "${home}/libraries/anime/shows"
+      "${home}/libraries/anime/adult"
+    ] (mkListOf mkPathOption);
 
-    {
-      libraryDirectories = mkDefault [
-        "${home}/libraries/movies"
-        "${home}/libraries/shows"
-        "${home}/libraries/music"
-        "${home}/libraries/anime/movies"
-        "${home}/libraries/anime/shows"
-        "${home}/libraries/anime/adult"
-      ] (mkListOf mkPathOption);
+    homepage = {
+      category = mkDefault "Media" mkStrOption;
+      description = mkDefault "Movie and show archive" mkStrOption;
+    };
+  };
 
-      homepage = {
-        category = mkDefault "Media" mkStrOption;
-        description = mkDefault "Movie and show archive" mkStrOption;
-      };
+  config = mkIf cfg.enable {
+    services.jellyfin = {
+      enable = true;
+      inherit (arr) group;
     };
 
-  config =
-    {
-      cfg,
-      cfg',
-      config,
-      helpers',
-      ...
-    }:
+    config'.caddy.reverseProxies.${domain}.port = 8096;
 
-    let
-      domain = helpers'.caddy.domain cfg;
-    in
-
-    {
-      services.jellyfin = {
-        enable = true;
-        inherit (cfg'.lab-config.arr) group;
-      };
-
-      services'.caddy.reverseProxies.${domain}.port = 8096;
-
-      services'.homepage.categories.${cfg.homepage.category}.services.Jellyfin = {
-        icon = "jellyfin.svg";
-        href = domain;
-        siteMonitor = domain;
-        inherit (cfg.homepage) description;
-      };
-
-      systemd.tmpfiles.settings."10-jelyfin" = genAttrs cfg.libraryDirectories (_: {
-        d = {
-          inherit (config.services.jellyfin) user;
-          inherit (cfg'.lab-config.arr) group;
-          mode = "2770";
-        };
-      });
+    config'.homepage.categories.${cfg.homepage.category}.services.Jellyfin = {
+      icon = "jellyfin.svg";
+      href = domain;
+      siteMonitor = domain;
+      inherit (cfg.homepage) description;
     };
 
-  dependencies = [
-    "caddy"
-    "homepage"
-    "lab-config"
-  ];
+    systemd.tmpfiles.settings."10-jelyfin" = genAttrs cfg.libraryDirectories (_: {
+      d = {
+        inherit (config.services.jellyfin) user;
+        inherit (arr) group;
+        mode = "2770";
+      };
+    });
+  };
 }

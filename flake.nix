@@ -29,7 +29,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pre-commit-hooks = {
+    git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -41,6 +41,7 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak";
 
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
@@ -111,26 +112,28 @@
     }:
 
     flake-parts.lib.mkFlake { inherit inputs; } {
-      debug = true;
-
       imports = [
+        ./flake/formatting.nix
+        ./flake/dev.nix
+        ./flake/deploy.nix
+
         ./lib
-        ./deploy.nix
         ./modules
         ./homeModules
-        ./devShell.nix
 
         ./configs/shirayuri
         ./configs/kuroyuri
-        ./configs/thelessone
         ./configs/yuri
-        ./configs/lesstop
         ./configs/meow
+        ./configs/thelessone
         ./configs/thelessnas
       ];
 
       systems = [
         "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
       ];
     };
 }

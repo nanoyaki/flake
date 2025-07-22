@@ -229,7 +229,6 @@ in
             url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/CRjwbqnJ/Axiom-4.9.1-for-MC1.21.6.jar";
           };
           without = [
-            "DistantHorizons"
             "SimpleVoiceChat"
           ];
         };
@@ -276,5 +275,5 @@ in
     };
   };
 
-  services'.caddy.reverseProxies."map.theless.one".port = 8100;
+  config'.caddy.reverseProxies."map.theless.one".port = 8100;
 }

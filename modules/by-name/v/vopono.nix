@@ -1,6 +1,8 @@
 {
   lib,
   lib',
+  pkgs,
+  config,
   ...
 }:
 
@@ -14,133 +16,137 @@ let
     mkPortOption
     mkPathOption
     mkEnumOption
+    mkFalseOption
     ;
 
-  inherit (lib) mkPackageOption getExe';
+  inherit (lib) mkPackageOption getExe' mkIf;
   inherit (lib.lists) singleton unique flatten;
   inherit (lib.attrsets) attrValues mapAttrs;
   inherit (lib.strings) concatMapStrings;
+
+  cfg = config.config'.vopono;
 in
 
-lib'.modules.mkModule {
-  name = "vopono";
+{
+  options.config'.vopono = {
+    enable = mkFalseOption;
 
-  options =
-    { pkgs, ... }:
+    package = mkPackageOption pkgs "vopono" { };
+    dataDir = mkDefault "/var/lib/vopono" mkPathOption;
+    configFile = mkPathOption;
+    protocol = mkEnumOption [
+      "Wireguard"
+      "OpenVPN"
+    ];
+    interface = mkStrOption;
+    namespace = mkDefault "vopono0" mkStrOption;
+    services = mkAttrsOf (mkEither mkPortOption (mkListOf mkPortOption));
+    allowedTCPPorts = mkListOf mkPortOption;
+    allowedUDPPorts = mkListOf mkPortOption;
 
-    {
-      package = mkPackageOption pkgs "vopono" { };
-      dataDir = mkDefault "/var/lib/vopono" mkPathOption;
-      configFile = mkPathOption;
-      protocol = mkEnumOption [
-        "Wireguard"
-        "OpenVPN"
-      ];
-      interface = mkStrOption;
-      namespace = mkDefault "vopono0" mkStrOption;
-      services = mkAttrsOf (mkEither mkPortOption (mkListOf mkPortOption));
-      allowedTCPPorts = mkListOf mkPortOption;
-      allowedUDPPorts = mkListOf mkPortOption;
+    host = mkDefault "10.200.1.2" mkStrOption;
+    vpnHost = mkDefault "10.200.1.1" mkStrOption;
+  };
+
+  config = mkIf cfg.enable {
+    users.users.vopono = {
+      isSystemUser = true;
+      group = "vopono";
+      home = cfg.dataDir;
     };
 
-  config =
-    {
-      cfg,
-      pkgs,
-      ...
-    }:
+    users.groups.vopono = { };
 
-    {
-      users.users.vopono = {
-        isSystemUser = true;
-        group = "vopono";
-        home = cfg.dataDir;
-      };
+    systemd.tmpfiles.settings."10-vopono-config"."${cfg.dataDir}/.config/vopono".d = {
+      user = "vopono";
+      group = "vopono";
+      mode = "770";
+    };
 
-      users.groups.vopono = { };
+    networking.firewall.interfaces."${cfg.namespace}_d" = {
+      inherit (cfg)
+        allowedTCPPorts
+        allowedUDPPorts
+        ;
+    };
 
-      systemd.tmpfiles.settings."10-vopono-config"."${cfg.dataDir}/.config/vopono".d = {
-        user = "vopono";
-        group = "vopono";
-        mode = "770";
-      };
+    systemd.services = {
+      vopono = {
+        wantedBy = [ "multi-user.target" ];
+        wants = [ "network-online.target" ];
+        after = [ "network-online.target" ];
 
-      networking.firewall.interfaces."${cfg.namespace}_d" = {
-        inherit (cfg)
-          allowedTCPPorts
-          allowedUDPPorts
-          ;
-      };
+        path = [
+          "/run/wrappers"
+          cfg.package
+        ]
+        ++ (with pkgs; [
+          wireguard-tools
+          iproute2
+          iptables
+          procps
+          systemd
+        ]);
 
-      systemd.services =
-        {
-          vopono = {
-            wantedBy = [ "multi-user.target" ];
-            wants = [ "network-online.target" ];
-            after = [ "network-online.target" ];
+        unitConfig.ConditionPathExists = "${cfg.dataDir}/.config/vopono";
 
-            path =
-              [
-                "/run/wrappers"
-                cfg.package
-              ]
-              ++ (with pkgs; [
-                wireguard-tools
-                iproute2
-                iptables
-                procps
-                systemd
-              ]);
+        script = ''
+          vopono exec \
+            ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} \
+            -u vopono \
+            --keep-alive \
+            ${concatMapStrings (port: "-f ${toString port} ") (unique (flatten (attrValues cfg.services)))} \
+            ${
+              concatMapStrings (port: "-o ${toString port} ") (
+                unique (cfg.allowedTCPPorts ++ cfg.allowedUDPPorts)
+              )
+            } \
+            --allow-host-access \
+            --custom ${cfg.configFile} \
+            --protocol ${cfg.protocol} \
+            --custom-netns-name ${cfg.namespace} \
+            "systemd-notify --ready"
+        '';
 
-            unitConfig.ConditionPathExists = "${cfg.dataDir}/.config/vopono";
+        serviceConfig = {
+          Type = "notify";
+          NotifyAccess = "all";
+          Restart = "on-failure";
+          RestartSec = "5s";
 
-            script = ''
-              vopono exec \
-                ${lib.optionalString (cfg.interface != "") "-i ${cfg.interface}"} \
-                -u vopono \
-                --keep-alive \
-                ${concatMapStrings (port: "-f ${toString port} ") (unique (flatten (attrValues cfg.services)))} \
-                ${
-                  concatMapStrings (port: "-o ${toString port} ") (
-                    unique (cfg.allowedTCPPorts ++ cfg.allowedUDPPorts)
-                  )
-                } \
-                --allow-host-access \
-                --custom ${cfg.configFile} \
-                --protocol ${cfg.protocol} \
-                --custom-netns-name ${cfg.namespace} \
-                "systemd-notify --ready"
-            '';
+          ExecStop = "${getExe' pkgs.iproute2 "ip"} link delete ${cfg.namespace}_d";
 
-            serviceConfig = {
-              Type = "notify";
-              NotifyAccess = "all";
-              Restart = "on-failure";
-              RestartSec = "5s";
-
-              ExecStop = "${getExe' pkgs.iproute2 "ip"} link delete ${cfg.namespace}_d";
-
-              User = "vopono";
-              Group = "vopono";
-            };
-          };
-        }
-        // mapAttrs (_: _: {
-          after = [ "vopono.service" ];
-          partOf = [ "vopono.service" ];
-          wantedBy = [ "vopono.service" ];
-          serviceConfig = {
-            BindPaths = [ "/etc/netns/${cfg.namespace}/resolv.conf:/etc/resolv.conf" ];
-            NetworkNamespacePath = "/var/run/netns/${cfg.namespace}";
-          };
-        }) cfg.services;
-
-      security.sudo.extraRules = singleton {
-        users = singleton "vopono";
-        commands = singleton {
-          command = "ALL";
-          options = singleton "NOPASSWD";
+          User = "vopono";
+          Group = "vopono";
         };
       };
+    }
+    // mapAttrs (_: _: {
+      after = [ "vopono.service" ];
+      partOf = [ "vopono.service" ];
+      wantedBy = [ "vopono.service" ];
+      serviceConfig = {
+        BindPaths = [ "/etc/netns/${cfg.namespace}/resolv.conf:/etc/resolv.conf" ];
+        NetworkNamespacePath = "/var/run/netns/${cfg.namespace}";
+      };
+    }) cfg.services;
+
+    security.sudo.extraRules = singleton {
+      users = singleton "vopono";
+      commands =
+        map
+          (command: {
+            inherit command;
+            options = singleton "NOPASSWD";
+          })
+          [
+            (lib.getExe' pkgs.iproute2 "ip")
+            (lib.getExe' pkgs.iptables "iptables")
+            (lib.getExe' pkgs.iptables "ip6tables")
+            (lib.getExe' pkgs.procps "sysctl")
+            (lib.getExe' pkgs.networkmanager "nmcli")
+            (lib.getExe' pkgs.networkmanager "nft")
+          ];
     };
+  };
 }

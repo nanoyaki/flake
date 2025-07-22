@@ -10,7 +10,7 @@ let
 in
 
 {
-  sec = {
+  sops.secrets = {
     "porkbun/api-key" = { };
     "porkbun/secret-api-key" = { };
   };

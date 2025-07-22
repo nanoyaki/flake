@@ -7,7 +7,7 @@
 }:
 
 {
-  sec = {
+  sops.secrets = {
     "woodpecker/forgejo/clientId" = { };
     "woodpecker/forgejo/clientSecret" = { };
     "woodpecker/metrics/apiToken" = { };
@@ -32,9 +32,9 @@
     };
 
     environmentFile = [
-      config.sec."woodpecker/forgejo/clientId".path
-      config.sec."woodpecker/forgejo/clientSecret".path
-      config.sec."woodpecker/metrics/apiToken".path
+      config.sops.secrets."woodpecker/forgejo/clientId".path
+      config.sops.secrets."woodpecker/forgejo/clientSecret".path
+      config.sops.secrets."woodpecker/metrics/apiToken".path
     ];
   };
 
@@ -50,7 +50,7 @@
         WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=local,repo=*";
       };
 
-      environmentFile = [ config.sec."woodpecker/agents/native/secret".path ];
+      environmentFile = [ config.sops.secrets."woodpecker/agents/native/secret".path ];
 
       path = with pkgs; [
         git
@@ -86,18 +86,18 @@
         WOODPECKER_FILTER_LABELS = "platform=linux/amd64,hostname=theless.one,backend=docker,repo=*";
       };
 
-      environmentFile = [ config.sec."woodpecker/agents/docker/secret".path ];
+      environmentFile = [ config.sops.secrets."woodpecker/agents/docker/secret".path ];
     };
   };
 
   services.openssh.knownHosts."codeberg.org".publicKey =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
 
-  services'.caddy.reverseProxies."woodpecker.theless.one".port = lib.strings.toInt (
+  config'.caddy.reverseProxies."woodpecker.theless.one".port = lib.strings.toInt (
     lib.strings.removePrefix ":" config.services.woodpecker-server.environment.WOODPECKER_SERVER_ADDR
   );
 
-  services'.homepage.categories.Code.services.Woodpecker = rec {
+  config'.homepage.categories.Code.services.Woodpecker = rec {
     description = "CI/CD engine";
     icon = "woodpecker-ci.svg";
     href = "https://woodpecker.theless.one";

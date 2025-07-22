@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 
@@ -26,10 +27,24 @@ let
 in
 
 {
-  sec."caddy/users".owner = config.services.caddy.user;
+  sops.secrets = {
+    "caddy-env-vars/nik" = { };
+    "caddy-env-vars/hana" = { };
+    "caddy-env-vars/shared" = { };
+    "caddy-env-vars/thelessone" = { };
+  };
 
+  sops.templates."caddy-users.env".file = (pkgs.formats.keyValue { }).generate "caddy-users.env" {
+    nik = "nik ${config.sops.placeholder."caddy-env-vars/nik"}";
+    hana = "hana ${config.sops.placeholder."caddy-env-vars/hana"}";
+    shared = "user ${config.sops.placeholder."caddy-env-vars/shared"}";
+    thelessone = "thelessone ${config.sops.placeholder."caddy-env-vars/thelessone"}";
+  };
+
+  config'.caddy.enable = true;
   services.caddy = {
-    environmentFile = config.sec."caddy/users".path;
+    enable = true;
+    environmentFile = config.sops.templates."caddy-users.env".path;
 
     virtualHosts = {
       "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
@@ -41,7 +56,7 @@ in
     };
   };
 
-  services'.caddy.reverseProxies."https://coolercontrol.nas.vpn.theless.one" = {
+  config'.caddy.reverseProxies."https://coolercontrol.nas.vpn.theless.one" = {
     port = 11987;
     host = "10.0.0.6";
     vpnOnly = true;

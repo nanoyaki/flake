@@ -1,7 +1,6 @@
 {
   self,
   lib,
-  lib',
   ...
 }:
 
@@ -12,7 +11,6 @@ let
     attrNames
     removeSuffix
     map
-    nameValuePair
     ;
 
   inherit (builtins)
@@ -20,35 +18,40 @@ let
     readDir
     listToAttrs
     ;
+
+  nixosModules = listToAttrs (
+    flatten (
+      map
+        (
+          dir:
+          let
+            files = readDir (./by-name + "/${dir}");
+          in
+          map (filename: {
+            name = if files.${filename} == "directory" then filename else removeSuffix ".nix" filename;
+            value = import (./by-name + "/${dir}/${filename}");
+          }) (attrNames files)
+        )
+        (
+          attrNames (
+            filterAttrs (dir: type: (stringLength dir) < 3 && type == "directory") (readDir ./by-name)
+          )
+        )
+    )
+  );
 in
 
 {
-  flake.nixosModules =
-    listToAttrs (
-      flatten (
-        map
-          (
-            dir:
-            let
-              files = readDir (./by-name + "/${dir}");
-            in
-            map (
-              name:
-              nameValuePair (if files.${name} == "directory" then name else removeSuffix ".nix" name) (
-                import (./by-name + "/${dir}/${name}") { inherit self lib lib'; }
-              )
-            ) (attrNames files)
-          )
-          (
-            attrNames (
-              filterAttrs (dir: type: (stringLength dir) < 3 && type == "directory") (readDir ./by-name)
-            )
-          )
-      )
-    )
-    // {
-      suwayomi = import ./suwayomi;
-      shoko = import ./shoko;
-    };
+  flake.nixosModules = {
+    all =
+      { ... }:
+
+      {
+        imports = map (moduleName: self.nixosModules.${moduleName}) (attrNames nixosModules);
+      };
+
+    # maybe i'll migrate this when i'm less lazy
+    vr = import ./vr;
+  }
+  // nixosModules;
 }
-# meow

@@ -3,7 +3,6 @@
   inputs',
   pkgs,
   config,
-  username,
   ...
 }:
 
@@ -22,13 +21,13 @@ in
     };
   };
 
-  services'.caddy.reverseProxies."https://status.nanoyaki.space".port =
+  config'.caddy.reverseProxies."https://status.nanoyaki.space".port =
     lib.strings.toInt config.services.uptime-kuma.settings.PORT;
 
   users.users =
     lib.genAttrs
       [
-        username
+        config.config'.mainUserName
         cfg.user
       ]
       (_: {

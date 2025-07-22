@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  sec."nixos/users/hana".neededForUsers = true;
+  sops.secrets."users/hana".neededForUsers = true;
 
   users.users.nas.extraGroups = [ "nas" ];
   users.groups.nas = { };
@@ -14,7 +14,7 @@
     home = "/mnt/shares/Hana";
     homeMode = "755";
     useDefaultShell = true;
-    hashedPasswordFile = config.sec."nixos/users/hana".path;
+    hashedPasswordFile = config.sops.secrets."users/hana".path;
   };
 
   systemd.tmpfiles.settings."10-samba" = {

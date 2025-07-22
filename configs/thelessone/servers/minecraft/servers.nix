@@ -138,7 +138,7 @@ in
             mtu_size = 1024;
             keep_alive = 1000;
             enable_groups = true;
-            voice_host = "theless.one:24454";
+            voice_host = "";
             allow_recording = true;
             spectator_interaction = false;
             spectator_player_possession = false;

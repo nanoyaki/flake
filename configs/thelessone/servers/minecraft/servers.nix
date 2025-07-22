@@ -138,7 +138,7 @@ in
             mtu_size = 1024;
             keep_alive = 1000;
             enable_groups = true;
-            voice_host = "";
+            voice_host = "theless.one:24454";
             allow_recording = true;
             spectator_interaction = false;
             spectator_player_possession = false;
@@ -275,5 +275,6 @@ in
     };
   };
 
+  networking.firewall.allowedUDPPorts = [ 24454 ];
   config'.caddy.reverseProxies."map.theless.one".port = 8100;
 }

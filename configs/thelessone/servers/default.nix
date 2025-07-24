@@ -8,6 +8,7 @@
     ./woodpecker.nix
     ./domains.nix
     ./syncthing.nix
+    ./suwayomi.nix
     ./steam.nix
     ./uptime-kuma.nix
     ./dns.nix

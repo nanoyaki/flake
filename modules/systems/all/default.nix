@@ -40,6 +40,7 @@ in
     ./inputs.nix
     ./shell.nix
     ./locale.nix
+    ./ssh.nix
   ];
 
   options.config' = {

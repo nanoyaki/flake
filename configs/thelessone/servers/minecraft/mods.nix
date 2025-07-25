@@ -7,8 +7,8 @@
 }:
 
 linkFarmFromDrvs "mods" (
-  builtins.attrValues (
-    lib.mapAttrs (_: fetchurl) (
+  lib.map fetchurl (
+    builtins.attrValues (
       lib.filterAttrs (mod: _: !(lib.elem mod without)) (
         {
           FabricProxy-Lite = {
@@ -79,6 +79,10 @@ linkFarmFromDrvs "mods" (
           Cicada = {
             sha512 = "00be5317c4ddae59be859a4d794cce58c425f9418651370a9dc425570bb316f15422e9ae78c2bf0ce8e39aad4a972a39b78f8c4cd8bcd7ac15f95bb51f709a5e";
             url = "https://cdn.modrinth.com/data/IwCkru1D/versions/2LuLtZUC/cicada-lib-0.13.1%2B1.21.5-and-above.jar";
+          };
+          Servux = {
+            sha512 = "63f49e81fc004305cfba9e1228e2129b2ac0423f56fd7a4b23f6f591f409d2d5986a7642bdc5ee262fa87c8cbb4f052dd55ddf8274219d9693b379059adf4bfa";
+            url = "https://cdn.modrinth.com/data/zQhsx8KF/versions/3LUmmXJf/servux-fabric-1.21.8-0.7.3.jar";
           };
         }
         // additionalMods

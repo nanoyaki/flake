@@ -33,27 +33,28 @@ let
     symlinks = {
       "server-icon.png" = ./icon.png;
 
-      "config/roles.json" = writeJSON "roles.json" {
-        whitelister.overrides.commands."whitelist (add|remove)" = "allow";
-        everyone.overrides.commands = {
-          "image2map create" = "allow";
-          "tick query" = "allow";
+      "config/roles.json" = {
+        format = pkgs.formats.json { };
+        value = {
+          whitelister.overrides.commands."whitelist (add|remove)" = "allow";
+          everyone.overrides.commands = {
+            "image2map create" = "allow";
+            "tick query" = "allow";
+          };
         };
       };
     };
 
-    files."config/FabricProxy-Lite.toml" = writeTOML "FabricProxy-Lite.toml" {
-      hackOnlineMode = true;
-      hackMessageChain = true;
-      disconnectMessage = "Please connect through the proxy.";
-      secret = "@FABRIC_PROXY_SECRET@";
+    files."config/FabricProxy-Lite.toml" = {
+      format = pkgs.formats.toml { };
+      value = {
+        hackOnlineMode = true;
+        hackMessageChain = true;
+        disconnectMessage = "Please connect through the proxy.";
+        secret = "@FABRIC_PROXY_SECRET@";
+      };
     };
   };
-
-  writeJSON = (pkgs.formats.json { }).generate;
-  writeHocon = (pkgs.formats.hocon { }).generate;
-  writeKeyValue = (pkgs.formats.keyValue { }).generate;
-  writeTOML = (pkgs.formats.toml { }).generate;
 in
 
 {
@@ -62,16 +63,19 @@ in
     inputs.nix-minecraft.overlay
     (final: _: {
       fabricMods.default = final.callPackage ./mods.nix { };
+      datapacks.default = final.callPackage ./datapacks.nix { };
     })
   ];
 
   sops.secrets.proxy.sopsFile = ./secrets.yaml;
   sops.secrets.bot-token.sopsFile = ./secrets.yaml;
 
-  sops.templates."minecraft-secrets.env".file = writeKeyValue "proxy-secrets.env" {
-    DISCORDMCCHAT_BOT_TOKEN = config.sops.placeholder.bot-token;
-    FABRIC_PROXY_SECRET = config.sops.placeholder.proxy;
-  };
+  sops.templates."minecraft-secrets.env".file =
+    (pkgs.formats.keyValue { }).generate "minecraft-secrets.env"
+      {
+        DISCORDMCCHAT_BOT_TOKEN = config.sops.placeholder.bot-token;
+        FABRIC_PROXY_SECRET = config.sops.placeholder.proxy;
+      };
 
   services.minecraft-servers = {
     enable = true;
@@ -87,22 +91,25 @@ in
 
         serverProperties.server-port = 30050;
 
-        files."config/discord-mc-chat.json" = writeJSON "discord-mc-chat.json" {
-          generic = {
-            language = "en_us";
-            botToken = "@DISCORDMCCHAT_BOT_TOKEN@";
-            channelId = "1395405287984201738";
-            adminsIds = [
-              "1063583541641871440"
-              "222458973876387841"
-            ];
+        files."config/discord-mc-chat.json" = {
+          format = pkgs.formats.json { };
+          value = {
+            generic = {
+              language = "en_us";
+              botToken = "@DISCORDMCCHAT_BOT_TOKEN@";
+              channelId = "1395405287984201738";
+              adminsIds = [
+                "1063583541641871440"
+                "222458973876387841"
+              ];
 
-            avatarApi = "https://visage.surgeplay.com/bust/{player_uuid}.png";
-            broadcastPlayerCommandExecution = false;
-            broadcastSlashCommandExecution = false;
-            whitelistRequiresAdmin = false;
-            announceHighMspt = false;
-            excludedCommands = [ ".*" ];
+              avatarApi = "https://visage.surgeplay.com/bust/{player_uuid}.png";
+              broadcastPlayerCommandExecution = false;
+              broadcastSlashCommandExecution = false;
+              whitelistRequiresAdmin = false;
+              announceHighMspt = false;
+              excludedCommands = [ ".*" ];
+            };
           };
         };
 
@@ -128,82 +135,99 @@ in
             };
           };
 
-          "config/voicechat/voicechat-server.properties" = writeKeyValue "voicechat-server.properties" {
-            port = 24454;
-            bind_address = "";
-            max_voice_distance = 64.0;
-            crouch_distance_multiplier = 0.75;
-            whisper_distance_multiplier = 0.5;
-            codec = "VOIP";
-            mtu_size = 1024;
-            keep_alive = 1000;
-            enable_groups = true;
-            voice_host = "theless.one:24454";
-            allow_recording = true;
-            spectator_interaction = false;
-            spectator_player_possession = false;
-            force_voice_chat = false;
-            login_timeout = 10000;
-            broadcast_range = -1.0;
-            allow_pings = true;
+          "world/datapacks" = pkgs.datapacks.default;
+
+          "config/voicechat/voicechat-server.properties" = {
+            format = pkgs.formats.keyValue { };
+            value = {
+              port = 24454;
+              bind_address = "";
+              max_voice_distance = 64.0;
+              crouch_distance_multiplier = 0.75;
+              whisper_distance_multiplier = 0.5;
+              codec = "VOIP";
+              mtu_size = 1024;
+              keep_alive = 1000;
+              enable_groups = true;
+              voice_host = "theless.one:24454";
+              allow_recording = true;
+              spectator_interaction = false;
+              spectator_player_possession = false;
+              force_voice_chat = false;
+              login_timeout = 10000;
+              broadcast_range = -1.0;
+              allow_pings = true;
+            };
           };
 
-          "config/bluemap/core.conf" = writeHocon "core.conf" {
-            accept-download = true;
-            scan-for-mod-resources = true;
-            data = "bluemap";
-            render-thread-count = 12;
-            metrics = false;
-            log.file = "logs/bluemap.log";
-            log.append = true;
+          "config/bluemap/core.conf" = {
+            format = pkgs.formats.hocon { };
+            value = {
+              accept-download = true;
+              scan-for-mod-resources = true;
+              data = "bluemap";
+              render-thread-count = 12;
+              metrics = false;
+              log.file = "logs/bluemap.log";
+              log.append = true;
+            };
           };
 
-          "config/bluemap/plugin.conf" = writeHocon "plugin.conf" {
-            live-player-markers = true;
-            hidden-game-modes = [ "spectator" ];
-            hide-vanished = true;
-            hide-invisible = true;
-            hide-sneaking = true;
-            hide-below-sky-light = 0;
-            hide-below-block-light = 0;
-            hide-different-world = false;
-            skin-download = true;
-            player-render-limit = -1;
-            full-update-interval = 720;
+          "config/bluemap/plugin.conf" = {
+            format = pkgs.formats.hocon { };
+            value = {
+              live-player-markers = true;
+              hidden-game-modes = [ "spectator" ];
+              hide-vanished = true;
+              hide-invisible = true;
+              hide-sneaking = true;
+              hide-below-sky-light = 0;
+              hide-below-block-light = 0;
+              hide-different-world = false;
+              skin-download = true;
+              player-render-limit = -1;
+              full-update-interval = 720;
+            };
           };
 
-          "config/bluemap/webapp.conf" = writeHocon "webapp.conf" {
-            enabled = true;
-            webroot = "bluemap/web";
-            update-settings-file = true;
-            use-cookies = true;
-            enable-free-flight = true;
-            default-to-flat-view = false;
-            min-zoom-distance = 5;
-            max-zoom-distance = 100000;
-            resolution-default = 1;
+          "config/bluemap/webapp.conf" = {
+            format = pkgs.formats.hocon { };
+            value = {
+              enabled = true;
+              webroot = "bluemap/web";
+              update-settings-file = true;
+              use-cookies = true;
+              enable-free-flight = true;
+              default-to-flat-view = false;
+              min-zoom-distance = 5;
+              max-zoom-distance = 100000;
+              resolution-default = 1;
 
-            hires-slider-max = 500;
-            hires-slider-default = 100;
-            hires-slider-min = 0;
+              hires-slider-max = 500;
+              hires-slider-default = 100;
+              hires-slider-min = 0;
 
-            lowres-slider-max = 7000;
-            lowres-slider-default = 2000;
-            lowres-slider-min = 500;
+              lowres-slider-max = 7000;
+              lowres-slider-default = 2000;
+              lowres-slider-min = 500;
 
-            scripts = [ ];
-            styles = [ ];
+              scripts = [ ];
+              styles = [ ];
+            };
           };
 
-          "config/bluemap/webserver.conf" = writeHocon "webserver.conf" {
-            enabled = true;
-            webroot = "bluemap/web";
-            port = 8100;
+          "config/bluemap/webserver.conf" = {
+            format = pkgs.formats.hocon { };
+            value = {
+              enabled = true;
+              webroot = "bluemap/web";
+              port = 8100;
 
-            log = {
-              file = "logs/bluemap.log";
-              append = true;
-              format = "%1$s \"%3$s %4$s %5$s\" %6$s %7$s";
+              log = {
+                file = "logs/bluemap.log";
+                append = true;
+                format = "%1$s \"%3$s %4$s %5$s\" %6$s %7$s";
+              };
             };
           };
         };
@@ -240,34 +264,37 @@ in
         package = pkgs.velocityServers.velocity;
         jvmOpts = "-Xms1G -Xmx1G";
 
-        symlinks."velocity.toml" = writeTOML "velocity.toml" {
-          config-version = "2.7";
-          bind = "0.0.0.0:25565";
-          motd =
-            "<#dce0e8>T</#dce0e8><#8caaee>h</#8caaee><#dce0e8>e</#dce0e8>"
-            + "<#8caaee>l</#8caaee><#dce0e8>e</#dce0e8><#8caaee>s</#8caaee><#dce0e8>s</#dce0e8>"
-            + "<#8caaee>.</#8caaee><#dce0e8>o</#dce0e8><#8caaee>n</#8caaee><#dce0e8>e</#dce0e8>"
-            + " <#8caaee>❄</#8caaee>";
-          show-max-players = 50;
-          online-mode = true;
-          force-key-authentication = true;
-          player-info-forwarding-mode = "MODERN";
-          forwarding-secret-file = "forwarding.secret";
-          kick-existing-players = true;
-          ping-passthrough = "DISABLED";
-          sample-players-in-ping = true;
+        symlinks."velocity.toml" = {
+          format = pkgs.formats.toml { };
+          value = {
+            config-version = "2.7";
+            bind = "0.0.0.0:25565";
+            motd =
+              "<#dce0e8>T</#dce0e8><#8caaee>h</#8caaee><#dce0e8>e</#dce0e8>"
+              + "<#8caaee>l</#8caaee><#dce0e8>e</#dce0e8><#8caaee>s</#8caaee><#dce0e8>s</#dce0e8>"
+              + "<#8caaee>.</#8caaee><#dce0e8>o</#dce0e8><#8caaee>n</#8caaee><#dce0e8>e</#dce0e8>"
+              + " <#8caaee>❄</#8caaee>";
+            show-max-players = 50;
+            online-mode = true;
+            force-key-authentication = true;
+            player-info-forwarding-mode = "MODERN";
+            forwarding-secret-file = "forwarding.secret";
+            kick-existing-players = true;
+            ping-passthrough = "DISABLED";
+            sample-players-in-ping = true;
 
-          servers = {
-            smp = "127.0.0.1:30050";
-            creative = "127.0.0.1:30051";
+            servers = {
+              smp = "127.0.0.1:30050";
+              creative = "127.0.0.1:30051";
 
-            try = [ "smp" ];
+              try = [ "smp" ];
+            };
+
+            forced-hosts."theless.one" = [ "smp" ];
+            forced-hosts."creative.theless.one" = [ "creative" ];
+
+            query.enabled = false;
           };
-
-          forced-hosts."theless.one" = [ "smp" ];
-          forced-hosts."creative.theless.one" = [ "creative" ];
-
-          query.enabled = false;
         };
 
         files."forwarding.secret" = pkgs.writeText "forwarding.secret" "@FABRIC_PROXY_SECRET@";

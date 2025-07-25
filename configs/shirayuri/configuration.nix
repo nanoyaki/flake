@@ -33,6 +33,7 @@
     theming.enable = true;
     monado.enable = true;
     flatpak.enable = true;
+    ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
   };
 
   services.tailscale = {

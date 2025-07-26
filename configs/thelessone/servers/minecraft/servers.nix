@@ -89,7 +89,18 @@ in
         enable = true;
         package = pkgs.fabricServers.fabric-1_21_7;
 
-        serverProperties.server-port = 30050;
+        serverProperties = {
+          server-port = 30050;
+
+          # Joshs-more-foods
+          require-resource-pack = true;
+          resource-pack-prompt = ''
+            The server requires this resource pack for the datapack joshs more foods.
+            Using it does not mean you won't be able to use your own on top of it.
+          '';
+          resource-pack = "https://cdn.modrinth.com/data/3BlwZj8w/versions/bybBGRCd/joshs-more-foods_5.5.1_resource_pack.zip";
+          resource-pack-sha1 = "0df9086d7918e03aed27fd4c2621177d7b81b31e";
+        };
 
         files = {
           "config/discord-mc-chat.json" = {

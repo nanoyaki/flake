@@ -25,4 +25,6 @@
   Empro = "4328f3b2-1dbd-4a13-b591-17e13612d521";
   ICharALotte = "384b264e-32eb-4679-a577-7e3e89614d1e";
   Shellow = "453ef5f6-99ba-49a0-a2c7-2e20e29e09c8";
+  MixamHD = "7ee0ebc0-37b1-4b3e-8f23-0aa946a4d063";
+  vampriyva = "adddeb49-1c25-444d-bfa9-f06d94ee057f";
 }

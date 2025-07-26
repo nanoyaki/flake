@@ -23,9 +23,13 @@
     kernelModules = [
       "kvm-intel"
       "it87"
+      "r8125"
     ];
 
-    extraModulePackages = [ config.boot.kernelPackages.it87 ];
+    extraModulePackages = [
+      config.boot.kernelPackages.it87
+      config.boot.kernelPackages.r8125
+    ];
     extraModprobeConfig = ''
       options it87 force_id=0x8628
     '';

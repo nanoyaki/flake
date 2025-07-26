@@ -84,6 +84,18 @@ linkFarmFromDrvs "mods" (
             sha512 = "63f49e81fc004305cfba9e1228e2129b2ac0423f56fd7a4b23f6f591f409d2d5986a7642bdc5ee262fa87c8cbb4f052dd55ddf8274219d9693b379059adf4bfa";
             url = "https://cdn.modrinth.com/data/zQhsx8KF/versions/3LUmmXJf/servux-fabric-1.21.8-0.7.3.jar";
           };
+          rei = {
+            sha512 = "2870b06702ea7d0369e9a4c036c00b2ff87f69b4a925dc8c1b09012c715c1faf396a47100191d7a5c792e47618fe67e32f1055c3d3f6441ae8189b860303b47d";
+            url = "https://cdn.modrinth.com/data/nfn13YXA/versions/t6ocxwV5/RoughlyEnoughItems-20.0.810-fabric.jar";
+          };
+          architectury-api = {
+            sha512 = "7965ed7140c9f50cfcf8cf9b415de90497ae44ea4fb6dfe21704c6eba4210d0a34a4a0b0b6baf8b3e9d3b1cb70d0df79ef1ba93d04b5557f09a754959ac9c8b0";
+            url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/XcJm5LH4/architectury-17.0.8-fabric.jar";
+          };
+          cloth-config = {
+            sha512 = "924b7e9bf6da670b936c3eaf3a2ba7904a05eff4fd712acf8ee62e587770c05a225109d3c0bdf015992e870945d2086aa00e738f90b3b109e364b0105c08875a";
+            url = "https://cdn.modrinth.com/data/9s6osm5g/versions/cz0b1j8R/cloth-config-19.0.147-fabric.jar";
+          };
         }
         // additionalMods
       )

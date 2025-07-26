@@ -28,20 +28,6 @@ let
 in
 
 {
-  nixpkgs.overlays = [
-    (_: prev: {
-      suwayomi-server = prev.suwayomi-server.overrideAttrs (prevAttrs: {
-        gradleFlags = (prevAttrs.gradleFlags or [ ]) ++ [
-          "-Dorg.gradle.jvmargs=-Xmx5G"
-          "-Dorg.gradle.workers.max=$NIX_BUILD_CORES"
-          "-Dorg.gradle.parallel=true"
-          "-Dkotlin.incremental=false"
-          "-Dkotlin.compiler.execution.strategy=in-process"
-        ];
-      });
-    })
-  ];
-
   services.suwayomi = {
     enable = true;
 

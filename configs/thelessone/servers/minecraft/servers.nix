@@ -91,26 +91,30 @@ in
 
         serverProperties.server-port = 30050;
 
-        files."config/discord-mc-chat.json" = {
-          format = pkgs.formats.json { };
-          value = {
-            generic = {
-              language = "en_us";
-              botToken = "@DISCORDMCCHAT_BOT_TOKEN@";
-              channelId = "1395405287984201738";
-              adminsIds = [
-                "1063583541641871440"
-                "222458973876387841"
-              ];
+        files = {
+          "config/discord-mc-chat.json" = {
+            format = pkgs.formats.json { };
+            value = {
+              generic = {
+                language = "en_us";
+                botToken = "@DISCORDMCCHAT_BOT_TOKEN@";
+                channelId = "1395405287984201738";
+                adminsIds = [
+                  "1063583541641871440"
+                  "222458973876387841"
+                ];
 
-              avatarApi = "https://visage.surgeplay.com/bust/{player_uuid}.png";
-              broadcastPlayerCommandExecution = false;
-              broadcastSlashCommandExecution = false;
-              whitelistRequiresAdmin = false;
-              announceHighMspt = false;
-              excludedCommands = [ ".*" ];
+                avatarApi = "https://visage.surgeplay.com/bust/{player_uuid}.png";
+                broadcastPlayerCommandExecution = false;
+                broadcastSlashCommandExecution = false;
+                whitelistRequiresAdmin = false;
+                announceHighMspt = false;
+                excludedCommands = [ ".*" ];
+              };
             };
           };
+
+          "world/datapacks" = pkgs.datapacks.default;
         };
 
         symlinks = {
@@ -134,8 +138,6 @@ in
               };
             };
           };
-
-          "world/datapacks" = pkgs.datapacks.default;
 
           "config/voicechat/voicechat-server.properties" = {
             format = pkgs.formats.keyValue { };

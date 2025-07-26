@@ -32,8 +32,8 @@ in
     (_: prev: {
       suwayomi-server = prev.suwayomi-server.overrideAttrs (prevAttrs: {
         gradleFlags = (prevAttrs.gradleFlags or [ ]) ++ [
-          "-Dkotlin.daemon.jvmargs=-Xmx4096m"
-          "-Dorg.gradle.jvmargs=-Xmx5120m"
+          "-Dkotlin.daemon.jvmargs=-Xmx6G"
+          "-Dorg.gradle.jvmargs=-Xmx6G"
           "-Dkotlin.compiler.execution.strategy=in-process"
         ];
       });

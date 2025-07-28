@@ -7,52 +7,92 @@
 }:
 
 let
-  aikarsFlags = "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+  inherit (lib) recursiveUpdate;
+  inherit (pkgs) formats;
 
-  defaults = {
-    autoStart = true;
-    jvmOpts = "-Xms20G -Xmx20G ${aikarsFlags}";
+  aikarsFlags =
+    "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200"
+    + " -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch"
+    + " -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M"
+    + " -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4"
+    + " -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90"
+    + " -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem"
+    + " -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs"
+    + " -Daikars.new.flags=true";
 
-    serverProperties = {
-      server-ip = "127.0.0.1";
+  mkServer =
+    port: overrides:
+    let
+      default = {
+        autoStart = true;
+        jvmOpts = "-Xms20G -Xmx20G ${aikarsFlags}";
 
-      spawn-protection = 0;
-      view-distance = 12;
-      simulation-distance = 12;
+        serverProperties = {
+          server-ip = "127.0.0.1";
+          server-port = port;
 
-      gamemode = "survival";
-      difficulty = "hard";
+          spawn-protection = 0;
+          view-distance = 12;
+          simulation-distance = 12;
 
-      white-list = true;
-    };
+          gamemode = "survival";
+          difficulty = "hard";
 
-    operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
+          white-list = true;
+        };
 
-    whitelist = import ./whitelist.nix;
+        operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
 
-    symlinks = {
-      "server-icon.png" = ./icon.png;
+        whitelist = import ./whitelist.nix;
 
-      "config/roles.json" = {
-        format = pkgs.formats.json { };
-        value = {
-          whitelister.overrides.commands."whitelist (add|remove)" = "allow";
-          everyone.overrides.commands = {
-            "image2map create" = "allow";
-            "tick query" = "allow";
+        symlinks = {
+          "server-icon.png" = ./icon.png;
+
+          "config/roles.json" = {
+            format = formats.json { };
+            value = {
+              whitelister.overrides.commands."whitelist (add|remove)" = "allow";
+              everyone.overrides.commands = {
+                "image2map create" = "allow";
+                "tick query" = "allow";
+              };
+            };
+          };
+        };
+
+        files."config/FabricProxy-Lite.toml" = {
+          format = formats.toml { };
+          value = {
+            hackOnlineMode = true;
+            hackMessageChain = true;
+            disconnectMessage = "Please connect through the proxy.";
+            secret = "@FABRIC_PROXY_SECRET@";
           };
         };
       };
-    };
+    in
+    recursiveUpdate default overrides;
 
-    files."config/FabricProxy-Lite.toml" = {
-      format = pkgs.formats.toml { };
-      value = {
-        hackOnlineMode = true;
-        hackMessageChain = true;
-        disconnectMessage = "Please connect through the proxy.";
-        secret = "@FABRIC_PROXY_SECRET@";
-      };
+  mkVoiceChatCfg = port: {
+    format = formats.keyValue { };
+    value = {
+      inherit port;
+      bind_address = "";
+      max_voice_distance = 64.0;
+      crouch_distance_multiplier = 0.75;
+      whisper_distance_multiplier = 0.5;
+      codec = "VOIP";
+      mtu_size = 1024;
+      keep_alive = 1000;
+      enable_groups = true;
+      voice_host = "theless.one:${toString port}";
+      allow_recording = true;
+      spectator_interaction = false;
+      spectator_player_possession = false;
+      force_voice_chat = false;
+      login_timeout = 10000;
+      broadcast_range = -1.0;
+      allow_pings = true;
     };
   };
 in
@@ -61,17 +101,14 @@ in
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [
     inputs.nix-minecraft.overlay
-    (final: _: {
-      fabricMods.default = final.callPackage ./mods.nix { };
-      datapacks.default = final.callPackage ./datapacks.nix { };
-    })
+    (import ./overlay.nix)
   ];
 
   sops.secrets.proxy.sopsFile = ./secrets.yaml;
   sops.secrets.bot-token.sopsFile = ./secrets.yaml;
 
   sops.templates."minecraft-secrets.env".file =
-    (pkgs.formats.keyValue { }).generate "minecraft-secrets.env"
+    (formats.keyValue { }).generate "minecraft-secrets.env"
       {
         DISCORDMCCHAT_BOT_TOKEN = config.sops.placeholder.bot-token;
         FABRIC_PROXY_SECRET = config.sops.placeholder.proxy;
@@ -85,13 +122,11 @@ in
     openFirewall = true;
 
     servers = {
-      smp = lib.recursiveUpdate defaults {
+      smp = mkServer 30050 {
         enable = true;
         package = pkgs.fabricServers.fabric-1_21_7;
 
         serverProperties = {
-          server-port = 30050;
-
           # Joshs-more-foods
           require-resource-pack = true;
           resource-pack-prompt = ''
@@ -104,7 +139,7 @@ in
 
         files = {
           "config/discord-mc-chat.json" = {
-            format = pkgs.formats.json { };
+            format = formats.json { };
             value = {
               generic = {
                 language = "en_us";
@@ -129,52 +164,12 @@ in
         };
 
         symlinks = {
-          mods = pkgs.fabricMods.default.override {
-            additionalMods = {
-              Bluemap = {
-                sha512 = "a76a2b1019efe35175f8df91f69ec7ec58e26f148ea9bba4f1eb9bb1b16ffa6f395b76c1362f452d33f94f0f1045403da3b04f25bc6d40feadbc58f64d34f1e4";
-                url = "https://cdn.modrinth.com/data/swbUV1cr/versions/fB6f4XRA/bluemap-5.9-fabric.jar";
-              };
-              BluemapSignMarkers = {
-                sha512 = "d3efb15a03ef3dcc02bcd2395c578afdc2d413d5e4dfcf65c9cad891e755ade9d6a7961e7b0f07e7e229b831d11d6459efdb5a935d0e5597c1782ec9ca8e2b41";
-                url = "https://cdn.modrinth.com/data/i5ZtmNIW/versions/vCOKmCcE/bluemapsignmarkers-1.21.7-0.11.0.56.jar";
-              };
-              DiscordMcChat = {
-                sha512 = "5d653d21048cea1eeaff13bf1f63619133384385b4da21c5105c64e4b1b6ac67c04fd8534768d0a5125a9c940a4dc38ce64cba6b202e86e705a5ef9b45a8c4d5";
-                url = "https://cdn.modrinth.com/data/D0sHdnXY/versions/PtVawIb0/Discord-MC-Chat-2.5.0.jar";
-              };
-              DistantHorizons = {
-                sha512 = "5f8d4e564f65dcbe5e039af8605da4df8a8edcc2218a46aad827aaa8d1e8848adb302672735f579715be1c480956dd6dd7548a2bff9bacc4f0ef0592eeceb238";
-                url = "https://cdn.modrinth.com/data/uCdwusMi/versions/2mY04ehi/DistantHorizons-2.3.3-b-1.21.7-fabric-neoforge.jar";
-              };
-            };
-          };
+          mods = pkgs.fabricMods.smp;
 
-          "config/voicechat/voicechat-server.properties" = {
-            format = pkgs.formats.keyValue { };
-            value = {
-              port = 24454;
-              bind_address = "";
-              max_voice_distance = 64.0;
-              crouch_distance_multiplier = 0.75;
-              whisper_distance_multiplier = 0.5;
-              codec = "VOIP";
-              mtu_size = 1024;
-              keep_alive = 1000;
-              enable_groups = true;
-              voice_host = "theless.one:24454";
-              allow_recording = true;
-              spectator_interaction = false;
-              spectator_player_possession = false;
-              force_voice_chat = false;
-              login_timeout = 10000;
-              broadcast_range = -1.0;
-              allow_pings = true;
-            };
-          };
+          "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24454;
 
           "config/bluemap/core.conf" = {
-            format = pkgs.formats.hocon { };
+            format = formats.hocon { };
             value = {
               accept-download = true;
               scan-for-mod-resources = true;
@@ -187,7 +182,7 @@ in
           };
 
           "config/bluemap/plugin.conf" = {
-            format = pkgs.formats.hocon { };
+            format = formats.hocon { };
             value = {
               live-player-markers = true;
               hidden-game-modes = [ "spectator" ];
@@ -204,7 +199,7 @@ in
           };
 
           "config/bluemap/webapp.conf" = {
-            format = pkgs.formats.hocon { };
+            format = formats.hocon { };
             value = {
               enabled = true;
               webroot = "bluemap/web";
@@ -230,7 +225,7 @@ in
           };
 
           "config/bluemap/webserver.conf" = {
-            format = pkgs.formats.hocon { };
+            format = formats.hocon { };
             value = {
               enabled = true;
               webroot = "bluemap/web";
@@ -246,34 +241,48 @@ in
         };
       };
 
-      smp-creative = lib.recursiveUpdate defaults {
+      smp-creative = mkServer 30051 {
         enable = true;
         package = pkgs.fabricServers.fabric-1_21_7;
         jvmOpts = "-Xms8G -Xmx8G ${aikarsFlags}";
 
         serverProperties = {
           gamemode = "creative";
-
-          server-port = 30051;
           level-seed = "-7952476580899652458";
         };
 
+        # TODO: use a proper permission system
         operators = import ./whitelist.nix;
 
-        symlinks.mods = pkgs.fabricMods.default.override {
-          additionalMods = {
-            Axiom = {
-              sha512 = "4aafc025ad5e652060f7cff74dade9fcc6ec770a5f310fe970eedd6f6c7154c6cc10a33e0fbe9c648bed736b552ea645c530ce92f371acbcd6c93a6f313ca4b5";
-              url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/CRjwbqnJ/Axiom-4.9.1-for-MC1.21.6.jar";
-            };
-            carpet = {
-              sha512 = "f03f80017538fd051a162feca58c1fa344d45d34b70cde27c10d465c371f9a11ddc80229e159b3439901cc8a6084f6672b62e5441f8d921fc2850ffd7e41e9c1";
-              url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/RXcxPvgC/fabric-carpet-1.21.7-1.4.177%2Bv250630.jar";
-            };
-          };
-          without = [
-            "SimpleVoiceChat"
-          ];
+        symlinks = {
+          mods = pkgs.fabricMods.creative;
+
+          "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24455;
+        };
+
+        files."world/datapacks" = pkgs.datapacks.default;
+      };
+
+      lobby = mkServer 30052 {
+        enable = true;
+        package = pkgs.fabricServers.fabric-1_21_7;
+        jvmOpts = "-Xms2G -Xmx2G ${aikarsFlags}";
+
+        serverProperties = {
+          gamemode = "adventure";
+          difficulty = "peaceful";
+
+          spawn-protection = 16;
+          view-distance = 4;
+          simulation-distance = 4;
+
+          level-seed = "-7952476580899652458";
+        };
+
+        symlinks = {
+          mods = pkgs.fabricMods.creative;
+
+          "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24456;
         };
       };
 
@@ -284,7 +293,7 @@ in
         jvmOpts = "-Xms1G -Xmx1G";
 
         symlinks."velocity.toml" = {
-          format = pkgs.formats.toml { };
+          format = formats.toml { };
           value = {
             config-version = "2.7";
             bind = "0.0.0.0:25565";
@@ -305,12 +314,19 @@ in
             servers = {
               smp = "127.0.0.1:30050";
               creative = "127.0.0.1:30051";
+              lobby = "127.0.0.1:30052";
 
-              try = [ "smp" ];
+              try = [
+                "smp"
+                "lobby"
+              ];
             };
 
-            forced-hosts."theless.one" = [ "smp" ];
-            forced-hosts."creative.theless.one" = [ "creative" ];
+            forced-hosts = {
+              "theless.one" = [ "smp" ];
+              "creative.theless.one" = [ "creative" ];
+              "lobby.theless.one" = [ "lobby" ];
+            };
 
             query.enabled = false;
           };

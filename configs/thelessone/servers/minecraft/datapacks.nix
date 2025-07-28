@@ -15,6 +15,10 @@ linkFarmFromDrvs "datapacks" (
         sha512 = "08fa0151e8b92b842d72bc6f0496121c5fdb112423648854fdc1cbc1f9dbc0b725067c636d8a4417ccd87a925805f1d60c3c7fd0e8ac961f92c2e4baab572052";
         url = "https://cdn.modrinth.com/data/3BlwZj8w/versions/bybBGRCd/joshs-more-foods_5.5.1_data_pack.zip";
       };
+      dungeons-and-taverns = {
+        sha512 = "8bc9964eef861a66c1eacf57fb6bfbaef5df1e416d048a6520698374ddd9a1464850631edebb5b7aa2c954d93faefa8055998f4b0dd9bdbfe0eb3fd8607bdaad";
+        url = "https://cdn.modrinth.com/data/tpehi7ww/versions/xjVWiPK3/Dungeons%20and%20Taverns%20v4.7.3.zip";
+      };
     }
   )
 )

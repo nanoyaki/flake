@@ -261,9 +261,15 @@ in
         operators = import ./whitelist.nix;
 
         symlinks.mods = pkgs.fabricMods.default.override {
-          additionalMods.Axiom = {
-            sha512 = "4aafc025ad5e652060f7cff74dade9fcc6ec770a5f310fe970eedd6f6c7154c6cc10a33e0fbe9c648bed736b552ea645c530ce92f371acbcd6c93a6f313ca4b5";
-            url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/CRjwbqnJ/Axiom-4.9.1-for-MC1.21.6.jar";
+          additionalMods = {
+            Axiom = {
+              sha512 = "4aafc025ad5e652060f7cff74dade9fcc6ec770a5f310fe970eedd6f6c7154c6cc10a33e0fbe9c648bed736b552ea645c530ce92f371acbcd6c93a6f313ca4b5";
+              url = "https://cdn.modrinth.com/data/N6n5dqoA/versions/CRjwbqnJ/Axiom-4.9.1-for-MC1.21.6.jar";
+            };
+            carpet = {
+              sha512 = "f03f80017538fd051a162feca58c1fa344d45d34b70cde27c10d465c371f9a11ddc80229e159b3439901cc8a6084f6672b62e5441f8d921fc2850ffd7e41e9c1";
+              url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/RXcxPvgC/fabric-carpet-1.21.7-1.4.177%2Bv250630.jar";
+            };
           };
           without = [
             "SimpleVoiceChat"

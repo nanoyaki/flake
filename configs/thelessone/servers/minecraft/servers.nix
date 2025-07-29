@@ -161,7 +161,14 @@ in
             };
           };
 
-          "world/datapacks" = pkgs.datapacks.default;
+          "world/datapacks" = pkgs.datapacks.default.override {
+            gamerules = {
+              locatorBar = false;
+              disableElytraMovementCheck = true;
+              disablePlayerMovementCheck = true;
+              playersSleepingPercentage = 33;
+            };
+          };
         };
 
         symlinks = {
@@ -249,6 +256,7 @@ in
 
         serverProperties = {
           gamemode = "creative";
+          difficulty = "normal";
           level-seed = "-7952476580899652458";
         };
 
@@ -261,7 +269,15 @@ in
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24455;
         };
 
-        files."world/datapacks" = pkgs.datapacks.default;
+        files."world/datapacks" = pkgs.datapacks.default.override {
+          gamerules = {
+            keepInventory = true;
+            doMobSpawning = false;
+            mobGriefing = false;
+            disableElytraMovementCheck = true;
+            disablePlayerMovementCheck = true;
+          };
+        };
       };
 
       lobby = mkServer 30052 {
@@ -271,7 +287,7 @@ in
 
         serverProperties = {
           gamemode = "adventure";
-          difficulty = "peaceful";
+          difficulty = "normal";
 
           spawn-protection = 16;
           view-distance = 4;
@@ -284,6 +300,15 @@ in
           mods = pkgs.fabricMods.creative;
 
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24456;
+        };
+
+        files."world/datapacks/declarative_gamerules" = pkgs.datapacks.gamerules {
+          keepInventory = true;
+          doMobSpawning = false;
+          mobGriefing = false;
+          disableElytraMovementCheck = true;
+          disablePlayerMovementCheck = true;
+          spawnRadius = 32;
         };
       };
 

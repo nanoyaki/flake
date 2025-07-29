@@ -282,6 +282,7 @@ in
 
       lobby = mkServer 30052 {
         enable = true;
+        enableReload = true;
         package = pkgs.fabricServers.fabric-1_21_7;
         jvmOpts = "-Xms2G -Xmx2G ${aikarsFlags}";
 

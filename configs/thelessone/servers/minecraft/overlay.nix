@@ -48,8 +48,8 @@ final: _: {
 
     killheal = final.fetchgit {
       url = "https://git.theless.one/thelessone/KillHeal.git";
-      rev = "47155b448f8d5057eb2aacee7abeed1c3e0fec34";
-      hash = "sha256-VYGJdgImlnRujTHjkDNfUSlCwx9SLiEoWZpd16AbMl0=";
+      rev = "be6b4f37a76180e49aebdf21687eb3db70b93b57";
+      hash = "sha256-gUVWJJTLhTMk5+xaZf0BonFKpKXr1++YqtoqjRKCcWc=";
     };
   };
 

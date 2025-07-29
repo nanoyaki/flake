@@ -3,8 +3,9 @@
   linkFarmFromDrvs,
   datapacks,
   gamerules ? { },
+  additionalDatapacks ? { },
 }:
 
 linkFarmFromDrvs "datapacks" (
-  lib.attrValues (datapacks // { gamerules = datapacks.gamerules gamerules; })
+  lib.attrValues (datapacks // { gamerules = datapacks.gamerules gamerules; } // additionalDatapacks)
 )

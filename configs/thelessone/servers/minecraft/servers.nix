@@ -302,13 +302,17 @@ in
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24456;
         };
 
-        files."world/datapacks/declarative_gamerules" = pkgs.datapacks.gamerules {
-          keepInventory = true;
-          doMobSpawning = false;
-          mobGriefing = false;
-          disableElytraMovementCheck = true;
-          disablePlayerMovementCheck = true;
-          spawnRadius = 32;
+        files = {
+          "world/datapacks/declarative_gamerules" = pkgs.datapacks.gamerules {
+            keepInventory = true;
+            doMobSpawning = false;
+            mobGriefing = false;
+            disableElytraMovementCheck = true;
+            disablePlayerMovementCheck = true;
+            spawnRadius = 32;
+          };
+
+          "world/datapacks/killheal" = pkgs.datapacks.killheal;
         };
       };
 

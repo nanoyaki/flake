@@ -39,11 +39,21 @@ final: _: {
 
   datapacks = {
     default = final.callPackage ./datapacks.nix {
-      datapacks = final.lib.filterAttrs (name: _: name != "default") final.datapacks;
+      datapacks = final.modrinthDatapacks // {
+        inherit (final.datapacks) gamerules;
+      };
     };
+
     gamerules = gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
-  }
-  // final.lib.mapAttrs (_: final.fetchurl) {
+
+    killheal = final.fetchgit {
+      url = "https://git.theless.one/thelessone/KillHeal.git";
+      rev = "046a218ca91d405a9e8139a2e80bd191ad319fa1";
+      hash = "sha256-oBauTHAdIv8Dpqr9aivqxmza1M5GIU/0JS4x/1ZrLks=";
+    };
+  };
+
+  modrinthDatapacks = final.lib.mapAttrs (_: final.fetchurl) {
     mini-blocks-datapack = {
       sha512 = "2de182e777bf8aa1e7235c18d89c0731c5de7f903e34869d51aeaabd8d3e223664ec5d51b0443b247296c8d23d289963319674e38aa0b1aea36de0cf3193eb94";
       url = "https://cdn.modrinth.com/data/sqhvLNrE/versions/UDWYQbTE/mini-blocks-v1-5-0-mc-1-21-7.zip";

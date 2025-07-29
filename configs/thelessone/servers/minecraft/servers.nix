@@ -6,6 +6,7 @@
   ...
 }:
 
+# TODO: maybe a proper module
 let
   inherit (lib) recursiveUpdate;
   inherit (pkgs) formats;
@@ -337,6 +338,11 @@ in
     };
   };
 
-  networking.firewall.allowedUDPPorts = [ 24454 ];
+  # Simple voice chat
+  networking.firewall.allowedUDPPorts = [
+    24454
+    24455
+    24456
+  ];
   config'.caddy.reverseProxies."map.theless.one".port = 8100;
 }

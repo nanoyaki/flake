@@ -108,6 +108,7 @@
       url = "git+https://codeberg.org/nanoyaki/rebuild-maintenance.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
   };
 
   outputs =

@@ -1,3 +1,5 @@
+{ killheal }:
+
 final: _: {
   fabricMods = {
     default = final.callPackage ./mods.nix { };
@@ -46,11 +48,7 @@ final: _: {
 
     gamerules = gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
 
-    killheal = final.fetchgit {
-      url = "https://git.theless.one/thelessone/KillHeal.git";
-      rev = "907c57e92f8ae7a437598b123bdab7fb796067a9";
-      hash = "sha256-6dtwiimVlEuEMbpitVe6yqAqaOR2XXmkjkH+dbMaLAQ=";
-    };
+    inherit killheal;
   };
 
   modrinthDatapacks = final.lib.mapAttrs (_: final.fetchurl) {

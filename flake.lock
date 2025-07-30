@@ -686,6 +686,21 @@
         "type": "github"
       }
     },
+    "killheal": {
+      "locked": {
+        "lastModified": 1753882757,
+        "narHash": "sha256-84NiZLQDd3rM8ImilKZl4g/BxQIJenV6GyTzGLUff9I=",
+        "ref": "refs/heads/main",
+        "rev": "84b2b5b16f6f1bff8e89dce6af91c8df0e875539",
+        "revCount": 19,
+        "type": "git",
+        "url": "https://git.theless.one/thelessone/KillHeal.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.theless.one/thelessone/KillHeal.git"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -783,11 +798,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1753802289,
-        "narHash": "sha256-y2etbF1QTLkTGpgtUK/dl30QFEMlDTjuDCTM1pcPfyg=",
+        "lastModified": 1753882408,
+        "narHash": "sha256-tsaCDky1lHMHWFS6DmIJV0Wf7ucMO91zQ3Fw/2F+L9k=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "65e33083f894a0294c3b7b4ad5873c5a779cfdda",
+        "rev": "d7fc2d8f506d7d37334dd2082bd67f992a9249fa",
         "type": "github"
       },
       "original": {
@@ -933,11 +948,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753880193,
-        "narHash": "sha256-jH7+vhFMBZOoxiizzfvS0B8zEuCQ9FQFPQvwBzSIDJE=",
+        "lastModified": 1753882632,
+        "narHash": "sha256-9F+7jBxp7SuYZORcuWMIid8KFNWiKWWOKBZ3gvc18rk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "044cb9297a54bc1b722cfb84776d6e4f910a3e24",
+        "rev": "4b71e5dbf7a6ae36add8cc0b3d0ff87abc0b509b",
         "type": "github"
       },
       "original": {
@@ -1111,6 +1126,7 @@
         "git-hooks-nix": "git-hooks-nix",
         "headplane": "headplane",
         "home-manager": "home-manager",
+        "killheal": "killheal",
         "lanzaboote": "lanzaboote",
         "lazy-apps": "lazy-apps",
         "md2img": "md2img",
@@ -1215,11 +1231,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1753880142,
-        "narHash": "sha256-/t0xIMiBuKdCSTAAUckKanf7G2md82MLKAC//v9sVvc=",
+        "lastModified": 1753881442,
+        "narHash": "sha256-Qk0vZVoaJGipYNxknbk8oVpmBFzHX53k7fDxF/PPr8g=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "e0db8fc17af557765885a514c3752f332586a6af",
+        "rev": "4bfd32c8f93ef95be2f41a00e438f0bb2de1c4ac",
         "type": "github"
       },
       "original": {

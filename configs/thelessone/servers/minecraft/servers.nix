@@ -102,7 +102,7 @@ in
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [
     inputs.nix-minecraft.overlay
-    (import ./overlay.nix)
+    (import ./overlay.nix { inherit (inputs.killheal.packages.x86_64-linux) killheal; })
   ];
 
   sops.secrets.proxy.sopsFile = ./secrets.yaml;

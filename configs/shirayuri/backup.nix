@@ -49,19 +49,19 @@ in
     "backups/local" = { };
     "backups/nas" = { };
     "backups/nas-server" = { };
-    "backups/remote" = { };
-    "backups/remote-server" = { };
+    # "backups/remote" = { };
+    # "backups/remote-server" = { };
   };
 
   sops.templates."restic-nas-repo".content = ''
     rest:http://restic:${config.sops.placeholder."backups/nas-server"}@10.0.0.3:8000/shirayuri-nas
   '';
 
-  sops.templates."restic-remote-repo".content = ''
-    rest:http://restic:${
-      config.sops.placeholder."backups/remote-server"
-    }@100.64.64.1:8123/shirayuri-remote
-  '';
+  # sops.templates."restic-remote-repo".content = ''
+  #   rest:http://restic:${
+  #     config.sops.placeholder."backups/remote-server"
+  #   }@100.64.64.1:8123/shirayuri-remote
+  # '';
 
   services.restic.backups = {
     local = mkBackup {
@@ -74,9 +74,10 @@ in
       passwordFile = config.sops.secrets."backups/nas".path;
     };
 
-    remote = mkBackup {
-      repositoryFile = config.sops.templates."restic-remote-repo".path;
-      passwordFile = config.sops.secrets."backups/remote".path;
-    };
+    # Lets not for now... 60GiB using 28.8MiB/s takes too long
+    # remote = mkBackup {
+    #   repositoryFile = config.sops.templates."restic-remote-repo".path;
+    #   passwordFile = config.sops.secrets."backups/remote".path;
+    # };
   };
 }

@@ -1,5 +1,6 @@
 {
   lib,
+  lib',
   pkgs,
   config,
   ...
@@ -23,7 +24,8 @@ let
       "/mnt/os-shared/VRChat"
       "/mnt/os-shared/DolphinGames"
       "/mnt/os-shared/Games"
-    ];
+    ]
+    ++ config.services.restic.extraPaths;
 
     environmentFile = "${pkgs.writeText "restic-env" "GOMAXPROCS=6"}";
 
@@ -45,39 +47,43 @@ let
 in
 
 {
-  sops.secrets = {
-    "backups/local" = { };
-    "backups/nas" = { };
-    "backups/nas-server" = { };
-    # "backups/remote" = { };
-    # "backups/remote-server" = { };
-  };
+  options.services.restic.extraPaths = lib'.options.mkListOf lib'.options.mkPathOption;
 
-  sops.templates."restic-nas-repo".content = ''
-    rest:http://restic:${config.sops.placeholder."backups/nas-server"}@10.0.0.3:8000/shirayuri-nas
-  '';
-
-  # sops.templates."restic-remote-repo".content = ''
-  #   rest:http://restic:${
-  #     config.sops.placeholder."backups/remote-server"
-  #   }@100.64.64.1:8123/shirayuri-remote
-  # '';
-
-  services.restic.backups = {
-    local = mkBackup {
-      repository = "/mnt/os-shared/backups/shirayuri";
-      passwordFile = config.sops.secrets."backups/local".path;
+  config = {
+    sops.secrets = {
+      "backups/local" = { };
+      "backups/nas" = { };
+      "backups/nas-server" = { };
+      # "backups/remote" = { };
+      # "backups/remote-server" = { };
     };
 
-    nas = mkBackup {
-      repositoryFile = config.sops.templates."restic-nas-repo".path;
-      passwordFile = config.sops.secrets."backups/nas".path;
-    };
+    sops.templates."restic-nas-repo".content = ''
+      rest:http://restic:${config.sops.placeholder."backups/nas-server"}@10.0.0.3:8000/shirayuri-nas
+    '';
 
-    # Lets not for now... 60GiB using 28.8MiB/s takes too long
-    # remote = mkBackup {
-    #   repositoryFile = config.sops.templates."restic-remote-repo".path;
-    #   passwordFile = config.sops.secrets."backups/remote".path;
-    # };
+    # sops.templates."restic-remote-repo".content = ''
+    #   rest:http://restic:${
+    #     config.sops.placeholder."backups/remote-server"
+    #   }@100.64.64.1:8123/shirayuri-remote
+    # '';
+
+    services.restic.backups = {
+      local = mkBackup {
+        repository = "/mnt/os-shared/backups/shirayuri";
+        passwordFile = config.sops.secrets."backups/local".path;
+      };
+
+      nas = mkBackup {
+        repositoryFile = config.sops.templates."restic-nas-repo".path;
+        passwordFile = config.sops.secrets."backups/nas".path;
+      };
+
+      # Lets not for now... 60GiB using 28.8MiB/s takes too long
+      # remote = mkBackup {
+      #   repositoryFile = config.sops.templates."restic-remote-repo".path;
+      #   passwordFile = config.sops.secrets."backups/remote".path;
+      # };
+    };
   };
 }

@@ -8,29 +8,13 @@
   imports = [
     ./anime-games.nix
     ./rpgmaker.nix
+    ./emulation.nix
   ];
 
   environment.systemPackages =
     (lib'.mapLazyApps (
       with pkgs;
       [
-        {
-          pkg = dolphin-emu;
-          desktopItem = makeDesktopItem {
-            desktopName = "Dolphin Emulator";
-            name = "dolphin-emulator";
-            icon = "dolphin-emu";
-            exec = "dolphin-emu";
-            terminal = false;
-            type = "Application";
-            categories = [
-              "Game"
-              "Emulator"
-            ];
-            genericName = "Wii/GameCube Emulator";
-            comment = "A Wii/GameCube Emulator";
-          };
-        }
         {
           pkg = lutris;
           desktopItem = makeDesktopItem {

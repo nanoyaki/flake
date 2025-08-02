@@ -52,6 +52,7 @@ in
         };
       };
       owner = "vopono";
+      restartUnits = [ "vopono.service" ];
     };
 
     config'.vopono = {

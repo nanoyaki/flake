@@ -35,7 +35,7 @@ creation_rules:
     key_groups:
       - age:
           - *thelessnas
-  - path_regex: modules/systens/all/secrets/.*\.yaml$
+  - path_regex: modules/systems/all/secrets/.*\.yaml$
     key_groups:
       - age:
           - *kuroyuri

@@ -57,8 +57,8 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."https://coolercontrol.nas.vpn.theless.one" = {
-    port = 11987;
+  config'.caddy.reverseProxies."http://100.64.64.1:8123" = {
+    port = 8000;
     host = "10.0.0.6";
     vpnOnly = true;
   };

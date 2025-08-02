@@ -18,6 +18,7 @@
         ./gaming
         ./git.nix
         ./ssh.nix
+        ./backup.nix
       ];
 
       system.stateVersion = "24.11";

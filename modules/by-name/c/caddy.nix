@@ -67,7 +67,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = all (domain: hasInfix vpnDomain domain) (
+        assertion = all (domain: (hasInfix vpnDomain domain) || (hasInfix "100.64.64" domain)) (
           attrNames (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies)
         );
         message = "VPN only reverse proxies must use the headscale dns base domain in them";
@@ -104,9 +104,7 @@ in
 
             ${optionalString reverseProxy.vpnOnly ''
               @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
-              respond @outside-local "Access Denied" 403 {
-                close
-              }
+              abort @outside-local
             ''}
 
             ${reverseProxy.extraConfig}

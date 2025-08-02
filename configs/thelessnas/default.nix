@@ -19,6 +19,7 @@
         ./openssh.nix
         ./deployment.nix
         ./zfs.nix
+        ./restic.nix
       ];
 
       system.stateVersion = "24.11";

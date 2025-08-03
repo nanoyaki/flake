@@ -15,10 +15,17 @@ let
     nixpkgs-stable
     nanopkgs
     ;
-  inherit (lib) mkPackageOption;
+  inherit (lib) mkPackageOption concatStringsSep attrNames;
   inherit (lib'.options) mkNullOr mkPathOption;
 
   cfg = config.config'.nix;
+
+  findCmds = map (
+    username:
+    ''find ${
+      config.users.users.${username}.home
+    } -name "*.${config.home-manager.backupFileExtension}" -delete''
+  ) (attrNames config.config'.users);
 in
 
 {
@@ -51,7 +58,7 @@ in
               -f ${config.config'.nix.flakeDir}#nixosConfigurations."$(hostname)".config.system.build.toplevel
 
             echo "Deleting home-manager backups..."
-            find /home -name "*.home-bac" -delete
+            ${concatStringsSep "\n" findCmds}
 
             echo "Running switch-to-configuration switch..."
             ./result-/bin/switch-to-configuration switch

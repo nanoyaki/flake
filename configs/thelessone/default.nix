@@ -6,10 +6,13 @@
 {
   flake.nixosConfigurations.thelessone = lib'.mkDesktop {
     hostname = "thelessone";
-    users.thelessone = {
-      mainUser = true;
-      isSuperuser = true;
-      home.stateVersion = "24.11";
+    users = {
+      thelessone = {
+        mainUser = true;
+        isSuperuser = true;
+        home.stateVersion = "24.11";
+      };
+      root.home.stateVersion = "25.11";
     };
     config = {
       imports = [

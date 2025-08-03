@@ -69,7 +69,11 @@ in
 
     config'.users = mapAttrs (
       username: user:
-      if user ? sopsKey && user.sopsKey != null then user else user // { sopsKey = "users/${username}"; }
+      user
+      // (lib.optionalAttrs (!(user ? sopsKey) || user.sopsKey == null) {
+        sopsKey = "users/${username}";
+      })
+      // (lib.optionalAttrs (username == "root") { isSuperuser = true; })
     ) users;
     config'.mainUserName = elemAt (attrNames (
       filterAttrs (_: user: user.mainUser) config.config'.users
@@ -80,7 +84,7 @@ in
       isNormalUser = true;
       description = lib'.toUppercase username;
       extraGroups = mkIf user.isSuperuser [ "wheel" ];
-    }) config.config'.users;
+    }) (filterAttrs (username: _: username != "root") config.config'.users);
 
     networking.hostName = hostname;
     nixpkgs.hostPlatform.system = platform;

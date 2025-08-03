@@ -62,7 +62,8 @@ in
   config = {
     assertions = [
       {
-        assertion = (length (attrNames (filterAttrs (_: user: user.mainUser) users))) == 1;
+        assertion =
+          (length (attrNames (filterAttrs (_: user: user ? mainUser && user.mainUser) users))) == 1;
         message = "Only one user can be the main user and at least one user has to be the main user";
       }
     ];

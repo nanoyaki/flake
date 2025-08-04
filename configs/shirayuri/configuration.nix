@@ -52,6 +52,7 @@
       obs-studio
       nixd
       nixfmt-rfc-style
+      signal-desktop
     ])
     ++ lib'.mapLazyCliApps (
       with pkgs;

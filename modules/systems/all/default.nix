@@ -7,6 +7,7 @@
 {
   lib,
   lib',
+  pkgs,
   config,
   ...
 }:
@@ -67,6 +68,8 @@ in
         message = "Only one user can be the main user and at least one user has to be the main user";
       }
     ];
+
+    environment.systemPackages = [ pkgs.libargon2 ];
 
     config'.users = mapAttrs (
       username: user:

@@ -161,7 +161,7 @@ in
             };
           };
 
-          "world/datapacks" = pkgs.datapacks.default.override {
+          "world/datapacks" = pkgs.datapackSet.default.override {
             gamerules = {
               locatorBar = false;
               disableElytraMovementCheck = true;
@@ -269,7 +269,7 @@ in
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24455;
         };
 
-        files."world/datapacks" = pkgs.datapacks.default.override {
+        files."world/datapacks" = pkgs.datapackSet.default.override {
           gamerules = {
             keepInventory = true;
             doMobSpawning = false;
@@ -304,7 +304,7 @@ in
         };
 
         files = {
-          "world/datapacks/declarative_gamerules" = pkgs.datapacks.gamerules {
+          "world/datapacks/declarative_gamerules" = pkgs.datapackSet.gamerules {
             keepInventory = true;
             doMobSpawning = false;
             mobGriefing = false;
@@ -313,7 +313,7 @@ in
             spawnRadius = 32;
           };
 
-          "world/datapacks/killheal" = pkgs.datapacks.killheal;
+          "world/datapacks/killheal" = pkgs.datapackSet.killheal;
         };
       };
 

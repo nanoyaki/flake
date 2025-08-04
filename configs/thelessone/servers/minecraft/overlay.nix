@@ -24,12 +24,10 @@ final: _: {
   datapackSet = {
     default = final.callPackage ./datapacks.nix {
       datapacks = final.datapacks // {
-        inherit (final.datapacks) gamerules;
-        inherit killheal;
+        inherit (final.datapackSet) gamerules killheal;
       };
     };
+    inherit killheal;
+    gamerules = gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
   };
-
-  datapacks.gamerules =
-    gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
 }

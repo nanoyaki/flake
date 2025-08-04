@@ -24,7 +24,7 @@ final: _: {
   datapackSet = {
     default = final.callPackage ./datapacks.nix {
       datapacks = final.datapacks // {
-        inherit (final.datapackSet) gamerules killheal;
+        inherit (final.datapackSet) gamerules;
       };
     };
     inherit killheal;

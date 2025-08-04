@@ -172,7 +172,7 @@ in
         };
 
         symlinks = {
-          mods = pkgs.fabricMods.smp;
+          mods = pkgs.fabricModpacks.smp;
 
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24454;
 
@@ -264,7 +264,7 @@ in
         operators = import ./whitelist.nix;
 
         symlinks = {
-          mods = pkgs.fabricMods.creative;
+          mods = pkgs.fabricModpacks.creative;
 
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24455;
         };
@@ -298,7 +298,7 @@ in
         };
 
         symlinks = {
-          mods = pkgs.fabricMods.creative;
+          mods = pkgs.fabricModpacks.creative.override { without = [ pkgs.fabricMods.v1_21_7.axiom ]; };
 
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24456;
         };

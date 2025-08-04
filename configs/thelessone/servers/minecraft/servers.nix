@@ -102,7 +102,7 @@ in
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [
     inputs.nix-minecraft.overlay
-    (import ./overlay.nix { inherit (inputs.killheal.packages.x86_64-linux) killheal; })
+    (import ./overlay.nix)
   ];
 
   sops.secrets.proxy.sopsFile = ./secrets.yaml;
@@ -313,7 +313,7 @@ in
             spawnRadius = 32;
           };
 
-          "world/datapacks/killheal" = pkgs.datapackSet.killheal;
+          "world/datapacks/killheal" = inputs.killheal.packages.x86_64-linux.killheal;
         };
       };
 

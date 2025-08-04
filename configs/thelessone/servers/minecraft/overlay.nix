@@ -1,5 +1,3 @@
-{ killheal }:
-
 final: _: {
   fabricModpacks = {
     default = final.callPackage ./mods.nix { };
@@ -27,7 +25,6 @@ final: _: {
         inherit (final.datapackSet) gamerules;
       };
     };
-    inherit killheal;
     gamerules = gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
   };
 }

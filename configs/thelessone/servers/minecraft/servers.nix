@@ -161,13 +161,11 @@ in
             };
           };
 
-          "world/datapacks" = pkgs.datapackSet.default.override {
-            gamerules = {
-              locatorBar = false;
-              disableElytraMovementCheck = true;
-              disablePlayerMovementCheck = true;
-              playersSleepingPercentage = 33;
-            };
+          "world/datapacks" = pkgs.datapackSet.default {
+            locatorBar = false;
+            disableElytraMovementCheck = true;
+            disablePlayerMovementCheck = true;
+            playersSleepingPercentage = 33;
           };
         };
 
@@ -269,14 +267,12 @@ in
           "config/voicechat/voicechat-server.properties" = mkVoiceChatCfg 24455;
         };
 
-        files."world/datapacks" = pkgs.datapackSet.default.override {
-          gamerules = {
-            keepInventory = true;
-            doMobSpawning = false;
-            mobGriefing = false;
-            disableElytraMovementCheck = true;
-            disablePlayerMovementCheck = true;
-          };
+        files."world/datapacks" = pkgs.datapackSet.default {
+          keepInventory = true;
+          doMobSpawning = false;
+          mobGriefing = false;
+          disableElytraMovementCheck = true;
+          disablePlayerMovementCheck = true;
         };
       };
 

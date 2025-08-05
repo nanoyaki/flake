@@ -20,11 +20,14 @@ final: _: {
   };
 
   datapackSet = {
-    default = final.callPackage ./datapacks.nix {
-      datapacks = final.datapacks // {
-        inherit (final.datapackSet) gamerules;
+    default =
+      gamerules:
+      final.callPackage ./datapacks.nix {
+        inherit gamerules;
+        datapacks = final.datapacks // {
+          inherit (final.datapackSet) gamerules;
+        };
       };
-    };
     gamerules = gamerules: final.callPackage ./declarative-gamerules.nix { inherit gamerules; };
   };
 }

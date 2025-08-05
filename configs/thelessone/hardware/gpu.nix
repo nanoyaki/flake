@@ -16,7 +16,7 @@
 
   hardware.nvidia = {
     open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
 
     prime = {
       offload.enable = true;
@@ -41,5 +41,5 @@
     LIBVA_DRIVER_NAME = "nvidia";
     VDPAU_DRIVER = "nvidia";
   };
-  environment.systemPackages = [ pkgs.cudaPackages_12_4.cudatoolkit ];
+  environment.systemPackages = [ pkgs.cudaPackages.cudatoolkit ];
 }

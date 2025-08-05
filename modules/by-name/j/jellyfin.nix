@@ -65,5 +65,7 @@ in
         mode = "2770";
       };
     });
+
+    users.users.${config.services.jellyfin.user}.extraGroups = [ "render" ];
   };
 }

@@ -65,6 +65,23 @@
             extraConfig.SingleMainWindow = "true";
           };
         }
+        {
+          pkg = r2modman;
+          desktopItem = makeDesktopItem {
+            name = "r2modman";
+            exec = "r2modman %U";
+            icon = "r2modman";
+            desktopName = "r2modman";
+            comment = "Unofficial Thunderstore mod manager";
+            categories = [ "Game" ];
+            mimeTypes = [ "x-scheme-handler/ror2mm" ];
+            keywords = [
+              "launcher"
+              "mod manager"
+              "thunderstore"
+            ];
+          };
+        }
       ]
     ))
     ++ (with pkgs; [

@@ -70,7 +70,10 @@
           desktopItem = makeDesktopItem {
             name = "r2modman";
             exec = "r2modman %U";
-            icon = "r2modman";
+            icon = fetchurl {
+              url = "https://raw.githubusercontent.com/ebkr/r2modmanPlus/73d76d1eb5b1d9bab12b32a64b9c0763e13bf2fe/public/icon.png";
+              hash = "sha256-UdEzW2BBBOdo6Q5AP1P/jpSBpeYKhgumB9XJ5HFn/pQ=";
+            };
             desktopName = "r2modman";
             comment = "Unofficial Thunderstore mod manager";
             categories = [ "Game" ];

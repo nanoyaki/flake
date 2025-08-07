@@ -45,6 +45,7 @@ in
           name = "rb";
           runtimeInputs = with final; [
             nix-fast-build
+            nixos-rebuild
           ];
           text = ''
             set -eo pipefail
@@ -60,17 +61,20 @@ in
             echo "Deleting home-manager backups..."
             ${concatStringsSep "\n" findCmds}
 
-            echo "Running switch-to-configuration switch..."
-            ./result-/bin/switch-to-configuration switch
-
             echo "Adding system profile..."
-            NEWEST_GEN="$(nix-env --profile /nix/var/nix/profiles/system --list-generations | awk '{ print $1 }' | tail -n -1)";
+            NEWEST_GEN="$(nixos-rebuild list-generations | awk 'NR==2 {print $1}')";
             BUILT_GEN="$((NEWEST_GEN + 1))"
 
             sudo ln -s "$(readlink -f ./result-)" /nix/var/nix/profiles/system-$BUILT_GEN-link
 
             echo "Switching system profile..."
             nix-env --profile /nix/var/nix/profiles/system --switch-generation $BUILT_GEN
+
+            echo "Running switch-to-configuration switch..."
+            ./result-/bin/switch-to-configuration switch
+
+            echo "Set boot entry..."
+            ./result-/bin/switch-to-configuration boot
 
             echo "Deleting result link..."
             rm -rf "./result-"

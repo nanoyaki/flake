@@ -43,6 +43,7 @@ in
   systemd.services.stash = {
     requires = [ "mnt-raid.mount" ];
     after = [ "mnt-raid.mount" ];
+    bindsTo = [ "mnt-raid.mount" ];
   };
 
   environment.systemPackages = [ pkgs.chromium ];

@@ -24,7 +24,10 @@ in
 
 {
   systemd.services."systemd-tmpfiles-resetup" = {
-    requires = [ "network-online.target" ];
+    requires = [
+      "network-online.target"
+      "mnt-raid.mount"
+    ];
     after = [ "mnt-raid.mount" ];
   };
 

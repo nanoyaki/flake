@@ -23,7 +23,7 @@
     vrc-get
     blender
     alcom
-    unityhub
+    # unityhub
   ];
 
   xdg.mime.defaultApplications."x-scheme-handler/vcc" =

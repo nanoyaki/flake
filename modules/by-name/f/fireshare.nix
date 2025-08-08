@@ -63,8 +63,10 @@ in
     environmentFile = mkDefault null (mkNullOr mkPathOption);
 
     extraArgs = mkDefault [
-      "--workers 3"
-      "--threads 3"
+      "--workers"
+      "3"
+      "--threads"
+      "3"
       "--preload"
     ] (mkListOf mkStrOption);
   };

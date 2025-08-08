@@ -16,19 +16,26 @@ let
     mkPathOption
     mkNullOr
     mkListOf
+    mkDefault
     ;
   inherit (lib)
     mkIf
     mkPackageOption
-    mkDefault
-    mkMerge
     getExe'
     concatMapStringsSep
     attrNames
     ;
 
   cfg = config.config'.fireshare;
-  finalEnv = config.systemd.services.fireshare.environment;
+  finalEnv = {
+    FLASK_APP = "${cfg.package}/share/fireshare/server/fireshare:create_app()";
+    DATA_DIRECTORY = "${cfg.dataDir}/data";
+    VIDEO_DIRECTORY = "${cfg.dataDir}/videos";
+    PROCESSED_DIRECTORY = "${cfg.dataDir}/processed";
+    TEMPLATE_PATH = "${cfg.package}/share/fireshare/server/fireshare/templates";
+    ENVIRONMENT = "production";
+  }
+  // cfg.environment;
 in
 
 {
@@ -37,12 +44,12 @@ in
 
     package = mkPackageOption pkgs "fireshare" { };
 
-    backendListenAddress = lib'.options.mkDefault "127.0.0.1:5000" mkStrOption;
+    backendListenAddress = mkDefault "127.0.0.1:5000" mkStrOption;
 
-    user = lib'.options.mkDefault "fireshare" mkStrOption;
-    group = lib'.options.mkDefault "fireshare" mkStrOption;
+    user = mkDefault "fireshare" mkStrOption;
+    group = mkDefault "fireshare" mkStrOption;
 
-    dataDir = lib'.options.mkDefault "/var/lib/fireshare" mkStrOption;
+    dataDir = mkDefault "/var/lib/fireshare" mkStrOption;
 
     enableWrappedCli = mkTrueOption;
 
@@ -53,9 +60,9 @@ in
       ])
     );
 
-    environmentFile = lib'.options.mkDefault null (mkNullOr mkPathOption);
+    environmentFile = mkDefault null (mkNullOr mkPathOption);
 
-    extraArgs = lib'.options.mkDefault [
+    extraArgs = mkDefault [
       "--workers 3"
       "--threads 3"
       "--preload"
@@ -169,7 +176,7 @@ in
 
       serviceConfig = {
         ExecStart = "${getExe' cfg.package "fireshare-cli"} init-db";
-        ConditionFileNotEmpty = "!${config.systemd.services.fireshare.environment.DATA_DIRECTORY}/db.sqlite";
+        ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
         inherit (config.systemd.services.fireshare.serviceConfig) StateDirectory WorkingDirectory;
 
         Type = "one-shot";
@@ -181,17 +188,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
 
-      environment = mkMerge [
-        cfg.environment
-        {
-          FLASK_APP = "${cfg.package}/share/fireshare/server/fireshare:create_app()";
-          DATA_DIRECTORY = mkDefault "${cfg.dataDir}/data";
-          VIDEO_DIRECTORY = mkDefault "${cfg.dataDir}/videos";
-          PROCESSED_DIRECTORY = mkDefault "${cfg.dataDir}/processed";
-          TEMPLATE_PATH = "${cfg.package}/share/fireshare/server/fireshare/templates";
-          ENVIRONMENT = mkDefault "production";
-        }
-      ];
+      environment = finalEnv;
 
       script = ''
         rm ${cfg.dataDir}/jobs.sqlite
@@ -202,7 +199,7 @@ in
       '';
 
       serviceConfig = {
-        ConditionFileNotEmpty = "${config.systemd.services.fireshare.environment.DATA_DIRECTORY}/db.sqlite";
+        ConditionFileNotEmpty = "${finalEnv.DATA_DIRECTORY}/db.sqlite";
         StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
         WorkingDirectory = cfg.dataDir;
 

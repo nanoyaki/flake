@@ -74,11 +74,11 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = mkIf cfg.enableWrappedCli [
       (pkgs.symlinkJoin {
-        name = "fireshare-cli";
+        name = "fireshare";
         paths = [ pkgs.fireshare ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
-          wrapProgram "$out/bin/fireshare-cli" \
+          wrapProgram "$out/bin/fireshare" \
             ${concatMapStringsSep " \\\n" (var: ''--prefix ${var} : "${finalEnv.${var}}"'') (
               attrNames finalEnv
             )}
@@ -184,7 +184,7 @@ in
       environment = finalEnv;
 
       serviceConfig = {
-        ExecStart = "${lib.getExe' cfg.package "fireshare-cli"} init-db";
+        ExecStart = "${lib.getExe' cfg.package "fireshare"} init-db";
         ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
         StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
         WorkingDirectory = cfg.dataDir;

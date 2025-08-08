@@ -189,8 +189,7 @@ in
     };
 
     systemd.services.fireshare = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = [ "network-online.target" ];
 
       environment = finalEnv;
 

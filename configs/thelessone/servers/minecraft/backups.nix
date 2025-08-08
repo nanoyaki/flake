@@ -4,8 +4,12 @@
   ...
 }:
 
-{
+let
+  dataDirPaths =
+    relativePaths: map (path: "${config.services.minecraft-servers.dataDir}/${path}") relativePaths;
+in
 
+{
   sops.secrets."restic/smp" = { };
 
   services.restic.backups.smp = {
@@ -13,8 +17,12 @@
     repository = "/var/lib/restic/backups/smp";
     passwordFile = config.sops.secrets."restic/smp".path;
 
-    paths = [ "${config.services.minecraft-servers.dataDir}/smp/world" ];
-    exclude = [ "${config.services.minecraft-servers.dataDir}/smp/world/**/data/DistantHorizons*" ];
+    paths = dataDirPaths [ "smp/world" ];
+    exclude = dataDirPaths [
+      "smp/world/**/data/DistantHorizons*"
+      "smp/world/datapacks"
+      "smp/world/**/*.bak"
+    ];
 
     environmentFile = ''${pkgs.writeText "restic-smp-env" ''
       GOMAXPROCS=6

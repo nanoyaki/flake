@@ -200,7 +200,7 @@ in
       environment = finalEnv;
 
       script = ''
-        rm ${cfg.dataDir}/jobs.sqlite
+        [[ -f "${cfg.dataDir}/jobs.sqlite" ]] && rm "${cfg.dataDir}/jobs.sqlite"
 
         ${getExe' cfg.package "fireshare-server"} \
           --bind="${cfg.backendListenAddress}" \

@@ -179,7 +179,7 @@ in
         ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
         inherit (config.systemd.services.fireshare.serviceConfig) StateDirectory WorkingDirectory;
 
-        Type = "one-shot";
+        Type = "oneshot";
         Restart = "never";
       };
     };

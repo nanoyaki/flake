@@ -161,7 +161,7 @@ in
           mode = "0770";
         };
       in
-      mkIf (cfg.dataDir == "/var/lib/fireshare") {
+      {
         "${cfg.dataDir}/data".d = dirCfg;
         "${cfg.dataDir}/videos".d = dirCfg;
         "${cfg.dataDir}/processed".d = dirCfg;

@@ -205,10 +205,8 @@ in
       path = [ cfg.package ];
 
       script = ''
-        [[ -f "${cfg.dataDir}/jobs.sqlite" ]] && rm "${cfg.dataDir}/jobs.sqlite"
-
-        touch jobs.sqlite
-        chmod 770 jobs.sqlite
+        jobsDb="${finalEnv.DATA_DIRECTORY}/jobs.sqlite"
+        [[ -f "$jobsDb" ]] && rm "$jobsDb"
 
         fireshare-server \
           --bind="${cfg.backendListenAddress}" \

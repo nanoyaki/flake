@@ -93,6 +93,7 @@ in
       fireshare = {
         isSystemUser = true;
         home = cfg.dataDir;
+        homeMode = "770";
         inherit (cfg) group;
       };
     };
@@ -207,6 +208,7 @@ in
         [[ -f "${cfg.dataDir}/jobs.sqlite" ]] && rm "${cfg.dataDir}/jobs.sqlite"
 
         touch jobs.sqlite
+        chmod 770 jobs.sqlite
 
         fireshare-server \
           --bind="${cfg.backendListenAddress}" \

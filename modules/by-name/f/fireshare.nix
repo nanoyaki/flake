@@ -73,11 +73,16 @@ in
     environment.systemPackages = mkIf cfg.enableWrappedCli [
       (pkgs.symlinkJoin {
         name = "fireshare-cli";
+        paths = [ pkgs.fireshare ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
-        text = ''
-          mkdir -p $out/bin
-          makeWrapper ${getExe' cfg.package "fireshare-cli"} $out/bin/fireshare-cli \
-            ${concatMapStringsSep " \\\n" (var: ''--prefix "${var} : ${finalEnv.var}"'') (attrNames finalEnv)}
+        postBuild = ''
+          wrapProgram "$out/bin/fireshare-cli" \
+            ${concatMapStringsSep " \\\n" (var: ''--prefix ${var} : "${finalEnv.${var}}"'') (
+              attrNames finalEnv
+            )}
+        '';
+        postFixup = ''
+          rm $out/bin/fireshare-server
         '';
       })
     ];

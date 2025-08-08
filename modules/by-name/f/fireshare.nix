@@ -167,6 +167,7 @@ in
         };
       in
       {
+        ${cfg.dataDir}.d = dirCfg;
         "${cfg.dataDir}/data".d = dirCfg;
         "${cfg.dataDir}/videos".d = dirCfg;
         "${cfg.dataDir}/processed".d = dirCfg;

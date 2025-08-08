@@ -177,10 +177,14 @@ in
       serviceConfig = {
         ExecStart = "${getExe' cfg.package "fireshare-cli"} init-db";
         ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
-        inherit (config.systemd.services.fireshare.serviceConfig) StateDirectory WorkingDirectory;
+        StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
+        WorkingDirectory = cfg.dataDir;
+
+        User = cfg.user;
+        Group = cfg.group;
 
         Type = "oneshot";
-        Restart = "never";
+        Restart = "no";
       };
     };
 

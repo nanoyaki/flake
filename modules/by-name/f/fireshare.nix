@@ -183,10 +183,11 @@ in
 
       environment = finalEnv;
 
+      unitConfig.ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
+
       serviceConfig = {
         ExecStart = "${lib.getExe' cfg.package "fireshare"} init-db";
-        ConditionPathExists = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
-        StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
+        StateDirectory = ".local/state";
         WorkingDirectory = cfg.dataDir;
 
         User = cfg.user;
@@ -214,9 +215,9 @@ in
           ${lib.escapeShellArgs cfg.extraArgs}
       '';
 
+      unitConfig.ConditionFileNotEmpty = "${finalEnv.DATA_DIRECTORY}/db.sqlite";
       serviceConfig = {
-        ConditionPathExists = "${finalEnv.DATA_DIRECTORY}/db.sqlite";
-        StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
+        StateDirectory = ".local/state";
         WorkingDirectory = cfg.dataDir;
 
         User = cfg.user;

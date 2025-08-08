@@ -185,7 +185,7 @@ in
 
       serviceConfig = {
         ExecStart = "${lib.getExe' cfg.package "fireshare"} init-db";
-        ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
+        ConditionPathExists = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
         StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
         WorkingDirectory = cfg.dataDir;
 
@@ -215,7 +215,7 @@ in
       '';
 
       serviceConfig = {
-        ConditionFileNotEmpty = "${finalEnv.DATA_DIRECTORY}/db.sqlite";
+        ConditionPathExists = "${finalEnv.DATA_DIRECTORY}/db.sqlite";
         StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
         WorkingDirectory = cfg.dataDir;
 

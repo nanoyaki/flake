@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
   # Shell
@@ -13,8 +13,6 @@
         bindkey "^[[1;5D" backward-word
         bindkey "^[[3;5~" kill-word
         bindkey "^H"      backward-kill-word
-
-        ${lib.getExe pkgs.meow}
       '';
 
       enableCompletion = true;

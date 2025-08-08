@@ -58,10 +58,7 @@ in
     hms = [
       {
         programs = mkIf cfg.enableComfortUtils {
-          zsh = {
-            enable = true;
-            initContent = lib.getExe pkgs.meow;
-          };
+          zsh.enable = true;
 
           zellij = {
             enable = true;

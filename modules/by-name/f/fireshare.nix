@@ -197,7 +197,7 @@ in
         rm ${cfg.dataDir}/jobs.sqlite
 
         ${getExe' cfg.package "fireshare-server"} \
-          --bind="${cfg.listenAddress}" \
+          --bind="${cfg.backendListenAddress}" \
           ${lib.escapeShellArgs cfg.extraArgs}
       '';
 

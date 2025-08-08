@@ -21,7 +21,6 @@ let
   inherit (lib)
     mkIf
     mkPackageOption
-    getExe'
     concatMapStringsSep
     attrNames
     ;
@@ -34,6 +33,7 @@ let
     PROCESSED_DIRECTORY = "${cfg.dataDir}/processed";
     TEMPLATE_PATH = "${cfg.package}/share/fireshare/server/fireshare/templates";
     ENVIRONMENT = "production";
+    FLASK_ENV = "production";
   }
   // cfg.environment;
 in
@@ -183,7 +183,7 @@ in
       environment = finalEnv;
 
       serviceConfig = {
-        ExecStart = "${getExe' cfg.package "fireshare-cli"} init-db";
+        ExecStart = "${lib.getExe' cfg.package "fireshare-cli"} init-db";
         ConditionFileNotEmpty = "!${finalEnv.DATA_DIRECTORY}/db.sqlite";
         StateDirectory = "${config.users.users.${cfg.user}.home}/.local/state";
         WorkingDirectory = cfg.dataDir;
@@ -201,11 +201,16 @@ in
 
       environment = finalEnv;
 
+      path = [ cfg.package ];
+
       script = ''
         [[ -f "${cfg.dataDir}/jobs.sqlite" ]] && rm "${cfg.dataDir}/jobs.sqlite"
 
-        ${getExe' cfg.package "fireshare-server"} \
+        touch jobs.sqlite
+
+        fireshare-server \
           --bind="${cfg.backendListenAddress}" \
+          --user "${cfg.user}" --group "${cfg.group}" \
           ${lib.escapeShellArgs cfg.extraArgs}
       '';
 

@@ -96,7 +96,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nanopkgs = {
-      url = "github:nanoyaki/nanopkgs";
+      url = "github:nanoyaki/nanopkgs/dev";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };

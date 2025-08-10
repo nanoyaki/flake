@@ -23,6 +23,7 @@ let
     mkPackageOption
     concatMapStringsSep
     attrNames
+    mkForce
     ;
 
   cfg = config.config'.fireshare;
@@ -36,6 +37,8 @@ let
     FLASK_ENV = "production";
   }
   // cfg.environment;
+
+  frontend = "${cfg.package}/share/fireshare/client";
 in
 
 {
@@ -102,64 +105,86 @@ in
       fireshare = { };
     };
 
+    services.caddy.globalConfig = mkForce ''
+      ${lib.optionalString (!config.config'.caddy.useHttps) "auto_https disable_redirects"}
+      cache
+    '';
+    services.caddy.package = pkgs.caddy.withPlugins {
+      plugins = [ "github.com/caddyserver/cache-handler@v0.16.0" ];
+      hash = "sha256-i6nDfZ3ZYRxoRmRTSGXlN63tX6q/gSvQtpPeC+IUwEM=";
+    };
     services.caddy.virtualHosts.${finalEnv.DOMAIN}.extraConfig = ''
-      # Server options
-      header {
-        -Server
-        X-Cache-Status {http.reverse_proxy.cache.status}
-      }
+      header X-Cache-Status {cache_status}
+
+      root * ${frontend}
 
       encode {
-        gzip {
-          level 6
-          min_length 256
-        }
+        minimum_length 256
+        gzip 6
       }
 
-      # File serving and compression
-      root * ${cfg.package}/share/fireshare/client
-      file_server
-      try_files {path} /index.html
-
-      # /_content/ location
       handle /_content/* {
         root * ${cfg.dataDir}/processed
         rewrite * /{path}
+
+        cache {
+          ttl 10m
+          stale 1h
+        }
+
         file_server
-        header Cache-Control "max-age=600" if {status} in 200 302
-        header Cache-Control "max-age=60" if status 404
       }
 
       handle /_content/video/* {
+        header {
+          Accept-Ranges bytes
+          Cache-Control "public, max-age=3600"
+        }
+
         root * ${cfg.dataDir}/processed/video_links
         rewrite * /{path}
-        file_server
+
+        file_server {
+          index off
+        }
       }
 
       handle /api/* {
         reverse_proxy http://${cfg.backendListenAddress} {
-          header_up Host {http.request.host}
+          header_up X-Forwarded-For {remote_host}
+          header_up Host {host}
+
+          flush_interval -1
           transport http {
             dial_timeout 60s
+            read_timeout 999999s
+            write_timeout 999999s
           }
         }
       }
 
-      handle /w/* {
+      handle_path /w/* {
         reverse_proxy http://${cfg.backendListenAddress} {
-          header_up Host {http.request.host}
+          header_up X-Forwarded-For {remote_host}
+          header_up Host {host}
+
           transport http {
             dial_timeout 60s
             read_timeout 60s
+            write_timeout 60s
           }
         }
       }
 
-      # Redirect www to non-www (optional)
-      @www {
-        host ^www\.${lib.escapeRegex finalEnv.DOMAIN}$
+      handle {
+        cache {
+          ttl 10m
+          stale 1h
+        }
+
+        try_files {path} ${frontend}/index.html
+        file_server
       }
-      redir @www https://${finalEnv.DOMAIN}{uri} permanent
     '';
 
     systemd.tmpfiles.settings."10-fireshare" =

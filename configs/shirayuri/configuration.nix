@@ -53,6 +53,7 @@
       nixd
       nixfmt-rfc-style
       signal-desktop
+      nur.repos.ataraxiasjel.waydroid-script
     ])
     ++ lib'.mapLazyCliApps (
       with pkgs;

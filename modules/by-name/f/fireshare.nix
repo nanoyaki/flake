@@ -82,9 +82,7 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram "$out/bin/fireshare" \
-            ${concatMapStringsSep " \\\n" (var: ''--prefix ${var} : "${finalEnv.${var}}"'') (
-              attrNames finalEnv
-            )}
+            ${concatMapStringsSep " \\\n" (var: ''--set ${var} "${finalEnv.${var}}"'') (attrNames finalEnv)}
         '';
         postFixup = ''
           rm $out/bin/fireshare-server

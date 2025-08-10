@@ -112,8 +112,7 @@ in
       hash = "sha256-i6nDfZ3ZYRxoRmRTSGXlN63tX6q/gSvQtpPeC+IUwEM=";
     };
     services.caddy.virtualHosts.${finalEnv.DOMAIN}.extraConfig = ''
-      header X-Cache-Status {cache_status}
-
+      header -Server
       root * ${frontend}
 
       encode {
@@ -123,7 +122,6 @@ in
 
       handle /_content/* {
         root * ${cfg.dataDir}/processed
-        rewrite * /{path}
 
         cache {
           ttl 10m
@@ -140,7 +138,6 @@ in
         }
 
         root * ${cfg.dataDir}/processed/video_links
-        rewrite * /{path}
 
         file_server {
           index off
@@ -155,13 +152,11 @@ in
           flush_interval -1
           transport http {
             dial_timeout 60s
-            read_timeout 999999s
-            write_timeout 999999s
           }
         }
       }
 
-      handle_path /w/* {
+      handle /w/* {
         reverse_proxy http://${cfg.backendListenAddress} {
           header_up X-Forwarded-For {remote_host}
           header_up Host {host}

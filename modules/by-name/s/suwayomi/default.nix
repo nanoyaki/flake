@@ -70,19 +70,20 @@ in
       isSystemUser = true;
     };
 
-    systemd.tmpfiles.settings = {
-      "10-suwayomi" = {
-        "${cfg.dataDir}/.downloads" = { inherit (dirCfg) d; };
-        "${cfg.dataDir}/.localSources" = { inherit (dirCfg) d; };
-        "${cfg.dataDir}/.cache/suwayomi" = { inherit (dirCfg) d; };
-      };
-    }
-    // (mapAttrs' (
+    systemd.tmpfiles.settings = mapAttrs' (
       iName: iCfg:
+      let
+        dataDir = nullOr iCfg.settings.server.rootDir "/var/lib/suwayomi/${iName}";
+        downloadsDir = nullOr iCfg.settings.server.downloadsPath "${dataDir}/downloads";
+        localDir = nullOr iCfg.settings.server.localSourcePath "${dataDir}/local";
+      in
       nameValuePair "10-suwayomi-${iName}" {
-        ${nullOr iCfg.settings.server.rootDir "${cfg.dataDir}/${iName}"} = { inherit (dirCfg) d; };
+        "${dataDir}/.local/share/Tachidesk" = dirCfg;
+        "${dataDir}/.cache/suwayomi" = dirCfg;
+        ${downloadsDir} = dirCfg;
+        ${localDir} = dirCfg;
       }
-    ) cfg.instances);
+    ) cfg.instances;
 
     systemd.services = mapAttrs' (
       iName: iCfg:
@@ -95,8 +96,6 @@ in
               server = {
                 systemTrayEnabled = false;
                 initialOpenInBrowserEnabled = false;
-                localSourcePath = "${cfg.dataDir}/.localSources";
-                downloadsPath = "${cfg.dataDir}/.downloads";
               };
             }
           )
@@ -109,7 +108,7 @@ in
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
 
-        environment.JAVA_TOOL_OPTIONS = "-Djava.io.tmpdir=${cfg.dataDir}/.cache/suwayomi -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}";
+        environment.JAVA_TOOL_OPTIONS = "-Djava.io.tmpdir=${dataDir}/.cache/suwayomi -Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}";
 
         script = ''
           ${getExe pkgs.envsubst} -i ${configFile} -o ${dataDir}/server.conf

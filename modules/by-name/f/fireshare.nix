@@ -37,8 +37,6 @@ let
     FLASK_ENV = "production";
   }
   // cfg.environment;
-
-  frontend = "${cfg.package}/share/fireshare/client";
 in
 
 {
@@ -113,7 +111,8 @@ in
     };
     services.caddy.virtualHosts.${finalEnv.DOMAIN}.extraConfig = ''
       header -Server
-      root * ${frontend}
+      root * ${cfg.package}/share/fireshare/client
+      file_server
 
       encode {
         minimum_length 256
@@ -121,14 +120,13 @@ in
       }
 
       handle /_content/* {
+        rewrite /_content/* /{path}
         root * ${cfg.dataDir}/processed
 
         cache {
           ttl 10m
           stale 1h
         }
-
-        file_server
       }
 
       handle /_content/video/* {
@@ -137,46 +135,31 @@ in
           Cache-Control "public, max-age=3600"
         }
 
+        rewrite /_content/video/* /{path}
         root * ${cfg.dataDir}/processed/video_links
-
-        file_server {
-          index off
-        }
       }
 
       handle /api/* {
-        reverse_proxy http://${cfg.backendListenAddress} {
-          header_up X-Forwarded-For {remote_host}
-          header_up Host {host}
-
-          flush_interval -1
+        reverse_proxy ${cfg.backendListenAddress} {
           transport http {
+            versions 1.1
             dial_timeout 60s
           }
+        }
+
+        request_body {
+          max_size 0
         }
       }
 
       handle /w/* {
-        reverse_proxy http://${cfg.backendListenAddress} {
-          header_up X-Forwarded-For {remote_host}
-          header_up Host {host}
-
+        reverse_proxy ${cfg.backendListenAddress} {
           transport http {
+            versions 1.1
             dial_timeout 60s
             read_timeout 60s
-            write_timeout 60s
           }
         }
-      }
-
-      handle {
-        cache {
-          ttl 10m
-          stale 1h
-        }
-
-        try_files {path} ${frontend}/index.html
-        file_server
       }
     '';
 

@@ -24,6 +24,7 @@ let
     concatMapStringsSep
     attrNames
     mkForce
+    mkMerge
     ;
 
   cfg = config.config'.fireshare;
@@ -88,80 +89,85 @@ in
       })
     ];
 
-    users.users = mkIf (cfg.user == "fireshare") {
-      fireshare = {
-        isSystemUser = true;
-        home = cfg.dataDir;
-        homeMode = "770";
-        inherit (cfg) group;
-      };
-    };
+    users.users = mkMerge [
+      { ${config.services.caddy.user}.extraGroups = [ cfg.group ]; }
+      (mkIf (cfg.user == "fireshare") {
+        fireshare = {
+          isSystemUser = true;
+          home = cfg.dataDir;
+          homeMode = "770";
+          inherit (cfg) group;
+        };
+      })
+    ];
 
     users.groups = mkIf (cfg.group == "fireshare") {
       fireshare = { };
     };
 
-    services.caddy.globalConfig = mkForce ''
-      ${lib.optionalString (!config.config'.caddy.useHttps) "auto_https disable_redirects"}
-      cache
-    '';
-    services.caddy.package = pkgs.caddy.withPlugins {
-      plugins = [ "github.com/caddyserver/cache-handler@v0.16.0" ];
-      hash = "sha256-i6nDfZ3ZYRxoRmRTSGXlN63tX6q/gSvQtpPeC+IUwEM=";
+    services.caddy = {
+      package = pkgs.caddy.withPlugins {
+        plugins = [ "github.com/caddyserver/cache-handler@v0.16.0" ];
+        hash = "sha256-i6nDfZ3ZYRxoRmRTSGXlN63tX6q/gSvQtpPeC+IUwEM=";
+      };
+
+      globalConfig = mkForce ''
+        ${lib.optionalString (!config.config'.caddy.useHttps) "auto_https disable_redirects"}
+        cache
+      '';
+
+      virtualHosts.${finalEnv.DOMAIN}.extraConfig = ''
+        header -Server
+        root * ${cfg.package}/share/fireshare/client
+        file_server
+
+        encode {
+          minimum_length 256
+          gzip 6
+        }
+
+        handle_path /_content/* {
+          root * ${cfg.dataDir}/processed
+
+          cache {
+            ttl 10m
+            stale 1h
+          }
+        }
+
+        handle_path /_content/video/* {
+          header {
+            Accept-Ranges bytes
+            Cache-Control "public, max-age=3600"
+          }
+
+          root * ${cfg.dataDir}/processed/video_links
+        }
+
+        handle /api/* {
+          reverse_proxy ${cfg.backendListenAddress} {
+            transport http {
+              versions 1.1
+              dial_timeout 60s
+            }
+          }
+
+          request_body {
+            max_size 0
+          }
+        }
+
+        handle /w/* {
+          reverse_proxy ${cfg.backendListenAddress} {
+            transport http {
+              versions 1.1
+              dial_timeout 60s
+              read_timeout 60s
+            }
+          }
+        }
+      '';
     };
-    services.caddy.virtualHosts.${finalEnv.DOMAIN}.extraConfig = ''
-      header -Server
-      root * ${cfg.package}/share/fireshare/client
-      file_server
-
-      encode {
-        minimum_length 256
-        gzip 6
-      }
-
-      handle /_content/* {
-        rewrite /_content/* /{path}
-        root * ${cfg.dataDir}/processed
-
-        cache {
-          ttl 10m
-          stale 1h
-        }
-      }
-
-      handle /_content/video/* {
-        header {
-          Accept-Ranges bytes
-          Cache-Control "public, max-age=3600"
-        }
-
-        rewrite /_content/video/* /{path}
-        root * ${cfg.dataDir}/processed/video_links
-      }
-
-      handle /api/* {
-        reverse_proxy ${cfg.backendListenAddress} {
-          transport http {
-            versions 1.1
-            dial_timeout 60s
-          }
-        }
-
-        request_body {
-          max_size 0
-        }
-      }
-
-      handle /w/* {
-        reverse_proxy ${cfg.backendListenAddress} {
-          transport http {
-            versions 1.1
-            dial_timeout 60s
-            read_timeout 60s
-          }
-        }
-      }
-    '';
 
     systemd.tmpfiles.settings."10-fireshare" =
       let

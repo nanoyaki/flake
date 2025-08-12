@@ -38,7 +38,8 @@ in
         ],
         "runtime" :
         [
-          "${pkgs.opencomposite}/lib/opencomposite"
+          "${pkgs.opencomposite-vendored}/lib/opencomposite",
+          "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR"
         ],
         "version" : 1
       }
@@ -73,9 +74,6 @@ in
         STEAMVR_LH_ENABLE = "1";
         XRT_COMPOSITOR_COMPUTE = "1";
         WMR_HANDTRACKING = "1";
-        XRT_COMPOSITOR_SCALE_PERCENTAGE = "100";
-        SURVIVE_GLOBALSCENESOLVER = "0";
-        SURVIVE_TIMECODE_OFFSET_MS = "-6.94";
       };
     };
 

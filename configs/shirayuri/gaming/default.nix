@@ -85,6 +85,31 @@
             ];
           };
         }
+        {
+          pkg = bs-manager;
+          desktopItem = makeDesktopItem {
+            desktopName = "BSManager";
+            name = "BSManager";
+            exec = "bs-manager";
+            terminal = false;
+            type = "Application";
+            icon = fetchurl {
+              url = "https://raw.githubusercontent.com/Zagrios/bs-manager/d9b4259b9723e0e885f69ab95ddfbb762876c3b3/resources/readme/PNG/icon.png";
+              hash = "sha256-Gf1X0fPdMyYVk/r34ndub1iNS87B4f18sGq4PrBcWOg=";
+            };
+            mimeTypes = [
+              "x-scheme-handler/bsmanager"
+              "x-scheme-handler/beatsaver"
+              "x-scheme-handler/bsplaylist"
+              "x-scheme-handler/modelsaber"
+              "x-scheme-handler/web+bsmap"
+            ];
+            categories = [
+              "Utility"
+              "Game"
+            ];
+          };
+        }
       ]
     ))
     ++ (with pkgs; [

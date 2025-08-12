@@ -25,4 +25,11 @@
 
     environmentFile = config.sops.templates."fireshare.env".path;
   };
+
+  config'.homepage.categories.Media.services.Fireshare = rec {
+    description = "Clip sharing application";
+    icon = "fireshare.svg";
+    href = "https://fireshare.theless.one";
+    siteMonitor = href;
+  };
 }

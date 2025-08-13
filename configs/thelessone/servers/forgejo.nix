@@ -44,14 +44,20 @@ in
         coreutils
         curl
         gawk
-        gitMinimal
+        git
+        git-lfs
         gnused
         nodejs
         wget
+        which
+        iputils
 
-        # extra
         nix
         openssh
+        statix
+        nix-fast-build
+        nvd
+        inputs'.rebuild-maintenance.packages.rebuild-maintenance
       ];
     };
   };
@@ -107,10 +113,9 @@ in
 
   systemd.services.forgejo.preStart =
     let
-      adminCmd = "${lib.getExe cfg.package} admin user";
       passwordFile = config.sops.secrets."forgejo/users/nanoyaki".path;
     in
     ''
-      ${adminCmd} create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(${lib.getExe' pkgs.coreutils "cat"} ${passwordFile})" || true
+      ${lib.getExe cfg.package} admin user create --admin --email "hanakretzer@gmail.com" --username "nanoyaki" --password "$(cat ${passwordFile})" || true
     '';
 }

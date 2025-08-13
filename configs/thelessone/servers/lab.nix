@@ -73,6 +73,7 @@ in
 
     bazarr.enable = true;
     bazarr.subdomain = "bazarr.vpn";
+    flaresolverr.enable = true;
     jellyfin.enable = true;
     jellyfin.subdomain = "jellyfin.vpn";
     jellyseerr.enable = true;

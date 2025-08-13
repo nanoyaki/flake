@@ -7,7 +7,12 @@
 }:
 
 let
-  inherit (lib) nameValuePair mapAttrs' filterAttrs;
+  inherit (lib)
+    nameValuePair
+    mapAttrs'
+    filterAttrs
+    genAttrs
+    ;
 
   excludes = [
     "uptimekuma"
@@ -23,13 +28,19 @@ let
 in
 
 {
-  systemd.services."systemd-tmpfiles-resetup" = {
-    requires = [
-      "network-online.target"
-      "mnt-raid.mount"
-    ];
-    after = [ "mnt-raid.mount" ];
-  };
+  systemd.services =
+    genAttrs
+      [
+        "systemd-tmpfiles-clean"
+        "systemd-tmpfiles-setup"
+        "systemd-tmpfiles-setup-dev"
+        "systemd-tmpfiles-setup-dev-early"
+        "systemd-tmpfiles-resetup"
+      ]
+      (_: {
+        requires = [ "mnt-raid.mount" ];
+        after = [ "mnt-raid.mount" ];
+      });
 
   sops.secrets.vaultwarden-smtp-password.owner = "vaultwarden";
   sops.templates."vaultwarden.env".file = (pkgs.formats.keyValue { }).generate "vaultwarden.env" {

@@ -1,6 +1,7 @@
 {
   lib,
   lib',
+  pkgs,
   config,
   ...
 }:
@@ -34,6 +35,9 @@ in
   config = mkIf cfg.enable {
     services.immich = {
       enable = true;
+      package = pkgs.immich.override {
+        sourcesJSON = ./sources.json;
+      };
       accelerationDevices = mkIf cfg.enableHardwareAcceleration [ "/dev/dri/renderD128" ];
     };
 

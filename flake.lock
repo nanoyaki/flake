@@ -887,6 +887,24 @@
         "type": "github"
       }
     },
+    "owned-material": {
+      "locked": {
+        "lastModified": 1737665091,
+        "lfs": true,
+        "narHash": "sha256-oAhvpCuZOm2GAIgxe4kWYCmTXef1mBIpabQJ0vg4ObU=",
+        "ref": "main",
+        "rev": "84096f468fd40eedb449b9e3655057ff200fcdc8",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@git.theless.one/nanoyaki/owned-material.git"
+      },
+      "original": {
+        "lfs": true,
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@git.theless.one/nanoyaki/owned-material.git"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -1040,6 +1058,7 @@
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-xr": "nixpkgs-xr",
         "nur": "nur",
+        "owned-material": "owned-material",
         "plasma-manager": "plasma-manager",
         "prismlauncher": "prismlauncher",
         "rebuild-maintenance": "rebuild-maintenance",

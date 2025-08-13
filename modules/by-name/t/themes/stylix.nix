@@ -3,6 +3,7 @@
   lib',
   pkgs,
   config,
+  inputs,
   ...
 }:
 
@@ -35,12 +36,7 @@ in
       }.yaml";
       polarity = "dark";
 
-      image = mkDefault (
-        pkgs.fetchurl {
-          url = "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:majihettvb7ieflgmkvujecu/bafkreifj2it2zsr4x5iiv7ti5hcf7l3bwoym6fn2xn7mygohsm4sptcgbu";
-          hash = "sha256-uuoCCTDvuzowPdQAjFno2XZMLWtJIPXX/i/Ko0AONaY=";
-        }
-      );
+      image = mkDefault inputs.owned-material.images.szcb911."2024-10-15.jpeg";
 
       targets.plymouth = { inherit (config.boot.plymouth) enable; };
     };

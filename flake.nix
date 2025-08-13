@@ -108,7 +108,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
-    # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
+    owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
   };
 
   outputs =

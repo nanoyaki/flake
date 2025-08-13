@@ -22,6 +22,8 @@ in
     environment.etc."ssh/id_owned-material_pull.pub".text = ''
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOSUAgwaWY75NrPgYeqZR55lz3THlczUVhhK1mZOJt6N
     '';
+    programs.ssh.knownHosts."git.theless.one".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkogFEPPOMfkRsBgyuHDQeWQMetWCZbkTpnfajTbu7t";
 
     systemd.services.ensure-id-file = {
       wantedBy = [ "multi-user.target" ];

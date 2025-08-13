@@ -14,6 +14,7 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     disko = {
       url = "github:nix-community/disko/latest";
@@ -36,6 +37,7 @@
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     nixgl = {
       url = "github:nix-community/nixGL";
@@ -73,13 +75,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    headplane = {
-      url = "github:tale/headplane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     lazy-apps = {
       url = "sourcehut:~rycee/lazy-apps";
@@ -109,6 +108,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
+    # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
   };
 
   outputs =

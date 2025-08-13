@@ -7,7 +7,7 @@ keys:
   - &meow age1l3s5ckneu4reytw4ecyt2qcc49hf8kpx0s89senr5yhf6fqu3y0sxkv398
   - &thelessnas age1a82mdpvl5w2j0ahyccngc2wvwgrhezrnwn5te99yxy254f9nm54qex3r0y
 creation_rules:
-  - path_regex: .*secrets/.*\.yaml$
+  - path_regex: .*(secrets|user-).*\.yaml$
     key_groups:
       - age:
           - *shirayuri
@@ -35,7 +35,7 @@ creation_rules:
     key_groups:
       - age:
           - *thelessnas
-  - path_regex: modules/systems/all/secrets/.*\.yaml$
+  - path_regex: modules/systems/all/secrets\.yaml$
     key_groups:
       - age:
           - *kuroyuri

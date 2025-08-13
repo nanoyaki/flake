@@ -6,7 +6,7 @@
   services.fireqos = {
     enable = true;
     config = ''
-      interface enp6s0 world-in input rate 250mbit
+      interface tailscale0 vpn-out output rate 100mbit
     '';
   };
 }

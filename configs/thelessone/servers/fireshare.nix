@@ -28,7 +28,7 @@
 
   config'.homepage.categories.Media.services.Fireshare = rec {
     description = "Clip sharing application";
-    icon = "fireshare.svg";
+    icon = "fireshare.png";
     href = "https://fireshare.theless.one";
     siteMonitor = href;
   };

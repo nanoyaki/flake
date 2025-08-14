@@ -10,9 +10,24 @@ let
 in
 
 {
-  sops.secrets = lib.genAttrs [ "stash/password" "stash/jwtSecret" "stash/sessionStoreSecret" ] (_: {
-    owner = cfg.user;
-  });
+  sops.secrets =
+    lib.genAttrs
+      [
+        "stash/password"
+        "stash/jwtSecret"
+        "stash/sessionStoreSecret"
+        "stash/shoko/user"
+        "stash/shoko/pass"
+      ]
+      (_: {
+        owner = cfg.user;
+      });
+
+  sops.templates."config.json".file = (pkgs.formats.json { }).generate "config.json.template" {
+    url = "https://shoko.vpn.theless.one";
+    user = config.sops.placeholder."stash/shoko/user";
+    pass = config.sops.placeholder."stash/shoko/pass";
+  };
 
   services.stash = {
     enable = true;
@@ -23,10 +38,15 @@ in
     sessionStoreKeyFile = config.sops.secrets."stash/sessionStoreSecret".path;
 
     mutablePlugins = true;
-    mutableScrapers = true;
+    scrapers = with pkgs.stashScrapers; [
+      (shokoApi.override {
+        configJSON = config.sops.templates."config.json".path;
+      })
+      aniDb
+      hanime
+    ];
 
     username = "administrator";
-    mutableSettings = true;
     settings = {
       host = "127.0.0.1";
       stash = [
@@ -37,6 +57,13 @@ in
           path = "/mnt/raid/arr-stack/libraries/adult";
         }
       ];
+      python_path = toString (
+        pkgs.python313.withPackages (
+          pyPkgs: with pyPkgs; [
+            requests
+          ]
+        )
+      );
     };
   };
 

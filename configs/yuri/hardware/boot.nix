@@ -10,17 +10,30 @@
       "sd_mod"
       "sr_mod"
     ];
-    kernelModules = [ "kvm-intel" ];
-    blacklistedKernelModules = [ "i915" ];
-    kernelParams = [ "i915.modeset=0" ];
+    kernelModules = [
+      "kvm-amd"
+      "it87"
+    ];
+    kernelParams = [
+      "amdgpu.dc=0"
+      "amdgpu.modeset=0"
+    ];
+    blacklistedKernelModules = [ "amdgpu" ];
+
+    extraModulePackages = [ config.boot.kernelPackages.it87 ];
+    extraModprobeConfig = ''
+      options it87 force_id=0x8686 ignore_resource_conflict=1
+    '';
 
     loader.systemd-boot.enable = true;
   };
 
   specialisation.graphical.configuration.boot = {
     blacklistedKernelModules = lib.mkForce (
-      lib.filter (param: param != "i915") config.boot.blacklistedKernelModules
+      lib.filter (module: module != "amdgpu") config.boot.blacklistedKernelModules
     );
-    kernelParams = lib.mkForce (lib.filter (param: param != "i915.modeset=0") config.boot.kernelParams);
+    kernelParams = lib.mkForce (
+      lib.filter (param: param != "amdgpu.dc=0" && param != "amdgpu.modeset=0") config.boot.kernelParams
+    );
   };
 }

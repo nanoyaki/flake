@@ -84,10 +84,13 @@ in
           owner = cfg.user;
         });
 
-    sops.templates."config.json".file = (pkgs.formats.json { }).generate "config.json.template" {
-      url = "https://shoko.vpn.theless.one";
-      user = config.sops.placeholder."stash/shoko/user";
-      pass = config.sops.placeholder."stash/shoko/pass";
+    sops.templates."config.json" = {
+      file = (pkgs.formats.json { }).generate "config.json.template" {
+        url = "https://shoko.vpn.theless.one";
+        user = config.sops.placeholder."stash/shoko/user";
+        pass = config.sops.placeholder."stash/shoko/pass";
+      };
+      owner = cfg.user;
     };
 
     services.stash = {

@@ -1,6 +1,7 @@
 {
   lib,
   lib',
+  pkgs,
   config,
   ...
 }:
@@ -46,6 +47,9 @@ in
   config = mkIf cfg.enable {
     services.jellyfin = {
       enable = true;
+      package = pkgs.jellyfin.override {
+        jellyfin-web = pkgs.jellyfin-web-with-plugins;
+      };
       inherit (arr) group;
     };
 

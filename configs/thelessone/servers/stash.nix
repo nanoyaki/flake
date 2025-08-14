@@ -86,11 +86,12 @@ in
 
     sops.templates."config.json" = {
       file = (pkgs.formats.json { }).generate "config.json.template" {
-        url = "https://shoko.vpn.theless.one";
+        url = "https://shoko.vpn.theless.one:443";
         user = config.sops.placeholder."stash/shoko/user";
         pass = config.sops.placeholder."stash/shoko/pass";
       };
       owner = cfg.user;
+      restartUnits = [ "stash.service" ];
     };
 
     services.stash = {

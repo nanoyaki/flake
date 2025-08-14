@@ -142,7 +142,7 @@ in
         { Info.metric = "info"; }
         { Speicherplatz.metric = "fs:/"; }
         { "CPU Auslastung".metric = "cpu"; }
-        { Netzwerk.metric = "network:enp4s0"; }
+        { Netzwerk.metric = "network:enp7s0"; }
       ];
     };
 

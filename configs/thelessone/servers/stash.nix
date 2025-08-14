@@ -79,6 +79,7 @@ in
           "stash/shoko/user"
           "stash/shoko/pass"
           "stash/stashboxApiKey"
+          "stash/apikey"
         ]
         (_: {
           owner = cfg.user;
@@ -90,6 +91,16 @@ in
         user = config.sops.placeholder."stash/shoko/user";
         pass = config.sops.placeholder."stash/shoko/pass";
       };
+      owner = cfg.user;
+      restartUnits = [ "stash.service" ];
+    };
+
+    sops.templates."ShokoAPI-config.ini" = {
+      path = "${cfg.dataDir}/ShokoAPI-config.ini";
+      content = ''
+        url = https://stash.vpn.theless.one:443
+        api_key = ${config.sops.placeholder."stash/apikey"}
+      '';
       owner = cfg.user;
       restartUnits = [ "stash.service" ];
     };

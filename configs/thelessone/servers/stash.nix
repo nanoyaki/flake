@@ -121,7 +121,6 @@ in
         })
         aniDb
         hanime
-        py-common
       ];
 
       username = "administrator";

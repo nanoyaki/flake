@@ -105,6 +105,8 @@ in
       restartUnits = [ "stash.service" ];
     };
 
+    systemd.tmpfiles.rules = [ "d ${cfg.dataDir}/backups 0700 ${cfg.user} ${cfg.group} - -" ];
+
     services.stash = {
       enable = true;
 
@@ -134,6 +136,9 @@ in
             path = "/mnt/raid/arr-stack/libraries/adult";
           }
         ];
+        backup_directory_path = "${cfg.dataDir}/backups";
+        ffprobe_path = lib.getExe' pkgs.ffmpeg-full "ffprobe";
+        ffmpeg_path = lib.getExe pkgs.ffmpeg-full;
         python_path = lib.getExe (
           pkgs.python313.withPackages (
             pyPkgs: with pyPkgs; [

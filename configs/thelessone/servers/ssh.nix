@@ -1,6 +1,11 @@
 { config, ... }:
 
 {
+  sops.secrets = {
+    "ssh/initrd_rsa" = { };
+    "ssh/initrd_ed25519" = { };
+  };
+
   services.openssh = {
     enable = true;
     openFirewall = true;
@@ -9,6 +14,18 @@
       PasswordAuthentication = false;
       AcceptEnv = "GIT_PROTOCOL";
     };
+  };
+
+  boot.initrd.network.ssh = {
+    enable = true;
+    hostKeys = [
+      config.sops.secrets."ssh/initrd_rsa".path
+      config.sops.secrets."ssh/initrd_ed25519".path
+    ];
+    authorizedKeys = [ (builtins.readFile ../../../modules/by-name/p/passkeys/keys/id_nadesiko.pub) ];
+    extraConfig = ''
+      PasswordAuthentication no
+    '';
   };
 
   users.users.${config.config'.mainUserName}.openssh.authorizedKeys.keys = [

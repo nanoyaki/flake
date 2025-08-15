@@ -17,5 +17,5 @@
     })
   ];
 
-  environment.systemPackages = [ (pkgs.lazy-app.override { pkg = pkgs.nwjs-run; }) ];
+  environment.systemPackages = [ pkgs.nwjs-run ];
 }

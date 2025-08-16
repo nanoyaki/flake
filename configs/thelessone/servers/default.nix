@@ -18,5 +18,6 @@
     ./shoko.nix
     ./homepage.nix
     ./fireshare.nix
+    ./valheim.nix
   ];
 }

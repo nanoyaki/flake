@@ -84,6 +84,10 @@
       url = "sourcehut:~rycee/lazy-apps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    valheim-server = {
+      url = "github:hamburger1984/valheim-server-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # own stuff
     vermeer-undervolt = {

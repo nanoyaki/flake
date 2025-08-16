@@ -28,6 +28,6 @@ in
     noGraphics = true;
     public = true;
     serverName = "Cozy server x3";
-    worldName = "Test";
+    worldName = "Test12";
   };
 }

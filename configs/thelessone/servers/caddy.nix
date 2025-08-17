@@ -6,14 +6,24 @@
 }:
 
 let
-  inherit (lib) genAttrs;
+  inherit (lib)
+    genAttrs
+    nameValuePair
+    mapAttrs'
+    filterAttrs
+    ;
 
-  # String -> String
-  # mkBasicAuth = user: ''
-  #   basic_auth * {
-  #     {''$${user}}
-  #   }
-  # '';
+  excludes = [
+    "uptimekuma"
+    "immich"
+    "vaultwarden"
+    "homepage-images"
+    "homepage"
+  ];
+
+  privateServices = filterAttrs (
+    name: cfg: cfg ? enable && cfg.enable && !(lib.elem name excludes) && cfg ? subdomain
+  ) config.config';
 
   # String -> String
   mkFileServer = directory: ''
@@ -21,6 +31,7 @@ let
     file_server * browse
   '';
 
+  # String -> String
   mkRedirect = url: ''
     redir ${url} permanent
   '';
@@ -41,8 +52,6 @@ in
     thelessone = "thelessone ${config.sops.placeholder."caddy-env-vars/thelessone"}";
   };
 
-  config'.caddy.enable = true;
-  config'.caddy.openFirewall = true;
   services.caddy = {
     enable = true;
     environmentFile = config.sops.templates."caddy-users.env".path;
@@ -57,10 +66,26 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."http://100.64.64.1:8123" = {
-    port = 8000;
-    host = "10.0.0.6";
-    vpnOnly = true;
+  config'.caddy = {
+    enable = true;
+    openFirewall = true;
+    baseDomain = "theless.one";
+
+    reverseProxies =
+      (mapAttrs' (
+        service: _:
+        nameValuePair (config.config'.caddy.genDomain config.config'.${service}.subdomain) {
+          vpnOnly = true;
+        }
+      ) privateServices)
+      // {
+        # Restic
+        "http://100.64.64.1:8123" = {
+          port = 8000;
+          host = "10.0.0.6";
+          vpnOnly = true;
+        };
+      };
   };
 
   systemd.tmpfiles.settings."10-caddy-directories" =

@@ -27,6 +27,7 @@
         ./vaultwarden.nix
         ./beets.nix
         ./fireqos.nix
+        ./dns.nix
       ];
 
       networking.hostId = "f617b7b6";

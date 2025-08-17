@@ -2,22 +2,17 @@
   imports = [
     ./lab.nix
     ./caddy.nix
+    ./media
+    ./user-services
     ./ssh.nix
-    ./forgejo.nix
     ./minecraft
-    ./woodpecker.nix
     ./domains.nix
     ./syncthing.nix
-    ./suwayomi.nix
     ./steam.nix
-    ./uptime-kuma.nix
-    ./dns.nix
     ./headscale.nix
     ./metrics.nix
-    ./stash.nix
     ./shoko.nix
     ./homepage.nix
-    ./fireshare.nix
     ./valheim.nix
   ];
 }

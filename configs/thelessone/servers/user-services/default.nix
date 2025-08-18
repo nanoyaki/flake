@@ -6,5 +6,6 @@
     ./forgejo.nix
     ./woodpecker.nix
     ./fireshare.nix
+    ./gokapi.nix
   ];
 }

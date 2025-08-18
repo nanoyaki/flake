@@ -46,7 +46,7 @@
       PicturesAlwaysLocal = false;
       Port = ":${toString config.services.gokapi.environment.GOKAPI_PORT}";
       PublicName = "Gokapi";
-      RedirectUrl = "https://gokapi.vpn.theless.one/";
+      RedirectUrl = "https://vpn.theless.one/";
       SaveIp = false;
       ServerUrl = "https://gokapi.vpn.theless.one/";
       UseSsl = false;

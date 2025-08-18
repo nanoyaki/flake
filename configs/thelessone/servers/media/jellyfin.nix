@@ -7,4 +7,6 @@
     enable = true;
     subdomain = "jellyfin.vpn";
   };
+
+  systemd.services.jellyfin.unitConfig.RequiresMountsFor = [ "/mnt/raid" ];
 }

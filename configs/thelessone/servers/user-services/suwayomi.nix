@@ -10,11 +10,11 @@ let
 
     settings.server = {
       inherit port;
-      extensionRepos = [
-        "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
-        "https://raw.githubusercontent.com/yuzono/manga-repo/repo/index.min.json"
-        "https://raw.githubusercontent.com/Kareadita/tach-extension/repo/index.min.json"
-        "https://raw.githubusercontent.com/Suwayomi/tachiyomi-extension/repo/index.min.json"
+      extensionRepos = map (repo: "https://raw.githubusercontent.com/${repo}/repo/index.min.json") [
+        "keiyoushi/extensions"
+        "yuzono/manga-repo"
+        "Kareadita/tach-extension"
+        "Suwayomi/tachiyomi-extension"
       ];
 
       flareSolverrEnabled = true;

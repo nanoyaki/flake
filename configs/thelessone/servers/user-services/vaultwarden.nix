@@ -27,4 +27,38 @@
   };
 
   config'.vaultwarden.enable = true;
+
+  sops.secrets = {
+    "restic/vaultwarden-local" = { };
+    "restic/vaultwarden-remote/repo-pw" = { };
+    "restic/vaultwarden-remote/password" = { };
+  };
+
+  sops.templates."restic-vauldwarden-repo.txt".content = ''
+    rest:http://restic:${
+      config.sops.placeholder."restic/vaultwarden-remote/repo-pw"
+    }@100.64.64.3:8000/vaultwarden-thelessone
+  '';
+
+  config'.restic.backups = rec {
+    vaultwarden-local = {
+      repository = "/mnt/raid/backups/vaultwarden";
+      passwordFile = config.sops.secrets."restic/vaultwarden-local".path;
+
+      paths = [
+        "/var/lib/vaultwarden"
+        config.services.vaultwarden.backupDir
+      ];
+
+      timerConfig.OnCalendar = "*-*-* 00/3:00:00";
+    };
+
+    vaultwarden-remote = vaultwarden-local // {
+      repository = null;
+      repositoryFile = config.sops.templates."restic-vauldwarden-repo.txt".path;
+      passwordFile = config.sops.secrets."restic/vaultwarden-remote/password".path;
+    };
+  };
+
+  systemd.services.restic-backups-vaultwarden-local.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

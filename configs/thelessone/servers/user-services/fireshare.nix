@@ -19,9 +19,7 @@
     enable = true;
     backendListenAddress = "127.0.0.1:32254";
     dataDir = "/mnt/raid/fireshare";
-    environment = {
-      DOMAIN = "fireshare.theless.one";
-    };
+    environment.DOMAIN = "fireshare.theless.one";
 
     environmentFile = config.sops.templates."fireshare.env".path;
   };
@@ -32,4 +30,7 @@
     href = "https://fireshare.theless.one";
     siteMonitor = href;
   };
+
+  systemd.services.fireshare.unitConfig.RequiresMountsFor = "/mnt/raid";
+  systemd.services.fireshare-init-db.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

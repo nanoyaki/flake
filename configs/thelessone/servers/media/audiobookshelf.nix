@@ -12,8 +12,14 @@ in
 
   fileSystems."/var/lib/audiobookshelf" = {
     device = "/mnt/raid/audiobookshelf";
+    depends = [ "/mnt/raid" ];
     options = [ "bind" ];
   };
+
+  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = [
+    "/mnt/raid"
+    "/mnt/raid/audiobookshelf"
+  ];
 
   config'.caddy.reverseProxies.${domain} = {
     vpnOnly = true;

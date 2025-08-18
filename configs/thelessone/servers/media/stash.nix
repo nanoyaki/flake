@@ -303,9 +303,7 @@ in
     };
 
     systemd.services.stash = {
-      requires = [ "mnt-raid.mount" ];
-      after = [ "mnt-raid.mount" ];
-      bindsTo = [ "mnt-raid.mount" ];
+      unitConfig.RequiresMountsFor = "/mnt/raid";
 
       serviceConfig.ExecStartPre = lib.mkForce (
         pkgs.writers.writeBash "stash-setup.bash" (

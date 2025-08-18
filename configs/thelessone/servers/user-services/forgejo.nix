@@ -77,6 +77,13 @@ in
       type = "postgres";
     };
 
+    dump = {
+      enable = true;
+      interval = "hourly";
+      file = "forgejo-backup-dump";
+      type = "tar";
+    };
+
     settings = {
       server = {
         DOMAIN = "git.theless.one";

@@ -12,7 +12,10 @@ in
 {
   imports = [ valheim-server.nixosModules.default ];
 
-  sops.secrets.valheim-password = { };
+  sops.secrets = {
+    valheim-password = { };
+    "restic/valheim" = { };
+  };
 
   sops.templates."valheim-password.env".file =
     (pkgs.formats.keyValue { }).generate "valheim-password.env.template"
@@ -30,4 +33,19 @@ in
     serverName = "Cozy server x3";
     worldName = "Test12";
   };
+
+  config'.restic.backups.valheim = {
+    repository = "/mnt/raid/backups/valheim";
+    passwordFile = config.sops.secrets."restic/valheim".path;
+
+    basePath = "/var/lib/valheim/.config/unity3d/IronGate/Valheim/worlds_local";
+    paths = [
+      "Test12.db"
+      "Test12.fwl"
+    ];
+
+    timerConfig.OnCalendar = "*:0/15";
+  };
+
+  systemd.services.restic-backups-valheim.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

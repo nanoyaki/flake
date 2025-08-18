@@ -24,7 +24,6 @@
         ./servers
         ./terminal.nix
         ./deployment.nix
-        ./vaultwarden.nix
         ./beets.nix
         ./fireqos.nix
         ./dns.nix

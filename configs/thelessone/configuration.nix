@@ -112,4 +112,10 @@
   # for deployment
   environment.etc."systems/thelessnas".source =
     self.nixosConfigurations.thelessnas.config.system.build.toplevel;
+
+  systemd.tmpfiles.settings."10-restic-backups"."/mnt/raid/backups".d = {
+    mode = "0700";
+    user = "root";
+    group = "wheel";
+  };
 }

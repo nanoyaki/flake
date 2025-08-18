@@ -96,7 +96,7 @@
   config'.homepage.categories.Services.services.Gokapi = rec {
     description = "File sharing platform";
     icon = "https://files.theless.one/plasmavault.svg";
-    href = "https://gokapi.vpn.theless.one";
+    href = "https://gokapi.vpn.theless.one/login";
     siteMonitor = href;
   };
 }

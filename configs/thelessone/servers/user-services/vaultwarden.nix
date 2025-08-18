@@ -29,14 +29,14 @@
   config'.vaultwarden.enable = true;
 
   sops.secrets = {
+    "restic/100-64-64-3" = { };
     "restic/vaultwarden-local" = { };
-    "restic/vaultwarden-remote/repo-pw" = { };
-    "restic/vaultwarden-remote/password" = { };
+    "restic/vaultwarden-remote" = { };
   };
 
   sops.templates."restic-vauldwarden-repo.txt".content = ''
     rest:http://restic:${
-      config.sops.placeholder."restic/vaultwarden-remote/repo-pw"
+      config.sops.placeholder."restic/100-64-64-3"
     }@100.64.64.3:8000/vaultwarden-thelessone
   '';
 
@@ -56,7 +56,7 @@
     vaultwarden-remote = vaultwarden-local // {
       repository = null;
       repositoryFile = config.sops.templates."restic-vauldwarden-repo.txt".path;
-      passwordFile = config.sops.secrets."restic/vaultwarden-remote/password".path;
+      passwordFile = config.sops.secrets."restic/vaultwarden-remote".path;
     };
   };
 

@@ -32,6 +32,7 @@ in
     public = true;
     serverName = "Cozy server x3";
     worldName = "Test12";
+    adminList = [ "76561198294979887" ];
   };
 
   config'.restic.backups.valheim = {

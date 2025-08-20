@@ -70,6 +70,11 @@ in
     };
   };
 
+  sops.secrets = {
+    "forgejo/signing".owner = cfg.user;
+    "forgejo/signing.pub".owner = cfg.user;
+  };
+
   services.forgejo = {
     enable = true;
     lfs.enable = true;
@@ -111,6 +116,13 @@ in
       webhook.ALLOWED_HOST_LIST = "external,loopback";
 
       mailer.ENABLED = false;
+
+      "repository.signing" = {
+        FORMAT = "ssh";
+        SIGNING_KEY = config.sops.secrets."forgejo/signing".path;
+        SIGNING_NAME = "forgejo git.theless.one";
+        SIGNING_EMAIL = "hanakretzer+forgejo@gmail.com";
+      };
     };
   };
 

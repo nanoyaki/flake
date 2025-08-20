@@ -32,6 +32,7 @@ jobs:
           git commit --amend -m "chore: Update $(date +"%d.%m.%y %R")"
 
       - name: Create Forgejo Pull Request
+        id: create-pr
         run: >
           tea login add --name forgejo --url "$FORGEJO_SERVER_URL" --token "$FORGEJO_TOKEN"
 
@@ -47,9 +48,8 @@ jobs:
           echo "pr=${PR_NUMBER}" >> $FORGEJO_OUTPUT
 
       - name: Enable Auto-Merge
-        if: steps.create-pr.outputs.pull-request-number
         env:
-          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
+          PR_NUMBER: ${{ steps.create-pr.outputs.pr }}
         run: >
           curl -X POST
             -H "Authorization: token $FORGEJO_TOKEN"

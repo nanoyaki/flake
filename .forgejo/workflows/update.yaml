@@ -18,38 +18,35 @@ jobs:
       - name: Checkout repo
         uses: https://code.forgejo.org/actions/checkout@v4
 
+      - name: Setup git
+        run: |
+          git config --local user.name "forgejo-actions[bot]"
+          git config --local user.email "hanakretzer+forgejo-actions@gmail.com"
+          git checkout -b chore/auto-update
+
       - name: Flake update
         run: nix flake update
 
-      - name: Setup git
+      - name: Commit
         run: |
-          git config user.name "forgejo-actions[bot]"
-          git config user.email "hanakretzer+forgejo-actions@gmail.com"
-
-          git checkout -b chore/auto-update
-
           git add flake.lock
           git commit -m "chore: Update $(date +"%d.%m.%y %R")"
 
       - name: Create Forgejo Pull Request
         env:
           FORGEJO_URL: https://git.theless.one
-          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
         run: >
           tea login add --name forgejo --url $FORGEJO_URL --token $FORGEJO_TOKEN
 
           tea pr create
-            --title 'chore: update flake.lock'
-            --body 'Automated pull request to update the flake.lock'
-            --head 'chore/auto-update'
-            --base 'main'
+            -t 'chore: update flake.lock'
+            -d 'Automated pull request to update the flake.lock'
 
       - name: Enable Auto-Merge
         if: steps.create-pr.outputs.pull-request-number
         env:
           FORGEJO_URL: https://git.theless.one
           FORGEJO_REPO: nanoyaki/flake
-          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
           PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
         run: >
           curl -X POST

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs',
   config,
   ...
 }:
@@ -13,11 +14,6 @@ let
 in
 
 {
-  sops.secrets = {
-    "forgejo/users/nanoyaki".owner = cfg.user;
-    "forgejo/runners/default".mode = "0444";
-  };
-
   users.groups.${group} = { };
 
   users.users.${user} = {
@@ -28,18 +24,29 @@ in
     isSystemUser = true;
   };
 
+  sops.secrets = {
+    github-token.sopsFile = config.config'.sops.sharedSopsFile;
+    "forgejo/runner" = { };
+  };
+  sops.templates."forgejo-runner-default.env".file =
+    (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template"
+      {
+        TOKEN = config.sops.placeholder."forgejo/runner";
+        NIX_CONFIG = "extra-access-tokens = github.com=${config.sops.placeholder.github-token}";
+      };
+
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
 
     instances.default = {
-      enable = false;
+      enable = true;
       name = "monolith";
       url = "https://git.theless.one";
-      tokenFile = config.sops.secrets."forgejo/runners/default".path;
+      tokenFile = config.sops.templates."forgejo-runner-default.env".path;
 
       labels = [ "native:host" ];
       hostPackages = with pkgs; [
-        # defaults
+        # essentials
         bash
         coreutils
         curl
@@ -51,6 +58,7 @@ in
         wget
         which
         iputils
+        tea
 
         nix
         openssh
@@ -60,6 +68,16 @@ in
         inputs'.rebuild-maintenance.packages.rebuild-maintenance
       ];
     };
+  };
+
+  systemd.tmpfiles.settings."10-forgejo"."/etc/forgejo".d = {
+    inherit (cfg) user group;
+    mode = "500";
+  };
+
+  sops.secrets = {
+    "forgejo/signing".owner = cfg.user;
+    "forgejo/signing.pub".owner = cfg.user;
   };
 
   services.forgejo = {
@@ -103,6 +121,13 @@ in
       webhook.ALLOWED_HOST_LIST = "external,loopback";
 
       mailer.ENABLED = false;
+
+      "repository.signing" = {
+        FORMAT = "ssh";
+        SIGNING_KEY = config.sops.secrets."forgejo/signing.pub".path;
+        SIGNING_NAME = "forgejo git.theless.one";
+        SIGNING_EMAIL = "hanakretzer+forgejo@gmail.com";
+      };
     };
   };
 
@@ -150,6 +175,7 @@ in
     siteMonitor = href;
   };
 
+  sops.secrets."forgejo/users/nanoyaki".owner = cfg.user;
   systemd.services.forgejo.preStart =
     let
       passwordFile = config.sops.secrets."forgejo/users/nanoyaki".path;

@@ -1,0 +1,11 @@
+on:
+  - push
+
+jobs:
+  checks:
+    runs-on: native
+    steps:
+      - name: Checkout repo
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Flake checks
+        run: nix flake check

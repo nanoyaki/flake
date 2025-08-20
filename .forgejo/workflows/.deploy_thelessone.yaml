@@ -1,0 +1,54 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'flake.lock'
+      - '{pkgs,configs,lib,homeModules,modules}/**/*.nix'
+      - '!configs/{yuri,lesstop,kuroyuri,shirayuri,meow,thelessnas}/**'
+
+jobs:
+  build:
+    runs-on: native
+    outputs:
+      generation: ${{ steps.save.outputs.path }}
+    steps:
+      - name: Checkout repo
+        uses: https://code.forgejo.org/actions/checkout@v4
+      - name: Build generation
+        run: >
+          nix-fast-build 
+            -f .#nixosConfigurations.thelessone.config.system.build.toplevel
+            --no-nom -j 12 --eval-workers 1
+      - id: save
+        name: Save generation
+        run: echo "path=$(readlink -f ./result-)" >> $FORGEJO_OUTPUT
+
+  diff:
+    runs-on: native
+    needs: build
+    steps:
+      - name: Full diff
+        run: nvd diff /run/current-system "${{ needs.build.outputs.generation }}"
+      - name: Direct dependency diff
+        run: nvd diff /run/current-system "${{ needs.build.outputs.generation }}" -s
+
+  deployment:
+    runs-on: native
+    needs: build
+    env:
+      DEPLOYMENT_KEY_THELESSNAS: ${{ secrets.DEPLOYMENT_KEY_THELESSNAS }}
+    steps:
+      - name: Setup key
+        run: |
+          echo "$DEPLOYMENT_KEY_THELESSNAS" > key
+          chmod 400 key
+      - name: Kickstart deployment
+        run: >
+          ssh -i ./priv -T root@10.0.0.6
+            nix run nixpkgs#tmux -- 
+              new -d -s "remote-switch-thelessone-local"
+              'nix run self#switch-10-0-0-5 -- 
+                "${{ needs.build.outputs.generation }}" $HOME/.ssh/deploymentThelessone'
+      - name: Wait for deployment
+        run: nix shell nixpkgs#inotify-tools -c inotifywait -r -e modify,create,delete /nix/var/nix/profiles

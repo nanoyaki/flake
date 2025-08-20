@@ -1,0 +1,61 @@
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-branch:
+    runs-on: native
+    steps:
+      - name: Check branch
+        if: forge.event_name == 'workflow_dispatch' && forge.ref != 'refs/heads/main'
+        run: exit 1
+
+  update:
+    runs-on: native
+    needs: check-branch
+    steps:
+      - name: Checkout repo
+        uses: https://code.forgejo.org/actions/checkout@v4
+
+      - name: Setup git
+        run: |
+          git config --local user.name "forgejo-actions[bot]"
+          git config --local user.email "hanakretzer+forgejo-actions@gmail.com"
+          git checkout -b chore/auto-update
+
+      - name: Flake update
+        run: nix flake update --commit-lock-file
+
+      - name: Change commit message
+        run: |
+          git commit --amend -m "chore: Update $(date +"%d.%m.%y %R")"
+
+      - name: Create Forgejo Pull Request
+        run: >
+          tea login add --name forgejo --url "$FORGEJO_SERVER_URL" --token "$FORGEJO_TOKEN"
+
+          PR_NUMBER="$(
+            tea pr create
+              -t 'chore: update flake.lock'
+              -d 'Automated pull request to update the flake.lock'
+              -R "$FORGEJO_REPOSITORY"
+              | tail
+              | grep -oP "/\K\d+"
+          )"
+
+          echo "pr=${PR_NUMBER}" >> $FORGEJO_OUTPUT
+
+      - name: Enable Auto-Merge
+        if: steps.create-pr.outputs.pull-request-number
+        env:
+          PR_NUMBER: ${{ steps.create-pr.outputs.pull-request-number }}
+        run: >
+          curl -X POST
+            -H "Authorization: token $FORGEJO_TOKEN"
+            -H "Content-Type: application/json"
+            -d '{
+              "Do": "auto",
+              "merge_when_checks_succeed": true
+            }'
+            "${FORGEJO_SERVER_URL}/api/v1/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/automerge"

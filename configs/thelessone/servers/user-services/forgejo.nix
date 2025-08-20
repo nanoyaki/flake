@@ -70,6 +70,11 @@ in
     };
   };
 
+  systemd.tmpfiles.settings."10-forgejo"."/etc/forgejo".d = {
+    inherit (cfg) user group;
+    mode = "500";
+  };
+
   sops.secrets = {
     "forgejo/signing".owner = cfg.user;
     "forgejo/signing.pub".owner = cfg.user;
@@ -119,7 +124,7 @@ in
 
       "repository.signing" = {
         FORMAT = "ssh";
-        SIGNING_KEY = config.sops.secrets."forgejo/signing".path;
+        SIGNING_KEY = config.sops.secrets."forgejo/signing.pub".path;
         SIGNING_NAME = "forgejo git.theless.one";
         SIGNING_EMAIL = "hanakretzer+forgejo@gmail.com";
       };

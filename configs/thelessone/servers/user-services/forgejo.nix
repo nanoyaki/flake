@@ -13,11 +13,6 @@ let
 in
 
 {
-  sops.secrets = {
-    "forgejo/users/nanoyaki".owner = cfg.user;
-    "forgejo/runners/default".mode = "0444";
-  };
-
   users.groups.${group} = { };
 
   users.users.${user} = {
@@ -28,18 +23,31 @@ in
     isSystemUser = true;
   };
 
+  sops.secrets = {
+    github-token.sopsFile = config.config'.sops.sharedSopsFile;
+    "forgejo/runners/default" = { };
+  };
+  sops.templates."forgejo-runner-default.env" = {
+    file = (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template" {
+      TOKEN = config.sops.placeholder."forgejo/runners/default";
+      NIX_CONFIG = "extra-access-tokens = github.com=${config.sops.placeholder.github-token}";
+    };
+    mode = "400";
+    owner = "gitea-runner";
+  };
+
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
 
     instances.default = {
-      enable = false;
+      enable = true;
       name = "monolith";
       url = "https://git.theless.one";
-      tokenFile = config.sops.secrets."forgejo/runners/default".path;
+      tokenFile = config.sops.templates."forgejo-runner-default.env".path;
 
       labels = [ "native:host" ];
       hostPackages = with pkgs; [
-        # defaults
+        # essentials
         bash
         coreutils
         curl
@@ -51,6 +59,7 @@ in
         wget
         which
         iputils
+        tea
 
         nix
         openssh
@@ -150,6 +159,7 @@ in
     siteMonitor = href;
   };
 
+  sops.secrets."forgejo/users/nanoyaki".owner = cfg.user;
   systemd.services.forgejo.preStart =
     let
       passwordFile = config.sops.secrets."forgejo/users/nanoyaki".path;

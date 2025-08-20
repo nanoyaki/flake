@@ -63,4 +63,13 @@ in
       };
     }) config.config'.users;
   };
+
+  hm = {
+    sops.secrets.github-token.sopsFile = ./secrets.yaml;
+    sops.templates.".git-credentials" = {
+      content = "https://nanoyaki:${config.hm.sops.placeholder.github-token}@github.com";
+      path = "${config.hm.home.homeDirectory}/.git-credentials";
+      mode = "400";
+    };
+  };
 }

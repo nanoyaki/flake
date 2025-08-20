@@ -4,7 +4,8 @@
     ./vaultwarden.nix
     ./suwayomi.nix
     ./forgejo.nix
-    ./woodpecker.nix
+    # Disabled for now
+    # ./woodpecker.nix
     ./fireshare.nix
     ./gokapi.nix
   ];

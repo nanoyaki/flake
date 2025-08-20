@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs',
   config,
   ...
 }:
@@ -25,16 +26,14 @@ in
 
   sops.secrets = {
     github-token.sopsFile = config.config'.sops.sharedSopsFile;
-    "forgejo/runners/default" = { };
+    "forgejo/runner" = { };
   };
-  sops.templates."forgejo-runner-default.env" = {
-    file = (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template" {
-      TOKEN = config.sops.placeholder."forgejo/runners/default";
-      NIX_CONFIG = "extra-access-tokens = github.com=${config.sops.placeholder.github-token}";
-    };
-    mode = "400";
-    owner = "gitea-runner";
-  };
+  sops.templates."forgejo-runner-default.env".file =
+    (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template"
+      {
+        TOKEN = config.sops.placeholder."forgejo/runner";
+        NIX_CONFIG = "extra-access-tokens = github.com=${config.sops.placeholder.github-token}";
+      };
 
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;

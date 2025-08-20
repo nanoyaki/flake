@@ -25,21 +25,26 @@ jobs:
           git checkout -b chore/auto-update
 
       - name: Flake update
-        run: nix flake update
+        run: nix flake update --commit-lock-file
 
-      - name: Commit
+      - name: Change commit message
         run: |
-          git add flake.lock
-          git commit -m "chore: Update $(date +"%d.%m.%y %R")"
+          git commit --amend -m "chore: Update $(date +"%d.%m.%y %R")"
 
       - name: Create Forgejo Pull Request
         run: >
           tea login add --name forgejo --url "$FORGEJO_SERVER_URL" --token "$FORGEJO_TOKEN"
 
-          tea pr create
-            -t 'chore: update flake.lock'
-            -d 'Automated pull request to update the flake.lock'
-            -R "$FORGEJO_REPOSITORY"
+          PR_NUMBER="$(
+            tea pr create
+              -t 'chore: update flake.lock'
+              -d 'Automated pull request to update the flake.lock'
+              -R "$FORGEJO_REPOSITORY"
+              | tail
+              | grep -oP "/\K\d+"
+          )"
+
+          echo "pr=${PR_NUMBER}" >> $FORGEJO_OUTPUT
 
       - name: Enable Auto-Merge
         if: steps.create-pr.outputs.pull-request-number
@@ -49,4 +54,8 @@ jobs:
           curl -X POST
             -H "Authorization: token $FORGEJO_TOKEN"
             -H "Content-Type: application/json"
+            -d '{
+              "Do": "auto",
+              "merge_when_checks_succeed": true
+            }'
             "${FORGEJO_SERVER_URL}/api/v1/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/automerge"

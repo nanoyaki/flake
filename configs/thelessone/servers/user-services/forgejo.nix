@@ -32,7 +32,7 @@ in
     (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template"
       {
         TOKEN = config.sops.placeholder."forgejo/runner";
-        NIX_CONFIG = "extra-access-tokens = github.com=${config.sops.placeholder.github-token}";
+        NIX_CONFIG = ''"extra-access-tokens = github.com=${config.sops.placeholder.github-token}"'';
       };
 
   services.gitea-actions-runner = {

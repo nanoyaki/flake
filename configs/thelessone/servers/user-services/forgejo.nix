@@ -61,7 +61,15 @@ in
         tea
 
         nix
-        openssh
+        (pkgs.symlinkJoin {
+          name = "openssh-wrapped";
+          paths = [ pkgs.openssh ];
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram "$out/bin/ssh" \
+              --add-flags '"''${EXTRA_SSH_OPTS[@]}"'
+          '';
+        })
         statix
         nix-fast-build
         nvd

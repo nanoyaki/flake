@@ -1,7 +1,11 @@
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 3 * * *'
   workflow_dispatch:
+
+# Not implemented yet, keep for the future
+permissions:
+  pull-requests: write
 
 jobs:
   check-branch:
@@ -24,38 +28,52 @@ jobs:
           git config --local user.email "hanakretzer+forgejo-actions@gmail.com"
           git checkout -b chore/auto-update
 
-      - name: Flake update
-        run: nix flake update --commit-lock-file
-
-      - name: Change commit message
+      - name: Update flake
+        env:
+          ID_OWNED_MATERIAL: ${{ secrets.ID_OWNED_MATERIAL }}
         run: |
-          git commit --amend -m "chore: Update $(date +"%d.%m.%y %R")"
+          mkdir -p $HOME/.ssh
+
+          eval "$(ssh-agent -s)"
+          ssh-add <(echo "$ID_OWNED_MATERIAL")
+          ssh-keyscan git.theless.one > $HOME/.ssh/known_hosts
+
+          nix flake update --commit-lock-file
 
       - name: Create Forgejo Pull Request
         id: create-pr
-        run: >
-          tea login add --name forgejo --url "$FORGEJO_SERVER_URL" --token "$FORGEJO_TOKEN"
+        env:
+          FORGEJO_LOGIN: nanoyaki
+          FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
+        run: |
+          tea login delete "$FORGEJO_LOGIN" || true
+          tea login add --name "$FORGEJO_LOGIN" --url "$FORGEJO_SERVER_URL" --token "$FORGE_TOKEN" || true
 
+          git push -u origin chore/auto-update -f
           PR_NUMBER="$(
-            tea pr create
-              -t 'chore: update flake.lock'
-              -d 'Automated pull request to update the flake.lock'
-              -R "$FORGEJO_REPOSITORY"
-              | tail
-              | grep -oP "/\K\d+"
+            tea pr create \
+              -l "$FORGEJO_LOGIN" \
+              -t 'chore: update locks' \
+              -d 'Automated pull request to update locks for maintained programs' \
+              -r "$FORGEJO_REPOSITORY" \
+              | tail \
+              | grep -oP '/\K\d+'
           )"
 
           echo "pr=${PR_NUMBER}" >> $FORGEJO_OUTPUT
 
       - name: Enable Auto-Merge
         env:
+          FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
           PR_NUMBER: ${{ steps.create-pr.outputs.pr }}
-        run: >
-          curl -X POST
-            -H "Authorization: token $FORGEJO_TOKEN"
-            -H "Content-Type: application/json"
+          FORGEJO_API_URL: ${{ forge.api_url }}
+        run: |-
+          curl -X POST \
+            -H "Authorization: token $FORGE_TOKEN" \
+            -H "Content-Type: application/json" \
             -d '{
-              "Do": "auto",
+              "Do": "merge",
+              "delete_branch_after_merge": true,
               "merge_when_checks_succeed": true
-            }'
-            "${FORGEJO_SERVER_URL}/api/v1/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/automerge"
+            }' \
+            "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/merge"

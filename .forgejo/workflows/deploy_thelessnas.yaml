@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Setup key
         run: |
-          echo "$DEPLOYMENT_KEY_THELESSNAS" > key
-          chmod 400 key
+          eval "$(ssh-agent -s)"
+          ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
       - name: Deploy
-        run: nix run .#deploy-10-0-0-6 -- key "${{ needs.build.outputs.generation }}"
+        run: nix run .#deploy-10-0-0-6 -- "${{ needs.build.outputs.generation }}"

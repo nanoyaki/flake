@@ -42,11 +42,11 @@ jobs:
     steps:
       - name: Setup key
         run: |
-          echo "$DEPLOYMENT_KEY_THELESSNAS" > key
-          chmod 400 key
+          eval "$(ssh-agent -s)"
+          ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
       - name: Kickstart deployment
         run: |
-          ssh -i ./priv -T root@10.0.0.6 \
+          ssh -T root@10.0.0.6 \
             nix run nixpkgs#tmux -- \
               new -d -s "remote-switch-thelessone-local" \
               'nix run self#switch-10-0-0-5 -- 

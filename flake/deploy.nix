@@ -26,9 +26,7 @@ let
         nixos-rebuild
       ];
       text = ''
-        privateKey="''${1:-~/.ssh/${cfg.privateKeyName}}"
-        generationPath="$2"
-        export NIX_SSHOPTS="-i $privateKey"
+        generationPath="$1"
         flake="${self}"
         name="${name}"
         targetHost="${cfg.targetUser}@${host}"
@@ -52,13 +50,13 @@ let
       runtimeInputs = with pkgs; [ openssh ];
       text = ''
         generationPath="$1"
-        privateKey="''${2:-"$HOME/.ssh/${cfg.privateKeyName}"}"
         targetHost="${cfg.targetUser}@${host}"
+        sshOpts="$(if $2; then "-i $2" else "") -T $targetHost"
 
         [[ -z "$generationPath" ]] && echo "Can't switch to an undefined generation" && exit 1
 
         # shellcheck disable=SC2087
-        ssh -i "$privateKey" -T "$targetHost" << EOF
+        ssh "''${sshOpts[@]}" << EOF
           set -e
 
           [[ \$EUID -ne 0 ]] && echo "Script requires root priviledges." && exit 1

@@ -4,24 +4,13 @@ on:
       - main
     paths:
       - 'flake.lock'
-      - '{pkgs,configs,lib,homeModules,modules}/**/*.nix'
-      - '!configs/{yuri,lesstop,kuroyuri,shirayuri,meow,thelessone}/**'
+      - '{pkgs,lib,homeModules,modules}/**/*.nix'
+      - 'configs/thelessone/**/*.nix'
   workflow_dispatch:
-    inputs:
-      run-checks:
-        description: Whether to run checks before deployment
-        default: true
-        type: boolean
 
 jobs:
-  checks:
-    if: ${{ inputs.run-checks }}
-    uses: ./.forgejo/workflows/check.yaml
-
   build:
     runs-on: native
-    needs: checks
-    if: always()
     outputs:
       generation: ${{ steps.save.outputs.path }}
     steps:

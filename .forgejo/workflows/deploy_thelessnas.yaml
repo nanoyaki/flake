@@ -17,9 +17,9 @@ jobs:
       - name: Checkout repo
         uses: https://code.forgejo.org/actions/checkout@v4
       - name: Build generation
-        run: >
-          nix-fast-build 
-            -f .#nixosConfigurations.thelessnas.config.system.build.toplevel
+        run: |
+          nix-fast-build \
+            -f .#nixosConfigurations.thelessnas.config.system.build.toplevel \
             --no-nom -j 12 --eval-workers 1
       - id: save
         name: Save generation

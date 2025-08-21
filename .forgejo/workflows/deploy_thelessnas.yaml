@@ -45,4 +45,4 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
       - name: Deploy
-        run: nix run .#deploy-10-0-0-6 -- "${{ needs.build.outputs.generation }}"
+        run: nix run self#deploy-10-0-0-6 -- "${{ needs.build.outputs.generation }}"

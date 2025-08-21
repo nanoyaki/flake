@@ -5,7 +5,7 @@ on:
     paths:
       - 'flake.lock'
       - '{pkgs,lib,homeModules,modules}/**/*.nix'
-      - 'configs/thelessone/**/*.nix'
+      - 'configs/thelessnas/**/*.nix'
   workflow_dispatch:
 
 jobs:

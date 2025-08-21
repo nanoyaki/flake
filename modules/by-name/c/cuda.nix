@@ -19,5 +19,16 @@
     };
 
     nixpkgs.config.cudaSupport = true;
+
+    nixpkgs.overlays = [
+      (_: prev: {
+        python3 = prev.python3.override {
+          packageOverrides = pyFinal: _: {
+            torch = pyFinal.torch-bin;
+            torchvision = pyFinal.torchvision-bin;
+          };
+        };
+      })
+    ];
   };
 }

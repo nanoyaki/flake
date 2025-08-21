@@ -1,6 +1,11 @@
 on:
-  - pull_request
-  - workflow_call
+  pull_request:
+  push:
+    paths:
+      - 'flake.lock'
+      - '**/*.nix'
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
   checks:

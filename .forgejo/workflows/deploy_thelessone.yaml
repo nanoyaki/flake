@@ -12,18 +12,18 @@ jobs:
   build:
     runs-on: native
     outputs:
-      generation: ${{ steps.save.outputs.path }}
+      generation: ${{ steps.build.outputs.path }}
     steps:
       - name: Checkout repo
         uses: https://code.forgejo.org/actions/checkout@v4
       - name: Build generation
-        run: |
-          nix-fast-build \
-            -f .#nixosConfigurations.thelessone.config.system.build.toplevel \
-            --no-nom -j 12 --eval-workers 1
-      - id: save
-        name: Save generation
-        run: echo "path=$(readlink -f ./result-)" >> $FORGEJO_OUTPUT
+        id: build
+        run: >
+          nix-fast-build
+          -f .#nixosConfigurations.thelessone.config.system.build.toplevel
+          --no-nom -j 12 --eval-workers 1
+
+          echo "path=$(readlink -f ./result-)" >> $FORGEJO_OUTPUT
 
   diff:
     runs-on: native
@@ -40,16 +40,15 @@ jobs:
     env:
       DEPLOYMENT_KEY_THELESSNAS: ${{ secrets.DEPLOYMENT_KEY_THELESSNAS }}
     steps:
-      - name: Setup key
-        run: |
-          eval "$(ssh-agent -s)"
-          ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
       - name: Kickstart deployment
-        run: |
-          ssh -T root@10.0.0.6 \
-            nix run nixpkgs#tmux -- \
-              new -d -s "remote-switch-thelessone-local" \
-              'nix run self#switch-10-0-0-5 -- 
-                "${{ needs.build.outputs.generation }}" $HOME/.ssh/deploymentThelessone'
+        run: >-
+          eval "$(ssh-agent -s)"
+            ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
+
+          ssh -T root@10.0.0.6
+          tmux new -d -s "remote-switch-thelessone-local"
+          'nix run self#switch-10-0-0-5 -- "'
+          ${{ needs.build.outputs.generation }}
+          '" $HOME/.ssh/deploymentThelessone'
       - name: Wait for deployment
         run: nix shell nixpkgs#inotify-tools -c inotifywait -r -e modify,create,delete /nix/var/nix/profiles

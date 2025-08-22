@@ -32,32 +32,31 @@ jobs:
         env:
           ID_OWNED_MATERIAL: ${{ secrets.ID_OWNED_MATERIAL }}
         run: |
-          mkdir -p $HOME/.ssh
-
           eval "$(ssh-agent -s)"
           ssh-add <(echo "$ID_OWNED_MATERIAL")
-          ssh-keyscan git.theless.one > $HOME/.ssh/known_hosts
 
           nix flake update --commit-lock-file
+
+      - name: Push commit
+        run: git push -u origin chore/auto-update -f
 
       - name: Create Forgejo Pull Request
         id: create-pr
         env:
           FORGEJO_LOGIN: nanoyaki
           FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
-        run: |
+        run: >
           tea login delete "$FORGEJO_LOGIN" || true
-          tea login add --name "$FORGEJO_LOGIN" --url "$FORGEJO_SERVER_URL" --token "$FORGE_TOKEN" || true
+            tea login add --name "$FORGEJO_LOGIN" --url "$FORGEJO_SERVER_URL" --token "$FORGE_TOKEN" || true
 
-          git push -u origin chore/auto-update -f
           PR_NUMBER="$(
-            tea pr create \
-              -l "$FORGEJO_LOGIN" \
-              -t 'chore: update locks' \
-              -d 'Automated pull request to update locks for maintained programs' \
-              -r "$FORGEJO_REPOSITORY" \
-              | tail \
-              | grep -oP '/\K\d+'
+          tea pr create
+          -l "$FORGEJO_LOGIN"
+          -t "chore: update locks"
+          -d "Automated pull request to update locks for maintained programs"
+          -r "$FORGEJO_REPOSITORY"
+          | tail
+          | grep -oP '/\K\d+'
           )"
 
           echo "pr=${PR_NUMBER}" >> $FORGEJO_OUTPUT
@@ -67,13 +66,13 @@ jobs:
           FORGE_TOKEN: ${{ secrets.FORGE_TOKEN }}
           PR_NUMBER: ${{ steps.create-pr.outputs.pr }}
           FORGEJO_API_URL: ${{ forge.api_url }}
-        run: |-
-          curl -X POST \
-            -H "Authorization: token $FORGE_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "Do": "merge",
-              "delete_branch_after_merge": true,
-              "merge_when_checks_succeed": true
-            }' \
-            "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/merge"
+        run: >
+          curl -X POST
+          -H "Authorization: token $FORGE_TOKEN"
+          -H "Content-Type: application/json"
+          -d '{
+            "Do": "merge",
+            "delete_branch_after_merge": true,
+            "merge_when_checks_succeed": true
+          }'
+          "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/merge"

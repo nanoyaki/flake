@@ -26,16 +26,20 @@ let
         nixos-rebuild
       ];
       text = ''
+        set -x
+
         generationPath="$1"
         flake="${self}"
         name="${name}"
         targetHost="${cfg.targetUser}@${host}"
+        id="''${2:-}"
 
+        [[ -n "$id" ]] && export NIX_SSHOPTS="-i $id"
         if [[ -z "$generationPath" ]]; then
           nixos-rebuild switch --flake "$flake#$name" --target-host "$targetHost"
         else
           nix copy --to "ssh://$targetHost" "$generationPath"
-          nix run "$flake#switch-${replaceString "." "-" host}" -- "$generationPath" "$privateKey"
+          nix run "$flake#switch-${replaceString "." "-" host}" -- "$generationPath" "$id"
         fi
       '';
     };
@@ -49,11 +53,13 @@ let
       inherit name;
       runtimeInputs = with pkgs; [ openssh ];
       text = ''
+        set -x
+
         generationPath="$1"
         targetHost="${cfg.targetUser}@${host}"
         id=""
-        if [[ -n $2 ]]; then id="-i $2"; fi
-        sshOpts="$id -T $targetHost"
+        if [[ -n $2 ]]; then id=(-i "$2"); fi
+        sshOpts=("''${id[@]}" -T "$targetHost")
 
         [[ -z "$generationPath" ]] && echo "Can't switch to an undefined generation" && exit 1
 

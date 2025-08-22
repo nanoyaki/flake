@@ -57,9 +57,10 @@ let
 
         generationPath="$1"
         targetHost="${cfg.targetUser}@${host}"
-        id=""
-        if [[ -n $2 ]]; then id=(-i "$2"); fi
-        sshOpts=("''${id[@]}" -T "$targetHost")
+        sshOpts=(-T "$targetHost")
+        if [[ -n $2 ]]; then
+            sshOpts=(-i "$2" "''${sshOpts[@]}")
+        fi
 
         [[ -z "$generationPath" ]] && echo "Can't switch to an undefined generation" && exit 1
 

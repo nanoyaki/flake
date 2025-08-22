@@ -68,6 +68,8 @@ in
       };
     };
 
+    flaresolverr.enable = true;
+
     bazarr = {
       enable = false;
       homepage = {

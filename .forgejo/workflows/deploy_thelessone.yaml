@@ -43,32 +43,37 @@ jobs:
       - name: Check current generation
         id: check-gen
         run: |
+          set -x
+
           CURRENT_GEN="$(nixos-rebuild list-generations | awk '$8=="True" {print $1}')"
           echo "previous=$CURRENT_GEN" >> $FORGEJO_OUTPUT
 
       - name: Kickstart deployment
-        run: >-
+        env:
+          GENERATION_PATH: ${{ needs.build.outputs.generation }}
+        run: |
           eval "$(ssh-agent -s)"
-            ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
+          ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
 
-          ssh -T root@10.0.0.6
-          tmux new -d -s "remote-switch-thelessone-local"
-          'nix run self#switch-10-0-0-5 -- "'
-          ${{ needs.build.outputs.generation }}
-          '" $HOME/.ssh/deploymentThelessone'
+          ssh -T root@10.0.0.6 << EOF
+            tmux new -d -s "remote-switch-thelessone-local" \
+              'nix run self#switch-10-0-0-5 -- "'"$GENERATION_PATH"'" \$HOME/.ssh/deploymentThelessone'
+          EOF
 
       - name: Wait for deployment
         continue-on-error: true
         run: >
           inotifywait
-          -r 
-          -e modify,create,delete 
-          -t 300 
+          -r
+          -e modify,create,delete
+          -t 300
           /nix/var/nix/profiles
 
       - name: Check generation deployed
         env:
           PREVIOUS_GEN: ${{ steps.check-gen.outputs.previous }}
         run: |
+          set -x
+
           CURRENT_GEN="$(nixos-rebuild list-generations | awk '$8=="True" {print $1}')"
-          [[ "$CURRENT_GEN" == "$((1 + PREVIOUS_GEN))" ]] || exit 1
+          [[ "$CURRENT_GEN" == "$((PREVIOUS_GEN + 1))" ]] || exit 1

@@ -74,6 +74,8 @@ in
         nix-fast-build
         nvd
         inputs'.rebuild-maintenance.packages.rebuild-maintenance
+        inotify-tools
+        nixos-rebuild
       ];
     };
   };

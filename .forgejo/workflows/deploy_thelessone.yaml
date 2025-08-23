@@ -45,7 +45,7 @@ jobs:
         run: |
           set -x
 
-          CURRENT_GEN="$(nixos-rebuild list-generations | awk '$8=="True" {print $1}')"
+          CURRENT_GEN="$(readlink /nix/var/nix/profiles/system | grep -oP 'system-\K\d+')"
           echo "previous=$CURRENT_GEN" >> $FORGEJO_OUTPUT
 
       - name: Kickstart deployment
@@ -75,5 +75,5 @@ jobs:
         run: |
           set -x
 
-          CURRENT_GEN="$(nixos-rebuild list-generations | awk '$8=="True" {print $1}')"
+          CURRENT_GEN="$(readlink /nix/var/nix/profiles/system | grep -oP 'system-\K\d+')"
           [[ "$CURRENT_GEN" == "$((PREVIOUS_GEN + 1))" ]] || exit 1

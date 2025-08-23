@@ -80,7 +80,7 @@ let
           NEWEST_GEN="\$(nix-env --profile /nix/var/nix/profiles/system --list-generations | awk '{ print \$1 }' | tail -n -1)";
           BUILT_GEN="\$((NEWEST_GEN + 1))"
 
-          sudo ln -s "\$(readlink -f ''${generationPath})" "/nix/var/nix/profiles/system-\$BUILT_GEN-link"
+          ln -s "\$(readlink -f ''${generationPath})" "/nix/var/nix/profiles/system-\$BUILT_GEN-link"
 
           echo "Switching system profile..."
           nix-env --profile /nix/var/nix/profiles/system --switch-generation "\$BUILT_GEN"

@@ -67,6 +67,8 @@ jobs:
           /nix/var/nix/profiles
 
       - name: Check generation deployed
+        env:
+          PREVIOUS_GEN: ${{ steps.check-gen.outputs.previous }}
         run: |
           CURRENT_GEN="$(nixos-rebuild list-generations | awk '$8=="True" {print $1}')"
-          [[ "$CURRENT_GEN" == "$((1 + ${{ steps.check-gen.outputs.previous }}))" ]] || exit 1
+          [[ "$CURRENT_GEN" == "$((1 + PREVIOUS_GEN))" ]] || exit 1

@@ -6,6 +6,7 @@
 
     packages = with pkgs; [
       noto-fonts-cjk-sans
+      nerd-fonts.fira-code
       nerd-fonts.caskaydia-cove
       twemoji-color-font
     ];
@@ -15,7 +16,10 @@
       defaultFonts = {
         serif = [ "Noto Sans CJK JP" ];
         sansSerif = [ "Noto Sans CJK JP" ];
-        monospace = [ "CaskaydiaCove Nerd Font Mono" ];
+        monospace = [
+          "FiraCode Nerd Font"
+          "CaskaydiaCove Nerd Font Mono"
+        ];
         emoji = [ "Twitter Color Emoji" ];
       };
     };
@@ -33,8 +37,8 @@
     };
 
     monospace = {
-      name = "CaskaydiaCove Nerd Font Mono";
-      package = pkgs.nerd-fonts.caskaydia-cove;
+      name = "FiraCode Nerd Font";
+      package = pkgs.nerd-fonts.fira-code;
     };
 
     emoji = {

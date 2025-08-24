@@ -21,8 +21,8 @@
     certificateScheme = "acme";
 
     dkimSigning = true;
-    dkimKeyBits = 4096;
     dkimKeyType = "ed25519";
+    dkimSelector = "mail";
 
     dmarcReporting.enable = true;
 

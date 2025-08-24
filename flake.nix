@@ -88,6 +88,11 @@
       url = "github:hamburger1984/valheim-server-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    snm = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-25_05.follows = "nixpkgs-stable";
+    };
 
     # own stuff
     vermeer-undervolt = {

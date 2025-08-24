@@ -14,5 +14,6 @@
     ./shoko.nix
     ./homepage.nix
     ./valheim.nix
+    ./mail.nix
   ];
 }

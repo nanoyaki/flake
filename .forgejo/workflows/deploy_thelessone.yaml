@@ -51,20 +51,19 @@ jobs:
       - name: Kickstart deployment
         env:
           GENERATION_PATH: ${{ needs.build.outputs.generation }}
-        run: |
+        run: >-
           eval "$(ssh-agent -s)"
-          ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
+            ssh-add <(echo "$DEPLOYMENT_KEY_THELESSNAS")
 
-          ssh -T root@10.0.0.6 << EOF
-            tmux new -d -s "remote-switch-thelessone-local" \
-              'nix run self#switch-10-0-0-5 -- "'"$GENERATION_PATH"'" \$HOME/.ssh/deploymentThelessone'
-          EOF
+          ssh -T root@10.0.0.6
+          tmux new -d -s "remote-switch-thelessone-local"
+          'nix run self#switch-10-0-0-5 -- "'"$GENERATION_PATH"'" $HOME/.ssh/deploymentThelessone'
 
       - name: Wait for deployment
         continue-on-error: true
         run: >
           inotifywait
-          -e modify,create,delete
+          -e delete_self,delete,move_self,move
           -t 300
           /nix/var/nix/profiles/system
 

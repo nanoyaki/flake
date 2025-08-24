@@ -27,7 +27,8 @@
   sops.templates."rbm.env".file = (pkgs.formats.keyValue { }).generate "rbm.env" {
     UPTIME_KUMA_URL = "https://status.nanoyaki.space/";
     UPTIME_KUMA_USER = config.sops.placeholder."uptime-kuma/user";
-    UPTIME_KUMA_PASSWORD = config.sops.placeholder."uptime-kuma/password";
+    UPTIME_KUMA_PASSWORD = "'${config.sops.placeholder."uptime-kuma/password"}'";
+    MAINTENANCE_AFFECTED_STATUS_PAGES = "thelessone";
   };
 
   environment.systemPackages = with pkgs; [

@@ -8,7 +8,7 @@
   sops.templates."vaultwarden.env" = {
     file = (pkgs.formats.keyValue { }).generate "vaultwarden.env" {
       SMTP_PASSWORD = config.sops.placeholder.vaultwarden-smtp-password;
-      ADMIN_TOKEN = "'${config.sops.placeholder.vaultwarden-admin-token}'";
+      # ADMIN_TOKEN = "'${config.sops.placeholder.vaultwarden-admin-token}'";
     };
     restartUnits = [ "vaultwarden.service" ];
   };

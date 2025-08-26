@@ -22,7 +22,8 @@
     acmeCertificateName = "theless.one";
 
     dkimSigning = true;
-    dkimKeyType = "ed25519";
+    dkimKeyType = "rsa";
+    dkimKeyBits = 4096;
     dkimSelector = "mail";
 
     dmarcReporting.enable = true;

@@ -5,7 +5,6 @@
     ./gpu.nix
     ./boot.nix
     ./mounts.nix
-    ./swap.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
@@ -15,4 +14,5 @@
   ];
 
   hardware.enableRedistributableFirmware = true;
+  zramSwap.enable = true;
 }

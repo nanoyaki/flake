@@ -17,16 +17,13 @@
     config = {
       imports = [
         ./hardware
+        ./networking
 
-        ./firewall.nix
         ./configuration.nix
         ./git.nix
         ./servers
         ./terminal.nix
-        ./deployment.nix
         ./beets.nix
-        ./fireqos.nix
-        ./dns.nix
       ];
 
       networking.hostId = "f617b7b6";

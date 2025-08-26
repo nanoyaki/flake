@@ -43,9 +43,9 @@
 
   systemd.services.oink = {
     description = "Dynamic DNS client for Porkbun";
-    requires = [ "network-online.target" ];
-    after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
 
     serviceConfig = {
       ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path} -v";

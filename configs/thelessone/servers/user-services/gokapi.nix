@@ -73,13 +73,10 @@
 
   users.groups.gokapi = { };
 
-  systemd.services.gokapi = {
-    unitConfig.RequiresMountsFor = "/mnt/raid";
-    serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = "gokapi";
-      Group = "gokapi";
-    };
+  systemd.services.gokapi.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "gokapi";
+    Group = "gokapi";
   };
 
   systemd.tmpfiles.settings."10-gokapi"."/mnt/raid/gokapi".d = {

@@ -302,41 +302,37 @@ in
       };
     };
 
-    systemd.services.stash = {
-      unitConfig.RequiresMountsFor = "/mnt/raid";
-
-      serviceConfig.ExecStartPre = lib.mkForce (
-        pkgs.writers.writeBash "stash-setup.bash" (
-          ''
-            install -d ${cfg.settings.generated}
-            if [[ -z "${toString cfg.mutableSettings}" || ! -f ${cfg.dataDir}/config.yml ]]; then
-              env \
-                password=$(< ${cfg.passwordFile}) \
-                jwtSecretKeyFile=$(< ${cfg.jwtSecretKeyFile}) \
-                sessionStoreKeyFile=$(< ${cfg.sessionStoreKeyFile}) \
-                stashBoxApiKeyFile=$(< ${config.sops.secrets."stash/stashboxApiKey".path}) \
-                ${lib.getExe pkgs.yq-go} '
-                  .jwt_secret_key = strenv(jwtSecretKeyFile) |
-                  .session_store_key = strenv(sessionStoreKeyFile) |
-                  .stash_boxes[0].apikey = strenv(stashBoxApiKeyFile) |
-                  (
-                    strenv(password) as $password |
-                    with(select($password != ""); .password = $password)
-                  )
-                ' ${settingsFile} > ${cfg.dataDir}/config.yml
-            fi
-          ''
-          + optionalString cfg.mutablePlugins ''
-            install -d ${cfg.settings.plugins_path}
-            ls ${cfg.plugins} | xargs -I{} ln -sf '${cfg.plugins}/{}' ${cfg.settings.plugins_path}
-          ''
-          + optionalString cfg.mutableScrapers ''
-            install -d ${cfg.settings.scrapers_path}
-            ls ${cfg.scrapers} | xargs -I{} ln -sf '${cfg.scrapers}/{}' ${cfg.settings.scrapers_path}
-          ''
-        )
-      );
-    };
+    systemd.services.stash.serviceConfig.ExecStartPre = lib.mkForce (
+      pkgs.writers.writeBash "stash-setup.bash" (
+        ''
+          install -d ${cfg.settings.generated}
+          if [[ -z "${toString cfg.mutableSettings}" || ! -f ${cfg.dataDir}/config.yml ]]; then
+            env \
+              password=$(< ${cfg.passwordFile}) \
+              jwtSecretKeyFile=$(< ${cfg.jwtSecretKeyFile}) \
+              sessionStoreKeyFile=$(< ${cfg.sessionStoreKeyFile}) \
+              stashBoxApiKeyFile=$(< ${config.sops.secrets."stash/stashboxApiKey".path}) \
+              ${lib.getExe pkgs.yq-go} '
+                .jwt_secret_key = strenv(jwtSecretKeyFile) |
+                .session_store_key = strenv(sessionStoreKeyFile) |
+                .stash_boxes[0].apikey = strenv(stashBoxApiKeyFile) |
+                (
+                  strenv(password) as $password |
+                  with(select($password != ""); .password = $password)
+                )
+              ' ${settingsFile} > ${cfg.dataDir}/config.yml
+          fi
+        ''
+        + optionalString cfg.mutablePlugins ''
+          install -d ${cfg.settings.plugins_path}
+          ls ${cfg.plugins} | xargs -I{} ln -sf '${cfg.plugins}/{}' ${cfg.settings.plugins_path}
+        ''
+        + optionalString cfg.mutableScrapers ''
+          install -d ${cfg.settings.scrapers_path}
+          ls ${cfg.scrapers} | xargs -I{} ln -sf '${cfg.scrapers}/{}' ${cfg.settings.scrapers_path}
+        ''
+      )
+    );
 
     environment.systemPackages = [ pkgs.chromium ];
 

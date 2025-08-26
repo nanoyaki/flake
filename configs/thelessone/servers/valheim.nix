@@ -47,6 +47,4 @@ in
 
     timerConfig.OnCalendar = "*:0/15";
   };
-
-  systemd.services.restic-backups-valheim.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

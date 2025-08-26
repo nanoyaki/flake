@@ -4,7 +4,10 @@
   fileSystems."/mnt/raid" = {
     device = "10.0.0.6:/moon";
     fsType = "nfs";
-    options = [ "nfsvers=4.2" ];
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+    ];
   };
 
   fileSystems."/" = {

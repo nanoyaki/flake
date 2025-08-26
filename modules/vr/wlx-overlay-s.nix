@@ -31,13 +31,9 @@ in
         lib.optionalAttrs config.services.monado.enable {
           environment.LIBMONADO_PATH = "${config.services.monado.package}/lib/libmonado.so";
 
+          wantedBy = [ "monado.service" ];
           after = [ "monado.service" ];
           bindsTo = [ "monado.service" ];
-          wantedBy = [ "monado.service" ];
-          requires = [
-            "monado.socket"
-            "graphical-session.target"
-          ];
         }
       );
 

@@ -30,7 +30,4 @@
     href = "https://fireshare.theless.one";
     siteMonitor = href;
   };
-
-  systemd.services.fireshare.unitConfig.RequiresMountsFor = "/mnt/raid";
-  systemd.services.fireshare-init-db.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

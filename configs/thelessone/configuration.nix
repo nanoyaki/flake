@@ -87,12 +87,6 @@
     })
   ];
 
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-    useRoutingFeatures = "both";
-  };
-
   security.sudo.extraRules = [
     {
       users = [ config.config'.mainUserName ];
@@ -104,11 +98,6 @@
       ];
     }
   ];
-
-  services.iperf3 = {
-    enable = true;
-    openFirewall = true;
-  };
 
   # for deployment
   environment.etc."systems/thelessnas".source =

@@ -16,10 +16,7 @@ in
     options = [ "bind" ];
   };
 
-  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = [
-    "/mnt/raid"
-    "/mnt/raid/audiobookshelf"
-  ];
+  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = "/mnt/raid/audiobookshelf";
 
   config'.caddy.reverseProxies.${domain} = {
     vpnOnly = true;

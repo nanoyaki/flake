@@ -171,8 +171,6 @@ in
     };
   };
 
-  systemd.services.restic-backups-forgejo-local.unitConfig.RequiresMountsFor = "/mnt/raid";
-
   config'.caddy.reverseProxies."git.theless.one" = {
     port = config.services.forgejo.settings.server.HTTP_PORT;
     serverAliases = [ "git.nanoyaki.space" ];

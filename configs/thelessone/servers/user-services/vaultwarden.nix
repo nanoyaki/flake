@@ -66,6 +66,4 @@
       passwordFile = config.sops.secrets."restic/vaultwarden-remote".path;
     };
   };
-
-  systemd.services.restic-backups-vaultwarden-local.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

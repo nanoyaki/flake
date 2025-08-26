@@ -8,5 +8,5 @@ in
 {
   users.users = mapAttrs (_: _: { extraGroups = [ "networkmanager" ]; }) superusers;
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = lib.mkDefault true;
 }

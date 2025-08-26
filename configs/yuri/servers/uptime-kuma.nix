@@ -50,7 +50,6 @@ in
 
   systemd.services.uptime-screenshots = {
     wantedBy = [ "multi-user.target" ];
-    requires = [ "caddy.service" ];
     after = [ "caddy.service" ];
 
     path = [

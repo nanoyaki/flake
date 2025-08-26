@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 2 * * *' # 4 AM
   workflow_dispatch:
 
 # Not implemented yet, keep for the future

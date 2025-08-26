@@ -20,6 +20,4 @@
 
     timerConfig.OnCalendar = "*:0/30";
   };
-
-  systemd.services.restic-backups-smp.unitConfig.RequiresMountsFor = "/mnt/raid";
 }

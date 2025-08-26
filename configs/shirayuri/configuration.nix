@@ -54,6 +54,7 @@
       nixfmt-rfc-style
       signal-desktop
       nur.repos.ataraxiasjel.waydroid-script
+      thunderbird-latest-bin
     ])
     ++ lib'.mapLazyCliApps (
       with pkgs;

@@ -10,8 +10,8 @@
   mailserver = {
     enable = true;
     stateVersion = 3;
-    fqdn = "theless.one";
-    domains = [ config.mailserver.fqdn ];
+    fqdn = "mail.theless.one";
+    domains = [ "theless.one" ];
 
     loginAccounts."nanoyaki@theless.one" = {
       hashedPasswordFile = config.sops.secrets."mailserver/nanoyaki".path;
@@ -19,6 +19,7 @@
     };
 
     certificateScheme = "acme";
+    acmeCertificateName = "theless.one";
 
     dkimSigning = true;
     dkimKeyType = "ed25519";

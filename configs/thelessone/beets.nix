@@ -217,13 +217,17 @@ in
             };
             sourceRoot = "${src.name}/src/py";
 
+            patches = [
+              (final.replaceVars ./chromium.patch {
+                chromium = lib.getExe final.chromium;
+              })
+            ];
+
             postPatch = ''
               substituteInPlace pyproject.toml \
                 --replace-fail ', "setuptools-git-versioning"' "" \
                 --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
             '';
-
-            propagatedBuildInputs = [ final.chromium ];
 
             build-system = with pyFinal; [
               setuptools

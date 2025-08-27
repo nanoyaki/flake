@@ -1,0 +1,13 @@
+diff --git a/kaleido/kaleido.py b/kaleido/kaleido.py
+index 1c29d65..0cbc5e7 100644
+--- a/kaleido/kaleido.py
++++ b/kaleido/kaleido.py
+@@ -123,7 +123,7 @@ class Kaleido(choreo.Browser):
+         _logger.debug(f"Timeout: {self._timeout}")
+ 
+         try:
+-            super().__init__(*args, **kwargs)
++            super().__init__(*args, **kwargs, path="@chromium@")
+         except ChromeNotFoundError:
+             raise ChromeNotFoundError(
+                 "Kaleido v1 and later requires Chrome to be installed. "

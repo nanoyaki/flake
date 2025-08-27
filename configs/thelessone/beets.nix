@@ -199,4 +199,138 @@ in
       };
     })
   ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          kaleido = pyPrev.kaleido.overridePythonAttrs rec {
+            version = "1.0.0";
+            format = null;
+            pyproject = true;
+
+            src = final.fetchFromGitHub {
+              owner = "plotly";
+              repo = "Kaleido";
+              tag = "v${version}";
+              hash = "sha256-yzzyLb5mS6laK/IutjNT6/bFFR7lGCRwatyAFBZhfmE=";
+            };
+            sourceRoot = "${src.name}/src/py";
+
+            postPatch = ''
+              substituteInPlace pyproject.toml \
+                --replace-fail ', "setuptools-git-versioning"' "" \
+                --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
+            '';
+
+            propagatedBuildInputs = [ final.chromium ];
+
+            build-system = with pyFinal; [
+              setuptools
+              wheel
+            ];
+
+            dependencies = with pyFinal; [
+              choreographer
+              logistro
+              orjson
+              packaging
+            ];
+
+            postInstall = "";
+          };
+
+          choreographer = pyFinal.buildPythonPackage rec {
+            pname = "choreographer";
+            version = "1.0.10";
+            pyproject = true;
+
+            src = final.fetchFromGitHub {
+              owner = "plotly";
+              repo = "choreographer";
+              tag = "v${version}";
+              hash = "sha256-SAVbSVpz02ST3lmEpIqFgYF3ks33Z1Kp42b/xBA808U=";
+            };
+
+            postPatch = ''
+              substituteInPlace pyproject.toml \
+                --replace-fail ', "setuptools-git-versioning"' "" \
+                --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
+            '';
+
+            build-system = with pyFinal; [
+              setuptools
+              wheel
+            ];
+
+            nativeCheckInputs =
+              (with pyFinal; [
+                pytest
+                pytest-asyncio
+                pytest-xdist
+                async-timeout
+                numpy
+                mypy
+                simplejson
+              ])
+              ++ (with final; [
+                poethepoet
+              ]);
+
+            dependencies = with pyFinal; [
+              logistro
+              simplejson
+            ];
+          };
+
+          logistro = pyFinal.buildPythonPackage rec {
+            pname = "logistro";
+            version = "1.1.0";
+            pyproject = true;
+
+            src = final.fetchFromGitHub {
+              owner = "geopozo";
+              repo = "logistro";
+              tag = "v${version}";
+              hash = "sha256-53PQnGRdcXKH7lcHj15PY/pfbyyUos8tlRS5NM/O/ms=";
+            };
+
+            postPatch = ''
+              substituteInPlace pyproject.toml \
+                --replace-fail ', "setuptools-git-versioning"' "" \
+                --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
+            '';
+
+            build-system = with pyFinal; [
+              setuptools
+              wheel
+            ];
+
+            nativeCheckInputs =
+              (with pyFinal; [
+                pytest-xdist
+                pytest
+                mypy
+              ])
+              ++ (with final; [
+                poethepoet
+              ]);
+          };
+        })
+      ];
+
+      poethepoet = prev.poethepoet.overridePythonAttrs (prevAttrs: rec {
+        version = "0.37.0";
+
+        src = final.fetchFromGitHub {
+          owner = "nat-n";
+          repo = "poethepoet";
+          tag = "v${version}";
+          hash = "sha256-49Q1fHz/c6nYMOGwX0hqk0VJGl82CCyqjpH/rReFops=";
+        };
+
+        dependencies = (prevAttrs.dependencies or [ ]) ++ [ final.python3Packages.pyyaml ];
+      });
+    })
+  ];
 }

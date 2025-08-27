@@ -22,12 +22,18 @@
 
     nixpkgs.overlays = [
       (_: prev: {
-        python313 = prev.python313.override {
-          packageOverrides = pyFinal: _: {
-            torch = pyFinal.torch-bin;
-            torchvision = pyFinal.torchvision-bin;
-          };
-        };
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (
+            pyFinal: pyPrev:
+            let
+              optionalOverlay = override: prev: pyFinal.${override} or (pyPrev.${prev} or { });
+            in
+            {
+              torch = optionalOverlay "torch-bin" "torch";
+              torchvision = optionalOverlay "torchvision-bin" "torchvision";
+            }
+          )
+        ];
       })
     ];
   };

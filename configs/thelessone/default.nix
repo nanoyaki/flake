@@ -23,7 +23,7 @@
         ./git.nix
         ./servers
         ./terminal.nix
-        ./beets.nix
+        # ./beets.nix
       ];
 
       networking.hostId = "f617b7b6";

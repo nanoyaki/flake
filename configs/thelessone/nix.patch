@@ -1,0 +1,23 @@
+diff --git a/choreographer/browsers/chromium.py b/choreographer/browsers/chromium.py
+index b6af9bd..8c2d784 100644
+--- a/choreographer/browsers/chromium.py
++++ b/choreographer/browsers/chromium.py
+@@ -108,7 +108,7 @@ class Chromium:
+                 ],
+                 capture_output=True,
+                 timeout=5,
+-                check=True,
++                check=False,
+             )
+         except Exception as e:  # noqa: BLE001
+             msg = "ldd failed."
+@@ -120,6 +120,9 @@ class Chromium:
+                 + f" e: {e}, stderr: {stderr}",
+             )
+             return False
++        if b"not a dynamic" in p.stdout:
++            msg = "Assuming the exec is the bundled nix package"
++            _logger.info(msg)
+         if b"not found" in p.stdout:
+             msg = "Found deps missing in chrome"
+             _logger.debug2(msg + f" {p.stdout.decode()}")

@@ -217,12 +217,6 @@ in
             };
             sourceRoot = "${src.name}/src/py";
 
-            patches = [
-              (final.replaceVars ./chromium.patch {
-                chromium = lib.getExe final.chromium;
-              })
-            ];
-
             postPatch = ''
               substituteInPlace pyproject.toml \
                 --replace-fail ', "setuptools-git-versioning"' "" \
@@ -242,6 +236,8 @@ in
             ];
 
             postInstall = "";
+
+            passthru.tests.kaleido = final.callPackage ./kaleido-test.nix { };
           };
 
           choreographer = pyFinal.buildPythonPackage rec {
@@ -256,10 +252,20 @@ in
               hash = "sha256-SAVbSVpz02ST3lmEpIqFgYF3ks33Z1Kp42b/xBA808U=";
             };
 
+            patches = [ ./nix.patch ];
+
             postPatch = ''
               substituteInPlace pyproject.toml \
                 --replace-fail ', "setuptools-git-versioning"' "" \
                 --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
+
+              substituteInPlace choreographer/browsers/chromium.py \
+                --replace-fail '"ldd",' '"${lib.getExe' final.glibc "ldd"}",'
+
+              substituteInPlace choreographer/browser_{async,sync}.py \
+                --replace-fail \
+                  'path: str | Path | None = None' \
+                  'path: str | Path | None = "${lib.getExe final.chromium}"'
             '';
 
             build-system = with pyFinal; [
@@ -267,8 +273,16 @@ in
               wheel
             ];
 
+            dependencies = with pyFinal; [
+              logistro
+              simplejson
+            ];
+
+            doCheck = true;
+
             nativeCheckInputs =
               (with pyFinal; [
+                pytestCheckHook
                 pytest
                 pytest-asyncio
                 pytest-xdist
@@ -280,11 +294,6 @@ in
               ++ (with final; [
                 poethepoet
               ]);
-
-            dependencies = with pyFinal; [
-              logistro
-              simplejson
-            ];
           };
 
           logistro = pyFinal.buildPythonPackage rec {
@@ -310,8 +319,11 @@ in
               wheel
             ];
 
+            doCheck = true;
+
             nativeCheckInputs =
               (with pyFinal; [
+                pytestCheckHook
                 pytest-xdist
                 pytest
                 mypy

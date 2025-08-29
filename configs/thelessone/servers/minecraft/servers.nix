@@ -101,6 +101,7 @@ in
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [
+    inputs.nanopkgs.overlays.default
     inputs.nix-minecraft.overlay
     (import ./overlay.nix)
   ];
@@ -312,6 +313,51 @@ in
           "world/datapacks/killheal" = inputs.killheal.packages.x86_64-linux.killheal;
         };
       };
+
+      oceanBlock2 =
+        let
+          modpack = inputs.nanopkgs.legacyPackages.x86_64-linux.fetchFtbModpack {
+            modpackId = "128";
+            versionId = "100123";
+            hash = "sha256-dkNTs/5v4aeF3xn74xkNSM/U2DL4zL+c94nZx04focA=";
+          };
+        in
+        {
+          enable = true;
+          package = pkgs.neoforgeServers.neoforge-21_1_194;
+
+          autoStart = true;
+          jvmOpts = "-Xms20G -Xmx20G ${aikarsFlags}";
+
+          serverProperties = {
+            # server-ip = "127.0.0.1";
+            server-port = 25566;
+
+            spawn-protection = 0;
+            view-distance = 32;
+            simulation-distance = 32;
+
+            gamemode = "survival";
+            difficulty = "hard";
+
+            white-list = true;
+          };
+
+          operators.nanoyaki = "433b63b5-5f77-4a9f-b834-8463d520500c";
+
+          whitelist = import ./whitelist.nix;
+
+          symlinks = {
+            "server-icon.png" = ./icon.png;
+
+            mods = "${modpack}/mods";
+            kubejs = "${modpack}/kubejs";
+            ftbteambases = "${modpack}/ftbteambases";
+            defaultconfigs = "${modpack}/defaultconfigs";
+          };
+
+          files.config = "${modpack}/config";
+        };
 
       proxy = {
         enable = true;

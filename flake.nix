@@ -54,7 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      url = "github:nanoyaki/nix-minecraft/neoforge-master-base";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {

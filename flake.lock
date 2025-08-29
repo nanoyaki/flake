@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756293646,
-        "narHash": "sha256-VgJtXf3j4/4nJJAk7Ol2un7U6+7tN54sj4nWP+wpYSo=",
+        "lastModified": 1756365413,
+        "narHash": "sha256-rWJqnFNh+xAoXLPMOUWvb2jMUUgGs4PKI/p2lgUczBA=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "f2e3c4c73d4fbd5e2c24ae44075ded300fe7b52b",
+        "rev": "842da43be0d00d7cf4c26faf279bc71a614c259b",
         "type": "github"
       },
       "original": {
@@ -799,11 +799,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756259847,
-        "narHash": "sha256-7/rL8cV/aKlRahO9lkPqI+3Qc0SeKnSrbr7UYUNjBO4=",
+        "lastModified": 1756432557,
+        "narHash": "sha256-kSrp0L5JFa94qG3rTZaYjLMhkifmeqmFz3rbRnvY9WY=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "5675779b264aa733c70e2f8bc5d3963f08e5ca2d",
+        "rev": "3bad7922c749fe4bc26c34452cd83f3818158855",
         "type": "github"
       },
       "original": {
@@ -929,11 +929,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756346067,
-        "narHash": "sha256-dOqYCvaFT2GLgAmcOcrlg/cuKZ8Me/4unWq1qQK6BBI=",
+        "lastModified": 1756432531,
+        "narHash": "sha256-7ETzY/OA+w7rxofNq61BT55+DpelL0uWTIVp50MSf/U=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "025b9d589e344f571acdf10c99a27a4de379c114",
+        "rev": "8e2715c0defba743c0e71f54c959186bff0d6d02",
         "type": "github"
       },
       "original": {
@@ -1103,11 +1103,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755992785,
-        "narHash": "sha256-ALFMMw8G8yjwDdVvUvI5D/2jeVeP8uxUrvxGFklo//8=",
+        "lastModified": 1756383972,
+        "narHash": "sha256-r5GD971R8rNaONMxdTBIdkuVvkrjMIXXREoruw7PJQY=",
         "ref": "refs/heads/main",
-        "rev": "ac9059eeeab86ec3863f4100d78084d2a2dc6807",
-        "revCount": 5,
+        "rev": "a6484afb52457ccdae285597c5a856e9c1c68d29",
+        "revCount": 7,
         "type": "git",
         "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
       },
@@ -1157,11 +1157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756262090,
-        "narHash": "sha256-PQHSup4d0cVXxJ7mlHrrxBx1WVrmudKiNQgnNl5xRas=",
+        "lastModified": 1756348497,
+        "narHash": "sha256-xJp3VnoYh4kpsaKFO/7SsGbwOz7pI1ZmjbqpXEuR2cw=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "df7ea78aded79f195a92fc5423de96af2b8a85d1",
+        "rev": "0adf92c70d23fb4f703aea5d3ebb51ac65994f7f",
         "type": "github"
       },
       "original": {

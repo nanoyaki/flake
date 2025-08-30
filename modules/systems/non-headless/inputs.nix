@@ -8,11 +8,11 @@
 let
   inherit (lib'.options) mkFalseOption;
 
-  cfg = config.config'.keyboard;
+  cfg = config.config';
 in
 
 {
-  options.config'.keyboard.fcitx5.enable = mkFalseOption;
+  options.config'.fcitx5.enable = mkFalseOption;
 
   config = {
     i18n.inputMethod = {
@@ -29,12 +29,12 @@ in
           GroupOrder."0" = "Default";
           "Groups/0" = {
             Name = "Default";
-            "Default Layout" = cfg.layout;
-            DefaultIM = "keyboard-${cfg.layout}";
+            "Default Layout" = cfg.keyboard.layout;
+            DefaultIM = "keyboard-${cfg.keyboard.layout}";
           };
           "Groups/0/Items/0" = {
-            Name = "keyboard-${cfg.layout}";
-            Layout = cfg.layout;
+            Name = "keyboard-${cfg.keyboard.layout}";
+            Layout = cfg.keyboard.layout;
           };
         };
       };
@@ -43,7 +43,7 @@ in
     services = {
       libinput.mouse.accelProfile = "flat";
       xserver.desktopManager.runXdgAutostartIfNone = cfg.fcitx5.enable;
-      xserver.xkb = cfg;
+      xserver.xkb = cfg.keyboard;
     };
   };
 }

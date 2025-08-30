@@ -17,7 +17,7 @@
       yuri.enable = true;
     };
     theming.enable = true;
-    keyboard.fcitx5.enable = true;
+    fcitx5.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

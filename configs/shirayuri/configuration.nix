@@ -34,7 +34,7 @@
     monado.enable = true;
     flatpak.enable = true;
     ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
-    keyboard.fcitx5.enable = true;
+    fcitx5.enable = true;
   };
 
   services.tailscale = {

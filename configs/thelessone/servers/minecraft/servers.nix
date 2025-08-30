@@ -100,6 +100,8 @@ in
 
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
+  # BUG: No idea why the overlay order is so
+  # messed up. Had to import nanopkgs here again
   nixpkgs.overlays = [
     inputs.nanopkgs.overlays.default
     inputs.nix-minecraft.overlay
@@ -316,10 +318,10 @@ in
 
       oceanBlock2 =
         let
-          modpack = inputs.nanopkgs.legacyPackages.x86_64-linux.fetchFtbModpack {
-            modpackId = "128";
-            versionId = "100123";
-            hash = "sha256-dkNTs/5v4aeF3xn74xkNSM/U2DL4zL+c94nZx04focA=";
+          modpack = pkgs.fetchFtbServer {
+            pack = "128";
+            version = "100123";
+            hash = "sha256-OvaiPvpCJQBBtP2Gs8g8HIXMgHCgT2VHs0IKaB+ZD4U=";
           };
         in
         {
@@ -351,12 +353,16 @@ in
             "server-icon.png" = ./icon.png;
 
             mods = "${modpack}/mods";
-            kubejs = "${modpack}/kubejs";
-            ftbteambases = "${modpack}/ftbteambases";
             defaultconfigs = "${modpack}/defaultconfigs";
           };
 
-          files.config = "${modpack}/config";
+          files = {
+            config = "${modpack}/config";
+            kubejs = "${modpack}/kubejs";
+            ftbteambases = "${modpack}/ftbteambases";
+            resourcepacks = "${modpack}/resourcepacks";
+            shaderpacks = "${modpack}/shaderpacks";
+          };
         };
 
       proxy = {

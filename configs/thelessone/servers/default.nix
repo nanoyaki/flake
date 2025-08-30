@@ -15,5 +15,6 @@
     ./homepage.nix
     ./valheim.nix
     ./mail.nix
+    ./immich.nix
   ];
 }

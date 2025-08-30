@@ -38,7 +38,7 @@ let
 
   vpnDomain = config.services.headscale.settings.dns.base_domain;
   vpnV4Subnet = config.services.headscale.settings.prefixes.v4;
-  vpnV6Subnet = config.services.headscale.settings.prefixes.v4;
+  vpnV6Subnet = config.services.headscale.settings.prefixes.v6;
 in
 
 {

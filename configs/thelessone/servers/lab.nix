@@ -21,8 +21,6 @@
     sonarr.subdomain = "sonarr.vpn";
     transmission.enable = true;
     transmission.subdomain = "transmission.vpn";
-    immich.enable = true;
-    immich.subdomain = "immich.vpn";
     whisparr.enable = true;
     whisparr.subdomain = "whisparr.vpn";
     whisparr.homepage.enable = true;

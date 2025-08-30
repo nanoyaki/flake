@@ -417,10 +417,12 @@ in
   };
 
   # Simple voice chat
+  networking.firewall.allowedTCPPorts = [ 25566 ];
   networking.firewall.allowedUDPPorts = [
     24454
     24455
     24456
+    25566
   ];
   config'.caddy.reverseProxies."map.theless.one".port = 8100;
 }

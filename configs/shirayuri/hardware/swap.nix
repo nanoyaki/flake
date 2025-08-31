@@ -1,15 +1,17 @@
 {
   swapDevices = [
     {
-      device = "/var/lib/swap/swapfile32";
+      device = "/swap";
       size = 32 * 1024;
     }
   ];
 
-  zramSwap.enable = true;
+  boot.resumeDevice = "/dev/nvme1n1";
+  boot.kernelParams = [ "resume_offset=157558016" ];
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=1h
+    SuspendState=mem
+  '';
 
-  systemd.tmpfiles.settings."10-swap"."/var/lib/swap".d = {
-    user = "root";
-    mode = "0700";
-  };
+  zramSwap.enable = true;
 }

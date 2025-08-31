@@ -63,9 +63,11 @@ jobs:
         continue-on-error: true
         run: >
           inotifywait
-          -e delete_self,delete,move_self,move
+          -e create,delete,move
+          -r
+          --exclude '.*\.lock$'
           -t 300
-          /nix/var/nix/profiles/system
+          /nix/var/nix/profiles
 
       - name: Check generation deployed
         env:

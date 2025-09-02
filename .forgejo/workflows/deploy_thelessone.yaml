@@ -69,6 +69,8 @@ jobs:
           -t 300
           /nix/var/nix/profiles
 
+          sleep 1
+
       - name: Check generation deployed
         env:
           PREVIOUS_GEN: ${{ steps.check-gen.outputs.previous }}

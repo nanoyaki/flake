@@ -9,6 +9,7 @@
     ./networking.nix
     ./vscode.nix
     ./inputs.nix
+    ./nix.nix
   ];
 
   hms = [

@@ -44,6 +44,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";

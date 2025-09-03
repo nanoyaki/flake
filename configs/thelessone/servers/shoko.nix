@@ -47,7 +47,6 @@
   systemd.services.torrent-copy = {
     description = "Copies completed torrents once for shoko.";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
 
     path = with pkgs; [
       inotify-tools

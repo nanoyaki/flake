@@ -140,7 +140,10 @@ let
     {
       wantedBy = [ "multi-user.target" ];
       after = [
-        "nfs-client.target"
+        (mkIf config.config'.sabnzbd.enable "sabnzbd.service")
+        (mkIf config.config'.transmission.enable "transmission.service")
+      ];
+      wants = [
         (mkIf config.config'.sabnzbd.enable "sabnzbd.service")
         (mkIf config.config'.transmission.enable "transmission.service")
       ];

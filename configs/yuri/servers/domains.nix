@@ -37,6 +37,7 @@ in
   systemd.services.oink = {
     description = "Dynamic DNS client for Porkbun";
     wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
 
     serviceConfig = {

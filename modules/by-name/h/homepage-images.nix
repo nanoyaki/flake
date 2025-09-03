@@ -40,11 +40,6 @@ in
     '';
 
     systemd.services.homepage-images = {
-      after = [ "homepage-dashboard.service" ];
-
-      bindsTo = [ "homepage-dashboard.service" ];
-      partOf = [ "homepage-dashboard.service" ];
-
       wantedBy = [ "multi-user.target" ];
 
       script = ''

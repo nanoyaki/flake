@@ -124,7 +124,7 @@ in
     // mapAttrs (_: _: {
       after = [ "vopono.service" ];
       partOf = [ "vopono.service" ];
-      wantedBy = [ "vopono.service" ];
+
       serviceConfig = {
         BindPaths = [ "/etc/netns/${cfg.namespace}/resolv.conf:/etc/resolv.conf" ];
         NetworkNamespacePath = "/var/run/netns/${cfg.namespace}";

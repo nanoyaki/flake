@@ -54,16 +54,16 @@ in
 
     hm.programs.ssh = {
       enable = true;
+      enableDefaultConfig = false;
 
-      matchBlocks.git = {
-        user = "git";
-        host = "github.com codeberg.org gitlab.com git.theless.one";
-        identityFile = cfg.defaultId;
+      matchBlocks = {
+        git = {
+          user = "git";
+          host = "github.com codeberg.org gitlab.com git.theless.one";
+          identityFile = cfg.defaultId;
+        };
+        "*".identityFile = cfg.defaultId;
       };
-
-      extraConfig = ''
-        IdentityFile ${cfg.defaultId}
-      '';
     };
   };
 }

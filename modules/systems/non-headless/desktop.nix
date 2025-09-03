@@ -40,7 +40,7 @@ in
 
   inherit xdg;
   hms = [
-    plasma-manager.homeManagerModules.plasma-manager
+    plasma-manager.homeModules.plasma-manager
     {
       inherit xdg;
 

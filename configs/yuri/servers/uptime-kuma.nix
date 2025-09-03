@@ -50,7 +50,6 @@ in
 
   systemd.services.uptime-screenshots = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "caddy.service" ];
 
     path = [
       md2img.packages.md2img

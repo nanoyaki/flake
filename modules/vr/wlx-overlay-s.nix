@@ -34,6 +34,7 @@ in
           wantedBy = [ "monado.service" ];
           after = [ "monado.service" ];
           bindsTo = [ "monado.service" ];
+          partOf = [ "monado.service" ];
         }
       );
 

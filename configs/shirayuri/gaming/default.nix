@@ -42,30 +42,6 @@
         }
         { pkg = mangohud; }
         {
-          pkg = osu-lazer-bin;
-          desktopItem = makeDesktopItem {
-            desktopName = "osu!";
-            name = "osu";
-            type = "Application";
-            comment = "Rhythm is just a *click* away!";
-            icon = "osu";
-            exec = "osu! %u";
-            terminal = false;
-            mimeTypes = [
-              "application/x-osu-beatmap-archive"
-              "application/x-osu-skin-archive"
-              "application/x-osu-beatmap"
-              "application/x-osu-storyboard"
-              "application/x-osu-replay"
-              "x-scheme-handler/osu"
-            ];
-            categories = [ "Game" ];
-            startupWMClass = "osu!";
-            startupNotify = true;
-            extraConfig.SingleMainWindow = "true";
-          };
-        }
-        {
           pkg = r2modman;
           desktopItem = makeDesktopItem {
             name = "r2modman";
@@ -114,6 +90,7 @@
     ))
     ++ (with pkgs; [
       prismlauncher
+      osu-lazer-bin
     ]);
 
   programs.gamemode = {

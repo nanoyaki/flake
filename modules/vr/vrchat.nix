@@ -6,13 +6,24 @@
 
 {
   nixpkgs.overlays = [
-    (_: _: {
+    (final: prev: {
       vrSwitch = pkgs.writeShellScriptBin "vrSwitch" ''
         if systemctl --user is-active monado.service --quiet;
         then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/monado_comp_ipc" exec "$@";
         else exec "$@";
         fi
       '';
+
+      vrcx = final.symlinkJoin {
+        name = "vrcx";
+        paths = [ prev.vrcx ];
+        postBuild = ''
+          cp $out/share/applications/vrcx.desktop vrcx.desktop
+          substituteInPlace vrcx.desktop \
+            --replace-fail 'Exec=vrcx' 'Exec=vrcx --startup'
+          mv vrcx.desktop $out/share/applications/vrcx.desktop
+        '';
+      };
     })
   ];
 

@@ -6,8 +6,9 @@ keys:
   - &kuroyuri age152k4hxe5vyj6kq48w4dqcm3tadyr7f6u02ydgfu8s2uuu478jawsj5q3yl
   - &meow age1l3s5ckneu4reytw4ecyt2qcc49hf8kpx0s89senr5yhf6fqu3y0sxkv398
   - &thelessnas age1a82mdpvl5w2j0ahyccngc2wvwgrhezrnwn5te99yxy254f9nm54qex3r0y
+  - &yamayuri age1geuk0u6v70d0v9zvzap8dje9dftftx9q57a4rvf0hhwaxueju5aq80ysvr
 creation_rules:
-  - path_regex: .*secrets/.*\.yaml$
+  - path_regex: configs/shirayuri/secrets/.*\.yaml$
     key_groups:
       - age:
           - *shirayuri
@@ -15,26 +16,37 @@ creation_rules:
     key_groups:
       - age:
           - *thelessone
+          - *shirayuri
   - path_regex: configs/yuri/secrets/.*\.yaml$
     key_groups:
       - age:
           - *yuri
+          - *shirayuri
   - path_regex: configs/kuroyuri/secrets/.*\.yaml$
     key_groups:
       - age:
           - *kuroyuri
+          - *shirayuri
   - path_regex: configs/lesstop/secrets/.*\.yaml$
     key_groups:
       - age:
           - *lesstop
+          - *shirayuri
   - path_regex: configs/meow/secrets/.*\.yaml$
     key_groups:
       - age:
           - *meow
+          - *shirayuri
   - path_regex: configs/thelessnas/secrets/.*\.yaml$
     key_groups:
       - age:
           - *thelessnas
+          - *shirayuri
+  - path_regex: configs/yamayuri/secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *yamayuri
+          - *shirayuri
   - path_regex: modules/by-name/p/passkeys/yuri.yaml$
     key_groups:
       - age:
@@ -42,6 +54,7 @@ creation_rules:
           - *kuroyuri
           - *yuri
           - *meow
+          - *yamayuri
   - path_regex: modules/systems/all/.*\.yaml$
     key_groups:
       - age:
@@ -52,3 +65,4 @@ creation_rules:
           - *lesstop
           - *thelessone
           - *thelessnas
+          - *yamayuri

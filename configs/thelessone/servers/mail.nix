@@ -5,6 +5,7 @@
 
   sops.secrets = {
     "mailserver/nanoyaki" = { };
+    "mailserver/thelessone" = { };
   };
 
   mailserver = {
@@ -25,6 +26,7 @@
         hashedPasswordFile = config.sops.secrets."mailserver/thelessone".path;
         aliases = [ "thomas@theless.one" ];
       };
+      "vaultwarden@theless.one".hashedPasswordFile = config.sops.secrets."mailserver/vaultwarden".path;
     };
 
     certificateScheme = "acme";

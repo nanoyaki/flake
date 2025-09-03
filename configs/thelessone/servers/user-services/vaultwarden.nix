@@ -2,12 +2,12 @@
 
 {
   sops.secrets = {
-    vaultwarden-smtp-password = { };
+    "mailserver/vaultwarden" = { };
     vaultwarden-admin-token = { };
   };
   sops.templates."vaultwarden.env" = {
     file = (pkgs.formats.keyValue { }).generate "vaultwarden.env" {
-      SMTP_PASSWORD = config.sops.placeholder.vaultwarden-smtp-password;
+      SMTP_PASSWORD = config.sops.placeholder."mailserver/vaultwarden";
       # ADMIN_TOKEN = "'${config.sops.placeholder.vaultwarden-admin-token}'";
     };
     restartUnits = [ "vaultwarden.service" ];
@@ -19,9 +19,9 @@
       SMTP_PORT = 587;
       SMTP_SECURITY = "starttls";
 
-      SMTP_USERNAME = "hanakretzer@gmail.com";
-      SMTP_FROM = "hanakretzer+vaultwarden@gmail.com";
-      SMTP_FROM_NAME = "${config.config'.caddy.baseDomain} Vaultwarden Server";
+      SMTP_USERNAME = "vaultwarden@theless.one";
+      SMTP_FROM = "vaultwarden@theless.one";
+      SMTP_FROM_NAME = "Vaultwarden Theless.one";
 
       SIGNUPS_ALLOWED = false;
       SIGNUPS_VERIFY = true;

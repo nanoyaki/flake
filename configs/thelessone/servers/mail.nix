@@ -13,9 +13,18 @@
     fqdn = "mail.theless.one";
     domains = [ "theless.one" ];
 
-    loginAccounts."nanoyaki@theless.one" = {
-      hashedPasswordFile = config.sops.secrets."mailserver/nanoyaki".path;
-      aliases = [ "postmaster@theless.one" ];
+    loginAccounts = {
+      "nanoyaki@theless.one" = {
+        hashedPasswordFile = config.sops.secrets."mailserver/nanoyaki".path;
+        aliases = [
+          "postmaster@theless.one"
+          "hana@theless.one"
+        ];
+      };
+      "thelessone@theless.one" = {
+        hashedPasswordFile = config.sops.secrets."mailserver/thelessone".path;
+        aliases = [ "thomas@theless.one" ];
+      };
     };
 
     certificateScheme = "acme";

@@ -21,7 +21,7 @@ in
   options.config'.librewolf.enable = mkFalseOption;
 
   config = mkIf config.config'.librewolf.enable {
-    programs.firefox.package = pkgs.librewolf;
+    programs.firefox.package = pkgs.librewolf-bin;
     environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
     xdg.mime.addedAssociations = {

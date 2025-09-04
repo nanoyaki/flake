@@ -9,4 +9,6 @@
     nix.flakeDir = "/home/admin/flake";
     nix.rebuildScript = pkgs.nixos-rebuild-ng;
   };
+
+  environment.systemPackages = [ pkgs.libraspberrypi ];
 }

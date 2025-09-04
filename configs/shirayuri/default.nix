@@ -22,6 +22,7 @@
         ./git.nix
         ./ssh.nix
         ./backup.nix
+        ./librewolf.nix
       ];
 
       system.stateVersion = "24.11";

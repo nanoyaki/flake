@@ -46,7 +46,10 @@ in
           DisableAppUpdate = true;
         };
 
+        # https://github.com/hlissner/dotfiles/blob/28b2f8889c7a8d799c62dbab3729b1de18c6c1a5/modules/desktop/browsers/librewolf.nix
         settings = {
+          # Allow svgs to take on theme colors
+          "svg.context-properties.content.enabled" = true;
           "webgl.disabled" = false;
           # Neat feature, but i need dark mode
           "privacy.resistFingerprinting" = false;
@@ -64,6 +67,37 @@ in
           # Autoscroll
           "general.autoscroll" = true;
           "middlemouse.paste" = false;
+
+          # Security
+          "security.family_safety.mode" = 0;
+          "security.pki.sha1_enforcement_level" = 1;
+          "security.tls.enable_0rtt_data" = false;
+          "geo.provider.network.url" =
+            "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+          "geo.provider.use_gpsd" = false;
+
+          # We set BROWSER already
+          "browser.shell.checkDefaultBrowser" = false;
+          # Disable these default extensions
+          "extensions.pocket.enabled" = false;
+          "extensions.unifiedExtensions.enabled" = false;
+          "extensions.shield-recipe-client.enabled" = false;
+          # Disable telemetry
+          "toolkit.telemetry.unified" = false;
+          "toolkit.telemetry.enabled" = false;
+          "toolkit.telemetry.server" = "data:,";
+          "toolkit.telemetry.archive.enabled" = false;
+          "toolkit.telemetry.coverage.opt-out" = true;
+          "toolkit.coverage.opt-out" = true;
+          "toolkit.coverage.endpoint.base" = "";
+          "experiments.supported" = false;
+          "experiments.enabled" = false;
+          "experiments.manifest.uri" = "";
+          "browser.ping-centre.telemetry" = false;
+          # Disable crash reports
+          "breakpad.reportURL" = "";
+          "browser.tabs.crashReporting.sendReport" = false;
+          "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
         };
 
         profiles.default = {

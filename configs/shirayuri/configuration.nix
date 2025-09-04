@@ -23,7 +23,6 @@
     ];
     audio.latency = lib.mkDefault 256;
 
-    librewolf.enable = true;
     mpv.enable = true;
     yubikey = {
       enable = true;

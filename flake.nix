@@ -146,6 +146,7 @@
         ./configs/meow
         ./configs/thelessone
         ./configs/thelessnas
+        ./configs/yamayuri
       ];
 
       systems = [

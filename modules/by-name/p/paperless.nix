@@ -34,6 +34,7 @@ in
     services.paperless = {
       enable = true;
       passwordFile = config.sops.secrets.paperless-admin.path;
+      inherit domain;
 
       consumptionDirIsPublic = true;
 

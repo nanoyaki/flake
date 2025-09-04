@@ -6,5 +6,5 @@
     generic-extlinux-compatible.enable = true;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_hardened;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
 }

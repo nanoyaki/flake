@@ -10,7 +10,7 @@
       "ja_JP"
     ];
 
-    firefox.enable = true;
+    librewolf.enable = true;
     mpv.enable = true;
     yubikey = {
       enable = true;

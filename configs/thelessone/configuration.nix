@@ -14,7 +14,7 @@
       locale = "de_AT.UTF-8";
     };
 
-    firefox.enable = true;
+    librewolf.enable = true;
     theming.enable = true;
     steam.enable = true;
   };

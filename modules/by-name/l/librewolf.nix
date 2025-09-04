@@ -14,31 +14,14 @@ let
 in
 
 {
-  options.config'.firefox.enable = mkFalseOption;
+  imports = [
+    (lib.mkRenamedOptionModule [ "config'" "firefox" "enable" ] [ "config'" "librewolf" "enable" ])
+  ];
 
-  config = mkIf config.config'.firefox.enable {
-    programs.firefox = {
-      enable = true;
-      package = pkgs.librewolf;
-      wrapperConfig.pipewireSupport = true;
+  options.config'.librewolf.enable = mkFalseOption;
 
-      policies = {
-        DontCheckDefaultBrowser = true;
-        DisablePocket = true;
-        DisableAppUpdate = true;
-      };
-
-      preferences = {
-        "widget.use-xdg-desktop-portal.file-picker" = 1;
-        "widget.use-xdg-desktop-portal.location" = 1;
-        "widget.use-xdg-desktop-portal.mime-handler" = 1;
-        "widget.use-xdg-desktop-portal.native-messaging" = 1;
-        "widget.use-xdg-desktop-portal.open-uri" = 1;
-        "widget.use-xdg-desktop-portal.settings" = 1;
-        "middlemouse.paste" = false;
-      };
-    };
-
+  config = mkIf config.config'.librewolf.enable {
+    programs.firefox.package = pkgs.librewolf;
     environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
     xdg.mime.addedAssociations = {
@@ -49,9 +32,39 @@ in
     };
 
     hms = lib.singleton {
-      programs.firefox = {
+      programs.librewolf = {
         enable = true;
         inherit (config.programs.firefox) package;
+        languagePacks = [
+          "en-GB"
+          "de"
+        ];
+
+        policies = {
+          DontCheckDefaultBrowser = true;
+          DisablePocket = true;
+          DisableAppUpdate = true;
+        };
+
+        settings = {
+          "webgl.disabled" = false;
+          # Neat feature, but i need dark mode
+          "privacy.resistFingerprinting" = false;
+          # Fuck AI
+          "browser.ml.chat.enabled" = false;
+
+          # Obey XDG
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+          "widget.use-xdg-desktop-portal.location" = 1;
+          "widget.use-xdg-desktop-portal.mime-handler" = 1;
+          "widget.use-xdg-desktop-portal.native-messaging" = 1;
+          "widget.use-xdg-desktop-portal.open-uri" = 1;
+          "widget.use-xdg-desktop-portal.settings" = 1;
+
+          # Autoscroll
+          "general.autoscroll" = true;
+          "middlemouse.paste" = false;
+        };
 
         profiles.default = {
           id = 0;

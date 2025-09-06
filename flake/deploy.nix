@@ -89,6 +89,8 @@ let
         EOF
       '';
     };
+
+    meta.description = "Switch system ${name}";
   };
 in
 

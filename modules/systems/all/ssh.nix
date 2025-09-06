@@ -18,10 +18,17 @@ in
     sops.secrets.id_owned-material_pull = {
       sopsFile = ./secrets.yaml;
       path = "/etc/ssh/id_owned-material_pull";
+      owner = "root";
+      group = "wheel";
+      mode = "440";
     };
-    environment.etc."ssh/id_owned-material_pull.pub".text = ''
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOSUAgwaWY75NrPgYeqZR55lz3THlczUVhhK1mZOJt6N
-    '';
+    environment.etc."ssh/id_owned-material_pull.pub" = {
+      text = ''
+        ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOSUAgwaWY75NrPgYeqZR55lz3THlczUVhhK1mZOJt6N
+      '';
+      user = "root";
+      group = "wheel";
+    };
     programs.ssh.knownHosts."git.theless.one".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkogFEPPOMfkRsBgyuHDQeWQMetWCZbkTpnfajTbu7t";
 

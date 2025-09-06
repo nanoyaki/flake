@@ -7,8 +7,6 @@ let
 in
 
 {
-  imports = [ ../../../modules/systems/server/deployment.nix ];
-
   config'.deployment = {
     "100.64.64.1" = cfg;
     "10.0.0.5" = cfg;

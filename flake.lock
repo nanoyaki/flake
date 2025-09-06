@@ -889,6 +889,42 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1736643958,
+        "narHash": "sha256-tmpqTSWVRJVhpvfSN9KXBvKEXplrwKnSZNAoNPf/S/s=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "1418bc28a52126761c02dd3d89b2d8ca0f521181",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751903740,
+        "narHash": "sha256-PeSkNMvkpEvts+9DjFiop1iT2JuBpyknmBUs0Un0a4I=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "032decf9db65efed428afd2fa39d80f7089085eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1757103352,
@@ -1061,24 +1097,6 @@
         "type": "github"
       }
     },
-    "owned-material": {
-      "locked": {
-        "lastModified": 1737665091,
-        "lfs": true,
-        "narHash": "sha256-oAhvpCuZOm2GAIgxe4kWYCmTXef1mBIpabQJ0vg4ObU=",
-        "ref": "main",
-        "rev": "84096f468fd40eedb449b9e3655057ff200fcdc8",
-        "revCount": 2,
-        "type": "git",
-        "url": "ssh://git@git.theless.one/nanoyaki/owned-material.git"
-      },
-      "original": {
-        "lfs": true,
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@git.theless.one/nanoyaki/owned-material.git"
-      }
-    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -1227,13 +1245,13 @@
         "nanopkgs": "nanopkgs",
         "nix-minecraft": "nix-minecraft",
         "nixgl": "nixgl",
+        "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nixpkgs-xr": "nixpkgs-xr",
         "nur": "nur",
-        "owned-material": "owned-material",
         "plasma-manager": "plasma-manager",
         "prismlauncher": "prismlauncher",
         "rebuild-maintenance": "rebuild-maintenance",

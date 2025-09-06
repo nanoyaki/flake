@@ -3,7 +3,6 @@
   lib',
   pkgs,
   config,
-  inputs,
   ...
 }:
 
@@ -36,7 +35,7 @@ in
       }.yaml";
       polarity = "dark";
 
-      image = mkDefault inputs.owned-material.images.szcb911."2024-10-15.jpeg";
+      image = mkDefault "${config.hm.home.homeDirectory}/owned-material/images/szcb911/2024-10-15.jpeg";
 
       targets.plymouth = { inherit (config.boot.plymouth) enable; };
     };

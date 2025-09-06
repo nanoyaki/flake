@@ -16,6 +16,8 @@
     };
     config = {
       imports = [
+        ../../modules/systems/server/deployment.nix
+        ../../modules/systems/server/norgb.nix
         ./hardware
         ./networking
 

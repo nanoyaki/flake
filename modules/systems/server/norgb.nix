@@ -1,24 +1,38 @@
-{ lib, pkgs, ... }:
+{
+  lib',
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+
+let
+  inherit (lib'.options) mkFalseOption;
+in
 
 {
-  boot.kernelModules = [ "i2c-piix4" ];
-  hardware.i2c.enable = true;
+  options.config'.rgb.disable = mkFalseOption;
 
-  services.udev.packages = [ pkgs.openrgb ];
-  systemd.services.no-rgb = {
-    description = "no-rgb";
+  config = lib.mkIf config.config'.rgb.disable {
+    boot.kernelModules = [ "i2c-piix4" ];
+    hardware.i2c.enable = true;
 
-    serviceConfig = {
-      ExecStart = pkgs.writeShellScript "no-rgb" ''
-        NUM_DEVICES=$(${lib.getExe pkgs.openrgb} --noautoconnect --list-devices | grep -E '^[0-9]+: ' | wc -l)
+    services.udev.packages = [ pkgs.openrgb ];
+    systemd.services.no-rgb = {
+      description = "no-rgb";
 
-        for i in $(seq 0 $((NUM_DEVICES - 1))); do
-          ${lib.getExe pkgs.openrgb} --noautoconnect --device $i --mode static --color 000000
-        done
-      '';
-      Type = "oneshot";
+      serviceConfig = {
+        ExecStart = pkgs.writeShellScript "no-rgb" ''
+          NUM_DEVICES=$(${lib.getExe pkgs.openrgb} --noautoconnect --list-devices | grep -E '^[0-9]+: ' | wc -l)
+
+          for i in $(seq 0 $((NUM_DEVICES - 1))); do
+            ${lib.getExe pkgs.openrgb} --noautoconnect --device $i --mode static --color 000000
+          done
+        '';
+        Type = "oneshot";
+      };
+
+      wantedBy = [ "multi-user.target" ];
     };
-
-    wantedBy = [ "multi-user.target" ];
   };
 }

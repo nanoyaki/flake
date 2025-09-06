@@ -23,6 +23,7 @@
         ./ssh.nix
         ./backup.nix
         ./librewolf.nix
+        ./qemu.nix
       ];
 
       system.stateVersion = "24.11";

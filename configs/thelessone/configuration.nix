@@ -17,6 +17,7 @@
     librewolf.enable = true;
     theming.enable = true;
     steam.enable = true;
+    rgb.disable = true;
   };
 
   sops.secrets = {

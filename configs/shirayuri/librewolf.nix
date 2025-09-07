@@ -35,9 +35,5 @@
     "extensions.formautofill.creditCards.available" = false;
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.heuristics.enabled" = false;
-    # Don't log me out from my sites
-    "privacy.clearOnShutdown.cookies" = false;
-    "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
-    "privacy.clearOnShutdown.sessions" = false;
   };
 }

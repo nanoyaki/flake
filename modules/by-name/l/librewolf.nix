@@ -98,6 +98,10 @@ in
           "breakpad.reportURL" = "";
           "browser.tabs.crashReporting.sendReport" = false;
           "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
+          # Don't log out
+          "privacy.clearOnShutdown.cookies" = false;
+          "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+          "privacy.clearOnShutdown.sessions" = false;
         };
 
         profiles.default = {

@@ -19,7 +19,7 @@
     sabnzbd.subdomain = "sabnzbd.vpn";
     sonarr.enable = true;
     sonarr.subdomain = "sonarr.vpn";
-    transmission.enable = true;
+    transmission.enable = false;
     transmission.subdomain = "transmission.vpn";
     whisparr.enable = true;
     whisparr.subdomain = "whisparr.vpn";

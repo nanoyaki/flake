@@ -21,7 +21,7 @@ in
   };
 
   config'.caddy.reverseProxies.${domain} = {
-    inherit (config.config'.vopono) host;
+    vpnOnly = true;
     inherit (config.services.flood) port;
   };
 

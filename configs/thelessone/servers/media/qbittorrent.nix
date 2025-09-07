@@ -3,9 +3,34 @@
 let
   inherit (config.config'.lab-config) arr;
   domain = config.config'.caddy.genDomain "flood.vpn";
+  cfg = config.services.qbittorrent;
 in
 
 {
+  sops.secrets.qbittorrent-password = { };
+
+  sops.templates."qbittorrent.conf" = {
+    content = ''
+      [LegalNotice]
+      Accepted=true
+
+      [BitTorrent]
+      Session\GlobalMaxRatio=2
+
+      [Preferences]
+      WebUI\Port=49574
+      WebUI\Username=nanoyaki
+      WebUI\Password_PBKDF2=${config.sops.placeholder.qbittorrent-password}
+      Downloads\SavePath=${config.config'.transmission.completeDirectory}
+      Downloads\TempPath=${config.config'.transmission.incompleteDirectory}
+      Downloads\GlobalDlLimit=15000
+      Connection\GlobalUPLimit=2500
+    '';
+    restartUnits = [ "qbittorrent.service" ];
+    path = "${cfg.profileDir}/qBittorrent/config/qBittorrent.conf";
+    mode = "400";
+  };
+
   config'.vopono.services.qbittorrent = config.services.qbittorrent.webuiPort;
 
   services.qbittorrent = {

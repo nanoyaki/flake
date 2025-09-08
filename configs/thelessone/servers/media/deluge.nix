@@ -57,6 +57,8 @@ in
     authFile = config.sops.templates.deluge-auth.path;
   };
 
+  config'.vopono.allowedTCPPorts = [ config.services.flood.port ];
+
   services.flood = {
     enable = true;
     port = 24325;

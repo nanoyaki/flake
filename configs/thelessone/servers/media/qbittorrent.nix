@@ -28,7 +28,8 @@ in
     '';
     restartUnits = [ "qbittorrent.service" ];
     path = "${cfg.profileDir}/qBittorrent/config/qBittorrent.conf";
-    mode = "400";
+    mode = "1644";
+    owner = cfg.user;
   };
 
   config'.vopono.services.qbittorrent = config.services.qbittorrent.webuiPort;

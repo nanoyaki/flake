@@ -123,6 +123,7 @@ in
     }
     // mapAttrs (_: _: {
       after = [ "vopono.service" ];
+      bindsTo = [ "vopono.service" ];
       partOf = [ "vopono.service" ];
 
       serviceConfig = {

@@ -23,7 +23,10 @@ in
       Session\GlobalMaxRatio=2
 
       [Preferences]
+      General\Locale=en
       WebUI\Port=49574
+      WebUI\Username=nanoyaki
+      WebUI\Password_PBKDF2=${config.sops.placeholder.qbittorrent-password}
       Downloads\SavePath=${config.config'.transmission.completeDirectory}
       Downloads\TempPath=${config.config'.transmission.incompleteDirectory}
       Downloads\GlobalDlLimit=15000

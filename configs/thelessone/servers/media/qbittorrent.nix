@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (config.config'.lab-config) arr;
@@ -19,22 +24,21 @@ in
 
       [Preferences]
       WebUI\Port=49574
-      WebUI\Username=nanoyaki
-      WebUI\Password_PBKDF2=${config.sops.placeholder.qbittorrent-password}
       Downloads\SavePath=${config.config'.transmission.completeDirectory}
       Downloads\TempPath=${config.config'.transmission.incompleteDirectory}
       Downloads\GlobalDlLimit=15000
       Connection\GlobalUPLimit=2500
     '';
     restartUnits = [ "qbittorrent.service" ];
+    mode = "0644";
+    owner = cfg.user;
+    inherit (cfg) group;
   };
 
-  systemd.tmpfiles.rules = [
-    "r ${cfg.profileDir}/qBittorrent/config/qBittorrent.conf - - - -"
-    "C ${cfg.profileDir}/qBittorrent/config/qBittorrent.conf 644 ${cfg.user} ${cfg.group} - ${
+  systemd.services.qbittorrent.serviceConfig.ExecStartPre =
+    "${lib.getExe' pkgs.coreutils-full "cp"} -f ${
       config.sops.templates."qBittorrent.conf".path
-    }"
-  ];
+    } ${cfg.profileDir}/qBittorrent/config/qBittorrent.conf";
 
   config'.vopono.services.qbittorrent = config.services.qbittorrent.webuiPort;
 

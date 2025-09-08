@@ -9,7 +9,7 @@ in
 {
   sops.secrets.qbittorrent-password = { };
 
-  sops.templates."qbittorrent.conf" = {
+  sops.templates."qBittorrent.conf" = {
     content = ''
       [LegalNotice]
       Accepted=true
@@ -27,10 +27,14 @@ in
       Connection\GlobalUPLimit=2500
     '';
     restartUnits = [ "qbittorrent.service" ];
-    path = "${cfg.profileDir}/qBittorrent/config/qBittorrent.conf";
-    mode = "1644";
-    owner = cfg.user;
   };
+
+  systemd.tmpfiles.rules = [
+    "r ${cfg.profileDir}/qBittorrent/config/qBittorrent.conf - - - -"
+    "C ${cfg.profileDir}/qBittorrent/config/qBittorrent.conf 644 ${cfg.user} ${cfg.group} - ${
+      config.sops.templates."qBittorrent.conf".path
+    }"
+  ];
 
   config'.vopono.services.qbittorrent = config.services.qbittorrent.webuiPort;
 

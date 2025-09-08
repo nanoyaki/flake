@@ -10,12 +10,18 @@ in
   sops.secrets = {
     "deluge/localclient" = { };
     "deluge/nanoyaki" = { };
+    "deluge/sonarr" = { };
+    "deluge/radarr" = { };
+    "deluge/prowlarr" = { };
   };
 
   sops.templates.deluge-auth = {
     content = ''
       localclient:${config.sops.placeholder."deluge/localclient"}:10
       nanoyaki:${config.sops.placeholder."deluge/nanoyaki"}:10
+      sonarr:${config.sops.placeholder."deluge/sonarr"}:5
+      radarr:${config.sops.placeholder."deluge/radarr"}:5
+      prowlarr:${config.sops.placeholder."deluge/prowlarr"}:5
     '';
     restartUnits = [ "deluged.service" ];
     mode = "640";

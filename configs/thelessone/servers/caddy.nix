@@ -54,6 +54,15 @@ in
 
   services.caddy = {
     enable = true;
+    package = lib.mkForce (
+      pkgs.caddy.withPlugins {
+        plugins = [
+          "github.com/caddyserver/cache-handler@v0.16.0"
+          "github.com/gr33nbl00d/caddy-revocation-validator@v1.0.5"
+        ];
+        hash = "sha256-BxvrPs02TOIYDMJzPjzkGTVC7kDA4WJg98XLiRw9rV0=";
+      }
+    );
     environmentFile = config.sops.templates."caddy-users.env".path;
 
     virtualHosts = {
@@ -63,6 +72,23 @@ in
       "vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";
       "www.vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";
       "twitter.vappie.space".extraConfig = mkRedirect "https://x.com/vappie_";
+    };
+  };
+
+  config'.mtls = {
+    enable = true;
+
+    clients = {
+      nano = { };
+      ashley = { };
+      maru = { };
+      nik = { };
+      vapper = { };
+      thomas = { };
+      koko = { };
+      juli = { };
+      dowo = { };
+      pascal = { };
     };
   };
 

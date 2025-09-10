@@ -171,10 +171,8 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."git.theless.one" = {
-    port = config.services.forgejo.settings.server.HTTP_PORT;
-    serverAliases = [ "git.nanoyaki.space" ];
-  };
+  config'.caddy.reverseProxies."git.theless.one".port =
+    config.services.forgejo.settings.server.HTTP_PORT;
 
   config'.homepage.categories.Code.services.Forgejo = rec {
     description = "Code forge";

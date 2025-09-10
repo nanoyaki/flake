@@ -25,7 +25,6 @@ let
     mkSubmoduleOption
     mkAttrsOf
     mkIntOption
-    mkNullOr
     ;
 
   cfg = config.config'.mtls;
@@ -39,10 +38,15 @@ let
   caConfig = (pkgs.formats.ini { }).generate "ca.conf" {
     ca.default_ca = "CA_default";
     CA_default = {
-      database = "index.txt";
-      crlnumber = "crlnumber";
+      dir = cfg.dataDir;
+      database = "${cfg.dataDir}/index.txt";
+      crlnumber = "${cfg.dataDir}/crlnumber";
+      new_certs_dir = "${cfg.dataDir}/newcerts";
+      serial = "${cfg.dataDir}/serial";
       default_crl_days = "30";
+      policy = "policy_any";
     };
+    policy_any.commonName = "supplied";
   };
 
   crlUpdateDeps = map (name: "mtls-client-setup-${name}.service") (attrNames cfg.clients);
@@ -78,7 +82,6 @@ in
             basePath = mkDefault "${cfg.dataDir}/clients/${name}" mkPathOption;
             daysValid = mkDefault 3650 mkIntOption;
             isRevoked = mkFalseOption;
-            p12PasswordFile = mkNullOr mkPathOption;
           };
         }
       )
@@ -95,7 +98,11 @@ in
 
     users.groups.mtls = { };
 
-    systemd.tmpfiles.settings.mtls."${cfg.dataDir}/clients".d = dirCfg;
+    systemd.tmpfiles.settings.mtls = {
+      "${cfg.dataDir}/newcerts".d = dirCfg;
+      "${cfg.dataDir}/clients".d = dirCfg;
+    }
+    // mapAttrs' (_: client: nameValuePair client.basePath { d = dirCfg; }) cfg.clients;
 
     systemd.services = {
       mtls-setup = {
@@ -110,12 +117,13 @@ in
           openssl req -x509 -new -key ca.key -out ca.crt -days 3650 \
             -subj "/CN=mTLS Client CA"
 
+          touch index.txt
+          echo 01 > crlnumber
+          echo 01 > serial
+
           openssl ca -gencrl -out ca.crl \
             -keyfile ca.key -cert ca.crt \
             -config ${caConfig}
-
-          touch index.txt
-          echo 01 > crlnumber
 
           cat ca.crt ca.crl > ca.pem
         '';
@@ -130,8 +138,7 @@ in
           User = "mtls";
           Group = "mtls";
           Type = "oneshot";
-          RootDirectory = cfg.dataDir;
-          WorkingDirectory = "~";
+          WorkingDirectory = cfg.dataDir;
         };
       };
 
@@ -174,8 +181,7 @@ in
           User = "mtls";
           Group = "mtls";
           Type = "oneshot";
-          RootDirectory = cfg.dataDir;
-          WorkingDirectory = "~";
+          WorkingDirectory = cfg.dataDir;
         };
       };
     }
@@ -186,7 +192,10 @@ in
         wants = [ "mtls-setup.service" ];
         after = [ "mtls-setup.service" ];
 
-        path = [ pkgs.openssl ];
+        path = [
+          pkgs.openssl
+          pkgs.util-linux
+        ];
         script = ''
           openssl genpkey -algorithm ED25519 \
             -out client.key
@@ -196,16 +205,20 @@ in
             -out client.csr \
             -subj "/CN=${name}"
 
-          openssl x509 -days ${toString client.daysValid} -req \
-            -in client.csr \
-            -CA '${cfg.dataDir}/ca.crt' \
-            -CAkey '${cfg.dataDir}/ca.key' \
-            -CAcreateserial \
-            -out client.crt
+          exec 200> '${cfg.dataDir}/.ca.lock'
+          flock -x 200
 
-          openssl pkcs12 -export ${
-            optionalString (client.p12PasswordFile != null) "-passout file:${client.p12PasswordFile}"
-          } \
+          openssl ca -batch \
+            -in client.csr \
+            -out client.crt \
+            -days ${toString client.daysValid} \
+            -keyfile '${cfg.dataDir}/ca.key' \
+            -cert '${cfg.dataDir}/ca.crt' \
+            -config ${caConfig}
+
+          flock -u 200
+
+          openssl pkcs12 -export -passout pass: \
             -inkey client.key \
             -in client.crt \
             -certfile '${cfg.dataDir}/ca.crt' \
@@ -226,7 +239,7 @@ in
           User = "mtls";
           Group = "mtls";
           Type = "oneshot";
-          RootDirectory = client.basePath;
+          WorkingDirectory = client.basePath;
         };
       }
     ) cfg.clients;

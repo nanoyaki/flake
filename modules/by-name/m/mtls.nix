@@ -116,7 +116,7 @@ in
           pkgs.coreutils
         ];
         script = ''
-          openssl genpkey -algorithm ED25519 -out ca.key
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ca.key
           openssl req -x509 -new -key ca.key -out ca.crt -days 3650 \
             -subj "/CN=mTLS Client CA"
 
@@ -200,7 +200,7 @@ in
           pkgs.util-linux
         ];
         script = ''
-          openssl genpkey -algorithm ED25519 \
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 \
             -out client.key
 
           openssl req -new \

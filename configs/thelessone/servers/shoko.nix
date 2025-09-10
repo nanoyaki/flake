@@ -29,7 +29,7 @@
 
   config'.caddy.reverseProxies."shoko.theless.one" = {
     port = 8111;
-    extraConfig = config.config'.mtls.caddySnippet "shoko";
+    useMtls = true;
   };
 
   config'.homepage.categories."Media services".services.Shoko = rec {

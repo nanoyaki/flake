@@ -19,7 +19,7 @@ in
   systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = "/mnt/raid/audiobookshelf";
 
   config'.caddy.reverseProxies.${domain} = {
-    extraConfig = config.config'.mtls.caddySnippet "audiobookshelf";
+    useMtls = true;
     inherit (config.services.audiobookshelf) port;
   };
 

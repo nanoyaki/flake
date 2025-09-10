@@ -39,6 +39,8 @@ let
   vpnDomain = config.services.headscale.settings.dns.base_domain;
   vpnV4Subnet = config.services.headscale.settings.prefixes.v4;
   vpnV6Subnet = config.services.headscale.settings.prefixes.v6;
+
+  sanitizeDomain = domain: builtins.replaceStrings [ "." ":" "/" ] [ "_" "-" "-" ] domain;
 in
 
 {
@@ -59,6 +61,7 @@ in
       extraConfig = mkStrOption;
       serverAliases = mkListOf mkStrOption;
       vpnOnly = mkFalseOption;
+      useMtls = mkFalseOption;
     });
 
     genDomain = mkFunctionTo mkStrOption;
@@ -93,25 +96,46 @@ in
       '';
 
       virtualHosts = mapAttrs' (
-        domain: reverseProxy:
+        domain: proxy:
         nameValuePair domain {
           extraConfig = ''
-            ${optionalString (reverseProxy.userEnvVar != null) ''
+            ${optionalString (proxy.userEnvVar != null) ''
               basic_auth * {
-                {''$${reverseProxy.userEnvVar}}
+                {''$${proxy.userEnvVar}}
               }
             ''}
 
-            ${optionalString reverseProxy.vpnOnly ''
+            ${optionalString proxy.vpnOnly ''
               @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
               abort @outside-local
             ''}
 
-            ${reverseProxy.extraConfig}
+            ${optionalString proxy.useMtls ''
+              tls ${
+                optionalString (
+                  config.security.acme.certs ? ${cfg.baseDomain}
+                ) "/var/lib/acme/${cfg.baseDomain}/cert.pem /var/lib/acme/${cfg.baseDomain}/key.pem"
+              } {
+                client_auth {
+                  mode require_and_verify
+                  trust_pool file ${config.config'.mtls.dataDir}/ca.crt
+                  verifier revocation {
+                    mode crl_only
+                    crl_config {
+                      work_dir ${config.services.caddy.dataDir}/${sanitizeDomain domain}
+                      crl_file ${config.config'.mtls.dataDir}/ca.crl
+                      trusted_signature_cert_file ${config.config'.mtls.dataDir}/ca.crt
+                    }
+                  }
+                }
+              }
+            ''}
 
-            reverse_proxy ${reverseProxy.host}:${toString reverseProxy.port}
+            ${proxy.extraConfig}
+
+            reverse_proxy ${proxy.host}:${toString proxy.port}
           '';
-          inherit (reverseProxy) serverAliases;
+          inherit (proxy) serverAliases;
         }
       ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
     };
@@ -123,6 +147,16 @@ in
     }) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies);
 
     systemd.services.caddy.path = [ pkgs.nssTools ];
+
+    systemd.tmpfiles.settings.caddy-mtls = mapAttrs' (
+      domain: _:
+      nameValuePair "${config.services.caddy.dataDir}/${sanitizeDomain domain}" {
+        d = {
+          inherit (config.services.caddy) user group;
+          mode = "700";
+        };
+      }
+    ) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.useMtls) cfg.reverseProxies);
 
     config'.caddy.genDomain =
       name:

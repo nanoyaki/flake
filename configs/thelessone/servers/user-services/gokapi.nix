@@ -46,7 +46,7 @@
       PicturesAlwaysLocal = false;
       Port = ":${toString config.services.gokapi.environment.GOKAPI_PORT}";
       PublicName = "Gokapi";
-      RedirectUrl = "https://vpn.theless.one/";
+      RedirectUrl = "https://theless.one/";
       SaveIp = false;
       ServerUrl = "https://gokapi.theless.one/";
       UseSsl = false;
@@ -86,7 +86,7 @@
   };
 
   config'.caddy.reverseProxies."gokapi.theless.one" = {
-    extraConfig = config.config'.mtls.caddySnippet "gokapi";
+    useMtls = true;
     port = config.services.gokapi.environment.GOKAPI_PORT;
   };
 

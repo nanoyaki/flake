@@ -1,5 +1,3 @@
-{ config, ... }:
-
 {
   config'.homepage = {
     enable = true;
@@ -25,8 +23,7 @@
     ];
   };
 
-  config'.caddy.reverseProxies."https://theless.one".extraConfig =
-    config.config'.mtls.caddySnippet "homepage";
+  config'.caddy.reverseProxies."https://theless.one".useMtls = true;
 
   config'.homepage-images.enable = true;
 }

@@ -114,6 +114,8 @@ in
       };
   };
 
+  users.users.${config.services.caddy.user}.extraGroups = [ "mtls" ];
+
   systemd.tmpfiles.settings."10-caddy-directories" =
     genAttrs
       [

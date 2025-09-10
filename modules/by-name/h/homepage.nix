@@ -122,7 +122,9 @@ in
 
     services.homepage-dashboard = {
       enable = true;
-      allowedHosts = "${cfg.subdomain}.${config.config'.caddy.baseDomain}";
+      allowedHosts = "${
+        lib.optionalString (cfg.subdomain != "") "${cfg.subdomain}."
+      }${config.config'.caddy.baseDomain}";
 
       settings = {
         title = "Homepage";

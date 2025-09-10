@@ -58,15 +58,18 @@ in
     dataDir = mkDefault "/var/lib/mtls" mkPathOption;
     # Requires Gr33nbl00d/caddy-revocation-validator
     caddySnippet = mkDefault ''
-      tls ${optionalString config.services.acme.enable "/var/lib/acme/${config.config'.caddy.baseDomain}/cert.pem /var/lib/acme/${config.config'.caddy.baseDomain}/key.pem"} {
+      tls ${
+        optionalString (config.security.acme.certs ? ${config.config'.caddy.baseDomain})
+          "/var/lib/acme/${config.config'.caddy.baseDomain}/cert.pem /var/lib/acme/${config.config'.caddy.baseDomain}/key.pem"
+      } {
         client_auth {
           mode require_and_verify
-          trusted_ca_cert_file ${cfg.dataDir}/ca.crt
+          trust_pool file ${cfg.dataDir}/ca.crt
           verifier revocation {
             mode crl_only
             crl_config {
-              crl_files ${cfg.dataDir}
-              update_interval 30m
+              work_dir ${config.services.caddy.dataDir}
+              crl_file ${cfg.dataDir}/ca.crl
               trusted_signature_cert_file ${cfg.dataDir}/ca.crt
             }
           }

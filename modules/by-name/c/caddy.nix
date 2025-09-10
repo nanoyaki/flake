@@ -125,6 +125,9 @@ in
     systemd.services.caddy.path = [ pkgs.nssTools ];
 
     config'.caddy.genDomain =
-      name: "http${optionalString cfg.useHttps "s"}://${name}.${cfg.baseDomain}";
+      name:
+      "http${optionalString cfg.useHttps "s"}://${
+        optionalString (name != "") "${name}."
+      }${cfg.baseDomain}";
   };
 }

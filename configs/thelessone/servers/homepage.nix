@@ -1,7 +1,9 @@
+{ config, ... }:
+
 {
   config'.homepage = {
     enable = true;
-    subdomain = "vpn";
+    subdomain = "";
 
     categories = {
       Media.before = "Services";
@@ -23,7 +25,7 @@
     ];
   };
 
-  config'.caddy.reverseProxies."https://vpn.theless.one".vpnOnly = true;
+  config'.caddy.reverseProxies."https://theless.one".extraConfig = config.config'.mtls.caddySnippet;
 
   config'.homepage-images.enable = true;
 }

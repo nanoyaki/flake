@@ -44,6 +44,7 @@ let
       new_certs_dir = "${cfg.dataDir}/newcerts";
       serial = "${cfg.dataDir}/serial";
       default_crl_days = "30";
+      default_md = "sha256";
       policy = "policy_any";
     };
     policy_any.commonName = "supplied";

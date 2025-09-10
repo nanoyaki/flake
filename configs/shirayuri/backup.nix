@@ -63,7 +63,7 @@ in
     '';
 
     # sops.templates."restic-remote-repo".content = ''
-    #   rest:http://restic:${
+    #   rest:https://restic:${
     #     config.sops.placeholder."backups/remote-server"
     #   }@100.64.64.1:8123/shirayuri-remote
     # '';

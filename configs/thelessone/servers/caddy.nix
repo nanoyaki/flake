@@ -106,7 +106,7 @@ in
       ) privateServices)
       // {
         # Restic
-        "http://100.64.64.1:8123" = {
+        "https://100.64.64.1:8123" = {
           port = 8000;
           host = "10.0.0.6";
           extraConfig = config.config'.mtls.caddySnippet;

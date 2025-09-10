@@ -86,7 +86,7 @@
   };
 
   config'.caddy.reverseProxies."gokapi.theless.one" = {
-    extraConfig = config.config'.mtls.caddySnippet;
+    extraConfig = config.config'.mtls.caddySnippet "gokapi";
     port = config.services.gokapi.environment.GOKAPI_PORT;
   };
 

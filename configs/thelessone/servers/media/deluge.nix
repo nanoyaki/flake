@@ -66,7 +66,7 @@ in
   };
 
   config'.caddy.reverseProxies.${domain} = {
-    extraConfig = config.config'.mtls.caddySnippet;
+    extraConfig = config.config'.mtls.caddySnippet "deluge";
     inherit (config.services.flood) port;
   };
 

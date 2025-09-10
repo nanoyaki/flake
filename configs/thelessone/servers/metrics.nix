@@ -54,7 +54,7 @@ in
 
   config'.caddy.reverseProxies."https://grafana.theless.one" = {
     port = config.services.grafana.settings.server.http_port;
-    extraConfig = config.config'.mtls.caddySnippet;
+    extraConfig = config.config'.mtls.caddySnippet "grafana";
   };
 
   services.prometheus = {

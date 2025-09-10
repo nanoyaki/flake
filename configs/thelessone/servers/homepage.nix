@@ -25,7 +25,8 @@
     ];
   };
 
-  config'.caddy.reverseProxies."https://theless.one".extraConfig = config.config'.mtls.caddySnippet;
+  config'.caddy.reverseProxies."https://theless.one".extraConfig =
+    config.config'.mtls.caddySnippet "homepage";
 
   config'.homepage-images.enable = true;
 }

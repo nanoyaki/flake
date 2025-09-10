@@ -44,19 +44,19 @@ in
   config'.caddy.reverseProxies = {
     "https://manga.theless.one" = {
       inherit (cfg.thomas.settings.server) port;
-      extraConfig = config.config'.mtls.caddySnippet;
+      extraConfig = config.config'.mtls.caddySnippet "su-thomas";
     };
     "https://nik-manga.theless.one" = {
       inherit (cfg.niklas.settings.server) port;
-      extraConfig = config.config'.mtls.caddySnippet;
+      extraConfig = config.config'.mtls.caddySnippet "su-nik";
     };
     "https://hana-manga.theless.one" = {
       inherit (cfg.hana.settings.server) port;
-      extraConfig = config.config'.mtls.caddySnippet;
+      extraConfig = config.config'.mtls.caddySnippet "su-hana";
     };
     "https://mei-manga.theless.one" = {
       inherit (cfg.mei.settings.server) port;
-      extraConfig = config.config'.mtls.caddySnippet;
+      extraConfig = config.config'.mtls.caddySnippet "su-mei";
     };
   };
 

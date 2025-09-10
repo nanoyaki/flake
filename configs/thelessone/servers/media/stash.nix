@@ -338,7 +338,7 @@ in
 
     config'.caddy.reverseProxies."https://stash.theless.one" = {
       inherit (cfg.settings) port;
-      extraConfig = config.config'.mtls.caddySnippet;
+      extraConfig = config.config'.mtls.caddySnippet "stash";
     };
 
     config'.homepage.categories.Media.services.Stash = rec {

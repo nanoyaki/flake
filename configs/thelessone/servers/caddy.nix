@@ -101,7 +101,7 @@ in
       (mapAttrs' (
         service: _:
         nameValuePair (config.config'.caddy.genDomain config.config'.${service}.subdomain) {
-          extraConfig = config.config'.mtls.caddySnippet;
+          extraConfig = config.config'.mtls.caddySnippet config.config'.${service}.subdomain;
         }
       ) privateServices)
       // {
@@ -109,7 +109,7 @@ in
         "https://100.64.64.1:8123" = {
           port = 8000;
           host = "10.0.0.6";
-          extraConfig = config.config'.mtls.caddySnippet;
+          extraConfig = config.config'.mtls.caddySnippet "restic-server";
         };
       };
   };

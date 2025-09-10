@@ -25,6 +25,7 @@ let
     mkSubmoduleOption
     mkAttrsOf
     mkIntOption
+    mkFunctionTo
     ;
 
   cfg = config.config'.mtls;
@@ -58,7 +59,7 @@ in
     enable = mkFalseOption;
     dataDir = mkDefault "/var/lib/mtls" mkPathOption;
     # Requires Gr33nbl00d/caddy-revocation-validator
-    caddySnippet = mkDefault ''
+    caddySnippet = mkDefault (workingDirectory: ''
       tls ${
         optionalString (config.security.acme.certs ? ${config.config'.caddy.baseDomain})
           "/var/lib/acme/${config.config'.caddy.baseDomain}/cert.pem /var/lib/acme/${config.config'.caddy.baseDomain}/key.pem"
@@ -69,14 +70,14 @@ in
           verifier revocation {
             mode crl_only
             crl_config {
-              work_dir ${config.services.caddy.dataDir}
+              work_dir ${config.services.caddy.dataDir}/${workingDirectory}
               crl_file ${cfg.dataDir}/ca.crl
               trusted_signature_cert_file ${cfg.dataDir}/ca.crt
             }
           }
         }
       }
-    '' mkStrOption;
+    '') (mkFunctionTo mkStrOption);
 
     clients = mkAttrsOf (
       mkSubmoduleOption (

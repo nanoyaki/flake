@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  domain = config.config'.caddy.genDomain "audiobookshelf.vpn";
+  domain = config.config'.caddy.genDomain "audiobookshelf";
 in
 
 {
@@ -19,7 +19,7 @@ in
   systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = "/mnt/raid/audiobookshelf";
 
   config'.caddy.reverseProxies.${domain} = {
-    vpnOnly = true;
+    extraConfig = config.config'.mtls.caddySnippet;
     inherit (config.services.audiobookshelf) port;
   };
 

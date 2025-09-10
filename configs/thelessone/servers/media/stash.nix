@@ -87,7 +87,7 @@ in
 
     sops.templates."config.json" = {
       file = (pkgs.formats.json { }).generate "config.json.template" {
-        url = "https://shoko.vpn.theless.one:443";
+        url = "https://shoko.theless.one:443";
         user = config.sops.placeholder."stash/shoko/user";
         pass = config.sops.placeholder."stash/shoko/pass";
       };
@@ -98,7 +98,7 @@ in
     sops.templates."ShokoAPI-config.ini" = {
       path = "${cfg.dataDir}/ShokoAPI-config.ini";
       content = ''
-        url = https://stash.vpn.theless.one:443
+        url = https://stash.theless.one:443
         api_key = ${config.sops.placeholder."stash/apikey"}
       '';
       owner = cfg.user;
@@ -336,15 +336,15 @@ in
 
     environment.systemPackages = [ pkgs.chromium ];
 
-    config'.caddy.reverseProxies."https://stash.vpn.theless.one" = {
+    config'.caddy.reverseProxies."https://stash.theless.one" = {
       inherit (cfg.settings) port;
-      vpnOnly = true;
+      extraConfig = config.config'.mtls.caddySnippet;
     };
 
     config'.homepage.categories.Media.services.Stash = rec {
       description = "Adult video server";
       icon = "stash.svg";
-      href = "https://stash.vpn.theless.one";
+      href = "https://stash.theless.one";
       siteMonitor = href;
     };
   };

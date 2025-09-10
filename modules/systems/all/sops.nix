@@ -78,5 +78,7 @@ in
         }
       )
     ];
+
+    security.pki.certificateFiles = [ ./ca.pem ];
   };
 }

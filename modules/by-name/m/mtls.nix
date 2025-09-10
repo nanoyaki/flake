@@ -212,7 +212,7 @@ in
           exec 200> '${cfg.dataDir}/.ca.lock'
           flock -x 200
 
-          openssl ca -batch \
+          openssl ca -batch -quiet \
             -in client.csr \
             -out client.crt \
             -days ${toString client.daysValid} \

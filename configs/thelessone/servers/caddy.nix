@@ -101,7 +101,7 @@ in
       (mapAttrs' (
         service: _:
         nameValuePair (config.config'.caddy.genDomain config.config'.${service}.subdomain) {
-          vpnOnly = true;
+          extraConfig = config.config'.mtls.caddySnippet;
         }
       ) privateServices)
       // {
@@ -109,7 +109,7 @@ in
         "http://100.64.64.1:8123" = {
           port = 8000;
           host = "10.0.0.6";
-          vpnOnly = true;
+          extraConfig = config.config'.mtls.caddySnippet;
         };
       };
   };

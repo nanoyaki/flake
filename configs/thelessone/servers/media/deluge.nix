@@ -2,7 +2,7 @@
 
 let
   inherit (config.config'.lab-config) arr;
-  domain = config.config'.caddy.genDomain "flood.vpn";
+  domain = config.config'.caddy.genDomain "flood";
   cfg = config.services.deluge;
 in
 
@@ -66,7 +66,7 @@ in
   };
 
   config'.caddy.reverseProxies.${domain} = {
-    vpnOnly = true;
+    extraConfig = config.config'.mtls.caddySnippet;
     inherit (config.services.flood) port;
   };
 

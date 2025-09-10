@@ -2,11 +2,10 @@
 
 {
   config'.immich.enable = true;
-  config'.immich.subdomain = "immich.vpn";
 
   services.immich-public-proxy = {
     enable = true;
-    immichUrl = "https://immich.vpn.theless.one";
+    immichUrl = "https://immich.theless.one";
     port = 19220;
     settings.allowDownloadAll = 1;
   };

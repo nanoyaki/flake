@@ -48,7 +48,7 @@
       PublicName = "Gokapi";
       RedirectUrl = "https://vpn.theless.one/";
       SaveIp = false;
-      ServerUrl = "https://gokapi.vpn.theless.one/";
+      ServerUrl = "https://gokapi.theless.one/";
       UseSsl = false;
     };
     owner = "gokapi";
@@ -85,15 +85,15 @@
     mode = "0750";
   };
 
-  config'.caddy.reverseProxies."gokapi.vpn.theless.one" = {
-    vpnOnly = true;
+  config'.caddy.reverseProxies."gokapi.theless.one" = {
+    extraConfig = config.config'.mtls.caddySnippet;
     port = config.services.gokapi.environment.GOKAPI_PORT;
   };
 
   config'.homepage.categories.Services.services.Gokapi = rec {
     description = "File sharing platform";
     icon = "https://files.theless.one/plasmavault.svg";
-    href = "https://gokapi.vpn.theless.one/login";
+    href = "https://gokapi.theless.one/login";
     siteMonitor = href;
   };
 }

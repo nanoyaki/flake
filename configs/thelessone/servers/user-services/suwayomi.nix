@@ -42,21 +42,21 @@ in
   };
 
   config'.caddy.reverseProxies = {
-    "https://manga.vpn.theless.one" = {
+    "https://manga.theless.one" = {
       inherit (cfg.thomas.settings.server) port;
-      vpnOnly = true;
+      extraConfig = config.config'.mtls.caddySnippet;
     };
-    "https://nik-manga.vpn.theless.one" = {
+    "https://nik-manga.theless.one" = {
       inherit (cfg.niklas.settings.server) port;
-      vpnOnly = true;
+      extraConfig = config.config'.mtls.caddySnippet;
     };
-    "https://hana-manga.vpn.theless.one" = {
+    "https://hana-manga.theless.one" = {
       inherit (cfg.hana.settings.server) port;
-      vpnOnly = true;
+      extraConfig = config.config'.mtls.caddySnippet;
     };
-    "https://mei-manga.vpn.theless.one" = {
+    "https://mei-manga.theless.one" = {
       inherit (cfg.mei.settings.server) port;
-      vpnOnly = true;
+      extraConfig = config.config'.mtls.caddySnippet;
     };
   };
 
@@ -70,28 +70,28 @@ in
       "Thomas Suwayomi" = rec {
         description = "Thomas' suwayomi instance";
         inherit icon;
-        href = "https://manga.vpn.theless.one";
+        href = "https://manga.theless.one";
         siteMonitor = href;
       };
 
       "Nik Suwayomi" = rec {
         description = "Nik's suwayomi instance";
         inherit icon;
-        href = "https://nik-manga.vpn.theless.one";
+        href = "https://nik-manga.theless.one";
         siteMonitor = href;
       };
 
       "Hana Suwayomi" = rec {
         description = "Hana's suwayomi instance";
         inherit icon;
-        href = "https://hana-manga.vpn.theless.one";
+        href = "https://hana-manga.theless.one";
         siteMonitor = href;
       };
 
       "Mei Suwayomi" = rec {
         description = "Meilyne's suwayomi instance";
         inherit icon;
-        href = "https://mei-manga.vpn.theless.one";
+        href = "https://mei-manga.theless.one";
         siteMonitor = href;
       };
     };

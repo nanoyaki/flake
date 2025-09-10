@@ -23,7 +23,7 @@ in
         http_port = 2342;
         enforce_domain = true;
         enable_gzip = true;
-        domain = "grafana.vpn.theless.one";
+        domain = "grafana.theless.one";
       };
 
       analytics.reporting_enabled = false;
@@ -52,9 +52,9 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."https://grafana.vpn.theless.one" = {
+  config'.caddy.reverseProxies."https://grafana.theless.one" = {
     port = config.services.grafana.settings.server.http_port;
-    vpnOnly = true;
+    extraConfig = config.config'.mtls.caddySnippet;
   };
 
   services.prometheus = {

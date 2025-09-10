@@ -4,6 +4,7 @@
     ./fireqos.nix
     ./firewall.nix
     ./interface.nix
+    ./ssl.nix
   ];
 
   networking.useDHCP = true;

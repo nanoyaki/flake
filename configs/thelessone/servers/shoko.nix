@@ -27,15 +27,15 @@
     homeMode = builtins.toString config.systemd.services.shoko.serviceConfig.StateDirectoryMode;
   };
 
-  config'.caddy.reverseProxies."shoko.vpn.theless.one" = {
+  config'.caddy.reverseProxies."shoko.theless.one" = {
     port = 8111;
-    vpnOnly = true;
+    extraConfig = config.config'.mtls.caddySnippet;
   };
 
   config'.homepage.categories."Media services".services.Shoko = rec {
     description = "Anime manager";
     icon = "shoko.svg";
-    href = "https://shoko.vpn.theless.one";
+    href = "https://shoko.theless.one";
     siteMonitor = href;
   };
 

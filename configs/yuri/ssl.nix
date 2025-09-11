@@ -19,5 +19,7 @@
   users.groups.thelessone = { };
   users.users.${config.config'.mainUserName}.extraGroups = [ "thelessone" ];
 
-  environment.sessionVariables.SSL_CERT_DIR = "/etc/ssl/certs";
+  environment.sessionVariables = {
+    SSL_CERT_DIR = "/etc/ssl/certs";
+  };
 }

@@ -54,6 +54,7 @@ in
 
   services.caddy = {
     enable = true;
+    enableReload = false;
     package = lib.mkForce (
       pkgs.caddy.withPlugins {
         plugins = [

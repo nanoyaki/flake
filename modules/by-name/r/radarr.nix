@@ -37,9 +37,7 @@ in
       inherit (config.config'.lab-config.arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain} = {
-      inherit (config.services.radarr.settings.server) port;
-    };
+    config'.caddy.vHost.${domain}.proxy = { inherit (config.services.radarr.settings.server) port; };
 
     config'.homepage.categories.${cfg.homepage.category}.services.Radarr = {
       icon = "radarr.svg";

@@ -27,8 +27,8 @@
     homeMode = builtins.toString config.systemd.services.shoko.serviceConfig.StateDirectoryMode;
   };
 
-  config'.caddy.reverseProxies."shoko.theless.one" = {
-    port = 8111;
+  config'.caddy.vHost."shoko.theless.one" = {
+    proxy.port = 8111;
     useMtls = true;
   };
 

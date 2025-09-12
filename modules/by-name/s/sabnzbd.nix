@@ -43,7 +43,7 @@ in
       inherit (arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain}.port = 8080;
+    config'.caddy.vHost.${domain}.proxy.port = 8080;
 
     config'.homepage.categories.${cfg.homepage.category}.services.Sabnzbd = {
       icon = "sabnzbd.svg";

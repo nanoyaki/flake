@@ -74,7 +74,7 @@ in
     # Due to *very long* startup times
     systemd.services.transmission.serviceConfig.Type = mkForce "simple";
 
-    config'.caddy.reverseProxies.${domain} = {
+    config'.caddy.vHost.${domain}.proxy = {
       inherit (config.config'.vopono) host;
       port = config.services.transmission.settings.rpc-port;
     };

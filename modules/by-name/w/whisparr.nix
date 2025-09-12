@@ -38,7 +38,7 @@ in
       inherit (config.config'.lab-config.arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain}.port = config.services.whisparr.settings.server.port;
+    config'.caddy.vHost.${domain}.proxy.port = config.services.whisparr.settings.server.port;
 
     config'.homepage = mkIf cfg.homepage.enable {
       categories.${cfg.homepage.category}.services.Whisparr = {

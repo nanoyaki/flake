@@ -37,7 +37,7 @@ in
       openFirewall = true;
     };
 
-    config'.caddy.reverseProxies.${domain} = {
+    config'.caddy.vHost.${domain}.proxy = {
       inherit (config.services.prowlarr.settings.server) port;
       inherit (config.config'.vopono) host;
     };

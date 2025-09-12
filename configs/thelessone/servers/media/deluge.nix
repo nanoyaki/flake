@@ -65,9 +65,9 @@ in
     port = 24325;
   };
 
-  config'.caddy.reverseProxies.${domain} = {
+  config'.caddy.vHost.${domain} = {
+    proxy = { inherit (config.services.flood) port; };
     useMtls = true;
-    inherit (config.services.flood) port;
   };
 
   config'.homepage.categories."Services".services.Flood = {

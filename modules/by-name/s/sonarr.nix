@@ -36,9 +36,7 @@ in
       inherit (config.config'.lab-config.arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain} = {
-      inherit (config.services.sonarr.settings.server) port;
-    };
+    config'.caddy.vHost.${domain}.proxy = { inherit (config.services.sonarr.settings.server) port; };
 
     config'.homepage.categories.${cfg.homepage.category}.services.Sonarr = {
       icon = "sonarr.svg";

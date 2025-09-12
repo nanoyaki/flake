@@ -40,7 +40,7 @@ in
 
   environment.systemPackages = [ config.services.headscale.package ];
 
-  config'.caddy.reverseProxies."https://headscale.${domain}" = {
+  config'.caddy.vHost."https://headscale.${domain}".proxy = {
     inherit (config.services.headscale) port;
   };
 }

@@ -21,7 +21,7 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."https://status.nanoyaki.space".port =
+  config'.caddy.vHost."https://status.nanoyaki.space".proxy.port =
     lib.strings.toInt config.services.uptime-kuma.settings.PORT;
 
   users.users =

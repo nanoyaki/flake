@@ -37,7 +37,7 @@ in
       accelerationDevices = mkIf cfg.enableHardwareAcceleration [ "/dev/dri/renderD128" ];
     };
 
-    config'.caddy.reverseProxies.${domain} = { inherit (config.services.immich) port; };
+    config'.caddy.vHost.${domain}.proxy = { inherit (config.services.immich) port; };
 
     config'.homepage.categories.${cfg.homepage.category}.services.Immich = {
       icon = "immich.svg";

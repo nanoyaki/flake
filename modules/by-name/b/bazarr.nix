@@ -30,7 +30,7 @@ in
       inherit (arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain}.port = config.services.bazarr.listenPort;
+    config'.caddy.vHost.${domain}.proxy.port = config.services.bazarr.listenPort;
 
     config'.homepage.categories.${cfg.homepage.category}.services.Bazarr = {
       icon = "bazarr.svg";

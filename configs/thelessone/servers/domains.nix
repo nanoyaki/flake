@@ -55,16 +55,6 @@
     };
   };
 
-  services.caddy.virtualHosts."theless.one:443" = {
-    serverAliases = [
-      "*.theless.one:443"
-      "*.vpn.theless.one:443"
-    ];
-    extraConfig = ''
-      tls /var/lib/acme/theless.one/cert.pem /var/lib/acme/theless.one/key.pem
-    '';
-  };
-
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {
     PORKBUN_API_KEY = config.sops.placeholder."porkbun/api-key";
     PORKBUN_SECRET_API_KEY = config.sops.placeholder."porkbun/secret-api-key";

@@ -68,8 +68,7 @@ in
       "f ${config.services.home-assistant.configDir}/scripts.yaml 0755 hass hass"
     ];
 
-    config'.caddy.reverseProxies.${domain}.port =
-      config.services.home-assistant.config.http.server_port;
+    config'.caddy.vHost.${domain}.proxy.port = config.services.home-assistant.config.http.server_port;
 
     config'.homepage.categories.${cfg.homepage.category}.services.Home-assistant = {
       icon = "home-assistant.svg";

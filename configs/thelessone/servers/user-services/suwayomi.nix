@@ -41,21 +41,21 @@ in
     };
   };
 
-  config'.caddy.reverseProxies = {
+  config'.caddy.vHost = {
     "https://manga.theless.one" = {
-      inherit (cfg.thomas.settings.server) port;
+      proxy = { inherit (cfg.thomas.settings.server) port; };
       useMtls = true;
     };
     "https://nik-manga.theless.one" = {
-      inherit (cfg.niklas.settings.server) port;
+      proxy = { inherit (cfg.niklas.settings.server) port; };
       useMtls = true;
     };
     "https://hana-manga.theless.one" = {
-      inherit (cfg.hana.settings.server) port;
+      proxy = { inherit (cfg.hana.settings.server) port; };
       useMtls = true;
     };
     "https://mei-manga.theless.one" = {
-      inherit (cfg.mei.settings.server) port;
+      proxy = { inherit (cfg.mei.settings.server) port; };
       useMtls = true;
     };
   };

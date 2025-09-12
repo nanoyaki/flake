@@ -23,7 +23,7 @@
     ];
   };
 
-  config'.caddy.reverseProxies."https://theless.one".useMtls = true;
+  config'.caddy.vHost."https://theless.one".useMtls = true;
 
   config'.homepage-images.enable = true;
 }

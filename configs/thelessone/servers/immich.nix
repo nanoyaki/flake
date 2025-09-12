@@ -10,7 +10,7 @@
     settings.allowDownloadAll = 1;
   };
 
-  config'.caddy.reverseProxies."https://images.theless.one" = {
+  config'.caddy.vHost."https://images.theless.one".proxy = {
     inherit (config.services.immich-public-proxy) port;
   };
 }

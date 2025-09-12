@@ -52,8 +52,8 @@ in
     };
   };
 
-  config'.caddy.reverseProxies."https://grafana.theless.one" = {
-    port = config.services.grafana.settings.server.http_port;
+  config'.caddy.vHost."https://grafana.theless.one" = {
+    proxy.port = config.services.grafana.settings.server.http_port;
     useMtls = true;
   };
 

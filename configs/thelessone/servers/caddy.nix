@@ -98,7 +98,7 @@ in
     openFirewall = true;
     baseDomain = "theless.one";
 
-    reverseProxies =
+    vHost =
       (mapAttrs' (
         service: _:
         nameValuePair (config.config'.caddy.genDomain config.config'.${service}.subdomain) {
@@ -108,8 +108,10 @@ in
       // {
         # Restic
         "https://100.64.64.1:8123" = {
-          port = 8000;
-          host = "10.0.0.6";
+          proxy = {
+            port = 8000;
+            host = "10.0.0.6";
+          };
           useMtls = true;
         };
       };

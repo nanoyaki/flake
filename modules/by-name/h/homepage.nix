@@ -178,7 +178,7 @@ in
 
     services.glances.enable = true;
 
-    config'.caddy.reverseProxies.${domain}.port = config.services.homepage-dashboard.listenPort;
+    config'.caddy.vHost.${domain}.proxy.port = config.services.homepage-dashboard.listenPort;
 
     systemd.tmpfiles.settings."10-homepage"."/var/log/homepage".d = {
       user = "root";

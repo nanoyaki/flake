@@ -429,5 +429,5 @@ in
     25566
     25567
   ];
-  config'.caddy.reverseProxies."map.theless.one".port = 8100;
+  config'.caddy.vHost."map.theless.one".proxy.port = 8100;
 }

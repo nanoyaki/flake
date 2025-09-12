@@ -32,9 +32,7 @@ in
   config = mkIf cfg.enable {
     services.jellyseerr.enable = true;
 
-    config'.caddy.reverseProxies.${domain} = {
-      inherit (config.services.jellyseerr) port;
-    };
+    config'.caddy.vHost.${domain}.proxy = { inherit (config.services.jellyseerr) port; };
 
     config'.homepage.categories.${cfg.homepage.category}.services.Jellyseerr = {
       icon = "jellyseerr.svg";

@@ -53,7 +53,7 @@ in
       inherit (arr) group;
     };
 
-    config'.caddy.reverseProxies.${domain}.port = 8096;
+    config'.caddy.vHost.${domain}.proxy.port = 8096;
 
     config'.homepage.categories.${cfg.homepage.category}.services.Jellyfin = {
       icon = "jellyfin.svg";

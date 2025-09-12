@@ -85,9 +85,9 @@
     mode = "0750";
   };
 
-  config'.caddy.reverseProxies."gokapi.theless.one" = {
+  config'.caddy.vHost."gokapi.theless.one" = {
+    proxy.port = config.services.gokapi.environment.GOKAPI_PORT;
     useMtls = true;
-    port = config.services.gokapi.environment.GOKAPI_PORT;
   };
 
   config'.homepage.categories.Services.services.Gokapi = rec {

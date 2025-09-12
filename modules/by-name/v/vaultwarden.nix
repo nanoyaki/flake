@@ -12,7 +12,7 @@ let
     mkFalseOption
     ;
 
-  inherit (lib) optionalString mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.config'.vaultwarden;
   domain = config.config'.caddy.genDomain cfg.subdomain;
@@ -43,12 +43,7 @@ in
       };
     };
 
-    config'.caddy.reverseProxies.${domain} = {
-      port = config.services.vaultwarden.config.ROCKET_PORT;
-      extraConfig = optionalString (!config.config'.caddy.useHttps) ''
-        tls internal
-      '';
-    };
+    config'.caddy.vHost.${domain}.proxy.port = config.services.vaultwarden.config.ROCKET_PORT;
 
     config'.homepage.categories.${cfg.homepage.category}.services.Vaultwarden = {
       icon = "bitwarden.svg";

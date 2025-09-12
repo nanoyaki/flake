@@ -23,6 +23,7 @@ let
   inherit (lib)
     mkIf
     replaceStrings
+    mkRenamedOptionModule
     ;
   inherit (lib.strings) optionalString hasInfix;
   inherit (lib.lists) all;
@@ -41,6 +42,22 @@ let
   vpnV6Subnet = config.services.headscale.settings.prefixes.v6;
 
   sanitizeDomain = domain: builtins.replaceStrings [ "." ":" "/" ] [ "_" "-" "-" ] domain;
+
+  deprecatedPath = [
+    "config'"
+    "caddy"
+    "reverseProxies"
+  ];
+  vHostPath = [
+    "config'"
+    "caddy"
+    "vHost"
+  ];
+
+  mkVHostRenamedOpt =
+    oldPath: newPath: mkRenamedOptionModule (deprecatedPath ++ oldPath) (vHostPath ++ newPath);
+
+  enabledHosts = filterAttrs (_: hostCfg: hostCfg.enable) cfg.vHost;
 in
 
 {
@@ -53,10 +70,12 @@ in
     email = mkDefault "hanakretzer@gmail.com" mkStrOption;
     vpnHost = mkDefault "100.64.64.1" mkStrOption;
 
-    reverseProxies = mkAttrsOf (mkSubmoduleOption {
+    vHost = mkAttrsOf (mkSubmoduleOption {
       enable = mkTrueOption;
-      port = mkPortOption;
-      host = mkDefault "localhost" mkStrOption;
+      proxy = {
+        port = mkPortOption;
+        host = mkDefault "localhost" mkStrOption;
+      };
       userEnvVar = mkNullOr mkStrOption;
       extraConfig = mkStrOption;
       serverAliases = mkListOf mkStrOption;
@@ -67,13 +86,24 @@ in
     genDomain = mkFunctionTo mkStrOption;
   };
 
+  imports = [
+    (mkVHostRenamedOpt [ "port" ] [ "proxy" "port" ])
+    (mkVHostRenamedOpt [ "host" ] [ "proxy" "host" ])
+    (mkVHostRenamedOpt [ "enable" ] [ "enable" ])
+    (mkVHostRenamedOpt [ "userEnvVar" ] [ "userEnvVar" ])
+    (mkVHostRenamedOpt [ "extraConfig" ] [ "extraConfig" ])
+    (mkVHostRenamedOpt [ "serverAliases" ] [ "serverAliases" ])
+    (mkVHostRenamedOpt [ "vpnOnly" ] [ "vpnOnly" ])
+    (mkVHostRenamedOpt [ "useMtls" ] [ "useMtls" ])
+  ];
+
   config = mkIf cfg.enable {
     assertions = [
       {
         assertion = all (domain: (hasInfix vpnDomain domain) || (hasInfix "100.64.64" domain)) (
-          attrNames (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies)
+          attrNames (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.vHost)
         );
-        message = "VPN only reverse proxies must use the headscale dns base domain in them";
+        message = "VPN only virtual hosts must use the headscale dns base domain in them";
       }
     ];
 
@@ -96,33 +126,32 @@ in
       '';
 
       virtualHosts = mapAttrs' (
-        domain: proxy:
+        domain: vhost:
         nameValuePair domain {
           extraConfig = ''
-            ${optionalString (proxy.userEnvVar != null) ''
+            ${optionalString (vhost.userEnvVar != null) ''
               basic_auth * {
-                {''$${proxy.userEnvVar}}
+                {''$${vhost.userEnvVar}}
               }
             ''}
 
-            ${optionalString proxy.vpnOnly ''
+            ${optionalString vhost.vpnOnly ''
               @outside-local not client_ip private_ranges ${vpnV4Subnet} ${vpnV6Subnet}
               abort @outside-local
             ''}
 
-            ${optionalString proxy.useMtls ''
-              tls ${
-                optionalString (
-                  config.security.acme.certs ? ${cfg.baseDomain}
-                ) "/var/lib/acme/${cfg.baseDomain}/cert.pem /var/lib/acme/${cfg.baseDomain}/key.pem"
-              } {
+            ${optionalString (!vhost.useMtls && config.security.acme.certs ? ${cfg.baseDomain}) ''
+              tls /var/lib/acme/${cfg.baseDomain}/cert.pem /var/lib/acme/${cfg.baseDomain}/key.pem
+            ''}
+            ${optionalString vhost.useMtls ''
+              tls {
                 client_auth {
                   mode require_and_verify
                   trust_pool file ${config.config'.mtls.dataDir}/ca.crt
                   verifier revocation {
                     mode crl_only
                     crl_config {
-                      work_dir ${config.services.caddy.dataDir}/${sanitizeDomain domain}
+                      work_dir ${config.services.caddy.dataDir}/.cache/${sanitizeDomain domain}
                       crl_file ${config.config'.mtls.dataDir}/ca.crl
                       trusted_signature_cert_file ${config.config'.mtls.dataDir}/ca.crt
                     }
@@ -131,32 +160,40 @@ in
               }
             ''}
 
-            ${proxy.extraConfig}
+            ${vhost.extraConfig}
 
-            reverse_proxy ${proxy.host}:${toString proxy.port}
+            ${optionalString (vhost.proxy.port != 0) ''
+              reverse_proxy ${vhost.proxy.host}:${toString vhost.proxy.port}
+            ''}
           '';
-          inherit (proxy) serverAliases;
+          inherit (vhost) serverAliases;
         }
-      ) (filterAttrs (_: hostCfg: hostCfg.enable) cfg.reverseProxies);
+      ) enabledHosts;
     };
 
     services.headscale.settings.dns.extra_records = mapAttrsToList (domain: _: {
       name = replaceStrings [ "http://" "https://" ] [ "" "" ] domain;
       type = "A";
       value = cfg.vpnHost;
-    }) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.vpnOnly) cfg.reverseProxies);
+    }) (filterAttrs (_: hostCfg: hostCfg.vpnOnly) enabledHosts);
 
     systemd.services.caddy.path = [ pkgs.nssTools ];
 
-    systemd.tmpfiles.settings.caddy-mtls = mapAttrs' (
+    systemd.tmpfiles.settings.caddy-mtls = {
+      "${config.services.caddy.dataDir}/.cache".d = {
+        inherit (config.services.caddy) user group;
+        mode = "750";
+      };
+    }
+    // mapAttrs' (
       domain: _:
-      nameValuePair "${config.services.caddy.dataDir}/${sanitizeDomain domain}" {
+      nameValuePair "${config.services.caddy.dataDir}/.cache/${sanitizeDomain domain}" {
         d = {
           inherit (config.services.caddy) user group;
           mode = "700";
         };
       }
-    ) (filterAttrs (_: hostCfg: hostCfg.enable && hostCfg.useMtls) cfg.reverseProxies);
+    ) (filterAttrs (_: hostCfg: hostCfg.useMtls) enabledHosts);
 
     config'.caddy.genDomain =
       name:

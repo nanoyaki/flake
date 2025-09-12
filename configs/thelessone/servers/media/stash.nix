@@ -336,8 +336,8 @@ in
 
     environment.systemPackages = [ pkgs.chromium ];
 
-    config'.caddy.reverseProxies."https://stash.theless.one" = {
-      inherit (cfg.settings) port;
+    config'.caddy.vHost."https://stash.theless.one" = {
+      proxy = { inherit (cfg.settings) port; };
       useMtls = true;
     };
 

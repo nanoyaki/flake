@@ -55,9 +55,7 @@ in
       database.createLocally = true;
     };
 
-    config'.caddy.reverseProxies.${domain} = {
-      inherit (config.services.paperless) port;
-    };
+    config'.caddy.vHost.${domain}.proxy = { inherit (config.services.paperless) port; };
 
     config'.homepage.categories.${cfg.homepage.category}.services.Paperless = {
       icon = "paperless.svg";

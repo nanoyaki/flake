@@ -30,9 +30,9 @@ jobs:
     needs: build
     steps:
       - name: Full diff
-        run: nvd diff /run/current-system "${{ needs.build.outputs.generation }}"
+        run: dix -v /run/current-system "${{ needs.build.outputs.generation }}"
       - name: Direct dependency diff
-        run: nvd diff /run/current-system "${{ needs.build.outputs.generation }}" -s
+        run: dix /run/current-system "${{ needs.build.outputs.generation }}"
 
   deployment:
     runs-on: native

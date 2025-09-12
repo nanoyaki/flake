@@ -72,7 +72,7 @@ in
         })
         statix
         nix-fast-build
-        nvd
+        dix
         inputs'.rebuild-maintenance.packages.rebuild-maintenance
         inotify-tools
         nixos-rebuild

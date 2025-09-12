@@ -30,9 +30,9 @@ jobs:
     needs: build
     steps:
       - name: Full diff
-        run: nvd diff /etc/systems/thelessnas "${{ needs.build.outputs.generation }}"
+        run: dix -v /etc/systems/thelessnas "${{ needs.build.outputs.generation }}"
       - name: Direct dependency diff
-        run: nvd diff /etc/systems/thelessnas "${{ needs.build.outputs.generation }}" -s
+        run: dix /etc/systems/thelessnas "${{ needs.build.outputs.generation }}"
 
   deployment:
     runs-on: native

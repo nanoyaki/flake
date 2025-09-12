@@ -6,7 +6,7 @@ in
 
 {
   services.caddy.virtualHosts = {
-    "vpn.theless.one".extraConfig = ''
+    "https://vpn.theless.one".extraConfig = ''
       redir https://theless.one 301
     '';
   }

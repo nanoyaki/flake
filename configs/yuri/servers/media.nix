@@ -200,6 +200,8 @@ in
     };
   };
 
+  services.prowlarr.package = pkgs.prowlarr.overrideAttrs { doCheck = false; };
+
   services.transmission.settings = {
     speed-limit-down-enabled = true;
     speed-limit-down = 2000;

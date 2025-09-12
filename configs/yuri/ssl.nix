@@ -1,14 +1,14 @@
 { config, ... }:
 {
   sops.secrets = {
-    "thless.one-certs/client.crt" = {
+    "theless.one-certs/client.crt" = {
       mode = "0444";
       owner = "root";
       group = "thelessone";
       path = "/etc/ssl/certs/client-cert.pem";
     };
 
-    "thless.one-certs/client.key" = {
+    "theless.one-certs/client.key" = {
       mode = "0440";
       owner = "root";
       group = "thelessone";

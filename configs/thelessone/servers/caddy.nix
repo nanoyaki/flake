@@ -61,7 +61,7 @@ in
           "github.com/caddyserver/cache-handler@v0.16.0"
           "github.com/gr33nbl00d/caddy-revocation-validator@v1.0.5"
         ];
-        hash = "sha256-BxvrPs02TOIYDMJzPjzkGTVC7kDA4WJg98XLiRw9rV0=";
+        hash = "sha256-2oV1XmuDqwyne/zcXbOs6VF3fXJ3GUsMmQyV8umfZVc=";
       }
     );
     environmentFile = config.sops.templates."caddy-users.env".path;

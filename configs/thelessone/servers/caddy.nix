@@ -15,7 +15,6 @@ let
 
   excludes = [
     "uptimekuma"
-    "immich"
     "vaultwarden"
     "homepage-images"
     "homepage"

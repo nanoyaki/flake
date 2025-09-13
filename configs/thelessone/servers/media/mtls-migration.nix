@@ -19,7 +19,6 @@ in
         '';
       })
       [
-        "jellyfin"
         "jellyseerr"
         "stash"
         "flood"

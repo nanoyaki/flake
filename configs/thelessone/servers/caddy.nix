@@ -89,6 +89,7 @@ in
       juli = { };
       dowo = { };
       pascal = { };
+      daniel = { };
     };
   };
 

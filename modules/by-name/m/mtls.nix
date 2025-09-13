@@ -24,6 +24,8 @@ let
     mkSubmoduleOption
     mkAttrsOf
     mkIntOption
+    mkStrOption
+    mkNullOr
     ;
 
   cfg = config.config'.mtls;
@@ -56,6 +58,8 @@ in
   options.config'.mtls = {
     enable = mkFalseOption;
     dataDir = mkDefault "/var/lib/mtls" mkPathOption;
+    p12DefaultPassword = mkDefault "default" mkStrOption;
+    p12DefaultPasswordFile = mkNullOr mkPathOption;
 
     clients = mkAttrsOf (
       mkSubmoduleOption (
@@ -65,6 +69,7 @@ in
             basePath = mkDefault "${cfg.dataDir}/clients/${name}" mkPathOption;
             daysValid = mkDefault 3650 mkIntOption;
             isRevoked = mkFalseOption;
+            p12PasswordFile = mkNullOr mkPathOption;
           };
         }
       )
@@ -170,6 +175,17 @@ in
     }
     // mapAttrs' (
       name: client:
+
+      let
+        defaultPassword =
+          if cfg.p12DefaultPasswordFile != null then
+            "file:${cfg.p12DefaultPasswordFile}"
+          else
+            "pass:${cfg.p12DefaultPassword}";
+        password =
+          if client.p12PasswordFile != null then "file:${client.p12PasswordFile}" else defaultPassword;
+      in
+
       nameValuePair "mtls-client-setup-${name}" {
         wantedBy = [ "multi-user.target" ];
         wants = [ "mtls-setup.service" ];
@@ -201,7 +217,7 @@ in
 
           flock -u 200
 
-          openssl pkcs12 -export -passout pass: \
+          openssl pkcs12 -export -passout '${password}' \
             -inkey client.key \
             -in client.crt \
             -certfile '${cfg.dataDir}/ca.crt' \

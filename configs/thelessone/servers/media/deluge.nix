@@ -39,6 +39,14 @@ in
     openFirewall = true;
 
     config = {
+      # This setting is mean
+      auto_managed = false;
+      super_seeding = true;
+
+      max_active_downloading = 999;
+      max_active_seeding = 999;
+      max_active_limit = 999;
+
       max_download_speed = 15000.0;
       max_upload_speed = 2500.0;
       share_ratio_limit = 2.0;

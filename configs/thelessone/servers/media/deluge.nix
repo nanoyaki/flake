@@ -60,6 +60,7 @@ in
       download_location = "/mnt/raid/arr-stack/downloads/transmission/incomplete";
       move_completed = true;
       move_completed_path = "/mnt/raid/arr-stack/downloads/transmission/complete";
+      pre_allocate_storage = true;
     };
 
     authFile = config.sops.templates.deluge-auth.path;

@@ -2,13 +2,13 @@
 
 {
   sops.secrets = {
-    "mailserver/vaultwarden" = { };
+    vaultwarden-smtp-password = { };
     vaultwarden-admin-token = { };
   };
   sops.templates."vaultwarden.env" = {
-    file = (pkgs.formats.keyValue { }).generate "vaultwarden.env" {
-      SMTP_PASSWORD = "'${config.sops.placeholder."mailserver/vaultwarden"}'";
-      # ADMIN_TOKEN = "'${config.sops.placeholder.vaultwarden-admin-token}'";
+    content = (pkgs.formats.keyValue { }).generate "vaultwarden.env.template" {
+      SMTP_PASSWORD = config.sops.placeholder.vaultwarden-smtp-password;
+      # ADMIN_TOKEN= "'${config.sops.placeholder.vaultwarden-admin-token}'";
     };
     restartUnits = [ "vaultwarden.service" ];
   };

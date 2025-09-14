@@ -7,16 +7,44 @@
 }:
 
 let
-  lighthouseScript =
-    state:
-    pkgs.writeShellScript "preStart" ''
-      if ${lib.getExe' pkgs.bluez "bluetoothctl"} list | grep -q "Controller" 
-      then 
-        ${lib.getExe pkgs.lighthouse-steamvr} -s ${state}
+  lighthouseScript = pkgs.writeShellApplication {
+    name = "lighthouse-toggle";
+    runtimeInputs = with pkgs; [
+      bluez
+      lighthouse-steamvr
+      libnotify
+    ];
+    text = ''
+      STATE="''${1:-ON}"
+
+      if timeout 3 bluetoothctl list | grep -q "Controller"
+      then
+        notify-send \
+          -a Monado \
+          -u low \
+          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
+          -t 3000 \
+          "Turning basestations $STATE" \
+          'Please wait a few seconds.'
+        lighthouse -s "$STATE"
+        notify-send \
+          -a Monado \
+          -u low \
+          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
+          -t 3000 \
+          'Done' \
+          "Basestations turned $STATE!"
       else
-        exit 0
+        notify-send \
+          -a Monado \
+          -u low \
+          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
+          -t 3000 \
+          'No bluetooth' \
+          'Bluetooth adapter not found. This might be wanted.'
       fi
     '';
+  };
 in
 
 # https://wiki.nixos.org/wiki/VR#Monado
@@ -64,8 +92,8 @@ in
 
     systemd.user.services.monado = {
       serviceConfig = {
-        ExecStartPre = lighthouseScript "ON";
-        ExecStopPost = lighthouseScript "OFF";
+        ExecStartPre = lib.getExe lighthouseScript;
+        ExecStopPost = "${lib.getExe lighthouseScript} 'OFF'";
       };
 
       environment = {

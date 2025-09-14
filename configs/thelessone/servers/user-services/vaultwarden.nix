@@ -15,7 +15,7 @@
 
   services.vaultwarden = {
     config = {
-      SMTP_HOST = "smtp.gmail.com";
+      SMTP_HOST = "mail.theless.one";
       SMTP_PORT = 587;
       SMTP_SECURITY = "starttls";
 

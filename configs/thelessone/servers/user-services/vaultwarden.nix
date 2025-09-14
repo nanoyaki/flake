@@ -16,11 +16,9 @@
   services.vaultwarden = {
     config = {
       SMTP_HOST = "mail.theless.one";
-      SMTP_PORT = 587;
-      SMTP_SECURITY = "starttls";
+      SMTP_PORT = 465;
 
       SMTP_USERNAME = "vaultwarden@theless.one";
-      SMTP_FROM = "vaultwarden@theless.one";
       SMTP_FROM_NAME = "Vaultwarden Theless.one";
 
       SIGNUPS_ALLOWED = false;

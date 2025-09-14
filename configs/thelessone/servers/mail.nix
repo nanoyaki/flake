@@ -6,6 +6,7 @@
   sops.secrets = {
     "mailserver/nanoyaki" = { };
     "mailserver/thelessone" = { };
+    "mailserver/vaultwarden" = { };
   };
 
   mailserver = {

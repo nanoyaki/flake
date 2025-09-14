@@ -6,7 +6,7 @@
     vaultwarden-admin-token = { };
   };
   sops.templates."vaultwarden.env" = {
-    content = (pkgs.formats.keyValue { }).generate "vaultwarden.env.template" {
+    file = (pkgs.formats.keyValue { }).generate "vaultwarden.env.template" {
       SMTP_PASSWORD = config.sops.placeholder.vaultwarden-smtp-password;
       # ADMIN_TOKEN= "'${config.sops.placeholder.vaultwarden-admin-token}'";
     };

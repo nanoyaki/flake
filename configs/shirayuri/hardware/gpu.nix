@@ -19,7 +19,10 @@
     };
   };
 
-  environment.variables.VDPAU_DRIVER = "radeonsi";
+  environment.variables = {
+    VDPAU_DRIVER = "radeonsi";
+    AMD_VULKAN_ICD = "RADV";
+  };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.lact = {

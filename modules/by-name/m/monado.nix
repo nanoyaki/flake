@@ -52,6 +52,17 @@ in
   options.config'.monado.enable = lib'.options.mkFalseOption;
 
   config = lib.mkIf config.config'.monado.enable {
+    nixpkgs.overlays = [
+      (_: prev: {
+        monado = prev.monado.overrideAttrs (oldAttrs: {
+          buildInputs = builtins.filter (x: x != prev.opencv) oldAttrs.buildInputs;
+          cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
+            "-DBUILD_WITH_OPENCV=OFF"
+          ];
+        });
+      })
+    ];
+
     hm.xdg.configFile."openvr/openvrpaths.vrpath".text = ''
       {
         "config" :
@@ -67,6 +78,7 @@ in
         "runtime" :
         [
           "${pkgs.opencomposite-vendored}/lib/opencomposite",
+          "${pkgs.xrizer}/lib/xrizer",
           "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR"
         ],
         "version" : 1
@@ -102,6 +114,7 @@ in
         STEAMVR_LH_ENABLE = "1";
         XRT_COMPOSITOR_COMPUTE = "1";
         WMR_HANDTRACKING = "1";
+        # LH_HANDTRACKING = "on";
       };
     };
 

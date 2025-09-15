@@ -1,42 +1,10 @@
 {
-  lib,
-  pkgs,
   inputs,
-  config,
   ...
 }:
 
 let
   inherit (inputs) vermeer-undervolt;
-
-  corectrlDesktop = pkgs.makeDesktopItem {
-    name = pkgs.corectrl.pname;
-    desktopName = "CoreCtrl";
-    genericName = "Core control";
-    comment = "Control your computer with ease using application profiles";
-    exec = "${lib.getExe' pkgs.corectrl "corectrl"} --minimize-systray";
-    icon = "corectrl";
-    startupNotify = true;
-    startupWMClass = "corectrl";
-    terminal = false;
-    categories = [
-      "System"
-      "Settings"
-      "Utility"
-    ];
-    keywords = [
-      "control"
-      "system"
-      "hardware"
-      "frequency"
-      "fan"
-      "voltage"
-      "overclock"
-      "underclock"
-      "gpu"
-      "cpu"
-    ];
-  };
 in
 
 {
@@ -50,13 +18,7 @@ in
   ];
 
   hardware.cpu.amd.updateMicrocode = true;
-
-  security.polkit.enable = true;
-  hm.xdg.autostart.entries = [
-    "${corectrlDesktop}/share/applications/${pkgs.corectrl.pname}.desktop"
-  ];
-  programs.corectrl.enable = true;
-  users.users.${config.config'.mainUserName}.extraGroups = [ "corectrl" ];
+  services.power-profiles-daemon.enable = true;
 
   services.vermeer-undervolt = {
     enable = true;

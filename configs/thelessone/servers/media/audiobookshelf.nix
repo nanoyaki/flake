@@ -23,6 +23,11 @@ in
     useMtls = true;
   };
 
+  config'.caddy.vHost.${config.config'.caddy.genDomain "audiobookshelf.vpn"} = {
+    proxy = { inherit (config.services.audiobookshelf) port; };
+    vpnOnly = true;
+  };
+
   config'.homepage.categories.Media.services.Audiobookshelf = {
     icon = "audiobookshelf.svg";
     href = domain;

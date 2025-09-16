@@ -22,7 +22,6 @@ in
         "jellyseerr"
         "stash"
         "flood"
-        "audiobookshelf"
         "immich"
         "sabnzbd"
         "gokapi"

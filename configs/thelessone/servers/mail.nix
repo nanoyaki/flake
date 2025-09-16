@@ -33,6 +33,9 @@
           "nano@nanoyaki.space"
           "contact@nanoyaki.space"
         ];
+        aliasesRegexp = [
+          ''/^nano(\.|\+).*@nanoyaki\.space$/''
+        ];
       };
       "thelessone@theless.one" = {
         hashedPasswordFile = config.sops.secrets."mailserver/thelessone".path;

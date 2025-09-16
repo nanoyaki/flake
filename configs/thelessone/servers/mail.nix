@@ -4,6 +4,7 @@
   imports = [ inputs.snm.nixosModules.mailserver ];
 
   sops.secrets = {
+    "mailserver/postmaster" = { };
     "mailserver/nanoyaki" = { };
     "mailserver/thelessone" = { };
     "mailserver/vaultwarden" = { };

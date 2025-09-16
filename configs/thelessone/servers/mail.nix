@@ -19,10 +19,13 @@
     ];
 
     loginAccounts = {
+      "postmaster@theless.one" = {
+        hashedPasswordFile = config.sops.secrets."mailserver/postmaster".path;
+        aliases = [ "postmaster@nanoyaki.space" ];
+      };
       "nanoyaki@theless.one" = {
         hashedPasswordFile = config.sops.secrets."mailserver/nanoyaki".path;
         aliases = [
-          "postmaster@theless.one"
           "hana@theless.one"
           "hanakretzer@nanoyaki.space"
           "hana@nanoyaki.space"

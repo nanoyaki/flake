@@ -28,11 +28,15 @@
           "hana@nanoyaki.space"
           "nanoyaki@nanoyaki.space"
           "nano@nanoyaki.space"
+          "contact@nanoyaki.space"
         ];
       };
       "thelessone@theless.one" = {
         hashedPasswordFile = config.sops.secrets."mailserver/thelessone".path;
-        aliases = [ "thomas@theless.one" ];
+        aliases = [
+          "thomas@theless.one"
+          "contact@theless.one"
+        ];
       };
       "vaultwarden@theless.one" = {
         sendOnly = true;

@@ -17,6 +17,8 @@
     config = {
       SMTP_HOST = "mail.theless.one";
       SMTP_PORT = 465;
+      SMTP_SECURITY = "force_tls";
+      SMTP_DEBUG = true;
 
       SMTP_USERNAME = "vaultwarden@theless.one";
       SMTP_FROM = "vaultwarden@theless.one";

@@ -13,7 +13,10 @@
     enable = true;
     stateVersion = 3;
     fqdn = "mail.theless.one";
-    domains = [ "theless.one" ];
+    domains = [
+      "theless.one"
+      "nanoyaki.space"
+    ];
 
     loginAccounts = {
       "nanoyaki@theless.one" = {
@@ -21,6 +24,10 @@
         aliases = [
           "postmaster@theless.one"
           "hana@theless.one"
+          "hanakretzer@nanoyaki.space"
+          "hana@nanoyaki.space"
+          "nanoyaki@nanoyaki.space"
+          "nano@nanoyaki.space"
         ];
       };
       "thelessone@theless.one" = {

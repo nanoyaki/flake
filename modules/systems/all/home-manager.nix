@@ -5,6 +5,7 @@
   self',
   inputs,
   config,
+  pkgs,
   ...
 }:
 
@@ -62,5 +63,12 @@ in
         inherit (user.home) stateVersion;
       };
     }) config.config'.users;
+  };
+
+  hms = lib.singleton {
+    home.activation.deleteHmBackups = config.hm.lib.dag.entryBefore [ "checkLinkTargets" ] ''
+      run ${lib.getExe pkgs.findutils} $HOME ! -readable -prune -o -readable -name "*.home-bac" -print \
+        | ${lib.getExe' pkgs.findutils "xargs"} rm -rf
+    '';
   };
 }

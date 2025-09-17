@@ -67,8 +67,9 @@ in
 
   hms = lib.singleton {
     home.activation.deleteHmBackups = config.hm.lib.dag.entryBefore [ "checkLinkTargets" ] ''
-      run ${lib.getExe pkgs.findutils} $HOME ! -readable -prune -o -readable -name "*.home-bac" -print \
-        | ${lib.getExe' pkgs.findutils "xargs"} rm -rf
+      run ${lib.getExe pkgs.findutils} $HOME \
+          ! -readable -prune -o \
+          -readable -name "*.home-bac" -exec rm -rf {} + || true
     '';
   };
 }

@@ -112,7 +112,7 @@ in
       homepage.category = services;
     };
 
-    paperless.enable = true;
+    paperless.enable = false;
     paperless.homepage = {
       category = services;
       description = "Dokumente management";

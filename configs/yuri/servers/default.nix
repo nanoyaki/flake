@@ -8,5 +8,6 @@
     ./restic.nix
     ./uptime-kuma.nix
     ./caddy.nix
+    ./home-assistant.nix
   ];
 }

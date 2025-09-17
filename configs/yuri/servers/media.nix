@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 let
   mediaServices = "Medien Dienste";
@@ -118,12 +118,6 @@ in
       description = "Dokumente management";
     };
 
-    home-assistant.enable = true;
-    home-assistant.homepage = {
-      category = services;
-      description = "Smart Home";
-    };
-
     vaultwarden = {
       enable = false;
 
@@ -152,52 +146,6 @@ in
 
     vopono.enable = true;
     vopono.dataDir = "${varLib}/vopono";
-  };
-
-  sops.secrets = {
-    "home-assistant/latitudeHome" = { };
-    "home-assistant/longitudeHome" = { };
-  };
-  sops.templates."secrets.yaml" = {
-    file = (pkgs.formats.yaml { }).generate "secrets.yaml" {
-      latitude_home = config.sops.placeholder."home-assistant/latitudeHome";
-      longitude_home = config.sops.placeholder."home-assistant/longitudeHome";
-    };
-
-    owner = "hass";
-    group = "hass";
-    mode = "0440";
-    path = "${config.services.home-assistant.configDir}/secrets.yaml";
-    restartUnits = [ "home-assistant.service" ];
-  };
-
-  services.home-assistant = {
-    extraComponents = [
-      "tplink"
-      "tplink_tapo"
-    ];
-
-    config = {
-      zone = [
-        {
-          name = "Home";
-          latitude = "!secret latitude_home";
-          longitude = "!secret longitude_home";
-          radius = 25;
-          icon = "mdi:home";
-        }
-      ];
-
-      homeassistant = {
-        name = "Zuhause";
-
-        latitude = "!secret latitude_home";
-        longitude = "!secret longitude_home";
-
-        unit_system = "metric";
-        time_zone = "Europe/Berlin";
-      };
-    };
   };
 
   services.prowlarr.package = pkgs.prowlarr.overrideAttrs { doCheck = false; };

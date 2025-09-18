@@ -1,23 +1,28 @@
 {
   inputs,
+  lib,
+  lib',
   pkgs,
   config,
   ...
 }:
 
 let
+  inherit (lib)
+    nameValuePair
+    mapAttrs'
+    toLower
+    attrNames
+    filter
+    hasPrefix
+    listToAttrs
+    ;
   inherit (inputs) copyparty;
   cfg = config.services.copyparty;
 
   defaults.flags = {
     fka = 32;
     dks = true;
-  };
-
-  mkPrivateVol = user: {
-    path = "/mnt/raid/copyparty-priv/${user}";
-    access.A = user;
-    inherit (defaults) flags;
   };
 in
 
@@ -30,6 +35,7 @@ in
     "copyparty/sebi".owner = cfg.user;
     "copyparty/thomas".owner = cfg.user;
     "copyparty/ashley".owner = cfg.user;
+    "copyparty/nik".owner = cfg.user;
   };
 
   systemd.services.copyparty.serviceConfig.BindPaths = [ "/run/sockets" ];
@@ -77,12 +83,14 @@ in
       no-dupe = true;
     };
 
-    accounts = {
-      Hana.passwordFile = config.sops.secrets."copyparty/hana".path;
-      Sebi.passwordFile = config.sops.secrets."copyparty/sebi".path;
-      Thomas.passwordFile = config.sops.secrets."copyparty/thomas".path;
-      Ashley.passwordFile = config.sops.secrets."copyparty/ashley".path;
-    };
+    accounts = listToAttrs (
+      map (
+        attr:
+        nameValuePair (lib'.toUppercase (lib.removePrefix "copyparty/" attr)) {
+          passwordFile = config.sops.secrets.${attr}.path;
+        }
+      ) (filter (attr: hasPrefix "copyparty/" attr) (attrNames config.sops.secrets))
+    );
 
     volumes = {
       "/" = {
@@ -93,11 +101,6 @@ in
         };
         inherit (defaults) flags;
       };
-
-      "/ashley" = mkPrivateVol "Ashley";
-      "/hana" = mkPrivateVol "Hana";
-      "/thomas" = mkPrivateVol "Thomas";
-      "/sebi" = mkPrivateVol "Sebi";
 
       "/shared" = {
         path = "/mnt/raid/copyparty/shared";
@@ -122,7 +125,15 @@ in
           g = "*";
         };
       };
-    };
+    }
+    // mapAttrs' (
+      user: _:
+      nameValuePair "/${toLower user}" {
+        path = "/mnt/raid/copyparty-priv/${user}";
+        access.A = user;
+        inherit (defaults) flags;
+      }
+    ) cfg.accounts;
   };
 
   systemd.tmpfiles.settings.sockets-dir."/run/sockets".d = {

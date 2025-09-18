@@ -88,7 +88,7 @@ in
       "/" = {
         path = "/mnt/raid/copyparty";
         access = {
-          r = "acct";
+          r = "@acct";
           A = "Hana";
         };
         inherit (defaults) flags;

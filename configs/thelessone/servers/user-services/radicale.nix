@@ -75,16 +75,20 @@ in
     ];
   };
 
-  systemd.services.radicale.serviceConfig.ExecStart = mkForce (
-    concatStringsSep " " (
-      [
-        (getExe pkgs.radicale)
-        "-C"
-        (format.generate "radicale.conf" cfg.settings)
-      ]
-      ++ cfg.extraArgs
-    )
-  );
+  systemd.services.radicale.serviceConfig = {
+    ExecStart = mkForce (
+      concatStringsSep " " (
+        [
+          (getExe pkgs.radicale)
+          "-C"
+          (format.generate "radicale.conf" cfg.settings)
+        ]
+        ++ cfg.extraArgs
+      )
+    );
+    ReadWritePaths = [ "/run/dovecot2/auth-client" ];
+    User = mkForce "dovecot2";
+  };
 
   config'.caddy.vHost.${config.config'.caddy.genDomain "calendar"}.proxy.port = 5232;
 }

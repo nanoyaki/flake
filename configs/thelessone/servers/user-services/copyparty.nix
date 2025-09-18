@@ -81,6 +81,7 @@ in
       ban-pw = "3,60,1440";
       grp-all = "acct";
       no-dupe = true;
+      usernames = true;
     };
 
     accounts = listToAttrs (

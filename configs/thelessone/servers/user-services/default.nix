@@ -8,5 +8,6 @@
     # ./woodpecker.nix
     ./fireshare.nix
     ./copyparty.nix
+    ./radicale.nix
   ];
 }

@@ -8,6 +8,7 @@
     "mailserver/nanoyaki" = { };
     "mailserver/thelessone" = { };
     "mailserver/vaultwarden" = { };
+    "mailserver/calendar" = { };
   };
 
   mailserver = {
@@ -48,6 +49,10 @@
       "vaultwarden@theless.one" = {
         sendOnly = true;
         hashedPasswordFile = config.sops.secrets."mailserver/vaultwarden".path;
+      };
+      "calendar@theless.one" = {
+        sendOnly = true;
+        hashedPasswordFile = config.sops.secrets."mailserver/calendar".path;
       };
     };
 

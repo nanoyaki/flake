@@ -15,7 +15,7 @@ let
   };
 
   mkPrivateVol = user: {
-    path = "/mnt/raid/copyparty/${user}";
+    path = "/mnt/raid/copyparty-priv/${user}";
     access.A = user;
     inherit (defaults) flags;
   };

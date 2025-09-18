@@ -7,7 +7,6 @@
     # Disabled for now
     # ./woodpecker.nix
     ./fireshare.nix
-    ./gokapi.nix
     ./copyparty.nix
   ];
 }

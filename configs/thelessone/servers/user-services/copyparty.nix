@@ -65,8 +65,6 @@ in
       e2dsa = true;
       e2vp = true;
       df = "100g";
-      # GDPR
-      no-db-ip = true;
       xdev = true;
       xvol = true;
       grid = true;
@@ -78,10 +76,10 @@ in
       dk = 48;
       chmod-f = 640;
       chmod-d = 750;
-      ban-pw = "3,60,1440";
+      ban-pw = "5,60,1440";
       grp-all = "acct";
       no-dupe = true;
-      usernames = true;
+      # usernames = true;
     };
 
     accounts = listToAttrs (
@@ -147,4 +145,11 @@ in
   config'.caddy.vHost.${config.config'.caddy.genDomain "files"}.extraConfig = ''
     reverse_proxy unix//run/sockets/copyparty.sock
   '';
+
+  config'.homepage.categories.Services.services.Copyparty = rec {
+    description = "File server like dropbox/google drive";
+    icon = "copyparty.svg";
+    href = "https://files.theless.one";
+    siteMonitor = href;
+  };
 }

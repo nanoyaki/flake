@@ -11,7 +11,7 @@ let
     concatMapStringsSep
     concatStringsSep
     mkForce
-    getExe
+    getExe'
     ;
 
   format = pkgs.formats.ini {
@@ -84,7 +84,7 @@ in
   systemd.services.radicale.serviceConfig.ExecStart = mkForce (
     concatStringsSep " " (
       [
-        (getExe pkgs.radicale)
+        (getExe' pkgs.radicale "radicale")
         "-C"
         (format.generate "radicale.conf" cfg.settings)
       ]

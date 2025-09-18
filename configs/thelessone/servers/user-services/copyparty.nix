@@ -8,6 +8,17 @@
 let
   inherit (inputs) copyparty;
   cfg = config.services.copyparty;
+
+  defaults.flags = {
+    fka = 32;
+    dks = true;
+  };
+
+  mkPrivateVol = user: {
+    path = "/mnt/raid/copyparty/${user}";
+    access.A = user;
+    inherit (defaults) flags;
+  };
 in
 
 {
@@ -18,6 +29,7 @@ in
     "copyparty/hana".owner = cfg.user;
     "copyparty/sebi".owner = cfg.user;
     "copyparty/thomas".owner = cfg.user;
+    "copyparty/ashley".owner = cfg.user;
   };
 
   systemd.services.copyparty.serviceConfig.BindPaths = [ "/run/sockets" ];
@@ -61,21 +73,31 @@ in
       chmod-f = 640;
       chmod-d = 750;
       ban-pw = "3,60,1440";
+      grp-all = "acct";
+      no-dupe = true;
     };
 
     accounts = {
       Hana.passwordFile = config.sops.secrets."copyparty/hana".path;
       Sebi.passwordFile = config.sops.secrets."copyparty/sebi".path;
       Thomas.passwordFile = config.sops.secrets."copyparty/thomas".path;
+      Ashley.passwordFile = config.sops.secrets."copyparty/ashley".path;
     };
 
-    volumes."/" = {
-      path = "/mnt/raid/copyparty";
-      access.r = "*";
-      flags = {
-        fka = 32;
-        dks = true;
+    volumes = {
+      "/" = {
+        path = "/mnt/raid/copyparty";
+        access = {
+          r = "acct";
+          A = "Hana";
+        };
+        inherit (defaults) flags;
       };
+
+      "/ashley" = mkPrivateVol "Ashley";
+      "/hana" = mkPrivateVol "Hana";
+      "/thomas" = mkPrivateVol "Thomas";
+      "/sebi" = mkPrivateVol "Sebi";
     };
   };
 

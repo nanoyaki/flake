@@ -44,7 +44,7 @@ in
       shr = "/share";
       no-reload = true;
       name = "Theless.one files";
-      theme = 2;
+      theme = 0;
 
       # Password options
       chpw = true;

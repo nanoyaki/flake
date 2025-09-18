@@ -67,7 +67,7 @@ in
 
     virtualHosts = {
       "na55l3zepb4kcg0zryqbdnay.theless.one".extraConfig = mkFileServer "/var/www/theless.one";
-      "files.theless.one".extraConfig = mkFileServer "/var/lib/caddy/files";
+      "legacyfiles.theless.one".extraConfig = mkFileServer "/var/lib/caddy/files";
 
       "vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";
       "www.vappie.space".extraConfig = mkRedirect "https://bsky.app/profile/vappie.space";

@@ -92,7 +92,7 @@
 
   config'.homepage.categories.Services.services.Gokapi = rec {
     description = "File sharing platform";
-    icon = "https://files.theless.one/plasmavault.svg";
+    icon = "https://legacyfiles.theless.one/plasmavault.svg";
     href = "https://gokapi.theless.one/login";
     siteMonitor = href;
   };

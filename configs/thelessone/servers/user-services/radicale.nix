@@ -30,9 +30,9 @@ in
       server.hosts = [ "0.0.0.0:5232" ];
 
       auth = {
-        type = "dovecot";
-        dovecot_connection_type = "AF_UNIX";
-        dovecot_socket = "/run/dovecot2/auth-client";
+        type = "imap";
+        imap_host = "imap.theless.one";
+        imap_security = "tls";
       };
 
       storage = {
@@ -70,25 +70,27 @@ in
       };
     };
 
+    rights.calendars = {
+      user = ".+";
+      collection = "{user}/[^/]+";
+      permissions = "rw";
+    };
+
     extraArgs = [
       ''--hook-smtp-password="$(cat ${config.sops.secrets.radicale-smtp-password.path})"''
     ];
   };
 
-  systemd.services.radicale.serviceConfig = {
-    ExecStart = mkForce (
-      concatStringsSep " " (
-        [
-          (getExe pkgs.radicale)
-          "-C"
-          (format.generate "radicale.conf" cfg.settings)
-        ]
-        ++ cfg.extraArgs
-      )
-    );
-    ReadWritePaths = [ "/run/dovecot2/auth-client" ];
-    User = mkForce "dovecot2";
-  };
+  systemd.services.radicale.serviceConfig.ExecStart = mkForce (
+    concatStringsSep " " (
+      [
+        (getExe pkgs.radicale)
+        "-C"
+        (format.generate "radicale.conf" cfg.settings)
+      ]
+      ++ cfg.extraArgs
+    )
+  );
 
   config'.caddy.vHost.${config.config'.caddy.genDomain "calendar"}.proxy.port = 5232;
 }

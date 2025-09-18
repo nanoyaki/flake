@@ -86,7 +86,7 @@ in
 
     volumes = {
       "/" = {
-        path = "/mnt/raid/copyparty";
+        path = "/mnt/raid/copyparty/root";
         access = {
           r = "@acct";
           A = "Hana";
@@ -98,6 +98,30 @@ in
       "/hana" = mkPrivateVol "Hana";
       "/thomas" = mkPrivateVol "Thomas";
       "/sebi" = mkPrivateVol "Sebi";
+
+      "/shared" = {
+        path = "/mnt/raid/copyparty/shared";
+        access = {
+          "rwmd." = "@acct";
+          A = [
+            "Hana"
+            "Thomas"
+          ];
+        };
+        inherit (defaults) flags;
+      };
+
+      "/shared-public-download" = {
+        path = "/mnt/raid/copyparty/public";
+        access = {
+          "rwmd." = "@acct";
+          A = [
+            "Hana"
+            "Thomas"
+          ];
+          g = "*";
+        };
+      };
     };
   };
 

@@ -12,11 +12,9 @@ in
     enable = true;
     package = pkgs.copyparty.override { inherit (pkgs) partftpy; };
     mkHashWrapper = true;
-  };
-
-  fileSystems."/var/lib/copyparty" = {
-    device = "/mnt/raid/copyparty";
-    depends = [ "/mnt/raid" ];
-    options = [ "bind" ];
+    volumes."/" = {
+      path = "/mnt/raid/copyparty";
+      access.r = "*";
+    };
   };
 }

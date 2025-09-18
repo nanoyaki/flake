@@ -14,6 +14,12 @@ in
   imports = [ copyparty.nixosModules.default ];
   nixpkgs.overlays = [ copyparty.overlays.default ];
 
+  sops.secrets = {
+    "copyparty/hana".owner = cfg.user;
+    "copyparty/sebi".owner = cfg.user;
+    "copyparty/thomas".owner = cfg.user;
+  };
+
   systemd.services.copyparty.serviceConfig.BindPaths = [ "/run/sockets" ];
   services.copyparty = {
     enable = true;
@@ -56,6 +62,13 @@ in
       chmod-d = 750;
       ban-pw = "3,60,1440";
     };
+
+    accounts = {
+      Hana.passwordFile = config.sops.secrets."copyparty/hana".path;
+      Sebi.passwordFile = config.sops.secrets."copyparty/sebi".path;
+      Thomas.passwordFile = config.sops.secrets."copyparty/thomas".path;
+    };
+
     volumes."/" = {
       path = "/mnt/raid/copyparty";
       access.r = "*";

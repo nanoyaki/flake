@@ -9,12 +9,17 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
-    startWhenNeeded = true;
 
     settings = {
       PasswordAuthentication = false;
       AcceptEnv = "GIT_PROTOCOL";
     };
+  };
+
+  systemd.services.sshd = {
+    before = [ "multi-user.target" ];
+    unitConfig.DefaultDependencies = false;
+    serviceConfig.Restart = "always";
   };
 
   boot.initrd.network.ssh = {

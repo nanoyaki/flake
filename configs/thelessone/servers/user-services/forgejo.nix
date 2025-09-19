@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  inputs',
   config,
   ...
 }:
@@ -68,7 +67,6 @@ in
           statix
           nix-fast-build
           dix
-          inputs'.rebuild-maintenance.packages.rebuild-maintenance
           inotify-tools
           nh
         ];

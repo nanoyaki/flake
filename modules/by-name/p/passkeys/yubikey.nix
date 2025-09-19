@@ -45,5 +45,12 @@
     programs.ssh.extraConfig = ''
       AddKeysToAgent yes
     '';
+
+    hms = lib.singleton {
+      programs.gpg = {
+        enable = true;
+        scdaemonSettings.disable-ccid = true;
+      };
+    };
   };
 }

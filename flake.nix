@@ -120,14 +120,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    md2img = {
-      url = "github:nanoyaki/md2img";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rebuild-maintenance = {
-      url = "git+https://codeberg.org/nanoyaki/rebuild-maintenance.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
     # eh, i don't use it that much anyway
     # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";

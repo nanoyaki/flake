@@ -835,26 +835,6 @@
         "type": "github"
       }
     },
-    "md2img": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1753192581,
-        "narHash": "sha256-jWoh86ON/s9GemV3aovrzMqhTLPlfR9HkoTqcZmWFkI=",
-        "owner": "nanoyaki",
-        "repo": "md2img",
-        "rev": "8c09464a250e74c13c94f44bd9331223198a6fc3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nanoyaki",
-        "repo": "md2img",
-        "type": "github"
-      }
-    },
     "nanopkgs": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -1244,26 +1224,6 @@
         "type": "github"
       }
     },
-    "rebuild-maintenance": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1756383972,
-        "narHash": "sha256-r5GD971R8rNaONMxdTBIdkuVvkrjMIXXREoruw7PJQY=",
-        "ref": "refs/heads/main",
-        "rev": "a6484afb52457ccdae285597c5a856e9c1c68d29",
-        "revCount": 7,
-        "type": "git",
-        "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/nanoyaki/rebuild-maintenance.git"
-      }
-    },
     "root": {
       "inputs": {
         "aagl": "aagl",
@@ -1278,7 +1238,6 @@
         "killheal": "killheal",
         "lanzaboote": "lanzaboote",
         "lazy-apps": "lazy-apps",
-        "md2img": "md2img",
         "nanopkgs": "nanopkgs",
         "nix-minecraft": "nix-minecraft",
         "nixgl": "nixgl",
@@ -1291,7 +1250,6 @@
         "nur": "nur",
         "plasma-manager": "plasma-manager",
         "prismlauncher": "prismlauncher",
-        "rebuild-maintenance": "rebuild-maintenance",
         "rust-overlay": "rust-overlay",
         "snm": "snm",
         "sops-nix": "sops-nix",

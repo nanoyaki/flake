@@ -70,10 +70,18 @@ in
       };
     };
 
-    rights.calendars = {
-      user = ".+";
-      collection = "{user}/[^/]+";
-      permissions = "rw";
+    rights = {
+      owner = {
+        user = ".+";
+        collection = "{user}(/.*)?";
+        permissions = "rw";
+      };
+
+      public = {
+        user = ".+";
+        collection = ".*";
+        permissions = "";
+      };
     };
 
     extraArgs = [

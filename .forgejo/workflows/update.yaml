@@ -73,6 +73,7 @@ jobs:
           -d '{
             "Do": "merge",
             "delete_branch_after_merge": true,
-            "merge_when_checks_succeed": true
+            "merge_when_checks_succeed": true,
+            "force_merge": false
           }'
           "${FORGEJO_API_URL}/repos/${FORGEJO_REPOSITORY}/pulls/${PR_NUMBER}/merge"

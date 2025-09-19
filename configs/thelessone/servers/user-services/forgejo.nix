@@ -25,58 +25,59 @@ in
   };
 
   sops.secrets = {
-    github-token.sopsFile = config.config'.sops.sharedSopsFile;
-    "forgejo/runner" = { };
+    "forgejo/kikyo" = { };
+    "forgejo/syakuyaku" = { };
   };
-  sops.templates."forgejo-runner-default.env".file =
-    (pkgs.formats.keyValue { }).generate "forgejo-runner-default.env.template"
-      {
-        TOKEN = config.sops.placeholder."forgejo/runner";
-        NIX_CONFIG = ''"extra-access-tokens = github.com=${config.sops.placeholder.github-token}"'';
-      };
+
+  sops.templates."kikyo.env".content = ''
+    TOKEN=${config.sops.placeholder."forgejo/kikyo"}
+  '';
+
+  sops.templates."syakuyaku.env".content = ''
+    TOKEN=${config.sops.placeholder."forgejo/syakuyaku"}
+  '';
 
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
 
-    instances.default = {
-      enable = true;
-      name = "monolith";
-      url = "https://git.theless.one";
-      tokenFile = config.sops.templates."forgejo-runner-default.env".path;
+    instances = rec {
+      kikyo = {
+        enable = true;
+        name = "kikyo";
+        url = "https://git.theless.one";
+        tokenFile = config.sops.templates."kikyo.env".path;
 
-      labels = [ "native:host" ];
-      hostPackages = with pkgs; [
-        # essentials
-        bash
-        coreutils
-        curl
-        gawk
-        git
-        git-lfs
-        gnused
-        nodejs
-        wget
-        which
-        iputils
-        tea
+        labels = [ "native:host" ];
+        hostPackages = with pkgs; [
+          # essentials
+          bash
+          coreutils
+          curl
+          gawk
+          git
+          git-lfs
+          gnused
+          nodejs
+          wget
+          which
+          iputils
+          tea
 
-        nix
-        (pkgs.symlinkJoin {
-          name = "openssh-wrapped";
-          paths = [ pkgs.openssh ];
-          nativeBuildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram "$out/bin/ssh" \
-              --add-flags '"''${EXTRA_SSH_OPTS[@]}"'
-          '';
-        })
-        statix
-        nix-fast-build
-        dix
-        inputs'.rebuild-maintenance.packages.rebuild-maintenance
-        inotify-tools
-        nixos-rebuild
-      ];
+          nix
+          openssh
+          statix
+          nix-fast-build
+          dix
+          inputs'.rebuild-maintenance.packages.rebuild-maintenance
+          inotify-tools
+          nh
+        ];
+      };
+
+      syakuyaku = kikyo // {
+        name = "syakuyaku";
+        tokenFile = config.sops.templates."syakuyaku.env".path;
+      };
     };
   };
 

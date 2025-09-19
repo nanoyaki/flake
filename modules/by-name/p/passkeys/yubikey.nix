@@ -51,6 +51,14 @@
         enable = true;
         scdaemonSettings.disable-ccid = true;
       };
+
+      services.gpg-agent = {
+        enable = true;
+        pinentry = {
+          package = pkgs.pinentry-qt;
+          program = "pinentry";
+        };
+      };
     };
   };
 }

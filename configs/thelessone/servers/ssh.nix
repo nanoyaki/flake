@@ -40,5 +40,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzjVKp+9/40ZNdwnOGkon6UODYEy1gtRmyh/HImB0vG hana@kuroyuri" # kuroyuri-primary
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP3poqMv85Pqb5gwZRZYN2BLW+OAiMT5ZA0tQHUo977W hana@shirayuri" # shirayuri-primary
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMc3xjLJxASdTuLIrsvok5Wpm5N8TO1CI9vHt2z3oPPC hana@shirayuri" # deployment
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuNzYml4oUphZrlPy97cthsJj8WLBBN4FGEEGuf9RJY"
   ];
 }

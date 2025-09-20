@@ -33,6 +33,8 @@ in
         type = "imap";
         imap_host = "imap.theless.one";
         imap_security = "tls";
+
+        urldecode_username = true;
       };
 
       storage = {

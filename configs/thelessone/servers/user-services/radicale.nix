@@ -71,16 +71,22 @@ in
     };
 
     rights = {
+      ownercol = {
+        user = ".+";
+        collection = "{user}(/)?";
+        permissions = "RW";
+      };
+
       owner = {
         user = ".+";
-        collection = "{user}(/.*)?";
+        collection = "{user}/[^/]+";
         permissions = "rw";
       };
 
       public = {
         user = ".+";
-        collection = ".*";
-        permissions = "";
+        collection = "";
+        permissions = "R";
       };
     };
 

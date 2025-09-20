@@ -24,7 +24,6 @@
         ./backup.nix
         ./librewolf.nix
         ./qemu.nix
-        ./ssl.nix
       ];
 
       system.stateVersion = "24.11";

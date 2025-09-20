@@ -2,8 +2,8 @@
 
 let
   name = "nanoyaki";
-  email = "hanakretzer@gmail.com";
-  signingkey = "4682C5CB4D9DEA3C";
+  email = "hanakretzer@nanoyaki.space";
+  signingkey = "31A8CE0D2E7D30C3";
 in
 
 {
@@ -11,9 +11,7 @@ in
     userName = name;
     userEmail = email;
 
-    aliases = {
-      co = "checkout";
-    };
+    aliases.co = "checkout";
 
     signing = {
       key = signingkey;
@@ -22,6 +20,8 @@ in
       signByDefault = true;
     };
   };
+
+  hm.programs.gpg.settings.default-key = signingkey;
 
   programs.git.config = {
     user = {

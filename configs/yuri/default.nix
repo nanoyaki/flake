@@ -19,7 +19,6 @@
         ./ssh.nix
         ./servers
         ./deployment.nix
-        ./ssl.nix
       ];
 
       system.stateVersion = "25.05";

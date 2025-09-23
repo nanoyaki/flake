@@ -30,6 +30,7 @@
     feishin
     # grayjay
     prismlauncher
+    melonDS
   ];
 
   programs.thunderbird.enable = true;

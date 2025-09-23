@@ -32,6 +32,8 @@
     prismlauncher
   ];
 
+  programs.thunderbird.enable = true;
+
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";

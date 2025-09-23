@@ -10,7 +10,6 @@
       "ja_JP"
     ];
 
-    librewolf.enable = true;
     mpv.enable = true;
     yubikey = {
       enable = true;

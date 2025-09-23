@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758386024,
-        "narHash": "sha256-Jnh0tAK5R1ERyX9PNjUtESdOXkdgONQMrI90CXqWmp8=",
+        "lastModified": 1758557465,
+        "narHash": "sha256-SeDqOZQoARl/xxEMdej09IScCf77SEQfRAjED7lBgMY=",
         "owner": "ezKEa",
         "repo": "aagl-gtk-on-nix",
-        "rev": "242bc4423eb1cce12071655267d6060e7e08dba7",
+        "rev": "944f9903859ad16db762fbe573fb6f05f7367e16",
         "type": "github"
       },
       "original": {
@@ -135,11 +135,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758493304,
-        "narHash": "sha256-A1xuSrELZIZhoKejIME0yemc9KlxZp/tKNxrF4LHrcw=",
+        "lastModified": 1758575726,
+        "narHash": "sha256-o5IF6zH2av1emfcEufpvzRr2RgnXZkDG7IJ+xHuwKkU=",
         "owner": "9001",
         "repo": "copyparty",
-        "rev": "1923a258797285ac75487d3d53665063a5bd67df",
+        "rev": "377eddcd0668935fe41d5ba59540d6493486b27f",
         "type": "github"
       },
       "original": {
@@ -721,11 +721,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758464306,
-        "narHash": "sha256-i56XRXqjwJRdVYmpzVUQ0ktqBBHqNzQHQMQvFRF/acQ=",
+        "lastModified": 1758592618,
+        "narHash": "sha256-FKDEt7Ltd5P4GFZq7MZKNoJmp8l3VGLKcF9WDVp1qb0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "939e91e1cff1f99736c5b02529658218ed819a2a",
+        "rev": "f59891d511d692ac0ed0bb366b39f778d5b594ed",
         "type": "github"
       },
       "original": {
@@ -848,11 +848,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1758502967,
-        "narHash": "sha256-FiQ+wGCnkfAlOX96dxnRQg8yQG58Q9JensS2fCK9M/E=",
+        "lastModified": 1758551607,
+        "narHash": "sha256-HR1BfFAlSfSmWVsWr7ODiuw2O/43LcJ3/IFQsl9TmU4=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "2024472bd3b02e1bee2b57a8deae87e2eb3e38be",
+        "rev": "695d5afd159cd8042e99f539ed409ae7034386f4",
         "type": "github"
       },
       "original": {
@@ -1075,11 +1075,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758505304,
-        "narHash": "sha256-+GGY/8u8+DlJTh5CP2xY6pu+ehdHtRAmu3CwQopMIbg=",
+        "lastModified": 1758589856,
+        "narHash": "sha256-mvnsqtQk+DcTklcd1xKEAV6mic7hnfBQBC0ujAY/JO8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c2d0199cb6a9ae76517c73307520155738dffcde",
+        "rev": "386857f1aec8c3a809e929cc9493edfbd9b7fbad",
         "type": "github"
       },
       "original": {
@@ -1195,11 +1195,11 @@
         "qrcodegenerator": "qrcodegenerator"
       },
       "locked": {
-        "lastModified": 1758488520,
-        "narHash": "sha256-gGdgrHHdQodazJgQzcDLAftfGuxYBrLjAd1iglO4QjA=",
+        "lastModified": 1758564386,
+        "narHash": "sha256-GSA58NpvPHSnWnQJz7dwR2ClqCv+wtHw7jFu5iPFX/U=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "f7e58723e0d4488855798895e6b71c1079004f91",
+        "rev": "e1a7f6cac42143afb7fbed77d641c82c701a0e04",
         "type": "github"
       },
       "original": {
@@ -1265,11 +1265,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758422215,
-        "narHash": "sha256-JvF5SXhp1wBHbfEVAWgJCDVSO8iknfDqXfqMch5YWg0=",
+        "lastModified": 1758508617,
+        "narHash": "sha256-kx2uELmVnAbiekj/YFfWR26OXqXedImkhe2ocnbumTA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "6f3988eb5885f1e2efa874a480d91de09a7f9f0b",
+        "rev": "d2bac276ac7e669a1f09c48614538a37e3eb6d0f",
         "type": "github"
       },
       "original": {
@@ -1291,11 +1291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756130152,
-        "narHash": "sha256-3qcN28djoBqqhEqOv8ve3/+wD0lLR2YCVV1EZ4SYfjo=",
+        "lastModified": 1758547637,
+        "narHash": "sha256-D1vQGAjT2ZuW8xr2Tl7hj+yNwIdNctVTLHiE4gssU4k=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "b49ae46f226430854102c207fdcb55e2de8e884e",
+        "rev": "d2534fa431ee4b0ca33cae3d6e583ff4f470db41",
         "type": "gitlab"
       },
       "original": {

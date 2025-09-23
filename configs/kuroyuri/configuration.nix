@@ -27,7 +27,7 @@
     wl-clipboard
     gimp3-with-plugins
     feishin
-    grayjay
+    # grayjay
     prismlauncher
   ];
 

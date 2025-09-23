@@ -18,6 +18,8 @@
     };
     theming.enable = true;
     fcitx5.enable = true;
+
+    ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
   };
 
   environment.systemPackages = with pkgs; [

@@ -17,6 +17,7 @@
       yuri.enable = true;
     };
     steam.enable = true;
+    wivrn.enable = true;
     theming.enable = true;
     flatpak.enable = true;
     ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";

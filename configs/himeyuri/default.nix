@@ -1,4 +1,4 @@
-{ lib', ... }:
+{ self, lib', ... }:
 
 {
   flake.nixosConfigurations.himeyuri = lib'.mkDesktop {
@@ -15,6 +15,7 @@
       imports = [
         ./hardware
 
+        self.nixosModules.vr
         ./configuration.nix
         ../shirayuri/librewolf.nix
       ];

@@ -1,27 +1,50 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  lib',
+  pkgs,
+  config,
+  ...
+}:
+
+let
+  inherit (lib'.options) mkFalseOption;
+  inherit (lib) mkIf;
+
+  cfg = config.config'.wivrn;
+in
 
 {
-  hm.xdg.configFile."openxr/1/active_runtime.json".source =
-    "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
+  options.config'.wivrn.enable = mkFalseOption;
 
-  environment.systemPackages = [ pkgs.monado-vulkan-layers ];
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.enable && (!config.config'.monado.enable);
+        message = "Monado and WiVRn modules don't work at the same time";
+      }
+    ];
 
-  hardware.graphics.extraPackages = [ pkgs.monado-vulkan-layers ];
+    hm.xdg.configFile."openxr/1/active_runtime.json".source =
+      "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
 
-  services.wivrn = {
-    enable = true;
-    openFirewall = true;
+    environment.systemPackages = [ pkgs.monado-vulkan-layers ];
+    hardware.graphics.extraPackages = [ pkgs.monado-vulkan-layers ];
 
-    # Write information to /etc/xdg/openxr/1/active_runtime.json, VR applications
-    # will automatically read this and work with WiVRn (Note: This does not currently
-    # apply for games run in Valve's Proton)
-    defaultRuntime = true;
-    autoStart = false;
-
-    # Config for WiVRn (https://github.com/WiVRn/WiVRn/blob/master/docs/configuration.md)
-    config = {
+    services.wivrn = {
       enable = true;
-      json.tcp_only = false;
+      openFirewall = true;
+
+      # Write information to /etc/xdg/openxr/1/active_runtime.json, VR applications
+      # will automatically read this and work with WiVRn (Note: This does not currently
+      # apply for games run in Valve's Proton)
+      defaultRuntime = true;
+      autoStart = false;
+
+      # Config for WiVRn (https://github.com/WiVRn/WiVRn/blob/master/docs/configuration.md)
+      config = {
+        enable = true;
+        json.tcp_only = false;
+      };
     };
   };
 }

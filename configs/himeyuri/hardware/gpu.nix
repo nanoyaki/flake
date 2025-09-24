@@ -17,6 +17,7 @@ let
         temperature_key = "edge";
         interval_ms = 500;
         curve = {
+          "54" = 0.01;
           "55" = 0.31;
           "70" = 0.4;
           "80" = 0.55;

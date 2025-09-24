@@ -148,6 +148,7 @@
         ./configs/thelessone
         ./configs/thelessnas
         ./configs/yamayuri
+        ./configs/himeyuri
       ];
 
       systems = [

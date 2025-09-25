@@ -24,6 +24,10 @@
     fcitx5.enable = true;
   };
 
+  hm.home.packages = with pkgs; [
+    prismlauncher
+  ];
+
   virtualisation.waydroid.enable = true;
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

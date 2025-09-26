@@ -28,7 +28,24 @@
     prismlauncher
   ];
 
+  programs.gamemode = {
+    enable = true;
+    enableRenice = true;
+
+    settings = {
+      general.renice = 10;
+      custom = {
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+      };
+    };
+  };
+
   virtualisation.waydroid.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    bs-manager
+  ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {
     url = "https://cdn.bsky.app/img/avatar/plain/did:plc:majihettvb7ieflgmkvujecu/bafkreiarzaifqcdw4mugzplv3t6qxp7kydjglgsy65dz3g4afyjlviemqy@png";

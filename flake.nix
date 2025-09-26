@@ -144,7 +144,6 @@
         ./configs/shirayuri
         ./configs/kuroyuri
         ./configs/yuri
-        ./configs/meow
         ./configs/thelessone
         ./configs/thelessnas
         ./configs/yamayuri

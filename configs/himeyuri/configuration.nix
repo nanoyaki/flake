@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   config' = {
@@ -25,7 +29,8 @@
   };
 
   hm.home.packages = with pkgs; [
-    prismlauncher
+    pkgs.prismlauncher
+    nur.repos.ataraxiasjel.waydroid-script
   ];
 
   programs.gamemode = {

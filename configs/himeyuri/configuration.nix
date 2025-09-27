@@ -29,7 +29,8 @@
   };
 
   hm.home.packages = with pkgs; [
-    pkgs.prismlauncher
+    prismlauncher
+    xivlauncher
     nur.repos.ataraxiasjel.waydroid-script
   ];
 

@@ -5,6 +5,7 @@
     ./cpu.nix
     ./boot.nix
     ./gpu.nix
+    ./mainboard.nix
   ];
 
   hardware.enableRedistributableFirmware = true;

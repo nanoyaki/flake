@@ -34,6 +34,8 @@
     nur.repos.ataraxiasjel.waydroid-script
   ];
 
+  programs.thunderbird.enable = true;
+
   programs.gamemode = {
     enable = true;
     enableRenice = true;

@@ -97,14 +97,10 @@ let
     }).overrideAttrs
       (prevAttrs: {
         buildCommand = prevAttrs.buildCommand or "" + ''
-          cp $out config.toml
-
-          substituteInPlace config.toml \
+          substituteInPlace $out \
             --replace-fail '"{' '{' \
             --replace-fail '\"' '"' \
             --replace-fail '}"' '}'
-
-          mv config.toml $out
         '';
       });
 in

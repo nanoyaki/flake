@@ -56,6 +56,7 @@
 
   environment.systemPackages = with pkgs; [
     bs-manager
+    wayland-bongocat
   ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

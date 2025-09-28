@@ -1255,7 +1255,8 @@
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "valheim-server": "valheim-server",
-        "vermeer-undervolt": "vermeer-undervolt"
+        "vermeer-undervolt": "vermeer-undervolt",
+        "wkeys": "wkeys"
       }
     },
     "rust-overlay": {
@@ -1621,6 +1622,31 @@
         "owner": "nanoyaki",
         "ref": "main",
         "repo": "5800x3d-undervolt",
+        "type": "github"
+      }
+    },
+    "wkeys": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "wkeys",
+        "lastModified": 1759073848,
+        "narHash": "sha256-MtWsJkoE2l7tWzkbUrx6dNW7fA/TEFR5y3TcG9JQcTE=",
+        "owner": "nanoyaki",
+        "repo": "wkeys",
+        "rev": "62411633c53bfd67e0c8e9fe270c8cb43c4d84a1",
+        "type": "github"
+      },
+      "original": {
+        "dir": "wkeys",
+        "owner": "nanoyaki",
+        "repo": "wkeys",
         "type": "github"
       }
     }

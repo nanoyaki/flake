@@ -105,6 +105,11 @@
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wkeys = {
+      url = "github:nanoyaki/wkeys?dir=wkeys";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
 
     # own stuff
     vermeer-undervolt = {

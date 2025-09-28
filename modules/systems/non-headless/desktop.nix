@@ -1,82 +1,54 @@
 {
+  lib,
+  lib',
   pkgs,
   config,
-  inputs,
   ...
 }:
 
 let
-  inherit (inputs) plasma-manager;
+  inherit (lib'.options) mkFalseOption;
+  inherit (lib) mkIf mkMerge;
 
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-    config.common.default = [ "kde" ];
-  };
+  cfg = config.config'.noCosmic;
 in
 
 {
-  services.desktopManager.plasma6.enable = true;
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    konsole
-    kate
-    elisa
-    kwrited
-    okular
-    print-manager
-    krdp
-  ];
+  options.config'.noCosmic = mkFalseOption;
 
-  services.displayManager = {
-    sddm.enable = true;
-    sddm.wayland.enable = true;
-
-    autoLogin.enable = true;
-    autoLogin.user = config.config'.mainUserName;
-
-    defaultSession = "plasma";
-  };
-
-  inherit xdg;
-  hms = [
-    plasma-manager.homeModules.plasma-manager
-    {
-      inherit xdg;
-
-      programs.plasma = {
+  config = mkMerge [
+    (mkIf (!cfg) {
+      services.desktopManager.cosmic = {
         enable = true;
+        xwayland.enable = true;
+      };
 
-        shortcuts.kwin = {
-          Expose = "Meta+Tab";
-          "Maximize Window" = "Meta+Up";
-          "Minimize Window" = "Meta+Down";
-          "Maximise Window" = "Meta+Up";
-          "Minimise Window" = "Meta+Down";
-        };
+      environment.cosmic.excludePackages = [ pkgs.cosmic-term ];
 
-        configFile = {
-          spectaclerc.GuiConfig.captureMode = 0;
-          spectaclerc.General = {
-            autoSaveImage = true;
-            clipboardGroup = "PostScreenshotCopyImage";
-            launchAction = "UseLastUsedCapturemode";
-          };
+      services.displayManager = {
+        cosmic-greeter.enable = true;
+        defaultSession = "cosmic";
+      };
 
-          kscreenlockerrc.Daemon = {
-            LockGrace = 30;
-            Timeout = 10;
-          };
+      xdg.portal.xdgOpenUsePortal = true;
+      hms = lib.singleton {
+        xdg.portal = removeAttrs config.xdg.portal [
+          "gtkUsePortal"
+          "lxqt"
+          "wlr"
+        ];
+      };
+    })
+    {
+      services.displayManager.autoLogin = {
+        enable = true;
+        user = config.config'.mainUserName;
+      };
 
-          kdeglobals.KDE.AnimationDurationFactor = 0;
-          kdeglobals.General.TerminalApplication = "alacritty";
-        };
+      environment.sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+        GDK_BACKEND = "wayland";
       };
     }
   ];
-
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    GDK_BACKEND = "wayland";
-  };
 }

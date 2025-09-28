@@ -14,6 +14,8 @@ in
   options.config'.flatpak.enable = lib'.options.mkFalseOption;
 
   config = lib.mkIf config.config'.flatpak.enable {
+    services.flatpak.enable = true;
+
     hms = [
       {
         imports = [

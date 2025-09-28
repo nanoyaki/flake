@@ -32,12 +32,15 @@ in
             genericName = "Input Method";
             comment = "Start Input Method";
             exec = "wkeys";
-            terminal = false;
+            icon = "input-keyboard--symbolic";
+            terminal = true;
+            type = "Application";
             categories = [
               "System"
               "Utility"
             ];
-            startupNotify = false;
+            startupNotify = true;
+            noDisplay = true;
             onlyShowIn = [ "KDE" ];
             extraConfig = {
               X-KDE-StartupNotify = "false";

@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   ...
@@ -11,7 +12,7 @@
       language = "en_GB";
       locale = "sv_SE.UTF-8";
     };
-    # keyboard.layout = "se";
+    keyboard.layout = "se";
 
     audio.latency = 256;
     mpv.enable = true;
@@ -27,6 +28,8 @@
     ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
     fcitx5.enable = true;
   };
+
+  console.keyMap = lib.mkForce "sv-latin1";
 
   hm.home.packages = with pkgs; [
     prismlauncher

@@ -108,5 +108,34 @@ in
     )
   );
 
-  config'.caddy.vHost.${config.config'.caddy.genDomain "calendar"}.proxy.port = 5232;
+  config'.caddy.vHost.${config.config'.caddy.genDomain "calendar"}.extraConfig = ''
+    redir https://dav.theless.one 301
+  '';
+  config'.caddy.vHost.${config.config'.caddy.genDomain "dav"}.proxy.port = 5232;
+
+  sops.secrets = {
+    "restic/dav-local" = { };
+    "restic/dav-remote" = { };
+  };
+
+  sops.templates."restic-dav-repo.txt".content = ''
+    rest:http://restic:${config.sops.placeholder."restic/100-64-64-3"}@100.64.64.3:8000/dav-thelessone
+  '';
+
+  config'.restic.backups = rec {
+    dav-local = {
+      repository = "/mnt/raid/backups/dav";
+      passwordFile = config.sops.secrets."restic/dav-local".path;
+
+      basePath = "/var/lib/radicale";
+
+      timerConfig.OnCalendar = "daily";
+    };
+
+    dav-remote = dav-local // {
+      repository = null;
+      repositoryFile = config.sops.templates."restic-dav-repo.txt".path;
+      passwordFile = config.sops.secrets."restic/dav-remote".path;
+    };
+  };
 }

@@ -72,4 +72,36 @@
       "de"
     ];
   };
+
+  sops.secrets = {
+    "restic/mail-local" = { };
+    "restic/mail-remote" = { };
+  };
+
+  sops.templates."restic-mail-repo.txt".content = ''
+    rest:http://restic:${config.sops.placeholder."restic/100-64-64-3"}@100.64.64.3:8000/mail-thelessone
+  '';
+
+  config'.restic.backups = rec {
+    mail-local = {
+      repository = "/mnt/raid/backups/mail";
+      passwordFile = config.sops.secrets."restic/mail-local".path;
+
+      basePath = "/var";
+      paths = [
+        "vmail"
+        "sieve"
+        "lib/redis-rspamd"
+        "dkim"
+      ];
+
+      timerConfig.OnCalendar = "daily";
+    };
+
+    mail-remote = mail-local // {
+      repository = null;
+      repositoryFile = config.sops.templates."restic-mail-repo.txt".path;
+      passwordFile = config.sops.secrets."restic/mail-remote".path;
+    };
+  };
 }

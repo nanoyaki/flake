@@ -53,7 +53,11 @@ in
       let
         baseConfig = removeAttrs bacCfg (attrNames (opt.type.getSubOptions opt.type.getSubModules));
         finalConfig = baseConfig // {
-          paths = if bacCfg ? paths then map (path: "${bacCfg.basePath}/${path}") bacCfg.paths else [ ];
+          paths =
+            if bacCfg ? paths then
+              map (path: "${bacCfg.basePath}/${path}") bacCfg.paths
+            else
+              [ bacCfg.basePath ];
           exclude = if bacCfg ? exclude then map (path: "${bacCfg.basePath}/${path}") bacCfg.exclude else [ ];
         };
       in

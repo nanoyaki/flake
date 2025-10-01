@@ -30,4 +30,15 @@
     href = "https://fireshare.theless.one";
     siteMonitor = href;
   };
+
+  sops.secrets."restic/fireshare" = { };
+
+  config'.restic.backups.fireshare = {
+    repository = "/mnt/raid/backups/fireshare";
+    passwordFile = config.sops.secrets."restic/fireshare".path;
+
+    basePath = "/mnt/raid/fireshare";
+
+    timerConfig.OnCalendar = "daily";
+  };
 }

@@ -152,4 +152,19 @@ in
     href = "https://files.theless.one";
     siteMonitor = href;
   };
+
+  sops.secrets."restic/copyparty" = { };
+
+  config'.restic.backups.copyparty = {
+    repository = "/mnt/raid/backups/copyparty";
+    passwordFile = config.sops.secrets."restic/copyparty".path;
+
+    basePath = "/mnt/raid";
+    paths = [
+      "copyparty"
+      "copyparty-priv"
+    ];
+
+    timerConfig.OnCalendar = "daily";
+  };
 }

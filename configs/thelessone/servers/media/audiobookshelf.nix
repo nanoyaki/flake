@@ -10,6 +10,18 @@ in
     port = 46551;
   };
 
+  sops.secrets."restic/audiobookshelf" = { };
+
+  config'.restic.backups.audiobookshelf = {
+    repository = "/mnt/raid/backups/audiobookshelf";
+    passwordFile = config.sops.secrets."restic/audiobookshelf".path;
+
+    basePath = "/mnt/raid";
+    paths = [ "audiobookshelf" ];
+
+    timerConfig.OnCalendar = "daily";
+  };
+
   fileSystems."/var/lib/audiobookshelf" = {
     device = "/mnt/raid/audiobookshelf";
     depends = [ "/mnt/raid" ];

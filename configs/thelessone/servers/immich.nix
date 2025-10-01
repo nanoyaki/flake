@@ -38,4 +38,16 @@
   config'.caddy.vHost."images.theless.one".proxy = {
     inherit (config.services.immich-public-proxy) port;
   };
+
+  sops.secrets."restic/immich" = { };
+
+  config'.restic.backups.immich = {
+    repository = "/mnt/raid/backups/immich";
+    passwordFile = config.sops.secrets."restic/immich".path;
+
+    basePath = "/var/lib/immich";
+    exclude = [ "thumbs" ];
+
+    timerConfig.OnCalendar = "daily";
+  };
 }

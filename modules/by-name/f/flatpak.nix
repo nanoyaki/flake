@@ -19,7 +19,7 @@ in
     hms = [
       {
         imports = [
-          flatpaks.homeModule
+          flatpaks.homeModules.default
         ];
 
         services.flatpak = {

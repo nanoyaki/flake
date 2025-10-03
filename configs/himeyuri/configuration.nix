@@ -1,20 +1,11 @@
 {
   lib,
-  config,
   pkgs,
   ...
 }:
 
 {
   config' = {
-    localization = {
-      timezone = "Europe/Stockholm";
-      language = "en_GB";
-      locale = "sv_SE.UTF-8";
-    };
-    keyboard.layout = "se";
-
-    audio.latency = 256;
     mpv.enable = true;
 
     yubikey = {
@@ -25,8 +16,6 @@
     wivrn.enable = true;
     theming.enable = true;
     flatpak.enable = true;
-    ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
-    fcitx5.enable = true;
   };
 
   console.keyMap = lib.mkForce "sv-latin1";
@@ -58,7 +47,6 @@
     bs-manager
     wayland-bongocat
     nixd
-    wkeys
   ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

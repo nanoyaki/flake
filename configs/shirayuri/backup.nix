@@ -1,6 +1,5 @@
 {
   lib,
-  lib',
   pkgs,
   config,
   ...
@@ -47,7 +46,7 @@ let
 in
 
 {
-  options.services.restic.extraPaths = lib'.options.mkListOf lib'.options.mkPathOption;
+  options.services.restic.extraPaths = pkgs.lib.nanolib.options.mkListOf pkgs.lib.nanolib.options.mkPathOption;
 
   config = {
     sops.secrets = {

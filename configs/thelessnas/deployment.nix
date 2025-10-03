@@ -1,7 +1,6 @@
 {
-  config'.deployment."10.0.0.6" = {
+  nanoSystem.deployment.addresses."10.0.0.6" = {
     targetUser = "root";
-    privateKeyName = "deploymentThelessnas";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC6a6yxA1AaSmrf/0Xqvyl6m6QcafD9LU93qEFCmI9Ce";
   };
 

@@ -126,6 +126,17 @@
       inputs.flake-parts.follows = "flake-parts";
     };
     killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
+    nanolib = {
+      url = "git+https://git.theless.one/nanoyaki/nanolib.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+    nanomodules = {
+      url = "git+https://git.theless.one/nanoyaki/nanomodules.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nanolib.follows = "nanolib";
+    };
     # eh, i don't use it that much anyway
     # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
   };
@@ -137,14 +148,14 @@
     }:
 
     flake-parts.lib.mkFlake { inherit inputs; } {
+      _module.args.lib' = inputs.nanolib.lib;
+
       imports = [
         ./flake/formatting.nix
         ./flake/dev.nix
         ./flake/deploy.nix
 
-        ./lib
         ./modules
-        ./homeModules
 
         ./configs/shirayuri
         ./configs/kuroyuri

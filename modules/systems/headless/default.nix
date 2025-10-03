@@ -1,3 +1,0 @@
-{
-  config'.systemType = "headless";
-}

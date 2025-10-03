@@ -7,16 +7,9 @@
 
 {
   config' = {
-    localization = {
-      timezone = "Europe/Vienna";
-      language = "de_AT";
-      locale = "de_AT.UTF-8";
-    };
-
     librewolf.enable = true;
     theming.enable = true;
     steam.enable = true;
-    rgb.disable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -28,7 +21,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ config.config'.mainUserName ];
+      users = [ config.nanoSystem.mainUserName ];
       commands = [
         {
           command = "ALL";

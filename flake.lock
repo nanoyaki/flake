@@ -413,7 +413,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -431,7 +431,7 @@
     },
     "flake-utils_3": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -449,7 +449,7 @@
     },
     "flake-utils_4": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -835,6 +835,57 @@
         "type": "github"
       }
     },
+    "nanolib": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1759512275,
+        "narHash": "sha256-hES6B/G6TKdJTXITK0Kyw8EObPVhgzRY+CfmGrcQYCs=",
+        "ref": "refs/heads/main",
+        "rev": "5227120185b3b65876b5f8277fa64eed9cf32a83",
+        "revCount": 11,
+        "type": "git",
+        "url": "https://git.theless.one/nanoyaki/nanolib.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.theless.one/nanoyaki/nanolib.git"
+      }
+    },
+    "nanomodules": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nanolib": [
+          "nanolib"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1759518007,
+        "narHash": "sha256-ZHpI8MRqrVIcjONpERKDLFMaRoTIbUDAEtEtOzPANnY=",
+        "ref": "refs/heads/main",
+        "rev": "38aae9cbe4cad4a079060697288cb01ec32797f7",
+        "revCount": 25,
+        "type": "git",
+        "url": "https://git.theless.one/nanoyaki/nanomodules.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.theless.one/nanoyaki/nanomodules.git"
+      }
+    },
     "nanopkgs": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -1048,15 +1099,15 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_4",
+        "systems": "systems_6",
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1759454493,
-        "narHash": "sha256-QQqRmD41PZZkkFKCYn7gYjT7lXntShT7n2tkI+p0NFQ=",
+        "lastModified": 1759368069,
+        "narHash": "sha256-4mVRXbpIIU4gSEiArTMy8TF6fqDfvtoaigDyo93Q68w=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "8a78f3bbd251c6ba59731bb5f9558ed1178b5b93",
+        "rev": "64110c4267bda3b7f997ac6bf12df8ac1fad84d4",
         "type": "github"
       },
       "original": {
@@ -1075,11 +1126,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759455582,
-        "narHash": "sha256-uwN5gKJ257/2+xULANcFGT47tjh1hkvuCtqtXhiTEj4=",
+        "lastModified": 1759410446,
+        "narHash": "sha256-IuzzxubrrirbHMdlDAmtf8pZQvgFhIpZHKXl5c4GWuM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "209f6d87a39a790847343f55471f6238b88dcf26",
+        "rev": "7d2d5b7f6c4dbe3c5ba579a81e7fd27dc2e13c05",
         "type": "github"
       },
       "original": {
@@ -1195,11 +1246,11 @@
         "qrcodegenerator": "qrcodegenerator"
       },
       "locked": {
-        "lastModified": 1759435340,
-        "narHash": "sha256-FE4Unb809qlrnQVPaUUkMQsi+JOM4UHqGgMc89qeTuA=",
+        "lastModified": 1759241397,
+        "narHash": "sha256-mXq1lWKfh4kZTmmV/OY1Qp1qKYUt2quVRSaeKegBxK4=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "8b5e91920dda7324ad3db98f56b209bba0f4e57d",
+        "rev": "60f81d54b30b167c222d060851f9c1814d26c58e",
         "type": "github"
       },
       "original": {
@@ -1238,6 +1289,8 @@
         "killheal": "killheal",
         "lanzaboote": "lanzaboote",
         "lazy-apps": "lazy-apps",
+        "nanolib": "nanolib",
+        "nanomodules": "nanomodules",
         "nanopkgs": "nanopkgs",
         "nix-minecraft": "nix-minecraft",
         "nixgl": "nixgl",
@@ -1363,7 +1416,7 @@
           "nixpkgs"
         ],
         "nur": "nur_2",
-        "systems": "systems_5",
+        "systems": "systems_7",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
@@ -1431,6 +1484,36 @@
     },
     "systems_4": {
       "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_6": {
+      "locked": {
         "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
         "owner": "nix-systems",
@@ -1444,7 +1527,7 @@
         "type": "github"
       }
     },
-    "systems_5": {
+    "systems_7": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

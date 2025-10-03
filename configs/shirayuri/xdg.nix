@@ -5,7 +5,7 @@
 
 let
   dirConfig = {
-    user = config.config'.mainUserName;
+    user = config.nanoSystem.mainUserName;
     group = "users";
     mode = "0774";
   };

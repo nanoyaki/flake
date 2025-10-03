@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  lib',
   pkgs,
   config,
   ...
@@ -85,7 +84,7 @@ in
     accounts = listToAttrs (
       map (
         attr:
-        nameValuePair (lib'.toUppercase (lib.removePrefix "copyparty/" attr)) {
+        nameValuePair (pkgs.lib.nanolib.global.toUppercase (lib.removePrefix "copyparty/" attr)) {
           passwordFile = config.sops.secrets.${attr}.path;
         }
       ) (filter (attr: hasPrefix "copyparty/" attr) (attrNames config.sops.secrets))

@@ -23,7 +23,7 @@ in
   users.users =
     lib.genAttrs
       [
-        config.config'.mainUserName
+        config.nanoSystem.mainUserName
         cfg.user
       ]
       (_: {

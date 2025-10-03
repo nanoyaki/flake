@@ -43,4 +43,6 @@
     VDPAU_DRIVER = "nvidia";
   };
   environment.systemPackages = [ pkgs.cudaPackages.cudatoolkit ];
+
+  services.no-rgb.enable = true;
 }

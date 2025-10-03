@@ -1,28 +1,29 @@
 {
   self,
-  lib,
-  lib',
   pkgs,
+  inputs',
   config,
   ...
 }:
 
+let
+  mapLazyCliApps =
+    pkgs: map (pkg: inputs'.lazy-apps.packages.lazy-app.override { inherit pkg; }) pkgs;
+in
+
 {
-  hm.sops.secrets = {
-    deploymentThelessone.path = "${config.hm.home.homeDirectory}/.ssh/deploymentThelessone";
-    deploymentYuri.path = "${config.hm.home.homeDirectory}/.ssh/deploymentYuri";
+  hm.sops = {
+    secrets = {
+      deploymentThelessone.path = ".ssh/deploymentThelessone";
+      deploymentYuri.path = ".ssh/deploymentYuri";
+    };
+    defaultSopsFile = ./secrets/user-hana.yaml;
+    inherit (config.sops) age;
   };
 
   networking.networkmanager.enable = true;
 
   config' = {
-    localization.language = [
-      "en_GB"
-      "de_DE"
-      "ja_JP"
-    ];
-    audio.latency = lib.mkDefault 256;
-
     mpv.enable = true;
     yubikey = {
       enable = true;
@@ -32,8 +33,6 @@
     theming.enable = true;
     monado.enable = true;
     flatpak.enable = true;
-    ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/shirayuri-primary";
-    fcitx5.enable = true;
   };
 
   services.tailscale = {
@@ -41,7 +40,7 @@
     useRoutingFeatures = "client";
   };
 
-  specialisation.osu.configuration.config'.audio.latency = 32;
+  specialisation.osu.configuration.nanoSystem.audio.latency = 32;
 
   environment.systemPackages =
     (with pkgs; [
@@ -56,7 +55,7 @@
       nur.repos.ataraxiasjel.waydroid-script
       thunderbird-latest-bin
     ])
-    ++ lib'.mapLazyCliApps (
+    ++ mapLazyCliApps (
       with pkgs;
       [
         imagemagick

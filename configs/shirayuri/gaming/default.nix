@@ -1,8 +1,12 @@
 {
-  lib',
   pkgs,
+  inputs',
   ...
 }:
+
+let
+  mapLazyApps = pkgs: map inputs'.lazy-apps.packages.lazy-app.override pkgs;
+in
 
 {
   imports = [
@@ -12,7 +16,7 @@
   ];
 
   environment.systemPackages =
-    (lib'.mapLazyApps (
+    (mapLazyApps (
       with pkgs;
       [
         {

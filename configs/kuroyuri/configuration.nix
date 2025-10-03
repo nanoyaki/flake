@@ -4,21 +4,12 @@
   sops.secrets.tailscale = { };
 
   config' = {
-    localization.language = [
-      "en_GB"
-      "de_DE"
-      "ja_JP"
-    ];
-
     mpv.enable = true;
     yubikey = {
       enable = true;
       yuri.enable = true;
     };
     theming.enable = true;
-    fcitx5.enable = true;
-
-    ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
   };
 
   environment.systemPackages = with pkgs; [

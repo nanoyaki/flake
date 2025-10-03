@@ -14,7 +14,8 @@ let
     ;
 
   validConfigurations = filterAttrs (
-    _: nixosSystem: nixosSystem.options ? config'.deployment
+    _: nixosSystem:
+    nixosSystem.options ? nanoSystem && nixosSystem.config.nanoSystem.deployment.addresses != { }
   ) self.nixosConfigurations;
 
   mkDeploymentApp = name: cfg: host: pkgs: {
@@ -104,7 +105,7 @@ in
           map (
             name:
             let
-              deployCfgs = validConfigurations.${name}.config.config'.deployment;
+              deployCfgs = validConfigurations.${name}.config.nanoSystem.deployment.addresses;
               hosts = attrNames deployCfgs;
             in
             (map (host: rec {
@@ -118,16 +119,6 @@ in
           ) (attrNames validConfigurations)
         )
       );
-      # (
-      #   mapAttrs' (
-      #     name: nixosSystem:
-      #     nameValuePair "deploy-${name}" (mkDeploymentApp name nixosSystem.config.deployment pkgs)
-      #   ) validConfigurations
-      # )
-      # // (mapAttrs' (
-      #   name: nixosSystem:
-      #   nameValuePair "remote-switch-${name}" (mkSwitchApp name nixosSystem.config.deployment pkgs)
-      # ) validConfigurations);
     };
 }
 

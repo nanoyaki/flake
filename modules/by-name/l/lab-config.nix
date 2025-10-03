@@ -61,6 +61,6 @@ in
     };
 
     users.groups = mkIf (cfg.arr.group == "arr-stack") { arr-stack = { }; };
-    users.users.${config.config'.mainUserName}.extraGroups = lib.singleton cfg.arr.group;
+    users.users.${config.nanoSystem.mainUserName}.extraGroups = lib.singleton cfg.arr.group;
   };
 }

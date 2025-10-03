@@ -37,5 +37,5 @@ in
     mode = "2770";
   };
 
-  users.users.${config.config'.mainUserName}.extraGroups = [ cfg.group ];
+  users.users.${config.nanoSystem.mainUserName}.extraGroups = [ cfg.group ];
 }

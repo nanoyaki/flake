@@ -26,7 +26,8 @@ in
   options.config'.plasmaOverCosmic = mkFalseOption;
 
   config = mkIf cfg {
-    config'.noCosmic = true;
+    services.desktopManager.cosmic.enable = lib.mkForce false;
+    services.displayManager.cosmic-greeter.enable = lib.mkForce false;
 
     services.desktopManager.plasma6.enable = true;
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -43,7 +44,7 @@ in
       sddm.enable = true;
       sddm.wayland.enable = true;
 
-      defaultSession = "plasma";
+      defaultSession = lib.mkForce "plasma";
     };
 
     inherit xdg;

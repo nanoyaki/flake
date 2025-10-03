@@ -1,13 +1,12 @@
 let
   cfg = {
     targetUser = "root";
-    privateKeyName = "deploymentYuri";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpBykDxGMyZOdW7ECncYK9p6IseXzOnREmb9QCSG9Bn";
   };
 in
 
 {
-  config'.deployment = {
+  nanoSystem.deployment.addresses = {
     "100.64.64.3" = cfg;
     "10.0.0.3" = cfg;
   };

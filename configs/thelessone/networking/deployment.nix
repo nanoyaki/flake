@@ -1,15 +1,18 @@
 let
   cfg = {
     targetUser = "root";
-    privateKeyName = "deploymentThelessone";
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMc3xjLJxASdTuLIrsvok5Wpm5N8TO1CI9vHt2z3oPPC";
   };
 in
 
 {
-  config'.deployment = {
-    "100.64.64.1" = cfg;
-    "10.0.0.5" = cfg;
+  nanoSystem.deployment = {
+    enable = true;
+
+    addresses = {
+      "100.64.64.1" = cfg;
+      "10.0.0.5" = cfg;
+    };
   };
 
   services.openssh.knownHosts = {

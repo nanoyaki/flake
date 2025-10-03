@@ -5,15 +5,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  config'.localization = {
-    language = "en_US";
-    locale = "en_US.UTF-8";
-    extraLocales = [
-      "de_DE.UTF-8/UTF-8"
-      "ja_JP.UTF-8/UTF-8"
-    ];
-  };
-
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
@@ -34,7 +25,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ config.config'.mainUserName ];
+      users = [ config.nanoSystem.mainUserName ];
       commands = [
         {
           command = "ALL";

@@ -15,7 +15,7 @@ let
   Char = mkRON "char";
   Raw = mkRON "raw";
   Some = mkRON "optional";
-  None = null;
+  None = mkRON "optional" null;
 
   mins = ms: 1000 * 60 * ms;
 in
@@ -83,17 +83,27 @@ in
               anchor = Enum "Top";
               layer = Enum "Top";
               anchor_gap = false;
-              expand_to_edges = false;
+              expand_to_edges = true;
               exclusive_zone = false;
               autohide = Some {
                 handle_size = 2;
                 transition_time = 100;
                 wait_time = 250;
               };
-              autohover_delay_ms = Some 500;
+              autohover_delay_ms = Some 250;
               size = Enum "XS";
+              size_wings = Some (Tuple [
+                None
+                (Some (Enum "XS"))
+              ]);
+              size_center = None;
               background = Enum "ThemeDefault";
-              output = Enum "Active";
+              output = Enum {
+                value = [
+                  "DP-1"
+                ];
+                variant = "Name";
+              };
               keyboard_interactivity = Enum "OnDemand";
 
               padding = 0;
@@ -106,11 +116,15 @@ in
                 [ ]
                 [
                   "com.system76.CosmicAppletNotifications"
+                  "com.system76.CosmicAppletTiling"
+                  "com.system76.CosmicAppletAudio"
+                  "com.system76.CosmicAppletBluetooth"
+                  "com.system76.CosmicAppletNetwork"
                   "com.system76.CosmicAppletBattery"
                   "com.system76.CosmicAppletPower"
                 ]
               ]);
-              plugins_center = None;
+              plugins_center = Some [ ];
             }
             {
               name = "Dock";
@@ -122,13 +136,16 @@ in
               expand_to_edges = true;
               exclusive_zone = true;
               autohide = None;
-              autohover_delay_ms = Some 500;
+              autohover_delay_ms = None;
               size = Enum "M";
+              size_wings = Some (Tuple [
+                (Some (Enum "M"))
+                (Some (Enum "XS"))
+              ]);
+              size_center = None;
               background = Enum "ThemeDefault";
               output = Enum "All";
               keyboard_interactivity = Enum "OnDemand";
-              # size_wings = cosmicLib.cosmic.mkRON "optional" null;
-              # size_center = cosmicLib.cosmic.mkRON "optional" null;
 
               # CSS like styling
               padding = 0;
@@ -146,9 +163,6 @@ in
                 [
                   "com.system76.CosmicAppletStatusArea"
                   "com.system76.CosmicAppletInputSources"
-                  "com.system76.CosmicAppletAudio"
-                  "com.system76.CosmicAppletBluetooth"
-                  "com.system76.CosmicAppletNetwork"
                   "com.system76.CosmicAppletTime"
                 ]
               ]);

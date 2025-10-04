@@ -20,6 +20,7 @@ in
     ./stylix.nix
     ./catppuccin.nix
     ./gtk.nix
+    ./cosmic.nix
   ];
 
   config = mkIf cfg.enable {

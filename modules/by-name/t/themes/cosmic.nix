@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgs,
   config,
   ...
 }:
@@ -12,12 +13,23 @@ let
   NamedStruct = mkRON "namedStruct";
   Map = mkRON "map";
   Enum = mkRON "enum";
+  EnumVariant =
+    variant: value:
+    mkRON "enum" {
+      value = [ value ];
+      inherit variant;
+    };
   Char = mkRON "char";
   Raw = mkRON "raw";
   Some = mkRON "optional";
   None = mkRON "optional" null;
 
   mins = ms: 1000 * 60 * ms;
+
+  defaultWallpaper = pkgs.fetchurl {
+    url = "https://files.theless.one/shared-public-download/135297180_p0.png";
+    hash = "sha256-ADBx+p8csA0w40veATrPB/JYtC+9igv31MXwDUqP1zs=";
+  };
 in
 {
   options = { };
@@ -83,7 +95,7 @@ in
               anchor = Enum "Top";
               layer = Enum "Top";
               anchor_gap = false;
-              expand_to_edges = true;
+              expand_to_edges = false;
               exclusive_zone = false;
               autohide = Some {
                 handle_size = 2;
@@ -98,12 +110,7 @@ in
               ]);
               size_center = None;
               background = Enum "ThemeDefault";
-              output = Enum {
-                value = [
-                  "DP-1"
-                ];
-                variant = "Name";
-              };
+              output = EnumVariant "Name" "DP-1";
               keyboard_interactivity = Enum "OnDemand";
 
               padding = 0;
@@ -170,7 +177,17 @@ in
             }
           ];
 
-          wallpapers = [ ];
+          wallpapers = [
+            {
+              output = "all";
+              source = EnumVariant "Path" defaultWallpaper;
+              filter_by_theme = true;
+              rotation_frequency = 300;
+              filter_method = Enum "Lanczos";
+              scaling_mode = Enum "Zoom";
+              sampling_method = Enum "Alphanumeric";
+            }
+          ];
 
           appearance = {
             toolkit = {
@@ -270,12 +287,7 @@ in
 
           shortcuts = [
             {
-              action = Enum {
-                value = [
-                  (Enum "AppLibrary")
-                ];
-                variant = "System";
-              };
+              action = EnumVariant "System" (Enum "AppLibrary");
               key = "Super";
             }
           ];
@@ -285,6 +297,20 @@ in
           stateFile."com.system76.CosmicSettingsDaemon" = {
             version = 1;
             entries.default_sink_name = "\"@DEFAULT_SINK@\"";
+          };
+
+          stateFile."com.system76.CosmicBackground" = lib.mkDefault {
+            version = 1;
+            entries.wallpapers = [
+              (Tuple [
+                "HDMI-A-1"
+                (EnumVariant "Path" defaultWallpaper)
+              ])
+              (Tuple [
+                "DP-1"
+                (EnumVariant "Path" defaultWallpaper)
+              ])
+            ];
           };
         };
       }

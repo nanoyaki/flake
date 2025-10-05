@@ -1,5 +1,6 @@
 {
   self,
+  # lib,
   pkgs,
   inputs',
   config,
@@ -11,7 +12,12 @@ let
     pkgs: map (pkg: inputs'.lazy-apps.packages.lazy-app.override { inherit pkg; }) pkgs;
 
   Enum = config.hm.lib.cosmic.mkRON "enum";
-  Tuple = config.hm.lib.cosmic.mkRON "tuple";
+  EnumVariant =
+    variant: value:
+    Enum {
+      value = [ value ];
+      inherit variant;
+    };
 in
 
 {
@@ -86,58 +92,21 @@ in
     "systems/yamayuri".source = self.nixosConfigurations.yamayuri.config.system.build.toplevel;
   };
 
-  hm.wayland.desktopManager.cosmic = {
-    wallpapers = [
-      {
-        output = "all";
-        source = Enum {
-          value = [
-            "/home/hana/owned-material/images/szcb911/2024-10-15.jpeg"
-          ];
-          variant = "Path";
-        };
-        filter_by_theme = true;
-        rotation_frequency = 300;
-        filter_method = Enum "Lanczos";
-        scaling_mode = Enum "Zoom";
-        sampling_method = Enum "Alphanumeric";
-      }
-    ];
-
-    stateFile."com.system76.CosmicBackground" = {
-      version = 1;
-      entries.wallpapers = [
-        (Tuple [
-          "HDMI-A-1"
-          (Enum {
-            value = [ "/home/hana/owned-material/images/szcb911/2024-10-15.jpeg" ];
-            variant = "Path";
-          })
-        ])
-        (Tuple [
-          "DP-1"
-          (Enum {
-            value = [ "/home/hana/owned-material/images/szcb911/2024-10-15.jpeg" ];
-            variant = "Path";
-          })
-        ])
-      ];
-    };
-  };
+  # hm.wayland.desktopManager.cosmic.wallpapers = lib.mkForce [
+  #   {
+  #     output = "all";
+  #     source = EnumVariant "Path" "/home/hana/owned-material/images/szcb911/2024-10-15.jpeg";
+  #     filter_by_theme = true;
+  #     rotation_frequency = 300;
+  #     filter_method = Enum "Lanczos";
+  #     scaling_mode = Enum "Zoom";
+  #     sampling_method = Enum "Alphanumeric";
+  #   }
+  # ];
 
   hm.programs.cosmic-files.settings.favorites = [
-    (Enum {
-      value = [
-        "/mnt/os-shared"
-      ];
-      variant = "Path";
-    })
-    (Enum {
-      value = [
-        "/mnt/copyparty"
-      ];
-      variant = "Path";
-    })
+    (EnumVariant "Path" "/mnt/os-shared")
+    (EnumVariant "Path" "/mnt/copyparty")
   ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

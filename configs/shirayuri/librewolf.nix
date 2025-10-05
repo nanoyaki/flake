@@ -35,5 +35,7 @@
     "extensions.formautofill.creditCards.available" = false;
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.heuristics.enabled" = false;
+    # Cosmic themeing
+    "widget.gtk.libadwaita-colors.enabled" = false;
   };
 }

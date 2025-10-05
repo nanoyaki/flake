@@ -12,6 +12,12 @@ let
   NamedStruct = mkRON "namedStruct";
   Map = mkRON "map";
   Enum = mkRON "enum";
+  EnumVariant =
+    variant: value:
+    mkRON "enum" {
+      value = [ value ];
+      inherit variant;
+    };
   Char = mkRON "char";
   Raw = mkRON "raw";
   Some = mkRON "optional";
@@ -83,7 +89,7 @@ in
               anchor = Enum "Top";
               layer = Enum "Top";
               anchor_gap = false;
-              expand_to_edges = true;
+              expand_to_edges = false;
               exclusive_zone = false;
               autohide = Some {
                 handle_size = 2;
@@ -98,12 +104,7 @@ in
               ]);
               size_center = None;
               background = Enum "ThemeDefault";
-              output = Enum {
-                value = [
-                  "DP-1"
-                ];
-                variant = "Name";
-              };
+              output = EnumVariant "Name" "DP-1";
               keyboard_interactivity = Enum "OnDemand";
 
               padding = 0;
@@ -170,7 +171,17 @@ in
             }
           ];
 
-          wallpapers = [ ];
+          wallpapers = [
+            {
+              output = "all";
+              source = EnumVariant "Path" ./wallpaper.png;
+              filter_by_theme = true;
+              rotation_frequency = 300;
+              filter_method = Enum "Lanczos";
+              scaling_mode = Enum "Zoom";
+              sampling_method = Enum "Alphanumeric";
+            }
+          ];
 
           appearance = {
             toolkit = {
@@ -270,12 +281,7 @@ in
 
           shortcuts = [
             {
-              action = Enum {
-                value = [
-                  (Enum "AppLibrary")
-                ];
-                variant = "System";
-              };
+              action = EnumVariant "System" (Enum "AppLibrary");
               key = "Super";
             }
           ];

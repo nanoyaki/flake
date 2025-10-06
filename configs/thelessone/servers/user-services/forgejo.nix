@@ -36,6 +36,14 @@ in
     TOKEN=${config.sops.placeholder."forgejo/syakuyaku"}
   '';
 
+  systemd.services.gitea-runner-kikyo.environment = {
+    inherit (config.environment.sessionVariables) NIX_PATH;
+  };
+
+  systemd.services.gitea-runner-syakuyaku.environment = {
+    inherit (config.environment.sessionVariables) NIX_PATH;
+  };
+
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
 

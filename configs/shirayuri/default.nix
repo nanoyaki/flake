@@ -41,11 +41,7 @@
         ];
 
         nanoSystem = {
-          localization.language = [
-            "en_GB"
-            "de_DE"
-            "ja_JP"
-          ];
+          localization.language = "en_GB";
           keyboard.layout = "de";
           fcitx5.enable = true;
           audio.latency = lib.mkDefault 256;

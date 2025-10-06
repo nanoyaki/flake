@@ -2,6 +2,7 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }:
 
@@ -33,6 +34,13 @@ in
     hms = [
       inputs.cosmic-manager.homeManagerModules.cosmic-manager
     ];
+
+    environment.systemPackages = with pkgs; [
+      cosmic-ext-applet-privacy-indicator
+      clipboard-manager
+    ];
+
+    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
     hm = {
       programs.cosmic-files = {
@@ -87,50 +95,6 @@ in
 
         panels = [
           {
-            name = "Panel";
-
-            anchor = Enum "Top";
-            layer = Enum "Top";
-            anchor_gap = false;
-            expand_to_edges = false;
-            exclusive_zone = false;
-            autohide = Some {
-              handle_size = 2;
-              transition_time = 100;
-              wait_time = 250;
-            };
-            autohover_delay_ms = Some 250;
-            size = Enum "XS";
-            size_wings = Some (Tuple [
-              None
-              (Some (Enum "XS"))
-            ]);
-            size_center = None;
-            background = Enum "ThemeDefault";
-            output = EnumVariant "Name" "DP-1";
-            keyboard_interactivity = Enum "OnDemand";
-
-            padding = 0;
-            border_radius = 160;
-            opacity = 1.0;
-            margin = 0;
-            spacing = 4;
-
-            plugins_wings = Some (Tuple [
-              [ ]
-              [
-                "com.system76.CosmicAppletNotifications"
-                "com.system76.CosmicAppletTiling"
-                "com.system76.CosmicAppletAudio"
-                "com.system76.CosmicAppletBluetooth"
-                "com.system76.CosmicAppletNetwork"
-                "com.system76.CosmicAppletBattery"
-                "com.system76.CosmicAppletPower"
-              ]
-            ]);
-            plugins_center = Some [ ];
-          }
-          {
             name = "Dock";
 
             # Behaviour
@@ -141,12 +105,12 @@ in
             exclusive_zone = true;
             autohide = None;
             autohover_delay_ms = None;
-            size = Enum "M";
+            size = null;
             size_wings = Some (Tuple [
-              (Some (Enum "M"))
+              (Some (Enum "XS"))
               (Some (Enum "XS"))
             ]);
-            size_center = None;
+            size_center = Some (Enum "S");
             background = Enum "ThemeDefault";
             output = Enum "All";
             keyboard_interactivity = Enum "OnDemand";
@@ -161,16 +125,25 @@ in
             # Content
             plugins_wings = Some (Tuple [
               [
-                "com.system76.CosmicPanelAppButton"
-                "com.system76.CosmicAppList"
+                "com.system76.CosmicAppletPower"
+                "dev.DBrox.CosmicPrivacyIndicator"
               ]
               [
                 "com.system76.CosmicAppletStatusArea"
                 "com.system76.CosmicAppletInputSources"
+                "com.system76.CosmicAppletTiling"
+                "com.system76.CosmicAppletNotifications"
+                "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"
+                "com.system76.CosmicAppletBluetooth"
+                "com.system76.CosmicAppletNetwork"
+                "com.system76.CosmicAppletAudio"
+                "com.system76.CosmicAppletBattery"
                 "com.system76.CosmicAppletTime"
               ]
             ]);
-            plugins_center = None;
+            plugins_center = Some [
+              "com.system76.CosmicAppList"
+            ];
           }
         ];
 
@@ -233,6 +206,7 @@ in
             "librewolf"
             "alacritty"
             "vesktop"
+            "codium"
           ];
           enable_drag_source = true;
           filter_top_levels = None;

@@ -925,11 +925,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1759626756,
-        "narHash": "sha256-iQjcCfdhT2tDuBBg44LcipR0UwvGuwOBjlgKZpuPEUE=",
+        "lastModified": 1759710607,
+        "narHash": "sha256-1ptw9GJIQXGuZFAsuLUxiheX5K5cbLyljwKxg2tDkWo=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "6dd6755f85c2a3e7df70bb775a0d1d626f3cc6b6",
+        "rev": "a87ab63c51786b99efd2b303ecea74cfa1d079bb",
         "type": "github"
       },
       "original": {

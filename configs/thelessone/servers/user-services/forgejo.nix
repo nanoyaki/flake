@@ -95,6 +95,7 @@ in
   sops.secrets = {
     "forgejo/signing".owner = cfg.user;
     "forgejo/signing.pub".owner = cfg.user;
+    "forgejo/mailer-password".owner = cfg.user;
   };
 
   services.forgejo = {
@@ -128,7 +129,10 @@ in
         DISABLE_SSH = false;
       };
 
-      service.DISABLE_REGISTRATION = true;
+      service = {
+        DISABLE_REGISTRATION = true;
+        ENABLE_NOTIFY_MAIL = true;
+      };
 
       actions = {
         ENABLED = true;
@@ -137,15 +141,24 @@ in
 
       webhook.ALLOWED_HOST_LIST = "external,loopback";
 
-      mailer.ENABLED = false;
+      mailer = {
+        ENABLED = true;
+        FROM = "git@theless.one";
+        PROTOCOL = "smtps";
+        SMTP_ADDR = "mail.theless.one";
+        SMTP_PORT = 465;
+        USER = "git@theless.one";
+      };
 
       "repository.signing" = {
         FORMAT = "ssh";
         SIGNING_KEY = config.sops.secrets."forgejo/signing.pub".path;
         SIGNING_NAME = "forgejo git.theless.one";
-        SIGNING_EMAIL = "hanakretzer+forgejo@gmail.com";
+        SIGNING_EMAIL = "git@theless.one";
       };
     };
+
+    secrets.mailer.PASSWD = config.sops.secrets."forgejo/mailer-password".path;
   };
 
   sops.secrets = {

@@ -9,6 +9,7 @@
     "mailserver/thelessone" = { };
     "mailserver/vaultwarden" = { };
     "mailserver/calendar" = { };
+    "mailserver/git" = { };
   };
 
   mailserver = {
@@ -25,6 +26,7 @@
         hashedPasswordFile = config.sops.secrets."mailserver/postmaster".path;
         aliases = [ "postmaster@nanoyaki.space" ];
       };
+
       "nanoyaki@theless.one" = {
         hashedPasswordFile = config.sops.secrets."mailserver/nanoyaki".path;
         aliases = [
@@ -39,6 +41,7 @@
           ''/^nano(\.|\+).*@nanoyaki\.space$/''
         ];
       };
+
       "thelessone@theless.one" = {
         hashedPasswordFile = config.sops.secrets."mailserver/thelessone".path;
         aliases = [
@@ -46,13 +49,20 @@
           "contact@theless.one"
         ];
       };
+
       "vaultwarden@theless.one" = {
         sendOnly = true;
         hashedPasswordFile = config.sops.secrets."mailserver/vaultwarden".path;
       };
+
       "calendar@theless.one" = {
         sendOnly = true;
         hashedPasswordFile = config.sops.secrets."mailserver/calendar".path;
+      };
+
+      "git@theless.one" = {
+        sendOnly = true;
+        hashedPasswordFile = config.sops.secrets."mailserver/git".path;
       };
     };
 

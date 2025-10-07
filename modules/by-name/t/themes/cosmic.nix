@@ -38,6 +38,7 @@ in
     environment.systemPackages = with pkgs; [
       cosmic-ext-applet-privacy-indicator
       clipboard-manager
+      wkeys
     ];
 
     environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
@@ -75,6 +76,10 @@ in
           };
         };
       };
+
+      home.activation.killCosmicPanel = config.hm.lib.dag.entryAfter [ "configureCosmic" ] ''
+        exec ${lib.getExe' pkgs.procps "pkill"} cosmic-panel
+      '';
 
       programs.cosmic-manager.enable = true;
 
@@ -131,6 +136,7 @@ in
               [
                 "com.system76.CosmicAppletStatusArea"
                 "com.system76.CosmicAppletInputSources"
+                "net.pithos.applet.wkeys"
                 "com.system76.CosmicAppletTiling"
                 "com.system76.CosmicAppletNotifications"
                 "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"

@@ -26,6 +26,7 @@ in
   sops.secrets = {
     "forgejo/kikyo" = { };
     "forgejo/syakuyaku" = { };
+    "forgejo/botan" = { };
   };
 
   sops.templates."kikyo.env".content = ''
@@ -34,6 +35,10 @@ in
 
   sops.templates."syakuyaku.env".content = ''
     TOKEN=${config.sops.placeholder."forgejo/syakuyaku"}
+  '';
+
+  sops.templates."botan.env".content = ''
+    TOKEN=${config.sops.placeholder."forgejo/botan"}
   '';
 
   systemd.services.gitea-runner-kikyo.environment = {
@@ -84,6 +89,36 @@ in
         name = "syakuyaku";
         tokenFile = config.sops.templates."syakuyaku.env".path;
       };
+
+      botan = {
+        enable = true;
+        name = "botan";
+        url = "https://git.theless.one";
+        tokenFile = config.sops.templates."botan.env".path;
+
+        labels = [
+          "debian-latest:docker://debian:latest"
+          "debian-stable:docker://debian:stable"
+
+          "ubuntu-latest:docker://ubuntu:latest"
+          "ubuntu-22.04:docker://ubuntu:jammy"
+
+          "nix:docker://nix:latest"
+          "rust:docker://rust:latest"
+        ];
+      };
+    };
+  };
+
+  virtualisation.docker = {
+    # We want rootless therefore system-wide is disabled
+    enable = false;
+    storageDriver = "btrfs";
+
+    # Due to security concerns we use rootless
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
     };
   };
 

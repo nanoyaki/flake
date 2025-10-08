@@ -41,7 +41,11 @@
         ];
 
         nanoSystem = {
-          localization.language = "en_GB";
+          localization = {
+            language = "en_US";
+            locale = "de_DE.UTF-8";
+            timezone = "Europe/Berlin";
+          };
           keyboard.layout = "de";
           fcitx5.enable = true;
           audio.latency = lib.mkDefault 256;

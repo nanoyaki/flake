@@ -11,6 +11,13 @@ let
   inherit (lib'.options) mkFalseOption;
 
   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+
+  defaultApplications = {
+    "text/html" = "librewolf.desktop";
+    "application/pdf" = "librewolf.desktop";
+    "x-scheme-handler/http" = "librewolf.desktop";
+    "x-scheme-handler/https" = "librewolf.desktop";
+  };
 in
 
 {
@@ -24,14 +31,11 @@ in
     programs.firefox.package = pkgs.librewolf-bin;
     environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
-    xdg.mime.addedAssociations = {
-      "text/html" = "LibreWolf.desktop";
-      "application/pdf" = "LibreWolf.desktop";
-      "x-scheme-handler/http" = "LibreWolf.desktop";
-      "x-scheme-handler/https" = "LibreWolf.desktop";
-    };
+    xdg.mime = { inherit defaultApplications; };
 
     hms = lib.singleton {
+      xdg.mimeApps = { inherit defaultApplications; };
+
       programs.librewolf = {
         enable = true;
         inherit (config.programs.firefox) package;

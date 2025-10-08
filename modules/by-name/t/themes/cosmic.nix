@@ -81,6 +81,36 @@ in
         exec ${lib.getExe' pkgs.procps "pkill"} cosmic-panel
       '';
 
+      xdg.configFile."wkeys/style.css".text = ''
+        :root {
+          color: rgb(205, 214, 244);
+          font-size: 12px;
+        }
+
+        window {
+          background-color: rgba(0, 0, 0, 0);
+        }
+
+        button {
+          background-color: rgb(30, 30, 46);
+          border-radius: 0.5rem;
+          margin: 1px;
+          padding: 0.5rem;
+        }
+
+        button:hover {
+          background-color: rgb(108, 112, 134);
+        }
+
+        button:active {
+          background-color: rgb(245, 194, 231);
+        }
+
+        button:checked {
+          background-color: rgb(245, 194, 231);
+        }
+      '';
+
       programs.cosmic-manager.enable = true;
 
       wayland.desktopManager.cosmic = {

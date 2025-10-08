@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+_:
 
 {
-  environment.systemPackages = [ pkgs.libraspberrypi ];
+  environment.systemPackages = [
+    # is brokey :(
+    # pkgs.libraspberrypi
+  ];
 }

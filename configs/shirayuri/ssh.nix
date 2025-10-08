@@ -2,7 +2,7 @@
 
 let
   inherit (lib) singleton;
-  identityFile = config.hm.sops.secrets."private_keys/id_nadesiko".path;
+  identityFile = config.sops.secrets."private_keys/id_nadesiko".path;
 in
 
 {

@@ -21,13 +21,18 @@ let
 in
 
 {
-  hm.sops = {
-    secrets = {
-      deploymentThelessone.path = ".ssh/deploymentThelessone";
-      deploymentYuri.path = ".ssh/deploymentYuri";
+  sops.secrets = {
+    id_thelessone_deployment = {
+      path = "${config.users.users.${config.nanoSystem.mainUserName}.home}/.ssh/id_thelessone_deployment";
+      owner = config.nanoSystem.mainUserName;
+      mode = "400";
     };
-    defaultSopsFile = ./secrets/user-hana.yaml;
-    inherit (config.sops) age;
+
+    id_yuri_deployment = {
+      path = "${config.users.users.${config.nanoSystem.mainUserName}.home}/.ssh/id_yuri_deployment";
+      owner = config.nanoSystem.mainUserName;
+      mode = "400";
+    };
   };
 
   networking.networkmanager.enable = true;

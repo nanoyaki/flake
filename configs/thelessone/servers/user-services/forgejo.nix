@@ -21,6 +21,8 @@ in
     home = cfg.stateDir;
     useDefaultShell = true;
     isSystemUser = true;
+
+    extraGroups = [ "podman" ];
   };
 
   sops.secrets = {
@@ -110,15 +112,15 @@ in
     };
   };
 
-  virtualisation.docker = {
-    # We want rootless therefore system-wide is disabled
-    enable = false;
-    storageDriver = "btrfs";
-
-    # Due to security concerns we use rootless
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
+  # Use podman instead since rootless docker
+  # isn't supported by the forgejo nixos module
+  virtualisation.containers.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings = {
+      dns_enabled = true;
+      ipv6_enabled = true;
     };
   };
 

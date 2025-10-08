@@ -123,6 +123,7 @@ in
       ipv6_enabled = true;
     };
   };
+  networking.firewall.interfaces."\"podman*\"".allowedUDPPorts = [ 53 ];
 
   systemd.tmpfiles.settings."10-forgejo"."/etc/forgejo".d = {
     inherit (cfg) user group;

@@ -28,6 +28,7 @@
   };
 
   services.home-assistant = {
+    configDir = "/mnt/nvme-raid-1/var/lib/hass";
     extraComponents = [
       "tplink"
       "tplink_tapo"

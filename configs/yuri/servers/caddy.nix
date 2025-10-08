@@ -1,4 +1,17 @@
 {
+  config'.caddy = {
+    enable = true;
+
+    baseDomain = "home.local";
+    useHttps = false;
+    openFirewall = true;
+  };
+
+  services.caddy = {
+    dataDir = "/mnt/nvme-raid-1/var/lib/caddy";
+    logDir = "/mnt/nvme-raid-1/var/log/caddy";
+  };
+
   services.caddy.virtualHosts = {
     "nanoyaki.space".extraConfig = "redir https://bsky.app/profile/nanoyaki.space permanent";
     "www.nanoyaki.space".extraConfig = "redir https://bsky.app/profile/nanoyaki.space permanent";

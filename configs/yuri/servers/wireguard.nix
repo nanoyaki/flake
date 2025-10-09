@@ -30,4 +30,5 @@
   };
 
   networking.firewall.allowedUDPPorts = [ 51820 ];
+  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
 }

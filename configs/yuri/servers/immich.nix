@@ -22,6 +22,11 @@
     '';
   };
 
+  config'.caddy.vHost."http://immich.home.local".proxy = {
+    inherit (config.services.immich) port;
+    host = "127.0.0.1";
+  };
+
   services.immich-public-proxy = {
     enable = true;
     immichUrl = "http://localhost:${toString config.services.immich.port}";

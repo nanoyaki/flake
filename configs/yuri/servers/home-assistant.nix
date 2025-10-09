@@ -18,6 +18,11 @@
     '';
   };
 
+  config'.caddy.vHost."http://home-assistant.home.local" = {
+    proxy.host = "127.0.0.1";
+    proxy.port = config.services.home-assistant.config.http.server_port;
+  };
+
   sops.secrets = {
     "home-assistant/latitudeHome" = { };
     "home-assistant/longitudeHome" = { };

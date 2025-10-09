@@ -140,9 +140,12 @@ in
               abort @outside-local
             ''}
 
-            ${optionalString (!vhost.useMtls && config.security.acme.certs ? ${cfg.baseDomain}) ''
-              tls /var/lib/acme/${cfg.baseDomain}/cert.pem /var/lib/acme/${cfg.baseDomain}/key.pem
-            ''}
+            ${optionalString
+              (!vhost.useMtls && config.security.acme.certs ? ${cfg.baseDomain} && hasInfix cfg.baseDomain domain)
+              ''
+                tls /var/lib/acme/${cfg.baseDomain}/cert.pem /var/lib/acme/${cfg.baseDomain}/key.pem
+              ''
+            }
             ${optionalString vhost.useMtls ''
               tls {
                 client_auth {

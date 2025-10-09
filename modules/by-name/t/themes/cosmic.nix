@@ -77,9 +77,11 @@ in
         };
       };
 
-      home.activation.killCosmicPanel = config.hm.lib.dag.entryAfter [ "configureCosmic" ] ''
-        exec ${lib.getExe' pkgs.procps "pkill"} cosmic-panel
-      '';
+      home.activation = lib.mkIf (with config.hm.wayland.desktopManager.cosmic; resetFiles && enable) {
+        killCosmicPanel = config.hm.lib.dag.entryAfter [ "configureCosmic" ] ''
+          exec ${lib.getExe' pkgs.procps "pkill"} cosmic-panel
+        '';
+      };
 
       xdg.configFile."wkeys/style.css".text = ''
         :root {
@@ -297,15 +299,6 @@ in
             action = EnumVariant "System" (Enum "AppLibrary");
             key = "Super";
           }
-        ];
-
-        resetFiles = true;
-
-        resetFilesDirectories = [
-          "config"
-          "state"
-          "cache"
-          "runtime"
         ];
 
         stateFile."com.system76.CosmicSettingsDaemon" = {

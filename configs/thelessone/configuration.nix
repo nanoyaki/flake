@@ -1,9 +1,16 @@
 {
   self,
+  lib,
   pkgs,
   config,
   ...
 }:
+
+let
+  inherit (config.hm.lib.cosmic) mkRON;
+  Some = mkRON "optional";
+  None = mkRON "optional" null;
+in
 
 {
   config' = {
@@ -30,6 +37,14 @@
       ];
     }
   ];
+
+  hms = lib.singleton {
+    wayland.desktopManager.cosmic.idle = {
+      screen_off_time = Some 90000;
+      suspend_on_ac_time = None;
+      suspend_on_battery_time = None;
+    };
+  };
 
   # for deployment
   environment.etc."systems/thelessnas".source =

@@ -11,8 +11,12 @@
     };
   };
 
-  config'.caddy.vHost."https://immich.nanoyaki.space" = {
-    proxy.host = "127.0.0.1";
+  config'.caddy.vHost."https://immich.nanoyaki.space".enable = false;
+  config'.caddy.vHost."immich.nanoyaki.space" = {
+    proxy = {
+      inherit (config.services.immich) port;
+      host = "127.0.0.1";
+    };
     extraConfig = ''
       bind 10.100.0.1
     '';

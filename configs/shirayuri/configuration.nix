@@ -1,5 +1,4 @@
 {
-  self,
   # lib,
   pkgs,
   inputs',
@@ -90,12 +89,6 @@ in
   virtualisation.waydroid.enable = true;
 
   services.printing.enable = true;
-
-  # for deployment
-  environment.etc = {
-    "systems/yuri".source = self.nixosConfigurations.yuri.config.system.build.toplevel;
-    "systems/yamayuri".source = self.nixosConfigurations.yamayuri.config.system.build.toplevel;
-  };
 
   # hm.wayland.desktopManager.cosmic.wallpapers = lib.mkForce [
   #   {

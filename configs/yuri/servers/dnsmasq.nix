@@ -6,8 +6,10 @@
     settings = {
       listen-address = [
         "127.0.0.1"
+        "::1"
         "10.0.0.3"
         "10.100.0.1"
+        "fd50::1"
       ];
 
       server = [
@@ -20,7 +22,10 @@
       address = [
         "/nanoyaki.space/10.100.0.1"
         "/.nanoyaki.space/10.100.0.1"
+        "/nanoyaki.space/fd50::1"
+        "/.nanoyaki.space/fd50::1"
       ];
+
       cache-size = 1000;
       dhcp-lease-max = 300;
     };

@@ -1,3 +1,9 @@
+{ lib, config, ... }:
+
+let
+  cfg = config.services.dnsmasq;
+in
+
 {
   networking.resolvconf.useLocalResolver = true;
 
@@ -28,10 +34,12 @@
         "/.home.local/10.0.0.3"
       ];
 
-      cache-size = 1000;
-      dhcp-lease-max = 1000;
+      cache-size = 10000;
     };
   };
+
+  systemd.services.dnsmasq.serviceConfig.ExecStart =
+    lib.mkForce "${cfg.package}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${cfg.configFile} -0 1000";
 
   networking.firewall.allowedUDPPorts = [ 53 ];
   networking.firewall.allowedTCPPorts = [ 53 ];

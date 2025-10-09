@@ -22,6 +22,7 @@
         "/.nanoyaki.space/10.100.0.1"
       ];
       cache-size = 1000;
+      dhcp-lease-max = 300;
     };
   };
 

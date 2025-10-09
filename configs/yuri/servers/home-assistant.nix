@@ -11,6 +11,7 @@
 
   config'.caddy.vHost."https://home-assistant.nanoyaki.space".enable = false;
   config'.caddy.vHost."zuhause.nanoyaki.space" = {
+    proxy.host = "127.0.0.1";
     proxy.port = config.services.home-assistant.config.http.server_port;
     extraConfig = ''
       bind 10.100.0.1

@@ -11,9 +11,12 @@
     };
   };
 
-  config'.caddy.vHost."https://immich.nanoyaki.space".extraConfig = ''
-    bind 10.100.0.1
-  '';
+  config'.caddy.vHost."https://immich.nanoyaki.space" = {
+    proxy.host = "127.0.0.1";
+    extraConfig = ''
+      bind 10.100.0.1
+    '';
+  };
 
   services.immich-public-proxy = {
     enable = true;

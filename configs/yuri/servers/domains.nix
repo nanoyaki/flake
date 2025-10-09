@@ -5,10 +5,6 @@
   ...
 }:
 
-let
-  acmeDir = "/var/lib/acme";
-in
-
 {
   sops.secrets = {
     "porkbun/api-key" = { };
@@ -50,13 +46,6 @@ in
   services.caddy.globalConfig = lib.mkForce ''
     auto_https off
   '';
-
-  services.caddy.virtualHosts."nanoyaki.space" = {
-    serverAliases = [ "*.nanoyaki.space" ];
-    extraConfig = ''
-      tls ${acmeDir}/nanoyaki.space/cert.pem ${acmeDir}/nanoyaki.space/key.pem
-    '';
-  };
 
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {
     PORKBUN_API_KEY = config.sops.placeholder."porkbun/api-key";

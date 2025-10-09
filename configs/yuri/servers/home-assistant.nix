@@ -9,6 +9,15 @@
     };
   };
 
+  config'.caddy.vHost."https://home-assistant.nanoyaki.space".enable = false;
+  config'.caddy.vHost."zuhause.nanoyaki.space" = {
+    proxy.port = config.services.home-assistant.config.http.server_port;
+    extraConfig = ''
+      @not-vpn not remote_ip 10.100.0.0/24
+      respond @not-vpn "Forbidden" 403
+    '';
+  };
+
   sops.secrets = {
     "home-assistant/latitudeHome" = { };
     "home-assistant/longitudeHome" = { };

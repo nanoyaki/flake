@@ -2,8 +2,8 @@
   config'.caddy = {
     enable = true;
 
-    baseDomain = "home.local";
-    useHttps = false;
+    baseDomain = "nanoyaki.space";
+    useHttps = true;
     openFirewall = true;
   };
 

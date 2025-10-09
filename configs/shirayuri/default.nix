@@ -38,6 +38,7 @@
           ./backup.nix
           ./librewolf.nix
           ./qemu.nix
+          ./wireguard.nix
         ];
 
         nanoSystem = {

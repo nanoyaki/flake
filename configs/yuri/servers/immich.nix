@@ -12,8 +12,7 @@
   };
 
   config'.caddy.vHost."https://immich.nanoyaki.space".extraConfig = ''
-    @not-vpn not remote_ip 10.100.0.0/24
-    respond @not-vpn "Forbidden" 403
+    bind 10.100.0.1
   '';
 
   services.immich-public-proxy = {

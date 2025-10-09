@@ -17,7 +17,10 @@
         "8.8.4.4"
       ];
 
-      address = "/nanoyaki.space/10.100.0.1";
+      address = [
+        "/nanoyaki.space/10.100.0.1"
+        "/.nanoyaki.space/10.100.0.1"
+      ];
       cache-size = 1000;
     };
   };

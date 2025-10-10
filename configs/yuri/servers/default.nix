@@ -4,7 +4,7 @@
     ./domains.nix
     ./samba.nix
     # ./calendar.nix
-    ./dnsmasq.nix
+    ./coredns.nix
     ./restic-server.nix
     ./uptime-kuma.nix
     ./caddy.nix

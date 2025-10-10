@@ -18,7 +18,8 @@
       host = "127.0.0.1";
     };
     extraConfig = ''
-      bind 10.100.0.1
+      @web not client_ip private_ranges 10.100.0.0/24 10.0.0.0/24
+      respond @web "Forbidden" 403
     '';
   };
 

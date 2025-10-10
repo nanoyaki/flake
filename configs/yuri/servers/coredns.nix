@@ -5,7 +5,7 @@
     enable = true;
     config = ''
       .:53 {
-        bind 127.0.0.1 ::1 10.0.0.3
+        bind 127.0.0.1 ::1 enp7s0
 
         errors
         log
@@ -17,6 +17,16 @@
 
         template IN A home.local {
           answer "{{ .Name }} 60 IN A 10.0.0.3"
+          fallthrough
+        }
+
+        template IN A nanoyaki.space {
+          answer "{{ .Name }} 60 IN A 10.0.0.3"
+          fallthrough
+        }
+
+        template IN AAAA nanoyaki.space {
+          answer "{{ .Name }} 60 IN AAAA fd11:ad5:2cc6::1ac0:4dff:fea2:8521"
           fallthrough
         }
 

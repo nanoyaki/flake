@@ -14,7 +14,8 @@
     proxy.host = "127.0.0.1";
     proxy.port = config.services.home-assistant.config.http.server_port;
     extraConfig = ''
-      bind 10.100.0.1
+      @web not client_ip private_ranges 10.100.0.0/24 10.0.0.0/24
+      respond @web "Forbidden" 403
     '';
   };
 

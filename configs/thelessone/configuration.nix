@@ -40,9 +40,9 @@ in
 
   hms = lib.singleton {
     wayland.desktopManager.cosmic.idle = {
-      screen_off_time = Some 90000;
-      suspend_on_ac_time = None;
-      suspend_on_battery_time = None;
+      screen_off_time = lib.mkForce (Some 90000);
+      suspend_on_ac_time = lib.mkForce None;
+      suspend_on_battery_time = lib.mkForce None;
     };
   };
 

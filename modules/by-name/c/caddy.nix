@@ -166,13 +166,27 @@ in
             ${vhost.extraConfig}
 
             ${optionalString (vhost.proxy.port != 0) ''
-              reverse_proxy ${vhost.proxy.host}:${toString vhost.proxy.port}
+              reverse_proxy ${vhost.proxy.host}:${toString vhost.proxy.port} localhost:3133/503.html {
+                lb_policy first
+
+                health_method GET
+                health_status 2xx
+                health_follow_redirects
+
+                fail_duration 30s
+                max_fails 1
+              }
             ''}
           '';
           inherit (vhost) serverAliases;
         }
       ) enabledHosts;
     };
+
+    config'.caddy.vHost."localhost:3133".extraConfig = ''
+      root * ${pkgs.error-pages}/share/error-pages
+      file_server
+    '';
 
     services.headscale.settings.dns.extra_records = mapAttrsToList (domain: _: {
       name = replaceStrings [ "http://" "https://" ] [ "" "" ] domain;

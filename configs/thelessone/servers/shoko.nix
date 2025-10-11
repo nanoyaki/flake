@@ -17,12 +17,12 @@
   systemd.services.shoko.serviceConfig = {
     DynamicUser = lib.mkForce false;
     User = "shoko";
-    Group = config.config'.lab-config.arr.group;
+    Group = config.arr.group;
   };
 
   users.users.shoko = {
     isSystemUser = true;
-    inherit (config.config'.lab-config.arr) group;
+    inherit (config.arr) group;
     home = config.systemd.services.shoko.environment.SHOKO_HOME;
     homeMode = builtins.toString config.systemd.services.shoko.serviceConfig.StateDirectoryMode;
   };
@@ -41,7 +41,7 @@
 
   users.users.torrent-copy = {
     isSystemUser = true;
-    inherit (config.config'.lab-config.arr) group;
+    inherit (config.arr) group;
   };
 
   systemd.services.torrent-copy = {

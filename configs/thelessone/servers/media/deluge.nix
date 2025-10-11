@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  inherit (config.config'.lab-config) arr;
+  inherit (config) arr;
   domain = config.config'.caddy.genDomain "flood";
   cfg = config.services.deluge;
 in

@@ -1,5 +1,9 @@
 { pkgs, config, ... }:
 
+let
+  domain = "https://vaultwarden.theless.one";
+in
+
 {
   sops.secrets = {
     vaultwarden-smtp-password = { };
@@ -14,7 +18,16 @@
   };
 
   services.vaultwarden = {
+    enable = true;
+    dbBackend = "sqlite";
+    backupDir = "/var/backup/vaultwarden";
+
     config = {
+      DOMAIN = domain;
+
+      ROCKET_ADDRESS = "127.0.0.1";
+      ROCKET_PORT = 8222;
+
       SMTP_HOST = "mail.theless.one";
       SMTP_PORT = 465;
       SMTP_SECURITY = "force_tls";
@@ -34,7 +47,14 @@
     environmentFile = config.sops.templates."vaultwarden.env".path;
   };
 
-  config'.vaultwarden.enable = true;
+  config'.caddy.vHost.${domain}.proxy.port = config.services.vaultwarden.config.ROCKET_PORT;
+
+  config'.homepage.categories.Enduser.services.Vaultwarden = {
+    icon = "bitwarden.svg";
+    href = domain;
+    siteMonitor = domain;
+    description = "Private instance of the Bitwarden password manager";
+  };
 
   sops.secrets = {
     "restic/100-64-64-3" = { };

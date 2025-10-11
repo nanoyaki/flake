@@ -1,27 +1,23 @@
 { pkgs, config, ... }:
 
+let
+  domain = "https://zuhause.nanoyaki.space";
+in
+
 {
-  config'.home-assistant = {
-    enable = true;
-    homepage = {
-      category = "Dienste";
-      description = "Smart Home";
-    };
+  # Backwards compatibility
+  config'.caddy.vHost."http://home-assistant.home.local" = {
+    proxy.host = "127.0.0.1";
+    proxy.port = config.services.home-assistant.config.http.server_port;
   };
 
-  config'.caddy.vHost."https://home-assistant.nanoyaki.space".enable = false;
-  config'.caddy.vHost."zuhause.nanoyaki.space" = {
+  config'.caddy.vHost.${domain} = {
     proxy.host = "127.0.0.1";
     proxy.port = config.services.home-assistant.config.http.server_port;
     extraConfig = ''
       @web not client_ip private_ranges 10.100.0.0/24 10.0.0.0/24
       respond @web "Forbidden" 403
     '';
-  };
-
-  config'.caddy.vHost."http://home-assistant.home.local" = {
-    proxy.host = "127.0.0.1";
-    proxy.port = config.services.home-assistant.config.http.server_port;
   };
 
   sops.secrets = {
@@ -43,14 +39,45 @@
   };
 
   services.home-assistant = {
+    enable = true;
+
     configDir = "/mnt/nvme-raid-1/var/lib/hass";
     extraComponents = [
+      # Onboarding
+      "analytics"
+      "google_translate"
+      "met"
+      "radio_browser"
+      "shopping_list"
+
+      "isal"
+
       "tplink"
       "tplink_tapo"
       "zha"
     ];
 
     config = {
+      default_config = { };
+
+      http = {
+        server_host = [
+          "127.0.0.1"
+          "::1"
+        ];
+
+        trusted_proxies = [
+          "127.0.0.1"
+          "::1"
+        ];
+
+        use_x_forwarded_for = true;
+      };
+
+      "automation ui" = "!include automations.yaml";
+      "scene ui" = "!include scenes.yaml";
+      "script ui" = "!include scripts.yaml";
+
       zone = [
         {
           name = "Home";
@@ -71,5 +98,18 @@
         time_zone = "Europe/Berlin";
       };
     };
+  };
+
+  systemd.tmpfiles.rules = [
+    "f ${config.services.home-assistant.configDir}/automations.yaml 0755 hass hass"
+    "f ${config.services.home-assistant.configDir}/scenes.yaml 0755 hass hass"
+    "f ${config.services.home-assistant.configDir}/scripts.yaml 0755 hass hass"
+  ];
+
+  config'.homepage.categories.Dienste.services.Home-assistant = {
+    icon = "home-assistant.svg";
+    href = domain;
+    siteMonitor = domain;
+    description = "Smart home Gerätemanager und alles andere ums Zuhause";
   };
 }

@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  domain = config.config'.caddy.genDomain "audiobookshelf";
+  domain = "https://audiobookshelf.theless.one";
 in
 
 {
@@ -35,7 +35,7 @@ in
     useMtls = true;
   };
 
-  config'.caddy.vHost.${config.config'.caddy.genDomain "audiobookshelf.vpn"} = {
+  config'.caddy.vHost."https://audiobookshelf.vpn.theless.one" = {
     proxy = { inherit (config.services.audiobookshelf) port; };
     vpnOnly = true;
   };

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./lab.nix
+    ./arr-stack
     ./caddy.nix
     ./media
     ./user-services

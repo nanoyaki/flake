@@ -110,7 +110,7 @@ in
     services.stash = {
       enable = true;
 
-      inherit (config.config'.lab-config.arr) group;
+      inherit (config.arr) group;
       passwordFile = config.sops.secrets."stash/password".path;
       jwtSecretKeyFile = config.sops.secrets."stash/jwtSecret".path;
       sessionStoreKeyFile = config.sops.secrets."stash/sessionStoreSecret".path;

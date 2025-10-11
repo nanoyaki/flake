@@ -1,32 +1,19 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ config, ... }:
+
+let
+  domain = "https://immich.theless.one";
+in
 
 {
-  config'.immich.enable = true;
+  services.immich = {
+    enable = true;
+    accelerationDevices = [ "/dev/dri/renderD128" ];
+  };
 
-  services.immich.package = pkgs.immich.overrideAttrs (
-    oldAttrs:
-    lib.optionalAttrs (lib.versionOlder oldAttrs.version "1.142.1") rec {
-      version = "1.142.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "immich-app";
-        repo = "immich";
-        tag = "v${version}";
-        hash = "sha256-u538GWupnkH2K81Uk9yEuHc3pAeVexnJOnhWo7gElL0=";
-      };
-
-      pnpmDeps = pkgs.pnpm_10.fetchDeps {
-        pname = "immich";
-        inherit version src;
-        fetcherVersion = 2;
-        hash = "sha256-aYG5SpFZxhbz32YAdP39RYwn2GV+mFWhddd4IFuPuz8=";
-      };
-    }
-  );
+  users.users.${config.services.immich.user}.extraGroups = [
+    "video"
+    "render"
+  ];
 
   services.immich-public-proxy = {
     enable = true;
@@ -37,6 +24,15 @@
 
   config'.caddy.vHost."images.theless.one".proxy = {
     inherit (config.services.immich-public-proxy) port;
+  };
+
+  config'.caddy.vHost.${domain}.proxy = { inherit (config.services.immich) port; };
+
+  config'.homepage.categories.Media.services.Immich = {
+    icon = "immich.svg";
+    href = domain;
+    siteMonitor = domain;
+    description = "Image backup service";
   };
 
   sops.secrets."restic/immich" = { };

@@ -5,6 +5,7 @@
     ./gpu.nix
     ./boot.nix
     ./mounts.nix
+    ./cuda.nix
 
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower

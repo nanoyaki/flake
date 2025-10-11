@@ -91,6 +91,7 @@ in
       pascal = { };
       daniel = { };
       sebi = { };
+      uptimekuma = { };
     };
   };
 

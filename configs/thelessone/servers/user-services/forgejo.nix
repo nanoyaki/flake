@@ -98,6 +98,8 @@ in
         url = "https://git.theless.one";
         tokenFile = config.sops.templates."botan.env".path;
 
+        settings.runner.capacity = 8;
+
         labels = [
           "debian-latest:docker://debian:latest"
           "debian-stable:docker://debian:stable"

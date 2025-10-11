@@ -14,7 +14,10 @@ in
     ./flaresolverr.nix
     ./jellyseerr.nix
     ./lidarr.nix
+    ./prowlarr.nix
     ./radarr.nix
+    ./sabnzbd.nix
+    ./sonarr.nix
     ./whisparr.nix
   ];
 

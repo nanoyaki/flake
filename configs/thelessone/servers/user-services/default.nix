@@ -1,13 +1,10 @@
 {
   imports = [
-    ./uptime-kuma.nix
-    ./vaultwarden.nix
-    ./suwayomi.nix
-    ./forgejo.nix
-    # Disabled for now
-    # ./woodpecker.nix
-    ./fireshare.nix
     ./copyparty.nix
+    ./fireshare.nix
+    ./forgejo.nix
     ./radicale.nix
+    ./suwayomi.nix
+    ./vaultwarden.nix
   ];
 }

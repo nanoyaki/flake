@@ -57,7 +57,17 @@ jobs:
 
           ssh -T root@10.0.0.6
           tmux new -d -s "remote-switch-thelessone-local"
-          'nix run self#switch-10-0-0-5 -- "'"$GENERATION_PATH"'" $HOME/.ssh/deploymentThelessone'
+          '
+          git clone https://git.theless.one/nanoyaki/flake.git
+
+          eval "$(ssh-agent -s)"
+            ssh-add <(echo "$HOME/.ssh/deploymentThelessone")
+
+          nh os switch ./flake -H thelessone
+          --build-host root@10.0.0.5 --target-host root@10.0.0.5
+
+          rm -rf ./flake
+          '
 
       - name: Wait for deployment
         continue-on-error: true
@@ -65,7 +75,7 @@ jobs:
           inotifywait
           -e create,delete,move
           -r
-          --exclude '.*\.lock$'
+          --exclude '^(system-\d+-link|.*\.lock)$'
           -t 300
           /nix/var/nix/profiles
 

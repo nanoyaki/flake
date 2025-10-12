@@ -135,11 +135,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760217742,
-        "narHash": "sha256-Wl6qXH2c7uOYrqombogjJOTsEbifi8LmxTLd2+n3tlI=",
+        "lastModified": 1760229171,
+        "narHash": "sha256-0M8oJD1TFaC+H+gwaEByOKgfhcH6abmBln0VUFvAsRM=",
         "owner": "9001",
         "repo": "copyparty",
-        "rev": "46c205dd607a63b33c9b11cd87d2354d01453618",
+        "rev": "33b0cd5a343f1a26009690b27fda682b2f038df0",
         "type": "github"
       },
       "original": {
@@ -899,11 +899,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1759877642,
-        "narHash": "sha256-aoCZc6xM5YCpMBTmmrWVmBWI7gKkap0T3ZMflIHV9pc=",
+        "lastModified": 1760234115,
+        "narHash": "sha256-5ESQ7RpBuEVMmJkV5AvUNLZ359Sl7dPWHh18aosZUuM=",
         "ref": "refs/heads/main",
-        "rev": "2fadcc29fcfe79b944baae3b8caae7153106b29e",
-        "revCount": 30,
+        "rev": "bbb59ca10dd1b22054c167ea3d5686bd85f3ddac",
+        "revCount": 31,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -925,11 +925,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1760225226,
-        "narHash": "sha256-3O4nPESuMILLDkFjZ6LsSkmtjlDb0KAYQYKHQ4wgd3A=",
+        "lastModified": 1760231346,
+        "narHash": "sha256-sYBGkrWvdoMik12maJBm1BbRnUlUoxrZk/hJ6ZbHwUc=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "d1e709234295624a77bcac03ecf08c2ef3ecb743",
+        "rev": "ee2eefd0d928dfdd69a1394ee33b9220c55eb9f6",
         "type": "github"
       },
       "original": {
@@ -1129,11 +1129,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1760145522,
-        "narHash": "sha256-SAXa4AQEmWUGZVpOYgXjf9jLbU4zBs6B0XQTWMSvznI=",
+        "lastModified": 1760232425,
+        "narHash": "sha256-HkR+pXZ+5TjjcfeLnX1rg+0vNCRecf7FJ5OfXXo6iMY=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "ee55f523c6c5f184c2d49e56554703967407d56d",
+        "rev": "343929affb961bc60a1154e0e4a58f447c6ad9c3",
         "type": "github"
       },
       "original": {
@@ -1152,11 +1152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760215349,
-        "narHash": "sha256-XtDMYu/hIP+WzEGgJKlnHw56cYFlqyhecnJlXH4r/eA=",
+        "lastModified": 1760231832,
+        "narHash": "sha256-mygBNLydve9b/yGcX9BFBxf7nSborT87fbPjoB/ds0M=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "6251d2740a8b79bddad2e0a6829ee70a86cbbab8",
+        "rev": "91a02e1cb8359d8b00b88d61d0a96e41905143c2",
         "type": "github"
       },
       "original": {

@@ -75,7 +75,7 @@ jobs:
           inotifywait
           -e create,delete,move
           -r
-          --exclude '^(system-\d+-link|.*\.lock)$'
+          --include '^system-\d+-link$'
           -t 300
           /nix/var/nix/profiles
 

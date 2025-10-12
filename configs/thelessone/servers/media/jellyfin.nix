@@ -13,6 +13,7 @@ in
     };
     inherit (config.arr) group;
   };
+  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "nvidia";
 
   config'.caddy.vHost.${domain}.proxy.port = 8096;
   config'.caddy.vHost.${vpnDomain} = {
@@ -27,7 +28,10 @@ in
     description = "Server for archived media";
   };
 
-  users.users.${config.services.jellyfin.user}.extraGroups = [ "render" ];
+  users.users.${config.services.jellyfin.user}.extraGroups = [
+    "video"
+    "render"
+  ];
 
   systemd.services.jellyfin.restartTriggers = [ config.hardware.nvidia.package ];
 

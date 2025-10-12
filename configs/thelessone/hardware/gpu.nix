@@ -7,9 +7,8 @@
     enable = true;
     enable32Bit = true;
 
-    extraPackages = with pkgs; [
-      nvidia-vaapi-driver
-    ];
+    extraPackages = [ pkgs.nvidia-vaapi-driver ];
+    extraPackages32 = [ pkgs.pkgsi686Linux.nvidia-vaapi-driver ];
   };
 
   nixpkgs.config.nvidia.acceptLicense = true;

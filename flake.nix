@@ -157,20 +157,48 @@
       _module.args.lib' = inputs.nanolib.lib;
 
       imports = [
-        ./flake/formatting.nix
-        ./flake/dev.nix
-        ./flake/deploy.nix
-
+        inputs.git-hooks-nix.flakeModule
         ./modules
 
         ./configs/shirayuri
         ./configs/kuroyuri
         ./configs/yuri
-        ./configs/thelessone
-        ./configs/thelessnas
         ./configs/yamayuri
         ./configs/himeyuri
       ];
+
+      perSystem =
+        {
+          lib,
+          pkgs,
+          self',
+          config,
+          ...
+        }:
+
+        let
+          inherit (lib) mapAttrs' nameValuePair;
+        in
+
+        {
+          pre-commit = {
+            check.enable = true;
+            settings.hooks = {
+              statix.enable = true;
+              flake-checker.enable = true;
+              nixfmt-rfc-style.enable = true;
+              deadnix.enable = true;
+            };
+          };
+
+          devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
+            buildInputs = (prevAttrs.buildInputs or [ ]) ++ (with pkgs; [ git ]);
+          });
+
+          checks = mapAttrs' (n: nameValuePair "devShell-${n}") self'.devShells;
+
+          formatter = pkgs.nixfmt-tree;
+        };
 
       systems = [
         "x86_64-linux"

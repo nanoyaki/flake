@@ -47,6 +47,8 @@
             locale = "de_DE.UTF-8";
             timezone = "Europe/Berlin";
           };
+          desktop.plasma.enable = true;
+          desktop.plasma.isDefault = true;
           keyboard.layout = "de";
           fcitx5.enable = true;
           audio.latency = lib.mkDefault 256;

@@ -45,7 +45,7 @@ in
 
     hm = {
       programs.cosmic-files = {
-        enable = true;
+        inherit (config.services.desktopManager.cosmic) enable;
         settings = {
           app_theme = Enum "System";
 
@@ -113,10 +113,12 @@ in
         }
       '';
 
-      programs.cosmic-manager.enable = true;
+      programs.cosmic-manager = {
+        inherit (config.services.desktopManager.cosmic) enable;
+      };
 
       wayland.desktopManager.cosmic = {
-        enable = true;
+        inherit (config.services.desktopManager.cosmic) enable;
 
         idle = {
           screen_off_time = Some (mins 15);

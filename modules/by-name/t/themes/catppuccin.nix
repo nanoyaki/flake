@@ -78,7 +78,7 @@ in
 
           xdg.configFile."vesktop/themes".source = "${pkgs.midnight-theme}/share/themes/flavors";
         }
-        // optionalAttrs (config.programs ? plasma && config.programs.plasma ? workspace) {
+        // optionalAttrs (config.programs ? plasma.workspace) {
           programs.plasma = {
             workspace = {
               lookAndFeel = "Catppuccin-${lib'.toUppercase cfg.flavor}-${lib'.toUppercase cfg.accent}";

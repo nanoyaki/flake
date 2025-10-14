@@ -7,6 +7,10 @@ on:
   workflow_call:
   workflow_dispatch:
 
+env:
+  NIX_CONFIG: |
+    experimental-features = nix-command flakes
+
 jobs:
   checks:
     runs-on: nix
@@ -15,7 +19,7 @@ jobs:
         run: nix profile install nixpkgs#nodejs
 
       - name: Checkout repo
-        uses: https://code.forgejo.org/actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Flake checks
         run: nix flake check

@@ -125,4 +125,6 @@ in
     url = "https://cdn.bsky.app/img/avatar/plain/did:plc:majihettvb7ieflgmkvujecu/bafkreiarzaifqcdw4mugzplv3t6qxp7kydjglgsy65dz3g4afyjlviemqy@png";
     hash = "sha256-VyyCflVNdt5k90vXkHxlQ9TvNjxk8NmZMxb45UMpCgA=";
   };
+
+  i18n.extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
 }

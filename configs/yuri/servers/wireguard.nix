@@ -1,14 +1,7 @@
 {
-  lib,
-  pkgs,
   config,
   ...
 }:
-
-let
-  iptables = lib.getExe' pkgs.iptables "iptables";
-  ip6tables = lib.getExe' pkgs.iptables "ip6tables";
-in
 
 {
   sops.secrets.wg0 = { };
@@ -20,22 +13,6 @@ in
     ];
     listenPort = 51820;
     privateKeyFile = config.sops.secrets.wg0.path;
-
-    postUp = ''
-      ${iptables} -A FORWARD -i wg0 -j ACCEPT
-      ${iptables} -t nat -A POSTROUTING -s 10.100.0.1/24 -o enp7s0 -j MASQUERADE
-
-      ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
-      ${ip6tables} -t nat -A POSTROUTING -s fd50::1/64 -o enp7s0 -j MASQUERADE
-    '';
-
-    preDown = ''
-      ${iptables} -D FORWARD -i wg0 -j ACCEPT
-      ${iptables} -t nat -D POSTROUTING -s 10.100.0.1/24 -o enp7s0 -j MASQUERADE
-
-      ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
-      ${ip6tables} -t nat -D POSTROUTING -s fd50::1/64 -o enp7s0 -j MASQUERADE
-    '';
 
     peers = [
       {
@@ -55,6 +32,11 @@ in
     ];
   };
 
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = true;
+    "net.ipv6.conf.all.forwarding" = true;
+  };
+
   networking.nat = {
     enable = true;
     enableIPv6 = true;
@@ -62,6 +44,8 @@ in
     internalInterfaces = [ "wg0" ];
   };
 
-  networking.firewall.allowedUDPPorts = [ 51820 ];
-  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+  networking.firewall = {
+    trustedInterfaces = [ "wg0" ];
+    allowedUDPPorts = [ 51820 ];
+  };
 }

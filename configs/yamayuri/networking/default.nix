@@ -1,7 +1,8 @@
 {
   imports = [
     ./deployment.nix
-    ./interface.nix
     ./ssh.nix
   ];
+
+  networking.useDHCP = true;
 }

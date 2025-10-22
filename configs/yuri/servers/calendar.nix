@@ -1,58 +1,47 @@
 {
   pkgs,
   config,
-  # inputs',
+  inputs',
   ...
 }:
 
 let
-  # webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
+  webPkg = "${inputs'.discord-events-to-ics.packages.default}/share/php/discord-events-to-ics";
   home = "/var/lib/caddy/nanoyaki-events";
+  inherit (config.services.caddy) user;
 in
 
 {
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
-
   sops.secrets = {
-    "caddy-env/guildId" = { };
-    "caddy-env/botToken" = { };
+    "caddy-env/guildId".owner = user;
+    "caddy-env/botToken".owner = user;
   };
-  sops.templates."caddy.env".file = (pkgs.formats.keyValue { }).generate "caddy.env" {
-    GUILD_ID = config.sops.placeholder."caddy-env/guildId";
-    BOT_TOKEN = config.sops.placeholder."caddy-env/botToken";
-  };
-  # services.caddy = {
-  #   environmentFile = config.sops.secrets."caddy/nanoyaki-events/environment".path;
 
-  #   virtualHosts."events.nanoyaki.space".extraConfig = ''
-  #     root * ${webPkg}/public
+  services.caddy.virtualHosts."events.nanoyaki.space".extraConfig = ''
+    root * ${webPkg}/public
 
-  #     encode zstd gzip
-  #     file_server
+    encode zstd gzip
+    file_server
 
-  #     php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
-  #       root ${webPkg}/public
+    php_fastcgi unix${config.services.phpfpm.pools.nanoyaki-events.socket} {
+      root ${webPkg}/public
 
-  #       env GUILD_ID {env.GUILD_ID}
-  #       env BOT_TOKEN {env.BOT_TOKEN}
-  #       env CACHE_DIR "${home}/cache"
-  #       env LOG_PATH "${home}/logs"
-  #       env LOG_LEVEL "info"
+      env GUILD_ID {file.${config.sops.secrets."caddy-env/guildId".path}}
+      env BOT_TOKEN {file.${config.sops.secrets."caddy-env/botToken".path}}
+      env CACHE_DIR "${home}/cache"
+      env LOG_PATH "${home}/logs"
+      env LOG_LEVEL "info"
 
-  #       resolve_root_symlink
-  #     }
+      resolve_root_symlink
+    }
 
-  #     @dotfiles {
-  #       not path /.well-known/*
-  #       path /.*
-  #     }
-  #     redir @dotfiles /
-  #   '';
-  # };
-  users.users.${config.services.caddy.user}.extraGroups = [ "nanoyaki-events" ];
+    @dotfiles {
+      not path /.well-known/*
+      path /.*
+    }
+    redir @dotfiles /
+  '';
+  users.users.${user}.extraGroups = [ "nanoyaki-events" ];
 
   systemd.tmpfiles.settings."10-nanoyaki-events" =
     let
@@ -83,7 +72,7 @@ in
     phpPackage = pkgs.php84;
 
     settings = {
-      "listen.owner" = config.services.caddy.user;
+      "listen.owner" = user;
       "listen.group" = config.services.caddy.group;
       "pm" = "dynamic";
       "pm.max_children" = 75;

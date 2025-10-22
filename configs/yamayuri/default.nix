@@ -31,6 +31,7 @@
 
         self.nixosModules.all
         ./configuration.nix
+        # ./load-balancing.nix
       ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;

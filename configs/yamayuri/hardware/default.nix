@@ -7,8 +7,8 @@ in
 {
   imports = [
     ./boot.nix
-    ./mounts.nix
     ./swap.nix
+    ./mounts.nix
 
     nixos-hardware.nixosModules.raspberry-pi-3
   ];

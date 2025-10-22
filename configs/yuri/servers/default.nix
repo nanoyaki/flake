@@ -3,7 +3,7 @@
     ./immich.nix
     ./domains.nix
     ./samba.nix
-    # ./calendar.nix
+    ./calendar.nix
     ./coredns.nix
     ./restic-server.nix
     ./uptime-kuma.nix

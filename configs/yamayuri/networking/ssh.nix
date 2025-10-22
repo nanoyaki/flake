@@ -3,7 +3,6 @@
 {
   services.openssh = {
     enable = true;
-    startWhenNeeded = true;
     openFirewall = true;
 
     settings.PasswordAuthentication = false;

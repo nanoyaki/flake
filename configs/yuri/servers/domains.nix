@@ -7,14 +7,16 @@
 
 {
   sops.secrets = {
-    "porkbun/api-key" = { };
-    "porkbun/secret-api-key" = { };
+    "porkbun/nanoyaki.space/api-key" = { };
+    "porkbun/nanoyaki.space/secret-api-key" = { };
+    "porkbun/theless.one/api-key" = { };
+    "porkbun/theless.one/secret-api-key" = { };
   };
 
-  sops.templates."oink.json".file = (pkgs.formats.json { }).generate "oink.json" {
+  sops.templates."oink.nanoyaki.space.json".content = builtins.toJSON {
     global = {
-      secretapikey = config.sops.placeholder."porkbun/secret-api-key";
-      apikey = config.sops.placeholder."porkbun/api-key";
+      secretapikey = config.sops.placeholder."porkbun/nanoyaki.space/secret-api-key";
+      apikey = config.sops.placeholder."porkbun/nanoyaki.space/api-key";
       interval = 900;
       ttl = 600;
     };
@@ -30,14 +32,48 @@
         ];
   };
 
-  systemd.services.oink = {
+  sops.templates."oink.theless.one.json".content = builtins.toJSON {
+    global = {
+      secretapikey = config.sops.placeholder."porkbun/theless.one/secret-api-key";
+      apikey = config.sops.placeholder."porkbun/theless.one/api-key";
+      interval = 900;
+      ttl = 600;
+    };
+    domains =
+      map
+        (subdomain: {
+          domain = "theless.one";
+          inherit subdomain;
+        })
+        [
+          "*.backup1"
+          "backup1"
+        ];
+  };
+
+  systemd.services."oink-nanoyaki.space" = {
     description = "Dynamic DNS client for Porkbun";
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
 
     serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.json".path} -v";
+      ExecStart = "${lib.getExe pkgs.oink} -c ${
+        config.sops.templates."oink.nanoyaki.space.json".path
+      } -v";
+      Restart = "always";
+      Type = "simple";
+    };
+  };
+
+  systemd.services."oink-theless.one" = {
+    description = "Dynamic DNS client for Porkbun";
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.oink} -c ${config.sops.templates."oink.theless.one.json".path} -v";
       Restart = "always";
       Type = "simple";
     };
@@ -48,22 +84,37 @@
   '';
 
   sops.templates."acme.env".file = (pkgs.formats.keyValue { }).generate "acme.env" {
-    PORKBUN_API_KEY = config.sops.placeholder."porkbun/api-key";
-    PORKBUN_SECRET_API_KEY = config.sops.placeholder."porkbun/secret-api-key";
+    PORKBUN_API_KEY = config.sops.placeholder."porkbun/nanoyaki.space/api-key";
+    PORKBUN_SECRET_API_KEY = config.sops.placeholder."porkbun/nanoyaki.space/secret-api-key";
   };
+
+  sops.templates."acme.theless.one.env".file =
+    (pkgs.formats.keyValue { }).generate "acme.theless.one.env"
+      {
+        PORKBUN_API_KEY = config.sops.placeholder."porkbun/theless.one/api-key";
+        PORKBUN_SECRET_API_KEY = config.sops.placeholder."porkbun/theless.one/secret-api-key";
+      };
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "hanakretzer@gmail.com";
+    defaults = {
+      email = "contact@nanoyaki.space";
+      dnsProvider = "porkbun";
+      dnsPropagationCheck = true;
+    };
 
     certs."nanoyaki.space" = {
       inherit (config.services.caddy) group;
-
-      domain = "nanoyaki.space";
       extraDomainNames = [ "*.nanoyaki.space" ];
-      dnsProvider = "porkbun";
-      dnsPropagationCheck = true;
       environmentFile = config.sops.templates."acme.env".path;
+    };
+
+    certs."backup1.theless.one" = {
+      email = "contact@theless.one";
+
+      inherit (config.services.caddy) group;
+      extraDomainNames = [ "*.backup1.theless.one" ];
+      environmentFile = config.sops.templates."acme.theless.one.env".path;
     };
   };
 

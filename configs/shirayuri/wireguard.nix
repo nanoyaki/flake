@@ -8,22 +8,18 @@
 
   networking.wg-quick.interfaces.wg0 = {
     address = [
-      "10.100.0.2/32"
-      "fd50::2/128"
+      "10.101.0.2/32"
+      "fd10::2/128"
     ];
     privateKeyFile = config.sops.secrets.wg0.path;
-    dns = [
-      "10.100.0.1"
-      "1.1.1.1"
-    ];
 
     peers = [
       {
-        publicKey = "8yqbMtP4OzQOfpxI6KU41900p+rGmwBZ83KM/scj/0s=";
+        publicKey = "kdBOsYomUk9YEFs+qSsKHnbaMAL6r57IlkJoNweRKj8=";
         endpoint = "nanoyaki.space:51820";
         allowedIPs = [
-          "10.100.0.1/32"
-          "fd50::1/128"
+          "10.101.0.1/32"
+          "fd10::1/128"
         ];
         persistentKeepalive = 25;
       }

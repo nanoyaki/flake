@@ -8,7 +8,5 @@
     ./restic-server.nix
     ./uptime-kuma.nix
     ./caddy.nix
-    ./home-assistant.nix
-    ./wireguard.nix
   ];
 }

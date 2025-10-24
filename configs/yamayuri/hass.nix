@@ -1,47 +1,34 @@
-{ pkgs, config, ... }:
-
-let
-  domain = "https://zuhause.nanoyaki.space";
-in
+{ config, ... }:
 
 {
-  # Backwards compatibility
-  config'.caddy.vHost."http://home-assistant.home.local" = {
-    proxy.host = "127.0.0.1";
-    proxy.port = config.services.home-assistant.config.http.server_port;
-  };
+  services.caddy.virtualHosts."zuhause.hanakretzer.de" = {
+    listenAddresses = [
+      "127.0.0.1"
+      "::1"
+      "10.101.0.1"
+      "fd10::1"
+      "10.0.0.101"
+    ];
 
-  config'.caddy.vHost.${domain} = {
-    proxy.host = "127.0.0.1";
-    proxy.port = config.services.home-assistant.config.http.server_port;
+    useACMEHost = "hanakretzer.de";
     extraConfig = ''
-      @web not client_ip private_ranges 10.100.0.0/24 10.0.0.0/24
-      respond @web "Forbidden" 403
+      reverse_proxy 127.0.0.1:${toString config.services.home-assistant.config.http.server_port}
     '';
   };
 
-  sops.secrets = {
-    "home-assistant/latitudeHome" = { };
-    "home-assistant/longitudeHome" = { };
-  };
-
-  sops.templates."secrets.yaml" = {
-    file = (pkgs.formats.yaml { }).generate "secrets.yaml" {
-      latitude_home = config.sops.placeholder."home-assistant/latitudeHome";
-      longitude_home = config.sops.placeholder."home-assistant/longitudeHome";
-    };
-
+  sops.secrets.hass = {
+    path = "${config.services.home-assistant.configDir}/secrets.yaml";
     owner = "hass";
     group = "hass";
     mode = "0440";
-    path = "${config.services.home-assistant.configDir}/secrets.yaml";
     restartUnits = [ "home-assistant.service" ];
   };
 
   services.home-assistant = {
     enable = true;
+    openFirewall = true;
 
-    configDir = "/mnt/nvme-raid-1/var/lib/hass";
+    extraPackages = ps: with ps; [ psycopg2 ];
     extraComponents = [
       # Onboarding
       "analytics"
@@ -60,10 +47,12 @@ in
     config = {
       default_config = { };
 
+      recorder.db_url = "postgresql://@/hass";
+
       http = {
         server_host = [
-          "127.0.0.1"
-          "::1"
+          "0.0.0.0"
+          "::"
         ];
 
         trusted_proxies = [
@@ -100,16 +89,20 @@ in
     };
   };
 
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "hass" ];
+    ensureUsers = [
+      {
+        name = "hass";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
+
   systemd.tmpfiles.rules = [
     "f ${config.services.home-assistant.configDir}/automations.yaml 0755 hass hass"
     "f ${config.services.home-assistant.configDir}/scenes.yaml 0755 hass hass"
     "f ${config.services.home-assistant.configDir}/scripts.yaml 0755 hass hass"
   ];
-
-  config'.homepage.categories.Dienste.services.Home-assistant = {
-    icon = "home-assistant.svg";
-    href = domain;
-    siteMonitor = domain;
-    description = "Smart home Gerätemanager und alles andere ums Zuhause";
-  };
 }

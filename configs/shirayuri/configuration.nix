@@ -1,8 +1,9 @@
 {
-  # lib,
+  lib,
   pkgs,
   inputs',
   config,
+  prev,
   ...
 }:
 
@@ -17,6 +18,8 @@ let
       value = [ value ];
       inherit variant;
     };
+
+  inherit (config.services.displayManager) defaultSession;
 in
 
 {
@@ -127,4 +130,17 @@ in
   };
 
   i18n.extraLocales = [ "ja_JP.UTF-8/UTF-8" ];
+
+  services.greetd.settings = lib.mkForce (
+    if (defaultSession == "cosmic" || defaultSession == null) then
+      prev.config.services.greetd.settings
+    else
+      prev.config.services.greetd.settings
+      // {
+        initial_session = {
+          command = lib.getExe' pkgs.kdePackages.plasma-workspace "startplasma-wayland";
+          inherit (config.services.displayManager.autoLogin) user;
+        };
+      }
+  );
 }

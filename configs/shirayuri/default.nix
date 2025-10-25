@@ -30,6 +30,7 @@
 
           self.nixosModules.all
           self.nixosModules.vr
+          ./nixpkgs-patches.nix
           ./configuration.nix
           ./xdg.nix
           ./gaming

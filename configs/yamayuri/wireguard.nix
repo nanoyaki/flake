@@ -22,6 +22,13 @@
           "fd10::2/128"
         ];
       }
+      {
+        publicKey = "Vaq/AzMYsYq0Ba1MS75uyqTJuYk+L5jHUv67ms3jdgQ=";
+        allowedIPs = [
+          "10.101.0.3/32"
+          "fd10::3/128"
+        ];
+      }
     ];
   };
 

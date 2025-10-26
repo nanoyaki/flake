@@ -16,7 +16,7 @@
     peers = [
       {
         publicKey = "kdBOsYomUk9YEFs+qSsKHnbaMAL6r57IlkJoNweRKj8=";
-        endpoint = "nanoyaki.space:51820";
+        endpoint = "hanakretzer.de:51820";
         allowedIPs = [
           "10.101.0.1/32"
           "fd10::1/128"

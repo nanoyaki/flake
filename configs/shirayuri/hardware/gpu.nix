@@ -27,8 +27,8 @@ let
         change_threshold = 2;
       };
       pmfw_options.zero_rpm = true;
-      performance_level = "manual";
-      power_profile_mode_index = 4; # VR
+      performance_level = "auto";
+      # power_profile_mode_index = 4; # VR
       voltage_offset = -72;
       min_core_clock = 500;
       max_core_clock = 2895;

@@ -136,11 +136,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761403017,
-        "narHash": "sha256-H+QoBnwTdYysHJrJiLBjcpscI1g4/hUEBeNXrg0hLJo=",
+        "lastModified": 1761420116,
+        "narHash": "sha256-k8v/AvYeJmiKMjDd4xw6oG8idyXYYxKEsObB+Dkv6N4=",
         "owner": "9001",
         "repo": "copyparty",
-        "rev": "1963ed179516968bece526b1e28f7fc0a8f80cde",
+        "rev": "4fcd2c41932d731b052bf1be6879b4310f4d3e10",
         "type": "github"
       },
       "original": {
@@ -899,11 +899,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1761408439,
-        "narHash": "sha256-aBd+uIQLYt1IR5pmcnfkfjbggV/djPrhrnRb9AK04b0=",
+        "lastModified": 1761419854,
+        "narHash": "sha256-2v/onLaJI5gQriM77vKLCtIln9IREmw0N6GDHvkNt7Y=",
         "ref": "refs/heads/main",
-        "rev": "a73b37ff613de3c8d4e99bbce4be905b58fd20b2",
-        "revCount": 33,
+        "rev": "8897ebcc16c322d689f906df544622e87fd1a2f2",
+        "revCount": 35,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -925,11 +925,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1761345586,
-        "narHash": "sha256-efzARyIstD3qNOM8TyUKQY7/GUPIA0cat/EKPkMTnjY=",
+        "lastModified": 1761416133,
+        "narHash": "sha256-GpXBiAqAXYed/Wtq7Y3d5oLs0EUbojlZMeGKXkfRRyQ=",
         "owner": "nanoyaki",
         "repo": "nanopkgs",
-        "rev": "58808086ac497d133b6ad0f36b4ea19bdfe788fd",
+        "rev": "fd7bea8276e5096ae985f5ab29f75fd7b747cca6",
         "type": "github"
       },
       "original": {
@@ -1152,11 +1152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761407082,
-        "narHash": "sha256-Pm8NDHKn1sAlN0H367gc+a5+IGIVFb6JDi9p7t8+GvE=",
+        "lastModified": 1761442004,
+        "narHash": "sha256-hMDW7EqOaKl9yY3mIIgjRr0QAfWi5DqhKgDw0tMLGHU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1a12617a8a5308fecc7a2142146841202ec2491a",
+        "rev": "a60bf0b4447f158744df813945ff772285ac2fe8",
         "type": "github"
       },
       "original": {

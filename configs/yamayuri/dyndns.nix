@@ -20,16 +20,20 @@
         ttl = 600;
       };
 
-      domains =
-        map
-          (subdomain: {
-            domain = "hanakretzer.de";
-            inherit subdomain;
-          })
-          [
-            "*"
-            ""
-          ];
+      domains = [
+        {
+          domain = "hanakretzer.de";
+          subdomain = "*";
+        }
+        {
+          domain = "hanakretzer.de";
+          subdomain = "";
+        }
+        {
+          domain = "nanoyaki.space";
+          subdomain = "events";
+        }
+      ];
     };
 
     restartUnits = [ "oink.service" ];
@@ -55,17 +59,18 @@
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "contact@nanoyaki.space";
-
-    certs."hanakretzer.de" = {
+    defaults = {
       inherit (config.services.caddy) group;
+      email = "contact@nanoyaki.space";
 
-      extraDomainNames = [ "*.hanakretzer.de" ];
       dnsProvider = "porkbun";
       dnsResolver = "173.245.58.37:53";
       dnsPropagationCheck = true;
 
       environmentFile = config.sops.templates."acme.env".path;
     };
+
+    certs."hanakretzer.de".extraDomainNames = [ "*.hanakretzer.de" ];
+    certs."events.nanoyaki.space" = { };
   };
 }

@@ -123,8 +123,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     discord-events-to-ics = {
-      url = "git+https://codeberg.org/nanoyaki/oh-events-to-ics.git";
+      url = "github:nanoyaki/discord-events-to-ics";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     nanopkgs = {
       url = "github:nanoyaki/nanopkgs";

@@ -8,7 +8,6 @@ in
   imports = [
     ./boot.nix
     ./swap.nix
-    ./mounts.nix
 
     nixos-hardware.nixosModules.raspberry-pi-3
   ];

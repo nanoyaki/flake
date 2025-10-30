@@ -40,7 +40,7 @@ in
       external.installHook = lib.mkForce (
         pkgs.writeShellScript "bootinstall" (
           let
-            bootMountPoint = config.boot.loader.efi.efiSysMountPoint;
+            inherit (config.boot.loader.efi) efiSysMountPoint;
 
             edk2ShellEspPath = "efi/edk2-uefi-shell/shell.efi";
 
@@ -68,11 +68,12 @@ in
               /nix/var/nix/profiles/system-*-link
 
             ${concatMapAttrsStringSep "" (n: v: ''
-              ${pkgs.coreutils}/bin/install -Dp "${v}" "${bootMountPoint}/"${escapeShellArg n}
+              ${pkgs.coreutils}/bin/install -Dp "${v}" "${efiSysMountPoint}/"${escapeShellArg n}
+              ${lib.getExe pkgs.sbctl} sign -s "${efiSysMountPoint}/"${escapeShellArg n}
             '') extraFiles}
 
             ${concatMapAttrsStringSep "" (n: v: ''
-              ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${bootMountPoint}/loader/entries/"${escapeShellArg n}
+              ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efiSysMountPoint}/loader/entries/"${escapeShellArg n}
             '') extraEntries}
           ''
         )

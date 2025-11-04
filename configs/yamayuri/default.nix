@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  inherit (inputs) nixos-raspberrypi;
+in
+
 {
   flake.nixosConfigurations.yamayuri = lib'.systems.mkServer {
     inherit inputs;
@@ -25,20 +29,27 @@
     };
 
     config = {
-      imports = [
-        ./hardware
-        ./networking
+      imports =
+        (with nixos-raspberrypi.nixosModules; [
+          nixos-raspberrypi.lib.inject-overlays
+          trusted-nix-caches
+          nixpkgs-rpi
+          # nixos-raspberrypi.lib.inject-overlays-global
+        ])
+        ++ [
+          ./hardware
+          ./networking
 
-        "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-        self.nixosModules.all
-        ./configuration.nix
-        # ./load-balancing.nix
-        ./caddy.nix
-        ./dyndns.nix
-        ./hass.nix
-        ./wireguard.nix
-        ./calendar.nix
-      ];
+          "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          self.nixosModules.all
+          ./configuration.nix
+          # ./load-balancing.nix
+          ./caddy.nix
+          ./dyndns.nix
+          ./hass.nix
+          ./wireguard.nix
+          ./calendar.nix
+        ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;
       nanoSystem.localization = {

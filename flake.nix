@@ -116,6 +116,7 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.home-manager.follows = "home-manager";
     };
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
 
     # own stuff
     vermeer-undervolt = {
@@ -147,6 +148,11 @@
     # eh, i don't use it that much anyway
     # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
   };
+
+  nixConfig.extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];
+  nixConfig.extra-trusted-public-keys = [
+    "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+  ];
 
   outputs =
     inputs@{

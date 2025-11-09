@@ -73,6 +73,7 @@ in
       nur.repos.ataraxiasjel.waydroid-script
       thunderbird-latest-bin
       vesktop
+      spotify
     ])
     ++ mapLazyCliApps (
       with pkgs;
@@ -86,6 +87,8 @@ in
         nvtopPackages.amd
       ]
     );
+
+  xdg.mime.defaultApplications."x-scheme-handler/spotify" = "spotify.desktop";
 
   programs.kde-pim.merkuro = true;
 

@@ -8,12 +8,6 @@
     hybrid-sleep.enable = false;
   };
 
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-    useRoutingFeatures = "both";
-  };
-
   networking.firewall = {
     enable = true;
     allowPing = true;

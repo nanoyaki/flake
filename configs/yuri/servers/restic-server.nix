@@ -3,7 +3,7 @@
 {
   sops.secrets.restic-server.owner = "restic";
 
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 8000 ];
+  networking.firewall.interfaces.wg1.allowedTCPPorts = [ 8000 ];
   networking.firewall.interfaces.enp7s0.allowedTCPPorts = [ 8000 ];
 
   services.restic.server = {

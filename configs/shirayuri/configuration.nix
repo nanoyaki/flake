@@ -53,11 +53,6 @@ in
     flatpak.enable = true;
   };
 
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "client";
-  };
-
   specialisation.osu.configuration.nanoSystem.audio.latency = 32;
 
   environment.systemPackages =

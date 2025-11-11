@@ -59,7 +59,6 @@ in
     (with pkgs; [
       wl-clipboard
       gimp3-with-plugins
-      feishin
       grayjay
       obs-studio
       nixd

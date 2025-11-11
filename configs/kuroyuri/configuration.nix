@@ -16,7 +16,6 @@
     nvtopPackages.amd
     wl-clipboard
     gimp3-with-plugins
-    feishin
     # grayjay
     prismlauncher
     melonDS

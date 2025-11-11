@@ -49,6 +49,7 @@ in
           ./hass.nix
           ./wireguard.nix
           ./calendar.nix
+          ./restic.nix
         ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;

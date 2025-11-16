@@ -68,6 +68,7 @@ in
       thunderbird-latest-bin
       vesktop
       spotify
+      libreoffice-qt6-fresh
     ])
     ++ mapLazyCliApps (
       with pkgs;

@@ -41,7 +41,8 @@
 
       "tplink"
       "tplink_tapo"
-      "zha"
+      "mqtt"
+      "fitbit"
     ];
 
     config = {

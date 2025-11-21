@@ -50,6 +50,7 @@ in
           ./wireguard.nix
           ./calendar.nix
           ./restic.nix
+          ./zigbee2mqtt.nix
         ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;

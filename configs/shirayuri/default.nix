@@ -49,7 +49,7 @@
             timezone = "Europe/Berlin";
           };
           desktop.plasma.enable = true;
-          desktop.plasma.isDefault = true;
+          desktop.cosmic.enable = false;
           keyboard.layout = "de";
           fcitx5.enable = true;
           audio.latency = lib.mkDefault 256;

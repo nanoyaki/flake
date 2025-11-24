@@ -10,20 +10,22 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+        pre-commit.follows = "pre-commit-hooks";
+      };
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
@@ -32,7 +34,19 @@
     };
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+      };
+    };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        lib-aggregate.follows = "lib-aggregate";
+      };
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -40,25 +54,18 @@
       inputs.home-manager.follows = "home-manager";
     };
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak";
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-minecraft = {
-      url = "github:nanoyaki/nix-minecraft/neoforge-master-base";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    catppuccin = {
-      url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
@@ -67,39 +74,60 @@
     };
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    lazy-apps = {
+      url = "sourcehut:~rycee/lazy-apps";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
       url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nur.follows = "nur";
+        systems.follows = "systems";
+      };
     };
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    lazy-apps = {
-      url = "sourcehut:~rycee/lazy-apps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     valheim-server = {
-      url = "github:hamburger1984/valheim-server-flake/beta";
+      url = "github:hamburger1984/valheim-server-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snm = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-25_05.follows = "nixpkgs-stable";
-    };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        git-hooks.follows = "git-hooks-nix";
+      };
     };
     copyparty = {
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     wkeys = {
       url = "github:nanoyaki/wkeys?dir=wkeys";
@@ -112,37 +140,77 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.home-manager.follows = "home-manager";
     };
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
 
     # own stuff
+    nanopkgs = {
+      url = "github:nanoyaki/nanopkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        git-hooks-nix.follows = "git-hooks-nix";
+        flake-compat.follows = "flake-compat";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+    nanolib = {
+      url = "github:nanoyaki/nanolib";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+      };
+    };
+    nanomodules = {
+      url = "github:nanoyaki/nanomodules";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nanolib.follows = "nanolib";
+        systems.follows = "systems";
+      };
+    };
     vermeer-undervolt = {
       url = "github:nanoyaki/5800x3d-undervolt/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     discord-events-to-ics = {
       url = "github:nanoyaki/discord-events-to-ics";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+      };
     };
-    nanopkgs = {
-      url = "github:nanoyaki/nanopkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+
+    # deduplicated deps
+    flake-compat.url = "github:NixOS/flake-compat";
+    systems.url = "github:nix-systems/default-linux";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
-    killheal.url = "git+https://git.theless.one/thelessone/KillHeal.git";
-    nanolib = {
-      url = "git+https://git.theless.one/nanoyaki/nanolib.git";
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
     };
-    nanomodules = {
-      url = "git+https://git.theless.one/nanoyaki/nanomodules.git";
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nanolib.follows = "nanolib";
     };
-    # eh, i don't use it that much anyway
-    # owned-material.url = "git+ssh://git@git.theless.one/nanoyaki/owned-material.git?ref=main&lfs=1";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+      };
+    };
+    lib-aggregate = {
+      url = "github:nix-community/lib-aggregate";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
   };
 
   nixConfig.extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];

@@ -39,8 +39,6 @@ in
 
   networking.networkmanager.enable = true;
 
-  services.desktopManager.cosmic.enable = true;
-
   config' = {
     mpv.enable = true;
     yubikey = {

@@ -143,7 +143,7 @@
 
     # own stuff
     nanopkgs = {
-      url = "github:nanoyaki/nanopkgs";
+      url = "git+https://git.theless.one/nanoyaki/nanopkgs.git";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -153,7 +153,7 @@
       };
     };
     nanolib = {
-      url = "github:nanoyaki/nanolib";
+      url = "git+https://git.theless.one/nanoyaki/nanolib.git";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -161,7 +161,7 @@
       };
     };
     nanomodules = {
-      url = "github:nanoyaki/nanomodules";
+      url = "git+https://git.theless.one/nanoyaki/nanomodules.git";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";

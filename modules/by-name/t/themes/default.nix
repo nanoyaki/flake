@@ -17,7 +17,6 @@ in
 
   imports = [
     ./boot.nix
-    ./stylix.nix
     ./catppuccin.nix
     ./gtk.nix
     ./cosmic.nix
@@ -28,7 +27,6 @@ in
       gtk.enable = mkDefault true;
       plymouth.enable = mkDefault true;
       catppuccin.enable = mkDefault true;
-      stylix.enable = mkDefault true;
     };
   };
 }

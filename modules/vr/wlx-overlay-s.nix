@@ -103,7 +103,7 @@ in
       {
         name = "Firefox";
         target_display = "disp1";
-        exec = lib.getExe pkgs.librewolf;
+        exec = lib.getExe pkgs.librewolf-bin;
       }
     ];
   };

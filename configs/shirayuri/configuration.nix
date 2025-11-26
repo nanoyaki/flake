@@ -101,10 +101,12 @@ in
   #   }
   # ];
 
-  hm.programs.cosmic-files.settings.favorites = [
-    (EnumVariant "Path" "/mnt/os-shared")
-    (EnumVariant "Path" "/mnt/copyparty")
-  ];
+  hm.programs = lib.optionalAttrs config.services.desktopManager.cosmic.enable {
+    cosmic-files.settings.favorites = [
+      (EnumVariant "Path" "/mnt/os-shared")
+      (EnumVariant "Path" "/mnt/copyparty")
+    ];
+  };
 
   sops.secrets.copyparty-mount = { };
 

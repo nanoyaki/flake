@@ -7,9 +7,8 @@ let
 in
 
 {
-  hm.programs.git = {
-    userName = name;
-    userEmail = email;
+  hm.programs.git.settings = {
+    user = { inherit name email; };
 
     aliases.co = "checkout";
 

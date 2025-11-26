@@ -53,6 +53,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    # TODO
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak";
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
@@ -63,14 +64,6 @@
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
-    };
-    prismlauncher = {
-      url = "github:PrismLauncher/PrismLauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
@@ -85,6 +78,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pre-commit-hooks.follows = "pre-commit-hooks";
     };
+    # TODO
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,36 +92,10 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        nur.follows = "nur";
-        systems.follows = "systems";
-      };
-    };
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
-    };
-    valheim-server = {
-      url = "github:hamburger1984/valheim-server-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    snm = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "git-hooks-nix";
-      };
-    };
-    copyparty = {
-      url = "github:9001/copyparty";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     wkeys = {
       url = "github:nanoyaki/wkeys?dir=wkeys";
@@ -210,6 +178,10 @@
       url = "github:nix-community/lib-aggregate";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

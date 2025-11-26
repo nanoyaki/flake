@@ -11,17 +11,13 @@ let
   inherit (lib) mkIf optional optionalAttrs;
   inherit (lib'.options) mkDefault mkStrOption mkFalseOption;
   inherit (builtins) removeAttrs;
-  inherit (inputs) stylix catppuccin;
+  inherit (inputs) catppuccin;
 
   cfg = config.config'.theming.catppuccin;
-  inherit (config.config'.theming.stylix) enableAutoStylix;
 in
 
 {
-  imports = [
-    stylix.nixosModules.stylix
-    catppuccin.nixosModules.catppuccin
-  ];
+  imports = [ catppuccin.nixosModules.catppuccin ];
 
   options.config'.theming.catppuccin = {
     enable = mkFalseOption;
@@ -39,7 +35,7 @@ in
       })
     ];
 
-    environment.systemPackages = mkIf (!enableAutoStylix) [
+    environment.systemPackages = [
       (pkgs.catppuccin-papirus-folders.override (removeAttrs cfg [ "enable" ]))
 
       (pkgs.catppuccin.override {
@@ -65,7 +61,7 @@ in
             kvantum = {
               enable = true;
               inherit (cfg) flavor accent;
-              apply = !enableAutoStylix;
+              apply = true;
             };
 
             gtk.icon = cfg;
@@ -87,7 +83,7 @@ in
                 size = 32;
               };
               iconTheme = "Papirus-Dark";
-              wallpaper = config.stylix.image;
+              wallpaper = "${config.hm.home.homeDirectory}/owned-material/images/szcb911/2024-10-15.jpeg";
               enableMiddleClickPaste = false;
             };
 
@@ -171,12 +167,17 @@ in
               }
             ];
 
-            configFile = {
-              "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".Image = "${config.stylix.image}";
-              "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".PreviewImage = "${config.stylix.image}";
-              "plasmarc"."Wallpapers"."usersWallpapers" = "${config.stylix.image}";
-              "kcminputrc"."Mouse"."cursorSize" = 32;
-            };
+            configFile =
+              let
+                wallpaper = "${config.hm.home.homeDirectory}/owned-material/images/szcb911/2024-10-15.jpeg";
+              in
+
+              {
+                "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".Image = wallpaper;
+                "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".PreviewImage = wallpaper;
+                "plasmarc"."Wallpapers"."usersWallpapers" = wallpaper;
+                "kcminputrc"."Mouse"."cursorSize" = 32;
+              };
           };
         }
       )

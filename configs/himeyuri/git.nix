@@ -1,12 +1,12 @@
 let
   name = "nanoyaki";
   email = "hanakretzer@nanoyaki.space";
+  signingkey = "31A8CE0D2E7D30C3";
 in
 
 {
-  hm.programs.git = {
-    userName = name;
-    userEmail = email;
+  hm.programs.git.settings = {
+    user = { inherit name email; };
 
     aliases.co = "checkout";
   };

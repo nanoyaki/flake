@@ -43,6 +43,8 @@
       "tplink_tapo"
       "mqtt"
       "fitbit"
+      "sleep_as_android"
+      "dwd_weather_warnings"
     ];
 
     config = {
@@ -73,7 +75,7 @@
           name = "Home";
           latitude = "!secret latitude_home";
           longitude = "!secret longitude_home";
-          radius = 25;
+          radius = 35;
           icon = "mdi:home";
         }
       ];

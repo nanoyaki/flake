@@ -10,6 +10,7 @@ permissions:
 env:
   NIX_CONFIG: |
     experimental-features = nix-command flakes
+    access-tokens = github.com=${{ secrets.HUBGIT_TOKEN }}
 
 jobs:
   check-branch:

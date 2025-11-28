@@ -19,7 +19,7 @@ in
 
   users.users.${user}.extraGroups = [ "nanoyaki-events" ];
   services.caddy.virtualHosts."events.nanoyaki.space" = {
-    listenAddresses = [ "10.0.0.101" ];
+    listenAddresses = [ "10.0.0.3" ];
     useACMEHost = "events.nanoyaki.space";
     extraConfig = ''
       root * ${webPkg}/public

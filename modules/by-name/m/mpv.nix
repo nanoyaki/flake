@@ -36,7 +36,7 @@ in
 
           config = {
             osc = "no";
-            volume = 20;
+            volume = 40;
           };
 
           scripts = with pkgs.mpvScripts; [

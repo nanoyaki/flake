@@ -6,47 +6,6 @@
   ...
 }:
 
-let
-  lighthouseScript = pkgs.writeShellApplication {
-    name = "lighthouse-toggle";
-    runtimeInputs = with pkgs; [
-      bluez
-      lighthouse-steamvr
-      libnotify
-    ];
-    text = ''
-      STATE="''${1:-ON}"
-
-      if timeout 3 bluetoothctl list | grep -q "Controller"
-      then
-        notify-send \
-          -a Monado \
-          -u low \
-          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
-          -t 3000 \
-          "Turning basestations $STATE" \
-          'Please wait a few seconds.'
-        lighthouse -s "$STATE"
-        notify-send \
-          -a Monado \
-          -u low \
-          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
-          -t 3000 \
-          'Done' \
-          "Basestations turned $STATE!"
-      else
-        notify-send \
-          -a Monado \
-          -u low \
-          -i '${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg' \
-          -t 3000 \
-          'No bluetooth' \
-          'Bluetooth adapter not found. This might be wanted.'
-      fi
-    '';
-  };
-in
-
 # https://wiki.nixos.org/wiki/VR#Monado
 {
   options.config'.monado.enable = lib'.options.mkFalseOption;
@@ -102,20 +61,13 @@ in
       package = pkgs.monado;
     };
 
-    systemd.user.services.monado = {
-      serviceConfig = {
-        ExecStartPre = lib.getExe lighthouseScript;
-        ExecStopPost = "${lib.getExe lighthouseScript} 'OFF'";
-      };
-
-      environment = {
-        STEAMVR_PATH = "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR";
-        XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
-        STEAMVR_LH_ENABLE = "1";
-        XRT_COMPOSITOR_COMPUTE = "1";
-        WMR_HANDTRACKING = "1";
-        # LH_HANDTRACKING = "on";
-      };
+    systemd.user.services.monado.environment = {
+      STEAMVR_PATH = "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR";
+      XR_RUNTIME_JSON = "${config.hm.xdg.configHome}/openxr/1/active_runtime.json";
+      STEAMVR_LH_ENABLE = "1";
+      XRT_COMPOSITOR_COMPUTE = "1";
+      WMR_HANDTRACKING = "1";
+      # LH_HANDTRACKING = "on";
     };
 
     hm.xdg.desktopEntries.monado = {

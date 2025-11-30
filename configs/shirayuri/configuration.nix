@@ -148,11 +148,13 @@ in
     openFirewall = true;
   };
 
-  boot.extraModprobeConfig = ''
-    options v4l2loopback video_nr=0 width=1920 max_width=1920 height=1080 max_height=1080 format=YU12 exclusive_caps=1 card_label=Phone debug=1
-  '';
-
   programs.vopono.enable = true;
 
+  # Camera
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback video_nr=1 width=1920 max_width=1920 height=1080 max_height=1080 format=YU12 exclusive_caps=1 card_label=Phone debug=1
+  '';
   programs.adb.enable = true;
 }

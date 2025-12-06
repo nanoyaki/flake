@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   services.caddy.virtualHosts."zuhause.hanakretzer.de" = {
@@ -27,6 +27,12 @@
   services.home-assistant = {
     enable = true;
     openFirewall = true;
+
+    customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+      card-mod
+      mini-graph-card
+      mini-media-player
+    ];
 
     extraPackages = ps: with ps; [ psycopg2 ];
     extraComponents = [

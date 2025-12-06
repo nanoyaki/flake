@@ -68,6 +68,8 @@ in
       spotify
       libreoffice-qt6-fresh
       scrcpy
+      xivlauncher
+      bitwarden-desktop
     ])
     ++ mapLazyCliApps (
       with pkgs;
@@ -81,6 +83,8 @@ in
         nvtopPackages.amd
       ]
     );
+
+  programs.steam.extraCompatPackages = with pkgs; [ xivlauncher ];
 
   xdg.mime.defaultApplications."x-scheme-handler/spotify" = "spotify.desktop";
 

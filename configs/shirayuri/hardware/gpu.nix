@@ -87,28 +87,17 @@ in
 
   environment.systemPackages = [ pkgs.lact ];
   systemd.packages = [ pkgs.lact ];
-
-  environment.etc."lact/config.yaml".source = lactConfig;
-
-  systemd.services.lactd = {
-    description = "LACT GPU Control Daemon";
-    wantedBy = [ "multi-user.target" ];
-
-    restartTriggers = [ lactConfig ];
+  systemd.services.lactd.restartTriggers = [ lactConfig ];
+  systemd.tmpfiles.settings.gpu = {
+    "/etc/lact/config.yaml"."C+".argument = lactConfig.outPath;
+    "/opt/rocm"."L+".argument =
+      (pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      }).outPath;
   };
-
-  # systemd.tmpfiles.rules =
-  #   let
-  #     rocmEnv = pkgs.symlinkJoin {
-  #       name = "rocm-combined";
-  #       paths = with pkgs.rocmPackages; [
-  #         rocblas
-  #         hipblas
-  #         clr
-  #       ];
-  #     };
-  #   in
-  #   [
-  #     "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  #   ];
 }

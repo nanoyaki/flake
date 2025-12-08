@@ -14,4 +14,7 @@ in
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
 
   hardware.enableRedistributableFirmware = true;
+
+  # Disk optimization
+  fileSystems."/".options = [ "noatime" ];
 }

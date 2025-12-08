@@ -46,11 +46,10 @@ in
           # ./load-balancing.nix
           ./caddy.nix
           ./dyndns.nix
-          ./hass.nix
+          ./home-automation/hass.nix
           ./wireguard.nix
           ./calendar.nix
           ./restic.nix
-          ./zigbee2mqtt.nix
         ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;

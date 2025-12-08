@@ -1,6 +1,13 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 {
+  imports = [
+    ./zigbee2mqtt
+    ./secrets.nix
+    ./db.nix
+    ./backups.nix
+  ];
+
   services.caddy.virtualHosts."zuhause.hanakretzer.de" = {
     listenAddresses = [
       "127.0.0.1"
@@ -16,23 +23,9 @@
     '';
   };
 
-  sops.secrets.hass = {
-    path = "${config.services.home-assistant.configDir}/secrets.yaml";
-    owner = "hass";
-    group = "hass";
-    mode = "0440";
-    restartUnits = [ "home-assistant.service" ];
-  };
-
   services.home-assistant = {
     enable = true;
     openFirewall = true;
-
-    customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
-      card-mod
-      mini-graph-card
-      mini-media-player
-    ];
 
     extraPackages = ps: with ps; [ psycopg2 ];
     extraComponents = [
@@ -42,12 +35,11 @@
       "met"
       "radio_browser"
       "shopping_list"
-
+      # Optimization
       "isal"
 
       "tplink"
       "tplink_tapo"
-      "mqtt"
       "fitbit"
       "sleep_as_android"
       "dwd_weather_warnings"
@@ -56,21 +48,11 @@
     config = {
       default_config = { };
 
-      recorder.db_url = "postgresql://@/hass";
-
-      http = {
-        server_host = [
-          "0.0.0.0"
-          "::"
-        ];
-
-        trusted_proxies = [
-          "127.0.0.1"
-          "::1"
-        ];
-
-        use_x_forwarded_for = true;
-      };
+      http.use_x_forwarded_for = true;
+      http.trusted_proxies = [
+        "127.0.0.1"
+        "::1"
+      ];
 
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
@@ -96,17 +78,6 @@
         time_zone = "Europe/Berlin";
       };
     };
-  };
-
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "hass" ];
-    ensureUsers = [
-      {
-        name = "hass";
-        ensureDBOwnership = true;
-      }
-    ];
   };
 
   systemd.tmpfiles.rules = [

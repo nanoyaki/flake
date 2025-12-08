@@ -1,0 +1,40 @@
+'0xbc8d7efffe6e917e':
+  friendly_name: Ceiling lamp, bulb 1
+'0xbc8d7efffe730ef2':
+  friendly_name: Ceiling lamp, bulb 3
+'0xbc8d7efffe5bdba3':
+  friendly_name: Ceiling lamp, bulb 2
+'0xa4c138b8442f0db9':
+  friendly_name: Thermostat
+'0x94a081fffe57494b':
+  friendly_name: Fridge
+  voltage_precision: 3
+  power_precision: 3
+  current_precision: 3
+  energy_precision: 3
+'0xa4c138599638af54':
+  friendly_name: Computer lamp
+  homeassistant:
+    name: Computer lamp
+'0xbc8d7efffe30056f':
+  friendly_name: Desk
+  energy_precision: 3
+  current_precision: 3
+  voltage_precision: 3
+  power_precision: 3
+'0x180df9fffe11112a':
+  friendly_name: Base station 1
+'0xa4c13891074ba542':
+  friendly_name: Thermo-/Hygrometer
+  temperature_precision: 3
+  humidity_precision: 3
+'0xa4c138ce85d443d4':
+  friendly_name: New Thermo-/Hygrometer
+  temperature_precision: 3
+  humidity_precision: 3
+'0xa4c13895261b2035':
+  friendly_name: Balcony
+'0xa4c13864f350c43f':
+  friendly_name: Presence
+'0x94ec32fffeb88f64':
+  friendly_name: Bedroom switch

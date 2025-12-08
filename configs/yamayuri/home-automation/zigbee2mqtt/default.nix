@@ -6,6 +6,11 @@
 }:
 
 {
+  imports = [
+    ./devices.nix
+    ./optimization.nix
+  ];
+
   sops.secrets = {
     "zigbee2mqtt/network_key" = { };
     "zigbee2mqtt/pan_id" = { };
@@ -30,6 +35,10 @@
     path = "${config.services.zigbee2mqtt.dataDir}/configuration.yaml";
   };
 
+  services.home-assistant.extraComponents = [
+    "mqtt"
+  ];
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
@@ -39,15 +48,12 @@
       serial.port = "/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2706266-if00";
       serial.adapter = "deconz";
 
-      frontend.enabled = true;
       frontend.port = 9831;
 
       advanced.channel = 25;
       advanced.cache_state = true;
     };
   };
-
-  systemd.services.zigbee2mqtt.preStart = lib.mkForce ''echo "Skip copying settings file, we use sops-nix here"'';
 
   services.caddy.virtualHosts."z2m.hanakretzer.de" = {
     listenAddresses = [

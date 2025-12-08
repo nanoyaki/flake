@@ -31,8 +31,8 @@ let
       bool
     ];
 
-  cfg = config.config'.restic.backups;
-  opt = options.config'.restic.backups;
+  cfg = config.services.restic'.backups;
+  opt = options.services.restic'.backups;
 
   extraOptions = mkOption {
     type = types.submodule {
@@ -45,7 +45,7 @@ let
 in
 
 {
-  options.config'.restic.backups = mkAttrsOf extraOptions;
+  options.services.restic'.backups = mkAttrsOf extraOptions;
 
   config = {
     services.restic.backups = mapAttrs' (

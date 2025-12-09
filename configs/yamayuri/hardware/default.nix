@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (inputs) nixos-hardware;
@@ -11,6 +16,8 @@ in
     nixos-hardware.nixosModules.raspberry-pi-3
   ];
 
+  boot.initrd.supportedFilesystems.zfs = lib.mkForce false;
+  boot.supportedFilesystems.zfs = lib.mkForce false;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
 
   hardware.enableRedistributableFirmware = true;

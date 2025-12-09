@@ -11,7 +11,6 @@
     # This also skips copying the settings file
     # since we use sops-nix for that
 
-    [[ ! -f ${config.services.zigbee2mqtt.dataDir}/devices.yaml ]] && \
-      cp -af ${./devices.yaml} ${config.services.zigbee2mqtt.dataDir}/devices.yaml
+    install -Dm644 ${./devices.yaml} "${config.services.zigbee2mqtt.dataDir}/devices.yaml"
   '';
 }

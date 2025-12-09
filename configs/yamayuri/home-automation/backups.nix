@@ -26,8 +26,10 @@
         pg_dumpall > backup.sql
       '';
 
-      environment.BORG_RSH = "ssh -i ${config.sops.secrets.id_yamayuri_borgbackup_postgres.path}";
-      repo = "ssh://borg@10.101.0.4/moon/borgbackup/postgres";
+      # environment.BORG_RSH = "ssh -i ${config.sops.secrets.id_yamayuri_borgbackup_postgres.path}";
+      # repo = "ssh://borg@10.101.0.4/moon/borgbackup/postgres";
+      repo = "/var/backup/hass";
+      readWritePaths = [ "/var/backup/hass" ];
 
       startAt = "*-*-* 5:0:0";
 
@@ -60,8 +62,10 @@
         /run/wrappers/bin/sudo /run/current-system/sw/bin/systemctl start home-assistant
       '';
 
-      environment.BORG_RSH = "ssh -i ${config.sops.secrets.id_yamayuri_borgbackup_hass.path}";
-      repo = "ssh://borg@10.101.0.4/moon/borgbackup/hass";
+      # environment.BORG_RSH = "ssh -i ${config.sops.secrets.id_yamayuri_borgbackup_hass.path}";
+      # repo = "ssh://borg@10.101.0.4/moon/borgbackup/hass";
+      repo = "/var/backup/hass";
+      readWritePaths = [ "/var/backup/hass" ];
 
       startAt = "*-*-* 5:30:0";
 

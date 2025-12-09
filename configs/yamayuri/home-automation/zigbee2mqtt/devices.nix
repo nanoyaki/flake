@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 
 {
   services.zigbee2mqtt.settings.devices = "devices.yaml";
@@ -8,6 +12,6 @@
     # since we use sops-nix for that
 
     [[ ! -f ${config.services.zigbee2mqtt.dataDir}/devices.yaml ]] && \
-      install -m600 ${./devices.yaml} ${config.services.zigbee2mqtt.dataDir}/devices.yaml
+      cp -af ${./devices.yaml} ${config.services.zigbee2mqtt.dataDir}/devices.yaml
   '';
 }

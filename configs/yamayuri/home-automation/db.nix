@@ -18,6 +18,7 @@
       work_mem = "4MB";
 
       max_wal_size = "256MB";
+      max_wal_senders = 0;
       wal_level = "minimal";
 
       max_connections = 8;

@@ -33,6 +33,8 @@
     group = "zigbee2mqtt";
 
     path = "${config.services.zigbee2mqtt.dataDir}/configuration.yaml";
+
+    restartUnits = [ "zigbee2mqtt.service" ];
   };
 
   services.home-assistant.extraComponents = [

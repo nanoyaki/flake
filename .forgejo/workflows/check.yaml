@@ -22,4 +22,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Flake checks
-        run: nix flake check
+        uses: https://git.theless.one/actions/flake-check

@@ -372,11 +372,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761406098,
-        "narHash": "sha256-y2RS0+gxeiJmxYoEyrsz98tlJpTsCyvdkambYGMXfac=",
+        "lastModified": 1765516554,
+        "narHash": "sha256-/SNcbdA5xOKsT+NLT0WxsYfRiGR/jBeOvrLKK/VGcz4=",
         "ref": "refs/heads/main",
-        "rev": "5cc85b07db0974252a1ef07f494cff7f2000260e",
-        "revCount": 12,
+        "rev": "fdbad3e20022ae20d6213ead23c6f457f373e29e",
+        "revCount": 15,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanolib.git"
       },
@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765491841,
-        "narHash": "sha256-QOJyQOBDVLwWs0Diug/NXciQXAGlv8r9NmMZ0Nt+Slg=",
+        "lastModified": 1765516479,
+        "narHash": "sha256-c3+4rmf0Ta5Mnl7lGTkmHv99yyTpd//taz/E1ugyXmU=",
         "ref": "refs/heads/main",
-        "rev": "00773e1b293a47be44489094e1d11618ad82aff8",
-        "revCount": 41,
+        "rev": "4d75d36cc0133ea6995f6d27ba963af487fbca42",
+        "revCount": 43,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765329655,
-        "narHash": "sha256-5q2aDi6e3CaBBaM1bDtPTe6KcuMVay9R+OXuYwhBoFE=",
+        "lastModified": 1765590565,
+        "narHash": "sha256-PuGP9l5P+Ob9gwjSDcVZYpB178Y+sir9xTNGhhplnho=",
         "ref": "refs/heads/main",
-        "rev": "249bdf015798940a0f32b3c5c4869954af38941b",
-        "revCount": 282,
+        "rev": "d87f6ed22b7becda359c00208aa6f9e641f0342f",
+        "revCount": 283,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanopkgs.git"
       },
@@ -593,11 +593,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765459402,
-        "narHash": "sha256-6qkVs1sKLxa4171dm0vT6kNH3hb/9kHsq/JNuvXHtc8=",
+        "lastModified": 1765545632,
+        "narHash": "sha256-m4IdtiDpcAtMyQtRKaV2Zq+k98RzI/I3AP+MekjL750=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "09b74a82bb3fe253aefdd62087c6f1db1903df11",
+        "rev": "f75bb29f5464375a5ee852b682ec3417512ce32b",
         "type": "github"
       },
       "original": {
@@ -648,11 +648,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765503183,
-        "narHash": "sha256-fKTJWBktVnSjP4im9H9As3b+gssDdSSeEmU+FbL5jp0=",
+        "lastModified": 1765591111,
+        "narHash": "sha256-gEGcrYhExXxwbxTufrj8pQvP45uIH8kxm3oDiddUls8=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7b0545d7f5f4f143aac433fb0ad3b27e14b26514",
+        "rev": "ec9b159e7a3d1366debafadb8dba9b3217690e53",
         "type": "github"
       },
       "original": {
@@ -755,11 +755,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765465581,
-        "narHash": "sha256-fCXT0aZXmTalM3NPCTedVs9xb0egBG5BOZkcrYo5PGE=",
+        "lastModified": 1765507345,
+        "narHash": "sha256-fq34mBLvAgv93EuZjGp7cVV633pxnph9AVuB/Ql5y5Q=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "99cc5667eece98bb35dcf35f7e511031a8b7a125",
+        "rev": "a9471b23bf656d69ceb2d5ddccdc5082d51fc0e3",
         "type": "github"
       },
       "original": {
@@ -775,11 +775,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765231718,
-        "narHash": "sha256-qdBzo6puTgG4G2RHG0PkADg22ZnQo1JmSVFRxrD4QM4=",
+        "lastModified": 1765553226,
+        "narHash": "sha256-Ii16Nq5jL2wURXpV3D3tOM3vPpbKh18roHLkyZCHK4Q=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "7fd1416aba1865eddcdec5bb11339b7222c2363e",
+        "rev": "496a6f625f63b780ce849891868f2fad22fd49c6",
         "type": "github"
       },
       "original": {

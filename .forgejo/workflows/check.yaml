@@ -4,6 +4,8 @@ on:
     paths:
       - 'flake.lock'
       - '**/*.nix'
+    branches:
+      - main
   workflow_call:
   workflow_dispatch:
 

@@ -114,8 +114,6 @@
           }
         '';
 
-        programs.cosmic-manager.enable = true;
-
         wayland.desktopManager.cosmic = {
           enable = true;
 

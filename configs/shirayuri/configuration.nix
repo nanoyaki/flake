@@ -113,18 +113,6 @@ in
     ];
   };
 
-  sops.secrets.copyparty-mount = { };
-
-  services.copyparty-mount = {
-    enable = true;
-    server = "https://files.theless.one";
-    copyparty.sopsPasswordPlaceholder = config.sops.placeholder.copyparty-mount;
-    fsExtraOptions = [
-      "uid=${toString config.users.users.${config.nanoSystem.mainUserName}.uid}"
-      "gid=${toString config.users.groups.users.gid}"
-    ];
-  };
-
   users.users.${config.nanoSystem.mainUserName}.uid = 1000;
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

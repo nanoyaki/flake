@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765960293,
-        "narHash": "sha256-52xspLpiD6EyxaEt+jUMyvJmlfux+ED7wQK6TGPECwA=",
+        "lastModified": 1766064738,
+        "narHash": "sha256-oc/Ssz3+9SmeW1CAVQrZMkXWAXEcfjgQgZKe09bjslQ=",
         "ref": "refs/heads/main",
-        "rev": "0b71c87d7dbf8226125c76a26077eba1f1845df6",
-        "revCount": 293,
+        "rev": "3628028509df768facfe3a6cdfde7417cfdcee53",
+        "revCount": 295,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanopkgs.git"
       },

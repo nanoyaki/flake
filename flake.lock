@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766066618,
-        "narHash": "sha256-GjOgjaZdtAjQ9FG9C3kQROKX2tZQWEdZ4IED9NQd0OU=",
+        "lastModified": 1766342086,
+        "narHash": "sha256-iPboz211i+Mh35j3dBTpMUUOZsM2lh3AaEzgWO8ztDo=",
         "owner": "ezKEa",
         "repo": "aagl-gtk-on-nix",
-        "rev": "bc0e92deb0606c875a79740609689628838d2a8c",
+        "rev": "94e190586de66bfd60ee27e36e47da915617fcdb",
         "type": "github"
       },
       "original": {
@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765959446,
-        "narHash": "sha256-szkx7qRt7tp1LrvK0nIjYGSkfT8MZRFezUhtxlZV8/g=",
+        "lastModified": 1766282700,
+        "narHash": "sha256-DyqIhsCH8m6lVQpVKilYgRYi2lReA4WfQuFhyFSrFAQ=",
         "ref": "refs/heads/main",
-        "rev": "d96de86e4309a1ab1368fd3cba59f62690605ef0",
-        "revCount": 55,
+        "rev": "b7b2f3555ba30bf6436664a9704134e9ef0bc564",
+        "revCount": 57,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766280069,
-        "narHash": "sha256-ivzIfZndYeiUfZS7cd0EWYxwE3y8nBL8mWjeIIooc7M=",
+        "lastModified": 1766366550,
+        "narHash": "sha256-kTQ+jKPbfV8aQjPJ/cGJAbOifzlXFZ+MZXkldECVzoI=",
         "ref": "refs/heads/main",
-        "rev": "a0ab5068baafeb198023fbe02fff2df00ea3ac78",
-        "revCount": 301,
+        "rev": "d9e8e37dc276c70994b98124414a8857a7e757db",
+        "revCount": 303,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanopkgs.git"
       },
@@ -593,11 +593,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766197392,
-        "narHash": "sha256-QPlU05pohY2QYJG8WHzesTUNwZZKPihh1goFrqeusAc=",
+        "lastModified": 1766322499,
+        "narHash": "sha256-hXLEv5KC4iuV5KlGBrtc1Gj0X5Klz9t1iq5qSxYmPmk=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "f1a3ba9e929981ac269a8fea0e8f1e7129936f9b",
+        "rev": "316651394db0d77c433770690823d1bc38bca8e0",
         "type": "github"
       },
       "original": {
@@ -755,11 +755,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766198367,
-        "narHash": "sha256-f1L1rCEu2Zew6zdiZ38jJDZd65ktE7UN+Gqn2LHPiFI=",
+        "lastModified": 1766285238,
+        "narHash": "sha256-DqVXFZ4ToiFHgnxebMWVL70W+U+JOxpmfD37eWD/Qc8=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "66bb33fdfb50b1ee724381c3f5d6012dac6c89b3",
+        "rev": "c4249d0c370d573d95e33b472014eae4f2507c2f",
         "type": "github"
       },
       "original": {
@@ -775,11 +775,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765836173,
-        "narHash": "sha256-hWRYfdH2ONI7HXbqZqW8Q1y9IRbnXWvtvt/ONZovSNY=",
+        "lastModified": 1766289575,
+        "narHash": "sha256-BOKCwOQQIP4p9z8DasT5r+qjri3x7sPCOq+FTjY8Z+o=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "443a7f2e7e118c4fc63b7fae05ab3080dd0e5c63",
+        "rev": "9836912e37aef546029e48c8749834735a6b9dad",
         "type": "github"
       },
       "original": {

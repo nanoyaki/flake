@@ -40,6 +40,8 @@
             "ja_JP"
           ];
           fcitx5.enable = true;
+          desktop.cosmic.enable = false;
+          desktop.plasma.enable = true;
 
           ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";
           sops.defaultSopsFile = ./secrets/host.yaml;

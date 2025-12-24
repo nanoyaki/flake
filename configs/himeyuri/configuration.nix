@@ -21,7 +21,13 @@
   console.keyMap = lib.mkForce "sv-latin1";
 
   hm.home.packages = with pkgs; [
-    prismlauncher
+    (prismlauncher.override {
+      jdks = [
+        zulu21
+        zulu17
+        zulu8
+      ];
+    })
     xivlauncher
     nur.repos.ataraxiasjel.waydroid-script
   ];

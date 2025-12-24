@@ -47,6 +47,7 @@
     bs-manager
     wayland-bongocat
     nixd
+    vesktop
   ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

@@ -42,6 +42,8 @@
           };
           keyboard.layout = "se";
           fcitx5.enable = true;
+          desktop.cosmic.enable = false;
+          desktop.plasma.enable = true;
 
           audio.latency = 256;
           ssh.defaultId = "${config.hm.home.homeDirectory}/.ssh/id_nadesiko";

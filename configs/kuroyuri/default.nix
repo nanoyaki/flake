@@ -30,7 +30,6 @@
 
           self.nixosModules.all
           ./configuration.nix
-          ./git.nix
           ../shirayuri/librewolf.nix
         ];
 

@@ -63,6 +63,8 @@ in
       };
     };
 
+    programs.gpg.settings.default-key = fingerprint;
+
     home.activation.import-gpg-key = config.hm.lib.dag.entryAfter [ "writeBoundary" ] ''
       run ${lib.getExe pkgs.gnupg} --list-keys "${fingerprint}" >/dev/null 2>&1 \
         || ${lib.getExe pkgs.gnupg} $VERBOSE_ARG --import "${gpgKey}"

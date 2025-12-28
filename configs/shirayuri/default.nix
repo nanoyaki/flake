@@ -34,7 +34,6 @@
           ./configuration.nix
           ./xdg.nix
           ./gaming
-          ./git.nix
           ./ssh.nix
           ./backup.nix
           ./librewolf.nix

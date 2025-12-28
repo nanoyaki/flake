@@ -1,5 +1,6 @@
 {
     "[nix]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "jnoortheen.nix-ide"
     },
     "nix.serverPath": "nixd",
@@ -31,11 +32,21 @@
     },
     "yaml.format.singleQuote": true,
     "[yaml]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.insertSpaces": true
     },
     "[json]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "editor.formatOnSave": true
+    "emeraldwalk.runonsave": {
+        "shell": "bash",
+        "commands": [
+            {
+                "match": "\\.nix$",
+                "cmd": "nixfmt \"${file}\"",
+            },
+        ],
+    }
 }

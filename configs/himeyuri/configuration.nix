@@ -53,6 +53,7 @@
     bs-manager
     wayland-bongocat
     nixd
+    nixfmt
     vesktop
   ];
 

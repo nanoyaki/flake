@@ -42,9 +42,14 @@
       };
     };
 
-    programs.ssh.extraConfig = ''
-      AddKeysToAgent yes
-    '';
+    programs.ssh = {
+      startAgent = true;
+      agentTimeout = "1h";
+      askPassword = mkIf config.services.desktopManager.plasma6.enable pkgs.kdePackages.ksshaskpass;
+      extraConfig = ''
+        AddKeysToAgent yes
+      '';
+    };
 
     hms = lib.singleton {
       programs.gpg = {

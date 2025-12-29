@@ -25,10 +25,32 @@ let
         > $out
     ''
   );
+
+  convCommit = conv: ''
+    !f() { \
+      scope="$1"; msg="$2"; breaking=""; \
+      [[ $scope == *! ]] && breaking="!" && scope="''${scope%!}"; \
+      if [ -n "$msg" ]; then \
+        git commit -m "${conv}($scope)$breaking: $msg"; \
+      else \
+        git commit -m "${conv}$breaking: $scope"; \
+      fi; \
+    }; f \
+  '';
 in
 
 {
   hm = {
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
+      };
+    };
+
     programs.git = {
       settings = {
         init.defaultBranch = "main";
@@ -40,16 +62,17 @@ in
 
         lfs."https://git.theless.one/".locksverify = true;
 
-        core.pager = lib.getExe pkgs.bat;
-        pretty.chlog = "format:* %H %s";
-
         alias = {
           rv = "remote -v";
           rb = "rebase";
           rbi = "rebase -i";
           co = "checkout -b";
-          cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
-          d = ''!f() { git diff "''${*:-"HEAD"}" | bat -l diff; }; f'';
+          cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f "$@"'';
+          d = ''!f() { git diff "''${@:-"HEAD"}"; }; f "$@"'';
+
+          fix = convCommit "fix";
+          feat = convCommit "feat";
+          chore = convCommit "chore";
         };
 
         user = {
@@ -73,33 +96,12 @@ in
     '';
   };
 
-  programs.git.config = {
-    init.defaultBranch = "main";
-    push.autoSetupRemote = true;
-    fetch.all = true;
-    pull.autoStash = true;
-    pull.rebase = true;
-    rebase.autoStash = true;
+  programs.git.config = lib.recursiveUpdate config.hm.programs.git.settings {
+    core.pager = lib.getExe config.hm.programs.delta.package;
+    interactive.diffFilter = "${lib.getExe config.hm.programs.delta.package} --color-only";
+    delta = config.hm.programs.delta.options;
 
-    lfs."https://git.theless.one/".locksverify = true;
-
-    core.pager = lib.getExe pkgs.bat;
-    pretty.chlog = "format:* %H %s";
-
-    alias = {
-      rv = "remote -v";
-      rb = "rebase";
-      rbi = "rebase -i";
-      co = "checkout -b";
-      cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
-      d = ''!f() { git diff "$*" | bat -l diff; }; f'';
-    };
-
-    user = {
-      email = "hanakretzer@nanoyaki.space";
-      name = "nanoyaki";
-      signingKey = fingerprint;
-    };
+    user.signingKey = fingerprint;
     gpg.format = "openpgp";
     gpg.openpgp.program = lib.getExe pkgs.gnupg;
     commit.gpgSign = true;

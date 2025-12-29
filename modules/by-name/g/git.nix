@@ -38,6 +38,8 @@ in
         pull.rebase = true;
         rebase.autoStash = true;
 
+        lfs."https://git.theless.one/".locksverify = true;
+
         core.pager = lib.getExe pkgs.bat;
         pretty.chlog = "format:* %H %s";
 
@@ -47,7 +49,7 @@ in
           rbi = "rebase -i";
           co = "checkout -b";
           cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
-          diff = ''!f() { git diff "$*" | bat -l diff; }; f'';
+          d = ''!f() { git diff "$*" | bat -l diff; }; f'';
         };
 
         user = {
@@ -79,6 +81,8 @@ in
     pull.rebase = true;
     rebase.autoStash = true;
 
+    lfs."https://git.theless.one/".locksverify = true;
+
     core.pager = lib.getExe pkgs.bat;
     pretty.chlog = "format:* %H %s";
 
@@ -88,7 +92,7 @@ in
       rbi = "rebase -i";
       co = "checkout -b";
       cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
-      diff = ''!f() { git diff "$*" | bat -l diff; }; f'';
+      d = ''!f() { git diff "$*" | bat -l diff; }; f'';
     };
 
     user = {

@@ -14,6 +14,7 @@ in
     inherit inputs;
     hostname = "yamayuri";
     platform = "aarch64-linux";
+    stateVersion = "25.12";
 
     users = {
       admin = {

@@ -9,6 +9,7 @@
   flake.nixosConfigurations.shirayuri = lib'.systems.mkDesktop {
     inherit inputs;
     hostname = "shirayuri";
+    stateVersion = "25.12";
     users = {
       hana = {
         isMainUser = true;

@@ -9,6 +9,7 @@
   flake.nixosConfigurations.yuri = lib'.systems.mkServer {
     inherit inputs;
     hostname = "yuri";
+    stateVersion = "25.12";
     users = {
       nas = {
         isMainUser = true;

@@ -9,6 +9,7 @@
   flake.nixosConfigurations.kuroyuri = lib'.systems.mkPortable {
     inherit inputs;
     hostname = "kuroyuri";
+    stateVersion = "25.12";
     users = {
       hana = {
         isMainUser = true;

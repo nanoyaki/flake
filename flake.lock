@@ -372,11 +372,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766950675,
-        "narHash": "sha256-KmUfxC0mHtNDNS5I+wbQIbMXRWg/Hm34MnZuxz0J3q8=",
+        "lastModified": 1767026158,
+        "narHash": "sha256-Iek+HosjDWUNAqx1AXhH8833Sy4QlLrX+syylkJM9Fs=",
         "ref": "refs/heads/main",
-        "rev": "3441cc2b0e48e9cd7aa859d0864d16fb528df7cc",
-        "revCount": 27,
+        "rev": "12796f5d4a4391e4f271a641484df52b20342df1",
+        "revCount": 32,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanolib.git"
       },
@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766950618,
-        "narHash": "sha256-gNWzyI/wCJRRlPUD6CUunJ73cksBOx2fUVdLpmVxdjc=",
+        "lastModified": 1767025068,
+        "narHash": "sha256-6K1FTwXnWuPwb0gPwJuGbGr4Kl+6K7PpHCjLIw/crdc=",
         "ref": "refs/heads/main",
-        "rev": "b6bd2b80a91a5ef77ba50a0d255be60135a06c55",
-        "revCount": 66,
+        "rev": "af2f7d030610501a75456583e5aeb231d6c217bf",
+        "revCount": 69,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },

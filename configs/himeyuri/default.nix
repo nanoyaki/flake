@@ -9,6 +9,7 @@
   flake.nixosConfigurations.himeyuri = lib'.systems.mkDesktop {
     inherit inputs;
     hostname = "himeyuri";
+    stateVersion = "25.12";
     users = {
       hana = {
         isMainUser = true;

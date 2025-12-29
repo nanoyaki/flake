@@ -49,7 +49,7 @@ in
           rbi = "rebase -i";
           co = "checkout -b";
           cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
-          d = ''!f() { git diff "$*" | bat -l diff; }; f'';
+          d = ''!f() { git diff "''${*:-"HEAD"}" | bat -l diff; }; f'';
         };
 
         user = {

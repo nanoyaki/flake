@@ -45,7 +45,7 @@
     programs.ssh = {
       startAgent = true;
       agentTimeout = "1h";
-      askPassword = mkIf config.services.desktopManager.plasma6.enable pkgs.kdePackages.ksshaskpass;
+      askPassword = lib.mkIf config.services.desktopManager.plasma6.enable pkgs.kdePackages.ksshaskpass;
       extraConfig = ''
         AddKeysToAgent yes
       '';

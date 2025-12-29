@@ -18,6 +18,8 @@
     nvtopPackages.amd
     wl-clipboard
     gimp3-with-plugins
+    nixd
+    nixfmt
     # grayjay
     prismlauncher
     melonDS

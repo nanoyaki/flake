@@ -55,6 +55,7 @@
     nixd
     nixfmt
     vesktop
+    melonDS
   ];
 
   hm.home.file.".face.icon".source = pkgs.fetchurl {

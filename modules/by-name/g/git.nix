@@ -10,21 +10,8 @@ let
     url = "https://github.com/nanoyaki.gpg";
     hash = "sha256-LTdGeydh1xxkiaI1EkP+BWaOo/1pw7SL82E2svO2H+A=";
   };
-  fingerprint = builtins.readFile (
-    pkgs.runCommand "fingerprint" { inherit gpgKey; } ''
-      export GNUPGHOME=$(mktemp -d)
-      ${lib.getExe pkgs.gnupg} \
-        -v \
-        --show-keys \
-        --with-colons \
-        --with-subkey-fingerprint \
-        "$gpgKey" \
-        | tail -1 \
-        | grep -oP '[\dA-Z]+' \
-        | tr -d '\n' \
-        > $out
-    ''
-  );
+
+  fingerprint = "5A1DC7CE51DC0A856DEA41F731A8CE0D2E7D30C3";
 
   convCommit = conv: ''
     !f() { \

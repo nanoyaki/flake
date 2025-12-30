@@ -28,7 +28,7 @@ in
   options.config'.librewolf.enable = mkFalseOption;
 
   config = mkIf config.config'.librewolf.enable {
-    programs.firefox.package = pkgs.librewolf-bin;
+    programs.firefox.package = pkgs.librewolf;
     environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
     xdg.mime = { inherit defaultApplications; };

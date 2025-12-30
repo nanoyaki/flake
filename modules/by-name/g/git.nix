@@ -54,8 +54,8 @@ in
           rb = "rebase";
           rbi = "rebase -i";
           co = "checkout -b";
-          cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f "$@"'';
-          d = ''!f() { git diff "''${@:-"HEAD"}"; }; f "$@"'';
+          cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
+          d = ''!f() { git diff "''${@:-"HEAD"}"; }; f'';
 
           fix = convCommit "fix";
           feat = convCommit "feat";

@@ -18,6 +18,8 @@
     flatpak.enable = true;
   };
 
+  services.syncthing'.enable = true;
+
   console.keyMap = lib.mkForce "sv-latin1";
 
   hm.home.packages = with pkgs; [

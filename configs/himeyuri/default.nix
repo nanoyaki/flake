@@ -33,6 +33,7 @@
           self.nixosModules.vr
           ./configuration.nix
           ../shirayuri/librewolf.nix
+          ./wireguard.nix
         ];
 
         nanoSystem = {

@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 
@@ -17,6 +18,8 @@
       systemd-boot.enable = lib.mkForce false;
       timeout = 0;
     };
+
+    kernelPackages = pkgs.linuxPackages_latest;
 
     # replaces systemd-boot
     lanzaboote = {

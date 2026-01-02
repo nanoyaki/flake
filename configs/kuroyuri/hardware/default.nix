@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 let
   inherit (inputs) nixos-hardware;
@@ -11,6 +11,7 @@ in
     ./boot.nix
     ./mounts.nix
     ./swap.nix
+    ./power.nix
 
     nixos-hardware.nixosModules.common-cpu-amd
     nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -19,6 +20,8 @@ in
     nixos-hardware.nixosModules.common-pc-laptop
     nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
+
+  services.power-profiles-daemon.enable = lib.mkForce false;
 
   hardware.enableRedistributableFirmware = true;
 

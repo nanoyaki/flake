@@ -25,6 +25,8 @@
     # grayjay
     prismlauncher
     melonDS
+    vesktop
+    bitwarden-desktop
   ];
 
   programs.thunderbird.enable = true;

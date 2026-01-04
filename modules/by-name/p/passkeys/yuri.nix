@@ -21,7 +21,6 @@
       "yubikeys/u2f_keys" = {
         sopsFile = ./yuri.yaml;
         format = "yaml";
-        path = "${config.users.users.${config.nanoSystem.mainUserName}.home}/.config/Yubico/u2f_keys";
         owner = config.nanoSystem.mainUserName;
         mode = "400";
       };
@@ -31,5 +30,21 @@
       config.users.users.${config.nanoSystem.mainUserName}.home
     }/.ssh/id_nadesiko.pub".source =
       ./keys/id_nadesiko.pub;
+
+    security.pam.u2f = {
+      enable = true;
+      settings = {
+        cue = true;
+        authfile = config.sops.secrets."yubikeys/u2f_keys".path;
+      };
+    };
+
+    security.pam.services = {
+      login.u2fAuth = true;
+      sudo = {
+        u2fAuth = true;
+        sshAgentAuth = true;
+      };
+    };
   };
 }

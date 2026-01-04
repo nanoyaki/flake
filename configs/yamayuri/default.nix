@@ -48,9 +48,6 @@ in
           ./caddy.nix
           ./dyndns.nix
           ./home-automation/hass.nix
-          ./wireguard.nix
-          ./calendar.nix
-          ./restic.nix
         ];
 
       nanoSystem.sops.defaultSopsFile = ./secrets/host.yaml;

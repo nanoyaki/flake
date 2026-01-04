@@ -29,10 +29,6 @@
           domain = "hanakretzer.de";
           subdomain = "";
         }
-        {
-          domain = "nanoyaki.space";
-          subdomain = "events";
-        }
       ];
     };
 
@@ -71,6 +67,5 @@
     };
 
     certs."hanakretzer.de".extraDomainNames = [ "*.hanakretzer.de" ];
-    certs."events.nanoyaki.space" = { };
   };
 }

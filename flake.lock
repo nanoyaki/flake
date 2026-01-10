@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767750947,
-        "narHash": "sha256-zqe9esphlAFu19TGL/nAyOHyOiR+Vu8M2IWWLg9cm4U=",
+        "lastModified": 1767967164,
+        "narHash": "sha256-Cx4VETh9dGoQYDtWhre7g66d7SAr+h1h6f+SSHxVrck=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "e7135074fe2a3d17bee3c229b5a7d3da26f76ce8",
+        "rev": "e973584280e3b0e1d5b5a1a5e9948dc222c54af7",
         "type": "github"
       },
       "original": {
@@ -273,11 +273,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767909183,
-        "narHash": "sha256-u/bcU0xePi5bgNoRsiqSIwaGBwDilKKFTz3g0hqOBAo=",
+        "lastModified": 1767971841,
+        "narHash": "sha256-TwDXF4MkmjI9c3Sly9FOWXf4sPbre6ZujG87v39G1Ig=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "cd6e96d56ed4b2a779ac73a1227e0bb1519b3509",
+        "rev": "0e4217b2c4827e71e2e612accccb01981c16afda",
         "type": "github"
       },
       "original": {
@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767901779,
-        "narHash": "sha256-inkPr3PqHVllP9w5Pzzhh90EVvmOHgCb6fulAMRnB1U=",
+        "lastModified": 1768005554,
+        "narHash": "sha256-i0mtLkZ3o81HEx6LxBHFKe/DkzOeCE/4cUnAylSkupA=",
         "ref": "refs/heads/main",
-        "rev": "5ba9187fded1dc3ff674e5c012fc01876d7a21ce",
-        "revCount": 77,
+        "rev": "7a95a985a327ae679f98bd97778c8086ba365d6f",
+        "revCount": 79,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767921795,
-        "narHash": "sha256-ax+2XcHqa3e2qblEiIzNEZja2juegq5Y/Edv/IT1ojo=",
+        "lastModified": 1768007497,
+        "narHash": "sha256-15b4YmHzQMJlAFiqZQ9KCHyV69z/mO4GowFI3DRWWk8=",
         "ref": "refs/heads/main",
-        "rev": "79fec20a73aafe4f310c64f6a0757887af4f5c8b",
-        "revCount": 338,
+        "rev": "6814e5e828ec7c58be125ee35cd81e427fe5ca72",
+        "revCount": 339,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanopkgs.git"
       },
@@ -550,11 +550,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1767767207,
-        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
+        "lastModified": 1767892417,
+        "narHash": "sha256-dhhvQY67aboBk8b0/u0XB6vwHdgbROZT3fJAjyNh5Ww=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
+        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
         "type": "github"
       },
       "original": {
@@ -626,11 +626,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767772082,
-        "narHash": "sha256-BnXZv3ALU7ZU68EVwDa3mGOwlcJADp5oV9ye8Sg0SHY=",
+        "lastModified": 1767948200,
+        "narHash": "sha256-phU4/JrtliPo7VznNgvVNVYNYzNodvdCfq5kBYQMAV4=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "3c67176b47efcc863e737692bcb94bfa8b39c927",
+        "rev": "df098c5ff75e641d010c472d8321391db4e90eb9",
         "type": "github"
       },
       "original": {
@@ -649,11 +649,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767922500,
-        "narHash": "sha256-icEqKyQAfrCHgc/bFm2xdFEdphqa+pnDjkFxZE5xOb8=",
+        "lastModified": 1768008934,
+        "narHash": "sha256-ruPM28EYb/GVgbdm2UqmGuvX/mhEcRcOfVUpRgbU1VU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "124463f31cea3d57fbad2623b5a6cd3e5a828072",
+        "rev": "07f2dc8a439e48c8655d8b76b033afc76911a25c",
         "type": "github"
       },
       "original": {
@@ -786,11 +786,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767840362,
-        "narHash": "sha256-ZtsFqUhilubohNZ1TgpQIFsi4biZTwRH9rjZsDRDik8=",
+        "lastModified": 1767926800,
+        "narHash": "sha256-x0n73J6ufD/EhDlVdcoAmF0OQHZ+b0a2cKDc8RZyt+o=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "d159ea1fc321c60f88a616ac28bab660092a227d",
+        "rev": "499e9eed88ff9494b6604205b42847e847dfeb91",
         "type": "github"
       },
       "original": {

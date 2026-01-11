@@ -93,13 +93,7 @@ in
       ]
     ))
     ++ (with pkgs; [
-      (prismlauncher.override {
-        jdks = [
-          zulu21
-          zulu17
-          zulu8
-        ];
-      })
+      prismlauncher
       osu-lazer-bin
     ]);
 

@@ -59,6 +59,7 @@ in
 
           fix = convCommit "fix";
           feat = convCommit "feat";
+          feet = convCommit "feat";
           chore = convCommit "chore";
         };
 

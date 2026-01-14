@@ -82,7 +82,7 @@ in
           downloadsPath = mkOption {
             type = types.nullOr types.path;
             default = null;
-            defaultText = ''''${cfg.instances.<name>.settings.rootDir}/downloads'';
+            defaultText = "\${cfg.instances.<name>.settings.rootDir}/downloads";
             example = "/var/lib/suwayomi/instance/.cache/downloads";
             description = ''
               Downloads directory for suwayomi server.
@@ -102,7 +102,7 @@ in
           localSourcePath = mkOption {
             type = types.nullOr types.path;
             default = null;
-            defaultText = ''''${cfg.instances.<name>.settings.rootDir}/local'';
+            defaultText = "\${cfg.instances.<name>.settings.rootDir}/local";
             example = "/var/lib/suwayomi/instance/localManga";
             description = ''
               Local manga directory for suwayomi server.

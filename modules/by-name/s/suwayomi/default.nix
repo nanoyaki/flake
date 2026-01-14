@@ -23,7 +23,6 @@ let
     filterAttrsRecursive
     ;
 
-  inherit (lib.lists) map;
   inherit (builtins) attrNames;
 
   cfg = config.services.suwayomi;

@@ -39,7 +39,7 @@ let
       alerts = [
         {
           type = "discord";
-          description = ''''$${lib.toUpper service}_ALERT_DESCR'';
+          description = "\$${lib.toUpper service}_ALERT_DESCR";
         }
       ];
     };

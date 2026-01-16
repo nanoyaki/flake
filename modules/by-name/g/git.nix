@@ -53,7 +53,7 @@ in
           rv = "remote -v";
           rb = "rebase";
           rbi = "rebase -i";
-          co = "checkout -b";
+          co = ''!f() { git checkout "$1" 2>/dev/null || git checkout -b "$1"; }; f'';
           cor = ''!f() { git checkout -B "$1" "''${2:-"origin"}/$1"; }; f'';
           d = ''!f() { git diff "''${@:-"HEAD"}"; }; f'';
 

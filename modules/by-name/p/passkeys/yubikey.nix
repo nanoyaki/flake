@@ -41,7 +41,7 @@
       services.gpg-agent = {
         enable = true;
         pinentry = {
-          package = pkgs.pinentry-qt;
+          package = pkgs.pinentry-tty;
           program = "pinentry";
         };
       };

@@ -70,6 +70,8 @@ in
       scrcpy
       xivlauncher
       bitwarden-desktop
+      inkscape
+      kdePackages.kcolorchooser
       # Camera
       android-tools
     ])

@@ -273,11 +273,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768598210,
-        "narHash": "sha256-kkgA32s/f4jaa4UG+2f8C225Qvclxnqs76mf8zvTVPg=",
+        "lastModified": 1768770171,
+        "narHash": "sha256-JPmLGZgdWa8QcQbbtBqyZhpmxIHZ3lUO48laERjw+4k=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c47b2cc64a629f8e075de52e4742de688f930dc6",
+        "rev": "521d5ea1a229ba315dd1cceaf869946ddcc83d36",
         "type": "github"
       },
       "original": {
@@ -346,11 +346,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768135770,
-        "narHash": "sha256-WIKvjyHHvDHvdVvA/kihOh7PI9v5zdlgUWYDDMMrHUE=",
+        "lastModified": 1768740496,
+        "narHash": "sha256-dIvI4KXx4FoVnCoY6YiMMqjV/FbnLv2cCxP4ms1Wt/Q=",
         "owner": "nix-community",
         "repo": "lib-aggregate",
-        "rev": "b77aac57a6d9df163e4e7fd4903fcfa2a23df4da",
+        "rev": "160f04266a29d89fa75aa8433dce97f9ff31a0b5",
         "type": "github"
       },
       "original": {
@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768646699,
-        "narHash": "sha256-IN7d7AWxP1KiOvo6z11X7wGhSXtT+GcgV7Rn/0wpQr0=",
+        "lastModified": 1768753195,
+        "narHash": "sha256-lPl6C+ZQJKFpoxWFA486myIgDkS9vjyJRJZHSGcbNKk=",
         "ref": "refs/heads/main",
-        "rev": "65c3ccf2fd703f73268c931759f6ff423ae7abf1",
-        "revCount": 91,
+        "rev": "e0dcc4adde91516e5b6d7a04b294085b2fc37f9c",
+        "revCount": 93,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanomodules.git"
       },
@@ -433,11 +433,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768644468,
-        "narHash": "sha256-DdDj//Zk9aUurrYUYNnmgN26W3ERm1HOqWFrbQiAwdk=",
+        "lastModified": 1768760869,
+        "narHash": "sha256-cuxvxbyehros/MUeXeFLoYaF8gGJscAUAvHvAA/On3k=",
         "ref": "refs/heads/main",
-        "rev": "c215150e00d7389f9c84207995e2b0cdf98417f7",
-        "revCount": 359,
+        "rev": "37b78fd61005e8506f37dccc7e13ac4ec3c6a9ed",
+        "revCount": 360,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanopkgs.git"
       },
@@ -484,11 +484,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1768584846,
-        "narHash": "sha256-IRPmIOV2tPwxbhP/I9M5AmwhTC0lMPtoPStC+8T6xl0=",
+        "lastModified": 1768736227,
+        "narHash": "sha256-qgGq7CfrYKc3IBYQ7qp0Z/ZXndQVC5Bj0N8HW9mS2rM=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "cce68f4a54fa4e3d633358364477f5cc1d782440",
+        "rev": "d447553bcbc6a178618d37e61648b19e744370df",
         "type": "github"
       },
       "original": {
@@ -593,11 +593,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768616908,
-        "narHash": "sha256-jBAVIJ3sZrji8Lk+QcrEUfjU7thA67k9nBNHvU4n1js=",
+        "lastModified": 1768741221,
+        "narHash": "sha256-MTSa4VlNSNUa0Qs7+B4YJPYf8hNalOZhqFK6WEheFEw=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "ba68392077c0ec40d1a5b0e03fdda6b59bcdd652",
+        "rev": "7082d3b3c5d9ae603f668179957114b76844d4a3",
         "type": "github"
       },
       "original": {
@@ -626,11 +626,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768701223,
-        "narHash": "sha256-uCbQ6YIqhdPX7hFrkeWIqRiy2yjffEjyvy4h4j3uEbs=",
+        "lastModified": 1768787606,
+        "narHash": "sha256-cyucVTA2CmDG+U//SdH/PgUAzD4wyyMU7/75JkHOhU0=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "541e790f1f7ae278fe4dfbb883e51fcd5f9c3a3a",
+        "rev": "5e9d9d8a05174c965bad1b667dd3623c03a3eb2c",
         "type": "github"
       },
       "original": {
@@ -649,11 +649,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768700529,
-        "narHash": "sha256-NdKLP5y8nbtaFSEzGfZhhp4dKxAQr/GtClRLH1IhOI8=",
+        "lastModified": 1768786870,
+        "narHash": "sha256-3wAUSAGKhr4h8BiT/E7AIhp+FZ4UNDYhMOfQgNsM6UY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "5196fdfc1b212a6a82ab7065f1f47b004390bfa7",
+        "rev": "c51d96013462a9c1fae7f2e311a20eb2fe035da2",
         "type": "github"
       },
       "original": {
@@ -786,11 +786,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768617670,
-        "narHash": "sha256-Z3+6dxoWZn+QFwjxAt5ZGXkiuCvCLgQP6pTS5eSWXqk=",
+        "lastModified": 1768704795,
+        "narHash": "sha256-Y33TAp2BHEcuspYvcmBXXD0qdvjftv73PwyKTDOjoSY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "56d0fbdd732f3686e8414b857cf885038fc17d57",
+        "rev": "4b7472a78857ac789fb26616040f55cfcbd36c6e",
         "type": "github"
       },
       "original": {
@@ -806,11 +806,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768481291,
-        "narHash": "sha256-NjKtkJraCZEnLHAJxLTI+BfdU//9coAz9p5TqveZwPU=",
+        "lastModified": 1768709255,
+        "narHash": "sha256-aigyBfxI20FRtqajVMYXHtj5gHXENY2gLAXEhfJ8/WM=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "e085e303dfcce21adcb5fec535d65aacb066f101",
+        "rev": "5e8fae80726b66e9fec023d21cd3b3e638597aa9",
         "type": "github"
       },
       "original": {

@@ -19,31 +19,6 @@ in
     (mapLazyApps (
       with pkgs;
       [
-        {
-          pkg = lutris;
-          desktopItem = makeDesktopItem {
-            desktopName = "Lutris";
-            name = "lutris";
-            startupWMClass = "net.lutris.Lutris";
-            comment = "Video Game Preservation Platform";
-            categories = [
-              "Game"
-              "PackageManager"
-            ];
-            keywords = [
-              "gaming"
-              "wine"
-              "emulator"
-            ];
-            exec = "lutris %U";
-            icon = "net.lutris.Lutris";
-            terminal = false;
-            type = "Application";
-            startupNotify = true;
-            mimeTypes = [ "x-scheme-handler/lutris" ];
-            extraConfig.X-GNOME-UsesNotifications = "true";
-          };
-        }
         { pkg = mangohud; }
         {
           pkg = r2modman;
@@ -93,6 +68,7 @@ in
       ]
     ))
     ++ (with pkgs; [
+      lutris
       prismlauncher
       osu-lazer-bin
     ]);

@@ -64,7 +64,9 @@ in
       signal-desktop
       nur.repos.ataraxiasjel.waydroid-script
       thunderbird-latest-bin
-      vesktop
+      (discord.override {
+        withMoonlight = true;
+      })
       spotify
       libreoffice-qt6-fresh
       scrcpy
@@ -88,7 +90,10 @@ in
       ]
     );
 
-  programs.steam.extraCompatPackages = with pkgs; [ xivlauncher ];
+  programs.steam.extraCompatPackages = with pkgs; [
+    xivlauncher
+    dwproton-bin
+  ];
 
   xdg.mime.defaultApplications."x-scheme-handler/spotify" = "spotify.desktop";
 

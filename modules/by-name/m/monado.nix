@@ -13,12 +13,8 @@
   config = lib.mkIf config.config'.monado.enable {
     nixpkgs.overlays = [
       (_: prev: {
-        monado = prev.monado.overrideAttrs (oldAttrs: {
-          buildInputs = builtins.filter (x: x != prev.opencv) oldAttrs.buildInputs;
-          cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
-            "-DBUILD_WITH_OPENCV=OFF"
-          ];
-        });
+        # patch is included in upstream now
+        xrizer = prev.xrizer.overrideAttrs { patches = [ ]; };
       })
     ];
 
@@ -36,8 +32,8 @@
         ],
         "runtime" :
         [
-          "${pkgs.opencomposite-vendored}/lib/opencomposite",
           "${pkgs.xrizer}/lib/xrizer",
+          "${pkgs.opencomposite-vendored}/lib/opencomposite",
           "${config.hm.xdg.dataHome}/Steam/steamapps/common/SteamVR"
         ],
         "version" : 1

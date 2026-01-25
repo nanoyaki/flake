@@ -372,11 +372,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769133697,
-        "narHash": "sha256-j9aaT3A7Ie4a+THO8LvRAu+5IP/rWySB9YBPbpTtyKo=",
+        "lastModified": 1769371910,
+        "narHash": "sha256-DdUV68zPi6P4kY58jiw1kI7+7UPYHRNbLtkE5lgh9Mc=",
         "ref": "refs/heads/main",
-        "rev": "97229969eb55541c8eabe93b717451981d0b3eb5",
-        "revCount": 54,
+        "rev": "48a9a6e41feb0cd7e0260ddb15e383ae76a6f771",
+        "revCount": 56,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanolib.git"
       },

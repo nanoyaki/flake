@@ -1,16 +1,12 @@
 {
   lib,
   pkgs,
-  inputs',
   config,
   prev,
   ...
 }:
 
 let
-  mapLazyCliApps =
-    pkgs: map (pkg: inputs'.lazy-apps.packages.lazy-app.override { inherit pkg; }) pkgs;
-
   Enum = config.hm.lib.cosmic.mkRON "enum";
   EnumVariant =
     variant: value:
@@ -53,42 +49,28 @@ in
 
   specialisation.osu.configuration.nanoSystem.audio.latency = 32;
 
-  environment.systemPackages =
-    (with pkgs; [
-      wl-clipboard
-      gimp3-with-plugins
-      grayjay
-      obs-studio
-      nixd
-      nixfmt-rfc-style
-      signal-desktop
-      nur.repos.ataraxiasjel.waydroid-script
-      thunderbird-latest-bin
-      (discord.override {
-        withMoonlight = true;
-      })
-      spotify
-      libreoffice-qt6-fresh
-      scrcpy
-      xivlauncher
-      bitwarden-desktop
-      inkscape
-      kdePackages.kcolorchooser
-      # Camera
-      android-tools
-    ])
-    ++ mapLazyCliApps (
-      with pkgs;
-      [
-        imagemagick
-        ffmpeg-full
-        yt-dlp
-        jq
-        meow
-        pyon
-        nvtopPackages.amd
-      ]
-    );
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    gimp3-with-plugins
+    grayjay
+    obs-studio
+    nixd
+    nixfmt-rfc-style
+    signal-desktop
+    nur.repos.ataraxiasjel.waydroid-script
+    thunderbird-latest-bin
+    spotify
+    libreoffice-qt6-fresh
+    scrcpy
+    xivlauncher
+    bitwarden-desktop
+    inkscape
+    kdePackages.kcolorchooser
+    # Camera
+    android-tools
+
+    vesktop
+  ];
 
   programs.steam.extraCompatPackages = with pkgs; [
     xivlauncher

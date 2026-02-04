@@ -30,6 +30,8 @@ in
       "sd_mod"
     ];
 
+    kernelPackages = pkgs.linuxKernel.packageAliases.linux_latest;
+
     loader = {
       efi.efiSysMountPoint = "/boot";
 

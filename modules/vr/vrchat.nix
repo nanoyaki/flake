@@ -7,13 +7,6 @@
 {
   nixpkgs.overlays = [
     (final: prev: {
-      vrSwitch = pkgs.writeShellScriptBin "vrSwitch" ''
-        if systemctl --user is-active monado.service --quiet;
-        then PRESSURE_VESSEL_FILESYSTEMS_RW="$XDG_RUNTIME_DIR/monado_comp_ipc" exec "$@";
-        else exec "$@";
-        fi
-      '';
-
       vrcx = final.symlinkJoin {
         name = "vrcx";
         paths = [ prev.vrcx ];
@@ -29,7 +22,6 @@
 
   environment.systemPackages = with pkgs; [
     startvrc
-    vrSwitch
     vrcx
     vrc-get
     blender

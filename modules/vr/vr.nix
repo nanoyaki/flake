@@ -15,6 +15,12 @@
     hrtf = true
   '';
 
+  programs.steam.package = pkgs.steam.override {
+    extraProfile = ''
+      unset TZ
+      export PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1
+    '';
+  };
   programs.steam.extraCompatPackages = [ pkgs.proton-ge-rtsp-bin ];
 
   environment.systemPackages = with pkgs; [

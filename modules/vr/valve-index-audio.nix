@@ -9,8 +9,8 @@
         }
       ];
       actions.update-props = {
-        api.alsa.period-size = 2048;
-        api.alsa.headroom = 8192;
+        api.alsa.period-size = 4096;
+        api.alsa.headroom = 32768;
       };
     }
   ];

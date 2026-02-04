@@ -53,8 +53,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    # TODO
-    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak";
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
       inputs = {

@@ -44,7 +44,6 @@ in
     steam.enable = true;
     theming.enable = true;
     monado.enable = true;
-    flatpak.enable = true;
   };
 
   specialisation.osu.configuration.nanoSystem.audio.latency = 32;

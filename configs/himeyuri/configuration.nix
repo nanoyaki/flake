@@ -15,7 +15,6 @@
     steam.enable = true;
     wivrn.enable = true;
     theming.enable = true;
-    flatpak.enable = true;
   };
 
   services.syncthing'.enable = true;

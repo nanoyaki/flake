@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769946009,
-        "narHash": "sha256-cjPsPx3qlP7RW78lcGJoTP/B6yqY6BJJjwT7QUg8ByY=",
+        "lastModified": 1770388745,
+        "narHash": "sha256-tmAONUMNHnlkozNcMR1kZJ/68OGea5wS56vl6vaUS5U=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "ff59ad5085b7d71705ea1f019c02b08dfe40d9c8",
+        "rev": "5e9efb97caeffea3bf248023b6d8b68e63b839b9",
         "type": "github"
       },
       "original": {
@@ -372,11 +372,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770298340,
-        "narHash": "sha256-sAao6n08oaIgdw+GQ5c2iSd59GxCh4J1I2BPPvKZ3dQ=",
+        "lastModified": 1770387583,
+        "narHash": "sha256-V6S95Q26b481v6D595qVl6hcLSwqtyrAQa2ce7CO3/s=",
         "ref": "refs/heads/main",
-        "rev": "992df3b6e2785e7138bd44ad2fb85790ecc52ee5",
-        "revCount": 66,
+        "rev": "58f7ec97706dde14e6309b017aaf1a43be513f1a",
+        "revCount": 68,
         "type": "git",
         "url": "https://git.theless.one/nanoyaki/nanolib.git"
       },
@@ -593,11 +593,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770299329,
-        "narHash": "sha256-iPnij5ueAOgknGjgY9/f9uKrwlgBmfYkFTXy0cnn5og=",
+        "lastModified": 1770385492,
+        "narHash": "sha256-xXOs9KksRFlk1Xjkuy6E7FguyX7fRJdcagk1JxgMkxw=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "3271db12d348ee0946e86ef7c834b317cb80677b",
+        "rev": "f6367e87a3c5f07cd2b41b73793ed8daac76c3ae",
         "type": "github"
       },
       "original": {
@@ -649,11 +649,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770338486,
-        "narHash": "sha256-+1s72nvXFu6ZYqWyRdfQ5yEVZTC8H0bfeW/hMyXtbiw=",
+        "lastModified": 1770429111,
+        "narHash": "sha256-AOvo96+Sonx4MJsP1+NboD80UdnCBWVHlqR9cnbh2RE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "eee138772a57a8711985244ad4e907236c9c95a8",
+        "rev": "6a96c13a8f1a87a14304f29fcb1aa7d5b9fa2fb3",
         "type": "github"
       },
       "original": {
@@ -786,11 +786,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770260791,
-        "narHash": "sha256-ADTBfENFjRVDQMcCycyX/pAy6NFI/Ct6Mrar3gsmXI0=",
+        "lastModified": 1770347142,
+        "narHash": "sha256-uz+ZSqXpXEPtdRPYwvgsum/CfNq7AUQ/0gZHqTigiPM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "42ec85352e419e601775c57256a52f6d48a39906",
+        "rev": "2859683cd9ef7858d324c5399b0d8d6652bf4044",
         "type": "github"
       },
       "original": {

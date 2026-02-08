@@ -7,7 +7,7 @@
 
       powerOf2 = types.addCheck types.int (x: (builtins.bitAnd x (x - 1)) == 0);
 
-      cfg = config.self;
+      cfg = config.self.audio;
     in
 
     {

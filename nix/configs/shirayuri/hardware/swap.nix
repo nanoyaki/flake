@@ -14,6 +14,6 @@
       SuspendState=mem
     '';
 
-    zramSwap.enable = true;
+    # zramSwap.enable = true;
   };
 }

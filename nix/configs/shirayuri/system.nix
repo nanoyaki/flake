@@ -116,6 +116,8 @@
         "steam"
         "steam-unwrapped"
         "osu-lazer-bin"
+        "unityhub"
+        "corefonts"
       ];
 
       system.stateVersion = "24.11";

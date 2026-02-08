@@ -26,6 +26,7 @@
       ];
 
       environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+      xdg.mime.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
 
       services.displayManager.cosmic-greeter.enable = true;
       services.displayManager.defaultSession = "cosmic";
@@ -101,7 +102,7 @@
       };
 
       home.activation.killCosmicPanel = config.lib.dag.entryAfter [ "configureCosmic" ] ''
-        exec ${lib.getExe' pkgs.procps "pkill"} cosmic-panel
+        ${lib.getExe' pkgs.procps "pkill"} cosmic-panel || echo "Cosmic not running, didn't kill cosmic-panel"
       '';
 
       xdg.configFile."wkeys/style.css".text = ''

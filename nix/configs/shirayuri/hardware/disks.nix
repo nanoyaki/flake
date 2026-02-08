@@ -46,8 +46,7 @@
       fsType = "btrfs";
       options = [
         "compress=zstd"
-        "uid=1000"
-        "gid=100"
+        "nofail"
       ];
     };
 

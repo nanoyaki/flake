@@ -3,7 +3,10 @@
     { lib, pkgs, ... }:
 
     {
-      environment.systemPackages = [ pkgs.vscodium ];
+      environment.systemPackages = with pkgs; [
+        vscodium
+        nixd
+      ];
 
       environment.sessionVariables = {
         EDITOR = lib.getExe pkgs.vscodium;

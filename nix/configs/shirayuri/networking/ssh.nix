@@ -7,9 +7,12 @@
     in
 
     {
+      programs.ssh.enable = true;
+      programs.ssh.enableDefaultConfig = false;
       programs.ssh.matchBlocks = {
         "*" = {
-          addKeysToAgent = true;
+          inherit identityFile;
+          addKeysToAgent = "yes";
           compression = false;
           controlMaster = "auto";
           controlPath = "~/.ssh/master-%r@%n:%p";

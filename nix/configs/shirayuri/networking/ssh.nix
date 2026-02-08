@@ -15,7 +15,7 @@
           addKeysToAgent = "yes";
           compression = false;
           controlMaster = "auto";
-          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
           controlPersist = "1h";
         };
 

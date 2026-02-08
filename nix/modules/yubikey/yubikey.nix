@@ -54,7 +54,7 @@
     };
 
   flake.homeModules.yubikey =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
 
     {
       programs.gpg = {
@@ -73,9 +73,9 @@
       sops.secrets."private_keys/id_nadesiko" = {
         sopsFile = ./yuri.yaml;
         format = "yaml";
-        path = ".ssh/id_nadesiko";
+        path = "${config.home.homeDirectory}/.ssh/id_nadesiko";
       };
 
-      home.file.".ssh/id_nadesiko.pub".source = ./id_nadesiko.pub;
+      home.file."${config.home.homeDirectory}/.ssh/id_nadesiko.pub".source = ./id_nadesiko.pub;
     };
 }

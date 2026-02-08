@@ -55,7 +55,7 @@
         {
           settings."org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
-            gtk-theme = if config.services.desktopManager.plasma.enable then "Breeze" else "adw-gtk3-dark";
+            gtk-theme = if config.services.desktopManager.plasma6.enable then "Breeze" else "adw-gtk3-dark";
           };
         }
       ];

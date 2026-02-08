@@ -1,76 +1,39 @@
 keys:
   - &shirayuri age1g76tzmg5pr368e8acvxzlz8rvakzy7atjl0qzm0xsdy56u9m4ejswcss5g
-  - &lesstop age1gezu4gq0a9s4fcmnjfjrc04f5y4748lddnufpt7qsq4t0cyq046qa2749t
-  - &thelessone age1t5w4gj3d8ulk2xud6kgkdpgtugcycd3vqeu05jth6wcflvu3fd0qucklu8
   - &yuri age1se8sv8c084c5hqg8y448yhu3x4q4lw843v7l9dfyt08qaxyh2d6supwezt
   - &kuroyuri age152k4hxe5vyj6kq48w4dqcm3tadyr7f6u02ydgfu8s2uuu478jawsj5q3yl
-  - &meow age1l3s5ckneu4reytw4ecyt2qcc49hf8kpx0s89senr5yhf6fqu3y0sxkv398
-  - &thelessnas age1a82mdpvl5w2j0ahyccngc2wvwgrhezrnwn5te99yxy254f9nm54qex3r0y
   - &yamayuri age1geuk0u6v70d0v9zvzap8dje9dftftx9q57a4rvf0hhwaxueju5aq80ysvr
   - &himeyuri age14dxfxxluxx2vmh9n77p2278vw8t4rk8yxeq3eh2aww46u7n4mdpqx6upfw
 creation_rules:
-  - path_regex: configs/shirayuri/secrets/.*\.yaml$
+  - path_regex: nix/configs/shirayuri/secrets\.yaml$
     key_groups:
       - age:
           - *shirayuri
-  - path_regex: configs/thelessone/secrets/.*\.yaml$
-    key_groups:
-      - age:
-          - *thelessone
-          - *shirayuri
-  - path_regex: configs/yuri/secrets/.*\.yaml$
+  - path_regex: nix/configs/yuri/secrets\.yaml$
     key_groups:
       - age:
           - *yuri
           - *shirayuri
-  - path_regex: configs/kuroyuri/secrets/.*\.yaml$
+  - path_regex: nix/configs/kuroyuri/secrets\.yaml$
     key_groups:
       - age:
           - *kuroyuri
           - *shirayuri
-  - path_regex: configs/lesstop/secrets/.*\.yaml$
-    key_groups:
-      - age:
-          - *lesstop
-          - *shirayuri
-  - path_regex: configs/meow/secrets/.*\.yaml$
-    key_groups:
-      - age:
-          - *meow
-          - *shirayuri
-  - path_regex: configs/thelessnas/secrets/.*\.yaml$
-    key_groups:
-      - age:
-          - *thelessnas
-          - *shirayuri
-  - path_regex: configs/yamayuri/secrets/.*\.yaml$
+  - path_regex: nix/configs/yamayuri/secrets\.yaml$
     key_groups:
       - age:
           - *yamayuri
           - *shirayuri
-  - path_regex: configs/himeyuri/secrets/.*\.yaml$
+  - path_regex: nix/configs/himeyuri/secrets\.yaml$
     key_groups:
       - age:
           - *himeyuri
           - *shirayuri
-  - path_regex: modules/by-name/p/passkeys/yuri.yaml$
+  - path_regex: nix/modules/(.*/.*|.*)\.yaml$
     key_groups:
       - age:
           - *shirayuri
           - *kuroyuri
           - *yuri
-          - *meow
-          - *yamayuri
-          - *himeyuri
-  - path_regex: modules/systems/all/.*\.yaml$
-    key_groups:
-      - age:
-          - *shirayuri
-          - *kuroyuri
-          - *yuri
-          - *meow
-          - *lesstop
-          - *thelessone
-          - *thelessnas
           - *yamayuri
           - *himeyuri

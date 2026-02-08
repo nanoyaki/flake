@@ -46,15 +46,19 @@ in
     );
 
   flake.nixosModules.catppuccin =
-    { lib, pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     {
       environment.systemPackages =
-        with pkgs;
-        [
+        (with pkgs; [
           catppuccin-papirus-folders
           catppuccin
-        ]
+        ])
         ++ lib.optional config.services.desktopManager.plasma.enable pkgs.catppuccin-kde
         ++ lib.optional (
           config.services.desktopManager.cosmic.enable || config.services.desktopManager.gnome.enable

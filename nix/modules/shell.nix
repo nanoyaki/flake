@@ -41,6 +41,7 @@
 
       programs = {
         alacritty.enable = true;
+        alacritty.package = null;
 
         zellij.enable = true;
         zellij.settings.pane_frames = false;

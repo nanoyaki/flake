@@ -114,11 +114,12 @@
 
       programs.cosmic-files = {
         enable = true;
+        package = null;
         settings = {
           app_theme = Enum "System";
 
           desktop = {
-            show_content = true;
+            show_content = false;
             show_mounted_drives = false;
             show_trash = false;
           };
@@ -265,7 +266,6 @@
         appearance = {
           toolkit = {
             apply_theme_global = true;
-            icon_theme = "Papirus-Dark";
 
             header_size = Enum "Standard";
             interface_density = Enum "Standard";
@@ -294,10 +294,12 @@
         applets.app-list.settings = {
           favorites = [
             "com.system76.CosmicFiles"
+            "thunderbird"
             "librewolf"
             "alacritty"
             "vesktop"
             "codium"
+            "steam"
           ];
           enable_drag_source = true;
           filter_top_levels = None;

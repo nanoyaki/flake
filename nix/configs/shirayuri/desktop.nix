@@ -7,9 +7,6 @@
         pkgs.vesktop
       ];
 
-      programs.firefox.enable = true;
-      programs.firefox.package = pkgs.librewolf;
-
       environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
       xdg.mime.defaultApplications = {
@@ -33,6 +30,19 @@
         "${pkgs.solaar}/share/applications/solaar.desktop"
         "${pkgs.vesktop}/share/applications/vesktop.desktop"
       ];
+
+      catppuccin.thunderbird.profile = "default";
+      programs.thunderbird = {
+        enable = true;
+
+        profiles.default.isDefault = true;
+        profiles.default.withExternalGnupg = true;
+
+        profiles.transacademy = {
+          inherit (config.programs.thunderbird.profiles.default) extensions;
+          withExternalGnupg = true;
+        };
+      };
 
       programs.librewolf = {
         enable = true;

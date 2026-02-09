@@ -1,21 +1,35 @@
 { withSystem, ... }:
 
 {
-  flake.nixosModules.shirayuri-gaming = {
-    programs.gamemode = {
-      enable = true;
-      enableRenice = true;
+  flake.nixosModules.shirayuri-gaming =
+    { pkgs, ... }:
 
-      settings = {
-        general.renice = 10;
+    {
+      programs.steam = {
+        enable = true;
+        remotePlay.openFirewall = true;
+        localNetworkGameTransfers.openFirewall = true;
 
-        cpu.park_cores = true;
-        cpu.pin_cores = false;
+        extraCompatPackages = with pkgs; [
+          proton-ge-bin
+          dwproton-bin
+        ];
       };
-    };
 
-    specialisation.osu.configuration.self.audio.latency = 32;
-  };
+      programs.gamemode = {
+        enable = true;
+        enableRenice = true;
+
+        settings = {
+          general.renice = 10;
+
+          cpu.park_cores = true;
+          cpu.pin_cores = false;
+        };
+      };
+
+      specialisation.osu.configuration.self.audio.latency = 32;
+    };
 
   flake.homeModules.hana-gaming =
     { pkgs, ... }:

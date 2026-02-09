@@ -32,6 +32,8 @@
     { pkgs, ... }:
 
     {
+      programs.steam.extraCompatPackages = [ pkgs.proton-ge-rtsp-bin ];
+
       environment.systemPackages = with pkgs; [
         startvrc
         vrcx

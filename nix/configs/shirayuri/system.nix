@@ -35,6 +35,7 @@
       shirayuri-wireguard
       shirayuri-backups
       shirayuri-desktop
+      shirayuri-fcitx5
       shirayuri-gaming
       shirayuri-animeGames
       shirayuri-vr

@@ -1,6 +1,43 @@
-{ inputs, ... }:
+{ withSystem, inputs, ... }:
 
 {
+  perSystem =
+    { pkgs, ... }:
+
+    {
+      packages.gradia-cosmic = pkgs.writeShellApplication {
+        name = "gradia-cosmic";
+        runtimeInputs = with pkgs; [
+          gradia
+          wl-clipboard
+        ];
+        text = ''
+          set -e
+
+          GRADIA_CACHE="$HOME/.var/app/be.alexandervanhee.gradia/cache/gradia/stdin"
+          [[ -d "$GRADIA_CACHE" ]] && rm -rf "''${GRADIA_CACHE:?}/"*
+
+          cosmic-screenshot --interactive &&
+          while ! wl-paste --list-types 2> /dev/null | grep -q image/png; do
+            sleep 0.05
+          done
+
+          wl-paste --type image/png | gradia
+        '';
+      };
+    };
+
+  flake.overlays.cosmic =
+    _: prev:
+
+    withSystem prev.stdenv.hostPlatform.system (
+      { config, ... }:
+
+      {
+        inherit (config.packages) gradia-cosmic;
+      }
+    );
+
   flake.nixosModules.cosmic =
     { pkgs, ... }:
 
@@ -50,7 +87,7 @@
       EnumVariant =
         variant: value:
         mkRON "enum" {
-          value = [ value ];
+          value = if builtins.isList value then value else [ value ];
           inherit variant;
         };
       # Char = mkRON "char";
@@ -65,6 +102,8 @@
       imports = [
         inputs.cosmic-manager.homeManagerModules.cosmic-manager
       ];
+
+      home.packages = [ pkgs.gradia-cosmic ];
 
       xdg.mimeApps.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
 
@@ -307,6 +346,10 @@
           {
             action = EnumVariant "System" (Enum "AppLibrary");
             key = "Super";
+          }
+          {
+            action = EnumVariant "Spawn" "gradia-cosmic";
+            key = "Super+Shift+S";
           }
         ];
 

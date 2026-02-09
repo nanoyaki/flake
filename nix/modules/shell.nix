@@ -34,9 +34,11 @@
     };
 
   flake.homeModules.shell =
-    { config, ... }:
+    { pkgs, config, ... }:
 
     {
+      home.packages = with pkgs; [ wl-clipboard ];
+
       programs = {
         alacritty.enable = true;
 

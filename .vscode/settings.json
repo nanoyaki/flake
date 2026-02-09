@@ -8,14 +8,18 @@
     "nix.serverSettings": {
         "nixd": {
             "nixpkgs": {
-                "expr": "(import /home/hana/flake/.vscode/nixpkgs-extended.nix { }).pkgs"
+                "expr": "(import /home/hana/flake/.vscode/nixd-workspace.nix { path = \"${workspaceFolder}\"; }).pkgs"
             },
             "formatting": {
                 "command": [ "nixfmt" ]
             },
             "options": {
-                "opts": {
-                    "expr": "(import /home/hana/flake/.vscode/nixpkgs-extended.nix { }).options"
+                "nixos": {
+                    "expr": "(import /home/hana/flake/.vscode/nixd-workspace.nix { path = \"${workspaceFolder}\"; }).options"
+                },
+
+                "home-manager": {
+                    "expr": "(import /home/hana/flake/.vscode/nixd-workspace.nix { path = \"${workspaceFolder}\"; }).homeOptions"
                 }
             }
         }

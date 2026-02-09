@@ -56,7 +56,8 @@
 
       environment.systemPackages = with pkgs; [
         cosmic-ext-applet-privacy-indicator
-        clipboard-manager
+        # leads to crashes on paste
+        # clipboard-manager
         wkeys
         gradia
         loupe
@@ -103,9 +104,10 @@
         inputs.cosmic-manager.homeManagerModules.cosmic-manager
       ];
 
-      home.packages = [
-        pkgs.gradia-cosmic
-        pkgs.kooha
+      home.packages = with pkgs; [
+        gradia-cosmic
+        kooha
+        starrydex
       ];
 
       xdg.mimeApps.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
@@ -233,7 +235,8 @@
                 "net.pithos.applet.wkeys"
                 "com.system76.CosmicAppletTiling"
                 "com.system76.CosmicAppletNotifications"
-                "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"
+                # leads to crashes on paste
+                # "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"
                 "com.system76.CosmicAppletBluetooth"
                 "com.system76.CosmicAppletNetwork"
                 "com.system76.CosmicAppletAudio"

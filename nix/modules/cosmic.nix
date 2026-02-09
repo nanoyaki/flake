@@ -103,7 +103,10 @@
         inputs.cosmic-manager.homeManagerModules.cosmic-manager
       ];
 
-      home.packages = [ pkgs.gradia-cosmic ];
+      home.packages = [
+        pkgs.gradia-cosmic
+        pkgs.kooha
+      ];
 
       xdg.mimeApps.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
 
@@ -350,6 +353,10 @@
           {
             action = EnumVariant "Spawn" "gradia-cosmic";
             key = "Super+Shift+S";
+          }
+          {
+            action = EnumVariant "Spawn" "kooha";
+            key = "Super+Shift+V";
           }
         ];
 

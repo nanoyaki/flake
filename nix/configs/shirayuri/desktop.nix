@@ -39,9 +39,7 @@
     { pkgs, config, ... }:
 
     {
-      environment.systemPackages = [
-        pkgs.vesktop
-      ];
+      environment.systemPackages = [ pkgs.vesktop ];
 
       environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 

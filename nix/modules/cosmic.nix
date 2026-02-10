@@ -107,7 +107,6 @@
       home.packages = with pkgs; [
         gradia-cosmic
         kooha
-        starrydex
       ];
 
       xdg.mimeApps.defaultApplications."image/*" = "org.gnome.Loupe.desktop";

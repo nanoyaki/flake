@@ -6,7 +6,7 @@
 
     {
       packages.solaar = pkgs.symlinkJoin {
-        name = "rawrtestsetsetseet";
+        inherit (pkgs.solaar) pname version;
         paths = [ pkgs.solaar ];
         postBuild = ''
           cp $out/share/applications/solaar.desktop solaar.desktop
@@ -14,7 +14,13 @@
 
           substitute solaar.desktop $out/share/applications/solaar.desktop \
             --replace-fail "solaar" 'solaar -w hide'
+
+          ln -s ${pkgs.solaar.udev} $udev
         '';
+        outputs = [
+          "out"
+          "udev"
+        ];
       };
     };
 

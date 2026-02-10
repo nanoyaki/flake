@@ -1,4 +1,34 @@
+{ withSystem, ... }:
+
 {
+  perSystem =
+    { pkgs, ... }:
+
+    {
+      packages.solaar = pkgs.symlinkJoin {
+        name = "rawrtestsetsetseet";
+        paths = [ pkgs.solaar ];
+        postBuild = ''
+          cp $out/share/applications/solaar.desktop solaar.desktop
+          rm $out/share/applications/solaar.desktop
+
+          substitute solaar.desktop $out/share/applications/solaar.desktop \
+            --replace-fail "solaar" 'solaar -w hide'
+        '';
+      };
+    };
+
+  flake.overlays.solaar =
+    _: prev:
+
+    withSystem prev.stdenv.hostPlatform.system (
+      { config, ... }:
+
+      {
+        inherit (config.packages) solaar;
+      }
+    );
+
   flake.nixosModules.shirayuri-desktop =
     { pkgs, config, ... }:
 

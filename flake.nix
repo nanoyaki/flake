@@ -48,6 +48,7 @@
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl.inputs = {
       nixpkgs.follows = "nixpkgs";
+      rust-overlay.follows = "rust-overlay";
       flake-compat.follows = "flake-compat";
     };
     nur.url = "github:nix-community/NUR";
@@ -85,6 +86,10 @@
     };
     gitignore.url = "github:hercules-ci/gitignore.nix";
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
+    quick-fix.url = "github:jeafleohj/nixpkgs/260e44221132d93a0d07b47a9eb5b1d83222baa9";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./nix);

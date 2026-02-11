@@ -1,6 +1,21 @@
-{ inputs, ... }:
+{ withSystem, inputs, ... }:
 
 {
+  flake.overlays.quick-fix =
+    _: prev:
+
+    withSystem prev.stdenv.hostPlatform.system (
+      { inputs', ... }:
+
+      {
+        rustPlatform = prev.rustPlatform.overrideScope (
+          _: _: {
+            inherit (inputs'.quick-fix.legacyPackages.rustPlatform) fetchCargoVendor;
+          }
+        );
+      }
+    );
+
   flake.nixosConfigurations.shirayuri = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = with inputs.self.nixosModules; [
@@ -46,7 +61,7 @@
   flake.homeConfigurations.hana = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
-      inherit (inputs.self.nixosConfigurations.shirayuri.config.nixpkgs) config overlays;
+      inherit (inputs.self.nixosConfigurations.shirayuri.config.nixpkgs) config;
     };
     modules = with inputs.self.homeModules; [
       homeManager

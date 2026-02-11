@@ -60,6 +60,8 @@
     in
 
     {
+      home.packages = [ pkgs.starrydex ];
+
       xdg.autostart.entries = [
         "${pkgs.solaar}/share/applications/solaar.desktop"
         "${pkgs.vesktop}/share/applications/vesktop.desktop"

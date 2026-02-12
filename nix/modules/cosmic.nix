@@ -84,12 +84,24 @@
 
       environment.systemPackages = with pkgs; [
         cosmic-ext-applet-privacy-indicator
+        cosmic-ext-connected
         # leads to crashes on paste
         # clipboard-manager
         wkeys
         gradia
         loupe
       ];
+
+      # KDEConnect
+      networking.firewall = rec {
+        allowedTCPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          }
+        ];
+        allowedUDPPortRanges = allowedTCPPortRanges;
+      };
 
       environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
       xdg.mime.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
@@ -138,6 +150,8 @@
       ];
 
       xdg.mimeApps.defaultApplications."image/*" = "org.gnome.Loupe.desktop";
+
+      services.kdeconnect.enable = true;
 
       programs.cosmic-files = {
         enable = true;
@@ -265,6 +279,7 @@
                 "com.system76.CosmicAppletNotifications"
                 # leads to crashes on paste
                 # "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"
+                "io.github.nwxnw.cosmic-ext-connected"
                 "com.system76.CosmicAppletBluetooth"
                 "com.system76.CosmicAppletNetwork"
                 "com.system76.CosmicAppletAudio"

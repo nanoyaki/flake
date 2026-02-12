@@ -24,6 +24,7 @@
       homeManager
       nix
       networking
+      vopono
       shell
       locale
       git
@@ -50,6 +51,7 @@
       shirayuri-wireguard
       shirayuri-backups
       shirayuri-desktop
+      shirayuri-librewolf
       shirayuri-fcitx5
       shirayuri-gaming
       shirayuri-animeGames
@@ -77,6 +79,7 @@
       hana-system
       hana-ssh
       hana-desktop
+      hana-librewolf
       hana-gaming
       hana-vr
       hana-vrchat
@@ -104,6 +107,7 @@
         hana-system
         hana-ssh
         hana-desktop
+        hana-librewolf
         hana-gaming
         hana-vr
         hana-vrchat

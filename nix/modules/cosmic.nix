@@ -2,7 +2,7 @@
 
 {
   perSystem =
-    { pkgs, ... }:
+    { inputs', pkgs, ... }:
 
     {
       packages.gradia-cosmic = pkgs.writeShellApplication {
@@ -25,6 +25,34 @@
           wl-paste --type image/png | gradia
         '';
       };
+
+      packages.cosmic-ext-applet-privacy-indicator =
+        (inputs'.nanopkgs.packages.cosmic-ext-applet-privacy-indicator.overrideAttrs (
+          finalAttrs: _: {
+            src = pkgs.applyPatches {
+              name = "${finalAttrs.pname}-${finalAttrs.version}";
+              src = pkgs.fetchFromGitHub {
+                owner = "D-Brox";
+                repo = "cosmic-ext-applet-privacy-indicator";
+                rev = "e69833cf8b31813d5468da7eeea6311f1621d702";
+                hash = "sha256-LivssKbrzAO4kuoNcE6evs4etaiFgH0UWeOSzHtgd1A=";
+              };
+              patches = [ ./no-blink.patch ];
+            };
+
+            cargoDeps = inputs'.quick-fix.legacyPackages.rustPlatform.fetchCargoVendor {
+              inherit (finalAttrs) src;
+              hash = "sha256-8Q4Cphr3jNcHpfeFchvLcGIM6pecJ5xzXCSUU2/YrFs=";
+            };
+          }
+        )).override
+          {
+            rustPlatform = pkgs.rustPlatform.overrideScope (
+              _: _: {
+                inherit (inputs'.quick-fix.legacyPackages.rustPlatform) fetchCargoVendor;
+              }
+            );
+          };
     };
 
   flake.overlays.cosmic =
@@ -34,7 +62,7 @@
       { config, ... }:
 
       {
-        inherit (config.packages) gradia-cosmic;
+        inherit (config.packages) gradia-cosmic cosmic-ext-applet-privacy-indicator;
       }
     );
 

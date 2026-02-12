@@ -1,0 +1,300 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 1fe893c..416332a 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1116,7 +1116,6 @@ name = "cosmic-ext-applet-privacy-indicator"
+ version = "0.2.0"
+ dependencies = [
+  "bimap",
+- "cosmic-time",
+  "inotify",
+  "libcosmic",
+  "pipewire",
+@@ -1211,15 +1210,6 @@ dependencies = [
+  "thiserror 2.0.18",
+ ]
+ 
+-[[package]]
+-name = "cosmic-time"
+-version = "0.4.0"
+-source = "git+https://github.com/pop-os/cosmic-time.git#bbb9fb829b25e0bc2bbb382c25543646e82cda62"
+-dependencies = [
+- "float-cmp",
+- "libcosmic",
+-]
+-
+ [[package]]
+ name = "cpufeatures"
+ version = "0.2.17"
+@@ -1688,9 +1678,6 @@ name = "float-cmp"
+ version = "0.9.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
+-dependencies = [
+- "num-traits",
+-]
+ 
+ [[package]]
+ name = "float_next_after"
+diff --git a/Cargo.toml b/Cargo.toml
+index cbbaf7f..1825601 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -47,7 +47,6 @@ pipewire-libs = "*"
+ 
+ [dependencies]
+ bimap = "0.6.3"
+-cosmic-time = { git = "https://github.com/pop-os/cosmic-time.git" }
+ inotify = "0.11.0"
+ pipewire = "0.9.2"
+ 
+diff --git a/src/applet.rs b/src/applet.rs
+index 998d61b..d6d2afd 100644
+--- a/src/applet.rs
++++ b/src/applet.rs
+@@ -2,11 +2,9 @@
+ 
+ use std::{
+     collections::{HashMap, HashSet},
+-    fs::{read_dir, read_link},
+     path::PathBuf,
+     rc::Rc,
+-    sync::LazyLock,
+-    time::{Duration, Instant},
++    time::Duration,
+ };
+ 
+ use cosmic::{
+@@ -19,16 +17,12 @@ use cosmic::{
+         Column, Row, container::Style as CtnStyle, icon, layer_container, svg::Style as SvgStyle,
+     },
+ };
+-use cosmic_time::{Timeline, anim, chain};
+ 
+-use bimap::BiHashMap;
+-use inotify::{EventMask, Inotify, WatchDescriptor, WatchMask};
++use inotify::EventMask;
+ use pipewire::{context::ContextRc, main_loop::MainLoopRc};
+ 
+ use crate::camera::{get_inotify, open_cameras};
+ 
+-static REC_ICON: LazyLock<crate::rec_icon::Id> = LazyLock::new(crate::rec_icon::Id::unique);
+-
+ #[derive(Default)]
+ struct Shared {
+     pub microphone: bool,
+@@ -39,7 +33,6 @@ struct Shared {
+ #[derive(Default)]
+ pub struct PrivacyIndicator {
+     core: Core,
+-    timeline: Timeline,
+     shared: Shared,
+     microphones: HashSet<u32>,
+     screenshares: HashSet<u32>,
+@@ -49,7 +42,6 @@ pub struct PrivacyIndicator {
+ #[derive(Debug, Clone)]
+ pub enum Message {
+     Tick,
+-    RecTick(Instant),
+     ScreenShareAdd(u32),
+     MicrophoneAdd(u32),
+     PipeWireNodeRemove(u32),
+@@ -77,12 +69,8 @@ impl Application for PrivacyIndicator {
+     }
+ 
+     fn init(core: Core, _flags: Self::Flags) -> (Self, Task<Self::Message>) {
+-        let mut timeline = Timeline::new();
+-        timeline.set_chain(chain![REC_ICON]).start();
+-
+         let app = PrivacyIndicator {
+             core,
+-            timeline,
+             ..Default::default()
+         };
+ 
+@@ -101,8 +89,16 @@ impl Application for PrivacyIndicator {
+             camera,
+         } = self.shared;
+ 
++        let icon_style = Rc::new(|theme: &Theme| SvgStyle {
++            color: Some(theme.cosmic().accent_color().into()),
++        });
++
+         if screenshare || microphone || camera {
+-            shared.push(anim![REC_ICON, &self.timeline, size.0].into());
++            shared.push(
++                icon(icon::from_name("media-record-symbolic").into())
++                    .class(Svg::Custom(icon_style.clone()))
++                    .size(size.0).into()
++            );
+         } else {
+             return self
+                 .core
+@@ -205,7 +201,6 @@ impl Application for PrivacyIndicator {
+                 self.screenshares.remove(&id);
+                 self.microphones.remove(&id);
+             }
+-            Message::RecTick(now) => self.timeline.now(now),
+         }
+         Task::none()
+     }
+@@ -348,11 +343,9 @@ impl Application for PrivacyIndicator {
+             })
+         });
+ 
+-        // Weirdly enough, self.timeline.as_subscription() is too resource heavy, since it follows the compositors refresh rate
+-        let timeline = cosmic::iced::time::every(Duration::from_millis(20)).map(Message::RecTick); // 50Hz
+         let tick = cosmic::iced::time::every(Duration::from_millis(2000)).map(|_| Message::Tick);
+ 
+-        Subscription::batch([pw_shares, camera_shares, timeline, tick])
++        Subscription::batch([pw_shares, camera_shares, tick])
+     }
+ 
+     fn style(&self) -> Option<cosmic::iced_runtime::Appearance> {
+diff --git a/src/main.rs b/src/main.rs
+index c6a954b..d698572 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -2,7 +2,6 @@
+ 
+ mod applet;
+ mod camera;
+-mod rec_icon;
+ 
+ fn main() -> cosmic::iced::Result {
+     cosmic::applet::run::<applet::PrivacyIndicator>(())
+diff --git a/src/rec_icon.rs b/src/rec_icon.rs
+deleted file mode 100644
+index da536f5..0000000
+--- a/src/rec_icon.rs
++++ /dev/null
+@@ -1,129 +0,0 @@
+-// SPDX-License-Identifier: GPL-3.0-only
+-
+-use std::rc::Rc;
+-use std::sync::LazyLock;
+-use std::time::Duration;
+-
+-use cosmic::cosmic_theme::palette::Mix;
+-use cosmic::theme::{Svg, Theme};
+-use cosmic::widget::{icon, icon::Handle, svg::Style as SvgStyle, Icon, Id as CosmicId};
+-use cosmic_time::{
+-    timeline::{Chain as TimelineChain, Frame, Interped},
+-    Ease, MovementType, Quadratic, Repeat, Timeline,
+-};
+-
+-static REC_ICON_HANDLE: LazyLock<Handle> =
+-    LazyLock::new(|| icon::from_name("media-record-symbolic").into());
+-
+-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+-pub struct Id(CosmicId);
+-
+-impl Id {
+-    pub fn new(id: impl Into<std::borrow::Cow<'static, str>>) -> Self {
+-        Self(CosmicId::new(id))
+-    }
+-
+-    pub fn unique() -> Self {
+-        Self(CosmicId::unique())
+-    }
+-
+-    pub fn into_chain(self) -> Chain {
+-        Chain::new(self)
+-    }
+-
+-    pub fn as_widget(&self, timeline: &Timeline, size: u16) -> Icon {
+-        RecIcon::as_widget(self, timeline, size)
+-    }
+-}
+-
+-impl From<Id> for CosmicId {
+-    fn from(value: Id) -> Self {
+-        value.0
+-    }
+-}
+-
+-#[derive(Debug)]
+-pub struct Chain {
+-    id: Id,
+-    links: Vec<RecIcon>,
+-}
+-
+-impl Chain {
+-    pub fn new(id: Id) -> Self {
+-        Chain {
+-            id,
+-            links: vec![
+-                RecIcon::new(Duration::ZERO).alpha(0.0),
+-                RecIcon::new(Duration::from_millis(1000)).alpha(1.0),
+-                RecIcon::new(Duration::from_millis(250)).alpha(1.0),
+-                RecIcon::new(Duration::from_millis(1000)).alpha(0.0),
+-                RecIcon::new(Duration::from_millis(250)).alpha(0.0),
+-            ],
+-        }
+-    }
+-}
+-
+-impl From<Chain> for TimelineChain {
+-    fn from(chain: Chain) -> Self {
+-        TimelineChain::new(
+-            chain.id.0,
+-            Repeat::Forever,
+-            chain
+-                .links
+-                .into_iter()
+-                .map(std::convert::Into::into)
+-                .collect::<Vec<_>>(),
+-        )
+-    }
+-}
+-
+-#[derive(Debug, Clone, Copy)]
+-pub struct RecIcon {
+-    at: MovementType,
+-    ease: Ease,
+-    alpha: f32,
+-}
+-
+-impl RecIcon {
+-    pub fn new(at: impl Into<MovementType>) -> RecIcon {
+-        let at = at.into();
+-        RecIcon {
+-            at,
+-            ease: Quadratic::InOut.into(),
+-            alpha: 1.0,
+-        }
+-    }
+-
+-    pub fn alpha(mut self, alpha: f32) -> Self {
+-        self.alpha = alpha;
+-        self
+-    }
+-
+-    pub fn as_widget(id: &Id, timeline: &Timeline, size: u16) -> Icon {
+-        let value = if let Some(Interped { value, .. }) = timeline.get(&id.0, 0) {
+-            value
+-        } else {
+-            1.0
+-        };
+-        icon(REC_ICON_HANDLE.clone())
+-            .class(Svg::Custom(Rc::new(move |theme: &Theme| {
+-                let cosmic = theme.cosmic();
+-                SvgStyle {
+-                    color: Some(
+-                        cosmic
+-                            .background
+-                            .base
+-                            .mix(cosmic.destructive_text_color(), value)
+-                            .into(),
+-                    ),
+-                }
+-            })))
+-            .size(size)
+-    }
+-}
+-
+-impl From<RecIcon> for Vec<Option<Frame>> {
+-    fn from(icon: RecIcon) -> Vec<Option<Frame>> {
+-        vec![Some(Frame::lazy(icon.at, icon.alpha, icon.ease))]
+-    }
+-}

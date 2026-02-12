@@ -1,4 +1,4 @@
-{ withSystem, ... }:
+{ withSystem, inputs, ... }:
 
 {
   flake.nixosModules.shirayuri-vr =
@@ -51,6 +51,33 @@
       };
 
       environment.systemPackages = [ pkgs.wayvr ];
+
+      specialisation.vr.configuration.home-manager.users.hana.imports = [
+        inputs.self.homeModules.hana-vr-specilisation
+      ];
+    };
+
+  flake.homeModules.hana-vr-specilisation =
+    { config, ... }:
+
+    let
+      inherit (config.lib.cosmic) mkRON;
+
+      Enum = mkRON "enum";
+      Some = mkRON "optional";
+      Map = mkRON "map";
+    in
+
+    {
+      wayland.desktopManager.cosmic.compositor.input_devices = Map [
+        {
+          key = "Logitech USB Receiver";
+          value = {
+            state = Enum "Enabled";
+            map_to_output = Some "DP-1";
+          };
+        }
+      ];
     };
 
   flake.homeModules.hana-vr =
@@ -101,6 +128,8 @@
         ];
         terminal = false;
       };
+
+      specialisation.vr.configuration.imports = [ inputs.self.homeModules.hana-vr-specilisation ];
     };
 
   perSystem =

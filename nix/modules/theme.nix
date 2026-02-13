@@ -68,7 +68,12 @@
     };
 
   flake.homeModules.theme =
-    { config, ... }:
+    {
+      lib,
+      config,
+      pkgs,
+      ...
+    }:
 
     let
       gtk3Plus = {
@@ -82,6 +87,13 @@
     {
       gtk = {
         enable = true;
+        theme =
+          lib.mkIf (config.wayland ? desktopManager.cosmic && config.wayland.desktopManager.cosmic.enable)
+            {
+              package = pkgs.gnome-themes-extra;
+              name = "Adwaita-dark";
+            };
+
         gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
         gtk3.extraConfig = gtk3Plus // {
           gtk-menu-images = true;
@@ -92,5 +104,16 @@
           "gtk-toolbar-style"
         ];
       };
+
+      qt =
+        lib.mkIf (config.wayland ? desktopManager.cosmic && config.wayland.desktopManager.cosmic.enable)
+          {
+            enable = true;
+            platformTheme = "adwaita";
+            style = {
+              name = "adwaita-dark";
+              package = pkgs.adwaita-qt6;
+            };
+          };
     };
 }

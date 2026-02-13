@@ -5,6 +5,7 @@
     {
       fonts.fontconfig = {
         antialias = true;
+        useEmbeddedBitmaps = true;
         defaultFonts = {
           serif = [
             "Noto Sans"
@@ -25,15 +26,5 @@
         nerd-fonts.fira-code
         twemoji-color-font
       ];
-    };
-
-  flake.homeModules.fonts =
-    { pkgs, ... }:
-
-    {
-      gtk.font = {
-        name = "Noto Sans";
-        package = pkgs.noto-fonts;
-      };
     };
 }

@@ -187,10 +187,6 @@
         };
       };
 
-      home.activation.killCosmicPanel = config.lib.dag.entryAfter [ "configureCosmic" ] ''
-        ${lib.getExe' pkgs.procps "pkill"} cosmic-panel || echo "Cosmic not running, didn't kill cosmic-panel"
-      '';
-
       xdg.configFile."wkeys/style.css".text = ''
         :root {
           color: rgb(205, 214, 244);
@@ -311,20 +307,6 @@
 
             header_size = Enum "Standard";
             interface_density = Enum "Standard";
-
-            interface_font = {
-              family = "Open Sans";
-              stretch = Enum "Normal";
-              style = Enum "Normal";
-              weight = Enum "Normal";
-            };
-
-            monospace_font = {
-              family = "Noto Sans Mono";
-              stretch = Enum "Normal";
-              style = Enum "Normal";
-              weight = Enum "Normal";
-            };
 
             show_maximize = true;
             show_minimize = true;

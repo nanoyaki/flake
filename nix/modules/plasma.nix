@@ -27,6 +27,10 @@
         khelpcenter
         discover
       ];
+
+      xdg.mime.defaultApplications = {
+        "inode/directory" = "org.kde.dolphin.desktop";
+      };
     };
 
   flake.homeModules.plasma =
@@ -38,7 +42,7 @@
     }:
 
     {
-      imports = [ inputs.plasma-manager.homeModules.default ];
+      imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
       programs.plasma = {
         workspace = {
@@ -73,9 +77,12 @@
               {
                 iconTasks.launchers = [
                   "preferred://filemanager"
+                  "preferred://mailer"
                   "preferred://browser"
-                  "applications:Alacritty.desktop"
+                  "preferred://terminal"
+                  # "applications:Alacritty.desktop"
                   "applications:vesktop.desktop"
+                  "applications:codium.desktop"
                 ]
                 ++ lib.optional config.programs.steam.enable "applications:steam.desktop";
               }
@@ -122,17 +129,24 @@
                   };
                 };
               }
-              "org.kde.plasma.showdesktop"
+              # "org.kde.plasma.showdesktop"
             ];
           }
         ];
 
         configFile = {
-          "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".Image = pkgs.default-wallpaper.outPath;
-          "kscreenlockerrc"."Greeter/Wallpaper/org.kde.image/General".PreviewImage =
+          kscreenlockerrc."Greeter/Wallpaper/org.kde.image/General".Image = pkgs.default-wallpaper.outPath;
+          kscreenlockerrc."Greeter/Wallpaper/org.kde.image/General".PreviewImage =
             pkgs.default-wallpaper.outPath;
-          "plasmarc"."Wallpapers"."usersWallpapers" = pkgs.default-wallpaper.outPath;
-          "kcminputrc"."Mouse"."cursorSize" = 32;
+          plasmarc.Wallpapers.usersWallpapers = pkgs.default-wallpaper.outPath;
+          kcminputrc.Mouse.cursorSize = 32;
+
+          kdeglobals.General.TerminalApplication = "alacritty";
+          emaildefaults.Defaults.Profile = "Default";
+          emaildefaults.PROFILE_Default = {
+            EmailClient = "thunderbird.desktop";
+            TerminalClient = false;
+          };
         };
       };
     };

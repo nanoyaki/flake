@@ -33,7 +33,7 @@
       fcitx5
       fonts
       audio
-      cosmic
+      plasma
       lact
       vscode
       theme
@@ -66,25 +66,9 @@
       system = "x86_64-linux";
       inherit (inputs.self.nixosConfigurations.shirayuri.config.nixpkgs) config;
     };
-    modules = with inputs.self.homeModules; [
-      homeManager
-      sops
-      nix
-      shell
-      git
-      yubikey
-      fonts
-      cosmic
-      theme
-      catppuccin
-      hana-system
-      hana-ssh
-      hana-desktop
-      hana-librewolf
-      hana-gaming
-      hana-vr
-      hana-vrchat
-    ];
+    modules =
+      inputs.self.nixosConfigurations.shirayuri.config.home-manager.sharedModules
+      ++ inputs.self.nixosConfigurations.shirayuri.config.home-manager.users.hana.imports;
   };
 
   flake.nixosModules.shirayuri-system =
@@ -120,8 +104,7 @@
         shell
         git
         yubikey
-        fonts
-        cosmic
+        plasma
         theme
         catppuccin
       ];

@@ -112,9 +112,9 @@ in
         };
       };
 
-      wayland.desktopManager = optionalAttrs (options.wayland.desktopManager ? cosmic) {
-        cosmic.appearance.toolkit.icon_theme = "Papirus-Dark";
-        cosmic.appearance.theme.dark =
+      wayland = optionalAttrs (options.wayland ? desktopManager.cosmic) {
+        desktopManager.cosmic.appearance.toolkit.icon_theme = "Papirus-Dark";
+        desktopManager.cosmic.appearance.theme.dark =
           let
             inherit (config.lib.cosmic) mkRON;
 

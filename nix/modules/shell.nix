@@ -21,6 +21,7 @@
 
       programs.bat.enable = true;
       programs.starship.enable = true;
+      programs.zoxide.enable = true;
 
       environment.shellAliases = {
         ls = "lsd";
@@ -66,6 +67,7 @@
         bat.enable = true;
         fastfetch.enable = true;
         ripgrep.enable = true;
+        zoxide.enable = true;
       };
     };
 }

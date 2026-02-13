@@ -50,7 +50,10 @@
     in
 
     {
-      home.packages = [ pkgs.starrydex ];
+      home.packages = [
+        pkgs.starrydex
+        pkgs.spotify
+      ];
 
       xdg.autostart.entries = [
         "${pkgs.solaar}/share/applications/solaar.desktop"

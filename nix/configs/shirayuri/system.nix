@@ -46,6 +46,7 @@
       shirayuri-disks
       shirayuri-swap
       shirayuri-valveIndex
+      shirayuri-cam
       shirayuri-boot
       shirayuri-networking
       shirayuri-wireguard
@@ -138,6 +139,7 @@
         "osu-lazer-bin"
         "unityhub"
         "corefonts"
+        "spotify"
       ];
 
       system.stateVersion = "24.11";
@@ -151,6 +153,7 @@
       "steam"
       "steam-unwrapped"
       "osu-lazer-bin"
+      "spotify"
     ];
 
     home.stateVersion = "24.11";

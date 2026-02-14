@@ -2,7 +2,7 @@
 
 {
   flake.nixosModules.plasma =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
 
     {
       services.desktopManager.plasma6 = {
@@ -12,8 +12,8 @@
 
       services.displayManager.defaultSession = "plasma";
       services.displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
+        enable = lib.mkDefault true;
+        wayland.enable = lib.mkForce true;
         wayland.compositor = "kwin";
       };
 
@@ -34,10 +34,9 @@
     };
 
   flake.homeModules.plasma =
-    {
+    args@{
       lib,
       pkgs,
-      config,
       ...
     }:
 
@@ -45,6 +44,7 @@
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
       programs.plasma = {
+        enable = true;
         workspace = {
           iconTheme = "Papirus-Dark";
           wallpaper = pkgs.default-wallpaper.outPath;
@@ -79,12 +79,14 @@
                   "preferred://filemanager"
                   "preferred://mailer"
                   "preferred://browser"
-                  "preferred://terminal"
-                  # "applications:Alacritty.desktop"
+                  # "preferred://terminal"
+                  "applications:Alacritty.desktop"
                   "applications:vesktop.desktop"
                   "applications:codium.desktop"
                 ]
-                ++ lib.optional config.programs.steam.enable "applications:steam.desktop";
+                ++ lib.optional (
+                  args ? nixosConfig && args.nixosConfig.programs.steam.enable
+                ) "applications:steam.desktop";
               }
               {
                 panelSpacer.expanding = true;
@@ -141,7 +143,7 @@
           plasmarc.Wallpapers.usersWallpapers = pkgs.default-wallpaper.outPath;
           kcminputrc.Mouse.cursorSize = 32;
 
-          kdeglobals.General.TerminalApplication = "alacritty";
+          kdeglobals.General.TerminalApplication = "alacritty.desktop";
           emaildefaults.Defaults.Profile = "Default";
           emaildefaults.PROFILE_Default = {
             EmailClient = "thunderbird.desktop";

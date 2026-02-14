@@ -58,6 +58,8 @@
     };
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+    silentSDDM.url = "github:uiriansan/SilentSDDM";
+    silentSDDM.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
@@ -88,8 +90,6 @@
     gitignore.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
-    quick-fix.url = "github:jeafleohj/nixpkgs/260e44221132d93a0d07b47a9eb5b1d83222baa9";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./nix);

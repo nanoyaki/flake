@@ -43,7 +43,7 @@
         prismlauncher
         osu-lazer-bin
         dolphin-emu
-        melonDS
+        melonds
         nwjs-run
       ];
     };

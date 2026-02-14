@@ -1,13 +1,19 @@
-{ withSystem, ... }:
+{ withSystem, inputs, ... }:
 
 {
   perSystem =
-    { inputs', ... }:
+    { inputs', pkgs, ... }:
 
     {
       packages.default-wallpaper = inputs'.nanopkgs.legacyPackages.fetchPixivIllust {
         pixivId = 140824539;
         hash = "sha256-MjEEnE6t4B2zhGE1oDCpMGGQO9rI97eFnhH4Nz4P9X0=";
+      };
+
+      packages.default-pfp = pkgs.fetchurl {
+        name = "pfp.png";
+        url = "https://avatars.githubusercontent.com/u/144328493";
+        hash = "sha256-ccmdcdiBVc38NP8MTGfY4z6V1dkPcH/h0X5Q4bd6904=";
       };
     };
 
@@ -18,14 +24,21 @@
       { config, ... }:
 
       {
-        inherit (config.packages) default-wallpaper;
+        inherit (config.packages) default-wallpaper default-pfp;
       }
     );
 
   flake.nixosModules.theme =
-    { lib, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     {
+      imports = [ inputs.silentSDDM.nixosModules.default ];
+
       boot = {
         consoleLogLevel = lib.mkDefault 0;
         initrd.verbose = lib.mkDefault false;
@@ -49,6 +62,23 @@
         ];
 
         plymouth.enable = false;
+      };
+
+      services.displayManager.sddm.settings.Theme = {
+        CursorTheme = "BreezeX-RosePine-Linux";
+        CursorSize = 32;
+      };
+
+      programs.silentSDDM = {
+        enable = true;
+        theme = "default";
+
+        profileIcons.hana = pkgs.default-pfp;
+        backgrounds.default = pkgs.default-wallpaper.outPath;
+        settings = {
+          LoginScreen.background = baseNameOf pkgs.default-wallpaper.outPath;
+          LockScreen.background = baseNameOf pkgs.default-wallpaper.outPath;
+        };
       };
 
       programs.dconf.profiles.user.databases = [

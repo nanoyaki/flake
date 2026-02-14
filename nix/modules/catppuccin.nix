@@ -54,10 +54,13 @@ in
     }:
 
     {
+      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
+
       environment.systemPackages =
         (with pkgs; [
           catppuccin-papirus-folders
           catppuccin
+          rose-pine-cursor
         ])
         ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.catppuccin-kde
         ++ lib.optional (

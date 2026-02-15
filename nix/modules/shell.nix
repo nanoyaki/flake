@@ -26,6 +26,7 @@
       environment.shellAliases = {
         ls = "lsd";
         copy = "rsync -a --info=progress2 --info=name0";
+        cd = "z";
       };
 
       environment.sessionVariables = {

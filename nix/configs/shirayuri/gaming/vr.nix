@@ -69,8 +69,8 @@
         config = [ "${config.xdg.dataHome}/Steam/config" ];
         log = [ "${config.xdg.dataHome}/Steam/logs" ];
         runtime = [
-          "${pkgs.xrizer}/lib/xrizer"
           "${pkgs.opencomposite-vendored}/lib/opencomposite"
+          "${pkgs.xrizer}/lib/xrizer" # still is kinda eh
           "${config.xdg.dataHome}/Steam/steamapps/common/SteamVR"
         ];
       };

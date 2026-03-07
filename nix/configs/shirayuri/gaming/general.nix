@@ -37,9 +37,9 @@
     {
       home.packages = with pkgs; [
         mangohud
-        r2modman
+        # r2modman
         bs-manager
-        lutris
+        # lutris
         prismlauncher
         osu-lazer-bin
         dolphin-emu

@@ -58,6 +58,17 @@
             widgets = [
               # https://develop.kde.org/docs/plasma/scripting/keys/
               {
+                plasmusicToolbar = {
+                  panelIcon.albumCover = {
+                    fallbackToIcon = true;
+                    useAsIcon = true;
+                    radius = 25;
+                  };
+
+                  playbackSource = "auto";
+                };
+              }
+              {
                 panelSpacer.expanding = true;
               }
               {

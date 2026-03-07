@@ -51,7 +51,6 @@
 
     {
       home.packages = [
-        pkgs.starrydex
         pkgs.spotify
       ];
 
@@ -89,7 +88,7 @@
           mpv-discord
           mpv-subtitle-lines
           mpv-playlistmanager
-          mpv-cheatsheet
+          mpv-cheatsheet-ng
         ];
       };
 

@@ -48,6 +48,7 @@
         serial.adapter = "deconz";
 
         frontend.port = 9831;
+        frontend.enabled = true;
 
         advanced.channel = 25;
         advanced.cache_state = true;
@@ -59,7 +60,7 @@
           "::1"
           "10.101.0.1"
           "fd10::1"
-          "10.0.0.3"
+          "10.0.0.9"
         ];
 
         useACMEHost = "hanakretzer.de";

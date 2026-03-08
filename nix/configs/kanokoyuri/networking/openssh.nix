@@ -3,6 +3,11 @@
     { config, ... }:
 
     {
+      networking = {
+        hostId = "69804090";
+        hostName = "kanokoyuri";
+      };
+
       services.openssh = {
         enable = true;
         openFirewall = true;

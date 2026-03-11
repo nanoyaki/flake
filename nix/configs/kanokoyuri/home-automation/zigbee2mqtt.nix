@@ -77,5 +77,9 @@
           settings.allow_anonymous = true;
         }
       ];
+
+      networking.firewall.allowedTCPPorts = [
+        (config.services.zigbee2mqtt.settings.frontend.port or 9831)
+      ];
     };
 }

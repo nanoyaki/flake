@@ -9,10 +9,10 @@
 
     boot.resumeDevice = "/dev/nvme1n1";
     boot.kernelParams = [ "resume_offset=157558016" ];
-    systemd.sleep.extraConfig = ''
-      HibernateDelaySec=1h
-      SuspendState=mem
-    '';
+    systemd.sleep.settings.Sleep = {
+      HibernateDelaySec = "1h";
+      SuspendState = "mem";
+    };
 
     # zramSwap.enable = true;
   };

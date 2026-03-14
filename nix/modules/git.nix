@@ -16,7 +16,6 @@ let
   common = {
     init.defaultBranch = "main";
     push.autoSetupRemote = true;
-    fetch.all = true;
     pull.autoStash = true;
     pull.rebase = true;
     rebase.autoStash = true;

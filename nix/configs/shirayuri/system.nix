@@ -109,6 +109,7 @@
         catppuccin
       ];
 
+      nixpkgs.hostPlatform.system = "x86_64-linux";
       nixpkgs.allowUnfreeNames = [
         # firefox addons
         "keepa"

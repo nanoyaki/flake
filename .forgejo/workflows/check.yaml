@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Hana Kretzer <hanakretzer@gmail.com>
+#
+# SPDX-License-Identifier: MIT
 on:
   pull_request:
   push:
@@ -6,22 +9,52 @@ on:
       - '**/*.nix'
     branches:
       - main
-  workflow_call:
   workflow_dispatch:
 
-env:
-  NIX_CONFIG: |
-    experimental-features = nix-command flakes
-
 jobs:
-  checks:
-    runs-on: nix
+  eval:
+    runs-on: native
+    outputs:
+      to-check: ${{ steps.eval.outputs.to-check }}
     steps:
-      - name: Install dependencies
-        run: nix profile install nixpkgs#nodejs
-
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Flake checks
-        uses: https://git.theless.one/actions/flake-check@v1
+      - name: Eval checks
+        id: eval
+        run: |
+          nix-eval-jobs \
+            --option eval-cache false \
+            --workers 32 \
+            --max-memory-size 4096 \
+            --option accept-flake-config true \
+            --force-recurse \
+            --check-cache-status \
+            --show-trace \
+            --flake '.#checks.x86_64-linux' \
+            > evaled
+
+          echo "to-check=$(
+            jq -s -r -c \
+            'map(select(.isCached == false) | { name: .name, path: .drvPath, attr: ([.system] + .attrPath | join (".")) })' \
+            ./evaled
+          )" > $FORGEJO_OUTPUT
+
+  check:
+    name: Check ${{ matrix.checks.name }}
+    runs-on: native
+    needs: eval
+    strategy:
+      matrix:
+        checks: ${{ fromJSON(needs.eval.outputs.to-check) }}
+    steps:
+      - name: Check outputs
+        id: check
+        run: |-
+          nix build \
+            -L \
+            --show-trace \
+            --keep-going \
+            --max-silent-time 1200 \
+            --out-link "result-${{ matrix.checks.attr }}" \
+            "${{ matrix.checks.path }}"'^*'

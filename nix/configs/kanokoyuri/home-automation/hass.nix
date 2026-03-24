@@ -36,7 +36,7 @@
           "analytics"
           "google_translate"
           "met"
-          "radio_browser"
+          # "radio_browser"
           "shopping_list"
           # Optimization
           "isal"
@@ -44,7 +44,6 @@
           "tplink"
           "tplink_tapo"
           "fitbit"
-          "sleep_as_android"
           "dwd_weather_warnings"
           "mqtt"
         ];

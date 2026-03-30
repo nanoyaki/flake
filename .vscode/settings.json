@@ -42,5 +42,6 @@
                 "cmd": "nixfmt \"${file}\"",
             },
         ],
-    }
+    },
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"
 }

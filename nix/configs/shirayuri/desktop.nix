@@ -52,6 +52,7 @@
     {
       home.packages = [
         pkgs.spotify
+        pkgs.kdePackages.kcolorchooser
       ];
 
       xdg.autostart.entries = [

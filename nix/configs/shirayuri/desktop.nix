@@ -102,6 +102,7 @@
 
       xdg.userDirs = {
         enable = true;
+        setSessionVariables = true;
 
         desktop = "/home/hana/Desktop";
         download = "/mnt/os-shared/Downloads";

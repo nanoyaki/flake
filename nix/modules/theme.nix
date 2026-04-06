@@ -125,14 +125,14 @@
             };
 
         gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
         gtk3.extraConfig = gtk3Plus // {
           gtk-menu-images = true;
           gtk-toolbar-style = 3;
         };
-        gtk4.extraConfig = removeAttrs gtk3Plus [
-          "gtk-menu-images"
-          "gtk-toolbar-style"
-        ];
+
+        gtk4.theme = config.gtk.theme;
+        gtk4.extraConfig = gtk3Plus;
       };
 
       qt =

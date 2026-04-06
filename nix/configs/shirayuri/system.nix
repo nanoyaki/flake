@@ -32,6 +32,8 @@
       shirayuri-swap
       shirayuri-valveIndex
       shirayuri-cam
+      shirayuri-headphones
+      shirayuri-virtualisation
       shirayuri-boot
       shirayuri-networking
       shirayuri-wireguard

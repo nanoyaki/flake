@@ -11,6 +11,7 @@
     boot.kernelModules = [
       "kvm-amd"
       "ryzen_smu"
+      "ntsync"
     ];
 
     hardware.cpu.amd.updateMicrocode = true;

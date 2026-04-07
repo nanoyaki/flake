@@ -43,7 +43,12 @@
     };
 
   flake.homeModules.hana-desktop =
-    { pkgs, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     let
       inherit (config.lib.file) mkOutOfStoreSymlink;
@@ -91,6 +96,53 @@
           mpv-playlistmanager
           mpv-cheatsheet-ng
         ];
+      };
+
+      programs.helix = {
+        enable = true;
+        # defaultEditor = true;
+
+        settings.editor = {
+          line-number = "absolute";
+          lsp.display-messages = true;
+
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+        };
+
+        languages = {
+          language-server.nixd.config.nixd = {
+            nixpkgs.expr = "import ${./_nixd-nixpkgs.nix} { nixosConfig = \"/home/hana/flake\"; isFlake = true; }";
+            formatting.command = lib.getExe pkgs.nixfmt;
+            options.nixos.expr = "import ${./_nixd-nixos-options.nix} { nixosConfig = \"/home/hana/flake\"; isFlake = true; hostname = \"shirayuri\"; }";
+            options.home-manager.expr = "import ${./_nixd-home-options.nix} { homeConfig = \"/home/hana/flake\"; isFlake = true; username = \"hana\"; }";
+          };
+
+          language = [
+            {
+              name = "rust";
+              auto-format = true;
+            }
+            {
+              name = "nix";
+              file-types = [ "nix" ];
+              roots = [
+                "flake.nix"
+                "flake.lock"
+              ];
+
+              language-servers = [ "nixd" ];
+              formatter.command = lib.getExe pkgs.nixfmt;
+              indent = {
+                tab-width = 2;
+                unit = " ";
+              };
+            }
+          ];
+        };
       };
 
       xdg.mimeApps.defaultApplications = {

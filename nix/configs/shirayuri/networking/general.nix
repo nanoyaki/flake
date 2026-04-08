@@ -17,10 +17,6 @@
         password ${config.sops.placeholder.cache-thelessone}
       '';
 
-      nix.settings = {
-        extra-trusted-public-keys = [ "global:7eCH4KGNBFCRbdj68YYwR053mXl2zJRCUkV2LKtitnk=" ];
-        extra-trusted-substituters = [ "https://binarycache.theless.one/global" ];
-        netrc-file = config.sops.templates."cache.netrc".path;
-      };
+      nix.settings.netrc-file = config.sops.templates."cache.netrc".path;
     };
 }

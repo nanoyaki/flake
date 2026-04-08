@@ -39,13 +39,15 @@
         );
 
         nix.settings = {
-          extra-trusted-substituters = [
-            "https://nix-community.cachix.org"
+          extra-substituters = [
+            "https://binarycache.theless.one/global"
             "https://nixpkgs-wayland.cachix.org"
+            "https://nix-community.cachix.org"
           ];
           extra-trusted-public-keys = [
-            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+            "global:7eCH4KGNBFCRbdj68YYwR053mXl2zJRCUkV2LKtitnk="
             "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           ];
 
           auto-optimise-store = true;

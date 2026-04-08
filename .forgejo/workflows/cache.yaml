@@ -7,12 +7,13 @@ on:
     branches:
       - main
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   eval:
     runs-on: native
     outputs:
-      to-check: ${{ steps.eval.outputs.to-check }}
+      to-cache: ${{ steps.eval.outputs.to-cache }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

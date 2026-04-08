@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2025 Hana Kretzer <hanakretzer@gmail.com>
-#
-# SPDX-License-Identifier: MIT
 on:
   pull_request:
   push:
@@ -31,22 +28,22 @@ jobs:
             --force-recurse \
             --check-cache-status \
             --show-trace \
-            --flake '.#checks.x86_64-linux' \
+            --flake '.#packages.x86_64-linux' \
             > evaled
 
-          echo "to-check=$(
+          echo "to-cache=$(
             jq -s -r -c \
             'map(select(.isCached == false) | { name: .name, path: .drvPath, attr: ([.system] + .attrPath | join (".")) })' \
             ./evaled
           )" > $FORGEJO_OUTPUT
 
-  check:
-    name: Check ${{ matrix.checks.name }}
+  cache:
+    name: Build ${{ matrix.builds.name }}
     runs-on: native
     needs: eval
     strategy:
       matrix:
-        checks: ${{ fromJSON(needs.eval.outputs.to-check) }}
+        builds: ${{ fromJSON(needs.eval.outputs.to-cache) }}
     steps:
       - name: Check outputs
         id: check
@@ -56,10 +53,13 @@ jobs:
             --show-trace \
             --keep-going \
             --max-silent-time 1200 \
-            --out-link "result-${{ matrix.checks.attr }}" \
-            "${{ matrix.checks.path }}"'^*'
+            --out-link "result-${{ matrix.builds.attr }}" \
+            "${{ matrix.builds.path }}"'^*'
 
-  cache:
-    name: Cache packages
-    runs-on: native
-    uses: ./.forgejo/workflows/cache.yaml
+      - name: Upload to cache
+        env:
+          CACHE_TOKEN: ${{ secrets.CACHE_TOKEN }}
+        run: |-
+          attic login thelessone https://binarycache.theless.one "$CACHE_TOKEN"
+          attic push global "$(readlink -f "result-${{ matrix.checks.attr }}")"
+          attic push global "${{ matrix.checks.path }}"

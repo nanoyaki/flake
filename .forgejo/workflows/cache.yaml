@@ -61,6 +61,7 @@ jobs:
         env:
           CACHE_TOKEN: ${{ secrets.CACHE_TOKEN }}
         run: |-
-          attic login thelessone https://binarycache.theless.one "$CACHE_TOKEN"
+          attic cache info global \
+            || attic login thelessone https://binarycache.theless.one "$CACHE_TOKEN"
           attic push global "$(readlink -f "result-${{ matrix.builds.attr }}")"
           attic push global "${{ matrix.builds.path }}"

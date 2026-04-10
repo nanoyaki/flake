@@ -43,6 +43,8 @@ jobs:
     runs-on: native
     needs: eval
     strategy:
+      fail-fast: false
+      max-parallel: 2
       matrix:
         builds: ${{ fromJSON(needs.eval.outputs.to-cache) }}
     steps:

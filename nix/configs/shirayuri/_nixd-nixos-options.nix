@@ -11,17 +11,21 @@
 assert isFlake -> hostname != null;
 
 let
+
   workspaceHasFlake = builtins.pathExists ./flake.nix;
   workspaceFlake = if workspaceHasFlake then builtins.getFlake (toString ./.) else null;
   systemFlake = if isFlake then builtins.getFlake (toString nixosConfig) else null;
   flake =
-    if workspaceFlake != null && workspaceFlake ? nixosConfigurations.${hostname} then
+    if workspaceFlake != null && workspaceFlake ? nixosConfigurations then
       workspaceFlake
     else
-      assert isFlake -> flake ? nixosConfigurations.${hostname};
       systemFlake;
+  useHostname =
+    if hostname == null then builtins.head (builtins.attrNames flake.nixosConfigurations) else hostname;
 
-  flakeOptions = flake.nixosConfigurations.${hostname}.options;
+  flakeOptions =
+    assert flake ? nixosConfigurations.${useHostname};
+    flake.nixosConfigurations.${useHostname}.options;
   defaultOptions =
     (import <nixpkgs/nixos> {
       configuration = /. + nixosConfig;

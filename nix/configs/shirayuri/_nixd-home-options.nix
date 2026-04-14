@@ -15,20 +15,19 @@
 }:
 
 assert pathInNixosConfig != [ ] -> nixosConfig != null;
-assert isFlake -> username != null;
 
 let
   workspaceHasFlake = builtins.pathExists ./flake.nix;
   workspaceFlake = if workspaceHasFlake then builtins.getFlake (toString ./.) else null;
   homeFlake = if isFlake then builtins.getFlake (toString homeConfig) else null;
   flake =
-    if workspaceFlake != null && workspaceFlake ? homeConfigurations.${username} then
-      workspaceFlake
-    else
-      assert isFlake -> homeFlake ? homeConfigurations.${username};
-      homeFlake;
+    if workspaceFlake != null && workspaceFlake ? homeConfigurations then workspaceFlake else homeFlake;
+  useUsername =
+    if username == null then builtins.head (builtins.attrNames flake.homeConfigurations) else username;
 
-  flakeOptions = flake.homeConfigurations.${username}.options;
+  flakeOptions =
+    assert flake ? homeConfigurations.${useUsername};
+    flake.homeConfigurations.${useUsername}.options;
   defaultOptions =
     if pathInNixosConfig == [ ] then
       fallbackOptions

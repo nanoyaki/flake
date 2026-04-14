@@ -1,13 +1,16 @@
+{ withSystem, ... }:
+
 {
   flake.nixosModules.shirayuri-wireguard =
-    { config, ... }:
+    { pkgs, config, ... }:
 
     {
       sops.secrets = {
         wg0 = { };
-        wg1 = { };
         wg2 = { };
       };
+
+      environment.systemPackages = [ pkgs.pangolin-cli ];
 
       networking.wg-quick.interfaces = {
         wg0 = {
@@ -30,26 +33,6 @@
           ];
         };
 
-        wg1 = {
-          address = [
-            "100.64.64.7/32"
-            "fd64::7/128"
-          ];
-          privateKeyFile = config.sops.secrets.wg1.path;
-
-          peers = [
-            {
-              publicKey = "JB0jviICHpiTm1PYjm4+FCWCPLAjU/NZBm6tRO6/XGY=";
-              endpoint = "at01.theless.one:51820";
-              allowedIPs = [
-                "100.64.64.1/32"
-                "fd64::1/128"
-              ];
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-
         wg2 = {
           address = [ "10.200.200.2/32" ];
           privateKeyFile = config.sops.secrets.wg2.path;
@@ -65,4 +48,38 @@
         };
       };
     };
+
+  perSystem =
+    { pkgs, ... }:
+
+    {
+      packages.pangolin-cli = pkgs.pangolin-cli.overrideAttrs (
+        finalAttrs: prevAttrs: {
+          version = "0.6.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "fosrl";
+            repo = "cli";
+            tag = finalAttrs.version;
+            hash = "sha256-9uQLCSH7LLl8I/LgsgTo6w808iwmH1FF0GYNn5xyVuc=";
+          };
+
+          ldflags = prevAttrs.ldflags or [ ] ++ [
+            "-X github.com/fosrl/cli/internal/version.Version=${finalAttrs.version}"
+          ];
+
+          vendorHash = "sha256-eBrglhyqKy6pG9eF0yfJdCOLxeWys4atKAp9Jgtzdj8=";
+        }
+      );
+    };
+
+  flake.overlays.pangolin-cli =
+    _: prev:
+
+    withSystem prev.stdenv.hostPlatform.system (
+      { config, ... }:
+
+      {
+        inherit (config.packages) pangolin-cli;
+      }
+    );
 }

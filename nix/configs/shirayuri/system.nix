@@ -126,6 +126,7 @@
         "unityhub"
         "corefonts"
         "spotify"
+        "discord"
       ];
 
       system.stateVersion = "24.11";

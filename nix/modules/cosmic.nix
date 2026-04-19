@@ -315,7 +315,7 @@
             "thunderbird"
             "librewolf"
             "alacritty"
-            "vesktop"
+            "discord"
             "codium"
             "steam"
           ];

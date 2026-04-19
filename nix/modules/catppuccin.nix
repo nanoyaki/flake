@@ -105,7 +105,7 @@ in
         rofi.enable = false;
       };
 
-      xdg.configFile."vesktop/themes".source = "${pkgs.midnight-theme}/share/themes/flavors";
+      xdg.configFile."discord-themes".source = "${pkgs.midnight-theme}/share/themes/flavors";
 
       programs = optionalAttrs (options.programs ? plasma) {
         plasma.workspace.lookAndFeel = "Catppuccin-Mocha-Pink";

@@ -141,6 +141,7 @@
       "steam-unwrapped"
       "osu-lazer-bin"
       "spotify"
+      "discord"
     ];
 
     home.stateVersion = "24.11";

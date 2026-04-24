@@ -39,7 +39,10 @@
     { pkgs, ... }:
 
     {
-      environment.systemPackages = [ (pkgs.discord.override { withMoonlight = true; }) ];
+      environment.systemPackages = [
+        # (pkgs.discord.override { withMoonlight = true; })
+        pkgs.vesktop
+      ];
     };
 
   flake.homeModules.hana-desktop =
@@ -62,7 +65,8 @@
 
       xdg.autostart.entries = [
         "${pkgs.solaar}/share/applications/solaar.desktop"
-        "${pkgs.discord.override { withMoonlight = true; }}/share/applications/discord.desktop"
+        # "${pkgs.discord.override { withMoonlight = true; }}/share/applications/discord.desktop"
+        "${pkgs.vesktop}/share/applications/vesktop.desktop"
       ];
 
       catppuccin.thunderbird.profile = "default";

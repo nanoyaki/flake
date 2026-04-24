@@ -94,7 +94,8 @@
                   "preferred://browser"
                   # "preferred://terminal"
                   "applications:Alacritty.desktop"
-                  "applications:discord.desktop"
+                  # "applications:discord.desktop"
+                  "applications:vesktop.desktop"
                   "applications:codium.desktop"
                 ]
                 ++ lib.optional (

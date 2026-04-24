@@ -126,7 +126,8 @@
         "unityhub"
         "corefonts"
         "spotify"
-        "discord"
+        # "discord"
+        "vesktop"
       ];
 
       system.stateVersion = "24.11";
@@ -141,7 +142,8 @@
       "steam-unwrapped"
       "osu-lazer-bin"
       "spotify"
-      "discord"
+      # "discord"
+      "vesktop"
     ];
 
     home.stateVersion = "24.11";

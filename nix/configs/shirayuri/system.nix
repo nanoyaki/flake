@@ -127,6 +127,7 @@
         "corefonts"
         "spotify"
         "discord"
+        "vesktop"
       ];
 
       system.stateVersion = "24.11";
@@ -142,6 +143,7 @@
       "osu-lazer-bin"
       "spotify"
       "discord"
+      "vesktop"
     ];
 
     home.stateVersion = "24.11";

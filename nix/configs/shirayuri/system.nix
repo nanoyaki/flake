@@ -126,7 +126,7 @@
         "unityhub"
         "corefonts"
         "spotify"
-        # "discord"
+        "discord"
         "vesktop"
       ];
 
@@ -142,7 +142,7 @@
       "steam-unwrapped"
       "osu-lazer-bin"
       "spotify"
-      # "discord"
+      "discord"
       "vesktop"
     ];
 

@@ -40,7 +40,7 @@
 
     {
       environment.systemPackages = [
-        # (pkgs.discord.override { withMoonlight = true; })
+        (pkgs.discord.override { withMoonlight = true; })
         pkgs.vesktop
       ];
     };

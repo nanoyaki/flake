@@ -23,7 +23,12 @@ let
   flake =
     if workspaceFlake != null && workspaceFlake ? homeConfigurations then workspaceFlake else homeFlake;
   useUsername =
-    if username == null then builtins.head (builtins.attrNames flake.homeConfigurations) else username;
+    if username == null then
+      builtins.warn "No username defined, falling back to the first one" (
+        builtins.head (builtins.attrNames flake.homeConfigurations)
+      )
+    else
+      username;
 
   flakeOptions =
     assert flake ? homeConfigurations.${useUsername};

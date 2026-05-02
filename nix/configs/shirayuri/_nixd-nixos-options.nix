@@ -8,8 +8,6 @@
   hostname ? null,
 }:
 
-assert isFlake -> hostname != null;
-
 let
 
   workspaceHasFlake = builtins.pathExists ./flake.nix;
@@ -21,7 +19,12 @@ let
     else
       systemFlake;
   useHostname =
-    if hostname == null then builtins.head (builtins.attrNames flake.nixosConfigurations) else hostname;
+    if hostname == null then
+      builtins.warn "Hostname not defined, falling back to the first one found" (
+        builtins.head (builtins.attrNames flake.nixosConfigurations)
+      )
+    else
+      hostname;
 
   flakeOptions =
     assert flake ? nixosConfigurations.${useHostname};

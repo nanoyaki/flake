@@ -33,7 +33,6 @@
       shirayuri-valveIndex
       shirayuri-cam
       shirayuri-headphones
-      shirayuri-virtualisation
       shirayuri-boot
       shirayuri-networking
       shirayuri-wireguard
@@ -77,6 +76,12 @@
     { config, ... }:
 
     {
+      imports = [
+        inputs.nixowos.nixosModules.default
+      ];
+
+      nixowos.enable = true;
+
       sops.defaultSopsFile = ./secrets.yaml;
       programs.nh.flake = "${config.self.mainUserHome}/flake";
 
@@ -134,6 +139,12 @@
     };
 
   flake.homeModules.hana-system = {
+    imports = [
+      inputs.nixowos.homeModules.default
+    ];
+
+    nixowos.enable = true;
+
     home.username = "hana";
     home.homeDirectory = "/home/hana";
 

@@ -75,6 +75,14 @@
       flake-compat.follows = "flake-compat";
       gitignore.follows = "gitignore";
     };
+    nixowos.url = "github:yunfachi/NixOwOS";
+    nixowos.inputs = {
+      flake-parts.follows = "flake-parts";
+      flake-compat.follows = "flake-compat";
+      git-hooks-nix.follows = "git-hooks-nix";
+      nixpkgs.follows = "nixpkgs";
+      systems.follows = "systems";
+    };
 
     # Deduplication
     flake-compat.url = "github:NixOS/flake-compat";

@@ -9,8 +9,18 @@
       boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
       boot.loader = {
         efi.efiSysMountPoint = "/boot";
-        systemd-boot.enable = true;
+
         timeout = 3;
+        limine = {
+          enable = true;
+          secureBoot.enable = true;
+
+          extraEntries = ''
+            /Windows
+              protocol: efi
+              path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+          '';
+        };
       };
     };
 }

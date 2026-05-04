@@ -53,6 +53,11 @@
         plymouth.enable = lib.mkDefault true;
       };
 
+      boot.loader.limine.style = lib.mkIf config.boot.loader.limine.enable {
+        wallpapers = [ pkgs.default-wallpaper.outPath ];
+        wallpaperStyle = "centered";
+      };
+
       specialisation.verbose.configuration.boot = {
         consoleLogLevel = 4;
         initrd.verbose = true;

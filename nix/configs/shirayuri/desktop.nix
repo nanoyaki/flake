@@ -58,10 +58,14 @@
     in
 
     {
-      home.packages = [
-        pkgs.spotify
-        pkgs.kdePackages.kcolorchooser
+      home.packages = with pkgs; [
+        spotify
+        kdePackages.kcolorchooser
+        signal-desktop
+        bitwarden-desktop
       ];
+
+      programs.fastfetch.enable = true;
 
       xdg.autostart.entries = [
         "${pkgs.solaar}/share/applications/solaar.desktop"

@@ -56,6 +56,14 @@ in
     {
       imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
+      catppuccin = {
+        enable = true;
+        accent = "pink";
+        flavor = "mocha";
+
+        sddm.enable = false;
+      };
+
       environment.systemPackages =
         (with pkgs; [
           catppuccin-papirus-folders

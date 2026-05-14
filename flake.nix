@@ -79,7 +79,7 @@
     nixowos.inputs = {
       flake-parts.follows = "flake-parts";
       flake-compat.follows = "flake-compat";
-      git-hooks-nix.follows = "git-hooks-nix";
+      git-hooks.follows = "git-hooks-nix";
       nixpkgs.follows = "nixpkgs";
       systems.follows = "systems";
     };

@@ -83,6 +83,8 @@
       nixpkgs.follows = "nixpkgs";
       systems.follows = "systems";
     };
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     # Deduplication
     flake-compat.url = "github:NixOS/flake-compat";

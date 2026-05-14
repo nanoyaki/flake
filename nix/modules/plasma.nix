@@ -47,6 +47,13 @@
 
       programs.plasma = {
         enable = true;
+
+        shortcuts = {
+          "services/com.tomjwatson.Emote.desktop"._launch = "Meta+.";
+          "services/Alacritty.desktop"._launch = "Meta+T";
+          "kwin/Edit Tiles".value = "none";
+        };
+
         workspace = {
           iconTheme = "Papirus-Dark";
           wallpaper = pkgs.default-wallpaper.outPath;

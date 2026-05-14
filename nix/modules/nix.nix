@@ -2,13 +2,20 @@
 
 {
   flake.nixosModules.nix =
-    { lib, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     {
       options.nixpkgs.allowUnfreeNames = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ ];
       };
+
+      imports = [ inputs.nix-index-database.nixosModules.default ];
 
       config = {
         # Use stricter *explicit* policy
@@ -69,6 +76,18 @@
           dates = "daily";
           randomizedDelaySec = "15min";
           persistent = true;
+        };
+
+        environment.systemPackages = [ pkgs.nixfmt ];
+
+        programs.nix-index = {
+          enable = true;
+          enableBashIntegration = true;
+        };
+
+        programs.nix-index-database = {
+          enable = true;
+          comma.enable = true;
         };
 
         programs.nh = {

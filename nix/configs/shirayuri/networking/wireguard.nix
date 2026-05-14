@@ -1,5 +1,3 @@
-{ withSystem, ... }:
-
 {
   flake.nixosModules.shirayuri-wireguard =
     { pkgs, config, ... }:
@@ -40,7 +38,7 @@
           peers = [
             {
               publicKey = "Pd934yDpHcc2pdv4eV2YBQYGgncW/yacNHtoNQsA5wM=";
-              endpoint = "at02.theless.one:51821";
+              endpoint = "at01.theless.one:51821";
               allowedIPs = [ "10.200.200.1/32" ];
               persistentKeepalive = 25;
             }
@@ -48,38 +46,4 @@
         };
       };
     };
-
-  perSystem =
-    { pkgs, ... }:
-
-    {
-      packages.pangolin-cli = pkgs.pangolin-cli.overrideAttrs (
-        finalAttrs: prevAttrs: {
-          version = "0.6.0";
-          src = pkgs.fetchFromGitHub {
-            owner = "fosrl";
-            repo = "cli";
-            tag = finalAttrs.version;
-            hash = "sha256-9uQLCSH7LLl8I/LgsgTo6w808iwmH1FF0GYNn5xyVuc=";
-          };
-
-          ldflags = prevAttrs.ldflags or [ ] ++ [
-            "-X github.com/fosrl/cli/internal/version.Version=${finalAttrs.version}"
-          ];
-
-          vendorHash = "sha256-eBrglhyqKy6pG9eF0yfJdCOLxeWys4atKAp9Jgtzdj8=";
-        }
-      );
-    };
-
-  flake.overlays.pangolin-cli =
-    _: prev:
-
-    withSystem prev.stdenv.hostPlatform.system (
-      { config, ... }:
-
-      {
-        inherit (config.packages) pangolin-cli;
-      }
-    );
 }

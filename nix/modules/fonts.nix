@@ -5,17 +5,21 @@
     {
       fonts.fontconfig = {
         antialias = true;
-        useEmbeddedBitmaps = true;
         defaultFonts = {
           serif = [
             "Noto Sans"
             "Noto Sans CJK JP"
+            "Twitter Color Emoji"
           ];
           sansSerif = [
             "Noto Sans"
             "Noto Sans CJK JP"
+            "Twitter Color Emoji"
           ];
-          monospace = [ "FiraCode Nerd Font" ];
+          monospace = [
+            "FiraCode Nerd Font"
+            "Twitter Color Emoji"
+          ];
           emoji = [ "Twitter Color Emoji" ];
         };
       };

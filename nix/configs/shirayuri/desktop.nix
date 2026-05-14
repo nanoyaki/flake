@@ -22,6 +22,23 @@
           "udev"
         ];
       };
+
+      packages.ani-cli = pkgs.ani-cli.overrideAttrs (
+        finalAttrs: prevAttrs: {
+          version = "4.14";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "pystardust";
+            repo = "ani-cli";
+            tag = "v${finalAttrs.version}";
+            hash = "sha256-OyCKDN89sBz59+3JncMDyNOq8UMqqjara+A0Owo3oko=";
+          };
+
+          runtimeInputs = prevAttrs.runtimeInputs ++ [
+            pkgs.openssl
+          ];
+        }
+      );
     };
 
   flake.overlays.solaar =
@@ -63,6 +80,8 @@
         kdePackages.kcolorchooser
         signal-desktop
         bitwarden-desktop
+        ani-cli
+        emote
       ];
 
       programs.fastfetch.enable = true;
@@ -82,7 +101,6 @@
 
         profiles.transacademy = {
           inherit (config.programs.thunderbird.profiles.default) extensions;
-          withExternalGnupg = true;
         };
       };
 

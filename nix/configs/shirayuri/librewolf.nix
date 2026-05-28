@@ -238,7 +238,6 @@
               youtube-screenshot-button
 
               seventv
-              betterttv
               twitch-auto-points
             ];
           };

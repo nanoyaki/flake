@@ -15,7 +15,7 @@
         listenAddresses = [
           "127.0.0.1"
           "::1"
-          "10.101.0.1"
+          "100.64.0.11"
           "fd10::1"
           "10.0.0.9"
         ];
@@ -36,7 +36,7 @@
           "analytics"
           "google_translate"
           "met"
-          # "radio_browser"
+          "radio_browser"
           "shopping_list"
           # Optimization
           "isal"

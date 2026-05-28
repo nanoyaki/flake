@@ -14,9 +14,7 @@
           ];
 
           waylandFrontend =
-            config.services.displayManager.gdm.wayland
-            || config.services.desktopManager.plasma6.enable
-            || config.services.desktopManager.cosmic.enable;
+            config.services.desktopManager.plasma6.enable || config.services.desktopManager.cosmic.enable;
 
           settings.inputMethod = {
             GroupOrder = {

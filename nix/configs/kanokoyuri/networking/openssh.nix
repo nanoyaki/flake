@@ -6,6 +6,8 @@
       networking = {
         hostId = "69804090";
         hostName = "kanokoyuri";
+        domain = "hanakretzer.de";
+        fqdn = "de01.hanakretzer.de";
       };
 
       services.openssh = {

@@ -4,41 +4,53 @@
   flake.nixosModules.shirayuri-disks = {
     imports = [ inputs.disko.nixosModules.disko ];
 
-    disko.devices.disk.nixos = {
-      device = "/dev/disk/by-id/nvme-CT1000P1SSD8_2030E2BAC10A";
-      type = "disk";
+    # disko.devices.disk.nixos = {
+    #   device = "/dev/disk/by-id/nvme-CT1000P1SSD8_2030E2BAC10A";
+    #   type = "disk";
 
-      content = {
-        type = "gpt";
+    #   content = {
+    #     type = "gpt";
 
-        partitions = {
-          esp = {
-            name = "ESP";
-            priority = 1;
-            type = "EF00";
-            end = "500M";
+    #     partitions = {
+    #       esp = {
+    #         name = "ESP";
+    #         priority = 1;
+    #         type = "EF00";
+    #         end = "500M";
 
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
-            };
-          };
+    #         content = {
+    #           type = "filesystem";
+    #           format = "vfat";
+    #           mountpoint = "/boot";
+    #           mountOptions = [ "umask=0077" ];
+    #         };
+    #       };
 
-          root = {
-            name = "root";
-            size = "100%";
+    #       root = {
+    #         name = "root";
+    #         size = "100%";
 
-            content = {
-              type = "btrfs";
-              mountpoint = "/";
-              mountOptions = [ "compress=zstd" ];
-              extraArgs = [ "-f" ];
-            };
-          };
-        };
-      };
+    #         content = {
+    #           type = "btrfs";
+    #           mountpoint = "/";
+    #           mountOptions = [ "compress=zstd" ];
+    #           extraArgs = [ "-f" ];
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-uuid/27D0-0225";
+      fsType = "vfat";
+      options = [ "umask=0077" ];
+    };
+
+    fileSystems."/" = {
+      device = "/dev/disk/by-uuid/6c7d866a-7754-4eb7-8ea5-cea6f715d8ef";
+      fsType = "btrfs";
+      options = [ "compress=zstd" ];
     };
 
     fileSystems."/mnt/os-shared" = {

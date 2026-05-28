@@ -36,13 +36,6 @@
       systems.follows = "systems";
       flake-parts.follows = "flake-parts";
     };
-    nanopkgs.url = "github:nanoyaki/nanopkgs";
-    nanopkgs.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-parts.follows = "flake-parts";
-      flake-compat.follows = "flake-compat";
-      git-hooks-nix.follows = "git-hooks-nix";
-    };
     vermeer-undervolt.url = "github:nanoyaki/5800x3d-undervolt";
     vermeer-undervolt.inputs.nixpkgs.follows = "nixpkgs";
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";

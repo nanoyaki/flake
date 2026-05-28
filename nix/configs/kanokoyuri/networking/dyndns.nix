@@ -31,6 +31,10 @@
               domain = "hanakretzer.de";
               subdomain = "";
             }
+            {
+              domain = "hanakretzer.de";
+              subdomain = "de01";
+            }
           ];
         };
 

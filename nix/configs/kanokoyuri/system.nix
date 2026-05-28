@@ -17,7 +17,7 @@
       kanokoyuri-disks
       kanokoyuri-hardware
       kanokoyuri-openssh
-      kanokoyuri-wireguard
+      kanokoyuri-tailscale
       kanokoyuri-dyndns
       kanokoyuri-caddy
       kanokoyuri-zigbee2mqtt

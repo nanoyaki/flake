@@ -2,7 +2,7 @@
 
 {
   perSystem =
-    { inputs', pkgs, ... }:
+    { pkgs, ... }:
 
     {
       packages.gradia-cosmic = pkgs.writeShellApplication {
@@ -25,28 +25,6 @@
           wl-paste --type image/png | gradia
         '';
       };
-
-      packages.cosmic-ext-applet-privacy-indicator =
-        inputs'.nanopkgs.packages.cosmic-ext-applet-privacy-indicator.overrideAttrs
-          (
-            finalAttrs: _: {
-              src = pkgs.applyPatches {
-                name = "${finalAttrs.pname}-${finalAttrs.version}";
-                src = pkgs.fetchFromGitHub {
-                  owner = "D-Brox";
-                  repo = "cosmic-ext-applet-privacy-indicator";
-                  rev = "e69833cf8b31813d5468da7eeea6311f1621d702";
-                  hash = "sha256-LivssKbrzAO4kuoNcE6evs4etaiFgH0UWeOSzHtgd1A=";
-                };
-                patches = [ ./no-blink.patch ];
-              };
-
-              cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-                inherit (finalAttrs) src;
-                hash = "sha256-8Q4Cphr3jNcHpfeFchvLcGIM6pecJ5xzXCSUU2/YrFs=";
-              };
-            }
-          );
     };
 
   flake.overlays.cosmic =
@@ -56,7 +34,7 @@
       { config, ... }:
 
       {
-        inherit (config.packages) gradia-cosmic cosmic-ext-applet-privacy-indicator;
+        inherit (config.packages) gradia-cosmic;
       }
     );
 
@@ -77,7 +55,6 @@
       ];
 
       environment.systemPackages = with pkgs; [
-        cosmic-ext-applet-privacy-indicator
         cosmic-ext-connected
         # leads to crashes on paste
         # clipboard-manager
@@ -259,7 +236,7 @@
             plugins_wings = Some (Tuple [
               [
                 "com.system76.CosmicAppletPower"
-                "dev.DBrox.CosmicPrivacyIndicator"
+                # "dev.DBrox.CosmicPrivacyIndicator"
               ]
               [
                 "com.system76.CosmicAppletStatusArea"

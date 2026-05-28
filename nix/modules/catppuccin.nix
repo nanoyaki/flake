@@ -79,7 +79,6 @@ in
   flake.homeModules.catppuccin =
     {
       lib,
-      pkgs,
       options,
       config,
       ...
@@ -112,8 +111,6 @@ in
 
         rofi.enable = false;
       };
-
-      xdg.configFile."discord-themes".source = "${pkgs.midnight-theme}/share/themes/flavors";
 
       programs = optionalAttrs (options.programs ? plasma) {
         plasma.workspace.lookAndFeel = "Catppuccin-Mocha-Pink";

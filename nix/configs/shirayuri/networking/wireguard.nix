@@ -3,10 +3,7 @@
     { pkgs, config, ... }:
 
     {
-      sops.secrets = {
-        wg0 = { };
-        wg2 = { };
-      };
+      sops.secrets.wg2 = { };
 
       environment.systemPackages = [ pkgs.pangolin-cli ];
 

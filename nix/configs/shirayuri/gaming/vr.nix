@@ -55,7 +55,6 @@
 
   flake.homeModules.hana-vr =
     {
-      lib,
       pkgs,
       config,
       ...
@@ -87,12 +86,13 @@
       xdg.desktopEntries.monado = {
         name = "Monado";
         comment = "Starts the Monado OpenXR service";
-        exec = lib.getExe (
-          pkgs.writeSystemdToggle.override {
-            service = "monado";
-            isUserService = true;
-          }
-        );
+        exec =
+          (pkgs.writeShellScript "monado-systemd-toggle.sh" ''
+            if systemctl --user is-active monado.service --quiet;
+            then systemctl --user stop monado.service;
+            else systemctl --user start monado.service;
+            fi
+          '').outPath;
         icon = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus/64x64/apps/steamvr.svg";
         categories = [
           "Game"

@@ -3,35 +3,52 @@
     { config, ... }:
 
     let
-      identityFile = config.sops.secrets."private_keys/id_nadesiko".path;
+      IdentityFile = config.sops.secrets."private_keys/id_nadesiko".path;
     in
 
     {
       programs.ssh.enable = true;
       programs.ssh.enableDefaultConfig = false;
-      programs.ssh.matchBlocks = {
+      programs.ssh.settings = {
         "*" = {
-          inherit identityFile;
-          addKeysToAgent = "yes";
-          compression = false;
-          controlMaster = "auto";
-          controlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
-          controlPersist = "1h";
+          ForwardAgent = true;
+          AddKeysToAgent = "yes";
+          Compression = false;
+          ControlMaster = "auto";
+          ControlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
+          ControlPersist = "1h";
+          inherit IdentityFile;
         };
 
-        yuri = {
-          user = "nas";
-          hostname = "10.0.0.3";
-          inherit identityFile;
+        kanoko = {
+          HostName = "10.0.0.9";
+          User = "kanoko";
+          inherit IdentityFile;
         };
 
-        at = {
-          user = "thelessone";
-          hostname = "theless.one";
-          inherit identityFile;
-          serverAliveInterval = 60;
-          serverAliveCountMax = 180;
-          forwardAgent = true;
+        thelessone = {
+          User = "thelessone";
+          HostName = "theless.one";
+          ServerAliveInterval = 60;
+          ServerAliveCountMax = 180;
+          inherit IdentityFile;
+        };
+
+        "Host git.theless.one" = {
+          User = "git";
+          inherit IdentityFile;
+        };
+
+        sentinel = {
+          User = "root";
+          HostName = "85.215.152.236";
+          inherit IdentityFile;
+        };
+
+        "Host github.com" = {
+          HostName = "github.com";
+          User = "git";
+          inherit IdentityFile;
         };
       };
     };

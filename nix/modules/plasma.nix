@@ -21,6 +21,11 @@
 
       programs.kclock.enable = true;
 
+      # Ark rar and 7z compatibility
+      environment.systemPackages = with pkgs; [
+        p7zip
+        unrar
+      ];
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         konsole
         kate

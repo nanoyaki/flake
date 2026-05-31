@@ -215,6 +215,27 @@
                 inherit icon;
                 definedAliases = [ "@nf" ];
               };
+
+              "Nix Code" = {
+                urls = [
+                  {
+                    template = "https://github.com/search";
+                    params = [
+                      {
+                        name = "q";
+                        value = "language:Nix%20AND%20NOT%20repo:NixOS/nixpkgs%20{searchTerms}";
+                      }
+                      {
+                        name = "type";
+                        value = "code";
+                      }
+                    ];
+                  }
+                ];
+
+                inherit icon;
+                definedAliases = [ "@nc" ];
+              };
             };
           };
 

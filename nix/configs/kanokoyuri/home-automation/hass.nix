@@ -12,16 +12,9 @@
       };
 
       services.caddy.virtualHosts."zuhause.hanakretzer.de" = {
-        listenAddresses = [
-          "127.0.0.1"
-          "::1"
-          "100.64.0.11"
-          "fd10::1"
-          "10.0.0.9"
-        ];
-
         useACMEHost = "hanakretzer.de";
         extraConfig = ''
+          import tailnet-only
           reverse_proxy 127.0.0.1:${toString config.services.home-assistant.config.http.server_port}
         '';
       };

@@ -49,7 +49,12 @@
     };
 
   perSystem =
-    { lib, pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     {
       packages.prismlauncher = pkgs.symlinkJoin {
@@ -81,7 +86,7 @@
         QUERY='def n: if . == "" then "{}" else . end; .name = (.name|n)'
 
         ${lib.getExe' pkgs.coreutils "cat"} <<< $(${lib.getExe pkgs.jq} "$QUERY" package.json) > package.json
-        LD_PRELOAD=${pkgs.nwjs-ffmpeg-prebuilt}/lib/libffmpeg.so ${lib.getExe' pkgs.nwjs "nw"} "$@"
+        LD_PRELOAD=${pkgs.nwjs-ffmpeg-prebuilt}/lib/libffmpeg.so ${lib.getExe' config.packages.nwjs "nw"} "$@"
       '';
     };
 

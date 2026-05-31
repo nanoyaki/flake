@@ -133,6 +133,7 @@
         "spotify"
         "discord"
         "vesktop"
+        "unrar" # rar is unfree
       ];
 
       system.stateVersion = "24.11";

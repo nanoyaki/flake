@@ -1,11 +1,9 @@
 {
   flake.nixosModules.shirayuri-wireguard =
-    { pkgs, config, ... }:
+    { config, ... }:
 
     {
       sops.secrets.wg2 = { };
-
-      environment.systemPackages = [ pkgs.pangolin-cli ];
 
       services.tailscale = {
         enable = true;

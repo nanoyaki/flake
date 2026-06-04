@@ -44,6 +44,7 @@
       shirayuri-animeGames
       shirayuri-vr
       shirayuri-vrchat
+      shirayuri-melee
     ];
   };
 
@@ -69,6 +70,7 @@
       hana-gaming
       hana-vr
       hana-vrchat
+      hana-melee
     ];
   };
 
@@ -103,6 +105,7 @@
         hana-gaming
         hana-vr
         hana-vrchat
+        hana-melee
       ];
       home-manager.sharedModules = with inputs.self.homeModules; [
         homeManager

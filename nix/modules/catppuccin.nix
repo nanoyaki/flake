@@ -58,6 +58,7 @@ in
 
       catppuccin = {
         enable = true;
+        autoEnable = true;
         accent = "pink";
         flavor = "mocha";
 
@@ -93,6 +94,7 @@ in
 
       catppuccin = {
         enable = true;
+        autoEnable = true;
         inherit flavor accent;
 
         kvantum = {

@@ -79,7 +79,6 @@
         spotify
         kdePackages.kcolorchooser
         signal-desktop
-        bitwarden-desktop
         ani-cli
         emote
       ];

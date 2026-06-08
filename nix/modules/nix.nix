@@ -76,7 +76,10 @@
           persistent = true;
         };
 
-        environment.systemPackages = [ pkgs.nixfmt ];
+        environment.systemPackages = with pkgs; [
+          nixfmt
+          devenv
+        ];
 
         programs.nix-index = {
           enable = true;

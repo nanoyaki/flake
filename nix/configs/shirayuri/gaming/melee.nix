@@ -13,6 +13,6 @@
   flake.homeModules.hana-melee = _: {
     imports = [ inputs.slippi.homeManagerModules.default ];
     slippi-launcher.isoPath = "/mnt/os-shared/Games/melee.iso";
-    slippi-launcher.launchMeleeOnPlay = false;
+    slippi-launcher.launchMeleeOnPlay = true;
   };
 }

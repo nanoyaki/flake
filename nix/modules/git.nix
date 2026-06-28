@@ -1,5 +1,7 @@
 let
-  fingerprint = "5A1DC7CE51DC0A856DEA41F731A8CE0D2E7D30C3";
+  # fingerprint = "5A1DC7CE51DC0A856DEA41F731A8CE0D2E7D30C3";
+  # The new one has a proper backup
+  fingerprint = "BE414DA8B0BC21D092E873E535469A3F76A3BE87";
 
   convCommit = conv: ''
     !f() { \

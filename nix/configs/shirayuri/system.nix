@@ -38,7 +38,7 @@
       shirayuri-wireguard
       shirayuri-backups
       shirayuri-desktop
-      shirayuri-librewolf
+      shirayuri-firefox
       shirayuri-fcitx5
       shirayuri-gaming
       shirayuri-animeGames
@@ -66,7 +66,7 @@
       hana-system
       hana-ssh
       hana-desktop
-      hana-librewolf
+      hana-firefox
       hana-gaming
       hana-vr
       hana-vrchat
@@ -80,6 +80,10 @@
     {
       imports = [
         inputs.nixowos.nixosModules.default
+      ];
+
+      nixpkgs.overlays = [
+        (final: _: { inherit (final.stable) fastfetch; })
       ];
 
       nixowos.enable = true;
@@ -101,7 +105,7 @@
         hana-system
         hana-ssh
         hana-desktop
-        hana-librewolf
+        hana-firefox
         hana-gaming
         hana-vr
         hana-vrchat

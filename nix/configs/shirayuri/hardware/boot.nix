@@ -6,7 +6,8 @@
       boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
       boot.binfmt.addEmulatedSystemsToNixSandbox = true;
 
-      boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+      # temporarily switch to xanmod
+      boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
       boot.loader = {
         efi.efiSysMountPoint = "/boot";
 

@@ -290,12 +290,13 @@
           favorites = [
             "com.system76.CosmicFiles"
             "thunderbird"
-            "librewolf"
+            "firefox"
             "alacritty"
             # "discord"
             "vesktop"
             "codium"
             "steam"
+            "cartridges"
           ];
           enable_drag_source = true;
           filter_top_levels = None;

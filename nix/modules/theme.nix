@@ -1,4 +1,4 @@
-{ withSystem, inputs, ... }:
+{ withSystem, ... }:
 
 {
   perSystem =
@@ -132,8 +132,6 @@
     }:
 
     {
-      imports = [ inputs.silentSDDM.nixosModules.default ];
-
       boot = {
         consoleLogLevel = lib.mkDefault 0;
         initrd.verbose = lib.mkDefault false;
@@ -169,23 +167,11 @@
         CursorSize = 32;
       };
 
-      programs.silentSDDM = {
-        enable = true;
-        theme = "default";
-
-        profileIcons.hana = pkgs.default-pfp;
-        backgrounds.default = pkgs.default-wallpaper.outPath;
-        settings = {
-          LoginScreen.background = baseNameOf pkgs.default-wallpaper.outPath;
-          LockScreen.background = baseNameOf pkgs.default-wallpaper.outPath;
-        };
-      };
-
       programs.dconf.profiles.user.databases = [
         {
           settings."org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
-            gtk-theme = if config.services.desktopManager.plasma6.enable then "Breeze" else "Adwaita-dark";
+            gtk-theme = "Adwaita-dark";
           };
         }
       ];
@@ -205,35 +191,36 @@
       ...
     }:
 
-    let
-      gtk3Plus = {
-        gtk-application-prefer-dark-theme = true;
-        gtk-primary-button-warps-slider = true;
-        gtk-decoration-layout = ":minimize,maximize,close";
-        # gtk-enable-animations = false;
-      };
-    in
-
     {
-      gtk = {
-        enable = true;
-        theme =
-          lib.mkIf (config.wayland ? desktopManager.cosmic && config.wayland.desktopManager.cosmic.enable)
-            {
-              package = pkgs.gnome-themes-extra;
-              name = "Adwaita-dark";
-            };
+      gtk =
+        let
+          common = {
+            gtk-application-prefer-dark-theme = true;
+            gtk-primary-button-warps-slider = true;
+            gtk-decoration-layout = ":minimize,maximize,close";
+            # gtk-enable-animations = false;
+          };
+        in
 
-        gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+        {
+          enable = true;
+          theme = {
+            package = pkgs.gnome-themes-extra;
+            name = "Adwaita-dark";
+          };
 
-        gtk3.extraConfig = gtk3Plus // {
-          gtk-menu-images = true;
-          gtk-toolbar-style = 3;
+          gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
+          gtk3.extraConfig = common // {
+            gtk-menu-images = true;
+            gtk-toolbar-style = 3;
+          };
+
+          gtk4.theme = null;
+          gtk4.extraConfig = common // {
+            gtk-theme-name = "Default";
+          };
         };
-
-        gtk4.theme = config.gtk.theme;
-        gtk4.extraConfig = gtk3Plus;
-      };
 
       qt =
         lib.mkIf (config.wayland ? desktopManager.cosmic && config.wayland.desktopManager.cosmic.enable)

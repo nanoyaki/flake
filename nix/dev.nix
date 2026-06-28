@@ -3,6 +3,8 @@
 {
   imports = [ inputs.git-hooks-nix.flakeModule ];
 
+  debug = true;
+
   perSystem =
     {
       lib,

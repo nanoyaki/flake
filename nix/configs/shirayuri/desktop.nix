@@ -81,6 +81,7 @@
         signal-desktop
         ani-cli
         emote
+        ayugram-desktop
       ];
 
       programs.fastfetch.enable = true;

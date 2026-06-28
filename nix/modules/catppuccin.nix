@@ -63,6 +63,8 @@ in
         flavor = "mocha";
 
         sddm.enable = false;
+        tty.enable = false;
+        limine.enable = false;
       };
 
       environment.systemPackages =
@@ -112,6 +114,8 @@ in
         sway.enable = true;
 
         rofi.enable = false;
+        starship.enable = false;
+        firefox.enable = false;
       };
 
       programs = optionalAttrs (options.programs ? plasma) {

@@ -2,7 +2,7 @@
 
 {
   flake.nixosModules.plasma =
-    { lib, pkgs, ... }:
+    { pkgs, ... }:
 
     {
       programs.partition-manager.enable = true;
@@ -13,11 +13,7 @@
       };
 
       services.displayManager.defaultSession = "plasma";
-      services.displayManager.sddm = {
-        enable = lib.mkDefault true;
-        wayland.enable = lib.mkForce true;
-        wayland.compositor = "kwin";
-      };
+      services.displayManager.plasma-login-manager.enable = true;
 
       programs.kclock.enable = true;
 

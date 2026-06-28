@@ -5,6 +5,17 @@
     { pkgs, ... }:
 
     {
+      nixpkgs.overlays = [
+        (_: prev: {
+          cartridges = prev.cartridges.overrideAttrs (prevAttrs: {
+            postPatch = (prevAttrs.postPatch or "") + ''
+              substituteInPlace cartridges/window.py \
+                --replace "label=games_no," "label=str(games_no),"
+            '';
+          });
+        })
+      ];
+
       programs.steam = {
         enable = true;
         remotePlay.openFirewall = true;
@@ -45,6 +56,8 @@
         dolphin-emu
         melonds
         nwjs-run
+        cartridges
+        gimp
       ];
     };
 
@@ -67,6 +80,9 @@
               zulu21
               zulu17
               zulu8
+            ];
+            additionalLibs = with pkgs; [
+              sdl3
             ];
           })
         ];

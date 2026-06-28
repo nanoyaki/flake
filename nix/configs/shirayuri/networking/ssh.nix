@@ -3,7 +3,10 @@
     { config, ... }:
 
     let
-      IdentityFile = config.sops.secrets."ssh/id_nadesiko".path;
+      IdentityFile = [
+        config.sops.secrets."ssh/id_hasu".path
+        config.sops.secrets."ssh/id_nadesiko".path
+      ];
     in
 
     {

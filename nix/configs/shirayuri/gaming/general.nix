@@ -57,7 +57,6 @@
         melonds
         nwjs-run
         cartridges
-        gimp
       ];
     };
 

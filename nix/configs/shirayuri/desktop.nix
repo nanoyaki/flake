@@ -82,6 +82,7 @@
         ani-cli
         emote
         ayugram-desktop
+        gimp
       ];
 
       programs.fastfetch.enable = true;

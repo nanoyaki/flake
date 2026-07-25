@@ -62,11 +62,8 @@
       flake-compat.follows = "flake-compat";
     };
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    git-hooks-nix.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-compat.follows = "flake-compat";
-      gitignore.follows = "gitignore";
-    };
+    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+    git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
     nixowos.url = "github:yunfachi/NixOwOS";
     nixowos.inputs = {
       flake-parts.follows = "flake-parts";
@@ -77,8 +74,15 @@
     };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    slippi.url = "github:lytedev/slippi-nix";
-    slippi.inputs.nixpkgs.follows = "nixpkgs";
+    pedantix.url = "github:Swarsel/pedantix";
+    pedantix.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+      treefmt-nix.follows = "treefmt-nix";
+      git-hooks-nix.follows = "git-hooks-nix";
+    };
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Deduplication
     flake-compat.url = "github:NixOS/flake-compat";

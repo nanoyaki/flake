@@ -3,9 +3,15 @@
     { pkgs, ... }:
 
     {
-      home.packages = with pkgs; [ vesktop ];
-
       programs.thunderbird.enable = true;
       programs.thunderbird.profiles.default.isDefault = true;
+
+      home.packages = with pkgs; [
+        element-desktop
+        telegram-desktop
+        vesktop
+      ];
     };
+
+  flake.nixosModules.kuroyuri-desktop.programs.ausweisapp.enable = true;
 }

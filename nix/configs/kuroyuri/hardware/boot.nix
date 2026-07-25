@@ -9,23 +9,26 @@
     {
       boot.initrd.availableKernelModules = [
         "nvme"
-        "xhci_pci"
-        "usb_storage"
         "sd_mod"
+        "usb_storage"
+        "xhci_pci"
       ];
+
+      boot.kernelPackages = pkgs.linuxPackages_zen;
 
       boot.loader = {
         efi.canTouchEfiVariables = true;
         efi.efiSysMountPoint = "/boot";
-        systemd-boot.enable = lib.mkForce false;
-        timeout = 0;
 
         limine = {
           enable = true;
           secureBoot.enable = true;
         };
+
+        systemd-boot.enable = lib.mkForce false;
+        timeout = 0;
       };
 
-      boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+      hardware.bluetooth.enable = true;
     };
 }

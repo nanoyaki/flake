@@ -2,15 +2,14 @@
 
 {
   imports = [ inputs.git-hooks-nix.flakeModule ];
-
   debug = true;
 
   perSystem =
     {
+      config,
       lib,
       pkgs,
       self',
-      config,
       ...
     }:
 
@@ -19,23 +18,22 @@
     in
 
     {
-      pre-commit = {
-        check.enable = true;
-        settings.hooks = {
-          statix.enable = true;
-          flake-checker.enable = true;
-          nixfmt.enable = true;
-          deadnix.enable = true;
-        };
-      };
+      checks = mapAttrs' (n: nameValuePair "devShell-${n}") self'.devShells;
 
       devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
         buildInputs = (prevAttrs.buildInputs or [ ]) ++ (with pkgs; [ git ]);
       });
 
-      checks = mapAttrs' (n: nameValuePair "devShell-${n}") self'.devShells;
+      pre-commit = {
+        check.enable = true;
 
-      formatter = pkgs.nixfmt-tree;
+        settings.hooks = {
+          deadnix.enable = true;
+          flake-checker.enable = true;
+          nixfmt.enable = true;
+          statix.enable = true;
+        };
+      };
     };
 
   systems = import inputs.systems;

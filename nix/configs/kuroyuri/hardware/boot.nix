@@ -7,6 +7,8 @@
     }:
 
     {
+      hardware.bluetooth.enable = true;
+
       boot.initrd.availableKernelModules = [
         "nvme"
         "sd_mod"
@@ -28,7 +30,5 @@
         systemd-boot.enable = lib.mkForce false;
         timeout = 0;
       };
-
-      hardware.bluetooth.enable = true;
     };
 }

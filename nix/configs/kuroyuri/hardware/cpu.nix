@@ -11,18 +11,20 @@
         common-cpu-amd-zenpower
       ];
 
+      hardware.cpu.amd.updateMicrocode = true;
+      hardware.enableRedistributableFirmware = true;
+
       boot.kernelModules = [
         "kvm-amd"
         "msr"
       ];
 
       environment.systemPackages = [ pkgs.amdctl ];
-      hardware.cpu.amd.updateMicrocode = true;
-      hardware.enableRedistributableFirmware = true;
 
       systemd.services.amdctl-undervolt = {
         enable = true;
         description = "Undervolt by ~30 milivolts";
+        wantedBy = [ "multi-user.target" ];
         path = [ pkgs.amdctl ];
 
         script = ''
@@ -31,8 +33,6 @@
           amdctl -p1 -v176
           amdctl -p2 -v156
         '';
-
-        wantedBy = [ "multi-user.target" ];
       };
     };
 

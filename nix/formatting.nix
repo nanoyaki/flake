@@ -65,9 +65,13 @@
 
           attrs = {
             blank-lines = 1;
-            blank-lines-mode = "multiline";
 
             first = [
+              # Inside programs.* and services.* and such
+              "enable"
+              "openFirewall"
+              "package"
+
               # Top-level NixOS module
               "imports"
               "options"
@@ -79,15 +83,11 @@
               "hardware"
               "sops"
               "boot"
+              "networking"
               "environment"
               "users"
               "services"
               "programs"
-
-              # Inside those
-              "enable"
-              "openFirewall"
-              "package"
             ];
 
             flatten = true;
@@ -109,8 +109,8 @@
           formatter = "nixfmt";
 
           inherits = {
-            blank-lines = 0;
-            blank-lines-mode = "all";
+            blank-lines = 1;
+            blank-lines-mode = "multiline";
 
             first = [
               # NixOS modules
@@ -233,6 +233,9 @@
                     "runtimeDependencies"
                     # symlinkJoin specific
                     "paths"
+                    "dontUnpack"
+                    "dontConfigure"
+                    "dontFixup"
                     "configureFlags"
                     "cmakeFlakes"
                     "mesonFlags"
@@ -263,6 +266,7 @@
                     "..."
                     "outputHash"
                     "outputHashAlgo"
+                    "outputHashMode"
                     "passthru"
                     "meta"
                   ];
@@ -333,6 +337,24 @@
                 path = "**.imports";
                 lists.sort = false;
               }
+              # Modules
+              {
+                path = "**.options.**";
+                attrs.blank-lines = 0;
+                attrs.blank-lines-mode = "off";
+
+                attrs.first = [
+                  "type"
+                  "default"
+                  "defaultText"
+                  "example"
+                  "description"
+                  "apply"
+                  "internal"
+                  "readOnly"
+                  "visible"
+                ];
+              }
               # Pedantix overrides
               {
                 path = "**.pedantix.settings.overrides";
@@ -394,7 +416,7 @@
                 ];
               }
               {
-                path = "**.systemd.services.confinement";
+                path = "**.systemd.services.*.confinement";
 
                 attrs.first = [
                   "enable"
@@ -403,12 +425,82 @@
                 ];
               }
               {
+                path = "**.serviceConfig";
+
+                attrs.first = [
+                  "Type"
+                  "ExecStartPre"
+                  "ExecStart"
+                  "ExecStartPost"
+                  "ExecReload"
+                  "ExecReloadPost"
+                  "ExecStop"
+                  "ExecStopPost"
+                  "Restart"
+                  "RestartSec"
+                  "LoadCredential"
+                  # User specific
+                  "User"
+                  "Group"
+                  "DynamicUser"
+                  "LockPersonality"
+                  "PrivateUsers"
+                  # Dirs
+                  "UMask"
+                  "RuntimeDirectory"
+                  "RuntimeDirectoryMode"
+                  "StateDirectory"
+                  "StateDirectoryMode"
+                  "LogsDirectory"
+                  "LogsDirectoryMode"
+                  "WorkingDirectory"
+                  "ReadOnlyPaths"
+                  "ReadWritePaths"
+                  "BindReadOnlyPaths"
+                  "BindPaths"
+                  "InaccessiblePaths"
+                  "TemporaryFileSystem"
+                ];
+
+                attrs.last = [
+                  "..."
+                  # Device restrictions
+                  "DeviceAllow"
+                  "DevicePolicy"
+                  "PrivateDevices"
+                  # Network restrictions
+                  "IPAddressAllow"
+                  "IPAddressDeny"
+                  "PrivateNetwork"
+                  "RestrictAddressFamilies"
+                  # General hardening restrictions
+                  "AmbientCapabilities"
+                  "CapabilityBoundingSet"
+                  "NoNewPrivileges"
+                  "RestrictNamespaces"
+                  "RestrictRealtime"
+                  "RestrictSUIDSGID"
+                  "SystemCallArchitectures"
+                  "SystemCallFilter"
+                ];
+              }
+              # Configs
+              {
                 path = "flake.nixosConfigurations.*";
                 attrs.first = [ "system" ];
               }
               {
                 path = "flake.homeConfigurations.*";
                 attrs.first = [ "pkgs" ];
+              }
+              {
+                path = "**.sops.**";
+
+                attrs.first = [
+                  "owner"
+                  "group"
+                  "mode"
+                ];
               }
             ];
 

@@ -32,7 +32,6 @@
       shirayuri-swap
       shirayuri-valveIndex
       shirayuri-cam
-      shirayuri-headphones
       shirayuri-boot
       shirayuri-networking
       shirayuri-wireguard
@@ -41,10 +40,9 @@
       shirayuri-firefox
       shirayuri-fcitx5
       shirayuri-gaming
-      shirayuri-animeGames
+      # shirayuri-animeGames
       shirayuri-vr
       shirayuri-vrchat
-      shirayuri-melee
     ];
   };
 
@@ -70,7 +68,6 @@
       hana-gaming
       hana-vr
       hana-vrchat
-      hana-melee
     ];
   };
 
@@ -109,7 +106,6 @@
         hana-gaming
         hana-vr
         hana-vrchat
-        hana-melee
       ];
       home-manager.sharedModules = with inputs.self.homeModules; [
         homeManager

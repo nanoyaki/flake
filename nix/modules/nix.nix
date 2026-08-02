@@ -45,6 +45,9 @@
           ) (builtins.filter (input: inputs.${input} ? overlays) (builtins.attrNames inputs))
         );
 
+        # Beautiful --builders flag...
+        nix.package = pkgs.nixVersions.latest;
+
         nix.settings = {
           extra-substituters = [
             "https://nix-community.cachix.org"

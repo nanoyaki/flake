@@ -1,7 +1,5 @@
 let
-  # fingerprint = "5A1DC7CE51DC0A856DEA41F731A8CE0D2E7D30C3";
-  # The new one has a proper backup
-  fingerprint = "BE414DA8B0BC21D092E873E535469A3F76A3BE87";
+  # Goodbye PGP: https://gpg.fail/
 
   convCommit = conv: ''
     !f() { \
@@ -39,56 +37,31 @@ let
     };
 
     user = {
-      email = "hanakretzer@nanoyaki.space";
+      email = "contact@nanoyaki.space";
       name = "nanoyaki";
     };
   };
 in
 
 {
-  flake.homeModules.git =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
-
-    let
-      gpgKey = pkgs.fetchurl {
-        url = "https://github.com/nanoyaki.gpg";
-        hash = "sha256-LTdGeydh1xxkiaI1EkP+BWaOo/1pw7SL82E2svO2H+A=";
+  flake.homeModules.git = {
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
       };
-    in
-
-    {
-      programs.delta = {
-        enable = true;
-        enableGitIntegration = true;
-        options = {
-          navigate = true;
-          line-numbers = true;
-          side-by-side = true;
-        };
-      };
-
-      programs.git = {
-        settings = common;
-
-        signing = {
-          key = fingerprint;
-          format = "openpgp";
-          signByDefault = true;
-        };
-      };
-
-      programs.gpg.settings.default-key = fingerprint;
-
-      home.activation.import-gpg-key = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-        run ${lib.getExe pkgs.gnupg} --list-keys "${fingerprint}" >/dev/null 2>&1 \
-          || ${lib.getExe pkgs.gnupg} $VERBOSE_ARG --import "${gpgKey}"
-      '';
     };
+
+    programs.git.settings = common;
+    programs.git.signing = {
+      key = toString ./passkey/id_hasu.pub;
+      format = "ssh";
+      signByDefault = true;
+    };
+  };
 
   flake.nixosModules.git =
     { lib, pkgs, ... }:
@@ -103,11 +76,12 @@ in
           side-by-side = true;
         };
 
-        user.signingKey = fingerprint;
-        gpg.format = "openpgp";
-        gpg.openpgp.program = lib.getExe pkgs.gnupg;
+        user.signingKey = toString ./passkey/id_hasu.pub;
+        gpg.format = "ssh";
+
         commit.gpgSign = true;
         tag.gpgSign = true;
+        push.gpgSign = "if-asked";
       };
     };
 }

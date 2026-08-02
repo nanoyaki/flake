@@ -1,19 +1,18 @@
 {
-  flake.nixosModules.yubikey =
+  flake.nixosModules.passkey =
     { pkgs, config, ... }:
 
     {
       environment.systemPackages = with pkgs; [
-        yubikey-manager
+        # yubikey-manager
+        fido2-manage
         pam_u2f
       ];
 
       services.pcscd.enable = true;
-      services.udev.packages = [ pkgs.yubikey-personalization ];
-      hardware.gpgSmartcards.enable = true;
-
-      services.yubikey-agent.enable = true;
-      security.pam.sshAgentAuth.enable = true;
+      # Since I'm using hasu at the moment
+      # services.udev.packages = [ pkgs.yubikey-personalization ];
+      # services.yubikey-agent.enable = true;
 
       services.gnome.gcr-ssh-agent.enable = false;
       programs.ssh = {
@@ -36,40 +35,27 @@
         mode = "400";
       };
 
-      security.pam.u2f = {
-        enable = true;
-        settings = {
-          cue = true;
-          authfile = config.sops.secrets."pam/u2f".path;
-        };
+      security.pam.sshAgentAuth.enable = true;
+
+      security.pam.u2f.enable = true;
+      security.pam.u2f.settings = {
+        interactive = true;
+        cue = true;
+        authfile = config.sops.secrets."pam/u2f".path;
       };
 
       security.pam.services = {
         login.u2fAuth = true;
-        sudo = {
-          u2fAuth = true;
-          sshAgentAuth = true;
-        };
+
+        sudo.u2fAuth = true;
+        sudo.sshAgentAuth = true;
       };
     };
 
-  flake.homeModules.yubikey =
-    { config, pkgs, ... }:
+  flake.homeModules.passkey =
+    { config, ... }:
 
     {
-      programs.gpg = {
-        enable = true;
-        scdaemonSettings.disable-ccid = true;
-      };
-
-      services.gpg-agent = {
-        enable = true;
-        pinentry = {
-          package = pkgs.pinentry-qt;
-          program = "pinentry";
-        };
-      };
-
       sops.secrets."ssh/id_nadesiko" = {
         sopsFile = ./yuri.yaml;
         format = "yaml";
@@ -84,7 +70,7 @@
         mode = "400";
       };
 
-      home.file."${config.home.homeDirectory}/.ssh/id_nadesiko.pub".text =
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIGTdis9sEaWC/dHRq6a5sTrcBQmQuDQ+OxzJQuhnx/daAAAABHNzaDo= hana@shirayuri";
+      home.file."${config.home.homeDirectory}/.ssh/id_nadesiko.pub".source = ./id_nadesiko.pub;
+      home.file."${config.home.homeDirectory}/.ssh/id_hasu.pub".source = ./id_hasu.pub;
     };
 }

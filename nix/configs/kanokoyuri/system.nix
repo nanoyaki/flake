@@ -12,7 +12,7 @@
       shell
       locale
       git
-      yubikey
+      passkey
       kanokoyuri-system
       kanokoyuri-disks
       kanokoyuri-hardware
@@ -38,7 +38,7 @@
       nix
       shell
       git
-      yubikey
+      passkey
       kanoko-system
     ];
   };
@@ -67,7 +67,7 @@
         nix
         shell
         git
-        yubikey
+        passkey
       ];
 
       nixpkgs.hostPlatform.system = "x86_64-linux";

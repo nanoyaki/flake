@@ -13,7 +13,7 @@
       shell
       locale
       git
-      yubikey
+      passkey
       wayland
       fcitx5
       fonts
@@ -57,7 +57,7 @@
       nix
       shell
       git
-      yubikey
+      passkey
       plasma
       theme
       catppuccin
@@ -113,7 +113,7 @@
         nix
         shell
         git
-        yubikey
+        passkey
         plasma
         theme
         catppuccin

@@ -10,6 +10,7 @@
         element-desktop
         telegram-desktop
         vesktop
+        signal-desktop
       ];
     };
 

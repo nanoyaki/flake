@@ -18,7 +18,7 @@
       kanokoyuri-hardware
       kanokoyuri-openssh
       kanokoyuri-tailscale
-      kanokoyuri-dyndns
+      kanokoyuri-acme
       kanokoyuri-caddy
       kanokoyuri-zigbee2mqtt
       kanokoyuri-postgresql

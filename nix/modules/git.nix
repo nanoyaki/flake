@@ -57,7 +57,7 @@ in
 
     programs.git.settings = common;
     programs.git.signing = {
-      key = toString ./passkey/id_hasu.pub;
+      key = "~/.ssh/id_hasu.pub";
       format = "ssh";
       signByDefault = true;
     };
@@ -76,7 +76,7 @@ in
           side-by-side = true;
         };
 
-        user.signingKey = toString ./passkey/id_hasu.pub;
+        user.signingKey = "~/.ssh/id_hasu.pub";
         gpg.format = "ssh";
 
         commit.gpgSign = true;

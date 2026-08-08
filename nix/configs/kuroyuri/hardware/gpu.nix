@@ -5,7 +5,11 @@
     imports = [ inputs.nixos-hardware.nixosModules.common-gpu-amd ];
 
     hardware = {
-      amdgpu.initrd.enable = true;
+      amdgpu = {
+        initrd.enable = true;
+        opencl.enable = true;
+        zluda.enable = true;
+      };
 
       graphics = {
         enable = true;

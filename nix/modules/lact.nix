@@ -21,13 +21,13 @@
       configFile = pkgs.callPackage (
         {
           runCommand,
-          remarshal_0_17,
+          remarshal,
           yq-go,
         }:
         runCommand "lact-config.yaml"
           {
             nativeBuildInputs = [
-              remarshal_0_17
+              remarshal
               yq-go
             ];
             value = builtins.toJSON cfg.settings;
@@ -35,7 +35,7 @@
             preferLocalBuild = true;
           }
           ''
-            json2yaml "$valuePath" raw.yaml
+            remarshal --from json --to yaml-1.1 "$valuePath" raw.yaml
             yq -o=yaml '.gpus[].fan_control_settings.curve |= with_entries(.key |= tonumber)' raw.yaml > "$out"
           ''
       ) { };

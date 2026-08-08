@@ -41,7 +41,7 @@
       shirayuri-fcitx5
       shirayuri-gaming
       # shirayuri-animeGames
-      shirayuri-vr
+      # shirayuri-vr
       shirayuri-vrchat
     ];
   };
@@ -66,7 +66,7 @@
       hana-desktop
       hana-firefox
       hana-gaming
-      hana-vr
+      # hana-vr
       hana-vrchat
     ];
   };
@@ -104,7 +104,7 @@
         hana-desktop
         hana-firefox
         hana-gaming
-        hana-vr
+        # hana-vr
         hana-vrchat
       ];
       home-manager.sharedModules = with inputs.self.homeModules; [

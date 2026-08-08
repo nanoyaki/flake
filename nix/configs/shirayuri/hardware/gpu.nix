@@ -51,17 +51,21 @@
     {
       boot.kernelModules = [ "amdgpu" ];
 
-      hardware = {
-        amdgpu.initrd.enable = true;
-        amdgpu.overdrive = {
+      nixpkgs.config.rocmSupport = true;
+      hardware.amdgpu = {
+        initrd.enable = true;
+        opencl.enable = true;
+        zluda.enable = true;
+
+        overdrive = {
           enable = true;
           ppfeaturemask = "0xffffffff";
         };
+      };
 
-        graphics = {
-          enable = true;
-          enable32Bit = true;
-        };
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
       };
 
       environment.variables.VDPAU_DRIVER = "radeonsi";

@@ -55,7 +55,7 @@
       ];
 
       environment.systemPackages = with pkgs; [
-        cosmic-ext-connected
+        # cosmic-ext-connected
         # leads to crashes on paste
         # clipboard-manager
         wkeys
@@ -246,7 +246,7 @@
                 "com.system76.CosmicAppletNotifications"
                 # leads to crashes on paste
                 # "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager"
-                "io.github.nwxnw.cosmic-ext-connected"
+                # "io.github.nwxnw.cosmic-ext-connected"
                 "com.system76.CosmicAppletBluetooth"
                 "com.system76.CosmicAppletNetwork"
                 "com.system76.CosmicAppletAudio"

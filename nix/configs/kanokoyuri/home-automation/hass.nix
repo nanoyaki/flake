@@ -13,16 +13,16 @@
 
       services.caddy.virtualHosts."zuhause.hanakretzer.de" = {
         useACMEHost = "hanakretzer.de";
+        # Sadly the port can no longer be configured :(
         extraConfig = ''
           import tailnet-only
-          reverse_proxy 127.0.0.1:${toString config.services.home-assistant.config.http.server_port}
+          reverse_proxy 127.0.0.1:8123
         '';
       };
 
+      networking.firewall.allowedTCPPorts = [ 8123 ];
       services.home-assistant = {
         enable = true;
-        openFirewall = true;
-
         extraPackages = ps: with ps; [ psycopg2 ];
         extraComponents = [
           # Onboarding

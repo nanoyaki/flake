@@ -10,8 +10,9 @@
         useRoutingFeatures = "server";
         authKeyFile = config.sops.secrets.tailscale.path;
         extraUpFlags = [
-          "--login-server"
-          "https://headscale.nanoyaki.space"
+          "--login-server=https://headscale.nanoyaki.space"
+          "--force-reauth"
+          "--accept-dns=true"
         ];
       };
     };

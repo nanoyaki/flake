@@ -7,6 +7,7 @@
         nftables.enable = true;
         firewall.enable = true;
 
+        enableIPv6 = true;
         useDHCP = lib.mkDefault true;
         networkmanager.enable = lib.mkDefault false;
 

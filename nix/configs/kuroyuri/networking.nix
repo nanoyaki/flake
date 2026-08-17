@@ -3,7 +3,7 @@
     { config, ... }:
 
     {
-      sec.pikvm0 = { };
+      sops.secrets.pikvm0 = { };
 
       services.tailscale.enable = true;
 
@@ -16,7 +16,7 @@
 
       networking.wireguard.interfaces.pikvm0 = {
         ips = [ "10.200.200.2/32" ];
-        privateKeyFile = config.sec.pikvm0.path;
+        privateKeyFile = config.sops.secrets.pikvm0.path;
 
         peers = [
           {

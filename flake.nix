@@ -31,20 +31,8 @@
       lib-aggregate.follows = "lib-aggregate";
       flake-compat.follows = "flake-compat";
     };
-    nanomodules.url = "git+https://git.theless.one/nanoyaki/nanomodules.git";
-    nanomodules.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      systems.follows = "systems";
-      flake-parts.follows = "flake-parts";
-    };
     vermeer-undervolt.url = "github:nanoyaki/5800x3d-undervolt";
     vermeer-undervolt.inputs.nixpkgs.follows = "nixpkgs";
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
-    aagl.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      rust-overlay.follows = "rust-overlay";
-      flake-compat.follows = "flake-compat";
-    };
     nur.url = "github:nix-community/NUR";
     nur.inputs = {
       nixpkgs.follows = "nixpkgs";

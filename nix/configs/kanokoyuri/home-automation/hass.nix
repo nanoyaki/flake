@@ -46,12 +46,6 @@
 
           recorder.db_url = "postgresql://@/hass";
 
-          http.use_x_forwarded_for = true;
-          http.trusted_proxies = [
-            "127.0.0.1"
-            "::1"
-          ];
-
           "automation ui" = "!include automations.yaml";
           "scene ui" = "!include scenes.yaml";
           "script ui" = "!include scripts.yaml";

@@ -20,10 +20,10 @@
       CPU_MIN_PERF_ON_SAV = 0;
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      DEVICES_TO_DISABLE_ON_BAT = "bluetooth wifi";
+      DEVICES_TO_DISABLE_ON_BAT = "wifi";
       DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
       DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "bluetooth";
-      DEVICES_TO_ENABLE_ON_AC = "bluetooth wifi";
+      DEVICES_TO_ENABLE_ON_AC = "wifi";
       DEVICES_TO_ENABLE_ON_STARTUP = "bluetooth wifi";
       PCIE_ASPM_ON_BAT = "powersave";
       RUNTIME_PM_ON_AC = "on";

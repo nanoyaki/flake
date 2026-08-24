@@ -13,6 +13,7 @@
           "--login-server=https://headscale.nanoyaki.space"
           "--force-reauth"
           "--accept-dns=true"
+          "--advertise-exit-node"
         ];
       };
     };

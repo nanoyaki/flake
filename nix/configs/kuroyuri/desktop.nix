@@ -7,12 +7,20 @@
       programs.thunderbird.profiles.default.isDefault = true;
 
       home.packages = with pkgs; [
-        element-desktop
         telegram-desktop
         vesktop
         signal-desktop
+        sable-desktop
       ];
     };
 
-  flake.nixosModules.kuroyuri-desktop.programs.ausweisapp.enable = true;
+  flake.nixosModules.kuroyuri-desktop =
+    { pkgs, ... }:
+
+    {
+      programs.ausweisapp.enable = true;
+
+      programs.steam.enable = true;
+      programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
+    };
 }

@@ -71,6 +71,7 @@
       kuroyuri-drives
       kuroyuri-power
       kuroyuri-networking
+      kuroyuri-desktop
     ];
   };
 

@@ -24,6 +24,7 @@
       kanokoyuri-postgresql
       kanokoyuri-hass
       kanokoyuri-backups
+      kanokoyuri-dns
     ];
   };
 

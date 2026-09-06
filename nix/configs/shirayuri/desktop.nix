@@ -59,6 +59,7 @@
       environment.systemPackages = [
         (pkgs.discord.override { withMoonlight = true; })
         pkgs.vesktop
+        pkgs.sable-desktop
       ];
     };
 

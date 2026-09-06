@@ -10,10 +10,8 @@
       hardware.enableRedistributableFirmware = true;
       hardware.steam-hardware.enable = true;
       hardware.bluetooth.enable = true;
-      hardware.logitech.wireless = {
-        enable = true;
-        enableGraphical = true;
-      };
+      hardware.logitech.wireless.enable = true;
+      programs.solaar.enable = true;
 
       boot.blacklistedKernelModules = [ "xpad" ];
       hardware.xpadneo.enable = true;

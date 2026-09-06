@@ -138,6 +138,7 @@
         "discord"
         "vesktop"
         "unrar" # rar is unfree
+        "discord-unwrapped"
       ];
 
       system.stateVersion = "24.11";

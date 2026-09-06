@@ -15,6 +15,7 @@
       git
       passkey
       plasma
+      zed
       theme
       catppuccin
       hana-kuroyuri-system
@@ -61,7 +62,7 @@
       audio
       plasma
       lact
-      vscode
+      zed
       theme
       catppuccin
       kuroyuri-system
@@ -128,6 +129,7 @@
         plasma
         theme
         catppuccin
+        zed
       ];
 
       home-manager.users.hana.imports = with inputs.self.homeModules; [

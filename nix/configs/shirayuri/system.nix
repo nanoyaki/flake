@@ -20,7 +20,7 @@
       audio
       plasma
       lact
-      vscode
+      zed
       theme
       catppuccin
       shirayuri-system
@@ -58,6 +58,7 @@
       git
       passkey
       plasma
+      zed
       theme
       catppuccin
       hana-system
@@ -114,6 +115,7 @@
         git
         passkey
         plasma
+        zed
         theme
         catppuccin
       ];

@@ -55,18 +55,12 @@
         osu-lazer-bin
         dolphin-emu
         melonds
-        nwjs-run
         cartridges
       ];
     };
 
   perSystem =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
+    { lib, pkgs, ... }:
 
     {
       packages.prismlauncher = pkgs.symlinkJoin {
@@ -95,14 +89,6 @@
             }"
         '';
       };
-
-      packages.nwjs = pkgs.nwjs.override { alsa-lib = pkgs.alsa-lib-with-plugins; };
-      packages.nwjs-run = pkgs.writeShellScriptBin "nwjs-run" ''
-        QUERY='def n: if . == "" then "{}" else . end; .name = (.name|n)'
-
-        ${lib.getExe' pkgs.coreutils "cat"} <<< $(${lib.getExe pkgs.jq} "$QUERY" package.json) > package.json
-        LD_PRELOAD=${pkgs.nwjs-ffmpeg-prebuilt}/lib/libffmpeg.so ${lib.getExe' config.packages.nwjs "nw"} "$@"
-      '';
     };
 
   flake.overlays.prismlauncher =
@@ -113,17 +99,6 @@
 
       {
         inherit (config.packages) prismlauncher;
-      }
-    );
-
-  flake.overlays.nwjs =
-    _: prev:
-
-    withSystem prev.stdenv.hostPlatform.system (
-      { config, ... }:
-
-      {
-        inherit (config.packages) nwjs nwjs-run;
       }
     );
 }

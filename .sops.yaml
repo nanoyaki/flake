@@ -1,39 +1,8 @@
 keys:
   - &shirayuri age1g76tzmg5pr368e8acvxzlz8rvakzy7atjl0qzm0xsdy56u9m4ejswcss5g
-  - &yuri age1se8sv8c084c5hqg8y448yhu3x4q4lw843v7l9dfyt08qaxyh2d6supwezt
-  - &kuroyuri age152k4hxe5vyj6kq48w4dqcm3tadyr7f6u02ydgfu8s2uuu478jawsj5q3yl
-  - &yamayuri age1geuk0u6v70d0v9zvzap8dje9dftftx9q57a4rvf0hhwaxueju5aq80ysvr
-  - &himeyuri age14dxfxxluxx2vmh9n77p2278vw8t4rk8yxeq3eh2aww46u7n4mdpqx6upfw
+  - &kanokoyuri age1r2p60zggsrxuvk6rehgchs5tr25vzlc534j0889wzp40u2wweylqy8zkh6
 creation_rules:
-  - path_regex: nix/configs/shirayuri/secrets\.yaml$
-    key_groups:
-      - age:
-          - *shirayuri
-  - path_regex: nix/configs/yuri/secrets\.yaml$
-    key_groups:
-      - age:
-          - *yuri
-          - *shirayuri
-  - path_regex: nix/configs/kuroyuri/secrets\.yaml$
-    key_groups:
-      - age:
-          - *kuroyuri
-          - *shirayuri
-  - path_regex: nix/configs/yamayuri/secrets\.yaml$
-    key_groups:
-      - age:
-          - *yamayuri
-          - *shirayuri
-  - path_regex: nix/configs/himeyuri/secrets\.yaml$
-    key_groups:
-      - age:
-          - *himeyuri
-          - *shirayuri
-  - path_regex: nix/modules/(.*/.*|.*)\.yaml$
-    key_groups:
-      - age:
-          - *shirayuri
-          - *kuroyuri
-          - *yuri
-          - *yamayuri
-          - *himeyuri
+  - filename_regex: secrets\.yaml$
+    age:
+      - *shirayuri
+      - *kanokoyuri

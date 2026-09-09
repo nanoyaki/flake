@@ -39,7 +39,6 @@
 
       security.pam.u2f.enable = true;
       security.pam.u2f.settings = {
-        interactive = true;
         cue = true;
         authfile = config.sops.secrets."pam/u2f".path;
       };

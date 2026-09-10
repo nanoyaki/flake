@@ -49,10 +49,15 @@
             options = {
               flake-parts.expr = "(builtins.getFlake (builtins.toString ./.)).debug.options or { options = {}; }";
               per-system.expr = "(builtins.getFlake (builtins.toString ./.)).currentSystem.options or { options = {}; }";
-              nixos.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in (builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.nixosConfigurations))";
-              home-manager.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in (builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.homeConfigurations))";
+              nixos.expr = "let flake = builtins.getFlake (builtins.toString ./.); in builtins.head (builtins.attrValues flake.nixosConfigurations)";
+              home-manager.expr = "let flake = builtins.getFlake (builtins.toString ./.); in builtins.head (builtins.attrValues flake.homeConfigurations)";
             };
             diagnostic.suppress = [ "sema-extra-with" ];
+          };
+
+          profiles.performance.lsp.nixd.settings.options = {
+            nixos.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.nixosConfigurations)";
+            home-manager.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.homeConfigurations)";
           };
         };
       };

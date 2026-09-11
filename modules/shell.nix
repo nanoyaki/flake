@@ -1,6 +1,10 @@
 { config, ... }:
 
 {
+  configurations.nixos.himawari = {
+    imports = [ config.modules.nixos.shell ];
+  };
+
   configurations.nixos.kanokoyuri = {
     imports = [ config.modules.nixos.shell ];
   };
@@ -65,6 +69,10 @@
       };
     };
 
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.shell ];
+  };
+
   configurations.home."hana@kanokoyuri" = {
     imports = [ config.modules.home.shell ];
   };
@@ -101,7 +109,7 @@
             bindkey "^[[3;5~" kill-word
             bindkey "^H"      backward-kill-word
           '';
-          dotDir = "${config.xdg.configHome}/zsh";
+          dotDir = "${config.xdg.configHome or "${config.home.homeDirectory}/.config"}/zsh";
         };
 
         starship.enable = true;

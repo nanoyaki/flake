@@ -1,8 +1,10 @@
 keys:
   - &shirayuri age1g76tzmg5pr368e8acvxzlz8rvakzy7atjl0qzm0xsdy56u9m4ejswcss5g
   - &kanokoyuri age1r2p60zggsrxuvk6rehgchs5tr25vzlc534j0889wzp40u2wweylqy8zkh6
+  - &himawari age1evwgshqvfw7d383z9tudrchntttsg5gw6mg07hmtu5zuu8qhucvq6gfuty
 creation_rules:
   - filename_regex: secrets\.yaml$
     age:
       - *shirayuri
       - *kanokoyuri
+      - *himawari

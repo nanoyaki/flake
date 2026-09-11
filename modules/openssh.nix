@@ -1,6 +1,10 @@
 { config, ... }:
 
 {
+  configurations.nixos.himawari = {
+    imports = [ config.modules.nixos.openssh ];
+  };
+
   configurations.nixos.kanokoyuri = {
     imports = [ config.modules.nixos.openssh ];
   };

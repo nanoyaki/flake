@@ -1,6 +1,12 @@
 { config, ... }:
 
 {
+  configurations.nixos.himawari = {
+    imports = [ config.modules.nixos.tailscale ];
+
+    services.tailscale.thelessone.enable = true;
+  };
+
   configurations.nixos.kanokoyuri = {
     imports = [ config.modules.nixos.tailscale ];
 
@@ -63,8 +69,8 @@
 
     {
       config = mkIf config.services.tailscale.thelessone.enable {
-        sops.secrets.tailscale.sopsFile = ./secrets.yaml;
-        services.tailscale.thelessone.keyFile = config.sops.secrets.tailscale.path;
+        sops.secrets."tailscale/${config.networking.hostName}".sopsFile = ./secrets.yaml;
+        services.tailscale.thelessone.keyFile = config.sops.secrets."tailscale/${config.networking.hostName}".path;
       };
     };
 }

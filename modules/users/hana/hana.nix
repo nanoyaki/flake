@@ -1,6 +1,10 @@
 { config, ... }:
 
 {
+  configurations.nixos.himawari = {
+    imports = [ config.modules.nixos.hana ];
+  };
+
   configurations.nixos.kanokoyuri = {
     imports = [ config.modules.nixos.hana ];
   };
@@ -40,6 +44,13 @@
           ];
         })
       ];
+
+      programs.git.config = mkIf config.programs.git.enable {
+        user = {
+          email = "contact@nanoyaki.space";
+          name = "nanoyaki";
+        };
+      };
     };
 
   modules.nixos.sops = {
@@ -47,6 +58,12 @@
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };
+  };
+
+  configurations.home."hana@himawari" = {
+    home.homeDirectory = "/home/hana";
+    home.stateVersion = "26.11";
+    home.username = "hana";
   };
 
   configurations.home."hana@kanokoyuri" = {

@@ -43,6 +43,14 @@ in
       }
     ) config.configurations.nixos;
 
+    configurations.nixos.himawari = {
+      imports = [ config.modules.nixos.nix ];
+    };
+
+    configurations.nixos.kanokoyuri = {
+      imports = [ config.modules.nixos.nix ];
+    };
+
     modules.nixos.nix =
       {
         lib,
@@ -118,9 +126,5 @@ in
           programs.git.enable = true;
         };
       };
-
-    configurations.nixos.kanokoyuri = {
-      imports = [ config.modules.nixos.nix ];
-    };
   };
 }

@@ -1,13 +1,18 @@
 { config, ... }:
 
 {
+  configurations.nixos.himawari = {
+    imports = [ config.modules.nixos.networking ];
+
+    networking.hostId = "bfff451b";
+    networking.networkmanager.enable = true;
+  };
+
   configurations.nixos.kanokoyuri = _: {
     imports = [ config.modules.nixos.networking ];
 
-    networking = {
-      hostId = "69804090";
-      useDHCP = false;
-    };
+    networking.hostId = "69804090";
+    networking.useDHCP = false;
 
     networking.interfaces.enp1s0 = {
       ipv4.addresses = [

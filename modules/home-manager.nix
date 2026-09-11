@@ -93,7 +93,10 @@ in
             };
         }
       ) config.configurations.home)
-      ++ [ { kanokoyuri.imports = [ config.modules.nixos.home-manager ]; } ]
+      ++ [
+        { kanokoyuri.imports = [ config.modules.nixos.home-manager ]; }
+        { himawari.imports = [ config.modules.nixos.home-manager ]; }
+      ]
     );
 
     modules.nixos.home-manager = {
@@ -105,6 +108,14 @@ in
         useUserPackages = true;
         useGlobalPkgs = true;
       };
+    };
+
+    configurations.home."hana@kanokoyuri" = {
+      imports = [ config.modules.home.home-manager ];
+    };
+
+    configurations.home."hana@himawari" = {
+      imports = [ config.modules.home.home-manager ];
     };
 
     modules.home.home-manager = {

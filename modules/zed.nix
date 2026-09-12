@@ -39,9 +39,10 @@
 
     {
       config = lib.mkIf config.programs.zed-editor.enable {
-        environment.systemPackages = [
+        environment.systemPackages = with pkgs; [
           # This should be dev shell stuff
-          pkgs.nixd
+          nixd
+          nixfmt
         ];
 
         environment.sessionVariables.GIT_EDITOR = "${lib.getExe pkgs.zed-editor} --wait";

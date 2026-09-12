@@ -34,6 +34,9 @@
       config = mkIf config.hardware.facter.enable {
         nixpkgs.hostPlatform = { inherit (cfg) system; };
 
+        hardware.graphics.enable = mkHardwareDefault (cfg.hardware ? graphics_card);
+        hardware.graphics.enable32Bit = mkHardwareDefault (cfg.hardware ? graphics_card);
+
         boot.loader.efi.canTouchEfiVariables = mkHardwareDefault cfg.uefi.supported;
 
         hardware.cpu.amd.updateMicrocode = mkHardwareDefault (cpu.vendor_name == "GenuineAMD");
@@ -44,7 +47,7 @@
         hardware.enableRedistributableFirmware = true;
 
         services.libinput.enable = mkHardwareDefault true;
-        services.libinput.mouse.naturalScrolling = mkHardwareDefault hasTouchpad;
+        services.libinput.touchpad.naturalScrolling = mkHardwareDefault hasTouchpad;
       };
     };
 }

@@ -63,7 +63,7 @@
     {
       config = mkIf config.security.pam.u2f.enable {
         programs.ssh = {
-          startAgent = true;
+          # startAgent = true;
           agentTimeout = "1h";
           askPassword = pkgs.openssh-askpass;
           extraConfig = ''

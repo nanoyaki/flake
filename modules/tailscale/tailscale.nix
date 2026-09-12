@@ -2,9 +2,8 @@
 
 {
   configurations.nixos.himawari = {
+    # Use interactive auth you silly
     imports = [ config.modules.nixos.tailscale ];
-
-    services.tailscale.thelessone.enable = true;
   };
 
   configurations.nixos.kanokoyuri = {
@@ -70,7 +69,8 @@
     {
       config = mkIf config.services.tailscale.thelessone.enable {
         sops.secrets."tailscale/${config.networking.hostName}".sopsFile = ./secrets.yaml;
-        services.tailscale.thelessone.keyFile = config.sops.secrets."tailscale/${config.networking.hostName}".path;
+        services.tailscale.thelessone.keyFile =
+          config.sops.secrets."tailscale/${config.networking.hostName}".path;
       };
     };
 }

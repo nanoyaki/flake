@@ -60,7 +60,7 @@ in
             }
           ];
         }
-        // (optionalAttrs (config.configurations.nixos ? ${hostname}) {
+        // (optionalAttrs (config ? configurations.nixos.${hostname}) {
           pkgs = import inputs.nixpkgs {
             inherit (self.nixosConfigurations.${hostname}.config.nixpkgs.hostPlatform) system;
             inherit (self.nixosConfigurations.${hostname}.config.nixpkgs)
@@ -84,10 +84,10 @@ in
 
         {
           ${hostname} =
-            { lib, config, ... }:
+            { lib, options, ... }:
 
             {
-              config = lib.mkIf (config ? home-manager) {
+              config = lib.mkIf (options ? home-manager) {
                 home-manager.users.${username}.imports = [ module ];
               };
             };

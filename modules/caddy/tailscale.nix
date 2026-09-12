@@ -38,7 +38,9 @@
       config = mkIf config.services.caddy.enable {
         assertions = [
           {
-            assertion = all (hostCfg: cfg.thelessone.enable && hostCfg.tailnetOnly) (attrValues config.services.caddy.virtualHosts);
+            assertion = all (hostCfg: cfg.thelessone.enable && hostCfg.tailnetOnly) (
+              attrValues config.services.caddy.virtualHosts
+            );
             message = ''
               {option}`services.caddy.virtualHosts.<name>.tailnetOnly` does not have any effect without
               enabling {option}`services.tailscale.thelessone.enable`

@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   lib,
   config,
   moduleLocation,
@@ -124,6 +125,16 @@ in
           };
 
           programs.git.enable = true;
+        };
+      };
+
+    perSystem =
+      { system, ... }:
+
+      {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues self.overlays;
         };
       };
   };

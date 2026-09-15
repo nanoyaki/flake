@@ -128,6 +128,18 @@ in
         };
       };
 
+    configurations.home."hana@kanokoyuri" = {
+      imports = [ config.modules.home.nix ];
+    };
+
+    configurations.home."hana@himawari" = {
+      imports = [ config.modules.home.nix ];
+    };
+
+    modules.home.nix = {
+      programs.git.enable = true;
+    };
+
     perSystem =
       { system, ... }:
 

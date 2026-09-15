@@ -1,4 +1,4 @@
-{ config, ... }:
+{ withSystem, config, ... }:
 
 {
   configurations.nixos.himawari = {
@@ -21,7 +21,7 @@
         ''
           No password file is set for user hana! Make sure to set the option
           {option}`users.users.hana.hashedPasswordFile`. Using the initial password
-          "veryinsecurepassword".
+          "veryinsecurepassword" for now.
         ''
       ];
 
@@ -44,13 +44,6 @@
           ];
         })
       ];
-
-      programs.git.config = mkIf config.programs.git.enable {
-        user = {
-          email = "contact@nanoyaki.space";
-          name = "nanoyaki";
-        };
-      };
     };
 
   modules.nixos.sops = {
@@ -63,18 +56,37 @@
   configurations.home."hana@himawari" = {
     imports = [ config.modules.home.hana ];
 
-    home.homeDirectory = "/home/hana";
     home.stateVersion = "26.11";
-    home.username = "hana";
   };
 
   configurations.home."hana@kanokoyuri" = {
     imports = [ config.modules.home.hana ];
 
-    home.homeDirectory = "/home/hana";
     home.stateVersion = "24.11";
-    home.username = "hana";
   };
+
+  modules.home.hana =
+    { pkgs, config, ... }:
+
+    {
+      home.file."${config.xdg.userDirs.pictures}/hana.png".source =
+        withSystem pkgs.stdenv.hostPlatform.system
+          ({ config, ... }: config.legacyPackages.profile-pictures.hana);
+    };
+
+  modules.home.nix =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf (config.home.username == "hana") {
+        programs.git.settings.user.email = "contact@nanoyaki.space";
+        programs.git.settings.user.name = "nanoyaki";
+      };
+    };
 
   perSystem =
     { pkgs, ... }:

@@ -1,4 +1,54 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
+
+let
+  inherit (lib) optionals optionalAttrs;
+
+  mkWindowRules =
+    {
+      app-id,
+      open-on-workspace,
+      blur ? false,
+    }:
+    [
+      (
+        {
+          matches = [ { inherit app-id; } ];
+          inherit open-on-workspace;
+        }
+        // optionalAttrs blur {
+          background-effect = {
+            blur = true;
+            xray = false;
+          };
+        }
+      )
+    ]
+    ++ optionals blur [
+      {
+        matches = [
+          {
+            inherit app-id;
+            is-focused = true;
+          }
+        ];
+        opacity = 0.97;
+      }
+      {
+        matches = [
+          {
+            inherit app-id;
+            is-focused = false;
+          }
+        ];
+        opacity = 0.7;
+      }
+    ];
+in
 
 {
   flake-file.inputs.niri.url = "github:nanoyaki/niri-flake/fix/infinite-recursion";
@@ -54,6 +104,7 @@
     { lib, config, ... }:
 
     let
+      inherit (lib) optional;
       inherit (config.lib.niri) actions;
     in
 
@@ -93,27 +144,19 @@
         prefer-no-csd = true;
         window-rules = [
           {
-            geometry-corner-radius = {
-              bottom-left = 16.0;
-              bottom-right = 16.0;
-              top-left = 16.0;
-              top-right = 16.0;
-            };
-            clip-to-geometry = true;
-          }
-          {
-            matches = [ { app-id = "^signal$"; } ];
-            open-on-workspace = "chat";
-          }
-          {
             matches = [ { app-id = "^Sable$"; } ];
             open-on-workspace = "chat";
           }
-          {
-            matches = [ { app-id = "^discord$"; } ];
-            open-on-workspace = "chat";
-          }
-        ];
+        ]
+        ++ optional (!config.programs.noctalia.enable) {
+          geometry-corner-radius = {
+            bottom-left = 16.0;
+            bottom-right = 16.0;
+            top-left = 16.0;
+            top-right = 16.0;
+          };
+          clip-to-geometry = true;
+        };
 
         layout = {
           focus-ring.enable = false;
@@ -260,7 +303,6 @@
         spawn-at-startup = [
           { command = [ "gnome-keyring-daemon" ]; }
           { command = [ "xwayland-satellite" ]; }
-          { command = [ "signal-desktop" ]; }
         ];
 
         input = {
@@ -415,35 +457,13 @@
 
     {
       config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "alacritty" ]; } ];
         programs.niri.settings.binds."Mod+T".action.spawn = "alacritty";
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^Alacritty$"; } ];
-            open-on-workspace = "term";
-            background-effect = {
-              blur = true;
-              xray = false;
-            };
-          }
-          {
-            matches = [
-              {
-                app-id = "^Alacritty$";
-                is-focused = true;
-              }
-            ];
-            opacity = 0.97;
-          }
-          {
-            matches = [
-              {
-                app-id = "^alacritty$";
-                is-focused = false;
-              }
-            ];
-            opacity = 0.7;
-          }
-        ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^Alacritty$";
+          open-on-workspace = "term";
+          blur = true;
+        };
       };
     };
 
@@ -457,12 +477,10 @@
     {
       config = mkIf config.programs.niri.enable {
         programs.niri.settings.spawn-at-startup = [ { command = [ "firefox" ]; } ];
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^firefox$"; } ];
-            open-on-workspace = "browser";
-          }
-        ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^firefox$";
+          open-on-workspace = "browser";
+        };
       };
     };
 
@@ -476,12 +494,10 @@
     {
       config = mkIf config.programs.niri.enable {
         programs.niri.settings.spawn-at-startup = [ { command = [ "thunderbird" ]; } ];
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^thunderbird$"; } ];
-            open-on-workspace = "chat";
-          }
-        ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^thunderbird$";
+          open-on-workspace = "chat";
+        };
       };
     };
 
@@ -494,12 +510,11 @@
 
     {
       config = mkIf config.programs.niri.enable {
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^dev.zed.Zed$"; } ];
-            open-on-workspace = "term";
-          }
-        ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "dev.zed.Zed";
+          open-on-workspace = "term";
+          blur = true;
+        };
       };
     };
 
@@ -512,13 +527,12 @@
 
     {
       config = mkIf config.programs.niri.enable {
-        programs.niri.settings.spawn-at-startup = [ { command = [ "equibop" ]; } ];
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^equibop$"; } ];
-            open-on-workspace = "chat";
-          }
-        ];
+        # programs.niri.settings.spawn-at-startup = [ { command = [ "equibop" ]; } ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^equibop$";
+          open-on-workspace = "chat";
+          blur = true;
+        };
       };
     };
 
@@ -531,13 +545,12 @@
 
     {
       config = mkIf config.programs.niri.enable {
-        programs.niri.settings.spawn-at-startup = [ { command = [ "signal-desktop" ]; } ];
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^signal$"; } ];
-            open-on-workspace = "chat";
-          }
-        ];
+        # programs.niri.settings.spawn-at-startup = [ { command = [ "signal-desktop" ]; } ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^signal$";
+          open-on-workspace = "chat";
+          blur = true;
+        };
       };
     };
 
@@ -550,13 +563,12 @@
 
     {
       config = mkIf config.programs.niri.enable {
-        programs.niri.settings.spawn-at-startup = [ { command = [ "fluffychat" ]; } ];
-        programs.niri.settings.window-rules = [
-          {
-            matches = [ { app-id = "^fluffychat$"; } ];
-            open-on-workspace = "chat";
-          }
-        ];
+        # programs.niri.settings.spawn-at-startup = [ { command = [ "fluffychat" ]; } ];
+        programs.niri.settings.window-rules = mkWindowRules {
+          app-id = "^fluffychat$";
+          open-on-workspace = "chat";
+          blur = true;
+        };
       };
     };
 }

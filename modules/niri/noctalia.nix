@@ -366,6 +366,8 @@
         };
         screenshot.remember_last_region = true;
         shadow.alpha = 0.0;
+
+        greeter_sync.auto_sync = true;
       };
 
       theme = {

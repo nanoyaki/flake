@@ -8,7 +8,7 @@
 }:
 
 let
-  inherit (builtins) elemAt;
+  inherit (builtins) head elemAt;
   inherit (lib)
     mkOption
     types
@@ -37,6 +37,13 @@ in
 
   options.configurations.home = mkOption {
     type = types.lazyAttrsOf types.deferredModule;
+    apply = mapAttrs (
+      name: module: {
+        _class = "homeManager";
+        _file = "${toString moduleLocation}#configurations.home.${name}";
+        imports = [ module ];
+      }
+    );
     default = { };
   };
 
@@ -47,17 +54,26 @@ in
       userAtHost: module:
 
       let
+        username = head (splitString "@" userAtHost);
         hostname = elemAt (splitString "@" userAtHost) 1;
       in
 
       inputs.home-manager.lib.homeManagerConfiguration (
         {
           modules = [
-            {
-              _class = "homeManager";
-              _file = "${toString moduleLocation}#configurations.home.${userAtHost}";
-              imports = [ module ];
-            }
+            (
+              { lib, ... }:
+
+              let
+                inherit (lib) mkDefault;
+              in
+
+              {
+                home.username = mkDefault username;
+                home.homeDirectory = mkDefault "/home/${username}";
+              }
+            )
+            module
           ];
         }
         // (optionalAttrs (config ? configurations.nixos.${hostname}) {
@@ -77,9 +93,8 @@ in
         userAtHost: module:
 
         let
-          parts = (splitString "@" userAtHost);
-          username = elemAt parts 0;
-          hostname = elemAt parts 1;
+          username = head (splitString "@" userAtHost);
+          hostname = elemAt (splitString "@" userAtHost) 1;
         in
 
         {
@@ -88,7 +103,21 @@ in
 
             {
               config = lib.mkIf (options ? home-manager) {
-                home-manager.users.${username}.imports = [ module ];
+                home-manager.users.${username}.imports = [
+                  (
+                    { lib, ... }:
+
+                    let
+                      inherit (lib) mkDefault;
+                    in
+
+                    {
+                      home.username = mkDefault username;
+                      home.homeDirectory = mkDefault "/home/${username}";
+                    }
+                  )
+                  module
+                ];
               };
             };
         }

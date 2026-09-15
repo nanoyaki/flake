@@ -540,4 +540,23 @@
         ];
       };
     };
+
+  modules.home.matrix-client =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "fluffychat" ]; } ];
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^fluffychat$"; } ];
+            open-on-workspace = "chat";
+          }
+        ];
+      };
+    };
 }

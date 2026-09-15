@@ -12,20 +12,42 @@
   };
 
   modules.nixos.niri =
-    { pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkOption types;
+    in
 
     {
       imports = [ inputs.niri.nixosModules.niri ];
 
-      services.upower.enable = true;
-      programs.niri.enable = true;
+      options.programs.niri.requiredPackages = mkOption {
+        type = types.listOf types.package;
+        default = with pkgs; [
+          xwayland-satellite
+          brightnessctl
+          wireplumber
+          nautilus
+        ];
+        defaultText = "with pkgs; [ xwayland-satellite brightnessctl ]";
+      };
 
-      # TODO: factor out into it's own module
-      programs.xwayland.enable = true;
-      environment.systemPackages = with pkgs; [
-        xwayland-satellite
-        brightnessctl
-      ];
+      config = {
+        services.upower.enable = true;
+        programs.niri.enable = true;
+
+        programs.nautilus-open-any-terminal.enable = true;
+        programs.nautilus-open-any-terminal.terminal = "alacritty";
+
+        # TODO: factor out into it's own module
+        programs.xwayland.enable = true;
+        environment.systemPackages = config.programs.niri.requiredPackages;
+      };
     };
 
   modules.home.niri =
@@ -38,11 +60,19 @@
     {
       imports = [ inputs.niri.homeModules.niri ];
 
+      programs.niri.enable = true;
       programs.niri.settings = {
         workspaces = {
-          browser = { };
-          chat = { };
-          term = { };
+          "01-browser".name = "browser";
+          "02-term".name = "term";
+          "03-chat".name = "chat";
+        };
+
+        blur = {
+          passes = 2;
+          offset = 3.0;
+          noise = 0.03;
+          saturation = 1.0;
         };
 
         layer-rules = [
@@ -142,122 +172,105 @@
           };
         };
         overview.zoom = 0.3;
-        binds =
-          {
-            "Super+Shift+X".action.quit.skip-confirmation = false;
-            "Super+Backspace".action = actions.spawn "fuzzel";
-            "Super+Shift+Q".action = actions.close-window;
-            "Shift+F11".action = actions.maximize-column;
-            "Super+Shift+F11".action = actions.fullscreen-window;
-            "Super+W".action = actions.switch-preset-column-width;
-            "Super+Shift+W".action = actions.switch-preset-window-height;
-            "Super+Shift+Space".action = actions.toggle-window-floating;
-            "Super+F".action = actions.toggle-overview;
-            "Super+F11".action = actions.show-hotkey-overlay;
+        binds = {
+          "Mod+Shift+X".action.quit.skip-confirmation = false;
+          "Mod+Shift+Q".action = actions.close-window;
+          F11.action = actions.show-hotkey-overlay;
+          "Mod+F11".action = actions.maximize-column;
+          "Mod+Shift+F11".action = actions.fullscreen-window;
+          "Mod+W".action = actions.switch-preset-column-width;
+          "Mod+Shift+W".action = actions.switch-preset-window-height;
+          "Mod+Shift+Space".action = actions.toggle-window-floating;
+          "Mod+Tab".action = actions.toggle-overview;
 
-            "Super+1".action = actions.focus-workspace "browser";
-            "Super+2".action = actions.focus-workspace "chat";
-            "Super+3".action = actions.focus-workspace "term";
+          "Mod+1".action = actions.focus-workspace "browser";
+          "Mod+2".action = actions.focus-workspace "chat";
+          "Mod+3".action = actions.focus-workspace "term";
 
-            "Super+H".action = actions.focus-column-left;
-            "Super+J".action = actions.focus-column-right;
-            "Super+K".action = actions.focus-window-or-workspace-up;
-            "Super+L".action = actions.focus-window-or-workspace-down;
-            "Super+Left".action = actions.focus-column-left;
-            "Super+Up".action = actions.focus-column-right;
-            "Super+Down".action = actions.focus-window-or-workspace-up;
-            "Super+Right".action = actions.focus-window-or-workspace-down;
+          "Mod+Left".action = actions.focus-column-left;
+          "Mod+Right".action = actions.focus-column-right;
+          "Mod+Up".action = actions.focus-window-or-workspace-up;
+          "Mod+Down".action = actions.focus-window-or-workspace-down;
 
-            "Super+Shift+H".action = actions.move-column-left;
-            "Super+Shift+J".action = actions.move-column-right;
-            "Super+Shift+K".action = actions.move-column-to-workspace-up;
-            "Super+Shift+L".action = actions.move-column-to-workspace-down;
-            "Super+Shift+Left".action = actions.move-column-left;
-            "Super+Shift+Up".action = actions.move-column-right;
-            "Super+Shift+Down".action = actions.move-column-to-workspace-up;
-            "Super+Shift+Right".action = actions.move-column-to-workspace-down;
+          "Mod+Shift+Left".action = actions.move-column-left;
+          "Mod+Shift+Right".action = actions.move-column-right;
+          "Mod+Shift+Up".action = actions.move-column-to-workspace-up;
+          "Mod+Shift+Down".action = actions.move-column-to-workspace-down;
 
-            "Super+Control+H".action = actions.swap-window-left;
-            "Super+Control+J".action = actions.swap-window-right;
-            "Super+Control+K".action = actions.move-window-up-or-to-workspace-up;
-            "Super+Control+L".action = actions.move-window-down-or-to-workspace-down;
-            "Super+Control+Left".action = actions.swap-window-left;
-            "Super+Control+Up".action = actions.swap-window-right;
-            "Super+Control+Down".action = actions.move-window-up-or-to-workspace-up;
-            "Super+Control+Right".action = actions.move-window-down-or-to-workspace-down;
+          "Mod+Control+Left".action = actions.swap-window-left;
+          "Mod+Control+Right".action = actions.swap-window-right;
+          "Mod+Control+Up".action = actions.move-window-up-or-to-workspace-up;
+          "Mod+Control+Down".action = actions.move-window-down-or-to-workspace-down;
 
-            "Super+Comma".action = actions.consume-or-expel-window-left;
-            "Super+Period".action = actions.consume-or-expel-window-right;
+          "Mod+Comma".action = actions.consume-or-expel-window-left;
+          "Mod+Period".action = actions.consume-or-expel-window-right;
 
-            Print.action.screenshot-screen = [ ];
-            "Super+Shift+S".action.screenshot = [ ];
+          Print.action.screenshot-screen = [ ];
+          "Mod+Shift+S".action.screenshot = [ ];
+        }
+        // (lib.optionalAttrs (!config.programs.noctalia.enable) {
+          XF86AudioRaiseVolume.allow-when-locked = true;
+          XF86AudioRaiseVolume.action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "0.05+"
+          ];
 
-            XF86AudioRaiseVolume = {
-              action.spawn = [
-                "wpctl"
-                "set-volume"
-                "@DEFAULT_AUDIO_SINK@"
-                "0.1+"
-              ];
-              allow-when-locked = true;
-            };
-            XF86AudioLowerVolume = {
-              action.spawn = [
-                "wpctl"
-                "set-volume"
-                "@DEFAULT_AUDIO_SINK@"
-                "0.1-"
-              ];
-              allow-when-locked = true;
-            };
-            XF86AudioMute = {
-              action.spawn = [
-                "wpctl"
-                "set-mute"
-                "@DEFAULT_AUDIO_SINK@"
-                "toggle"
-              ];
-              allow-when-locked = true;
-            };
-            XF86AudioMicMute = {
-              action.spawn = [
-                "wpctl"
-                "set-mute"
-                "@DEFAULT_AUDIO_SOURCE@"
-                "toggle"
-              ];
-              allow-when-locked = true;
-            };
-            # Brightness
-            XF86MonBrightnessUp = {
-              action.spawn = [
-                "brightnessctl"
-                "s"
-                "+5%"
-              ];
-              allow-when-locked = true;
-            };
-            XF86MonBrightnessDown = {
-              action.spawn = [
-                "brightnessctl"
-                "s"
-                "5%-"
-              ];
-              allow-when-locked = true;
-            };
-          };
+          XF86AudioLowerVolume.allow-when-locked = true;
+          XF86AudioLowerVolume.action.spawn = [
+            "wpctl"
+            "set-volume"
+            "@DEFAULT_AUDIO_SINK@"
+            "0.05-"
+          ];
+
+          XF86AudioMute.allow-when-locked = true;
+          XF86AudioMute.action.spawn = [
+            "wpctl"
+            "set-mute"
+            "@DEFAULT_AUDIO_SINK@"
+            "toggle"
+          ];
+
+          XF86AudioMicMute.allow-when-locked = true;
+          XF86AudioMicMute.action.spawn = [
+            "wpctl"
+            "set-mute"
+            "@DEFAULT_AUDIO_SOURCE@"
+            "toggle"
+          ];
+
+          # Brightness
+          XF86MonBrightnessUp.allow-when-locked = true;
+          XF86MonBrightnessUp.action.spawn = [
+            "brightnessctl"
+            "s"
+            "+5%"
+          ];
+
+          XF86MonBrightnessDown.allow-when-locked = true;
+          XF86MonBrightnessDown.action.spawn = [
+            "brightnessctl"
+            "s"
+            "5%-"
+          ];
+        });
 
         spawn-at-startup = [
           { command = [ "gnome-keyring-daemon" ]; }
           { command = [ "xwayland-satellite" ]; }
-          { command = [ "firefox" ]; }
           { command = [ "signal-desktop" ]; }
-          { command = [ "discord" ]; }
-          { command = [ "sable-desktop" ]; }
         ];
 
-        input.touchpad.natural-scroll = true;
-        input.focus-follows-mouse.enable = true;
+        input = {
+          touchpad.natural-scroll = true;
+          focus-follows-mouse.enable = true;
+          keyboard.xkb.layout = "de";
+        };
+
+        cursor.theme = "Wii-Pointer-P1";
+        cursor.size = 36;
 
         environment = {
           CLUTTER_BACKEND = "wayland";
@@ -275,25 +288,125 @@
     { lib, config, ... }:
 
     let
-      inherit (lib) mkIf;
+      inherit (lib) mkIf mapAttrs;
     in
 
     {
       config = mkIf config.programs.niri.enable {
         programs.niri.settings = {
-          binds."Super+Delete".action.spawn = [ "noctalia" "msg" "session" "lock" ];
           spawn-at-startup = [ { command = [ "noctalia" ]; } ];
+
+          layer-rules = [
+            # Blurry copy of the wallpaper in the overview
+            {
+              matches = [ { namespace = "^noctalia-backdrop"; } ];
+              place-within-backdrop = true;
+            }
+            # More blur
+            {
+              matches = [
+                { namespace = ''^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$''; }
+              ];
+              background-effect.xray = false;
+            }
+            {
+              matches = [ { namespace = "noctalia-window-switcher"; } ];
+              background-effect.blur = true;
+              background-effect.xray = false;
+            }
+          ];
+
+          window-rules = [
+            {
+              geometry-corner-radius = {
+                bottom-left = 20.0;
+                bottom-right = 20.0;
+                top-left = 20.0;
+                top-right = 20.0;
+              };
+              clip-to-geometry = true;
+            }
+            {
+              matches = [ { app-id = "dev.noctalia.Noctalia"; } ];
+              open-floating = true;
+              default-column-width.fixed = 1080;
+              default-window-height.fixed = 920;
+            }
+          ];
+
+          debug.honor-xdg-activation-with-invalid-serial = { };
+
+          binds =
+            mapAttrs
+              (
+                key: cfg:
+                if cfg ? action.spawn then
+                  cfg
+                  // {
+                    action.spawn = [
+                      "noctalia"
+                      "msg"
+                    ]
+                    ++ cfg.action.spawn;
+                  }
+                else
+                  cfg
+              )
+              {
+                "Mod+Space".action.spawn = [
+                  "panel-toggle"
+                  "launcher"
+                ];
+                "Mod+S".action.spawn = [
+                  "panel-toggle"
+                  "control-center"
+                ];
+                "Mod+L".action.spawn = [
+                  "session"
+                  "lock"
+                ];
+                "Mod+V".action.spawn = [
+                  "panel-toggle"
+                  "clipboard"
+                ];
+                "Mod+Minus".action.spawn = [ "settings-toggle" ];
+                "Alt+Tab".action.spawn = [
+                  "window-switcher"
+                ];
+
+                XF86AudioMicMute.action.spawn = [ "mic-mute" ];
+                XF86AudioMute.action.spawn = [ "volume-mute" ];
+                XF86AudioRaiseVolume.action.spawn = [
+                  "volume-up"
+                  "5"
+                ];
+                XF86AudioLowerVolume.action.spawn = [
+                  "volume-down"
+                  "5"
+                ];
+
+                # Brightness
+                XF86MonBrightnessUp.action.spawn = [
+                  "brightness-up"
+                  "5"
+                ];
+                XF86MonBrightnessDown.action.spawn = [
+                  "brightness-down"
+                  "5"
+                ];
+              };
+
           switch-events.lid-close.action.spawn = [
-          "noctalia"
-          "msg"
-          "session"
-          "lock"
-        ];
+            "noctalia"
+            "msg"
+            "session"
+            "lock"
+          ];
         };
       };
     };
 
-    modules.home.alacritty =
+  modules.home.alacritty =
     { lib, config, ... }:
 
     let
@@ -302,53 +415,129 @@
 
     {
       config = mkIf config.programs.niri.enable {
-      programs.niri.settings.binds."Super+T".action.spawn = "alacritty";
-      programs.niri.settings.window-rules = [
-        {
-          matches = [ { app-id = "^alacritty$"; } ];
-          open-on-workspace = "term";
-          background-effect = {
-            blur = true;
-            xray = false;
-          };
-        }
-        {
-          matches = [
-            {
-              app-id = "^alacritty$";
-              is-focused = true;
-            }
-          ];
-          opacity = 0.98;
-        }
-        {
-          matches = [
-            {
-              app-id = "^alacritty$";
-              is-focused = false;
-            }
-          ];
-          opacity = 0.7;
-        }
-      ];
-    };
+        programs.niri.settings.binds."Mod+T".action.spawn = "alacritty";
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^Alacritty$"; } ];
+            open-on-workspace = "term";
+            background-effect = {
+              blur = true;
+              xray = false;
+            };
+          }
+          {
+            matches = [
+              {
+                app-id = "^Alacritty$";
+                is-focused = true;
+              }
+            ];
+            opacity = 0.97;
+          }
+          {
+            matches = [
+              {
+                app-id = "^alacritty$";
+                is-focused = false;
+              }
+            ];
+            opacity = 0.7;
+          }
+        ];
+      };
     };
 
   modules.home.firefox =
-  {lib, config, ...}:
+    { lib, config, ... }:
 
-  let
-    inherit (lib) mkIf;
-  in
+    let
+      inherit (lib) mkIf;
+    in
 
-  {
-    config = mkIf config.programs.niri.enable {
-      programs.niri.settings.window-rules = [
-      {
-        matches = [ { app-id = "^firefox$"; } ];
-        open-on-workspace = "browser";
-      }
-      ];
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "firefox" ]; } ];
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^firefox$"; } ];
+            open-on-workspace = "browser";
+          }
+        ];
+      };
     };
-  };
+
+  modules.home.thunderbird =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "thunderbird" ]; } ];
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^thunderbird$"; } ];
+            open-on-workspace = "chat";
+          }
+        ];
+      };
+    };
+
+  modules.home.zed =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^dev.zed.Zed$"; } ];
+            open-on-workspace = "term";
+          }
+        ];
+      };
+    };
+
+  modules.home.discord =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "equibop" ]; } ];
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^equibop$"; } ];
+            open-on-workspace = "chat";
+          }
+        ];
+      };
+    };
+
+  modules.home.signal =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "signal-desktop" ]; } ];
+        programs.niri.settings.window-rules = [
+          {
+            matches = [ { app-id = "^signal$"; } ];
+            open-on-workspace = "chat";
+          }
+        ];
+      };
+    };
 }

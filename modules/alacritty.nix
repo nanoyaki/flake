@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.alacritty ];
   };
 
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.alacritty ];
+  };
+
   modules.nixos.alacritty =
     {
       lib,
@@ -22,6 +26,10 @@
         environment.systemPackages = [ pkgs.alacritty ];
       };
     };
+
+  modules.home.alacritty = {
+    programs.alacritty.enable = true;
+  };
 
   modules.nixos.plasma =
     {

@@ -13,7 +13,7 @@
     { lib, config, ... }:
 
     let
-      inherit (lib) mkMerge mkIf;
+      inherit (lib) mkMerge mkIf optional;
     in
 
     {
@@ -28,7 +28,7 @@
       users.users.hana = mkMerge [
         {
           description = "Hana";
-          extraGroups = [ "wheel" ];
+          extraGroups = [ "wheel" ] ++ optional config.networking.networkmanager.enable "networkmanager";
           isNormalUser = true;
         }
         (mkIf (config.sops.secrets ? hana) {
@@ -61,14 +61,29 @@
   };
 
   configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.hana ];
+
     home.homeDirectory = "/home/hana";
     home.stateVersion = "26.11";
     home.username = "hana";
   };
 
   configurations.home."hana@kanokoyuri" = {
+    imports = [ config.modules.home.hana ];
+
     home.homeDirectory = "/home/hana";
     home.stateVersion = "24.11";
     home.username = "hana";
   };
+
+  perSystem =
+    { pkgs, ... }:
+
+    {
+      legacyPackages.profile-pictures.hana = pkgs.fetchurl {
+        name = "hana.png";
+        url = "https://avatars.githubusercontent.com/u/144328493";
+        hash = "sha256-ccmdcdiBVc38NP8MTGfY4z6V1dkPcH/h0X5Q4bd6904=";
+      };
+    };
 }

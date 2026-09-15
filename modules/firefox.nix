@@ -16,7 +16,7 @@
     }:
 
     {
-      programs.firefox.enable = false;
+      programs.firefox.enable = true;
       environment.systemPackages = [ pkgs.firefox ];
       environment.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 

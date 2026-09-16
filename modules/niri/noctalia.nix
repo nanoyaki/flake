@@ -32,6 +32,21 @@
       };
     };
 
+  modules.nixos.niri =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf mkDefault;
+    in
+
+    {
+      config = mkIf config.programs.noctalia.enable {
+        security.pam.services.login.oo7.enable = mkDefault config.services.oo7.enable;
+        security.pam.services.login.enableGnomeKeyring =
+          mkDefault config.services.gnome.gnome-keyring.enable;
+      };
+    };
+
   modules.nixos.polkit =
     {
       lib,
@@ -370,6 +385,7 @@
         greeter_sync.auto_sync = true;
       };
 
+      backdrop.enabled = true;
       theme = {
         mode = "dark";
         # builtin = "Catppuccin";

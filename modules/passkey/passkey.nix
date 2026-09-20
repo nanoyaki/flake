@@ -15,5 +15,14 @@
     {
       environment.systemPackages = with pkgs; [ fido2-manage ];
       services.pcscd.enable = true;
+
+      services.udev.extraRules = ''
+        ACTION=="remove",\
+          ENV{ID_BUS}=="usb",\
+          ENV{ID_MODEL_ID}=="0024",\
+          ENV{ID_VENDOR_ID}=="349e",\
+          ENV{ID_VENDOR}=="TOKEN2",\
+          RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+      '';
     };
 }

@@ -5,16 +5,27 @@
     imports = [ config.modules.nixos.xdg ];
   };
 
-  modules.nixos.xdg = {
-    xdg = {
-      autostart.enable = true;
-      mime.enable = true;
-      terminal-exec.enable = true;
-      icons.enable = true;
-      menus.enable = true;
-      sounds.enable = true;
+  modules.nixos.xdg =
+    { lib, ... }:
+
+    let
+      inherit (lib) mkEnableOption;
+    in
+
+    {
+      options.xdg.enable = mkEnableOption "xdg" // {
+        default = true;
+      };
+
+      config.xdg = {
+        autostart.enable = true;
+        mime.enable = true;
+        terminal-exec.enable = true;
+        icons.enable = true;
+        menus.enable = true;
+        sounds.enable = true;
+      };
     };
-  };
 
   configurations.home."hana@himawari" = {
     imports = [ config.modules.home.xdg ];
@@ -31,27 +42,59 @@
   };
 
   modules.nixos.niri =
-    { lib, pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkIf;
+    in
 
     {
-      xdg.portal = {
-        enable = lib.mkDefault true;
-        config.preferred = {
-          default = [
-            "gtk"
-            "gnome"
-            "oo7"
+      config = mkIf ((config.xdg ? enable) && config.xdg.enable) {
+        xdg.portal = {
+          enable = lib.mkDefault true;
+          config.niri = {
+            default = [
+              "gtk"
+              "gnome"
+            ];
+            "org.freedesktop.impl.portal.Access" = "gtk";
+            "org.freedesktop.impl.portal.Notification" = "gtk";
+          };
+          extraPortals = with pkgs; [
+            xdg-desktop-portal-gtk
+            xdg-desktop-portal-gnome
           ];
-          "org.freedesktop.impl.portal.Access" = "gtk";
-          "org.freedesktop.impl.portal.Notification" = "gtk";
-          "org.freedesktop.impl.portal.Secret" = "oo7";
+          configPackages = lib.mkForce [ ];
         };
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-gnome
-          oo7-portal
-        ];
-        configPackages = lib.mkForce [ ];
+      };
+    };
+
+  modules.nixos.oo7 =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkIf optionalAttrs;
+    in
+
+    {
+      config = mkIf ((config.xdg ? enable) && config.xdg.enable) {
+        xdg.portal.extraPortals = [ pkgs.oo7-portal ];
+        xdg.portal.config = {
+          common."org.freedesktop.impl.portal.Secret" = "oo7";
+        }
+        // optionalAttrs config.programs.niri.enable {
+          niri."org.freedesktop.impl.portal.Secret" = "oo7";
+        };
       };
     };
 }

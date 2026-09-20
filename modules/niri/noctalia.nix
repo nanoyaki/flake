@@ -32,69 +32,6 @@
       };
     };
 
-  modules.nixos.niri =
-    { lib, config, ... }:
-
-    let
-      inherit (lib) mkIf mkDefault;
-    in
-
-    {
-      config = mkIf config.programs.noctalia.enable {
-        security.pam.services.login.oo7.enable = mkDefault config.services.oo7.enable;
-        security.pam.services.login.enableGnomeKeyring =
-          mkDefault config.services.gnome.gnome-keyring.enable;
-      };
-    };
-
-  modules.nixos.polkit =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
-
-    let
-      inherit (lib)
-        mkIf
-        foldl
-        attrValues
-        concatMapStringsSep
-        getExe'
-        optional
-        ;
-
-      noctaliaUsers = foldl (
-        users: cfg:
-
-        users
-        ++ optional (
-          cfg.isNormalUser
-          && config ? home-manager.users.${cfg.name}
-          && config.home-manager.users.${cfg.name}.programs.noctalia.enable
-        ) cfg.name
-      ) [ ] (attrValues config.users.users);
-    in
-
-    {
-      config = mkIf config.services.displayManager.noctalia-greeter.enable {
-        security.polkit.extraConfig = ''
-          polkit.addRule(function(action, subject) {
-            let allowedUsers = [${concatMapStringsSep ", " (user: "\"${user}\"") noctaliaUsers}];
-
-            if (action.id == "org.noctalia.greeter.sync-appearance" &&
-                action.lookup("program") == "${getExe' pkgs.noctalia-greeter "noctalia-greeter-apply-appearance"}" &&
-                action.lookup("user") == "root" &&
-                subject.local && subject.active &&
-                allowedUsers.indexOf(subject.user) >= 0) {
-              return polkit.Result.YES;
-            }
-          });
-        '';
-      };
-    };
-
   modules.home.noctalia = { pkgs, config, ... }: {
     home.file."${config.xdg.userDirs.pictures}/Wallpapers/01.png".source =
       withSystem pkgs.stdenv.hostPlatform.system

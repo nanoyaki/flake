@@ -300,10 +300,7 @@ in
           ];
         });
 
-        spawn-at-startup = [
-          { command = [ "gnome-keyring-daemon" ]; }
-          { command = [ "xwayland-satellite" ]; }
-        ];
+        spawn-at-startup = [ { command = [ "xwayland-satellite" ]; } ];
 
         input = {
           touchpad.natural-scroll = true;
@@ -568,6 +565,19 @@ in
           open-on-workspace = "chat";
           blur = true;
         };
+      };
+    };
+
+  modules.home.oo7 =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.niri.enable {
+        programs.niri.settings.spawn-at-startup = [ { command = [ "oo7-daemon" ]; } ];
       };
     };
 }

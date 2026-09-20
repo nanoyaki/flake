@@ -8,6 +8,10 @@
   };
 
   inputs = {
+    bc250 = {
+      url = "github:TesseractCat/bc250-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

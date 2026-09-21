@@ -25,24 +25,6 @@
       };
     };
 
-  modules.home.niri =
-    {
-      lib,
-      options,
-      config,
-      ...
-    }:
-
-    let
-      inherit (lib) mkIf;
-    in
-
-    {
-      config = mkIf ((options ? programs.solaar.enable) && config.programs.solaar.enable) {
-        programs.niri.settings.spawn-at-startup = [ { command = [ "solaar" ]; } ];
-      };
-    };
-
   perSystem =
     { pkgs, ... }:
 

@@ -41,7 +41,12 @@
   };
 
   modules.nixos.lact =
-    { lib, pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     let
       inherit (lib)
@@ -79,7 +84,7 @@
           ) { };
       };
 
-      configFile = format.generate "lact-config.yaml";
+      configFile = format.generate "lact-config.yaml" cfg.settings;
     in
 
     {

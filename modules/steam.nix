@@ -16,4 +16,20 @@
         extraCompatPackages = [ pkgs.proton-ge-bin ];
       };
     };
+
+  modules.nixos.nix =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.steam.enable {
+        nixpkgs.allowUnfreePkgNames = [
+          "steam"
+          "steam-unwrapped"
+        ];
+      };
+    };
 }

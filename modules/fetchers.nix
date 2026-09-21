@@ -1,8 +1,20 @@
+{ inputs, ... }:
+
 {
   perSystem =
-    { pkgs, ... }:
+    {
+      pkgs,
+      config,
+      system,
+      ...
+    }:
 
     {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        overlays = [ (final: prev: { inherit (config.legacyPackages) fetchPixivIllust; }) ];
+      };
+
       legacyPackages.fetchPixivIllust = pkgs.callPackage (
         {
           stdenvNoCC,

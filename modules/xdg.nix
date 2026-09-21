@@ -39,6 +39,8 @@
     imports = [ config.modules.home.xdg ];
 
     xdg.userDirs = {
+      setSessionVariables = false;
+
       desktop = "/home/hana/Desktop";
       download = "/mnt/os-shared/Downloads";
       documents = "/mnt/os-shared/Documents";

@@ -1,6 +1,14 @@
 { config, ... }:
 
 {
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.prismlauncher ];
+  };
+
+  modules.nixos.prismlauncher = {
+    nixpkgs.overlays = [ config.overlays.prismlauncher ];
+  };
+
   configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.prismlauncher ];
   };
@@ -9,7 +17,6 @@
     { pkgs, ... }:
 
     {
-      nixpkgs.overlays = [ config.overlays.prismlauncher ];
       home.packages = [ pkgs.prismlauncher ];
     };
 

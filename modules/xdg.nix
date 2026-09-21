@@ -45,6 +45,7 @@
     {
       lib,
       pkgs,
+      options,
       config,
       ...
     }:
@@ -54,7 +55,7 @@
     in
 
     {
-      config = mkIf ((config.xdg ? enable) && config.xdg.enable) {
+      config = mkIf ((options.xdg ? enable) && config.xdg.enable) {
         xdg.portal = {
           enable = lib.mkDefault true;
           config.niri = {
@@ -78,6 +79,7 @@
     {
       lib,
       pkgs,
+      options,
       config,
       ...
     }:
@@ -87,7 +89,7 @@
     in
 
     {
-      config = mkIf ((config.xdg ? enable) && config.xdg.enable) {
+      config = mkIf ((options.xdg ? enable) && config.xdg.enable) {
         xdg.portal.extraPortals = [ pkgs.oo7-portal ];
         xdg.portal.config = {
           common."org.freedesktop.impl.portal.Secret" = "oo7";

@@ -25,4 +25,16 @@
       '';
     };
   };
+
+  modules.nixos.setup =
+    { lib, pkgs, ... }:
+
+    let
+      inherit (lib) mkForce;
+    in
+
+    {
+      environment.systemPackages = [ pkgs.usbguard ];
+      services.usbguard.enable = mkForce false;
+    };
 }

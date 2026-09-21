@@ -147,11 +147,11 @@ in
       imports = [ config.modules.home.home-manager ];
     };
 
-    modules.home.home-manager = {
+    modules.home.home-manager = _: {
       xdg.enable = true;
       home.preferXdgDirectories = true;
 
-      home.shell.enableBashIntegration = true;
+      home.shell.enableShellIntegration = true;
       programs.home-manager.enable = true;
     };
   };

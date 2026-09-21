@@ -5,7 +5,6 @@
     imports = [ config.modules.nixos.networking ];
 
     networking.hostId = "bfff451b";
-    networking.networkmanager.enable = true;
   };
 
   configurations.nixos.kanokoyuri = _: {
@@ -13,6 +12,7 @@
 
     networking.hostId = "69804090";
     networking.useDHCP = false;
+    networking.networkmanager.enable = false;
 
     networking.interfaces.enp1s0 = {
       ipv4.addresses = [
@@ -55,7 +55,7 @@
 
         enableIPv6 = true;
         useDHCP = mkDefault true;
-        networkmanager.enable = mkDefault false;
+        networkmanager.enable = mkDefault true;
 
         nameservers = mkDefault [
           "9.9.9.9"

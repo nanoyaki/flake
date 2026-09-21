@@ -9,14 +9,21 @@
     imports = [ config.modules.nixos.swap ];
   };
 
-  modules.nixos.swap = {
-    swapDevices = [
-      {
-        device = "/var/swap";
-        size = 8 * 1024;
-      }
-    ];
+  modules.nixos.swap =
+    { lib, ... }:
 
-    zramSwap.enable = true;
-  };
+    let
+      inherit (lib) mkDefault;
+    in
+
+    {
+      swapDevices = [
+        {
+          device = "/var/swap";
+          size = 8 * 1024;
+        }
+      ];
+
+      zramSwap.enable = mkDefault true;
+    };
 }

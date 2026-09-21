@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.xdg ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.xdg ];
+  };
+
   modules.nixos.xdg =
     { lib, ... }:
 
@@ -31,6 +35,21 @@
     imports = [ config.modules.home.xdg ];
   };
 
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.xdg ];
+
+    xdg.userDirs = {
+      desktop = "/home/hana/Desktop";
+      download = "/mnt/os-shared/Downloads";
+      documents = "/mnt/os-shared/Documents";
+      videos = "/mnt/os-shared/Videos";
+      pictures = "/mnt/os-shared/Pictures";
+      music = "/mnt/os-shared/Music";
+      publicShare = null;
+      templates = null;
+    };
+  };
+
   modules.home.xdg = {
     xdg = {
       enable = true;
@@ -38,6 +57,7 @@
       mime.enable = true;
       mimeApps.enable = true;
       terminal-exec.enable = true;
+      userDirs.enable = true;
     };
   };
 

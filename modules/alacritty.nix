@@ -5,8 +5,8 @@
     imports = [ config.modules.nixos.alacritty ];
   };
 
-  configurations.home."hana@himawari" = {
-    imports = [ config.modules.home.alacritty ];
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.alacritty ];
   };
 
   modules.nixos.alacritty =
@@ -26,6 +26,14 @@
         environment.systemPackages = [ pkgs.alacritty ];
       };
     };
+
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.alacritty ];
+  };
+
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.alacritty ];
+  };
 
   modules.home.alacritty = {
     programs.alacritty.enable = true;

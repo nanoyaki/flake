@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.zed ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.zed ];
+  };
+
   modules.nixos.zed =
     {
       lib,
@@ -62,6 +66,14 @@
         environment.sessionVariables.SOPS_EDITOR = "${lib.getExe pkgs.zed-editor} --wait";
       };
     };
+
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.zed ];
+  };
+
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.zed ];
+  };
 
   modules.home.zed = {
     programs.zed-editor = {

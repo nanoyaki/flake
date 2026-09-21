@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.audio ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.audio ];
+  };
+
   modules.nixos.audio =
     { lib, config, ... }:
 

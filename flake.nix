@@ -38,6 +38,17 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixowos = {
+      url = "github:yunfachi/NixOwOS";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+      inputs.denix.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.denix.inputs.systems.follows = "systems";
+      inputs.git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.denix.inputs.git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nuschtos-search.inputs.flake-utils.inputs.systems.follows = "systems";
+    };
     nixpkgs = {
       url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     };
@@ -55,6 +66,10 @@
     systems = {
       url = "github:nix-systems/default-linux";
       flake = false;
+    };
+    vermeer-undervolt = {
+      url = "github:nanoyaki/5800x3d-undervolt";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

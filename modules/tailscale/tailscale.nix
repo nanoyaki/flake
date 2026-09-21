@@ -6,6 +6,10 @@
     imports = [ config.modules.nixos.tailscale ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.tailscale ];
+  };
+
   configurations.nixos.kanokoyuri = {
     imports = [ config.modules.nixos.tailscale ];
 

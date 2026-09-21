@@ -7,6 +7,10 @@
     imports = [ config.modules.nixos.firefox ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.firefox ];
+  };
+
   modules.nixos.firefox =
     {
       lib,
@@ -32,6 +36,10 @@
     };
 
   configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.firefox ];
+  };
+
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.firefox ];
   };
 

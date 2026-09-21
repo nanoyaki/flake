@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.theme ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.theme ];
+  };
+
   modules.nixos.theme =
     { lib, config, ... }:
 
@@ -23,6 +27,10 @@
     };
 
   configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.theme ];
+  };
+
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.theme ];
   };
 

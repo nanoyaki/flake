@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.pam ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.pam ];
+  };
+
   modules.nixos.pam = {
     security.pam.enable = true;
   };

@@ -1,36 +1,11 @@
 { config, ... }:
 
 {
-  configurations.nixos.himawari = {
-    imports = [ config.modules.nixos.bitwarden ];
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.bitwarden ];
   };
 
-  modules.nixos.bitwarden =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
-
-    let
-      inherit (lib) mkEnableOption mkIf;
-    in
-
-    {
-      options.programs.bitwarden.enable = mkEnableOption "bitwarden" // {
-        default = true;
-      };
-
-      config = mkIf config.programs.bitwarden.enable {
-        environment.systemPackages = with pkgs; [
-          bitwarden-desktop
-          bitwarden-cli
-        ];
-      };
-    };
-
-  configurations.home."hana@himawari" = {
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.bitwarden ];
   };
 
@@ -52,10 +27,7 @@
       };
 
       config = mkIf config.programs.bitwarden.enable {
-        home.packages = with pkgs; [
-          bitwarden-desktop
-          bitwarden-cli
-        ];
+        home.packages = [ pkgs.bitwarden-desktop ];
       };
     };
 }

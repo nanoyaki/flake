@@ -19,12 +19,13 @@ in
 {
   options.overlays = mkOption {
     type = types.lazyAttrsOf overlayType;
+    apply = mapAttrs (
+      _: overlay: _final: prev:
+
+      withSystem prev.stdenv.hostPlatform.system overlay
+    );
     default = { };
   };
 
-  config.flake.overlays = mapAttrs (
-    _: overlay: final: prev:
-
-    withSystem prev.stdenv.hostPlatform.system (systemArgs: overlay final prev systemArgs)
-  ) config.overlays;
+  config.flake.overlays = config.overlays;
 }

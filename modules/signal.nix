@@ -5,6 +5,10 @@
     imports = [ config.modules.home.signal ];
   };
 
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.signal ];
+  };
+
   modules.home.signal =
     { pkgs, ... }:
 

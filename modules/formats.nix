@@ -29,18 +29,11 @@
       };
     };
 
-  flake.overlays.formats =
-    _: prev:
-
-    withSystem prev.stdenv.hostPlatform.system (
-      { config, ... }:
-
-      {
-        inherit (config.legacyPackages)
-          writeEnv
-          writeEnv'
-          writeYaml
-          ;
-      }
-    );
+  overlays.formats = { config, ... }: {
+    inherit (config.legacyPackages)
+      writeEnv
+      writeEnv'
+      writeYaml
+      ;
+  };
 }

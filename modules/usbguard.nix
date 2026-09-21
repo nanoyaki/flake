@@ -15,6 +15,10 @@
     '';
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.usbguard ];
+  };
+
   modules.nixos.usbguard = {
     services.usbguard = {
       enable = true;

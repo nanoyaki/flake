@@ -15,6 +15,12 @@
     sops.age.keyFile = "/home/hana/.config/sops/age/keys.txt";
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.sops ];
+
+    sops.age.keyFile = "/home/hana/.config/sops/age/keys.txt";
+  };
+
   modules.nixos.sops =
     { pkgs, ... }:
 
@@ -33,8 +39,21 @@
     imports = [ config.modules.home.sops ];
   };
 
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.sops ];
+  };
+
   modules.home.sops =
-    { pkgs, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkDefault;
+    in
 
     {
       imports = [ inputs.sops-nix.homeModules.default ];
@@ -42,7 +61,7 @@
       home.packages = [ pkgs.sops ];
       sops = {
         defaultSopsFormat = "yaml";
-        age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+        age.keyFile = mkDefault "${config.home.homeDirectory}/.config/sops/age/keys.txt";
       };
     };
 }

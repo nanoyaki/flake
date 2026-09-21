@@ -123,8 +123,19 @@ in
         }
       ) config.configurations.home)
       ++ [
-        { kanokoyuri.imports = [ config.modules.nixos.home-manager ]; }
-        { himawari.imports = [ config.modules.nixos.home-manager ]; }
+        {
+          kanokoyuri = {
+            imports = [ config.modules.nixos.home-manager ];
+          };
+
+          himawari = {
+            imports = [ config.modules.nixos.home-manager ];
+          };
+
+          shirayuri = {
+            imports = [ config.modules.nixos.home-manager ];
+          };
+        }
       ]
     );
 
@@ -147,7 +158,11 @@ in
       imports = [ config.modules.home.home-manager ];
     };
 
-    modules.home.home-manager = _: {
+    configurations.home."hana@shirayuri" = {
+      imports = [ config.modules.home.home-manager ];
+    };
+
+    modules.home.home-manager = {
       xdg.enable = true;
       home.preferXdgDirectories = true;
 

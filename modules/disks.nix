@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 
 {
   flake-file.inputs.disko.url = "github:nix-community/disko";
@@ -37,7 +37,10 @@
   };
 
   configurations.nixos.himawari = {
-    imports = [ inputs.disko.nixosModules.disko ];
+    imports = [
+      config.modules.nixos.disks
+      inputs.disko.nixosModules.disko
+    ];
 
     disko.devices.disk.main = {
       type = "disk";
@@ -73,5 +76,40 @@
         };
       };
     };
+  };
+
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.disks ];
+
+    warnings = [
+      "migrate to disko with LUKS encryption."
+    ];
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-uuid/27D0-0225";
+      fsType = "vfat";
+      options = [ "umask=0077" ];
+    };
+
+    fileSystems."/" = {
+      device = "/dev/disk/by-uuid/6c7d866a-7754-4eb7-8ea5-cea6f715d8ef";
+      fsType = "btrfs";
+      options = [ "compress=zstd" ];
+    };
+
+    fileSystems."/mnt/os-shared" = {
+      device = "/dev/disk/by-uuid/71f7fad7-7dcb-4aef-ab9a-5e9499215156";
+      fsType = "btrfs";
+      options = [
+        "compress=zstd"
+        "nofail"
+      ];
+    };
+  };
+
+  modules.nixos.disks = {
+    services.gvfs.enable = true;
+    services.udisks2.enable = true;
+    services.fstrim.enable = true;
   };
 }

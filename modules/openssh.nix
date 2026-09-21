@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.openssh ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.openssh ];
+  };
+
   modules.nixos.openssh =
     { lib, pkgs, ... }:
 

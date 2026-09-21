@@ -5,6 +5,10 @@
     imports = [ config.modules.home.discord ];
   };
 
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.discord ];
+  };
+
   modules.home.discord = _: {
     programs.equibop = {
       enable = true;

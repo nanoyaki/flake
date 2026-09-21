@@ -9,11 +9,16 @@
     imports = [ config.modules.nixos.hardware ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.hardware ];
+  };
+
   modules.nixos.hardware =
     { lib, config, ... }:
 
     let
       inherit (lib)
+        optionals
         mkOverride
         mkIf
         any
@@ -39,6 +44,16 @@
 
         boot.loader.efi.canTouchEfiVariables = mkHardwareDefault cfg.uefi.supported;
 
+        boot.kernelParams = mkHardwareDefault (
+          optionals
+            (
+              cpu.vendor_name == "GenuineAMD"
+              && (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.3")
+            )
+            [
+              "amd_pstate=active"
+            ]
+        );
         hardware.cpu.amd.updateMicrocode = mkHardwareDefault (cpu.vendor_name == "GenuineAMD");
         hardware.cpu.intel.updateMicrocode = mkHardwareDefault (cpu.vendor_name == "GenuineIntel");
 

@@ -57,8 +57,8 @@ in
     imports = [ config.modules.nixos.niri ];
   };
 
-  configurations.home."hana@himawari" = {
-    imports = [ config.modules.home.niri ];
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.niri ];
   };
 
   modules.nixos.niri =
@@ -99,6 +99,14 @@ in
         environment.systemPackages = config.programs.niri.requiredPackages;
       };
     };
+
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.niri ];
+  };
+
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.niri ];
+  };
 
   modules.home.niri =
     { lib, config, ... }:

@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   lib,
   config,
   moduleLocation,
@@ -49,6 +48,10 @@ in
     };
 
     configurations.nixos.kanokoyuri = {
+      imports = [ config.modules.nixos.nix ];
+    };
+
+    configurations.nixos.shirayuri = {
       imports = [ config.modules.nixos.nix ];
     };
 
@@ -136,18 +139,12 @@ in
       imports = [ config.modules.home.nix ];
     };
 
+    configurations.home."hana@shirayuri" = {
+      imports = [ config.modules.home.nix ];
+    };
+
     modules.home.nix = {
       programs.git.enable = true;
     };
-
-    perSystem =
-      { system, ... }:
-
-      {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues self.overlays;
-        };
-      };
   };
 }

@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.swap ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.swap ];
+  };
+
   modules.nixos.swap =
     { lib, ... }:
 

@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.users ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.users ];
+  };
+
   modules.nixos.users = {
     users.mutableUsers = false;
   };

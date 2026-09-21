@@ -1,18 +1,11 @@
 { config, ... }:
 
 {
-  configurations.nixos.himawari = {
-    imports = [ config.modules.nixos.matrix-client ];
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.matrix-client ];
   };
 
-  modules.nixos.matrix-client =
-    { pkgs, ... }:
-
-    {
-      environment.systemPackages = [ pkgs.fluffychat ];
-    };
-
-  configurations.home."hana@himawari" = {
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.matrix-client ];
   };
 

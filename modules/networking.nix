@@ -7,6 +7,12 @@
     networking.hostId = "bfff451b";
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.networking ];
+
+    networking.hostId = "57ced6bb";
+  };
+
   configurations.nixos.kanokoyuri = _: {
     imports = [ config.modules.nixos.networking ];
 

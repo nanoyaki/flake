@@ -5,6 +5,10 @@
     imports = [ config.modules.nixos.plymouth ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.plymouth ];
+  };
+
   modules.nixos.plymouth =
     { pkgs, ... }:
 

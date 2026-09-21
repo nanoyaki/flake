@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.hana ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.hana ];
+  };
+
   modules.nixos.hana =
     { lib, config, ... }:
 
@@ -60,6 +64,12 @@
   };
 
   configurations.home."hana@kanokoyuri" = {
+    imports = [ config.modules.home.hana ];
+
+    home.stateVersion = "24.11";
+  };
+
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.hana ];
 
     home.stateVersion = "24.11";

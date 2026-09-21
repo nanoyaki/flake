@@ -5,8 +5,8 @@
     imports = [ config.modules.nixos.noctalia ];
   };
 
-  configurations.home."hana@himawari" = {
-    imports = [ config.modules.home.noctalia ];
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.noctalia ];
   };
 
   modules.nixos.noctalia =
@@ -31,6 +31,14 @@
         };
       };
     };
+
+  configurations.home."hana@himawari" = {
+    imports = [ config.modules.home.noctalia ];
+  };
+
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.noctalia ];
+  };
 
   modules.home.noctalia = { pkgs, config, ... }: {
     home.file."${config.xdg.userDirs.pictures}/Wallpapers/01.png".source =

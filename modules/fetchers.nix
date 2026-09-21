@@ -78,7 +78,7 @@
       ) { };
     };
 
-  overlays.fetchers = _: _: { config, ... }: {
+  overlays.fetchers = { config, ... }: {
     inherit (config.legacyPackages) fetchPixivIllust;
   };
 }

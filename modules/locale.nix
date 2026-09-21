@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.locale ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.locale ];
+  };
+
   modules.nixos.locale =
     let
       german = "de_DE.UTF-8";

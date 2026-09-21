@@ -9,6 +9,10 @@
     imports = [ config.modules.nixos.shell ];
   };
 
+  configurations.nixos.shirayuri = {
+    imports = [ config.modules.nixos.shell ];
+  };
+
   modules.nixos.shell =
     { lib, pkgs, ... }:
 
@@ -52,6 +56,10 @@
   };
 
   configurations.home."hana@kanokoyuri" = {
+    imports = [ config.modules.home.shell ];
+  };
+
+  configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.shell ];
   };
 

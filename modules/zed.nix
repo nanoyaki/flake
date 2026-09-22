@@ -117,4 +117,18 @@
       };
     };
   };
+
+  modules.home.noctalia =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.programs.zed-editor.enable {
+        programs.zed-editor.userSettings.theme.light = "Noctalia Light Transparent";
+        programs.zed-editor.userSettings.theme.dark = "Noctalia Dark Transparent";
+      };
+    };
 }

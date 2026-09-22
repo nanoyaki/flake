@@ -106,6 +106,32 @@ in
 
   configurations.home."hana@shirayuri" = {
     imports = [ config.modules.home.niri ];
+
+    programs.niri.settings.outputs."DP-1" = {
+      mode = {
+        width = 1920;
+        height = 1080;
+        refresh = 144.001;
+      };
+
+      scale = 1.0;
+      position.x = 0;
+      position.y = 0;
+      variable-refresh-rate = true;
+      focus-at-startup = true;
+    };
+
+    programs.niri.settings.outputs."HDMI-A-1" = {
+      mode = {
+        width = 1920;
+        height = 1080;
+        refresh = 60.000;
+      };
+
+      scale = 1.0;
+      position.x = 1920;
+      position.y = 0;
+    };
   };
 
   modules.home.niri =
@@ -238,13 +264,13 @@ in
           "Mod+2".action = actions.focus-workspace "chat";
           "Mod+3".action = actions.focus-workspace "term";
 
-          "Mod+Left".action = actions.focus-column-left;
-          "Mod+Right".action = actions.focus-column-right;
+          "Mod+Left".action = actions.focus-column-or-monitor-left;
+          "Mod+Right".action = actions.focus-column-or-monitor-right;
           "Mod+Up".action = actions.focus-window-or-workspace-up;
           "Mod+Down".action = actions.focus-window-or-workspace-down;
 
-          "Mod+Shift+Left".action = actions.move-column-left;
-          "Mod+Shift+Right".action = actions.move-column-right;
+          "Mod+Shift+Left".action = actions.move-column-left-or-to-monitor-left;
+          "Mod+Shift+Right".action = actions.move-column-right-or-to-monitor-right;
           "Mod+Shift+Up".action = actions.move-column-to-workspace-up;
           "Mod+Shift+Down".action = actions.move-column-to-workspace-down;
 
@@ -604,6 +630,32 @@ in
     {
       config = mkIf ((options ? programs.solaar.enable) && config.programs.solaar.enable) {
         programs.niri.settings.spawn-at-startup = [ { command = [ "solaar" ]; } ];
+      };
+    };
+
+  modules.home.fcitx5 =
+    {
+      lib,
+      options,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf ((options ? programs.solaar.enable) && config.programs.solaar.enable) {
+        programs.niri.settings.spawn-at-startup = [
+          {
+            command = [
+              "fcitx5"
+              "-d"
+              "--replace"
+            ];
+          }
+        ];
       };
     };
 }

@@ -9,9 +9,8 @@ _:
       inherit (lib)
         mkOption
         types
-        attrValues
         mkEnableOption
-        concatMapStringsSep
+        mapAttrsToList
         mkIf
         ;
 
@@ -31,9 +30,7 @@ _:
       };
 
       config = mkIf cfg.enable {
-        warnings = concatMapStringsSep "\n" (service: "- ${service}: ${cfg.modules.${service}}") (
-          attrValues cfg.modules
-        );
+        warnings = mapAttrsToList (service: cfg: "- ${service}: ${cfg}") (cfg.modules);
       };
     };
 
@@ -46,13 +43,15 @@ _:
     }:
 
     let
-      inherit (lib) optionalAttrs;
+      inherit (lib) mkIf;
     in
 
     {
-      config = optionalAttrs ((options.services ? setup) && config.services.setup.enable) {
-        services.setup.modules.usbguard = "this service is temporarily disabled. Make sure to run `usbguard generate-policy` for an initial device configuration.";
-      };
+      config = lib.optionalAttrs (options ? services.setup) (
+        mkIf (config.services.setup.enable or false) {
+          services.setup.modules.usbguard = "this service is temporarily disabled. Make sure to run `usbguard generate-policy` for an initial device configuration.";
+        }
+      );
     };
 
   modules.nixos.sops =
@@ -64,13 +63,15 @@ _:
     }:
 
     let
-      inherit (lib) optionalAttrs;
+      inherit (lib) mkIf;
     in
 
     {
-      config = optionalAttrs ((options.services ? setup) && config.services.setup.enable) {
-        services.setup.modules.sops = "remember to configure a key file.";
-      };
+      config = lib.optionalAttrs (options ? services.setup) (
+        mkIf (config.services.setup.enable or false) {
+          services.setup.modules.sops = "remember to configure a key file.";
+        }
+      );
     };
 
   modules.nixos.limine =
@@ -83,14 +84,16 @@ _:
     }:
 
     let
-      inherit (lib) optionalAttrs;
+      inherit (lib) mkIf;
     in
 
     {
-      config = optionalAttrs ((options.services ? setup) && config.services.setup.enable) {
-        environment.systemPackages = [ pkgs.sbctl ];
-        services.setup.modules.limine = "secure boot is not set up. Use `sbctl` to set it up.";
-      };
+      config = lib.optionalAttrs (options ? services.setup) (
+        mkIf (config.services.setup.enable or false) {
+          environment.systemPackages = [ pkgs.sbctl ];
+          services.setup.modules.limine = "secure boot is not set up. Use `sbctl` to set it up.";
+        }
+      );
     };
 
   modules.nixos.hardware =
@@ -103,13 +106,15 @@ _:
     }:
 
     let
-      inherit (lib) optionalAttrs;
+      inherit (lib) mkIf;
     in
 
     {
-      config = optionalAttrs ((options.services ? setup) && config.services.setup.enable) {
-        environment.systemPackages = [ pkgs.nixos-facter ];
-        services.setup.modules.hardware = "hardware configuration is not set up. Use `nixos-facter` to generate one.";
-      };
+      config = lib.optionalAttrs (options ? services.setup) (
+        mkIf (config.services.setup.enable or false) {
+          environment.systemPackages = [ pkgs.nixos-facter ];
+          services.setup.modules.hardware = "hardware configuration is not set up. Use `nixos-facter` to generate one.";
+        }
+      );
     };
 }

@@ -23,9 +23,10 @@
           fcitx5-gtk
         ];
 
+        fcitx5.settings.globalOptions.Hotkey.TriggerKeys = "Super+Alt";
+        fcitx5.settings.globalOptions.Behaviour.ActiveByDefault = "False";
         fcitx5.settings.inputMethod = {
           GroupOrder."0" = "Default";
-          GroupOrder."1" = "Japanese";
 
           "Groups/0" = {
             Name = "Default";
@@ -34,16 +35,7 @@
           };
 
           "Groups/0/Items/0".Name = "keyboard-de";
-          "Groups/0/Items/0".Layout = "de";
-
-          "Groups/1" = {
-            Name = "Japanese";
-            "Default Layout" = "de";
-            DefaultIM = "mozc";
-          };
-
-          "Groups/1/Items/0".Name = "mozc";
-          "Groups/1/Items/0".Layout = "de";
+          "Groups/0/Items/1".Name = "mozc";
         };
       };
     };

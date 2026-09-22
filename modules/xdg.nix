@@ -1,5 +1,9 @@
 { config, ... }:
 
+let
+  flakeCfg = config;
+in
+
 {
   configurations.nixos.himawari = {
     imports = [ config.modules.nixos.xdg ];
@@ -35,22 +39,37 @@
     imports = [ config.modules.home.xdg ];
   };
 
-  configurations.home."hana@shirayuri" = {
-    imports = [ config.modules.home.xdg ];
+  configurations.home."hana@shirayuri" =
+    { config, ... }:
 
-    xdg.userDirs = {
-      setSessionVariables = false;
+    let
+      inherit (config.lib.file) mkOutOfStoreSymlink;
+    in
 
-      desktop = "/home/hana/Desktop";
-      download = "/mnt/os-shared/Downloads";
-      documents = "/mnt/os-shared/Documents";
-      videos = "/mnt/os-shared/Videos";
-      pictures = "/mnt/os-shared/Pictures";
-      music = "/mnt/os-shared/Music";
-      publicShare = null;
-      templates = null;
+    {
+      imports = [ flakeCfg.modules.home.xdg ];
+
+      home.file = {
+        Downloads.source = mkOutOfStoreSymlink "/mnt/os-shared/Downloads";
+        Documents.source = mkOutOfStoreSymlink "/mnt/os-shared/Documents";
+        Videos.source = mkOutOfStoreSymlink "/mnt/os-shared/Videos";
+        Pictures.source = mkOutOfStoreSymlink "/mnt/os-shared/Pictures";
+        Music.source = mkOutOfStoreSymlink "/mnt/os-shared/Music";
+      };
+
+      xdg.userDirs = {
+        setSessionVariables = false;
+
+        desktop = "/home/hana/Desktop";
+        download = "/mnt/os-shared/Downloads";
+        documents = "/mnt/os-shared/Documents";
+        videos = "/mnt/os-shared/Videos";
+        pictures = "/mnt/os-shared/Pictures";
+        music = "/mnt/os-shared/Music";
+        publicShare = null;
+        templates = null;
+      };
     };
-  };
 
   modules.home.xdg = {
     xdg = {

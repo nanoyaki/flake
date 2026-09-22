@@ -45,6 +45,10 @@
       withSystem pkgs.stdenv.hostPlatform.system
         ({ config, ... }: config.packages.wallpaper);
 
+    home.file."${config.xdg.userDirs.pictures}/Wallpapers/02.jpg".source =
+      withSystem pkgs.stdenv.hostPlatform.system
+        ({ config, ... }: config.packages.wallpaper2);
+
     programs.noctalia.enable = true;
     programs.noctalia.settings = {
       bar.default = {

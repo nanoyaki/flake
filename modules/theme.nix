@@ -62,6 +62,11 @@
         hash = "sha256-MjEEnE6t4B2zhGE1oDCpMGGQO9rI97eFnhH4Nz4P9X0=";
       };
 
+      packages.wallpaper2 = pkgs.fetchPixivIllust {
+        id = 101272718;
+        hash = "sha256-5kCaGJ8RgfpKA13ZsMHchfCX1lS/y9nlU9OCwQ91FX4=";
+      };
+
       packages.cursor = pkgs.fetchzip {
         url = "https://web.archive.org/web/20260806074648/https://files.primm.gay/extras/cursors/Wii/Linux%20Cursors%20Scalable.7z";
         hash = "sha256-Q1Aq2gAK/nsW4lpAI9smm9y6u9TnoVLn6q1CqmL6chM=";

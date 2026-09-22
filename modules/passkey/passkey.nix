@@ -36,4 +36,23 @@
           RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
       '';
     };
+
+  modules.nixos.hana =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.services.pcscd.enable {
+        programs.git.config = {
+          gpg.format = "ssh";
+          user.signingkey = "/home/hana/.ssh/id_hasu.pub";
+
+          commit.gpgSign = true;
+          tag.gpgSign = true;
+        };
+      };
+    };
 }

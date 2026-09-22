@@ -93,8 +93,12 @@
 
     {
       config = mkIf (config.home.username == "hana") {
-        programs.git.settings.user.email = "contact@nanoyaki.space";
-        programs.git.settings.user.name = "nanoyaki";
+        programs.git = {
+          # https://gpg.fail/
+          signing.format = "ssh";
+          settings.user.email = "contact@nanoyaki.space";
+          settings.user.name = "nanoyaki";
+        };
       };
     };
 

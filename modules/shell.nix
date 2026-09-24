@@ -73,6 +73,12 @@
         zellij.settings.default_shell = "zsh";
         nushell.enable = true;
         nushell.plugins = with pkgs.nushellPlugins; [ formats ];
+        nushell.settings = {
+          show_banner = false;
+          completions.external.enable = true;
+          completions.external.max_results = 200;
+        };
+
         starship.enable = true;
         btop.enable = true;
         lsd.enable = true;

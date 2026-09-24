@@ -167,119 +167,35 @@
       lockscreen_widgets = {
         enabled = true;
         schema_version = 2;
-        grid = {
-          cell_size = 8;
-          major_interval = 4;
-          visible = true;
-        };
 
-        widget_order = [
-          "lock-login-winit"
-          "lock-login-builtin-display"
-          "lock-weather"
-          "lock-audio-visualizer"
-          "lock-media-player"
-        ];
+        widget_order = [ "lock-login-box" ];
+        widget.lock-login-box = {
+          cx = 960.0;
+          cy = 600.0;
+          rotation = 0.0;
+          box_width = 400.0;
+          box_height = 70.0;
 
-        widget = {
-          lock-login-builtin-display = {
-            box_height = 70.0;
-            box_width = 400.0;
-            cx = 960.0;
-            cy = 600.0;
-            output = "eDP-1";
-            placement_height = 1200.0;
-            placement_width = 1920.0;
-            rotation = 0.0;
+          output = "eDP-1";
+          placement_height = 1200.0;
+          placement_width = 1920.0;
 
-            type = "login_box";
-            settings = {
-              background_color = "surface_variant";
-              background_opacity = 0.97;
-              background_radius = 12.0;
-              center_password_text = true;
-              input_opacity = 1.0;
-              input_radius = 6.0;
-              layout = "compact";
-              show_caps_lock = true;
-              show_keyboard_layout = true;
-              show_login_button = true;
-              show_media = true;
-              show_session_buttons = false;
-              show_unlock_hint = false;
-              show_weather = true;
-            };
-          };
-
-          lock-login-winit = {
-            box_height = 196.0;
-            box_width = 810.0;
-            cx = 476.0;
-            cy = 972.0;
-            output = "winit";
-            placement_height = 1154.0;
-            placement_width = 951.0;
-            rotation = 0.0;
-
-            type = "login_box";
-            settings = {
-              background_color = "surface_variant";
-              background_opacity = 0.88;
-              background_radius = 12.0;
-              center_password_text = false;
-              input_opacity = 1.0;
-              input_radius = 6.0;
-              layout = "regular";
-              show_caps_lock = true;
-              show_keyboard_layout = true;
-              show_login_button = true;
-              show_media = true;
-              show_session_buttons = true;
-              show_unlock_hint = true;
-              show_weather = true;
-            };
-          };
-
-          weather = {
-            box_height = 0.0;
-            box_width = 0.0;
-            cx = 132.0;
-            cy = 70.0;
-            output = "eDP-1";
-            placement_height = 1200.0;
-            placement_width = 1920.0;
-            rotation = 0.0;
-
-            type = "weather";
-            settings.show_forecast = false;
-          };
-
-          lock-audio-visualizer = {
-            box_height = 48.0;
-            box_width = 384.0;
-            cx = 1696.0;
-            cy = 48.0;
-            output = "eDP-1";
-            placement_height = 1200.0;
-            placement_width = 1920.0;
-            rotation = 0.0;
-
-            type = "audio_visualizer";
-            settings.bands = 32;
-            settings.show_when_idle = true;
-          };
-
-          lock-media-player = {
-            box_height = 160.0;
-            box_width = 384.0;
-            cx = 1696.0;
-            cy = 156.0;
-            output = "eDP-1";
-            placement_height = 1200.0;
-            placement_width = 1920.0;
-            rotation = 0.0;
-
-            type = "media_player";
+          type = "login_box";
+          settings = {
+            background_color = "surface_variant";
+            background_opacity = 0.0;
+            background_radius = 0.0;
+            center_password_text = true;
+            input_opacity = 1.0;
+            input_radius = 32.0;
+            layout = "compact";
+            show_caps_lock = false;
+            show_keyboard_layout = false;
+            show_login_button = false;
+            show_media = true;
+            show_session_buttons = false;
+            show_unlock_hint = false;
+            show_weather = true;
           };
         };
       };

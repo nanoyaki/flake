@@ -110,7 +110,7 @@
           diagnostic.suppress = [ "sema-extra-with" ];
         };
 
-        profiles.performance.lsp.nixd.settings.options = {
+        profiles.performance.settings.lsp.nixd.settings.options = {
           nixos.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.nixosConfigurations)";
           home-manager.expr = "let flake = builtins.getFlake (builtins.toString ./.); inherit (flake.inputs.nixpkgs) lib; in builtins.foldl' (acc: cfg: lib.recursiveUpdate acc cfg.options) { } (builtins.attrValues flake.homeConfigurations)";
         };

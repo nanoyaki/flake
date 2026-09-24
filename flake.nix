@@ -40,14 +40,18 @@
     };
     nixowos = {
       url = "github:yunfachi/NixOwOS";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-      inputs.denix.inputs.nixpkgs.follows = "nixpkgs";
-      inputs.denix.inputs.systems.follows = "systems";
-      inputs.git-hooks.inputs.nixpkgs.follows = "nixpkgs";
-      inputs.denix.inputs.git-hooks.inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nuschtos-search.inputs.flake-utils.inputs.systems.follows = "systems";
+      inputs = {
+        denix.inputs = {
+          git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+          nixpkgs.follows = "nixpkgs";
+          systems.follows = "systems";
+        };
+        flake-parts.follows = "flake-parts";
+        git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
+        nuschtos-search.inputs.flake-utils.inputs.systems.follows = "systems";
+        systems.follows = "systems";
+      };
     };
     nixpkgs = {
       url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";

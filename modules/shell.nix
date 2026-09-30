@@ -17,15 +17,36 @@
     { lib, pkgs, ... }:
 
     {
-      users.defaultUserShell = pkgs.bash;
-      programs.bash.interactiveShellInit = ''
-        if ! [ "$TERM" = "dumb" ] && [ -z "$BASH_EXECUTION_STRING" ]; then
-          exec nu
-        fi
-      '';
+      environment.pathsToLink = [ "/share/zsh" ];
+      users.defaultUserShell = pkgs.zsh;
+      programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        enableBashCompletion = true;
+        autosuggestions.enable = true;
+        syntaxHighlighting = {
+          enable = true;
+          highlighters = [
+            "main"
+            "pattern"
+          ];
+          patterns."rm -rf" = "fg=white,bold,bg=red";
+        };
 
-      programs.nushell.enable = true;
-      programs.nushell.plugins = with pkgs.nushellPlugins; [ formats ];
+        histSize = 10000;
+        histFile = "$XDG_STATE_HOME/.zsh_history";
+
+        interactiveShellInit = ''
+          bindkey -e
+          bindkey "^[[H"    beginning-of-line
+          bindkey "^[[F"    end-of-line
+          bindkey "^[[3~"   delete-char
+          bindkey "^[[1;5C" forward-word
+          bindkey "^[[1;5D" backward-word
+          bindkey "^[[3;5~" kill-word
+          bindkey "^H"      backward-kill-word
+        '';
+      };
 
       environment.systemPackages = with pkgs; [
         ncdu
@@ -64,19 +85,34 @@
   };
 
   modules.home.shell =
-    { pkgs, ... }:
+    { config, ... }:
 
     {
       programs = {
-        zellij.enable = true;
-        zellij.settings.pane_frames = false;
-        zellij.settings.default_shell = "zsh";
-        nushell.enable = true;
-        nushell.plugins = with pkgs.nushellPlugins; [ formats ];
-        nushell.settings = {
-          show_banner = false;
-          completions.external.enable = true;
-          completions.external.max_results = 200;
+        zsh = {
+          enable = true;
+          autocd = true;
+          enableCompletion = true;
+          autosuggestion.enable = true;
+          syntaxHighlighting = {
+            enable = true;
+            highlighters = [
+              "main"
+              "pattern"
+            ];
+            patterns."rm -rf" = "fg=white,bold,bg=red";
+          };
+          defaultKeymap = "emacs";
+          initContent = ''
+            bindkey "^[[H"    beginning-of-line
+            bindkey "^[[F"    end-of-line
+            bindkey "^[[3~"   delete-char
+            bindkey "^[[1;5C" forward-word
+            bindkey "^[[1;5D" backward-word
+            bindkey "^[[3;5~" kill-word
+            bindkey "^H"      backward-kill-word
+          '';
+          dotDir = "${config.xdg.configHome}/zsh";
         };
 
         starship.enable = true;

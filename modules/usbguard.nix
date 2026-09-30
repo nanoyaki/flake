@@ -2,7 +2,7 @@
 
 {
   configurations.nixos.himawari = {
-    imports = [ config.modules.nixos.usbguard ];
+    # imports = [ config.modules.nixos.usbguard ];
 
     services.usbguard.rules = ''
       allow id 1d6b:0002 serial "0000:04:00.3" name "xHCI Host Controller" hash "6N1TzJjHwwpfxs1tKPqEW87V2i+tHyyRUvFlgF5cGtw=" parent-hash "SnsOOjjMpOpERReA2LN1+REpSYWXke1WQeUhO0X7e8g=" with-interface 09:00:00 with-connect-type ""

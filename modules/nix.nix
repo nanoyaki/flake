@@ -98,10 +98,11 @@ in
               "root"
               "@wheel"
             ];
+
+            nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
           };
 
           nix.registry = lib.mapAttrs (_: input: { flake = input; }) inputs;
-          nix.nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
           nix.optimise = {
             automatic = true;

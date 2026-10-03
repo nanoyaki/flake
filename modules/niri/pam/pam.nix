@@ -69,13 +69,8 @@
 
     {
       config = mkIf config.security.pam.enable {
-        security.pam.services = {
-          login.oo7.enable = true;
-          login.enableGnomeKeyring = mkForce false;
-
-          greetd.oo7.enable = true;
-          greetd.enableGnomeKeyring = mkForce false;
-        };
+        security.pam.services.login.oo7.enable = true;
+        security.pam.services.login.enableGnomeKeyring = mkForce false;
       };
     };
 
@@ -89,7 +84,6 @@
     {
       config = mkIf config.security.pam.enable {
         security.pam.services.login.enableGnomeKeyring = mkDefault true;
-        security.pam.services.greetd.enableGnomeKeyring = mkDefault true;
       };
     };
 }

@@ -129,6 +129,7 @@ in
           };
 
           programs.git.enable = true;
+          programs.git.lfs.enable = true;
         };
       };
 
@@ -146,6 +147,7 @@ in
 
     modules.home.nix = {
       programs.git.enable = true;
+      programs.git.lfs.enable = true;
     };
   };
 }

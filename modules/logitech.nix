@@ -10,6 +10,11 @@
 
     hardware.logitech.wireless.enable = true;
     programs.solaar.enable = true;
+    services.libinput.mouse.accelProfile = "flat";
+  };
+
+  configurations.home."hana@shirayuri" = {
+    imports = [ config.modules.home.logitech ];
   };
 
   modules.home.logitech =

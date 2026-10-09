@@ -24,6 +24,13 @@
         );
         defaultText = "withSystem config.nixpkgs.hostPlatform ({ config, ... }: config.packages.wallpaper.outPath)";
       };
+
+      config = {
+        programs.dconf.enable = true;
+        programs.dconf.profiles.user.databases = [
+          { settings."org/gnome/desktop/interface".color-scheme = "prefer-dark"; }
+        ];
+      };
     };
 
   configurations.home."hana@himawari" = {
@@ -51,6 +58,9 @@
         name = "Wii-Pointer-P1";
         package = withSystem pkgs.stdenv.hostPlatform.system ({ config, ... }: config.packages.cursor);
       };
+
+      dconf.enable = true;
+      dconf.settings."org/gnome/desktop/interface".color-scheme = mkDefault "prefer-dark";
     };
 
   perSystem =

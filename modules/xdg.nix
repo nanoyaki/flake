@@ -71,7 +71,7 @@ in
       };
     };
 
-  modules.home.xdg = {
+  modules.home.xdg = _: {
     xdg = {
       enable = true;
       autostart.enable = true;
@@ -81,6 +81,40 @@ in
       userDirs.enable = true;
     };
   };
+
+  modules.home.niri =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkIf mkDefault;
+    in
+
+    {
+      config = mkIf config.xdg.enable {
+        xdg.portal = {
+          enable = mkDefault true;
+          xdgOpenUsePortal = mkDefault true;
+          config.niri = {
+            default = [
+              "gnome"
+              "gtk"
+            ];
+            "org.freedesktop.impl.portal.Access" = "gtk";
+            "org.freedesktop.impl.portal.Notification" = "gtk";
+          };
+          extraPortals = with pkgs; [
+            xdg-desktop-portal-gtk
+            xdg-desktop-portal-gnome
+          ];
+          configPackages = lib.mkForce [ ];
+        };
+      };
+    };
 
   modules.nixos.niri =
     {
@@ -92,17 +126,18 @@ in
     }:
 
     let
-      inherit (lib) mkIf;
+      inherit (lib) mkIf mkDefault mkForce;
     in
 
     {
       config = mkIf ((options.xdg ? enable) && config.xdg.enable) {
         xdg.portal = {
-          enable = lib.mkDefault true;
+          enable = mkDefault true;
+          xdgOpenUsePortal = mkDefault true;
           config.niri = {
             default = [
-              "gtk"
               "gnome"
+              "gtk"
             ];
             "org.freedesktop.impl.portal.Access" = "gtk";
             "org.freedesktop.impl.portal.Notification" = "gtk";
@@ -111,7 +146,7 @@ in
             xdg-desktop-portal-gtk
             xdg-desktop-portal-gnome
           ];
-          configPackages = lib.mkForce [ ];
+          configPackages = mkForce [ ];
         };
       };
     };
@@ -131,6 +166,30 @@ in
 
     {
       config = mkIf ((options.xdg ? enable) && config.xdg.enable) {
+        xdg.portal.extraPortals = [ pkgs.oo7-portal ];
+        xdg.portal.config = {
+          common."org.freedesktop.impl.portal.Secret" = "oo7";
+        }
+        // optionalAttrs config.programs.niri.enable {
+          niri."org.freedesktop.impl.portal.Secret" = "oo7";
+        };
+      };
+    };
+
+  modules.home.oo7 =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+
+    let
+      inherit (lib) mkIf optionalAttrs;
+    in
+
+    {
+      config = mkIf config.xdg.enable {
         xdg.portal.extraPortals = [ pkgs.oo7-portal ];
         xdg.portal.config = {
           common."org.freedesktop.impl.portal.Secret" = "oo7";

@@ -415,4 +415,30 @@
         services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
       };
     };
+
+  modules.nixos.passkey =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.services.displayManager.noctalia-greeter.enable {
+        services.displayManager.noctalia-greeter.settings.auth.allow_empty_password = true;
+      };
+    };
+
+  modules.nixos.hana =
+    { lib, config, ... }:
+
+    let
+      inherit (lib) mkIf;
+    in
+
+    {
+      config = mkIf config.services.displayManager.noctalia-greeter.enable {
+        services.displayManager.noctalia-greeter.passwordlessSyncUsers = [ "hana" ];
+      };
+    };
 }

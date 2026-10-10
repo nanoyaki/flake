@@ -70,6 +70,7 @@
     {
       config = mkIf config.security.pam.enable {
         security.pam.services.login.oo7.enable = true;
+        security.pam.services.passwd.oo7.enable = true;
         security.pam.services.login.enableGnomeKeyring = mkForce false;
       };
     };

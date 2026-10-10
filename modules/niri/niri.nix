@@ -357,7 +357,12 @@ in
     };
 
   modules.home.noctalia =
-    { lib, config, ... }:
+    {
+      lib,
+      options,
+      config,
+      ...
+    }:
 
     let
       inherit (lib) mkIf mapAttrs;
@@ -409,71 +414,78 @@ in
           debug.honor-xdg-activation-with-invalid-serial = { };
 
           binds =
-            mapAttrs
-              (
-                key: cfg:
-                if cfg ? action.spawn then
-                  cfg
-                  // {
-                    action.spawn = [
-                      "noctalia"
-                      "msg"
-                    ]
-                    ++ cfg.action.spawn;
-                  }
-                else
-                  cfg
-              )
-              {
-                "Mod+Space".action.spawn = [
-                  "panel-toggle"
-                  "launcher"
-                ];
-                "Mod+S".action.spawn = [
-                  "panel-toggle"
-                  "control-center"
-                ];
-                "Mod+L".action.spawn = [
-                  "session"
-                  "lock"
-                ];
-                "Mod+V".action.spawn = [
-                  "panel-toggle"
-                  "clipboard"
-                ];
-                "Mod+Minus".action.spawn = [ "settings-toggle" ];
-                "Alt+Tab".action.spawn = [
-                  "window-switcher"
-                ];
+            (optionalAttrs (!(options ? programs.oo7.enable) || !config.programs.oo7.enable) {
+              "Mod+L".action.spawn = [
+                "noctalia"
+                "msg"
+                "session"
+                "lock"
+              ];
+            })
+            //
+              mapAttrs
+                (
+                  key: cfg:
+                  if cfg ? action.spawn then
+                    cfg
+                    // {
+                      action.spawn = [
+                        "noctalia"
+                        "msg"
+                      ]
+                      ++ cfg.action.spawn;
+                    }
+                  else
+                    cfg
+                )
+                {
+                  "Mod+Space".action.spawn = [
+                    "panel-toggle"
+                    "launcher"
+                  ];
+                  "Mod+S".action.spawn = [
+                    "panel-toggle"
+                    "control-center"
+                  ];
+                  "Mod+V".action.spawn = [
+                    "panel-toggle"
+                    "clipboard"
+                  ];
+                  "Mod+Minus".action.spawn = [ "settings-toggle" ];
+                  "Alt+Tab".action.spawn = [
+                    "window-switcher"
+                  ];
 
-                XF86AudioMicMute.action.spawn = [ "mic-mute" ];
-                XF86AudioMute.action.spawn = [ "volume-mute" ];
-                XF86AudioRaiseVolume.action.spawn = [
-                  "volume-up"
-                  "5"
-                ];
-                XF86AudioLowerVolume.action.spawn = [
-                  "volume-down"
-                  "5"
-                ];
+                  XF86AudioMicMute.action.spawn = [ "mic-mute" ];
+                  XF86AudioMute.action.spawn = [ "volume-mute" ];
+                  XF86AudioRaiseVolume.action.spawn = [
+                    "volume-up"
+                    "5"
+                  ];
+                  XF86AudioLowerVolume.action.spawn = [
+                    "volume-down"
+                    "5"
+                  ];
 
-                # Brightness
-                XF86MonBrightnessUp.action.spawn = [
-                  "brightness-up"
-                  "5"
-                ];
-                XF86MonBrightnessDown.action.spawn = [
-                  "brightness-down"
-                  "5"
-                ];
-              };
+                  # Brightness
+                  XF86MonBrightnessUp.action.spawn = [
+                    "brightness-up"
+                    "5"
+                  ];
+                  XF86MonBrightnessDown.action.spawn = [
+                    "brightness-down"
+                    "5"
+                  ];
+                };
 
-          switch-events.lid-close.action.spawn = [
-            "noctalia"
-            "msg"
-            "session"
-            "lock"
-          ];
+          switch-events = optionalAttrs (!(options ? programs.oo7.enable) || !config.programs.oo7.enable) {
+            lid-close.action.spawn = [
+              "noctalia"
+              "msg"
+              "session"
+              "lock"
+            ];
+          };
         };
       };
     };
@@ -603,15 +615,34 @@ in
     };
 
   modules.home.oo7 =
-    { lib, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
 
     let
-      inherit (lib) mkIf;
+      inherit (lib)
+        mkIf
+        optionalString
+        getExe
+        ;
     in
 
     {
       config = mkIf config.programs.niri.enable {
         programs.niri.settings.spawn-at-startup = [ { command = [ "oo7-daemon" ]; } ];
+        programs.niri.settings.switch-events.lid-close.action.spawn = [
+          (getExe pkgs.bash)
+          "-c"
+          "oo7-cli lock${optionalString config.programs.noctalia.enable " && noctalia msg session lock"}"
+        ];
+        programs.niri.settings.binds."Mod+L".action.spawn = [
+          (getExe pkgs.bash)
+          "-c"
+          "oo7-cli lock${optionalString config.programs.noctalia.enable " && noctalia msg session lock"}"
+        ];
       };
     };
 

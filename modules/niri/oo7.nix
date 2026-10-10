@@ -22,5 +22,16 @@
   };
 
   # Mainly configured in the niri config
-  modules.home.oo7 = { };
+  modules.home.oo7 =
+    { lib, ... }:
+
+    let
+      inherit (lib) mkEnableOption;
+    in
+
+    {
+      options.programs.oo7.enable = mkEnableOption "oo7 options" // {
+        default = true;
+      };
+    };
 }
